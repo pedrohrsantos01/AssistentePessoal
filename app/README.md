@@ -11,7 +11,7 @@ pnpm lint
 pnpm test
 ```
 
-A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `AccountStore` é usado pelo adapter Expo/Drizzle. O teste com dois clientes, HTTP e Postgres é iniciado por `api/gradlew.bat check`; o caminho reproduzível para todos os testes de integração é o Gradle da API.
+A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `AccountStore` é usado pelo adapter Expo/Drizzle. O teste com dois clientes, HTTP e Postgres é iniciado por `api/gradlew.bat check`; o caminho reproduzível para todos os testes de integração é o Gradle da API. Além de `RITMO_TEST_API`, o cenário de recuperação recebe e-mail e link fictícios emitidos no SMTP local (`RITMO_RESET_EMAIL`/`RITMO_RESET_LINK`); não preencher essas variáveis com dados ou links reais.
 
 `AccountStore.enqueue` grava a intenção imutável, sequência e projeção na mesma transação síncrona. Recebimento de ack atualiza entidades por revisão e não avança o cursor; pull reconhece recibos antes de reaplicar pendências. O snapshot usa staging no mesmo banco. Não há `await` dentro de transações Drizzle, evitando o alistamento de consultas assíncronas externas.
 
@@ -54,3 +54,11 @@ iPhone: nenhum build instalado ou teste físico realizado; a rota a partir do Wi
 `drizzle-control/` migra `installation.db` separadamente dos bancos por conta. O registro contém somente IDs, estados e referências opacas; credenciais ficam no SecureStore com acesso enquanto o dispositivo está desbloqueado e sem migração para outro aparelho no iOS. Não foi habilitada biometria. A instalação nativa usa Crypto 57.0.3 e SecureStore 57.0.4, conforme o SDK 57. O plugin exclui SecureStore do backup Android; isso não constitui backup das pendências nem criptografia de todo SQLite.
 
 A proteção por geração também é verificada em referências antigas de `AccountStore`, antes de ler ou escrever. Respostas atrasadas não são aplicadas; um envio já aceito pelo servidor será reconciliado depois pelo recibo idempotente.
+
+## Recuperação de senha
+
+`HttpIdentity.requestPasswordReset(email)` aceita o 202 vazio; `confirmPasswordReset(token,newPassword)` aceita o 204 vazio e preserva erros tipados. `resetTokenFromLink(link,expectedOrigin)` só aceita a origem HTTPS configurada, caminho `/password-reset` e token no fragmento. A futura UI deve manter o token apenas em memória durante a confirmação, sem enviá-lo a logs/analytics nem armazená-lo nos bancos.
+
+O teste integrado recebe uma mensagem no SMTP local e prova que um refresh recusado após reset não apaga a pendência: ela sobrevive ao reinício e sincroniza após login com a nova senha. O link não deve causar logout automático, pois pode se referir a outra conta; a API não retorna identidade nem sessão na confirmação.
+
+Associação de domínio, recebimento do link pelo sistema operacional e tela de recuperação permanecem pendentes do host/build e do protótipo. Evidências: [incremento de recuperação](../docs/analises/2026-09-27-recuperacao-de-senha.md).

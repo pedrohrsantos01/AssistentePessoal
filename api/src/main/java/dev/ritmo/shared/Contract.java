@@ -1,6 +1,7 @@
 package dev.ritmo.shared;
 import com.networknt.schema.Schema;
 import com.networknt.schema.SchemaRegistry;
+import com.networknt.schema.dialect.Dialect;
 import com.networknt.schema.dialect.Dialects;
 import com.networknt.schema.InputFormat;
 import java.util.concurrent.ConcurrentHashMap;
@@ -9,7 +10,17 @@ import tools.jackson.databind.JsonNode;
 
 @Component
 public class Contract {
-    private final SchemaRegistry registry=SchemaRegistry.withDialect(Dialects.getDraft202012());
+    private final SchemaRegistry registry=SchemaRegistry.withDialect(Dialect.builder(Dialects.getDraft202012())
+        .format(new com.networknt.schema.format.EmailFormat() {
+            @Override public boolean matches(com.networknt.schema.ExecutionContext context,String value) {
+                // Syntax only, as the contract requires. No DNS or hard-coded registry of public TLDs.
+                if(!value.chars().allMatch(c->c<128)||value.indexOf('\r')>=0||value.indexOf('\n')>=0) return false;
+                try {
+                    var address=new jakarta.mail.internet.InternetAddress(value,true);address.validate();
+                    return !address.isGroup()&&address.getPersonal()==null&&value.equals(address.getAddress());
+                } catch(jakarta.mail.internet.AddressException invalid) {return false;}
+            }
+        }).build());
     private final JsonNode document;
     private final ConcurrentHashMap<String,Schema> schemas=new ConcurrentHashMap<>();
     public Contract() throws java.io.IOException {

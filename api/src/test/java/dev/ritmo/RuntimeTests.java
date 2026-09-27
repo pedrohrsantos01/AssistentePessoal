@@ -15,7 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RuntimeTests {
     static final PostgreSQLContainer POSTGRES = new PostgreSQLContainer("postgres@sha256:5a5a84b19854a9ffaa54082c166ff4ec27473a361e496e5ea167f298f2da9722");
+    static final com.icegreen.greenmail.util.GreenMail MAIL=new com.icegreen.greenmail.util.GreenMail(
+        new com.icegreen.greenmail.util.ServerSetup(0,"127.0.0.1","smtp"));
     static {
+        MAIL.start();
         POSTGRES.start();
         try (var connection=java.sql.DriverManager.getConnection(POSTGRES.getJdbcUrl(),POSTGRES.getUsername(),POSTGRES.getPassword()); var statement=connection.createStatement()) {
             statement.execute("CREATE ROLE ritmo_domain LOGIN PASSWORD 'test-domain'; CREATE ROLE ritmo_identity LOGIN PASSWORD 'test-identity';");
@@ -32,8 +35,31 @@ class RuntimeTests {
         properties.add("ritmo.identity.password",()->"test-identity");
         properties.add("ritmo.signing-key",()->java.util.Base64.getEncoder().encodeToString(new byte[32]));
         properties.add("spring.datasource.password", ()->"test-domain");
+        properties.add("spring.mail.host",()->"127.0.0.1");
+        properties.add("spring.mail.port",()->MAIL.getSmtp().getPort());
+        properties.add("spring.mail.properties.mail.smtp.auth",()->"false");
+        properties.add("spring.mail.properties.mail.smtp.starttls.required",()->"false");
+        properties.add("spring.mail.properties.mail.smtp.starttls.enable",()->"false");
+        properties.add("ritmo.recovery.origin",()->"https://api.example.test");
+        properties.add("ritmo.recovery.from",()->"no-reply@example.test");
     }
+    @org.junit.jupiter.api.AfterAll static void stopMail() {MAIL.stop();}
+    static final MutableClock RESET_CLOCK=new MutableClock();
+    static class MutableClock extends java.time.Clock {
+        private volatile java.time.Instant now=java.time.Instant.now();
+        void advance(long seconds) {now=now.plusSeconds(seconds);}
+        @Override public java.time.Instant instant() {return now;}
+        @Override public java.time.ZoneId getZone() {return java.time.ZoneOffset.UTC;}
+        @Override public java.time.Clock withZone(java.time.ZoneId zone) {return java.time.Clock.fixed(now,zone);}
+    }
+    @org.springframework.boot.test.context.TestConfiguration(proxyBeanMethods=false)
+    static class TestTime {
+        @org.springframework.context.annotation.Bean @org.springframework.context.annotation.Primary
+        java.time.Clock resetClock() {return RESET_CLOCK;}
+    }
+    @org.junit.jupiter.api.BeforeEach void resetTime() {RESET_CLOCK.now=java.time.Instant.now();}
     @LocalServerPort int port;
+    @org.springframework.beans.factory.annotation.Autowired org.springframework.mail.javamail.JavaMailSenderImpl smtp;
     @Test void anAccountCanBeRegisteredThroughTheRealApi() throws Exception {
         var request = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + "/api/v1/auth/register"))
             .header("Content-Type", "application/json")
@@ -246,5 +272,220 @@ class RuntimeTests {
         assertThat(claims.path("plan").asString()).isEqualTo("free");
         assertThat(claims.path("tz").asString()).isEqualTo("UTC");
         assertThat(claims.path("exp").asLong()-claims.path("iat").asLong()).isEqualTo(900);
+    }
+    @Test void recoveryRequestSendsAnHttpsLinkOnlyByEmailAndDoesNotChangeThePassword() throws Exception {
+        String email="recovery-"+dev.ritmo.shared.Json.id()+"@example.test";
+        post("auth/register",null,dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("displayName","Pessoa").put("deviceId","01996300-0000-7000-8000-000000000002").toString(),201);
+        var result=post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+        assertThat(result.size()).isZero();
+        String link=resetLink(email);
+        var uri=URI.create(link);
+        assertThat(uri.getScheme()).isEqualTo("https");
+        assertThat(uri.getHost()).isEqualTo("api.example.test");
+        assertThat(uri.getPath()).isEqualTo("/password-reset");
+        assertThat(uri.getQuery()).isNull();
+        assertThat(uri.getFragment()).matches("token=[A-Za-z0-9_-]{43}");
+        post("auth/login",null,dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("deviceId","01996300-0000-7000-8000-000000000002").toString(),200);
+    }
+    private String resetLink(String email) throws Exception {return resetLink(email,0);}
+    private String resetLink(String email,int index) throws Exception {
+        org.awaitility.Awaitility.await().atMost(java.time.Duration.ofSeconds(10)).until(()->MAIL.getReceivedMessagesForDomain(email).length>index);
+        var message=MAIL.getReceivedMessagesForDomain(email)[index];
+        assertThat(message.getFrom()[0].toString()).isEqualTo("no-reply@example.test");
+        assertThat(message.getAllRecipients()).hasSize(1);
+        assertThat(message.getAllRecipients()[0].toString()).isEqualTo(email);
+        try(var body=message.getInputStream()) {
+            String text=new String(body.readAllBytes(),java.nio.charset.StandardCharsets.UTF_8);
+            var match=java.util.regex.Pattern.compile("https://[^\\s]+/password-reset#token=[A-Za-z0-9_-]+").matcher(text);
+            assertThat(match.find()).as("reset link received through SMTP").isTrue();return match.group();
+        }
+    }
+    @Test void aResetLinkChangesThePasswordOnceAndRevokesOnlyThatAccountsSessions() throws Exception {
+        String email="confirm-"+dev.ritmo.shared.Json.id()+"@example.test";
+        var login=dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("deviceId","01996300-0000-7000-8000-000000000002");
+        var registration=login.deepCopy().put("displayName","Pessoa");
+        var first=post("auth/register",null,registration.toString(),201);
+        var second=post("auth/login",null,login.toString(),200);
+        var other=account("unaffected");
+        post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+        String token=URI.create(resetLink(email)).getFragment().substring(6);
+        String confirm=dev.ritmo.shared.Json.object().put("resetToken",token).put("newPassword"," changed-fixture-password ").toString();
+        post("auth/password-reset/confirm",null,confirm,204);
+        post("auth/password-reset/confirm",null,confirm,401);
+        post("auth/login",null,login.toString(),401);
+        post("auth/login",null,login.put("password","changed-fixture-password").toString(),401);
+        post("auth/login",null,login.put("password"," changed-fixture-password ").toString(),200);
+        for(var session:java.util.List.of(first,second)) post("auth/refresh",null,
+            dev.ritmo.shared.Json.object().put("refreshToken",session.path("refreshToken").asString()).toString(),401);
+        post("auth/refresh",null,dev.ritmo.shared.Json.object().put("refreshToken",other.path("refreshToken").asString()).toString(),200);
+        // Reset follows the same bounded stateless-access window as logout.
+        post("sync/snapshots",first.path("accessToken").asString(),"{}",201);
+    }
+    @Test void aResetIsValidBeforeOneHourAndInvalidAtTheExactExpiration() throws Exception {
+        for(long age:java.util.List.of(3599L,3600L)) {
+            String email="expires-"+dev.ritmo.shared.Json.id()+"@example.test";
+            var login=dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+                .put("deviceId","01996300-0000-7000-8000-000000000002");
+            post("auth/register",null,login.deepCopy().put("displayName","Pessoa").toString(),201);
+            post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+            String token=URI.create(resetLink(email)).getFragment().substring(6);
+            RESET_CLOCK.advance(age);
+            var result=post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",token)
+                .put("newPassword","changed-fixture-password").toString(),age==3599?204:401);
+            if(age==3600) {
+                assertThat(result.at("/error/code").asString()).isEqualTo("reset_invalid");
+                post("auth/login",null,login.toString(),200);
+            }
+        }
+    }
+    @Test void resetRequestsAreUniformAndNormalizeTheEmailWithoutProviderAliases() throws Exception {
+        String email="case."+dev.ritmo.shared.Json.id()+"+tag@example.test";
+        post("auth/register",null,dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("displayName","Pessoa").put("deviceId","01996300-0000-7000-8000-000000000002").toString(),201);
+        String unknown="absent-"+dev.ritmo.shared.Json.id()+"@example.test";
+        var absent=post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",unknown).toString(),202);
+        var present=post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email","  "+email.toUpperCase(java.util.Locale.ROOT)+"  ").toString(),202);
+        assertThat(absent).isEqualTo(present);
+        resetLink(email); // The single worker processed the absent request before this message.
+        assertThat(MAIL.getReceivedMessagesForDomain(unknown)).isEmpty();
+        post("auth/password-reset/request",null,"{\"email\":\"bad-address\"}",400);
+    }
+
+    @Test void successfulResetInvalidatesOtherLinksButNewRequestsDoNot() throws Exception {
+        String email="links-"+dev.ritmo.shared.Json.id()+"@example.test";
+        post("auth/register",null,dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("displayName","Pessoa").put("deviceId","01996300-0000-7000-8000-000000000002").toString(),201);
+        String request=dev.ritmo.shared.Json.object().put("email",email).toString();
+        post("auth/password-reset/request",null,request,202);
+        String first=URI.create(resetLink(email,0)).getFragment().substring(6);
+        post("auth/password-reset/request",null,request,202);
+        String second=URI.create(resetLink(email,1)).getFragment().substring(6);
+        assertThat(first).isNotEqualTo(second);
+        post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",first)
+            .put("newPassword","changed-fixture-password").toString(),204);
+        var denied=post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",second)
+            .put("newPassword","another-fixture-password").toString(),401);
+        assertThat(denied.at("/error/code").asString()).isEqualTo("reset_invalid");
+        // A fresh request after the successful reset remains usable.
+        post("auth/password-reset/request",null,request,202);
+        String fresh=URI.create(resetLink(email,2)).getFragment().substring(6);
+        post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",fresh)
+            .put("newPassword","another-fixture-password").toString(),204);
+    }
+
+    @Test void concurrentConfirmationsConsumeTheResetExactlyOnce() throws Exception {
+        String email="parallel-reset-"+dev.ritmo.shared.Json.id()+"@example.test";
+        post("auth/register",null,dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("displayName","Pessoa").put("deviceId","01996300-0000-7000-8000-000000000002").toString(),201);
+        post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+        String token=URI.create(resetLink(email)).getFragment().substring(6);
+        var request=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+"/api/v1/auth/password-reset/confirm"))
+            .header("Content-Type","application/json").header("X-Ritmo-Protocol","m1.1").header("X-App-Version","0.1.0")
+            .POST(HttpRequest.BodyPublishers.ofString(dev.ritmo.shared.Json.object().put("resetToken",token)
+                .put("newPassword","changed-fixture-password").toString())).build();
+        try(var client=HttpClient.newHttpClient()) {
+            var first=client.sendAsync(request,HttpResponse.BodyHandlers.ofString());
+            var second=client.sendAsync(request,HttpResponse.BodyHandlers.ofString());
+            assertThat(java.util.List.of(first.join().statusCode(),second.join().statusCode())).containsExactlyInAnyOrder(204,401);
+        }
+    }
+
+    @Test void failedRevocationRollsBackPasswordAndTokenConsumptionSoTheResetCanBeRetried() throws Exception {
+        String email="reset-rollback-"+dev.ritmo.shared.Json.id()+"@example.test";
+        var login=dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("deviceId","01996300-0000-7000-8000-000000000002");
+        var session=post("auth/register",null,login.deepCopy().put("displayName","Pessoa").toString(),201);
+        post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+        String token=URI.create(resetLink(email)).getFragment().substring(6);
+        String confirm=dev.ritmo.shared.Json.object().put("resetToken",token).put("newPassword","changed-fixture-password").toString();
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());var statement=owner.createStatement()) {
+            statement.execute("CREATE FUNCTION test_fail_reset() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW.user_id='"+session.path("accountId").asString()+"'::uuid AND NEW.revoked_at IS NOT NULL THEN RAISE EXCEPTION 'test storage failure'; END IF; RETURN NEW; END $$; CREATE TRIGGER test_fail_reset BEFORE UPDATE ON identity_refresh_tokens FOR EACH ROW EXECUTE FUNCTION test_fail_reset()");
+            try {
+                var failed=post("auth/password-reset/confirm",null,confirm,503);
+                assertThat(failed.at("/error/code").asString()).isEqualTo("temporarily_unavailable");
+            } finally {statement.execute("DROP TRIGGER test_fail_reset ON identity_refresh_tokens; DROP FUNCTION test_fail_reset()");}
+        }
+        post("auth/login",null,login.toString(),200);
+        var continued=post("auth/refresh",null,dev.ritmo.shared.Json.object().put("refreshToken",session.path("refreshToken").asString()).toString(),200);
+        post("auth/password-reset/confirm",null,confirm,204);
+        post("auth/login",null,login.toString(),401);
+        post("auth/login",null,login.put("password","changed-fixture-password").toString(),200);
+        post("auth/refresh",null,dev.ritmo.shared.Json.object().put("refreshToken",continued.path("refreshToken").asString()).toString(),401);
+    }
+
+    @Test void smtpFailureKeepsThePublicResponseUniformAndLeavesPasswordAndSessionUsable() throws Exception {
+        String email="mail-failure-"+dev.ritmo.shared.Json.id()+"@example.test";
+        var login=dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("deviceId","01996300-0000-7000-8000-000000000002");
+        var session=post("auth/register",null,login.deepCopy().put("displayName","Pessoa").toString(),201);
+        int originalPort=smtp.getPort();
+        // External SMTP boundary: a local server refuses delivery before accepting any message.
+        try(var refused=new java.net.ServerSocket(0,1,java.net.InetAddress.getByName("127.0.0.1"))) {
+            refused.setSoTimeout(10000);smtp.setPort(refused.getLocalPort());
+            var connection=java.util.concurrent.CompletableFuture.runAsync(()->{
+                try(var socket=refused.accept()) {
+                    socket.getOutputStream().write("421 local test service unavailable\r\n".getBytes(java.nio.charset.StandardCharsets.US_ASCII));
+                    socket.getOutputStream().flush();
+                } catch(java.io.IOException e) {throw new java.io.UncheckedIOException(e);}
+            });
+            try {
+                var known=post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+                var unknown=post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email","absent-"+dev.ritmo.shared.Json.id()+"@example.test").toString(),202);
+                assertThat(known).isEqualTo(unknown);
+                connection.get(10,java.util.concurrent.TimeUnit.SECONDS);
+            } finally {smtp.setPort(originalPort);}
+        }
+        post("auth/login",null,login.toString(),200);
+        post("auth/refresh",null,dev.ritmo.shared.Json.object().put("refreshToken",session.path("refreshToken").asString()).toString(),200);
+        assertThat(MAIL.getReceivedMessagesForDomain(email)).isEmpty();
+        // A new request after delivery recovers can issue a usable link.
+        post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+        post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",URI.create(resetLink(email)).getFragment().substring(6))
+            .put("newPassword","changed-fixture-password").toString(),204);
+    }
+
+    @Test void mobileRecoveryKeepsPendingWorkThroughReauthenticationAndSync() throws Exception {
+        String email="mobile-reset-"+dev.ritmo.shared.Json.id()+"@example.test";
+        post("auth/register",null,dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("displayName","Pessoa").put("deviceId","01996300-0000-7000-8000-000000000002").toString(),201);
+        post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+        var log=java.nio.file.Path.of("build/mobile-recovery.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/recovery.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        builder.environment().put("RITMO_RESET_EMAIL",email);
+        builder.environment().put("RITMO_RESET_LINK",resetLink(email));
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
+    @Test void invalidPasswordsDoNotConsumeTheLinkAndUnicodeLimitsCountCodePoints() throws Exception {
+        String email="password-bounds-"+dev.ritmo.shared.Json.id()+"@example.test";
+        var login=dev.ritmo.shared.Json.object().put("email",email).put("password","fixture-password")
+            .put("deviceId","01996300-0000-7000-8000-000000000002");
+        post("auth/register",null,login.deepCopy().put("displayName","Pessoa").toString(),201);
+        post("auth/password-reset/request",null,dev.ritmo.shared.Json.object().put("email",email).toString(),202);
+        String token=URI.create(resetLink(email)).getFragment().substring(6);
+        for(String invalid:java.util.List.of("1234567","😀".repeat(129)))
+            post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",token).put("newPassword",invalid).toString(),400);
+        for(String escaped:java.util.List.of("\\ud800","\\udfff")) {
+            String invalid="{\"resetToken\":\""+token+"\",\"newPassword\":\"1234567"+escaped+"\"}";
+            post("auth/password-reset/confirm",null,invalid,400);
+        }
+        var missing=post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken","unknown-fixture-token-0000000000000000000000")
+            .put("newPassword","changed-fixture-password").toString(),401);
+        assertThat(missing.at("/error/code").asString()).isEqualTo("reset_invalid");
+        String password="😀".repeat(8);
+        post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",token).put("newPassword",password).toString(),204);
+        post("auth/login",null,login.put("password",password).toString(),200);
     }
 }

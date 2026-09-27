@@ -43,7 +43,7 @@ public class Identity {
     }
     public JsonNode login(String email,String password,String device) {
         return transactions.execute(status->{
-            var rows=identity.rows("select jsonb_build_object('id',id,'hash',password_hash) from users where email_key=? and deleted_at is null",
+            var rows=identity.rows("select jsonb_build_object('id',id,'hash',password_hash) from users where email_key=? and deleted_at is null for update",
                 email.strip().toLowerCase(Locale.ROOT));
             if(rows.isEmpty()||!passwords.matches(password,rows.getFirst().path("hash").asString())) throw new BusinessFailure("invalid_credentials");
             return session(rows.getFirst().path("id").asString(),device);

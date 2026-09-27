@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 class AuthController {
     private final Identity identity;
+    private final PasswordRecovery recovery;
     private final dev.ritmo.shared.Contract contract;
-    AuthController(Identity identity,dev.ritmo.shared.Contract contract) {this.identity=identity;this.contract=contract;}
+    AuthController(Identity identity,dev.ritmo.shared.Contract contract,PasswordRecovery recovery) {this.identity=identity;this.contract=contract;this.recovery=recovery;}
     record Register(@NotBlank @Email @Size(max=254) String email,@NotNull String password,
         @NotBlank String displayName,@Pattern(regexp="^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$") @NotNull String deviceId) {}
     record Login(@NotBlank @Email String email,@NotNull String password,@NotNull String deviceId) {}
@@ -32,5 +33,19 @@ class AuthController {
     void revoke(@RequestBody JsonNode body) {
         contract.validate("RevokeRequest",body);
         identity.revoke(body.path("revokeToken").asString());
+    }
+    @PostMapping("/password-reset/request") @ResponseStatus(HttpStatus.ACCEPTED)
+    void requestReset(@RequestBody JsonNode body) {
+        if(body instanceof tools.jackson.databind.node.ObjectNode object && body.path("email").isString())
+            object.put("email",body.path("email").asString().strip());
+        contract.validate("ResetRequest",body);
+        String email=body.path("email").asString();
+        if(!email.chars().allMatch(c->c<128)) throw new BusinessFailure("validation_failed");
+        recovery.request(email);
+    }
+    @PostMapping("/password-reset/confirm") @ResponseStatus(HttpStatus.NO_CONTENT)
+    void confirmReset(@RequestBody JsonNode body) {
+        contract.validate("ResetConfirmRequest",body);
+        recovery.confirm(body.path("resetToken").asString(),body.path("newPassword").asString());
     }
 }

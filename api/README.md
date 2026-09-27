@@ -11,9 +11,9 @@ pnpm --dir ../app install --frozen-lockfile
 .\gradlew.bat check --no-daemon
 ```
 
-Java 21 e Docker precisam estar disponíveis. O teste inicia um Postgres 18.6 descartável, fixado por digest; aplica Flyway e cria roles de teste sem privilégios administrativos. O Testcontainers encerra seu container ao terminar. Nenhuma conexão com a VPS é necessária.
+Java 21 e Docker precisam estar disponíveis. O teste inicia GreenMail em loopback, sem entrega externa, e um Postgres 18.6 descartável, fixado por digest; aplica Flyway e cria roles de teste sem privilégios administrativos. O Testcontainers encerra seu container ao terminar. Nenhuma conexão com a VPS é necessária.
 
-`RuntimeTests` verifica HTTP, RLS, transações, recibos e executa `app/test/integration/sync.test.ts`. `ModularityTests` verifica fronteiras. Os relatórios ficam em `build/reports/tests/test/index.html`; o resultado dos clientes em `build/mobile-integration.log`.
+`RuntimeTests` verifica HTTP, RLS, transações, recibos e executa `app/test/integration/sync.test.ts` e `recovery.test.ts`. `ModularityTests` verifica fronteiras. Os relatórios ficam em `build/reports/tests/test/index.html`; o resultado dos clientes em `build/mobile-integration.log` e `build/mobile-recovery.log`.
 
 ## Conexões e permissões
 
@@ -32,10 +32,12 @@ Os valores constantes nos testes pertencem exclusivamente ao container descartá
 
 ## Superfície implementada e limites
 
-Implementados: cadastro, login, refresh rotativo, revoke e cinco rotas de Sync (push, pull, criar snapshot, página de snapshot e consulta de recibos), sob `/api/v1`. Refresh e revoke usam transação e lock da família; duas renovações concorrentes do mesmo token produzem um sucesso e um 401. Cada refresh novo vale 30 dias e estende a família; a capacidade de revogação original não muda. Reutilizar um refresh consumido é recusado, sem invalidar o sucessor legítimo. Revogação bloqueia renovação imediatamente; access emitido continua limitado aos 15 minutos originais.
+Implementados: cadastro, login, refresh rotativo, revoke, solicitação/confirmação de recuperação de senha e cinco rotas de Sync (push, pull, criar snapshot, página de snapshot e consulta de recibos), sob `/api/v1`. Recuperação usa token de uma hora, invalida links anteriores após uma confirmação e revoga as sessões da conta na mesma transação. Configuração e limitações estão no [guia de e-mail](ops/email-recovery.md). Refresh e revoke usam transação e lock da família; duas renovações concorrentes do mesmo token produzem um sucesso e um 401. Cada refresh novo vale 30 dias e estende a família; a capacidade de revogação original não muda. Reutilizar um refresh consumido é recusado, sem invalidar o sucessor legítimo. Revogação bloqueia renovação imediatamente; access emitido continua limitado aos 15 minutos originais.
 
-Os testes usam dados fictícios. Antes do uso diário ainda faltam recuperação por e-mail/aparelho, rate limiting, agendamento/backoff/recovery completo, limpeza/retenção operacional, configuração de e-mail, deploy/backup e o restante da matriz M1. Essas pendências estão na [tarefa seguinte](../.scratch/primeiro-marco/issues/05-completar-sessao-e-recuperacao.md). Não publicar este scaffold como versão pronta.
+Os testes usam dados fictícios. Antes do uso diário ainda faltam aceite real da recuperação por e-mail/aparelho, rate limiting, agendamento/backoff/recovery completo, limpeza/retenção operacional, configuração de e-mail, deploy/backup e o restante da matriz M1. Essas pendências estão na [tarefa seguinte](../.scratch/primeiro-marco/issues/05-completar-sessao-e-recuperacao.md). Não publicar este scaffold como versão pronta.
 
 Migrations aplicadas não devem ser editadas ao evoluir o schema: criar V3 e seguintes, atualizar spec/00 e testar a migração. V1 concretiza o DDL aprovado; V2 adiciona grants e políticas de perfil.
 
 Evidências e limites do incremento de sessão: [relatório](../docs/analises/2026-09-26-sessao-e-isolamento.md).
+
+Evidências do incremento de recuperação: [relatório](../docs/analises/2026-09-27-recuperacao-de-senha.md). O SMTP local não comprova entregabilidade nem abertura nativa do link.

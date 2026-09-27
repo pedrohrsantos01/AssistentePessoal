@@ -14,7 +14,7 @@ export class HttpIdentity implements IdentityTransport {
       if(result&&typeof result==='object'&&'error' in result&&result.error&&typeof result.error==='object'&&'code' in result.error&&typeof result.error.code==='string') code=result.error.code;
       throw new IdentityHttpError(response.status,code);
     }
-    return response.status===204?undefined:await response.json() as unknown;
+    return response.status===204||response.status===202?undefined:await response.json() as unknown;
   }
   async login(email:string,password:string,deviceId:string):Promise<Credentials> {
     const result=await this.request('login',{email,password,deviceId});
@@ -31,5 +31,7 @@ export class HttpIdentity implements IdentityTransport {
     if(!validate.RefreshResponse(result)) throw new Error('unsupported_protocol');
     return result as RenewedCredentials;
   }
+  async confirmPasswordReset(resetToken:string,newPassword:string) {await this.request('password-reset/confirm',{resetToken,newPassword});}
+  async requestPasswordReset(email:string) {await this.request('password-reset/request',{email});}
   async revoke(revokeToken:string) {await this.request('revoke',{revokeToken});}
 }
