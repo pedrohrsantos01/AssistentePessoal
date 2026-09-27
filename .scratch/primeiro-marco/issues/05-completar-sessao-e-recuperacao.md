@@ -1,0 +1,53 @@
+# 05 — Completar sessão e recuperação antes do uso diário
+
+Status: ready-for-agent
+Blocked by: 04-exercitar-fundacao-sem-ui.md
+
+## Resultado esperado
+
+Sobre o primeiro recorte executável, completar as garantias de sessão e recuperação da matriz M1, sem inventar visual enquanto Q28 permanecer aberta. O código existente e seus testes são a base; esta tarefa não é autorização para declarar os comportamentos abaixo implementados.
+
+## Escopo e aceite
+
+- Implementar e testar refresh rotativo, revoke e recuperação por e-mail; resolver host/deep link/SMTP antes do aceite real do e-mail.
+- Integrar SecureStore e controle da instalação com geração, fence de logout, conta bloqueada e retomada segura entre bancos. Provar logout offline → B → reentrada online em A, respostas atrasadas e falhas de armazenamento.
+- Completar scheduler/backoff, recuperação de rejeição e correção com novos IDs, limite de contexto, ciclos de dependência entre operações e migração de uma base anterior sem perder pendências.
+- Exercitar a matriz M1-01 a M1-20 faltante: ordens concorrentes adicionais, corte H e paginação com >500 envelopes/entidades, snapshot expirado/interrompido, atualização de protocolo, concessão ausente e relógios/fusos.
+- Adicionar rate limiting e validar provisionamento real de roles, segredos, retenção, backup/restore e deploy antes de exposição externa.
+- Ampliar o harness nativo para sincronização HTTP no Android e, quando houver rota de instalação, no iPhone. Os dois clientes SQLite do teste automatizado de desktop não substituem o aceite iPhone/Android.
+
+## Resultado
+
+Concluída: não.
+
+26/09/2026: continuação delimitada a partir das lacunas observadas no primeiro recorte, sem alterar as decisões de produto já aprovadas. O protótipo continua na tarefa 03.
+
+## Incremento de sessão — iniciado em 26/09/2026
+
+Fronteiras de teste do recorte autorizado: endpoints HTTP reais de Identity; repositórios SQLite por conta e coordenador de sessão/instalação usados pelo harness; SecureStore e transporte como fronteiras externas para injeção de falhas. São a concretização das garantias já aprovadas no contrato e na matriz M1-10. Testes de concorrência e armazenamento observam acesso local, pendências preservadas e respostas da API.
+
+Ajuste aprovado por Pedro nesta etapa: resposta própria de refresh sem `revokeToken`; preservar a capacidade original da família.
+
+### Entregue neste incremento
+
+- Refresh rotativo e revoke por capacidade original, com teste HTTP de uso único e concorrência.
+- Controle durável da instalação, SecureStore e geração de sessão; logout offline, A/B/A, falhas do cofre e respostas atrasadas.
+- Integração HTTP real do coordenador e harness Android com retomada de sessão após reiniciar o processo.
+- Contrato `RefreshResponse` aprovado e sincronizado com os validadores; modelo físico do controle local documentado.
+
+Evidências e limitações: [sessão e isolamento](../../../docs/analises/2026-09-26-sessao-e-isolamento.md). `Concluída: não` continua correto para a tarefa inteira. O recorte seguinte de recuperação está registrado abaixo. Scheduler, restante da matriz M1 e operação real seguem no escopo acima.
+
+## Incremento de recuperação de senha — iniciado em 26/09/2026
+
+Continuação autorizada: endpoints HTTP reais de Identity, mensagem recebida em SMTP local descartável e transporte público do app. São as fronteiras de autenticação/envio previstas neste escopo; relógio e falhas de armazenamento/SMTP são fronteiras externas controladas nos testes. Nenhum e-mail externo é enviado por estes testes. Domínio/remetente/SMTP e a política dos outros links foram apresentados ao Pedro; encaminhamento registrado na continuação abaixo.
+
+27/09/2026: após as recomendações apresentadas, Pedro autorizou continuar. Seguimos com validação SMTP local até definição operacional de domínio/provedor e invalidação dos demais links após uma troca concluída. Não foi informado domínio, provedor ou segredo externo.
+
+### Entregue no incremento de recuperação
+
+- Solicitação uniforme, SMTP local, token de uma hora e confirmação única/concorrente.
+- Consumo dos demais links e revogação de sessões na mesma transação da senha, com rollback comprovado.
+- Transporte/parser de link do app e fluxo integrado preservando a pendência após reset, reinício e nova autenticação.
+- Configuração operacional e limites documentados; nenhum envio externo ou aceite nativo declarado.
+
+[Evidências e lacunas](../../../docs/analises/2026-09-27-recuperacao-de-senha.md). A tarefa continua aberta. Próximo recorte proposto: scheduler/backoff e retomada de revogações ao reconectar, sem depender do protótipo. Rate limiting e configuração real permanecem obrigatórios antes de exposição externa.
