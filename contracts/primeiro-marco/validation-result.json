@@ -1,0 +1,13 @@
+{
+  "openapi": "3.1.1",
+  "schemas": 51,
+  "endpoints": 11,
+  "fixtures_passed": 48,
+  "positive": 38,
+  "negative": 10,
+  "scope": "Transport document, JSON Schema fixtures, PostgreSQL syntax and SQLite constraints. No server/mobile integration or PostgreSQL execution tested.",
+  "postgres_statements_parsed": 25,
+  "sqlite_checks_passed": 8,
+  "domain_fixture_checks_passed": 11,
+  "normalization_reference_unicode": "14.0.0"
+}

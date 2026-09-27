@@ -1,0 +1,19 @@
+{
+  "titleKey": [
+    { "input": "  ÁGUA  ", "expected": "água" },
+    { "input": "Café", "expected": "café" },
+    { "input": "Ａcademia", "expected": "academia" },
+    { "input": "Ler   livro", "expected": "ler livro" },
+    { "input": "Straße", "expected": "strasse" }
+  ],
+  "emailKey": [
+    { "input": "  Person+label@Example.TEST ", "expected": "person+label@example.test" },
+    { "input": "first.last@example.test", "expected": "first.last@example.test" }
+  ],
+  "xpBudget": [
+    { "dueHabits": 0, "expectedLimit": 150 },
+    { "dueHabits": 10, "expectedLimit": 150 },
+    { "dueHabits": 11, "expectedLimit": 165 },
+    { "dueHabits": 50, "expectedLimit": 750 }
+  ]
+}

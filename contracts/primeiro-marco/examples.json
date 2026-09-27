@@ -1,0 +1,1875 @@
+[
+  {
+    "name": "register",
+    "schema": "RegisterRequest",
+    "valid": true,
+    "value": {
+      "email": "person@example.test",
+      "password": "fixture-password",
+      "displayName": "Pessoa de teste",
+      "deviceId": "01996300-0000-7000-8000-000000000002"
+    }
+  },
+  {
+    "name": "login",
+    "schema": "LoginRequest",
+    "valid": true,
+    "value": {
+      "email": "person@example.test",
+      "password": "fixture-password",
+      "deviceId": "01996300-0000-7000-8000-000000000002"
+    }
+  },
+  {
+    "name": "refresh",
+    "schema": "RefreshRequest",
+    "valid": true,
+    "value": {
+      "refreshToken": "fixture_refresh_token_not_a_credential"
+    }
+  },
+  {
+    "name": "revoke",
+    "schema": "RevokeRequest",
+    "valid": true,
+    "value": {
+      "revokeToken": "fixture_revoke_token_not_a_credential"
+    }
+  },
+  {
+    "name": "reset-request",
+    "schema": "ResetRequest",
+    "valid": true,
+    "value": {
+      "email": "person@example.test"
+    }
+  },
+  {
+    "name": "reset-confirm",
+    "schema": "ResetConfirmRequest",
+    "valid": true,
+    "value": {
+      "resetToken": "fixture_reset_token_not_a_credential",
+      "newPassword": "changed-fixture-password"
+    }
+  },
+  {
+    "name": "session",
+    "schema": "SessionResponse",
+    "valid": true,
+    "value": {
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "sessionId": "01996300-0000-7000-8000-000000000006",
+      "accessToken": "fixture.access.token.not.a.credential",
+      "accessExpiresAt": "2026-09-25T13:15:00Z",
+      "refreshToken": "fixture_refresh_token_not_a_credential",
+      "refreshExpiresAt": "2026-10-25T13:00:00Z",
+      "revokeToken": "fixture_revoke_token_not_a_credential",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      }
+    }
+  },
+  {
+    "name": "refreshed-session",
+    "schema": "RefreshResponse",
+    "valid": true,
+    "value": {
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "sessionId": "01996300-0000-7000-8000-000000000006",
+      "accessToken": "fixture.access.token.not.a.credential",
+      "accessExpiresAt": "2026-09-25T13:15:00Z",
+      "refreshToken": "fixture_refresh_token_not_a_credential",
+      "refreshExpiresAt": "2026-10-25T13:00:00Z",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      }
+    }
+  },
+  {
+    "name": "push",
+    "schema": "PushRequest",
+    "valid": true,
+    "value": {
+      "operations": [
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "ack",
+    "schema": "PushResponse",
+    "valid": true,
+    "value": {
+      "results": [
+        {
+          "receipt": {
+            "operationId": "01996300-0000-7000-8000-000000000010",
+            "status": "accepted",
+            "acceptedRevision": "3"
+          },
+          "replayed": false,
+          "projections": [
+            {
+              "kind": "habitDay",
+              "value": {
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "habitId": "01996300-0000-7000-8000-000000000003",
+                "dayKey": "2026-09-25",
+                "done": true,
+                "knownUndoIds": [],
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpGrant",
+              "value": {
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "amount": 10,
+                "dayKey": "2026-09-25",
+                "module": "habits",
+                "budgetCost": 10,
+                "active": true,
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpDecision",
+              "value": {
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "outcome": "granted",
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpBudget",
+              "value": {
+                "dayKey": "2026-09-25",
+                "module": "habits",
+                "consumed": 10,
+                "dueHabitCount": 1,
+                "limit": 150,
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpTransition",
+              "value": {
+                "operationId": "01996300-0000-7000-8000-000000000010",
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "kind": "grant",
+                "acceptedAt": "2026-09-25T13:00:00Z",
+                "revision": "3"
+              }
+            }
+          ]
+        }
+      ],
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "retry",
+    "schema": "PushResponse",
+    "valid": true,
+    "value": {
+      "results": [
+        {
+          "receipt": {
+            "operationId": "01996300-0000-7000-8000-000000000010",
+            "status": "accepted",
+            "acceptedRevision": "3"
+          },
+          "replayed": true,
+          "projections": [
+            {
+              "kind": "habitDay",
+              "value": {
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "habitId": "01996300-0000-7000-8000-000000000003",
+                "dayKey": "2026-09-25",
+                "done": true,
+                "knownUndoIds": [],
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpGrant",
+              "value": {
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "amount": 10,
+                "dayKey": "2026-09-25",
+                "module": "habits",
+                "budgetCost": 10,
+                "active": true,
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpDecision",
+              "value": {
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "outcome": "granted",
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpBudget",
+              "value": {
+                "dayKey": "2026-09-25",
+                "module": "habits",
+                "consumed": 10,
+                "dueHabitCount": 1,
+                "limit": 150,
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpTransition",
+              "value": {
+                "operationId": "01996300-0000-7000-8000-000000000010",
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "kind": "grant",
+                "acceptedAt": "2026-09-25T13:00:00Z",
+                "revision": "3"
+              }
+            }
+          ]
+        }
+      ],
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "title_unavailable",
+    "schema": "PushResponse",
+    "valid": true,
+    "value": {
+      "results": [
+        {
+          "receipt": {
+            "operationId": "01996300-0000-7000-8000-000000000010",
+            "status": "rejected",
+            "error": {
+              "code": "title_unavailable",
+              "fields": [],
+              "dependencyIds": []
+            }
+          },
+          "replayed": false
+        }
+      ],
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "dependency_rejected",
+    "schema": "PushResponse",
+    "valid": true,
+    "value": {
+      "results": [
+        {
+          "receipt": {
+            "operationId": "01996300-0000-7000-8000-000000000010",
+            "status": "rejected",
+            "error": {
+              "code": "dependency_rejected",
+              "fields": [],
+              "dependencyIds": [
+                "01996300-0000-7000-8000-000000000009"
+              ]
+            }
+          },
+          "replayed": false
+        }
+      ],
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "id_content_conflict",
+    "schema": "PushResponse",
+    "valid": true,
+    "value": {
+      "results": [
+        {
+          "receipt": {
+            "operationId": "01996300-0000-7000-8000-000000000010",
+            "status": "rejected",
+            "error": {
+              "code": "id_content_conflict",
+              "fields": [],
+              "dependencyIds": []
+            }
+          },
+          "replayed": false
+        }
+      ],
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "deferred",
+    "schema": "PushResponse",
+    "valid": true,
+    "value": {
+      "results": [
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "status": "deferred",
+          "missingDependencyIds": [
+            "01996300-0000-7000-8000-000000000009"
+          ]
+        }
+      ],
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "pull",
+    "schema": "PullResponse",
+    "valid": true,
+    "value": {
+      "changes": [
+        {
+          "revision": "3",
+          "operationResults": [
+            {
+              "operationId": "01996300-0000-7000-8000-000000000010",
+              "status": "accepted",
+              "acceptedRevision": "3"
+            }
+          ],
+          "entities": [
+            {
+              "kind": "habitDay",
+              "value": {
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "habitId": "01996300-0000-7000-8000-000000000003",
+                "dayKey": "2026-09-25",
+                "done": true,
+                "knownUndoIds": [],
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpGrant",
+              "value": {
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "amount": 10,
+                "dayKey": "2026-09-25",
+                "module": "habits",
+                "budgetCost": 10,
+                "active": true,
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpDecision",
+              "value": {
+                "habitDayId": "01996300-0000-7000-8000-000000000004",
+                "outcome": "granted",
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpBudget",
+              "value": {
+                "dayKey": "2026-09-25",
+                "module": "habits",
+                "consumed": 10,
+                "dueHabitCount": 1,
+                "limit": 150,
+                "revision": "3"
+              }
+            },
+            {
+              "kind": "xpTransition",
+              "value": {
+                "operationId": "01996300-0000-7000-8000-000000000010",
+                "grantId": "01996300-0000-7000-8000-000000000005",
+                "kind": "grant",
+                "acceptedAt": "2026-09-25T13:00:00Z",
+                "revision": "3"
+              }
+            }
+          ]
+        }
+      ],
+      "nextCursor": "fixture_cursor_after_3",
+      "hasMore": false,
+      "highWaterRevision": "3",
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "snapshot-request",
+    "schema": "EmptyRequest",
+    "valid": true,
+    "value": {}
+  },
+  {
+    "name": "snapshot-manifest",
+    "schema": "SnapshotManifest",
+    "valid": true,
+    "value": {
+      "snapshotId": "01996300-0000-7000-8000-000000000020",
+      "highWaterRevision": "3",
+      "expiresAt": "2026-09-25T13:15:00Z",
+      "entityCount": 7,
+      "firstPageCursor": "fixture_snapshot_page_0"
+    }
+  },
+  {
+    "name": "snapshot-page",
+    "schema": "SnapshotPage",
+    "valid": true,
+    "value": {
+      "snapshotId": "01996300-0000-7000-8000-000000000020",
+      "highWaterRevision": "3",
+      "entities": [
+        {
+          "kind": "profile",
+          "value": {
+            "accountId": "01996300-0000-7000-8000-000000000001",
+            "displayName": "Pessoa de teste",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "plan": "free",
+            "onboardedAt": "2026-09-25T13:00:00Z",
+            "analyticsConsentAt": null,
+            "revision": "1"
+          }
+        },
+        {
+          "kind": "habit",
+          "value": {
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "title": "Caminhar",
+            "habitType": "binary",
+            "scheduleKind": "daily",
+            "startDayKey": "2026-09-25",
+            "creationTimeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "iconKey": null,
+            "colorToken": null,
+            "sortOrder": 0,
+            "createdAt": "2026-09-25T13:00:00Z",
+            "updatedAt": "2026-09-25T13:00:00Z",
+            "deletedAt": null,
+            "revision": "2"
+          }
+        },
+        {
+          "kind": "habitDay",
+          "value": {
+            "habitDayId": "01996300-0000-7000-8000-000000000004",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "done": true,
+            "knownUndoIds": [],
+            "revision": "3"
+          }
+        },
+        {
+          "kind": "xpGrant",
+          "value": {
+            "grantId": "01996300-0000-7000-8000-000000000005",
+            "habitDayId": "01996300-0000-7000-8000-000000000004",
+            "amount": 10,
+            "dayKey": "2026-09-25",
+            "module": "habits",
+            "budgetCost": 10,
+            "active": true,
+            "revision": "3"
+          }
+        },
+        {
+          "kind": "xpDecision",
+          "value": {
+            "habitDayId": "01996300-0000-7000-8000-000000000004",
+            "outcome": "granted",
+            "grantId": "01996300-0000-7000-8000-000000000005",
+            "revision": "3"
+          }
+        },
+        {
+          "kind": "xpBudget",
+          "value": {
+            "dayKey": "2026-09-25",
+            "module": "habits",
+            "consumed": 10,
+            "dueHabitCount": 1,
+            "limit": 150,
+            "revision": "3"
+          }
+        },
+        {
+          "kind": "xpTransition",
+          "value": {
+            "operationId": "01996300-0000-7000-8000-000000000010",
+            "grantId": "01996300-0000-7000-8000-000000000005",
+            "kind": "grant",
+            "acceptedAt": "2026-09-25T13:00:00Z",
+            "revision": "3"
+          }
+        }
+      ],
+      "nextPageCursor": null,
+      "complete": true,
+      "pullCursor": "fixture_cursor_after_3"
+    }
+  },
+  {
+    "name": "receipts-request",
+    "schema": "ReceiptsRequest",
+    "valid": true,
+    "value": {
+      "snapshotId": "01996300-0000-7000-8000-000000000020",
+      "operationIds": [
+        "01996300-0000-7000-8000-000000000010",
+        "01996300-0000-7000-8000-000000000011"
+      ]
+    }
+  },
+  {
+    "name": "receipts-response",
+    "schema": "ReceiptsResponse",
+    "valid": true,
+    "value": {
+      "snapshotId": "01996300-0000-7000-8000-000000000020",
+      "highWaterRevision": "3",
+      "results": [
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "status": "accepted",
+          "acceptedRevision": "3"
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000011",
+          "status": "notProcessedAtH"
+        }
+      ]
+    }
+  },
+  {
+    "name": "invalid_request",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "invalid_request",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "invalid_credentials",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "invalid_credentials",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "email_unavailable",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "email_unavailable",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "session_invalid",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "session_invalid",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "reset_invalid",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "reset_invalid",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "rate_limited",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "rate_limited",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": 2
+      }
+    }
+  },
+  {
+    "name": "unsupported_version",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "unsupported_version",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "idempotency_key_conflict",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "idempotency_key_conflict",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "payload_too_large",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "payload_too_large",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "resync_required",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "resync_required",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "snapshot_expired",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "snapshot_expired",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "temporarily_unavailable",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "temporarily_unavailable",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": 2
+      }
+    }
+  },
+  {
+    "name": "resource_inaccessible",
+    "schema": "ApiError",
+    "valid": true,
+    "value": {
+      "error": {
+        "code": "resource_inaccessible",
+        "requestId": "01996300-0000-7000-8000-000000000030",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    }
+  },
+  {
+    "name": "create",
+    "schema": "Operation",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "habit.create",
+        "habitId": "01996300-0000-7000-8000-000000000003",
+        "title": "Caminhar",
+        "habitType": "binary",
+        "scheduleKind": "daily",
+        "startDayKey": "2026-09-25",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "iconKey": null,
+        "colorToken": null,
+        "sortOrder": 0
+      }
+    }
+  },
+  {
+    "name": "patch",
+    "schema": "Operation",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "habit.patchMetadata",
+        "habitId": "01996300-0000-7000-8000-000000000003",
+        "patch": {
+          "title": "Caminhada"
+        }
+      }
+    }
+  },
+  {
+    "name": "unmark",
+    "schema": "Operation",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "habit.unmark",
+        "habitId": "01996300-0000-7000-8000-000000000003",
+        "dayKey": "2026-09-25",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        }
+      }
+    }
+  },
+  {
+    "name": "onboarding",
+    "schema": "Operation",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "profile.setOnboarding",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "completed": true,
+        "analyticsConsent": false
+      }
+    }
+  },
+  {
+    "name": "reject-client-owner",
+    "schema": "Operation",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "habit.mark",
+        "habitId": "01996300-0000-7000-8000-000000000003",
+        "dayKey": "2026-09-25",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "observedUndoIds": []
+      },
+      "userId": "01996300-0000-7000-8000-000000000099"
+    }
+  },
+  {
+    "name": "reject-client-xp",
+    "schema": "Operation",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "habit.mark",
+        "habitId": "01996300-0000-7000-8000-000000000003",
+        "dayKey": "2026-09-25",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "observedUndoIds": [],
+        "totalXp": 100
+      }
+    }
+  },
+  {
+    "name": "reject-invalid-date",
+    "schema": "Operation",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "habit.mark",
+        "habitId": "01996300-0000-7000-8000-000000000003",
+        "dayKey": "2026-02-30",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "observedUndoIds": []
+      }
+    }
+  },
+  {
+    "name": "reject-numeric-revision",
+    "schema": "Revision",
+    "valid": false,
+    "value": 9007199254740993
+  },
+  {
+    "name": "reject-empty-patch",
+    "schema": "MetadataPatch",
+    "valid": false,
+    "value": {}
+  },
+  {
+    "name": "reject-empty-batch",
+    "schema": "PushRequest",
+    "valid": false,
+    "value": {
+      "operations": []
+    }
+  },
+  {
+    "name": "reject-large-batch",
+    "schema": "PushRequest",
+    "valid": false,
+    "value": {
+      "operations": [
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        },
+        {
+          "operationId": "01996300-0000-7000-8000-000000000010",
+          "deviceId": "01996300-0000-7000-8000-000000000002",
+          "clientSequence": 3,
+          "occurredAt": "2026-09-25T13:00:00Z",
+          "dependsOn": [],
+          "command": {
+            "type": "habit.mark",
+            "habitId": "01996300-0000-7000-8000-000000000003",
+            "dayKey": "2026-09-25",
+            "timeContext": {
+              "timezone": "America/Sao_Paulo",
+              "dayStartHour": 4
+            },
+            "observedUndoIds": []
+          }
+        }
+      ]
+    }
+  },
+  {
+    "name": "reject-unknown-command",
+    "schema": "Operation",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "xp.setTotal",
+        "habitId": "01996300-0000-7000-8000-000000000003",
+        "dayKey": "2026-09-25",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "observedUndoIds": []
+      }
+    }
+  },
+  {
+    "name": "reject-unknown-result",
+    "schema": "PushResponse",
+    "valid": false,
+    "value": {
+      "results": [
+        {
+          "status": "success"
+        }
+      ],
+      "serverTime": "2026-09-25T13:00:00Z"
+    }
+  },
+  {
+    "name": "reject-unsupported-habit",
+    "schema": "CreateHabitCommand",
+    "valid": false,
+    "value": {
+      "type": "habit.create",
+      "habitId": "01996300-0000-7000-8000-000000000003",
+      "title": "Beber",
+      "habitType": "quantitative",
+      "scheduleKind": "daily",
+      "startDayKey": "2026-09-25",
+      "timeContext": {
+        "timezone": "America/Sao_Paulo",
+        "dayStartHour": 4
+      },
+      "iconKey": null,
+      "colorToken": null,
+      "sortOrder": 0
+    }
+  }
+]
