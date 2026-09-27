@@ -56,3 +56,7 @@ Consulte [app/README](app/README.md), [api/README](api/README.md) e o [relatóri
 ## Memória entre sessões
 
 O projeto está vinculado ao ai-memory em `default / ProjetoAssistentePessoal`. Consulta e gravação foram verificadas; o aceite do disparo automático dos hooks do Codex depende do carregamento/revisão do cliente. [Configuração, evidências e uso](docs/agents/ai-memory.md).
+
+## Versionamento
+
+Repositório local na branch `main`, organizado em commits semânticos por intenção. [Convenções](docs/agents/git.md) e [histórico inicial com validações](docs/analises/2026-09-27-versionamento-inicial.md).
