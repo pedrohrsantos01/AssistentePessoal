@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.1.1'
+}
+group = 'dev.ritmo'
+version = '0.1.0'
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+repositories { mavenCentral() }
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:4.1.1')
+    implementation platform('org.springframework.modulith:spring-modulith-bom:2.1.1')
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-flyway'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security-oauth2-resource-server'
+    implementation 'org.bouncycastle:bcprov-jdk18on:1.83'
+    implementation 'org.springframework.modulith:spring-modulith-starter-core'
+    implementation 'org.flywaydb:flyway-database-postgresql'
+    implementation 'com.ibm.icu:icu4j:78.1'
+    implementation 'io.github.erdtman:java-json-canonicalization:1.1'
+    implementation 'com.networknt:json-schema-validator:3.0.6'
+    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.modulith:spring-modulith-starter-test'
+    testImplementation 'org.testcontainers:testcontainers-postgresql'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+dependencyLocking { lockAllConfigurations() }
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.compilerArgs += ['-Xlint:deprecation'] }
+tasks.named('test') {
+    useJUnitPlatform()
+    // RuntimeTests also execute these TypeScript clients and their SQLite migrations.
+    inputs.files(fileTree('../app/src'), fileTree('../app/test'), fileTree('../app/drizzle'), fileTree('../app/drizzle-control'))
+    inputs.files('../app/package.json', '../app/pnpm-lock.yaml', '../app/tsconfig.json')
+    testLogging { events 'passed', 'skipped', 'failed'; exceptionFormat = 'full' }
+}
+
+tasks.named('processResources') { from('../contracts/primeiro-marco/openapi.json') { into 'contracts' } }

@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "Ritmo — harness técnico",
+    "slug": "ritmo-harness",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "android": {
+      "package": "dev.ritmo.foundationharness"
+    },
+    "plugins": [
+      "expo-sqlite",
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": false
+        }
+      ]
+    ]
+  }
+}

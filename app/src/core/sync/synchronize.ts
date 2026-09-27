@@ -1,0 +1,91 @@
+import type {AccountStore} from '../db/account-store.ts';
+import type {Entity,Operation,PushResult,Pull,Receipt} from './protocol.ts';
+import * as validate from './generated/validate.cjs';
+
+type Manifest={snapshotId:string;highWaterRevision:string;expiresAt:string;entityCount:number;firstPageCursor:string};
+type Page={snapshotId:string;highWaterRevision:string;entities:Entity[];complete:boolean;nextPageCursor:string|null;pullCursor:string|null};
+type AtCut=Receipt|{operationId:string;status:'notProcessedAtH'};
+export class SyncHttpError extends Error {
+  constructor(readonly status:number,readonly code:string) {super(code);}
+}
+export class HttpSync {
+  constructor(private origin:string,readonly accountId:string,private token:(force?:boolean)=>string|Promise<string>,private nextId:()=>string) {}
+  private async request<T>(path:string,method:string,body:unknown,check:(data:unknown)=>boolean):Promise<T> {
+    const headers:Record<string,string>={'Content-Type':'application/json','X-Ritmo-Protocol':'m1.1','X-App-Version':'0.1.0',Authorization:'Bearer '+await this.token(false)};
+    if(path==='push') headers['Idempotency-Key']=this.nextId();
+    const init:RequestInit={method,headers,signal:AbortSignal.timeout(15000)};
+    if(body!==undefined) init.body=JSON.stringify(body);
+    let response=await fetch(this.origin+'/api/v1/sync/'+path,init);
+    if(response.status===401) {
+      headers.Authorization='Bearer '+await this.token(true);
+      response=await fetch(this.origin+'/api/v1/sync/'+path,{...init,signal:AbortSignal.timeout(15000)});
+    }
+    const result:unknown=await response.json();
+    if(!response.ok) {
+      let code='http_error';
+      if(result&&typeof result==='object'&&'error' in result&&result.error&&typeof result.error==='object'&&'code' in result.error&&typeof result.error.code==='string') code=result.error.code;
+      throw new SyncHttpError(response.status,code);
+    }
+    if(!check(result)) throw new Error('unsupported_protocol');
+    return result as T;
+  }
+  push(operations:Operation[]) {return this.request<{results:PushResult[];serverTime:string}>('push','POST',{operations},validate.PushResponse);}
+  pull(cursor:string|null) {return this.request<Pull>('pull'+(cursor?'?cursor='+encodeURIComponent(cursor):''),'GET',undefined,validate.PullResponse);}
+  snapshot() {return this.request<Manifest>('snapshots','POST',{},validate.SnapshotManifest);}
+  page(snapshot:string,cursor:string) {return this.request<Page>('snapshots/'+snapshot+'?cursor='+encodeURIComponent(cursor),'GET',undefined,validate.SnapshotPage);}
+  receipts(snapshotId:string,operationIds:string[]) {
+    return this.request<{snapshotId:string;highWaterRevision:string;results:AtCut[]}>('receipts','POST',{snapshotId,operationIds},validate.ReceiptsResponse);
+  }
+}
+const running=new WeakSet<AccountStore>();
+async function pull(store:AccountStore,api:HttpSync) {
+  for(;;) {
+    const page=await api.pull(store.cursor());store.applyPull(page);
+    if(!page.hasMore) break;
+  }
+}
+async function recover(store:AccountStore,api:HttpSync) {
+  const manifest=await api.snapshot();const entities:Entity[]=[];let cursor:string|null=manifest.firstPageCursor,pullCursor:string|null=null;
+  while(cursor) {
+    const page=await api.page(manifest.snapshotId,cursor);
+    if(page.snapshotId!==manifest.snapshotId||page.highWaterRevision!==manifest.highWaterRevision) throw new Error('snapshot_mismatch');
+    entities.push(...page.entities);cursor=page.nextPageCursor;pullCursor=page.pullCursor;
+    if(page.complete!==!cursor) throw new Error('incomplete_snapshot');
+  }
+  if(entities.length!==manifest.entityCount||!pullCursor) throw new Error('incomplete_snapshot');
+  // Local writers remain available during requests. Repeat until every current pending id is classified at H.
+  const classified=new Map<string,AtCut>();
+  for(;;) {
+    const ids=store.operations().map(op=>op.operationId).filter(id=>!classified.has(id));
+    if(!ids.length) {
+      store.installSnapshot(manifest.snapshotId,entities,[...classified.values()].filter((r):r is Receipt=>r.status!=='notProcessedAtH'),pullCursor);
+      break;
+    }
+    for(let offset=0;offset<ids.length;offset+=50) {
+      const receipts=await api.receipts(manifest.snapshotId,ids.slice(offset,offset+50));
+      if(receipts.snapshotId!==manifest.snapshotId||receipts.highWaterRevision!==manifest.highWaterRevision) throw new Error('snapshot_mismatch');
+      for(const receipt of receipts.results) classified.set(receipt.operationId,receipt);
+    }
+  }
+}
+export async function synchronize(store:AccountStore,api:HttpSync) {
+  if(store.accountId!==api.accountId) throw new Error('account_mismatch');
+  if(running.has(store)) return;
+  running.add(store);
+  try {
+    try {await pull(store,api);}
+    catch(error) {if(error instanceof SyncHttpError&&error.code==='resync_required') await recover(store,api);else throw error;}
+    const pending=store.operations();
+    for(let offset=0;offset<pending.length;offset+=50) {
+      const batch=pending.slice(offset,offset+50),ack=await api.push(batch);
+      const expected=new Set(batch.map(op=>op.operationId));
+      for(const result of ack.results) {
+        const id='receipt' in result?result.receipt.operationId:result.operationId;
+        if(!expected.delete(id)) throw new Error('ack_mismatch');
+      }
+      if(expected.size) throw new Error('ack_mismatch');
+      store.applyAck(ack.results);
+    }
+    await pull(store,api);
+  } finally {running.delete(store);}
+}
