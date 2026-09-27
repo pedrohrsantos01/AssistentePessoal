@@ -161,3 +161,7 @@ Um glossário de domínio em `CONTEXT.md` e decisões arquiteturais em `docs/adr
 <!-- termbaker:start (auto-managed by Termbaker. Do not edit inside these markers) -->
 See @TERMBAKER.md for the capabilities of this Termbaker environment.
 <!-- termbaker:end -->
+
+## Memória entre sessões
+
+O vínculo ai-memory, as instruções de continuidade e as skills gerenciadas estão em [AGENTS.md](AGENTS.md). Leia essa seção ao retomar trabalho. Configuração e validação: [guia local](docs/agents/ai-memory.md).

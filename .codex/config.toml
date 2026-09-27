@@ -1,0 +1,3 @@
+# Usa os hooks ja instalados neste projeto confiavel.
+[features]
+hooks = true

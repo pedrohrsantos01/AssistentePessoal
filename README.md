@@ -52,3 +52,7 @@ Q1 nome, Q2 provedor de STT, Q4 sobreposição hábito/tarefa, **Q5 direção vi
 ## Executar a fundação
 
 Consulte [app/README](app/README.md), [api/README](api/README.md) e o [relatório de evidências](docs/analises/2026-09-26-primeiro-recorte-executavel.md). No Windows com Java 21, Node 24 e Docker: `scripts/verify-foundation.ps1`. A revisão de quatro semanas está registrada para 23/10/2026.
+
+## Memória entre sessões
+
+O projeto está vinculado ao ai-memory em `default / ProjetoAssistentePessoal`. Consulta e gravação foram verificadas; o aceite do disparo automático dos hooks do Codex depende do carregamento/revisão do cliente. [Configuração, evidências e uso](docs/agents/ai-memory.md).

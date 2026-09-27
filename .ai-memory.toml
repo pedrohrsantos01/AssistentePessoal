@@ -1,0 +1,10 @@
+# Confirmado pelo ai-memory doctor e memory_status em 27/09/2026.
+workspace = "default"
+project = "ProjetoAssistentePessoal"
+
+[briefing]
+inject_on_session_start = true
+max_chars = 4000
+
+[capture]
+ignore_paths = [".env", ".env.*", "**/.env", "**/.env.*", "**/*.pem", "**/*.key", "docs/adr/**"]
