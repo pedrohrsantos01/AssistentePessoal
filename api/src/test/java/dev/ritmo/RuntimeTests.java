@@ -502,4 +502,74 @@ class RuntimeTests {
         assertThat(process.exitValue()).as(output).isZero();
         System.out.println(output);
     }
+    @Test void cyclicDependenciesAreRejectedWithRecoverableReferencesInsteadOfDeferredForever() throws Exception {
+        var session=account("cycles");String token=session.path("accessToken").asString();
+        String a=dev.ritmo.shared.Json.id(),b=dev.ritmo.shared.Json.id(),c=dev.ritmo.shared.Json.id();
+        var first=operation(a,1,createCommand(dev.ritmo.shared.Json.id()));
+        var second=operation(b,2,createCommand(dev.ritmo.shared.Json.id()));
+        var child=operation(c,3,createCommand(dev.ritmo.shared.Json.id()));
+        ((tools.jackson.databind.node.ObjectNode)first).set("dependsOn",dev.ritmo.shared.Json.array().add(b));
+        ((tools.jackson.databind.node.ObjectNode)second).set("dependsOn",dev.ritmo.shared.Json.array().add(a));
+        ((tools.jackson.databind.node.ObjectNode)child).set("dependsOn",dev.ritmo.shared.Json.array().add(a));
+        var body=dev.ritmo.shared.Json.object();body.set("operations",dev.ritmo.shared.Json.array().add(child).add(first).add(second));
+        var response=post("sync/push",token,body.toString(),200);
+        assertThat(response.at("/results/0/receipt/error/code").asString()).isEqualTo("dependency_rejected");
+        assertThat(response.at("/results/0/receipt/error/dependencyIds/0").asString()).isEqualTo(a);
+        assertThat(response.at("/results/1/receipt/error/code").asString()).isEqualTo("dependency_cycle");
+        assertThat(response.at("/results/2/receipt/error/code").asString()).isEqualTo("dependency_cycle");
+        var replay=post("sync/push",token,body.toString(),200);
+        for(int i=0;i<3;i++) {
+            assertThat(replay.at("/results/"+i+"/replayed").asBoolean()).isTrue();
+            assertThat(replay.at("/results/"+i+"/receipt")).isEqualTo(response.at("/results/"+i+"/receipt"));
+        }
+    }
+
+    @Test void mobileRecoversRejectedChainsThroughTheRealHttpApi() throws Exception {
+        var log=java.nio.file.Path.of("build/mobile-rejections.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/rejections.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
+    @Test void overlappingCyclesClassifyEveryMemberOfTheCycle() throws Exception {
+        String token=account("overlapping").path("accessToken").asString();
+        String a=dev.ritmo.shared.Json.id(),b=dev.ritmo.shared.Json.id(),c=dev.ritmo.shared.Json.id();
+        var first=(tools.jackson.databind.node.ObjectNode)operation(a,1,createCommand(dev.ritmo.shared.Json.id()));
+        var second=(tools.jackson.databind.node.ObjectNode)operation(b,2,createCommand(dev.ritmo.shared.Json.id()));
+        var third=(tools.jackson.databind.node.ObjectNode)operation(c,3,createCommand(dev.ritmo.shared.Json.id()));
+        first.set("dependsOn",dev.ritmo.shared.Json.array().add(b).add(c));second.set("dependsOn",dev.ritmo.shared.Json.array().add(a));
+        third.set("dependsOn",dev.ritmo.shared.Json.array().add(b));
+        var body=dev.ritmo.shared.Json.object();body.set("operations",dev.ritmo.shared.Json.array().add(first).add(second).add(third));
+        var response=post("sync/push",token,body.toString(),200);
+        for(int i=0;i<3;i++) assertThat(response.at("/results/"+i+"/receipt/error/code").asString()).isEqualTo("dependency_cycle");
+    }
+
+    @Test void dependenciesAreOrderedWithinTheBatchAndChangedReplaysDoNotRedefineTheGraph() throws Exception {
+        String token=account("ordering").path("accessToken").asString(),habit=dev.ritmo.shared.Json.id(),a=dev.ritmo.shared.Json.id(),b=dev.ritmo.shared.Json.id();
+        var create=(tools.jackson.databind.node.ObjectNode)operation(a,1,createCommand(habit));
+        var mark=(tools.jackson.databind.node.ObjectNode)operation(b,2,dev.ritmo.shared.Json.read("""
+            {"type":"habit.mark","habitId":"%s","dayKey":"2026-09-25","timeContext":{"timezone":"America/Sao_Paulo","dayStartHour":4},"observedUndoIds":[]}
+            """.formatted(habit)));
+        mark.set("dependsOn",dev.ritmo.shared.Json.array().add(a));
+        var body=dev.ritmo.shared.Json.object();body.set("operations",dev.ritmo.shared.Json.array().add(mark).add(create));
+        var response=post("sync/push",token,body.toString(),200);
+        assertThat(response.at("/results/0/receipt/acceptedRevision").asString()).isEqualTo("2");
+        assertThat(response.at("/results/1/receipt/acceptedRevision").asString()).isEqualTo("1");
+        String c=dev.ritmo.shared.Json.id();
+        var edit=(tools.jackson.databind.node.ObjectNode)operation(c,3,dev.ritmo.shared.Json.read("""
+            {"type":"habit.patchMetadata","habitId":"%s","patch":{"title":"Caminhar cedo"}}
+            """.formatted(habit)));
+        edit.set("dependsOn",dev.ritmo.shared.Json.array().add(a));create.set("dependsOn",dev.ritmo.shared.Json.array().add(c));
+        body.set("operations",dev.ritmo.shared.Json.array().add(edit).add(create));response=post("sync/push",token,body.toString(),200);
+        assertThat(response.at("/results/0/receipt/status").asString()).isEqualTo("accepted");
+        assertThat(response.at("/results/1/receipt/error/code").asString()).isEqualTo("id_content_conflict");
+    }
+
 }

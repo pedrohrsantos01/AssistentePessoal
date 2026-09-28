@@ -8,6 +8,10 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -41,12 +45,35 @@ public class Sync {
             var previous=db.rows("select to_jsonb(encode(payload_hash,'hex')) from sync_batches where user_id=?::uuid and batch_id=?::uuid",user,batch);
             if(!previous.isEmpty()&&!previous.getFirst().asString().equals(hash)) throw new HttpFailure(409,"idempotency_key_conflict");
             if(previous.isEmpty()) db.execute("insert into sync_batches(user_id,batch_id,payload_hash,created_at) values(?::uuid,?::uuid,decode(?,'hex'),now())",user,batch,hash);
+            var pending=new LinkedHashMap<String,JsonNode>();
+            var completed=new HashMap<String,JsonNode>();
+            for(var operation:body.path("operations")) {
+                String id=operation.path("operationId").asString();
+                if(db.rows("select to_jsonb(operation_id) from sync_operation_receipts where user_id=?::uuid and operation_id=?::uuid",user,id).isEmpty()) pending.put(id,operation);
+                else completed.put(id,process(user,operation,Set.of()));
+            }
+            var ordered=new ArrayList<JsonNode>();var cycles=new HashSet<String>();var visited=new HashSet<String>();
+            // At most 50 operations: reachability from each node identifies every member of overlapping cycles.
+            for(String id:pending.keySet()) if(reaches(id,id,pending,new HashSet<>())) cycles.add(id);
+            for(String id:pending.keySet()) visitDependencies(id,pending,visited,ordered);
+            for(var operation:ordered) completed.put(operation.path("operationId").asString(),process(user,operation,cycles));
             var results=Json.array();
-            for(var operation:body.path("operations")) results.add(process(user,operation));
+            for(var operation:body.path("operations")) results.add(completed.get(operation.path("operationId").asString()));
             var result=Json.object().put("serverTime",Instant.now().toString());result.set("results",results);return result;
         });
     }
-    private JsonNode process(String user,JsonNode operation) {
+    private boolean reaches(String target,String id,Map<String,JsonNode> operations,Set<String> visited) {
+        if(!operations.containsKey(id)||!visited.add(id)) return false;
+        for(var dependency:operations.get(id).path("dependsOn"))
+            if(dependency.asString().equals(target)||reaches(target,dependency.asString(),operations,visited)) return true;
+        return false;
+    }
+    private void visitDependencies(String id,Map<String,JsonNode> operations,Set<String> visited,List<JsonNode> ordered) {
+        if(!operations.containsKey(id)||!visited.add(id)) return;
+        for(var dependency:operations.get(id).path("dependsOn")) visitDependencies(dependency.asString(),operations,visited,ordered);
+        ordered.add(operations.get(id));
+    }
+    private JsonNode process(String user,JsonNode operation,Set<String> cycles) {
         String id=operation.path("operationId").asString(),hash=Json.canonicalHash(operation);
         var previous=db.rows("""
             select jsonb_build_object('hash',encode(payload_hash,'hex'),'receipt',result,'keys',affected_keys)
@@ -60,13 +87,18 @@ public class Sync {
         }
         var sequence=db.rows("select to_jsonb(operation_id) from sync_operation_receipts where user_id=?::uuid and device_id=?::uuid and client_sequence=?::bigint",user,operation.path("deviceId").asString(),operation.path("clientSequence").asString());
         if(!sequence.isEmpty()) return result(rejection(id,"id_content_conflict"),false,List.of());
-        var missing=Json.array();
+        if(cycles.contains(id)) {
+            var references=new ArrayList<String>();
+            for(var dependency:operation.path("dependsOn")) if(cycles.contains(dependency.asString())) references.add(dependency.asString());
+            return reject(user,operation,hash,"dependency_cycle",references);
+        }
+        var missing=Json.array();var rejected=new ArrayList<String>();
         for(var dependency:operation.path("dependsOn")) {
-            if(dependency.asString().equals(id)) return reject(user,operation,hash,"dependency_cycle");
             var parents=db.rows("select to_jsonb(outcome) from sync_operation_receipts where user_id=?::uuid and operation_id=?::uuid",user,dependency.asString());
             if(parents.isEmpty()) missing.add(dependency);
-            else if(parents.getFirst().asString().equals("rejected")) return reject(user,operation,hash,"dependency_rejected");
+            else if(parents.getFirst().asString().equals("rejected")) rejected.add(dependency.asString());
         }
+        if(!rejected.isEmpty()) return reject(user,operation,hash,"dependency_rejected",rejected);
         if(!missing.isEmpty()) {var deferred=Json.object().put("operationId",id).put("status","deferred");deferred.set("missingDependencyIds",missing);return deferred;}
         try {
             return nested.execute(status->{
@@ -86,7 +118,11 @@ public class Sync {
         } catch(BusinessFailure failure) {return reject(user,operation,hash,failure.code);}
     }
     private JsonNode reject(String user,JsonNode operation,String hash,String code) {
+        return reject(user,operation,hash,code,List.of());
+    }
+    private JsonNode reject(String user,JsonNode operation,String hash,String code,List<String> dependencies) {
         var receipt=rejection(operation.path("operationId").asString(),code);
+        var ids=Json.array();dependencies.forEach(ids::add);((ObjectNode)receipt.path("error")).set("dependencyIds",ids);
         saveReceipt(user,operation,hash,receipt,List.of());return result(receipt,false,List.of());
     }
     private ObjectNode rejection(String id,String code) {

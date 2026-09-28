@@ -133,6 +133,8 @@ Cada comando tem transação própria. Uma resposta perdida não torna o lote in
 
 Dependência **definitivamente rejeitada** produz `rejected` com `dependency_rejected`, não `deferred` permanente. Preservar a cadeia e explicar o impedimento de forma agrupada. Ao escolher corrigir, criar novas operações e novas referências para as intenções recuperadas; nunca mudar o conteúdo/ID de operações já enviadas. Descartar a operação pai não descarta silenciosamente as filhas: mostrar quais intenções ficam bloqueadas e permitir recuperá-las ou descartá-las explicitamente. Antes do envio, esse bloqueio pode ser registrado localmente como `blocked_local`, sem inventar uma rejeição do servidor.
 
+Concretização de 28/09/2026: interface local de listagem/correção/descarte preserva envelope/recibo e registra resolução no JSON de erro local (spec/00 §12.3). Correção é transacional e remapeia referências sem truncar contexto; não transforma resultado incerto em nova intenção. A API ordena dependências presentes no lote, retorna resultados na ordem da requisição e identifica ciclos entre operações ainda sem recibo. Replays mantêm o resultado anterior. `dependencyIds` aponta as dependências rejeitadas ou participantes do ciclo. Dependência ausente fora do lote continua `deferred`; o servidor não mantém um grafo durável de operações adiadas entre requisições. [Evidências](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md).
+
 `replayed: true` informa repetição de uma operação já processada; não é nova aceitação. O resultado de negócio e a revisão originalmente atribuída permanecem iguais. A resposta pode trazer projeções **atuais**, explicitamente versionadas, sem fingir que o retry produziu essas mudanças. Nunca sobrescrever o recibo original com outro conteúdo para o mesmo ID.
 
 Exemplo de resposta abreviada:
@@ -252,3 +254,10 @@ O scheduler implementa o núcleo de REQ-SYN-005/008, preservando contratos HTTP 
 Geração de sessão protege os ciclos em andamento na troca de conta; revogações usam fila independente, inclusive após logout sem outra conta ativa. A fábrica nativa reúne sessão, rede e ciclo de vida. Testes exercitam reinício, ack perdido, não duplicação de XP, espera persistida, limites, 401/426 e A/B. Isso amplia a evidência de M1-02/07/10/11/18 sem declarar esses cenários integralmente aceitos nos aparelhos.
 
 UI de aviso/correção, leitura local obrigatória por atualização, contexto/ciclos, matriz ampliada de snapshots/migrations e operação real continuam pendentes. [Evidências, comandos e limites](../docs/analises/2026-09-28-sincronizacao-automatica.md).
+
+
+## 12. Incremento de recuperação de rejeições — 28/09/2026
+
+M1-19 e o núcleo de REQ-SYN-017 têm recuperação local testada por interfaces públicas, SQLite e API/Postgres reais: preservar rejeição/cadeia, corrigir com novas identidades/referências ou resolver somente o descarte escolhido. M1-11 foi ampliado para distinguir resultado incerto de rejeição recuperável e manter isolamento entre contas. A resolução local usa o JSON já existente, sem alterar schemas HTTP ou DDL.
+
+Contexto excedente fica preservado e bloqueado, sem compactação/truncamento. Correção que criaria ciclo é recusada atomicamente. Ciclos do lote e dependências rejeitadas têm respostas definitivas; nenhuma prova de rejeição é inferida de dependência ausente. [Relatório e limites](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md). UI e aceite nos aparelhos continuam abertos; a matriz M1 completa ainda não está aceita.

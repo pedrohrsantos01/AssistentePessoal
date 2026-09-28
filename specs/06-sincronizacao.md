@@ -62,6 +62,12 @@ Falhas de rede, timeout e HTTP 408/429/5xx seguem backoff; `Retry-After` em segu
 
 O núcleo expõe estado e ação para a futura UI. Aviso visual, correção/descarte de rejeições e modo completo de leitura local por atualização obrigatória ainda não estão entregues. O adapter nativo foi empacotado para Android; execução HTTP em aparelho e aceite iPhone/Android continuam pendentes. [Relatório e testes](../docs/analises/2026-09-28-sincronizacao-automatica.md).
 
+### 3.2 Recuperação implementada em 28/09/2026
+
+O núcleo de REQ-SYN-017 expõe conteúdo/motivo/cadeia, correção transacional com novos IDs e descarte explícito por item. Filhas de uma rejeição ficam bloqueadas, fora de envio e projeção, com conteúdo preservado. Corrigir remapeia referências para as substitutas; descartar o pai mantém as filhas abertas. Resoluções sobrevivem a reinício e repetição do recibo. Rejeição recebida e bloqueio local são distinguíveis na interface.
+
+Contextos acima de 4096 referências ficam recuperáveis sem truncamento e não seguem para o HTTP. Ciclos no lote recebem rejeição definitiva com suas referências; dependências realmente desconhecidas continuam adiadas. A interface visual, conflitos de identidade com resultado original incerto e a ampliação/compactação segura do limite continuam fora deste incremento. [Relatório](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md).
+
 ## 4. Conflitos
 
 **REQ-SYN-010 — Reconciliação por significado da alteração.** Aceito em R3-Q11 a Q14, [ADR-017](../docs/adr/0017-reconciliacao-de-registros-e-correcoes.md). Alterações em campos independentes são combinadas: mudar título em um aparelho e prazo em outro preserva ambas. Campos dependentes, como meta e unidade, exigem validação conjunta; não combinar cegamente.

@@ -27,6 +27,18 @@ Falhas transitórias esperam 1s, 2s, 4s até cinco minutos; um `Retry-After` vá
 
 [Evidências, reprodução e limites deste incremento](../docs/analises/2026-09-28-sincronizacao-automatica.md).
 
+## Recuperação de rejeições
+
+A UI futura acessa a conta pela sessão e usa três operações do repositório:
+
+- `recovery()` devolve conteúdo original, motivo, dependências, origem (`server`/`local`) e resolução. Itens com `resolution === null` continuam abertos; os demais preservam o histórico.
+- `correct([{operationId,replacementId,command?,occurredAt?}])` cria as substitutas atomicamente. IDs novos devem ser UUID v7. Sem `command`/`occurredAt`, preserva os valores originais; a correção mantém o tipo de comando. Dependências, desfazeres observados e referências ao hábito substituto são remapeados. O novo envelope contém `supersedesOperationId`.
+- `discard([operationId])` resolve apenas os itens selecionados; filhas permanecem recuperáveis. O conteúdo original fica no histórico local e pode ser selecionado explicitamente para recuperação posterior.
+
+Rejeição retira a intenção e suas filhas bloqueadas da projeção aplicada. O envio reavalia a fila entre lotes. Pending, retry esgotado e resultado incerto não são correção: exigem reconciliação/retry com o mesmo ID. `id_content_conflict` também exige esclarecer o resultado original antes de correção/descarte por esta interface. Não confundir uma resposta em conflito com prova de que a intenção original nunca foi aceita.
+
+O limite de 4096 referências bloqueia o envio sem cortar contexto. Corrigir não permite remover referências de desfazer para contornar esse limite; o conteúdo continua recuperável até tratamento técnico explícito ou descarte escolhido. A UI de aviso/seleção ainda depende do protótipo. [Evidências e limites](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md).
+
 ## Arquivos gerados e migrations
 
 ```powershell

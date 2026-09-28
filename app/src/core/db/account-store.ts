@@ -8,6 +8,10 @@ import type { Command, Entity, Operation, PushResult, Receipt, Pull } from '../s
 export type LocalDatabase = BaseSQLiteDatabase<'sync', unknown>;
 type Payload = {payload:string};
 type Pending = {envelope:string;status:string};
+export type Correction={operationId:string;replacementId:string;command?:Command;occurredAt?:string};
+export type RecoveryResolution={kind:'discarded'}|{kind:'corrected';replacementOperationId:string};
+type RecoveryError={code:string;fields:{path:string;code:string}[];dependencyIds:string[];resolution?:RecoveryResolution};
+export type RecoveryItem={operation:Operation;source:'server'|'local';error:Omit<RecoveryError,'resolution'>;resolution:RecoveryResolution|null};
 export class AccountStore {
   constructor(private db:LocalDatabase,readonly accountId:string,readonly deviceId:string,private shutdown:()=>void,private guard:()=>void=()=>{}) {
     this.guard();
@@ -19,6 +23,7 @@ export class AccountStore {
       tx.run(sql`update sync_mutations set status=case when attempts>=10 then 'blocked_local' else 'retry_wait' end,
         error=case when attempts>=10 then ${JSON.stringify({code:'retry_exhausted'})} else error end
         where account_id=${accountId} and status='in_flight'`);
+      this.rebuild(tx);
     });
   }
   private base(db=this.db):Entity[] {
@@ -44,7 +49,124 @@ export class AccountStore {
       return operation;
     });
   }
+  private blockDependents(db:LocalDatabase) {
+    const rows=db.all<{envelope:string;status:string;error:string|null}>(sql`select envelope,status,error from sync_mutations where account_id=${this.accountId} order by client_sequence`);
+    for(const row of rows) {
+      const operation=JSON.parse(row.envelope) as Operation;
+      const paths=[...(operation.dependsOn.length>4096?['dependsOn']:[]),
+        ...(operation.command.type==='habit.mark'&&operation.command.observedUndoIds.length>4096?['command.observedUndoIds']:[])];
+      if(row.status!=='pending'||!paths.length) continue;
+      row.status='blocked_local';row.error=JSON.stringify({code:'context_limit_reached',fields:paths.map(path=>({path,code:'context_limit_reached'})),dependencyIds:[]});
+      db.run(sql`update sync_mutations set status='blocked_local',next_attempt_at=null,error=${row.error}
+        where account_id=${this.accountId} and operation_id=${operation.operationId}`);
+    }
+    const blocked=new Set(rows.filter(row=>row.status==='rejected'||row.status==='blocked_local'&&(JSON.parse(row.error??'{}') as Partial<RecoveryError>).code!=='retry_exhausted')
+      .map(row=>(JSON.parse(row.envelope) as Operation).operationId));
+    let changed=true;
+    while(changed) {
+      changed=false;
+      for(const row of rows) {
+        const operation=JSON.parse(row.envelope) as Operation;
+        if(row.status==='acknowledged'||blocked.has(operation.operationId)) continue;
+        const dependencyIds=operation.dependsOn.filter(id=>blocked.has(id));
+        if(!dependencyIds.length) continue;
+        const error:RecoveryError={code:'dependency_rejected',fields:[],dependencyIds};
+        db.run(sql`update sync_mutations set status='blocked_local',next_attempt_at=null,error=${JSON.stringify(error)}
+          where account_id=${this.accountId} and operation_id=${operation.operationId}`);
+        blocked.add(operation.operationId);changed=true;
+      }
+    }
+  }
+  recovery():RecoveryItem[] {
+    this.guard();
+    return this.db.all<{envelope:string;status:string;error:string}>(sql`select envelope,status,error from sync_mutations
+      where account_id=${this.accountId} and (status='rejected' or (status='blocked_local' and json_extract(error,'$.code')!='retry_exhausted')) order by client_sequence`)
+      .map(row=>{const error=JSON.parse(row.error) as RecoveryError;return {operation:JSON.parse(row.envelope) as Operation,
+        source:row.status==='rejected'?'server':'local',error:{code:error.code,fields:error.fields??[],dependencyIds:error.dependencyIds??[]},resolution:error.resolution??null};});
+  }
+  discard(operationIds:string[]) {
+    this.guard();
+    this.db.transaction(tx=>{
+      const items=new Map(this.recovery().map(item=>[item.operation.operationId,item]));
+      for(const id of operationIds) {
+        const item=items.get(id);
+        if(!item||item.resolution?.kind==='corrected'||item.error.code==='id_content_conflict') throw new Error('operation_not_recoverable');
+        tx.run(sql`update sync_mutations set error=json_set(error,'$.resolution',json(${JSON.stringify({kind:'discarded'})}))
+          where account_id=${this.accountId} and operation_id=${id}`);
+      }
+      this.rebuild(tx);
+    });
+  }
+  correct(corrections:Correction[]):Operation[] {
+    this.guard();
+    return this.db.transaction(tx=>{
+      const history=this.recovery(),byId=new Map(history.map(item=>[item.operation.operationId,item]));
+      const selected=new Map(corrections.map(item=>[item.operationId,item]));
+      if(selected.size!==corrections.length||new Set(corrections.map(item=>item.replacementId)).size!==corrections.length) throw new Error('duplicate_correction');
+      const mapping=new Map(history.flatMap(item=>item.resolution?.kind==='corrected'?[[item.operation.operationId,item.resolution.replacementOperationId] as const]:[]));
+      for(const correction of corrections) {
+        const original=byId.get(correction.operationId);
+        if(!original||original.resolution?.kind==='corrected'||original.error.code==='id_content_conflict') throw new Error('operation_not_recoverable');
+        if(tx.get(sql`select operation_id from sync_mutations where account_id=${this.accountId} and operation_id=${correction.replacementId}`)) throw new Error('replacement_id_in_use');
+        mapping.set(correction.operationId,correction.replacementId);
+      }
+      const remap=(id:string):string=>{const seen=new Set<string>();while(mapping.has(id)) {
+        if(seen.has(id)) throw new Error('dependency_cycle');seen.add(id);id=mapping.get(id)!;
+      }return id;};
+      const habits=new Map<string,string>();
+      for(const item of history) {
+        if(item.operation.command.type!=='habit.create'||!mapping.has(item.operation.operationId)) continue;
+        const target=remap(item.operation.operationId),request=corrections.find(correction=>correction.replacementId===target);
+        const row=tx.get<Payload>(sql`select envelope as payload from sync_mutations where account_id=${this.accountId} and operation_id=${target}`);
+        const command=request?(request.command??byId.get(request.operationId)!.operation.command):row?(JSON.parse(row.payload) as Operation).command:null;
+        if(command?.type==='habit.create'&&command.habitId!==item.operation.command.habitId) habits.set(item.operation.command.habitId,command.habitId);
+      }
+      const ordered=corrections.slice().sort((a,b)=>byId.get(a.operationId)!.operation.clientSequence-byId.get(b.operationId)!.operation.clientSequence);
+      const replacements:Operation[]=[];
+      let sequence=tx.get<{next_sequence:number}>(sql`select next_sequence from sync_state where account_id=${this.accountId}`)!.next_sequence;
+      for(const correction of ordered) {
+        const original=byId.get(correction.operationId)!.operation;
+        if(sequence>=Number.MAX_SAFE_INTEGER) throw new Error('sequence_exhausted');
+        let command=correction.command??original.command;
+        if(command.type!==original.command.type) throw new Error('correction_type_mismatch');
+        if(command.type!=='habit.create'&&'habitId' in command) {
+          let habitId=command.habitId;const seen=new Set<string>();
+          while(habits.has(habitId)) {if(seen.has(habitId)) throw new Error('dependency_cycle');seen.add(habitId);habitId=habits.get(habitId)!;}
+          command={...command,habitId};
+        }
+        if(command.type==='habit.mark') {
+          const observedUndoIds=command.observedUndoIds.map(remap),retained=new Set(observedUndoIds);
+          if(original.command.type==='habit.mark'&&original.command.observedUndoIds.some(id=>!retained.has(remap(id)))) throw new Error('context_truncation_forbidden');
+          command={...command,observedUndoIds};
+        }
+        const dependsOn=new Set(original.dependsOn.map(remap));
+        if(command.type==='habit.mark') for(const id of command.observedUndoIds) {
+          if(corrections.some(item=>item.replacementId===id)||tx.get(sql`select operation_id from sync_mutations where account_id=${this.accountId} and operation_id=${id} and status!='acknowledged'`)) dependsOn.add(id);
+        }
+        const operation:Operation={...original,operationId:correction.replacementId,deviceId:this.deviceId,clientSequence:sequence++,
+          occurredAt:correction.occurredAt??original.occurredAt,dependsOn:[...dependsOn],command,supersedesOperationId:original.operationId};
+        tx.run(sql`insert into sync_mutations(account_id,operation_id,device_id,client_sequence,envelope,dependencies,status)
+          values(${this.accountId},${operation.operationId},${operation.deviceId},${operation.clientSequence},${JSON.stringify(operation)},${JSON.stringify(operation.dependsOn)},'pending')`);
+        const resolution:RecoveryResolution={kind:'corrected',replacementOperationId:operation.operationId};
+        tx.run(sql`update sync_mutations set error=json_set(error,'$.resolution',json(${JSON.stringify(resolution)}))
+          where account_id=${this.accountId} and operation_id=${original.operationId}`);
+        replacements.push(operation);
+      }
+      const graph=new Map(tx.all<Payload>(sql`select envelope as payload from sync_mutations where account_id=${this.accountId} and status!='acknowledged'`)
+        .map(row=>{const operation=JSON.parse(row.payload) as Operation;return [operation.operationId,operation.dependsOn] as const;}));
+      for(const operation of replacements) {
+        const visiting=[...operation.dependsOn],seen=new Set<string>();
+        while(visiting.length) {
+          const id=visiting.pop()!;if(id===operation.operationId) throw new Error('dependency_cycle');
+          if(seen.has(id)) continue;seen.add(id);visiting.push(...(graph.get(id)??[]));
+        }
+      }
+      tx.run(sql`update sync_state set next_sequence=${sequence} where account_id=${this.accountId}`);
+      this.rebuild(tx);return replacements;
+    });
+  }
   private rebuild(db=this.db) {
+    this.blockDependents(db);
     const projection=project(this.base(db),this.pending(db),'9999-12-31');
     db.run(sql`delete from projected_views where account_id=${this.accountId}`);
     db.run(sql`insert into projected_views(account_id,kind,entity_key,payload) values(${this.accountId},'xp','total',${JSON.stringify({totalXp:projection.totalXp})})`);
@@ -53,7 +175,7 @@ export class AccountStore {
   view(day:string) {
     this.guard();
     const pending=this.pending();
-    const rejected=this.db.get<{count:number}>(sql`select count(*) as count from sync_mutations where account_id=${this.accountId} and status='rejected'`)?.count??0;
+    const rejected=this.db.get<{count:number}>(sql`select count(*) as count from sync_mutations where account_id=${this.accountId} and status='rejected' and json_extract(error,'$.resolution') is null`)?.count??0;
     return {...project(this.base(),pending,day),pendingCount:pending.length,rejectedCount:rejected};
   }
   operations():Operation[] {this.guard();return this.pending();}
@@ -112,7 +234,10 @@ export class AccountStore {
   }
   private recognize(db:LocalDatabase,receipt:Receipt) {
     const status=receipt.status==='rejected'?'rejected':'acknowledged';
-    db.run(sql`update sync_mutations set status=${status},result=${JSON.stringify(receipt)},error=${receipt.status==='rejected'?JSON.stringify(receipt.error):null}
+    const local=db.get<{error:string|null}>(sql`select error from sync_mutations where account_id=${this.accountId} and operation_id=${receipt.operationId}`);
+    const resolution=local?.error?(JSON.parse(local.error) as RecoveryError).resolution:undefined;
+    const error=receipt.status==='rejected'?JSON.stringify({...receipt.error,...(resolution?{resolution}:{})}):null;
+    db.run(sql`update sync_mutations set status=${status},result=${JSON.stringify(receipt)},error=${error}
       where account_id=${this.accountId} and operation_id=${receipt.operationId}`);
   }
   private incorporate(db:LocalDatabase,entity:Entity) {

@@ -76,9 +76,11 @@ export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number
   try {
     try {await pull(store,api);}
     catch(error) {if(error instanceof SyncHttpError&&error.code==='resync_required') await recover(store,api);else throw error;}
-    const pending=store.readyOperations(now());
-    for(let offset=0;offset<pending.length;offset+=50) {
-      const batch=pending.slice(offset,offset+50);
+    const pending=new Set(store.readyOperations(now()).map(operation=>operation.operationId));
+    while(pending.size) {
+      const batch=store.readyOperations(now()).filter(operation=>pending.has(operation.operationId)).slice(0,50);
+      if(!batch.length) break;
+      for(const operation of batch) pending.delete(operation.operationId);
       store.beginAttempt(batch,now());
       let ack:{results:PushResult[];serverTime:string};
       try {ack=await api.push(batch);}

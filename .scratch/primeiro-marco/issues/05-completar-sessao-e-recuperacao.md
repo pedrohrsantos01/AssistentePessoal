@@ -68,3 +68,21 @@ Aceite: abertura/retorno ao primeiro plano/reconexão/período de cinco minutos 
 - Composição `openExpoRuntime` com adapters Expo, bundle Android verificado e cenário HTTP/Postgres/SQLite com ack perdido sem duplicação de XP.
 
 [Evidências e limitações](../../../docs/analises/2026-09-28-sincronizacao-automatica.md). A tarefa inteira continua aberta. Próximo incremento: recuperação de rejeições definitivas, correção com novos IDs/cadeias e validação de dependências/contexto. Permanecem a matriz ampliada de snapshot/migrations, HTTP nativo, operação e UI aprovada. Contadores de pull sem push e revogações são por execução; os dados a recuperar continuam persistidos.
+
+
+## Incremento de recuperação de rejeições — iniciado em 28/09/2026
+
+Próximo passo autorizado por Pedro: REQ-SYN-017 e M1-19. Manter as fronteiras já acordadas: interface pública do repositório por sessão, SQLite real e API HTTP/Postgres; relógio, armazenamento protegido e falhas externas são controláveis. O recorte expõe conteúdo/motivo/cadeia recuperável, correção atômica com novos IDs e `supersedesOperationId`, descarte explícito sem cascata silenciosa, bloqueio das dependentes e tratamento sem truncamento do limite de contexto. A validação de ciclos/dependências da API acompanha o mesmo fluxo. UI permanece subordinada ao protótipo.
+
+Implementação local proposta para o recorte: conservar envelopes/recibos e registrar a resolução local (`discarded` ou `corrected` com ID substituto) no JSON `error` já existente. Não adicionar tabela/coluna/estado de schema. Correções preservam a data original por padrão e remapeiam referências para operações substitutas; não reescrevem o envelope antigo. Conteúdo sem confirmação e resultado incerto não pode ser corrigido como se estivesse rejeitado.
+
+
+### Entregue no incremento de rejeições — 28/09/2026
+
+- Listagem recuperável com conteúdo, motivo, dependências, origem e resolução local; persiste após reinício e troca de conta.
+- Correção atômica com novos IDs/sequências e `supersedesOperationId`, remapeando dependências, contexto de desfazer e hábito substituto. Novos desfazeres locais observados também são dependências; ciclos na proposta de correção desfazem a transação.
+- Descarte somente dos itens escolhidos, preservando filhas; recibo repetido não reabre a resolução. Resultado incerto não é tratado como rejeição definitiva.
+- Bloqueio local de dependentes e contexto excessivo; reavaliação entre lotes; nenhuma referência truncada.
+- API ordena o lote, detecta ciclos inclusive sobrepostos e retorna os IDs que causam rejeição, mantendo recibos imutáveis. Fluxo HTTP/Postgres/SQLite valida correção após reinício e convergência sem duplicação de XP.
+
+[Evidências e limitações](../../../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md). A tarefa inteira continua aberta. Próximo recorte: matriz de snapshot/paginação/interrupção e recuperação de migrations sem perder pendências. UI, HTTP nativo, operação, resolução de conflitos de identidade incertos e ampliação segura de contexto continuam pendentes.
