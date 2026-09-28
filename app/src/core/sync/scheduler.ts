@@ -1,0 +1,98 @@
+import type {Session} from '../identity/session.ts';
+import {failureKind,retryDelay} from './retry.ts';
+
+export type SyncState={phase:'idle'|'running'|'retry_wait'|'failed'|'authentication_required'|'update_required'|'blocked'|'paused';failures:number;nextAttemptAt:number|null};
+export type SyncClock={now:()=>number;schedule:(delay:number,run:()=>void)=>()=>void};
+export type SyncEnvironment={active:boolean;online:boolean};
+export const systemClock:SyncClock={now:Date.now,schedule(delay,run){const timer=setTimeout(run,delay);return ()=>clearTimeout(timer);}};
+type Lane={state:SyncState;running:boolean;epoch:number;cancel:(()=>void)|null};
+const idle=():SyncState=>({phase:'idle',failures:0,nextAttemptAt:null});
+const lane=():Lane=>({state:idle(),running:false,epoch:0,cancel:null});
+export class SyncScheduler {
+  private environment:SyncEnvironment={active:false,online:false};
+  private stopped=false;
+  private lanes={sync:lane(),revocations:lane()};
+  private key:string|null;
+  private unsubscribe:()=>void;
+  constructor(private session:Session,private origin:string,private clock:SyncClock=systemClock) {
+    this.key=session.networkState().key;this.lanes.sync.state=this.restoredState();
+    this.unsubscribe=session.subscribe(()=>{
+      const key=session.networkState().key;
+      if(key!==this.key) {
+        this.key=key;this.lanes.sync.epoch++;this.lanes.sync.cancel?.();this.lanes.sync.cancel=null;this.lanes.sync.state=this.restoredState();
+      }
+      this.kick('sync');this.kick('revocations');
+    });
+  }
+  private restoredState():SyncState {
+    if(!this.key) return idle();
+    const retry=this.session.account().retryState();
+    if(retry.failedCount>0) return {phase:'failed',failures:retry.failures,nextAttemptAt:null};
+    return retry.nextAttemptAt===null?idle():{phase:'retry_wait',failures:retry.failures,nextAttemptAt:retry.nextAttemptAt};
+  }
+  private ready() {return !this.stopped&&this.environment.active&&this.environment.online;}
+  update(environment:SyncEnvironment) {
+    const wasReady=this.ready();this.environment=environment;
+    if(!this.ready()) for(const lane of Object.values(this.lanes)) {lane.cancel?.();lane.cancel=null;}
+    else if(!wasReady) {this.kick('sync');this.kick('revocations');}
+  }
+  status() {return {sync:{...this.lanes.sync.state},revocations:{...this.lanes.revocations.state}};}
+  retry() {
+    if(this.stopped) return;
+    for(const name of ['sync','revocations'] as const) {
+      const lane=this.lanes[name];
+      if(lane.running||!['idle','failed'].includes(lane.state.phase)) continue;
+      if(name==='sync'&&this.key) this.session.account().retryFailed();
+      lane.state=idle();this.kick(name);
+    }
+  }
+  private kick(name:'sync'|'revocations') {void this.run(name);}
+  private async run(name:'sync'|'revocations') {
+    const lane=this.lanes[name];
+    if(!this.ready()||lane.running) return;
+    const network=this.session.networkState();
+    if(name==='sync'&&!network.key||name==='revocations'&&!network.revocations) return;
+    if(!['idle','retry_wait','paused'].includes(lane.state.phase)) return;
+    lane.cancel?.();lane.cancel=null;
+    if(lane.state.nextAttemptAt!==null&&lane.state.nextAttemptAt>this.clock.now()) {
+      lane.cancel=this.clock.schedule(Math.min(lane.state.nextAttemptAt-this.clock.now(),2147483647),()=>this.kick(name));return;
+    }
+    const epoch=lane.epoch,key=network.key;
+    lane.running=true;lane.state={...lane.state,phase:'running',nextAttemptAt:null};
+    let delay:number|null=name==='sync'?300000:null;
+    try {
+      if(name==='sync') {
+        const pending=await this.session.synchronize(this.origin,this.clock.now,()=>this.ready()&&this.session.networkState().key===key);
+        if(this.stopped||epoch!==lane.epoch) return;
+        if(pending&&pending.failedCount>0) lane.state={phase:'failed',failures:pending.failures,nextAttemptAt:null};
+        else if(pending?.nextAttemptAt!==null&&pending?.nextAttemptAt!==undefined) {
+          delay=Math.max(0,pending.nextAttemptAt-this.clock.now());lane.state={phase:'retry_wait',failures:pending.failures,nextAttemptAt:pending.nextAttemptAt};
+        } else lane.state=idle();
+      } else {
+        await this.session.flushRevocations(()=>this.ready());
+        if(this.stopped) return;
+        lane.state=idle();
+      }
+    } catch(error) {
+      if(this.stopped||epoch!==lane.epoch) return;
+      const kind=failureKind(error);
+      const pending=name==='sync'&&this.key?this.session.account().retryState():null;
+      const failures=Math.max(lane.state.failures+1,pending?.failures??0);
+      if(kind==='retry'&&failures<10) {
+        delay=Math.max(retryDelay(failures,error,this.clock.now()),(pending?.nextAttemptAt??0)-this.clock.now());
+        lane.state={phase:'retry_wait',failures,nextAttemptAt:this.clock.now()+delay};
+      } else lane.state={phase:kind==='retry'?'failed':kind,failures:kind==='paused'?lane.state.failures:failures,nextAttemptAt:null};
+    } finally {
+      lane.running=false;
+      if(this.ready()) {
+        if(epoch!==lane.epoch) this.kick(name);
+        else if(delay!==null&&['idle','retry_wait'].includes(lane.state.phase))
+          lane.cancel=this.clock.schedule(Math.min(delay,2147483647),()=>this.kick(name));
+      }
+    }
+  }
+  dispose() {
+    this.stopped=true;this.unsubscribe();
+    for(const lane of Object.values(this.lanes)) {lane.cancel?.();lane.cancel=null;}
+  }
+}

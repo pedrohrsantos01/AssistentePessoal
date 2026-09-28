@@ -6,6 +6,15 @@ import type {Credentials,IdentityTransport,SecureVault} from './types.ts';
 
 type OpenAccount=(accountId:string,guard:()=>void)=>Promise<AccountStore>;
 export class Session {
+  private listeners=new Set<()=>void>();
+  subscribe(listener:()=>void) {this.listeners.add(listener);return ()=>{this.listeners.delete(listener);};}
+  private notify() {for(const listener of this.listeners) listener();}
+  networkState() {
+    const state=this.control.state();
+    return {key:this.store&&state.session_state==='active'?state.selected_account_id+':'+state.session_generation:null,
+      revocations:state.session_state!=='logging_out'&&this.control.keys().some(key=>key.purpose==='revocation'&&
+        (state.session_state!=='active'||key.key!==state.revoke_key))};
+  }
   private store:AccountStore|null=null;
   private credentials:Credentials|null=null;
   private serial:Promise<unknown>=Promise.resolve();
@@ -27,7 +36,7 @@ export class Session {
         throw new Error('session_locked');
     };
     const opened=await this.open(account,guard);
-    try {guard();this.store=opened;} catch(error) {opened.close();throw error;}
+    try {guard();this.store=opened;this.notify();} catch(error) {opened.close();throw error;}
   }
   account():AccountStore {
     if(!this.store||this.control.state().session_state!=='active') throw new Error('session_locked');
@@ -60,14 +69,15 @@ export class Session {
       await this.openCurrent();
     });
   }
-  async synchronize(origin:string) {
+  async synchronize(origin:string,now:()=>number=Date.now,allowed:()=>boolean=()=>true) {
     const store=this.account(),generation=this.control.state().session_generation;
     const api=new HttpSync(origin,store.accountId,async force=>{
+      if(!allowed()) throw new Error('sync_paused');
       this.assertGeneration(generation);
       const token=await this.accessToken(force);
-      this.assertGeneration(generation);return token;
+      this.assertGeneration(generation);if(!allowed()) throw new Error('sync_paused');return token;
     },this.nextId);
-    await synchronize(store,api);
+    return synchronize(store,api,now);
   }
   private renewal:Promise<string>|null=null;
   async accessToken(force=false):Promise<string> {
@@ -112,16 +122,18 @@ export class Session {
     this.close();
     return this.exclusive(async()=>{
       await this.cleanCredentials();
-      this.control.lock();
+      this.control.lock();this.notify();
     });
   }
-  flushRevocations():Promise<void> {
+  flushRevocations(allowed:()=>boolean=()=>true):Promise<void> {
     return this.exclusive(async()=>{
       for(const key of this.control.keys().filter(key=>key.purpose==='revocation')) {
         const current=this.control.state();
         if(current.session_state==='logging_out') throw new Error('session_locked');
         if(current.session_state==='active'&&current.revoke_key===key.key) continue;
+        if(!allowed()) throw new Error('sync_paused');
         const token=await this.vault.get(key.key);
+        if(!allowed()) throw new Error('sync_paused');
         if(token) await this.identity.revoke(token);
         await this.vault.remove(key.key);this.control.forget(key.key);
       }
@@ -146,5 +158,5 @@ export class Session {
       await this.openCurrent();
     });
   }
-  close() {this.store?.close();this.store=null;this.credentials=null;this.renewal=null;}
+  close() {this.store?.close();this.store=null;this.credentials=null;this.renewal=null;this.notify();}
 }

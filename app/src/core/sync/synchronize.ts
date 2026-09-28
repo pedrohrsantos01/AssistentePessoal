@@ -1,3 +1,4 @@
+import {failureKind} from './retry.ts';
 import type {AccountStore} from '../db/account-store.ts';
 import type {Entity,Operation,PushResult,Pull,Receipt} from './protocol.ts';
 import * as validate from './generated/validate.cjs';
@@ -6,7 +7,7 @@ type Manifest={snapshotId:string;highWaterRevision:string;expiresAt:string;entit
 type Page={snapshotId:string;highWaterRevision:string;entities:Entity[];complete:boolean;nextPageCursor:string|null;pullCursor:string|null};
 type AtCut=Receipt|{operationId:string;status:'notProcessedAtH'};
 export class SyncHttpError extends Error {
-  constructor(readonly status:number,readonly code:string) {super(code);}
+  constructor(readonly status:number,readonly code:string,readonly retryAfter:string|null=null) {super(code);}
 }
 export class HttpSync {
   constructor(private origin:string,readonly accountId:string,private token:(force?:boolean)=>string|Promise<string>,private nextId:()=>string) {}
@@ -20,11 +21,11 @@ export class HttpSync {
       headers.Authorization='Bearer '+await this.token(true);
       response=await fetch(this.origin+'/api/v1/sync/'+path,{...init,signal:AbortSignal.timeout(15000)});
     }
-    const result:unknown=await response.json();
+    const result:unknown=await response.json().catch(()=>undefined);
     if(!response.ok) {
       let code='http_error';
       if(result&&typeof result==='object'&&'error' in result&&result.error&&typeof result.error==='object'&&'code' in result.error&&typeof result.error.code==='string') code=result.error.code;
-      throw new SyncHttpError(response.status,code);
+      throw new SyncHttpError(response.status,code,response.headers.get('Retry-After'));
     }
     if(!check(result)) throw new Error('unsupported_protocol');
     return result as T;
@@ -68,24 +69,33 @@ async function recover(store:AccountStore,api:HttpSync) {
     }
   }
 }
-export async function synchronize(store:AccountStore,api:HttpSync) {
+export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number=Date.now) {
   if(store.accountId!==api.accountId) throw new Error('account_mismatch');
   if(running.has(store)) return;
   running.add(store);
   try {
     try {await pull(store,api);}
     catch(error) {if(error instanceof SyncHttpError&&error.code==='resync_required') await recover(store,api);else throw error;}
-    const pending=store.operations();
+    const pending=store.readyOperations(now());
     for(let offset=0;offset<pending.length;offset+=50) {
-      const batch=pending.slice(offset,offset+50),ack=await api.push(batch);
+      const batch=pending.slice(offset,offset+50);
+      store.beginAttempt(batch,now());
+      let ack:{results:PushResult[];serverTime:string};
+      try {ack=await api.push(batch);}
+      catch(error) {
+        if(failureKind(error)==='retry') store.retryLater(batch,error,now());
+        else store.cancelAttempt(batch);
+        throw error;
+      }
       const expected=new Set(batch.map(op=>op.operationId));
       for(const result of ack.results) {
         const id='receipt' in result?result.receipt.operationId:result.operationId;
         if(!expected.delete(id)) throw new Error('ack_mismatch');
       }
       if(expected.size) throw new Error('ack_mismatch');
-      store.applyAck(ack.results);
+      store.applyAck(ack.results,now());
     }
     await pull(store,api);
+    return store.retryState();
   } finally {running.delete(store);}
 }

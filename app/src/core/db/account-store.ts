@@ -1,4 +1,5 @@
 import { sql } from 'drizzle-orm';
+import {retryDelay} from '../sync/retry.ts';
 import type { BaseSQLiteDatabase } from 'drizzle-orm/sqlite-core';
 import { project } from '../../features/habits/domain/project.ts';
 import { entityKey } from '../sync/protocol.ts';
@@ -15,14 +16,16 @@ export class AccountStore {
       if(owner&&owner.account_id!==accountId) throw new Error('account_store_mismatch');
       tx.run(sql`insert into account_storage(account_id) values(${accountId}) on conflict do nothing`);
       tx.run(sql`insert into sync_state(account_id,next_sequence,onboarding_step) values(${accountId},1,'time_context') on conflict do nothing`);
-      tx.run(sql`update sync_mutations set status='pending' where account_id=${accountId} and status='in_flight'`);
+      tx.run(sql`update sync_mutations set status=case when attempts>=10 then 'blocked_local' else 'retry_wait' end,
+        error=case when attempts>=10 then ${JSON.stringify({code:'retry_exhausted'})} else error end
+        where account_id=${accountId} and status='in_flight'`);
     });
   }
   private base(db=this.db):Entity[] {
     return db.all<Payload>(sql`select payload from canonical_entities where account_id=${this.accountId}`).map(r=>JSON.parse(r.payload) as Entity);
   }
   private pending(db=this.db):Operation[] {
-    return db.all<Pending>(sql`select envelope,status from sync_mutations where account_id=${this.accountId} and status in ('pending','in_flight','retry_wait','deferred') order by client_sequence`)
+    return db.all<Pending>(sql`select envelope,status from sync_mutations where account_id=${this.accountId} and (status in ('pending','in_flight','retry_wait','deferred') or (status='blocked_local' and json_extract(error,'$.code')='retry_exhausted')) order by client_sequence`)
       .map(r=>JSON.parse(r.envelope) as Operation);
   }
   enqueue(command:Command,operationId:string,occurredAt:string):Operation {
@@ -54,6 +57,55 @@ export class AccountStore {
     return {...project(this.base(),pending,day),pendingCount:pending.length,rejectedCount:rejected};
   }
   operations():Operation[] {this.guard();return this.pending();}
+  readyOperations(now:number):Operation[] {
+    this.guard();
+    const rows=this.db.all<{envelope:string;status:string;next_attempt_at:string|null}>(sql`select envelope,status,next_attempt_at
+      from sync_mutations where account_id=${this.accountId} and status not in ('acknowledged','rejected') order by client_sequence`);
+    const operations=rows.map(row=>({...row,operation:JSON.parse(row.envelope) as Operation}));
+    const waiting=new Set(operations.map(row=>row.operation.operationId)),ready:Operation[]=[];
+    for(const row of operations) {
+      if(!['pending','retry_wait','deferred'].includes(row.status)||row.next_attempt_at&&Date.parse(row.next_attempt_at)>now) continue;
+      if(row.operation.dependsOn.some(id=>waiting.has(id))) continue;
+      ready.push(row.operation);waiting.delete(row.operation.operationId);
+    }
+    return ready;
+  }
+  beginAttempt(batch:Operation[],now:number) {
+    this.guard();
+    this.db.transaction(tx=>{for(const op of batch) {
+      const attempts=(tx.get<{attempts:number}>(sql`select attempts from sync_mutations where account_id=${this.accountId} and operation_id=${op.operationId}`)?.attempts??0)+1;
+      const next=new Date(now+retryDelay(attempts,null,now)).toISOString();
+      tx.run(sql`update sync_mutations set status='in_flight',attempts=${attempts},next_attempt_at=${next}
+        where account_id=${this.accountId} and operation_id=${op.operationId}`);
+    }});
+  }
+  cancelAttempt(batch:Operation[]) {
+    this.guard();
+    this.db.transaction(tx=>{for(const op of batch) tx.run(sql`update sync_mutations set status='pending',attempts=max(0,attempts-1),next_attempt_at=null
+      where account_id=${this.accountId} and operation_id=${op.operationId} and status='in_flight'`);});
+  }
+  retryLater(batch:Operation[],error:unknown,now:number) {
+    this.guard();
+    this.db.transaction(tx=>{for(const op of batch) {
+      const attempts=tx.get<{attempts:number}>(sql`select attempts from sync_mutations where account_id=${this.accountId} and operation_id=${op.operationId}`)?.attempts??1;
+      const next=new Date(now+retryDelay(attempts,error,now)).toISOString();
+      const status=attempts>=10?'blocked_local':'retry_wait',reason=attempts>=10?JSON.stringify({code:'retry_exhausted'}):null;
+      tx.run(sql`update sync_mutations set status=${status},next_attempt_at=${attempts>=10?null:next},error=${reason}
+        where account_id=${this.accountId} and operation_id=${op.operationId} and status='in_flight'`);
+    }});
+  }
+  retryState() {
+    this.guard();
+    const rows=this.db.all<{attempts:number;next_attempt_at:string|null;status:string}>(sql`select attempts,next_attempt_at,status from sync_mutations
+      where account_id=${this.accountId} and (status in ('retry_wait','deferred') or (status='blocked_local' and json_extract(error,'$.code')='retry_exhausted'))`);
+    const dates=rows.flatMap(row=>row.next_attempt_at?[Date.parse(row.next_attempt_at)]:[]);
+    return {failures:Math.max(0,...rows.map(row=>row.attempts)),nextAttemptAt:dates.length?Math.min(...dates):null,failedCount:rows.filter(row=>row.status==='blocked_local').length};
+  }
+  retryFailed() {
+    this.guard();
+    this.db.run(sql`update sync_mutations set status='pending',attempts=0,next_attempt_at=null,error=null where account_id=${this.accountId}
+      and status='blocked_local' and json_extract(error,'$.code')='retry_exhausted'`);
+  }
   cursor():string|null {
     this.guard();
     return this.db.get<{cursor:string|null}>(sql`select cursor from sync_state where account_id=${this.accountId}`)?.cursor??null;
@@ -74,14 +126,20 @@ export class AccountStore {
       values(${this.accountId},${entity.kind},${key},${entity.value.revision},${JSON.stringify(entity)})
       on conflict(account_id,kind,entity_key) do update set revision=excluded.revision,payload=excluded.payload`);
   }
-  applyAck(results:PushResult[]) {
+  applyAck(results:PushResult[],now:number=Date.now()) {
     this.guard();
     this.db.transaction(tx=>{
       for(const result of results) {
         if('receipt' in result) {
           this.recognize(tx,result.receipt);
           for(const entity of result.projections??[]) this.incorporate(tx,entity);
-        } else tx.run(sql`update sync_mutations set status='deferred' where account_id=${this.accountId} and operation_id=${result.operationId}`);
+        } else {
+          const attempts=tx.get<{attempts:number}>(sql`select attempts from sync_mutations where account_id=${this.accountId} and operation_id=${result.operationId}`)?.attempts??0;
+          const status=attempts>=10?'blocked_local':'deferred',error=attempts>=10?JSON.stringify({code:'retry_exhausted'}):null;
+          const next=attempts>=10?null:new Date(now+retryDelay(attempts,null,now)).toISOString();
+          tx.run(sql`update sync_mutations set status=${status},next_attempt_at=${next},error=${error}
+            where account_id=${this.accountId} and operation_id=${result.operationId}`);
+        }
       }
       this.rebuild(tx);
     });

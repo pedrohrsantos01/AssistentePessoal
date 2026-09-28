@@ -283,6 +283,8 @@ Um banco por conta, selecionado somente após autenticar o `accountId`; depois, 
 
 Nas bases canônicas, comparar revisões por entidade antes de substituir dados; uma página de pull antiga não regride um fato mais novo já recebido por ack. Na aplicação da página, atualizar base, confirmações de operações, projeções e cursor atomicamente. No snapshot, consultar os recibos pendentes vinculados ao corte `H` antes de recompor a projeção (spec/13 §7). Registro local cria intenção e projeção na mesma transação. As credenciais no SecureStore exigem rotina de recuperação própria; não alegar transação atômica entre SecureStore e SQLite.
 
+Concretização do retry em 28/09/2026: antes do push, `attempts` e `next_attempt_at` são persistidos junto ao estado `in_flight`; um reinício conserva o envelope e a espera. Até dez tentativas transitórias, usar `retry_wait` (ou `deferred` para dependência ainda ausente); ao esgotar, `blocked_local` com `error.code = retry_exhausted` representa o estado público `failed`. Esse bloqueio não é rejeição do servidor: mantém intenção e projeção pendentes. A ação explícita de tentar novamente restaura `pending`, zera tentativas/erro/prazo e conserva ID, sequência, conteúdo e dependências. Rejeições definitivas não são reativadas por essa ação. Usa os campos e estados existentes, sem mudança de schema ou migration.
+
 Essa proposta substitui, no M1, `habit_logs` como única fonte de histórico e o antigo `sync_state.last_pulled_at` como cursor. O ID canônico preserva o papel lógico de `source_type=habit_log`; nomes físicos podem ser ajustados no DDL sem mudar o comportamento.
 
 ### 12.4 Critérios antes das migrations

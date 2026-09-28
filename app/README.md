@@ -15,7 +15,17 @@ A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `
 
 `AccountStore.enqueue` grava a intenção imutável, sequência e projeção na mesma transação síncrona. Recebimento de ack atualiza entidades por revisão e não avança o cursor; pull reconhece recibos antes de reaplicar pendências. O snapshot usa staging no mesmo banco. Não há `await` dentro de transações Drizzle, evitando o alistamento de consultas assíncronas externas.
 
-`synchronize` recebe um transporte vinculado à mesma conta, valida respostas geradas do OpenAPI, recupera snapshot quando necessário e troca lotes de até 50 operações. Erros preservam o banco. O uso autenticado passa por `Session.synchronize`, que verifica a geração da sessão e renova acesso quando necessário. Scheduler/backoff continuam pendentes.
+`synchronize` recebe um transporte vinculado à mesma conta, valida respostas geradas do OpenAPI, recupera snapshot quando necessário e troca lotes de até 50 operações. Erros preservam o banco. O uso autenticado passa por `Session.synchronize`, que verifica a geração da sessão e renova acesso quando necessário. O scheduler automático e o backoff estão descritos abaixo; o aceite visual e a rede nativa em aparelho permanecem pendentes.
+
+## Sincronização automática
+
+`openExpoRuntime(origin)` compõe identidade HTTP, sessão, SQLite/SecureStore e scheduler. A futura entrada do app deve manter uma instância e chamar `close()` no encerramento. `runtime.sync.status()` expõe o estado de sync e revogações; `runtime.sync.retry()` retoma falhas transitórias esgotadas preservando os IDs. O harness atual mantém seu transporte fictício; ainda não usa essa fábrica.
+
+O adapter combina AppState com expo-network 57.0.2. Abertura, login, retorno ao primeiro plano, reconexão e o período de cinco minutos acionam a sincronização com rede. Enquanto o app estiver inativo ou sem conectividade, nenhum novo envio automático começa; uma resposta já em trânsito pode ser reconciliada. `close()` remove listeners e timers.
+
+Falhas transitórias esperam 1s, 2s, 4s até cinco minutos; um `Retry-After` válido pode exigir mais tempo. Após dez falhas, o núcleo expõe `failed`. Para push, tentativas, prazo e esgotamento ficam no SQLite e sobrevivem ao reinício. Pull sem push e revogações mantêm contadores de retry somente nesta execução; as intenções e capacidades de revogação continuam duráveis. Reautenticação e atualização de protocolo têm estados próprios, sem retry automático infinito. A UI de aviso/ação ainda depende do protótipo.
+
+[Evidências, reprodução e limites deste incremento](../docs/analises/2026-09-28-sincronizacao-automatica.md).
 
 ## Arquivos gerados e migrations
 
@@ -49,7 +59,7 @@ iPhone: nenhum build instalado ou teste físico realizado; a rota a partir do Wi
 
 `openExpoSession(new HttpIdentity(origin))` abre o controle da instalação, recupera interrupções e devolve a sessão. Uma instância é dona do controle por processo; fechá-la libera os bancos, sem executar logout. A UI futura deve obter seu repositório via `Session.account()`, nunca abrir diretamente o arquivo de outra conta. `register`/`login` fazem autenticação online; `accessToken` concentra renovações simultâneas. O transporte HTTP renova e repete no máximo uma vez após 401.
 
-`logout` grava o fence no SQLite antes de esperar pelo SecureStore e funciona sem rede. Falha na limpeza mantém `logging_out`; `restore` retoma essa limpeza. `flushRevocations` envia capacidades pendentes, preservando a da sessão ativa, e deve ser chamado pela futura rotina de conectividade. O scheduler dessa rotina ainda não existe. Erros de autenticação não apagam dados e permitem reautenticar a mesma conta sem logout; trocar para outra conta exige logout explícito.
+`logout` grava o fence no SQLite antes de esperar pelo SecureStore e funciona sem rede. Falha na limpeza mantém `logging_out`; `restore` retoma essa limpeza. `flushRevocations` envia capacidades pendentes, preservando a da sessão ativa. O scheduler retoma essa fila ao reconectar, inclusive sem conta ativa, com espera independente da sincronização de domínio. Erros de autenticação não apagam dados e permitem reautenticar a mesma conta sem logout; trocar para outra conta exige logout explícito.
 
 `drizzle-control/` migra `installation.db` separadamente dos bancos por conta. O registro contém somente IDs, estados e referências opacas; credenciais ficam no SecureStore com acesso enquanto o dispositivo está desbloqueado e sem migração para outro aparelho no iOS. Não foi habilitada biometria. A instalação nativa usa Crypto 57.0.3 e SecureStore 57.0.4, conforme o SDK 57. O plugin exclui SecureStore do backup Android; isso não constitui backup das pendências nem criptografia de todo SQLite.
 

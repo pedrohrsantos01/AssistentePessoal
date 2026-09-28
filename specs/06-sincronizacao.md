@@ -54,6 +54,14 @@ Salvar uma edição de regra de hábito offline confirma sua persistência como 
 
 **REQ-SYN-009** — Tombstones: registros com `deleted_at` são retornados no pull para propagar exclusão. Retenção de 90 dias.
 
+### 3.1 Recorte implementado em 28/09/2026
+
+REQ-SYN-005/008 têm núcleo, adapters Expo e testes: sync na abertura/login, retorno ao primeiro plano, reconexão e a cada cinco minutos; timers/envios seguintes pausam sem rede ou fora do primeiro plano. Gatilhos concorrentes são agrupados; uma resposta em trânsito pode concluir, mas a geração da sessão impede aplicar dados de outra conta. O scheduler consulta o prazo persistido antes da primeira requisição após reiniciar. Revogações pendentes usam execução independente da conta ativa.
+
+Falhas de rede, timeout e HTTP 408/429/5xx seguem backoff; `Retry-After` em segundos ou data HTTP estabelece espera mínima, inclusive acima de cinco minutos. Gatilhos de conectividade/foreground e retry manual não encurtam essa espera. Dez falhas expõem `failed`; o retry explícito preserva o envelope. Persistência de tentativas de push: spec/00 §12.3. Contadores de pull sem push e de revogações ficam em memória por execução; fila e segredos continuam duráveis. HTTP 401/426 e falhas não transitórias interrompem tentativas automáticas e preservam dados.
+
+O núcleo expõe estado e ação para a futura UI. Aviso visual, correção/descarte de rejeições e modo completo de leitura local por atualização obrigatória ainda não estão entregues. O adapter nativo foi empacotado para Android; execução HTTP em aparelho e aceite iPhone/Android continuam pendentes. [Relatório e testes](../docs/analises/2026-09-28-sincronizacao-automatica.md).
+
 ## 4. Conflitos
 
 **REQ-SYN-010 — Reconciliação por significado da alteração.** Aceito em R3-Q11 a Q14, [ADR-017](../docs/adr/0017-reconciliacao-de-registros-e-correcoes.md). Alterações em campos independentes são combinadas: mudar título em um aparelho e prazo em outro preserva ambas. Campos dependentes, como meta e unidade, exigem validação conjunta; não combinar cegamente.

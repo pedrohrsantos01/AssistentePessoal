@@ -237,9 +237,18 @@ Executar cenários pelo ponto de entrada real do módulo/repositório. Testes de
 ## 10. O que falta para liberar implementação
 
 1. Preparação concluída: [contratos executáveis](../contracts/primeiro-marco/README.md) com 11 endpoints, 51 schemas e 48 fixtures após o ajuste de refresh. DDL incorporado ao modelo; migrations/roles e testes de integração já executados no recorte técnico, com cobertura parcial da matriz M1 registrada nos relatórios.
-2. Baseline e caminhos de build documentados na [pesquisa de stack](../docs/analises/2026-09-25-stack-e-build-primeiro-marco.md). Java 21 preservado; Boot 4.1.1/Modulith 2.1.1 substituem a linha Boot 3 sem suporte aberto. Ainda executar resolução de dependências, builds e testes. Pedro informou não ter assinatura Apple Developer; rota EAS física no iPhone depende disso ou de alternativa local com Mac.
+2. Baseline e caminhos de build documentados na [pesquisa de stack](../docs/analises/2026-09-25-stack-e-build-primeiro-marco.md). Java 21 preservado; Boot 4.1.1/Modulith 2.1.1 substituem a linha Boot 3 sem suporte aberto. Dependências, build Android técnico e testes locais/integrados já foram executados nos recortes documentados; o aceite completo nos aparelhos permanece pendente. Pedro informou não ter assinatura Apple Developer; rota EAS física no iPhone depende disso ou de alternativa local com Mac.
 3. Definir configuração operacional de e-mail, segredos, deploy e restore de backup, sem gravar credenciais nos docs.
-4. Transformar M1-01 a M1-20 em fixtures/testes dos contratos na primeira entrega de código. Ainda não há alegação de que esses testes passaram.
+4. Completar M1-01 a M1-20 com fixtures/testes de implementação. A cobertura parcial está registrada nos relatórios; a matriz inteira ainda não passou.
 5. Integrar o protótipo quando Pedro o concluir; até lá, manter o gate visual aberto. Não transformar esse gate em impedimento para documentar e testar o domínio.
 
 Contextos têm limite técnico explícito e não podem ser truncados. Recovery, retenção e snapshot foram concretizados no README dos contratos. Saldo parcial de XP não é alcançável pelo recorte válido do M1; continua decisão necessária antes de incrementos que reduzam N ou adicionem outros prêmios. Nenhum desses detalhes autoriza mudar silenciosamente decisões de produto.
+
+
+## 11. Incremento de execução automática — 28/09/2026
+
+O scheduler implementa o núcleo de REQ-SYN-005/008, preservando contratos HTTP m1.1 e schema SQLite. Tentativas transitórias de push são duráveis; o estado público `failed` corresponde a `blocked_local`/`retry_exhausted`, conforme spec/00 §12.3. Retry conserva a operação original; correção de rejeição definitiva continua exigindo operação nova. Backoff e Retry-After valem mesmo após um novo gatilho de rede/foreground.
+
+Geração de sessão protege os ciclos em andamento na troca de conta; revogações usam fila independente, inclusive após logout sem outra conta ativa. A fábrica nativa reúne sessão, rede e ciclo de vida. Testes exercitam reinício, ack perdido, não duplicação de XP, espera persistida, limites, 401/426 e A/B. Isso amplia a evidência de M1-02/07/10/11/18 sem declarar esses cenários integralmente aceitos nos aparelhos.
+
+UI de aviso/correção, leitura local obrigatória por atualização, contexto/ciclos, matriz ampliada de snapshots/migrations e operação real continuam pendentes. [Evidências, comandos e limites](../docs/analises/2026-09-28-sincronizacao-automatica.md).

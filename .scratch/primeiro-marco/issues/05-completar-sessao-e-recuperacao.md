@@ -51,3 +51,20 @@ Continuação autorizada: endpoints HTTP reais de Identity, mensagem recebida em
 - Configuração operacional e limites documentados; nenhum envio externo ou aceite nativo declarado.
 
 [Evidências e lacunas](../../../docs/analises/2026-09-27-recuperacao-de-senha.md). A tarefa continua aberta. Próximo recorte proposto: scheduler/backoff e retomada de revogações ao reconectar, sem depender do protótipo. Rate limiting e configuração real permanecem obrigatórios antes de exposição externa.
+
+
+## Incremento de sincronização automática — iniciado em 27/09/2026
+
+Continuação autorizada por Pedro após a priorização do próximo passo. Recorte: REQ-SYN-005/008, retomada de revogações e preservação das garantias de sessão. Fronteiras de teste mantidas: sessão pública, repositório SQLite real e HTTP; relógio, ciclo de vida, conectividade e cofre são fronteiras externas controláveis. O scheduler será exercitado por essas interfaces, sem mocks dos módulos internos.
+
+Aceite: abertura/retorno ao primeiro plano/reconexão/período de cinco minutos acionam sync; não há envios automáticos offline ou em segundo plano; espera crescente e limite de tentativas não descartam intenções; logout e troca de conta invalidam trabalho antigo; revogações pendentes retomam independentemente de haver conta ativa. A interface visual de aviso/retry continua subordinada ao protótipo; o núcleo deve expor seu estado e ação de retry.
+
+
+### Entregue no incremento de sincronização automática — 28/09/2026
+
+- Scheduler com gatilhos de abertura/login, foreground, conectividade e intervalo; pausa de novos envios e encerramento de listeners/timers.
+- Backoff, Retry-After, limite de dez falhas e retry explícito; tentativas/deadlines de push sobrevivem ao reinício sem mudar IDs/conteúdo ou descartar projeções.
+- Revogações retomadas mesmo sem conta ativa; troca A/B invalida resultados antigos e não bloqueia o sync da conta atual.
+- Composição `openExpoRuntime` com adapters Expo, bundle Android verificado e cenário HTTP/Postgres/SQLite com ack perdido sem duplicação de XP.
+
+[Evidências e limitações](../../../docs/analises/2026-09-28-sincronizacao-automatica.md). A tarefa inteira continua aberta. Próximo incremento: recuperação de rejeições definitivas, correção com novos IDs/cadeias e validação de dependências/contexto. Permanecem a matriz ampliada de snapshot/migrations, HTTP nativo, operação e UI aprovada. Contadores de pull sem push e revogações são por execução; os dados a recuperar continuam persistidos.

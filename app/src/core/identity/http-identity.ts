@@ -1,7 +1,7 @@
 import * as validate from '../sync/generated/validate.cjs';
 import type {Credentials,RenewedCredentials,IdentityTransport} from './types.ts';
 export class IdentityHttpError extends Error {
-  constructor(readonly status:number,readonly code:string) {super(code);}
+  constructor(readonly status:number,readonly code:string,readonly retryAfter:string|null=null) {super(code);}
 }
 export class HttpIdentity implements IdentityTransport {
   constructor(private origin:string) {}
@@ -10,9 +10,9 @@ export class HttpIdentity implements IdentityTransport {
       headers:{'Content-Type':'application/json','X-Ritmo-Protocol':'m1.1','X-App-Version':'0.1.0'},
       body:JSON.stringify(body),signal:AbortSignal.timeout(15000)});
     if(!response.ok) {
-      const result:unknown=await response.json();let code='http_error';
+      const result:unknown=await response.json().catch(()=>undefined);let code='http_error';
       if(result&&typeof result==='object'&&'error' in result&&result.error&&typeof result.error==='object'&&'code' in result.error&&typeof result.error.code==='string') code=result.error.code;
-      throw new IdentityHttpError(response.status,code);
+      throw new IdentityHttpError(response.status,code,response.headers.get('Retry-After'));
     }
     return response.status===204||response.status===202?undefined:await response.json() as unknown;
   }

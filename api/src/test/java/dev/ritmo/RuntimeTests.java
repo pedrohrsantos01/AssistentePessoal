@@ -488,4 +488,18 @@ class RuntimeTests {
         post("auth/password-reset/confirm",null,dev.ritmo.shared.Json.object().put("resetToken",token).put("newPassword",password).toString(),204);
         post("auth/login",null,login.put("password",password).toString(),200);
     }
+    @Test void automaticSyncConvergesAfterLostAckAndFlushesOfflineRevocation() throws Exception {
+        var log=java.nio.file.Path.of("build/mobile-scheduler.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/scheduler.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
 }
