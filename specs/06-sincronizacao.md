@@ -100,6 +100,8 @@ Para desfazer conclusão recorrente, aplicar a regra específica de REQ-TAR-005b
 
 **REQ-SYN-013** — Se a migration falhar, o app entra em modo de recuperação. Ressincronizar do servidor não pode apagar a única cópia de pendências locais, inclusive de contas sem sessão ativa: é necessário preservá-las e preservar os dados necessários à sua recuperação antes de reconstruir o banco. Sem recuperação segura, interromper a reconstrução e informar o problema; descarte exige escolha explícita. O procedimento técnico será definido com o contrato de migrations.
 
+Concretização parcial em 28/09/2026: abertura de conta/instalação recusa histórico Drizzle desconhecido e devolve erro tipado quando a migration falha. Fecha o handle e interrompe a abertura, preservando arquivos e pendências; não reconstrói bancos automaticamente. Testes com SQLite real exercitam rollback, nova tentativa, conta inativa e fence de logout. A UI de recuperação e eventual exportação/reparo de arquivo corrompido continuam pendentes; [relatório](../docs/analises/2026-09-28-abertura-segura.md).
+
 ## 5.1 Compatibilidade entre versões do app
 
 **REQ-SYN-014** — Dois aparelhos do mesmo usuário podem estar em versões diferentes do app. Regras:

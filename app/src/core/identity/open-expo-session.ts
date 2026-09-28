@@ -3,6 +3,7 @@ import {openDatabaseSync} from 'expo-sqlite';
 import {drizzle} from 'drizzle-orm/expo-sqlite';
 import {migrate} from 'drizzle-orm/expo-sqlite/migrator';
 import migrations from '../../../drizzle-control/migrations.ts';
+import {migrateLocalDatabase} from '../db/local-migrations.ts';
 import {openExpoStore} from '../db/open-expo-store.ts';
 import {InstallationStore} from './installation-store.ts';
 import {Session} from './session.ts';
@@ -20,7 +21,7 @@ export async function openExpoSession(identity:IdentityTransport) {
   const sqlite=openDatabaseSync('installation.db');
   try {
     sqlite.execSync('PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;');
-    const db=drizzle(sqlite);await migrate(db,migrations);
+    const db=drizzle(sqlite);await migrateLocalDatabase(db,migrations.journal,'installation.db',()=>migrate(db,migrations));
     const control=new InstallationStore(db,nativeId());
     const session=new Session(control,secureVault,identity,
       (account,guard)=>openExpoStore(account,control.state().device_id,guard),nativeId);

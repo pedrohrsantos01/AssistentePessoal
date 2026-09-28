@@ -50,6 +50,10 @@ O primeiro comando gera validadores de resposta sem compilação dinâmica no ap
 
 A migration inicial corresponde ao DDL aprovado. Para uma evolução, adicionar SQL/journal, atualizar spec/00, gerar o bundle e testar preservação de uma base anterior. Não fazer reset do banco para recuperar migration falha. As migrations são SQL revisado; não existe geração automática de tabelas a partir de um schema TypeScript neste recorte.
 
+A abertura nativa de `installation.db` e de cada `account-<id>.db` verifica o histórico Drizzle antes de aplicar migrations. Histórico desconhecido, mais novo ou divergente gera `LocalRecoveryRequired` com `code=local_schema_not_supported`; uma falha do migrator gera `local_migration_failed`. O erro identifica o banco e a abertura fecha seu handle. A camada de apresentação futura deve traduzir o código, sem exibir SQL/causas internas, e orientar atualização compatível ou nova tentativa após corrigir a falha.
+
+Não há reconstrução ou limpeza automática: arquivos das contas, intenções e referências protegidas ficam preservados. O migrator oficial continua responsável pela transação; os testes injetam uma migration seguinte descartável que altera dados e falha, reabrem a versão anterior e depois aplicam a correção. Esse teste não substitui uma fixture da versão anterior para cada migration futura de produção. [Evidências e limites](../docs/analises/2026-09-28-abertura-segura.md).
+
 ## Harness Android
 
 `harness/index.ts` é somente um teste nativo sem interface visual. Usa SQLite e SecureStore reais com um transporte de identidade fictício, troca entre A/B e escreve somente o resultado não sensível em `RITMO_HARNESS`. A segunda execução verifica pendências e sessão protegida após reiniciar o processo. O teste HTTP real usa a suíte integrada de desktop; não equivale à rede nativa Android. Não é o Briefing nem define a identidade visual.
