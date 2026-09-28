@@ -86,3 +86,19 @@ Implementação local proposta para o recorte: conservar envelopes/recibos e reg
 - API ordena o lote, detecta ciclos inclusive sobrepostos e retorna os IDs que causam rejeição, mantendo recibos imutáveis. Fluxo HTTP/Postgres/SQLite valida correção após reinício e convergência sem duplicação de XP.
 
 [Evidências e limitações](../../../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md). A tarefa inteira continua aberta. Próximo recorte: matriz de snapshot/paginação/interrupção e recuperação de migrations sem perder pendências. UI, HTTP nativo, operação, resolução de conflitos de identidade incertos e ampliação segura de contexto continuam pendentes.
+
+
+## Incremento de snapshot e abertura segura — iniciado em 28/09/2026
+
+Continuação autorizada por Pedro. Manter as fronteiras de teste aprovadas: repositório/sessão públicos, abertura de SQLite real e HTTP/Postgres; transporte, relógio e falhas de armazenamento são controláveis. Exercitar cópia interrompida/expirada, recibos ao corte H incluindo escritas durante a cópia, paginação acima de 500 e falha de migration sem apagar pendências de contas ativas ou inativas. Reutilizar staging e campos existentes; uma cópia interrompida pode reiniciar do manifesto, conservando a base anterior até o swap. A recuperação de migration deve bloquear a abertura e permitir nova tentativa, sem reconstrução automática quando a preservação não é comprovada.
+
+
+### Entregue no incremento de snapshot e abertura segura — 28/09/2026
+
+- Staging por página com base anterior disponível; cópia expirada/inacessível reinicia de forma limitada. Interrupção/reabertura preserva fila, conteúdo e rejeições.
+- Recibos exatamente correspondentes ao lote, reconhecimento vinculado a H e novas escritas locais incluídas antes do swap. Feed após H antecede novo push.
+- Troca de base, cursor, projeções e confirmações atômica, com falha real de SQLite e reabertura exercitadas.
+- HTTP/Postgres/SQLite reais com 501 mudanças, 502 entidades no snapshot, escrita entre páginas, resposta perdida, 54 pendências e dois clientes convergentes. Expiração e isolamento de snapshots/recibos exercitados na API; cursor de outra conta recebe 404.
+- Abertura protegida contra histórico de schema desconhecido, com erro de recuperação tipado; migrations de fixture provam rollback/retry e preservação de conta inativa, conta ativa e fence de logout. Não há schema novo de produção.
+
+[Evidências, comandos e limites](../../../docs/analises/2026-09-28-snapshots-e-migrations.md). A tarefa inteira e o M1 continuam abertos. Próximo recorte recomendado: cumprir o modo somente leitura local de REQ-SYN-014 ao exigir atualização; depois ampliar o harness para HTTP real no Android. Matriz restante de concorrência/relógios/fusos, exclusão/tombstones, operação e UI continuam pendentes.

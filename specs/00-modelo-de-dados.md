@@ -291,6 +291,8 @@ Novas operações de correção, sequências, vínculos e projeções são grava
 
 Essa proposta substitui, no M1, `habit_logs` como única fonte de histórico e o antigo `sync_state.last_pulled_at` como cursor. O ID canônico preserva o papel lógico de `source_type=habit_log`; nomes físicos podem ser ajustados no DDL sem mudar o comportamento.
 
+Concretização do staging em 28/09/2026: `snapshot_staging` recebe cada página validada na mesma transação que avança `sync_state.snapshot_cursor`. Os campos existentes `snapshot_id`, `snapshot_revision` e `snapshot_expires_at` identificam a cópia; cursor nulo indica que as páginas terminaram. A quantidade esperada vem do manifesto da execução e é conferida novamente contra o staging antes do swap. Não há coluna nova. Depois de interrupção, solicitar manifesto novo e substituir somente o staging; não retomar uma cópia antiga usando metadados incompletos. Base, confirmações, projeções e cursor mudam numa transação final. [Evidências](../docs/analises/2026-09-28-snapshots-e-migrations.md).
+
 ### 12.4 Critérios antes das migrations
 
 1. Schemas completos dos comandos/respostas, limites de campos, normalização/hash canônicos e política para dependências rejeitadas; exemplos devem usar revisões string.

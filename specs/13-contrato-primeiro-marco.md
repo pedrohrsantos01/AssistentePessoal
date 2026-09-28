@@ -261,3 +261,12 @@ UI de aviso/correção, leitura local obrigatória por atualização, contexto/c
 M1-19 e o núcleo de REQ-SYN-017 têm recuperação local testada por interfaces públicas, SQLite e API/Postgres reais: preservar rejeição/cadeia, corrigir com novas identidades/referências ou resolver somente o descarte escolhido. M1-11 foi ampliado para distinguir resultado incerto de rejeição recuperável e manter isolamento entre contas. A resolução local usa o JSON já existente, sem alterar schemas HTTP ou DDL.
 
 Contexto excedente fica preservado e bloqueado, sem compactação/truncamento. Correção que criaria ciclo é recusada atomicamente. Ciclos do lote e dependências rejeitadas têm respostas definitivas; nenhuma prova de rejeição é inferida de dependência ausente. [Relatório e limites](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md). UI e aceite nos aparelhos continuam abertos; a matriz M1 completa ainda não está aceita.
+
+
+## 13. Incremento de snapshots e abertura segura — 28/09/2026
+
+M1-13/18 receberam validação adicional: 501 envelopes de feed, snapshot com 502 entidades, corte H estável apesar de escrita entre páginas, recibos em lotes e cópia interrompida com novas ações locais. A cópia usa staging por página; uma nova execução reinicia pelo manifesto sem substituir a base incompleta. Snapshot inacessível/expirado reinicia uma vez e depois cede ao backoff limitado. Cursor sem progresso ou corte divergente interrompe a página sem avançar o cursor. A troca reconhece somente recibos compatíveis com H e retoma o feed antes de novos envios.
+
+A abertura dos bancos locais interrompe schema desconhecido ou migration falha com erro tipado, preservando arquivos e intenções. Não há reconstrução automática nem mudança de schema neste incremento. A API responde `404 resource_inaccessible` para cursor de snapshot inválido/de outra conta; cursor inválido de pull mantém `409 resync_required`.
+
+[Validação conjunta e limites](../docs/analises/2026-09-28-snapshots-e-migrations.md); [abertura/migrations](../docs/analises/2026-09-28-abertura-segura.md). O teste de migration usa uma evolução descartável sobre a base inicial real; cada evolução de produção futura continua exigindo sua própria fixture. M1-13 não está integralmente aceito: exclusão/tombstones, reparo de corrupção física e UI ainda dependem de seus recortes. Modo somente leitura obrigatório por versão incompatível e HTTP nativo permanecem próximos passos, com UI subordinada ao protótipo.

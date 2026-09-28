@@ -28,6 +28,9 @@ class Cursors {
             var value=Json.read(new String(Base64.getUrlDecoder().decode(parts[0]),StandardCharsets.UTF_8));
             if(!value.path("user").asString().equals(user)||!value.path("kind").asString().equals(kind)) throw new IllegalArgumentException();
             return value;
-        } catch(RuntimeException e) {throw new HttpFailure(409,"resync_required");}
+        } catch(RuntimeException e) {
+            if(kind.equals("snapshot")) throw new HttpFailure(404,"resource_inaccessible");
+            throw new HttpFailure(409,"resync_required");
+        }
     }
 }

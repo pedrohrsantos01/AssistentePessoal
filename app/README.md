@@ -39,6 +39,14 @@ Rejeição retira a intenção e suas filhas bloqueadas da projeção aplicada. 
 
 O limite de 4096 referências bloqueia o envio sem cortar contexto. Corrigir não permite remover referências de desfazer para contornar esse limite; o conteúdo continua recuperável até tratamento técnico explícito ou descarte escolhido. A UI de aviso/seleção ainda depende do protótipo. [Evidências e limites](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md).
 
+## Recuperação de snapshot
+
+O cliente copia cada página para `snapshot_staging` no banco da conta. A base atual e as intenções locais continuam disponíveis até a troca final. Verifica identidade/corte H, progresso de cursor, quantidade de entidades e recibos exatamente correspondentes aos IDs consultados; aceitação/reconciliação posterior a H não confirma uma intenção nessa base.
+
+Ao receber snapshot inacessível/expirado, inicia uma nova cópia uma vez; uma segunda falha devolve `snapshot_retry_required` ao backoff limitado do scheduler. Interrupção por rede ou reinício conserva a base e a fila; a próxima recuperação solicita outro manifesto e substitui somente o staging antigo. Não há retomada da página exata de uma cópia anterior.
+
+Ações gravadas durante as requisições entram nas consultas de recibos, em lotes de 50. A seleção final e a troca são síncronas: base, reconhecimentos, projeções e cursor confirmam juntos. Rejeições/resoluções locais permanecem. Após a troca, ler o feed depois de H antes de enviar pendências. [Evidências e limites](../docs/analises/2026-09-28-snapshots-e-migrations.md).
+
 ## Arquivos gerados e migrations
 
 ```powershell

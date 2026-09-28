@@ -40,32 +40,58 @@ export class HttpSync {
 }
 const running=new WeakSet<AccountStore>();
 async function pull(store:AccountStore,api:HttpSync) {
+  let high:string|null=null;
+  const visited=new Set<string>();
   for(;;) {
-    const page=await api.pull(store.cursor());store.applyPull(page);
+    const cursor=store.cursor();if(cursor) visited.add(cursor);
+    const page=await api.pull(cursor);
+    if(high!==null&&page.highWaterRevision!==high||page.hasMore&&(!page.changes.length||visited.has(page.nextCursor))) throw new Error('pull_mismatch');
+    high=page.highWaterRevision;
+    store.applyPull(page);
     if(!page.hasMore) break;
   }
 }
 async function recover(store:AccountStore,api:HttpSync) {
-  const manifest=await api.snapshot();const entities:Entity[]=[];let cursor:string|null=manifest.firstPageCursor,pullCursor:string|null=null;
-  while(cursor) {
-    const page=await api.page(manifest.snapshotId,cursor);
-    if(page.snapshotId!==manifest.snapshotId||page.highWaterRevision!==manifest.highWaterRevision) throw new Error('snapshot_mismatch');
-    entities.push(...page.entities);cursor=page.nextPageCursor;pullCursor=page.pullCursor;
-    if(page.complete!==!cursor) throw new Error('incomplete_snapshot');
+  for(let attempt=0;attempt<2;attempt++) {
+    try {await copySnapshot(store,api);return;}
+    catch(error) {
+      if(!(error instanceof SyncHttpError)||!(error.status===410&&error.code==='snapshot_expired'||error.status===404&&error.code==='resource_inaccessible')) throw error;
+      // One fresh copy per attempt; repeated expiry yields to the scheduler's bounded backoff.
+      if(attempt===1) throw new Error('snapshot_retry_required',{cause:error});
+    }
   }
-  if(entities.length!==manifest.entityCount||!pullCursor) throw new Error('incomplete_snapshot');
+}
+async function copySnapshot(store:AccountStore,api:HttpSync) {
+  const manifest=await api.snapshot();let count=0,cursor:string|null=manifest.firstPageCursor,pullCursor:string|null=null;
+  store.beginSnapshot(manifest.snapshotId,manifest.highWaterRevision,manifest.firstPageCursor,manifest.expiresAt);
+  const visited=new Set<string>();
+  while(cursor) {
+    visited.add(cursor);
+    const page=await api.page(manifest.snapshotId,cursor);
+    if(page.snapshotId!==manifest.snapshotId||page.highWaterRevision!==manifest.highWaterRevision||
+      page.nextPageCursor&&visited.has(page.nextPageCursor)||page.entities.some(entity=>BigInt(entity.value.revision)>BigInt(manifest.highWaterRevision))) throw new Error('snapshot_mismatch');
+    if(page.complete!==!page.nextPageCursor||page.complete!==!!page.pullCursor||!page.complete&&!page.entities.length||count+page.entities.length>manifest.entityCount) throw new Error('incomplete_snapshot');
+    store.stageSnapshotPage(manifest.snapshotId,cursor,page.entities,page.nextPageCursor);
+    count+=page.entities.length;cursor=page.nextPageCursor;pullCursor=page.pullCursor;
+  }
+  if(count!==manifest.entityCount||!pullCursor) throw new Error('incomplete_snapshot');
   // Local writers remain available during requests. Repeat until every current pending id is classified at H.
   const classified=new Map<string,AtCut>();
   for(;;) {
     const ids=store.operations().map(op=>op.operationId).filter(id=>!classified.has(id));
     if(!ids.length) {
-      store.installSnapshot(manifest.snapshotId,entities,[...classified.values()].filter((r):r is Receipt=>r.status!=='notProcessedAtH'),pullCursor);
+      store.installSnapshot(manifest.snapshotId,manifest.entityCount,[...classified.values()].filter((r):r is Receipt=>r.status!=='notProcessedAtH'),pullCursor);
       break;
     }
     for(let offset=0;offset<ids.length;offset+=50) {
-      const receipts=await api.receipts(manifest.snapshotId,ids.slice(offset,offset+50));
+      const requested=ids.slice(offset,offset+50),expected=new Set(requested);
+      const receipts=await api.receipts(manifest.snapshotId,requested);
       if(receipts.snapshotId!==manifest.snapshotId||receipts.highWaterRevision!==manifest.highWaterRevision) throw new Error('snapshot_mismatch');
-      for(const receipt of receipts.results) classified.set(receipt.operationId,receipt);
+      for(const receipt of receipts.results) {
+        if(!expected.delete(receipt.operationId)||receipt.status!=='rejected'&&receipt.status!=='notProcessedAtH'&&BigInt(receipt.acceptedRevision)>BigInt(manifest.highWaterRevision)) throw new Error('receipt_mismatch');
+        classified.set(receipt.operationId,receipt);
+      }
+      if(expected.size) throw new Error('receipt_mismatch');
     }
   }
 }
@@ -75,7 +101,11 @@ export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number
   running.add(store);
   try {
     try {await pull(store,api);}
-    catch(error) {if(error instanceof SyncHttpError&&error.code==='resync_required') await recover(store,api);else throw error;}
+    catch(error) {
+      if(!(error instanceof SyncHttpError)||error.code!=='resync_required') throw error;
+      await recover(store,api);
+      await pull(store,api);
+    }
     const pending=new Set(store.readyOperations(now()).map(operation=>operation.operationId));
     while(pending.size) {
       const batch=store.readyOperations(now()).filter(operation=>pending.has(operation.operationId)).slice(0,50);

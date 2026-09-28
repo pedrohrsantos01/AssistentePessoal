@@ -572,4 +572,41 @@ class RuntimeTests {
         assertThat(response.at("/results/1/receipt/error/code").asString()).isEqualTo("id_content_conflict");
     }
 
+    @Test void paginatedSnapshotsRecoverThroughTheRealHttpApi() throws Exception {
+        var log=java.nio.file.Path.of("build/snapshot-integration.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/snapshots.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
+    @Test void expiredSnapshotsRefuseBothPagesAndReceiptClassification() throws Exception {
+        var account=account("snapshot-expiry");
+        String user=account.path("accountId").asString(),token=account.path("accessToken").asString();
+        var snapshot=post("sync/snapshots",token,"{}",201);
+        String snapshotId=snapshot.path("snapshotId").asString();
+        // Advance only this fixture's expiry; no sleep and no changes to other accounts' snapshots.
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());
+            var expire=owner.prepareStatement("update sync_snapshots set expires_at=now()-interval '1 second' where user_id=?::uuid and id=?::uuid")) {
+            expire.setString(1,user);expire.setString(2,snapshotId);expire.executeUpdate();
+        }
+        String cursor=java.net.URLEncoder.encode(snapshot.path("firstPageCursor").asString(),java.nio.charset.StandardCharsets.UTF_8);
+        var request=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+"/api/v1/sync/snapshots/"+snapshotId+"?cursor="+cursor))
+            .header("Authorization","Bearer "+token).header("X-Ritmo-Protocol","m1.1").header("X-App-Version","0.1.0").GET().build();
+        var page=HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString());
+        assertThat(page.statusCode()).isEqualTo(410);
+        assertThat(dev.ritmo.shared.Json.read(page.body()).at("/error/code").asString()).isEqualTo("snapshot_expired");
+        var query=dev.ritmo.shared.Json.object().put("snapshotId",snapshotId);
+        query.set("operationIds",dev.ritmo.shared.Json.array().add(dev.ritmo.shared.Json.id()));
+        assertThat(post("sync/receipts",token,query.toString(),410).at("/error/code").asString()).isEqualTo("snapshot_expired");
+        assertThat(post("sync/snapshots",token,"{}",201).path("snapshotId").asString()).isNotEqualTo(snapshotId);
+    }
+
 }

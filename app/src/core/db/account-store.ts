@@ -280,14 +280,31 @@ export class AccountStore {
       tx.run(sql`update sync_state set cursor=${page.nextCursor} where account_id=${this.accountId}`);
     });
   }
-  installSnapshot(snapshotId:string,entities:Entity[],receipts:Receipt[],cursor:string) {
+  beginSnapshot(snapshotId:string,revision:string,cursor:string,expiresAt:string) {
     this.guard();
     this.db.transaction(tx=>{
       tx.run(sql`delete from snapshot_staging where account_id=${this.accountId}`);
+      tx.run(sql`update sync_state set snapshot_id=${snapshotId},snapshot_revision=${revision},snapshot_cursor=${cursor},snapshot_expires_at=${expiresAt} where account_id=${this.accountId}`);
+    });
+  }
+  stageSnapshotPage(snapshotId:string,cursor:string,entities:Entity[],nextCursor:string|null) {
+    this.guard();
+    this.db.transaction(tx=>{
+      const state=tx.get<{snapshot_id:string|null;snapshot_cursor:string|null}>(sql`select snapshot_id,snapshot_cursor from sync_state where account_id=${this.accountId}`);
+      if(state?.snapshot_id!==snapshotId||state.snapshot_cursor!==cursor) throw new Error('snapshot_mismatch');
       for(const entity of entities) tx.run(sql`insert into snapshot_staging(account_id,snapshot_id,kind,entity_key,revision,payload)
         values(${this.accountId},${snapshotId},${entity.kind},${entityKey(entity)},${entity.value.revision},${JSON.stringify(entity)})`);
+      tx.run(sql`update sync_state set snapshot_cursor=${nextCursor} where account_id=${this.accountId}`);
+    });
+  }
+  installSnapshot(snapshotId:string,entityCount:number,receipts:Receipt[],cursor:string) {
+    this.guard();
+    this.db.transaction(tx=>{
+      const state=tx.get<{snapshot_id:string|null;snapshot_cursor:string|null}>(sql`select snapshot_id,snapshot_cursor from sync_state where account_id=${this.accountId}`);
+      const rows=tx.all<Payload>(sql`select payload from snapshot_staging where account_id=${this.accountId} and snapshot_id=${snapshotId}`);
+      if(state?.snapshot_id!==snapshotId||state.snapshot_cursor!==null||rows.length!==entityCount) throw new Error('incomplete_snapshot');
       tx.run(sql`delete from canonical_entities where account_id=${this.accountId}`);
-      for(const entity of entities) this.incorporate(tx,entity);
+      for(const row of rows) this.incorporate(tx,JSON.parse(row.payload) as Entity);
       for(const receipt of receipts) this.recognize(tx,receipt);
       this.rebuild(tx);
       tx.run(sql`update sync_state set cursor=${cursor},snapshot_id=null,snapshot_revision=null,snapshot_cursor=null,snapshot_expires_at=null where account_id=${this.accountId}`);
