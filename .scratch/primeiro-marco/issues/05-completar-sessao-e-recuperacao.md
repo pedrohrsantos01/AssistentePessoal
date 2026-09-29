@@ -102,3 +102,18 @@ Continuação autorizada por Pedro. Manter as fronteiras de teste aprovadas: rep
 - Abertura protegida contra histórico de schema desconhecido, com erro de recuperação tipado; migrations de fixture provam rollback/retry e preservação de conta inativa, conta ativa e fence de logout. Não há schema novo de produção.
 
 [Evidências, comandos e limites](../../../docs/analises/2026-09-28-snapshots-e-migrations.md). A tarefa inteira e o M1 continuam abertos. Próximo recorte recomendado: cumprir o modo somente leitura local de REQ-SYN-014 ao exigir atualização; depois ampliar o harness para HTTP real no Android. Matriz restante de concorrência/relógios/fusos, exclusão/tombstones, operação e UI continuam pendentes.
+
+
+## Incremento de compatibilidade — iniciado em 29/09/2026
+
+Próximo passo autorizado por Pedro: núcleo de REQ-SYN-014. Fronteiras de teste mantidas: sessão/repositório públicos, SQLite real e HTTP/Postgres; transporte, relógio e falhas de armazenamento como fronteiras externas controladas. Ao receber 426 ou efeito essencial desconhecido, persistir a exigência de atualização por instalação, preservar leitura e pendências, bloquear novas escritas de domínio e sincronização daquele build. Logout local continua disponível. Um build diferente verifica compatibilidade online antes de liberar escritas; retry/reinício do mesmo build não removem a restrição. Testar respostas atrasadas e isolamento. Completar a configuração persistida de versão mínima da API já prevista no spec; UI permanece subordinada ao protótipo.
+
+
+### Entregue no incremento de compatibilidade — 29/09/2026
+
+- Restrição durável por instalação após 426/resposta essencial desconhecida; leitura, pendências e histórico preservados. Escritas, aplicação de sync e retries do mesmo build ficam bloqueados, inclusive após reinício/logout.
+- Novo build mantém leitura offline até resposta compatível da geração atual; identidade, recuperação de senha, scheduler e sessão compartilham a proteção. Respostas tardias não alteram o bloqueio atual.
+- Política de mínima na tabela global da API, com Flyway V3, SELECT apenas para runtime e comparação numérica; indisponibilidade da configuração retorna 503.
+- Drizzle 0001 verificada contra a versão anterior; cenário HTTP/Postgres/SQLite prova reenvio das intenções após upgrade sem duplicar XP.
+
+[Relatório, comandos e limites](../../../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md). Tarefa 05 e M1 continuam abertos. Próximo recorte recomendado: HTTP real no harness Android. O aviso visual depende do protótipo; iPhone, matriz M1 restante e operação real seguem pendentes.

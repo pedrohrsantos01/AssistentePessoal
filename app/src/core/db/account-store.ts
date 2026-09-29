@@ -13,7 +13,7 @@ export type RecoveryResolution={kind:'discarded'}|{kind:'corrected';replacementO
 type RecoveryError={code:string;fields:{path:string;code:string}[];dependencyIds:string[];resolution?:RecoveryResolution};
 export type RecoveryItem={operation:Operation;source:'server'|'local';error:Omit<RecoveryError,'resolution'>;resolution:RecoveryResolution|null};
 export class AccountStore {
-  constructor(private db:LocalDatabase,readonly accountId:string,readonly deviceId:string,private shutdown:()=>void,private guard:()=>void=()=>{}) {
+  constructor(private db:LocalDatabase,readonly accountId:string,readonly deviceId:string,private shutdown:()=>void,private guard:(write?:boolean)=>void=()=>{}) {
     this.guard();
     db.transaction(tx=>{
       const owner=tx.get<{account_id:string}>(sql`select account_id from account_storage`);
@@ -34,7 +34,7 @@ export class AccountStore {
       .map(r=>JSON.parse(r.envelope) as Operation);
   }
   enqueue(command:Command,operationId:string,occurredAt:string):Operation {
-    this.guard();
+    this.guard(true);
     return this.db.transaction(tx=>{
       const state=tx.get<{next_sequence:number}>(sql`select next_sequence from sync_state where account_id=${this.accountId}`);
       if(!state||state.next_sequence>=Number.MAX_SAFE_INTEGER) throw new Error('sequence_exhausted');
@@ -85,7 +85,7 @@ export class AccountStore {
         source:row.status==='rejected'?'server':'local',error:{code:error.code,fields:error.fields??[],dependencyIds:error.dependencyIds??[]},resolution:error.resolution??null};});
   }
   discard(operationIds:string[]) {
-    this.guard();
+    this.guard(true);
     this.db.transaction(tx=>{
       const items=new Map(this.recovery().map(item=>[item.operation.operationId,item]));
       for(const id of operationIds) {
@@ -98,7 +98,7 @@ export class AccountStore {
     });
   }
   correct(corrections:Correction[]):Operation[] {
-    this.guard();
+    this.guard(true);
     return this.db.transaction(tx=>{
       const history=this.recovery(),byId=new Map(history.map(item=>[item.operation.operationId,item]));
       const selected=new Map(corrections.map(item=>[item.operationId,item]));
@@ -193,7 +193,7 @@ export class AccountStore {
     return ready;
   }
   beginAttempt(batch:Operation[],now:number) {
-    this.guard();
+    this.guard(true);
     this.db.transaction(tx=>{for(const op of batch) {
       const attempts=(tx.get<{attempts:number}>(sql`select attempts from sync_mutations where account_id=${this.accountId} and operation_id=${op.operationId}`)?.attempts??0)+1;
       const next=new Date(now+retryDelay(attempts,null,now)).toISOString();
@@ -224,7 +224,7 @@ export class AccountStore {
     return {failures:Math.max(0,...rows.map(row=>row.attempts)),nextAttemptAt:dates.length?Math.min(...dates):null,failedCount:rows.filter(row=>row.status==='blocked_local').length};
   }
   retryFailed() {
-    this.guard();
+    this.guard(true);
     this.db.run(sql`update sync_mutations set status='pending',attempts=0,next_attempt_at=null,error=null where account_id=${this.accountId}
       and status='blocked_local' and json_extract(error,'$.code')='retry_exhausted'`);
   }
@@ -252,7 +252,7 @@ export class AccountStore {
       on conflict(account_id,kind,entity_key) do update set revision=excluded.revision,payload=excluded.payload`);
   }
   applyAck(results:PushResult[],now:number=Date.now()) {
-    this.guard();
+    this.guard(true);
     this.db.transaction(tx=>{
       for(const result of results) {
         if('receipt' in result) {
@@ -270,7 +270,7 @@ export class AccountStore {
     });
   }
   applyPull(page:Pull) {
-    this.guard();
+    this.guard(true);
     this.db.transaction(tx=>{
       for(const change of page.changes) {
         for(const receipt of change.operationResults) this.recognize(tx,receipt);
@@ -281,14 +281,14 @@ export class AccountStore {
     });
   }
   beginSnapshot(snapshotId:string,revision:string,cursor:string,expiresAt:string) {
-    this.guard();
+    this.guard(true);
     this.db.transaction(tx=>{
       tx.run(sql`delete from snapshot_staging where account_id=${this.accountId}`);
       tx.run(sql`update sync_state set snapshot_id=${snapshotId},snapshot_revision=${revision},snapshot_cursor=${cursor},snapshot_expires_at=${expiresAt} where account_id=${this.accountId}`);
     });
   }
   stageSnapshotPage(snapshotId:string,cursor:string,entities:Entity[],nextCursor:string|null) {
-    this.guard();
+    this.guard(true);
     this.db.transaction(tx=>{
       const state=tx.get<{snapshot_id:string|null;snapshot_cursor:string|null}>(sql`select snapshot_id,snapshot_cursor from sync_state where account_id=${this.accountId}`);
       if(state?.snapshot_id!==snapshotId||state.snapshot_cursor!==cursor) throw new Error('snapshot_mismatch');
@@ -298,7 +298,7 @@ export class AccountStore {
     });
   }
   installSnapshot(snapshotId:string,entityCount:number,receipts:Receipt[],cursor:string) {
-    this.guard();
+    this.guard(true);
     this.db.transaction(tx=>{
       const state=tx.get<{snapshot_id:string|null;snapshot_cursor:string|null}>(sql`select snapshot_id,snapshot_cursor from sync_state where account_id=${this.accountId}`);
       const rows=tx.all<Payload>(sql`select payload from snapshot_staging where account_id=${this.accountId} and snapshot_id=${snapshotId}`);

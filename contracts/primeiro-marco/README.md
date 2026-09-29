@@ -96,3 +96,8 @@ Fontes técnicas de formato: [OpenAPI 3.1.1](https://spec.openapis.org/oas/v3.1.
 ### Refinamento de sessão — 26/09/2026
 
 Aprovado por Pedro: refresh retorna `RefreshResponse`, com os campos de sessão exceto `revokeToken`. Cadastro/login continuam retornando `SessionResponse`. O cliente conserva a capacidade de revogação original durante todas as rotações da mesma família. Nenhum segredo de revogação é recuperado a partir de hash nem substituído ao renovar. Este ajuste da baseline m1.1 antecede a primeira implementação de refresh e qualquer implantação pública; não há cliente publicado dependente da resposta anterior.
+
+
+## Compatibilidade implementada — 29/09/2026
+
+`X-App-Version` segue SemVer com até 64 caracteres, componentes principais de até seis dígitos e sem zeros à esquerda; pré-release e metadados podem coexistir. O servidor compara contra a mínima estável em `app_compatibility`, com 426 antes do processamento e 503 quando a configuração não pode ser lida. O protocolo de mensagens permanece m1.1. A migration Flyway V3 mantém grants de leitura operacional; a restrição local usa Drizzle 0001 no banco separado da instalação. [Modelo físico](../../specs/00-modelo-de-dados.md) e [validação do incremento](../../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md).

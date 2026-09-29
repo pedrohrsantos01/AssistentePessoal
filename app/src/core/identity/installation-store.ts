@@ -7,6 +7,8 @@ export class InstallationStore {
     db.run(sql`insert into installation_control(singleton,device_id) values(1,${deviceId}) on conflict do nothing`);
   }
   state():State {const state=this.db.get<State>(sql`select * from installation_control where singleton=1`);if(!state) throw new Error('installation_missing');return state;}
+  blockedClient():string|null {return this.db.get<{blocked_client:string|null}>(sql`select blocked_client from installation_control where singleton=1`)?.blocked_client??null;}
+  blockClient(client:string|null) {this.db.run(sql`update installation_control set blocked_client=${client} where singleton=1`);}
   keys():Key[] {return this.db.all<Key>(sql`select * from protected_keys`);}
   remember(key:string,purpose:Key['purpose'],account:string,session:string) {
     this.db.run(sql`insert into protected_keys(key,purpose,account_id,session_id) values(${key},${purpose},${account},${session})`);

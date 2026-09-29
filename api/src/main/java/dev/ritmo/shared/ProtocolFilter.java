@@ -1,6 +1,9 @@
 package dev.ritmo.shared;
 import java.io.*;
 import java.util.zip.GZIPInputStream;
+import java.util.regex.Pattern;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import org.springframework.stereotype.Component;
@@ -10,15 +13,43 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component @Order(Ordered.HIGHEST_PRECEDENCE)
 class ProtocolFilter extends OncePerRequestFilter {
+    private final Sql db;
+    ProtocolFilter(@Qualifier("domainSql") Sql db) {this.db=db;}
+    private static final String NUMBER="(0|[1-9][0-9]{0,5})";
+    private static final Pattern VERSION=Pattern.compile(NUMBER+"[.]"+NUMBER+"[.]"+NUMBER+
+        "(?:-([0-9A-Za-z-]+(?:[.][0-9A-Za-z-]+)*))?(?:[+][0-9A-Za-z-]+(?:[.][0-9A-Za-z-]+)*)?");
+    // The policy stores a stable release, so only the candidate's prerelease flag affects equal-core precedence.
+    private record Version(int major,int minor,int patch,boolean prerelease) {
+        static Version parse(String text) {
+            if(text==null||text.length()>64) return null;
+            var match=VERSION.matcher(text);
+            if(!match.matches()) return null;
+            String prerelease=match.group(4);
+            if(prerelease!=null) for(String part:prerelease.split("[.]")) if(part.matches("0[0-9]+")) return null;
+            return new Version(Integer.parseInt(match.group(1)),Integer.parseInt(match.group(2)),Integer.parseInt(match.group(3)),prerelease!=null);
+        }
+        boolean supports(Version minimum) {
+            if(major!=minimum.major) return major>minimum.major;
+            if(minor!=minimum.minor) return minor>minimum.minor;
+            if(patch!=minimum.patch) return patch>minimum.patch;
+            return !prerelease;
+        }
+    }
     private void fail(HttpServletResponse response,int status,String code) throws IOException {
         response.setStatus(status);response.setContentType("application/json");response.getWriter().write(HttpErrors.body(code).toString());
     }
     @Override protected boolean shouldNotFilter(HttpServletRequest request) {return !request.getRequestURI().startsWith("/api/v1/");}
     @Override protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain chain) throws IOException,ServletException {
-        String version=request.getHeader("X-App-Version");
-        if(!"m1.1".equals(request.getHeader("X-Ritmo-Protocol"))||version==null||!version.matches("[0-9]{1,6}\\.[0-9]{1,6}\\.[0-9]{1,6}(?:[-+][A-Za-z0-9.-]+)?")||version.startsWith("0.0.")) {
+        var version=Version.parse(request.getHeader("X-App-Version"));
+        if(!"m1.1".equals(request.getHeader("X-Ritmo-Protocol"))||version==null) {
             fail(response,426,"unsupported_version");return;
         }
+        try {
+            // Installation-wide policy is intentionally not tenant-scoped and the runtime role can only read it.
+            var minimum=Version.parse(db.one("select jsonb_build_object('minimum',min_supported_version) from app_compatibility where singleton").path("minimum").asString());
+            if(minimum==null||minimum.prerelease()) {fail(response,503,"temporarily_unavailable");return;}
+            if(!version.supports(minimum)) {fail(response,426,"unsupported_version");return;}
+        } catch(DataAccessException|BusinessFailure e) {fail(response,503,"temporarily_unavailable");return;}
         if(!request.getMethod().equals("POST")) {chain.doFilter(request,response);return;}
         String encoding=request.getHeader("Content-Encoding");
         if(encoding!=null&&!encoding.equals("gzip")&&!encoding.equals("identity")) {fail(response,400,"invalid_request");return;}

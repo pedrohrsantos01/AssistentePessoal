@@ -81,7 +81,7 @@ iPhone: nenhum build instalado ou teste físico realizado; a rota a partir do Wi
 
 ## Sessão e isolamento
 
-`openExpoSession(new HttpIdentity(origin))` abre o controle da instalação, recupera interrupções e devolve a sessão. Uma instância é dona do controle por processo; fechá-la libera os bancos, sem executar logout. A UI futura deve obter seu repositório via `Session.account()`, nunca abrir diretamente o arquivo de outra conta. `register`/`login` fazem autenticação online; `accessToken` concentra renovações simultâneas. O transporte HTTP renova e repete no máximo uma vez após 401.
+`openExpoSession(compatibility => new HttpIdentity(origin, compatibility))` abre o controle da instalação, recupera interrupções e devolve a sessão. Uma instância é dona do controle por processo; fechá-la libera os bancos, sem executar logout. A UI futura deve obter seu repositório via `Session.account()`, nunca abrir diretamente o arquivo de outra conta. `register`/`login` fazem autenticação online; `accessToken` concentra renovações simultâneas. O transporte HTTP renova e repete no máximo uma vez após 401.
 
 `logout` grava o fence no SQLite antes de esperar pelo SecureStore e funciona sem rede. Falha na limpeza mantém `logging_out`; `restore` retoma essa limpeza. `flushRevocations` envia capacidades pendentes, preservando a da sessão ativa. O scheduler retoma essa fila ao reconectar, inclusive sem conta ativa, com espera independente da sincronização de domínio. Erros de autenticação não apagam dados e permitem reautenticar a mesma conta sem logout; trocar para outra conta exige logout explícito.
 
@@ -96,3 +96,14 @@ A proteção por geração também é verificada em referências antigas de `Acc
 O teste integrado recebe uma mensagem no SMTP local e prova que um refresh recusado após reset não apaga a pendência: ela sobrevive ao reinício e sincroniza após login com a nova senha. O link não deve causar logout automático, pois pode se referir a outra conta; a API não retorna identidade nem sessão na confirmação.
 
 Associação de domínio, recebimento do link pelo sistema operacional e tela de recuperação permanecem pendentes do host/build e do protótipo. Evidências: [incremento de recuperação](../docs/analises/2026-09-27-recuperacao-de-senha.md).
+
+
+## Atualização obrigatória e leitura local
+
+O uso do app passa por `openExpoRuntime`: sessão, identidade HTTP (inclusive recuperação de senha) e sync compartilham a mesma restrição. `session.access()` expõe `{mode: 'read_only', reason: 'update_required'}` ou `{mode: 'read_write', reason: null}`; `session.subscribe` notifica mudanças. A apresentação futura usa esse estado para o aviso e desabilitação das ações. O aviso visual ainda não está implementado.
+
+HTTP 426 ou resposta essencial incompatível grava o par versão/protocolo em `installation_control.blocked_client`, criado por `drizzle-control/0001_client_compatibility.sql`. O mesmo build não pode enviar novamente, criar/corrigir/descartar intenções nem aplicar alterações remotas. Ler projeções, pendências e histórico e fazer logout local continuam possíveis. O scheduler restaura `update_required` mesmo offline. Manutenção interna de tentativas interrompidas e limpeza de credenciais continuam permitidas; envelopes e sequências não são alterados por esse bloqueio.
+
+Um build diferente mantém leitura local até validar uma resposta de sync, login ou refresh da geração atual. Offline, 401, 503 e erros de transporte não liberam escritas. Resposta atrasada após logout não libera nem impõe a restrição da sessão atual. Ao confirmar compatibilidade, o cliente reconcilia/reenvia as intenções originais. Um refresh incerto ou recusado continua exigindo login, conforme as garantias de sessão.
+
+`src/core/sync/client-version.ts` centraliza os cabeçalhos dos dois transportes. Ao publicar um build, atualizar sua versão junto de `app.json` e `package.json`; não reutilizar o par versão/protocolo de um build rejeitado. Transportes/repositórios usados isoladamente nos testes não compõem essas garantias: a entrada de produção é o runtime por sessão. [Evidências e limitações](../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md).

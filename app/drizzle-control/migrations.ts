@@ -10,10 +10,18 @@ export default {
         "when": 1790434800000,
         "tag": "0000_installation",
         "breakpoints": true
+      },
+      {
+        "idx": 1,
+        "version": "6",
+        "when": 1790659200000,
+        "tag": "0001_client_compatibility",
+        "breakpoints": true
       }
     ]
   },
   "migrations": {
-    "m0000": "-- Installation control only. Credentials live exclusively in SecureStore.\nCREATE TABLE installation_control (\n singleton INTEGER PRIMARY KEY CHECK(singleton=1),\n device_id TEXT NOT NULL,\n selected_account_id TEXT,\n session_generation INTEGER NOT NULL DEFAULT 0 CHECK(session_generation BETWEEN 0 AND 9007199254740991),\n session_state TEXT NOT NULL DEFAULT 'locked' CHECK(session_state IN ('active','logging_out','locked')),\n credentials_key TEXT,\n revoke_key TEXT\n);\n--> statement-breakpoint\nCREATE TABLE protected_keys (\n key TEXT PRIMARY KEY NOT NULL,\n purpose TEXT NOT NULL CHECK(purpose IN ('credentials','revocation')),\n account_id TEXT NOT NULL,\n session_id TEXT NOT NULL\n);"
+    "m0000": "-- Installation control only. Credentials live exclusively in SecureStore.\nCREATE TABLE installation_control (\n singleton INTEGER PRIMARY KEY CHECK(singleton=1),\n device_id TEXT NOT NULL,\n selected_account_id TEXT,\n session_generation INTEGER NOT NULL DEFAULT 0 CHECK(session_generation BETWEEN 0 AND 9007199254740991),\n session_state TEXT NOT NULL DEFAULT 'locked' CHECK(session_state IN ('active','logging_out','locked')),\n credentials_key TEXT,\n revoke_key TEXT\n);\n--> statement-breakpoint\nCREATE TABLE protected_keys (\n key TEXT PRIMARY KEY NOT NULL,\n purpose TEXT NOT NULL CHECK(purpose IN ('credentials','revocation')),\n account_id TEXT NOT NULL,\n session_id TEXT NOT NULL\n);",
+    "m0001": "-- Preserve a required update across restarts and logout. No account data is changed.\nALTER TABLE installation_control ADD COLUMN blocked_client TEXT;"
   }
 };

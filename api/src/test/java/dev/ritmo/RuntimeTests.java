@@ -609,4 +609,67 @@ class RuntimeTests {
         assertThat(post("sync/snapshots",token,"{}",201).path("snapshotId").asString()).isNotEqualTo(snapshotId);
     }
 
+    private int compatibilityStatus(String version,String protocol) throws Exception {
+        var request=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+"/api/v1/sync/pull"))
+            .header("X-App-Version",version).header("X-Ritmo-Protocol",protocol).GET().build();
+        return HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString()).statusCode();
+    }
+    @Test void minimumVersionIsReadFromConfigurationAndComparedNumericallyBeforeAuthentication() throws Exception {
+        var account=account("compatibility");String token=account.path("accessToken").asString();
+        var intent=operation(dev.ritmo.shared.Json.id(),1,createCommand(dev.ritmo.shared.Json.id()));
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());var statement=owner.createStatement()) {
+            try {
+                statement.execute("update app_compatibility set min_supported_version='0.10.0' where singleton");
+                for(String version:java.util.List.of("0.9.99","0.10.0-rc.1","0.10.0-rc.1+build","00.10.0","0.10.0-01","0.10.0+","0.10.0.1","0.10.0+"+"a".repeat(58)))
+                    assertThat(compatibilityStatus(version,"m1.1")).as(version).isEqualTo(426);
+                for(String version:java.util.List.of("0.10.0","0.10.0+build.123","0.11.0-rc.1+build","1.0.0","0.10.0+"+"a".repeat(57)))
+                    assertThat(compatibilityStatus(version,"m1.1")).as(version).isEqualTo(401);
+                assertThat(compatibilityStatus("1.0.0","future")).isEqualTo(426);
+                post("sync/push",token,batch(intent),426);
+            } finally {statement.execute("update app_compatibility set min_supported_version='0.1.0' where singleton");}
+        }
+        var accepted=post("sync/push",token,batch(intent),200);
+        assertThat(accepted.at("/results/0/receipt/acceptedRevision").asString()).isEqualTo("1");
+        assertThat(accepted.at("/results/0/replayed").asBoolean()).isFalse();
+    }
+
+    @Test void runtimeRolesCannotChangeCompatibilityAndMissingConfigurationIsUnavailable() throws Exception {
+        try(var domain=connection("ritmo_domain","test-domain");var statement=domain.createStatement()) {
+            try(var row=statement.executeQuery("select min_supported_version from app_compatibility where singleton")) {
+                assertThat(row.next()).isTrue();assertThat(row.getString(1)).isEqualTo("0.1.0");
+            }
+            org.assertj.core.api.Assertions.assertThatThrownBy(()->statement.execute("update app_compatibility set min_supported_version='0.0.0' where singleton"))
+                .isInstanceOf(java.sql.SQLException.class).satisfies(e->assertThat(((java.sql.SQLException)e).getSQLState()).isEqualTo("42501"));
+        }
+        try(var identity=connection("ritmo_identity","test-identity");var statement=identity.createStatement()) {
+            org.assertj.core.api.Assertions.assertThatThrownBy(()->statement.execute("update app_compatibility set min_supported_version='0.0.0' where singleton"))
+                .isInstanceOf(java.sql.SQLException.class).satisfies(e->assertThat(((java.sql.SQLException)e).getSQLState()).isEqualTo("42501"));
+        }
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());var statement=owner.createStatement()) {
+            try {
+                statement.execute("delete from app_compatibility where singleton");
+                assertThat(compatibilityStatus("0.1.0","m1.1")).isEqualTo(503);
+            } finally {statement.execute("insert into app_compatibility(singleton,min_supported_version) values(true,'0.1.0') on conflict(singleton) do update set min_supported_version=excluded.min_supported_version");}
+            try {
+                statement.execute("revoke select on app_compatibility from ritmo_domain");
+                assertThat(compatibilityStatus("0.1.0","m1.1")).isEqualTo(503);
+            } finally {statement.execute("grant select on app_compatibility to ritmo_domain");}
+        }
+    }
+
+    @Test void obsoleteMobileBuildPreservesWorkAndRecoversThroughTheRealHttpApi() throws Exception {
+        var log=java.nio.file.Path.of("build/compatibility-integration.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/compatibility.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
 }

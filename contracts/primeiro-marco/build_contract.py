@@ -98,7 +98,7 @@ add('/sync/receipts','post','receipts','ReceiptsRequest','ReceiptsResponse',erro
 for pathitem in paths.values():
     for op in pathitem.values():
         op['parameters'].append(param('X-Ritmo-Protocol','header',{'type':'string','const':'m1.1'}))
-        op['parameters'].append(param('X-App-Version','header',{**text(64),'pattern':'^[0-9]+\\.[0-9]+\\.[0-9]+(?:[-+][A-Za-z0-9.-]+)?$'}))
+        op['parameters'].append(param('X-App-Version','header',{**text(64),'pattern':r'^(0|[1-9][0-9]{0,5})\.(0|[1-9][0-9]{0,5})\.(0|[1-9][0-9]{0,5})(?:-((?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*)(?:\.(?:0|[1-9][0-9]*|[0-9]*[A-Za-z-][0-9A-Za-z-]*))*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$'}))
         op['responses'].setdefault('426',response('ApiError','Unsupported protocol/app version; preserve local data.'))
 API={'openapi':'3.1.1','info':{'title':'Ritmo — primeiro marco','version':'0.1.0','description':'Executable transport specification. No live server. Semantics and invariants: README.md.'},'servers':[{'url':'/api/v1'}],'paths':paths,'components':{'securitySchemes':{'bearerAuth':{'type':'http','scheme':'bearer','bearerFormat':'JWT'}},'schemas':S}}
 

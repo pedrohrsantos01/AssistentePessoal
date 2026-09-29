@@ -110,6 +110,8 @@ Concretização parcial em 28/09/2026: abertura de conta/instalação recusa his
 - O app envia sua versão no cabeçalho; o servidor mantém `min_supported_version` numa tabela de config e responde `426 Upgrade Required` abaixo dela
 - Abaixo da versão mínima, o app entra em **modo somente leitura local** com aviso de atualização obrigatória — nunca sincroniza com schema incompatível
 
+Concretização do núcleo em 29/09/2026: restrição persistida por instalação, compartilhada entre identidade e sync. Mesmo build não contorna por retry/reinício/logout; outro build conserva leitura até confirmação online válida na geração atual. Leitura e logout local permanecem; novas intenções, correção/descarte e aplicação de respostas ficam protegidos. O scheduler expõe `update_required` e a sessão expõe o modo de acesso. API consulta a tabela global criada por Flyway V3, compara versões numericamente e falha com 503 quando não pode ler a política. Modelo físico em spec/00 §12.8; [testes e limites](../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md). O aviso visual e o aceite nativo continuam pendentes do protótipo/aparelhos.
+
 ## 6. Edge cases mapeados
 
 1. 500 mutações offline por 2 semanas → envio em lote com progresso; nunca timeout único

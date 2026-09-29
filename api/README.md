@@ -13,7 +13,7 @@ pnpm --dir ../app install --frozen-lockfile
 
 Java 21 e Docker precisam estar disponíveis. O teste inicia GreenMail em loopback, sem entrega externa, e um Postgres 18.6 descartável, fixado por digest; aplica Flyway e cria roles de teste sem privilégios administrativos. O Testcontainers encerra seu container ao terminar. Nenhuma conexão com a VPS é necessária.
 
-`RuntimeTests` verifica HTTP, RLS, transações, recibos e executa os cenários em `app/test/integration/`: sync/sessão, recuperação de senha, scheduler e rejeições. `ModularityTests` verifica fronteiras. Os relatórios ficam em `build/reports/tests/test/index.html`; o resultado dos clientes em `build/mobile-integration.log`, `build/mobile-recovery.log`, `build/mobile-scheduler.log` e `build/mobile-rejections.log`.
+`RuntimeTests` verifica HTTP, RLS, transações, recibos e executa os cenários em `app/test/integration/`: sync/sessão, recuperação de senha, scheduler, rejeições, snapshots e compatibilidade. `ModularityTests` verifica fronteiras. Os relatórios ficam em `build/reports/tests/test/index.html`; o resultado dos clientes em `build/mobile-integration.log`, `build/mobile-recovery.log`, `build/mobile-scheduler.log` `build/mobile-rejections.log`, `build/snapshot-integration.log` e `build/compatibility-integration.log`.
 
 ## Conexões e permissões
 
@@ -36,7 +36,7 @@ Implementados: cadastro, login, refresh rotativo, revoke, solicitação/confirma
 
 Os testes usam dados fictícios. Antes do uso diário ainda faltam aceite real da recuperação por e-mail/aparelho, rate limiting, matriz ampliada de snapshot/migrations e recuperação completa, limpeza/retenção operacional, configuração de e-mail, deploy/backup e o restante da matriz M1. Essas pendências estão na [tarefa seguinte](../.scratch/primeiro-marco/issues/05-completar-sessao-e-recuperacao.md). Não publicar este scaffold como versão pronta.
 
-Migrations aplicadas não devem ser editadas ao evoluir o schema: criar V3 e seguintes, atualizar spec/00 e testar a migração. V1 concretiza o DDL aprovado; V2 adiciona grants e políticas de perfil.
+Migrations aplicadas não devem ser editadas ao evoluir o schema: criar V4 e seguintes, atualizar spec/00 e testar a migração. V1 concretiza o DDL aprovado; V2 adiciona grants e políticas de perfil; V3 acrescenta a política global de compatibilidade.
 
 Evidências e limites do incremento de sessão: [relatório](../docs/analises/2026-09-26-sessao-e-isolamento.md).
 
@@ -44,3 +44,12 @@ Evidências do incremento de recuperação: [relatório](../docs/analises/2026-0
 
 
 O push ordena dependências disponíveis no lote e preserva a ordem das respostas. Ciclos entre operações ainda não processadas recebem `dependency_cycle`; dependência rejeitada recebe `dependency_rejected` com IDs, e referência ausente continua `deferred`. Operações com recibo não redefinem o grafo a partir de um replay alterado. A recuperação no app usa novos IDs/`supersedesOperationId`, preservando envelopes antigos. [Evidências e limites](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md).
+
+
+## Versão mínima do app
+
+Antes de autenticar `/api/v1/*`, o filtro exige protocolo `m1.1` e lê a linha `singleton=true` de `app_compatibility`. A migration V3 instala `min_supported_version='0.1.0'`. É configuração operacional global sem dados pessoais; o login de domínio tem apenas SELECT. Alterações exigem a conexão administrativa de migrations/operação, não uma rota do app nem a role de runtime.
+
+A política armazena uma versão estável `major.minor.patch`, cada componente com até seis dígitos, sem zeros à esquerda. O cabeçalho tem até 64 caracteres e aceita pré-release/metadados válidos. A comparação é numérica; pré-release fica abaixo da estável de mesmo núcleo e metadados de build não alteram a ordem ([SemVer 2.0.0](https://semver.org/)). Versão abaixo da mínima, formato inválido ou protocolo desconhecido devolve `426 unsupported_version` antes de processar o corpo. Linha ausente ou falha de leitura devolve `503 temporarily_unavailable`; não se presume uma versão mínima.
+
+A mudança de política vale na próxima requisição, sem reiniciar a API. Um build já bloqueado no app permanece bloqueado mesmo que o operador reduza a mínima: a liberação local exige um build diferente e confirmação online. Por isso, só elevar a mínima quando houver um build compatível distribuível. [Evidências e limites](../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md).

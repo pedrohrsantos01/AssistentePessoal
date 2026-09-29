@@ -32,9 +32,10 @@ test('a failed sequential migration preserves both an inactive account and the a
   cpSync(fileURLToPath(new URL('../drizzle',import.meta.url)),folder,{recursive:true});
   const journalPath=join(folder,'meta/_journal.json');
   const journal=JSON.parse(readFileSync(journalPath,'utf8')) as {entries:{idx:number;version:string;when:number;tag:string;breakpoints:boolean}[]};
-  journal.entries.push({idx:1,version:'6',when:1790600000000,tag:'0001_fault_fixture',breakpoints:true});
+  const tag=String(journal.entries.length).padStart(4,'0')+'_fault_fixture';
+  journal.entries.push({idx:journal.entries.length,version:'6',when:Math.max(...journal.entries.map(entry=>entry.when))+1,tag,breakpoints:true});
   writeFileSync(journalPath,JSON.stringify(journal));
-  const fixturePath=join(folder,'0001_fault_fixture.sql');
+  const fixturePath=join(folder,tag+'.sql');
   const valid='CREATE INDEX fixture_pending_sequence ON sync_mutations(account_id,client_sequence)';
   // This disposable migration changes an intent before failing: reopening must reveal the original bytes.
   writeFileSync(fixturePath,valid+";\n--> statement-breakpoint\nUPDATE sync_mutations SET envelope='{}' WHERE account_id='"+id(1)+"';\n--> statement-breakpoint\nSELECT * FROM missing_fixture_table;");
@@ -76,9 +77,10 @@ test('an asynchronous installation migration failure preserves the logout fence 
   control.remember('fixture.credentials','credentials',id(1),id(6));control.remember('fixture.revoke','revocation',id(1),id(6));
   control.activate(id(1),'fixture.credentials','fixture.revoke');control.fence();
   const state=control.state(),keys=control.keys();
-  journal.entries.push({idx:1,version:'6',when:1790600000000,tag:'0001_fault_fixture',breakpoints:true});
+  const tag=String(journal.entries.length).padStart(4,'0')+'_fault_fixture';
+  journal.entries.push({idx:journal.entries.length,version:'6',when:Math.max(...journal.entries.map(entry=>entry.when))+1,tag,breakpoints:true});
   writeFileSync(journalPath,JSON.stringify(journal));
-  const fixturePath=join(folder,'0001_fault_fixture.sql');
+  const fixturePath=join(folder,tag+'.sql');
   writeFileSync(fixturePath,"UPDATE installation_control SET session_state='active' WHERE singleton=1;\n--> statement-breakpoint\nSELECT * FROM missing_fixture_table;");
   try {
     await assert.rejects(migrateLocalDatabase(db,journal,path,async()=>{migrate(db,{migrationsFolder:folder});}),
@@ -88,4 +90,27 @@ test('an asynchronous installation migration failure preserves the logout fence 
     await migrateLocalDatabase(db,journal,path,async()=>{migrate(db,{migrationsFolder:folder});});
     const restored=new InstallationStore(db,id(2));assert.deepEqual(restored.state(),state);assert.deepEqual(restored.keys(),keys);
   } finally {sqlite.close();rmSync(directory,{recursive:true,force:true});}
+});
+
+
+test('the compatibility migration preserves the previous installation state and account work',()=>{
+  const directory=mkdtempSync(join(tmpdir(),'ritmo-compatibility-migration-')),folder=join(directory,'migrations'),path=join(directory,'installation.db');
+  cpSync(fileURLToPath(new URL('../drizzle-control',import.meta.url)),folder,{recursive:true});
+  const journalPath=join(folder,'meta/_journal.json'),latest=readFileSync(journalPath,'utf8');
+  const journal=JSON.parse(latest) as {entries:{idx:number;version:string;when:number;tag:string;breakpoints:boolean}[]};
+  journal.entries=journal.entries.slice(0,1);writeFileSync(journalPath,JSON.stringify(journal));
+  const sqlite=new SQLite(path),db=drizzle(sqlite),account=openTestStore(join(directory,'account.db'),id(1),id(2));
+  try {
+    migrate(db,{migrationsFolder:folder});
+    const control=new InstallationStore(db,id(2)),pending=account.enqueue(command,id(10),at);
+    control.remember('fixture.credentials','credentials',id(1),id(6));control.remember('fixture.revoke','revocation',id(1),id(6));
+    control.activate(id(1),'fixture.credentials','fixture.revoke');control.fence();
+    const state=control.state(),keys=control.keys();writeFileSync(journalPath,latest);
+    migrate(db,{migrationsFolder:folder});
+    const restored=new InstallationStore(db,id(2));
+    assert.deepEqual(restored.state(),{...state,blocked_client:null});assert.deepEqual(restored.keys(),keys);
+    assert.equal(restored.blockedClient(),null);restored.blockClient('0.1.0|m1.1');
+    assert.equal(new InstallationStore(db,id(2)).blockedClient(),'0.1.0|m1.1');
+    assert.deepEqual(account.operations(),[pending]);assert.equal(account.view(day).habits[0]?.title,'Caminhar');
+  } finally {sqlite.close();account.close();rmSync(directory,{recursive:true,force:true});}
 });

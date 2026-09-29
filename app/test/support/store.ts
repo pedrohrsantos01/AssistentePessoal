@@ -6,7 +6,7 @@ import {readFileSync} from 'node:fs';
 import {join} from 'node:path';
 import {migrateLocalDatabase} from '../../src/core/db/local-migrations.ts';
 import { AccountStore } from '../../src/core/db/account-store.ts';
-export function openTestStore(path:string,accountId:string,deviceId:string,guard:()=>void=()=>{},migrationsFolder=fileURLToPath(new URL('../../drizzle',import.meta.url))) {
+export function openTestStore(path:string,accountId:string,deviceId:string,guard:(write?:boolean)=>void=()=>{},migrationsFolder=fileURLToPath(new URL('../../drizzle',import.meta.url))) {
   const sqlite=new SQLite(path);
   try {
     sqlite.pragma('foreign_keys = ON');

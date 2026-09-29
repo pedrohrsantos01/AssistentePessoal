@@ -16,16 +16,22 @@ export class SyncScheduler {
   private unsubscribe:()=>void;
   constructor(private session:Session,private origin:string,private clock:SyncClock=systemClock) {
     this.key=session.networkState().key;this.lanes.sync.state=this.restoredState();
+    if(session.networkState().updateRequired) this.lanes.revocations.state=this.restoredState();
     this.unsubscribe=session.subscribe(()=>{
       const key=session.networkState().key;
       if(key!==this.key) {
         this.key=key;this.lanes.sync.epoch++;this.lanes.sync.cancel?.();this.lanes.sync.cancel=null;this.lanes.sync.state=this.restoredState();
       }
+      if(session.networkState().updateRequired) for(const lane of Object.values(this.lanes)) {
+        if(lane.state.phase==='update_required') continue;
+        lane.epoch++;lane.cancel?.();lane.cancel=null;lane.state={phase:'update_required',failures:0,nextAttemptAt:null};
+      }
       this.kick('sync');this.kick('revocations');
     });
   }
   private restoredState():SyncState {
-    if(!this.key) return idle();
+    if(this.session.networkState().updateRequired) return {phase:'update_required',failures:0,nextAttemptAt:null};
+    if(!this.key||this.session.access().mode==='read_only') return idle();
     const retry=this.session.account().retryState();
     if(retry.failedCount>0) return {phase:'failed',failures:retry.failures,nextAttemptAt:null};
     return retry.nextAttemptAt===null?idle():{phase:'retry_wait',failures:retry.failures,nextAttemptAt:retry.nextAttemptAt};
@@ -42,7 +48,7 @@ export class SyncScheduler {
     for(const name of ['sync','revocations'] as const) {
       const lane=this.lanes[name];
       if(lane.running||!['idle','failed'].includes(lane.state.phase)) continue;
-      if(name==='sync'&&this.key) this.session.account().retryFailed();
+      if(name==='sync'&&this.key&&this.session.access().mode==='read_write') this.session.account().retryFailed();
       lane.state=idle();this.kick(name);
     }
   }
@@ -51,6 +57,7 @@ export class SyncScheduler {
     const lane=this.lanes[name];
     if(!this.ready()||lane.running) return;
     const network=this.session.networkState();
+    if(network.updateRequired) return;
     if(name==='sync'&&!network.key||name==='revocations'&&!network.revocations) return;
     if(!['idle','retry_wait','paused'].includes(lane.state.phase)) return;
     lane.cancel?.();lane.cancel=null;

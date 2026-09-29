@@ -145,3 +145,13 @@ BEGIN
 END $policy$;
 -- No blanket GRANT here. Role creation/grants and pre-auth Identity access must be
 -- implemented and tested in the first Flyway/infrastructure slice, never as superuser runtime.
+
+
+-- REQ-SYN-014: global pre-auth operational policy, not tenant or feed data.
+CREATE TABLE app_compatibility (
+ singleton BOOLEAN PRIMARY KEY DEFAULT TRUE CHECK(singleton),
+ min_supported_version TEXT NOT NULL DEFAULT '0.1.0'
+  CHECK(min_supported_version ~ '^(0|[1-9][0-9]{0,5})[.](0|[1-9][0-9]{0,5})[.](0|[1-9][0-9]{0,5})$')
+);
+INSERT INTO app_compatibility(singleton) VALUES(TRUE);
+-- Runtime SELECT only: Flyway V3__app_compatibility.sql owns grants.

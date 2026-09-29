@@ -5,7 +5,7 @@ import migrations from '../../../drizzle/migrations.ts';
 import {migrateLocalDatabase} from './local-migrations.ts';
 import { AccountStore } from './account-store.ts';
 
-export async function openExpoStore(accountId:string,deviceId:string,guard:()=>void=()=>{}) {
+export async function openExpoStore(accountId:string,deviceId:string,guard:(write?:boolean)=>void=()=>{}) {
   if(!/^[0-9a-f-]{36}$/.test(accountId)) throw new Error('invalid_account_id');
   const sqlite=openDatabaseSync('account-'+accountId+'.db');
   try {

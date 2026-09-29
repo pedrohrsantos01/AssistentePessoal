@@ -338,3 +338,10 @@ Antes de enviar refresh, `credentials_key` passa a null duravelmente; uso local 
 São migrations locais, sem alteração do schema do servidor; nenhuma Flyway vazia foi adicionada. Os bancos por conta existentes não são apagados nem recriados.
 
 Recuperação concretizada em 27/09/2026 sobre `identity_password_resets` já existente na V1: token somente como hash, consumo dos links e revogação das famílias na transação da senha. Nenhuma coluna/tabela nova. [Evidências e limitações](../docs/analises/2026-09-27-recuperacao-de-senha.md).
+
+
+### 12.8 Compatibilidade da aplicação — implementação de 29/09/2026
+
+Concretização de REQ-SYN-014: a migration local `drizzle-control/0001_client_compatibility.sql` acrescenta `installation_control.blocked_client TEXT NULL`. O valor identifica o par versão/protocolo que recebeu exigência de atualização, sem credenciais ou dados de domínio. Restrição vale para a instalação, persiste no logout e não apaga bancos por conta. Um build diferente conserva somente leitura até validar uma resposta compatível; só então limpa o campo. O mesmo build bloqueado não contorna a restrição por retry ou reinício.
+
+No servidor, `app_compatibility(singleton BOOLEAN PRIMARY KEY DEFAULT TRUE CHECK(singleton), min_supported_version TEXT NOT NULL DEFAULT '0.1.0')` armazena a versão mínima estável no formato major.minor.patch (componentes de até seis dígitos, sem zeros à esquerda). É configuração global sem dados pessoais, consultada antes da autenticação; não é uma tabela de domínio por usuário e não é sincronizada. Flyway V3 cria a linha única. `ritmo_domain` tem somente SELECT; a role de migração/operação pode atualizar a política. Comparar componentes numericamente, ignorar metadados de build e considerar pré-release abaixo da versão estável de mesmo núcleo. Falha ao consultar configuração retorna indisponibilidade, sem prosseguir com versão mínima presumida.

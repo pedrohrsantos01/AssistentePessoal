@@ -1,3 +1,5 @@
+import type {Compatibility} from '../../src/core/sync/compatibility.ts';
+import {CLIENT,type ClientVersion} from '../../src/core/sync/client-version.ts';
 import {mkdtempSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -35,18 +37,18 @@ export function credentials(accountId:string):Credentials {
     revokeToken:'revoke-fixture-'+accountId,accessExpiresAt:'2099-10-25T13:00:00Z',refreshExpiresAt:'2099-11-25T13:00:00Z',
     profile:{accountId,displayName:'Pessoa',timeContext:{timezone:'UTC',dayStartHour:4},plan:'free',onboardedAt:null,analyticsConsentAt:null,revision:'0'}};
 }
-export function fixture() {
+export function fixture(source?:(compatibility:Compatibility)=>IdentityTransport) {
   const directory=mkdtempSync(join(tmpdir(),'ritmo-scheduler-')),sqlite=new SQLite(join(directory,'installation.db')),db=drizzle(sqlite);
   migrate(db,{migrationsFolder:fileURLToPath(new URL('../../drizzle-control',import.meta.url))});
   const control=new InstallationStore(db,id(2)),values=new Map<string,string>(),revoked:string[]=[];
   const vault={async get(key:string){return values.get(key)??null;},async set(key:string,value:string){values.set(key,value);},async remove(key:string){values.delete(key);}};
   const identity:IdentityTransport={async login(email){return credentials(email==='a'?id(1):id(99));},async register(){return credentials(id(1));},
     async refresh(){throw new Error('authentication_required');},async revoke(token){revoked.push(token);}};
-  let sequence=100;
-  const create=()=>new Session(control,vault,identity,(account,guard)=>Promise.resolve(openTestStore(join(directory,account+'.db'),account,id(2),guard)),()=>id(++sequence));
+  let sequence=100,client:ClientVersion=CLIENT;
+  const create=()=>new Session(control,vault,source??identity,(account,guard)=>Promise.resolve(openTestStore(join(directory,account+'.db'),account,id(2),guard)),()=>id(++sequence),client);
   let session=create();
   return {get session(){return session;},identity,revoked,
-    async restart(){session.close();session=create();await session.restore();},
+    async restart(nextClient=client){session.close();client=nextClient;session=create();await session.restore();},
     close(){session.close();sqlite.close();rmSync(directory,{recursive:true,force:true});}};
 }
 export const pull=(cursor:string)=>Response.json({changes:[],nextCursor:cursor,hasMore:false,highWaterRevision:'0',serverTime:at});

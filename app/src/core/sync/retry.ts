@@ -4,7 +4,7 @@ export function failureKind(error:unknown):FailureKind {
     if(error.message==='session_locked'||error.message==='sync_paused') return 'paused';
     if(error.message==='authentication_required') return 'authentication_required';
     if(error.message==='snapshot_retry_required') return 'retry';
-    if(error.message==='unsupported_protocol') return 'update_required';
+    if(error.message==='unsupported_protocol'||error.message==='update_required') return 'update_required';
     if('status' in error&&typeof error.status==='number') {
       if(error.status===401) return 'authentication_required';
       if(error.status===426) return 'update_required';

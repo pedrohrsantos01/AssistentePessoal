@@ -1,3 +1,5 @@
+import {CLIENT} from './client-version.ts';
+import type {Compatibility} from './compatibility.ts';
 import {failureKind} from './retry.ts';
 import type {AccountStore} from '../db/account-store.ts';
 import type {Entity,Operation,PushResult,Pull,Receipt} from './protocol.ts';
@@ -10,24 +12,29 @@ export class SyncHttpError extends Error {
   constructor(readonly status:number,readonly code:string,readonly retryAfter:string|null=null) {super(code);}
 }
 export class HttpSync {
-  constructor(private origin:string,readonly accountId:string,private token:(force?:boolean)=>string|Promise<string>,private nextId:()=>string) {}
+  constructor(private origin:string,readonly accountId:string,private token:(force?:boolean)=>string|Promise<string>,private nextId:()=>string,private compatibility?:Compatibility) {}
   private async request<T>(path:string,method:string,body:unknown,check:(data:unknown)=>boolean):Promise<T> {
-    const headers:Record<string,string>={'Content-Type':'application/json','X-Ritmo-Protocol':'m1.1','X-App-Version':'0.1.0',Authorization:'Bearer '+await this.token(false)};
+    const current=this.compatibility?.captureRequest()??(()=>{});
+    const client=this.compatibility?.client??CLIENT;
+    const headers:Record<string,string>={'Content-Type':'application/json','X-Ritmo-Protocol':client.protocol,'X-App-Version':client.appVersion,Authorization:'Bearer '+await this.token(false)};
     if(path==='push') headers['Idempotency-Key']=this.nextId();
     const init:RequestInit={method,headers,signal:AbortSignal.timeout(15000)};
     if(body!==undefined) init.body=JSON.stringify(body);
+    current();
     let response=await fetch(this.origin+'/api/v1/sync/'+path,init);
+    current();
     if(response.status===401) {
       headers.Authorization='Bearer '+await this.token(true);
       response=await fetch(this.origin+'/api/v1/sync/'+path,{...init,signal:AbortSignal.timeout(15000)});
     }
-    const result:unknown=await response.json().catch(()=>undefined);
+    const result:unknown=await response.json().catch(()=>undefined);current();
     if(!response.ok) {
       let code='http_error';
       if(result&&typeof result==='object'&&'error' in result&&result.error&&typeof result.error==='object'&&'code' in result.error&&typeof result.error.code==='string') code=result.error.code;
       throw new SyncHttpError(response.status,code,response.headers.get('Retry-After'));
     }
     if(!check(result)) throw new Error('unsupported_protocol');
+    this.compatibility?.accept();
     return result as T;
   }
   push(operations:Operation[]) {return this.request<{results:PushResult[];serverTime:string}>('push','POST',{operations},validate.PushResponse);}

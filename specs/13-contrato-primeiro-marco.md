@@ -270,3 +270,10 @@ M1-13/18 receberam validação adicional: 501 envelopes de feed, snapshot com 50
 A abertura dos bancos locais interrompe schema desconhecido ou migration falha com erro tipado, preservando arquivos e intenções. Não há reconstrução automática nem mudança de schema neste incremento. A API responde `404 resource_inaccessible` para cursor de snapshot inválido/de outra conta; cursor inválido de pull mantém `409 resync_required`.
 
 [Validação conjunta e limites](../docs/analises/2026-09-28-snapshots-e-migrations.md); [abertura/migrations](../docs/analises/2026-09-28-abertura-segura.md). O teste de migration usa uma evolução descartável sobre a base inicial real; cada evolução de produção futura continua exigindo sua própria fixture. M1-13 não está integralmente aceito: exclusão/tombstones, reparo de corrupção física e UI ainda dependem de seus recortes. Modo somente leitura obrigatório por versão incompatível e HTTP nativo permanecem próximos passos, com UI subordinada ao protótipo.
+
+
+## 14. Incremento de compatibilidade — 29/09/2026
+
+REQ-SYN-014 tem núcleo persistente: incompatibilidade exige leitura local, preserva pendências e não avança a página com efeito essencial desconhecido. `Session` protege escrita e troca de conta; identidade, sync e scheduler compartilham o estado da instalação. Um build diferente precisa de resposta válida para liberar escritas. Campos opcionais continuam tolerados. A API mantém `min_supported_version` na configuração global com SELECT apenas para runtime; a política é aplicada antes de autenticação/escrita.
+
+Migrations Drizzle 0001 e Flyway V3 e cabeçalho SemVer foram incorporados ao modelo/contrato. O corpo das mensagens continua m1.1. [Evidências e limites](../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md). O próximo recorte é HTTP real no harness Android; UI de atualização e aceite em iPhone permanecem abertos, assim como o restante da matriz M1 e a operação real.

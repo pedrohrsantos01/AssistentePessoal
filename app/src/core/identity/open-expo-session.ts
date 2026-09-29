@@ -6,9 +6,8 @@ import migrations from '../../../drizzle-control/migrations.ts';
 import {migrateLocalDatabase} from '../db/local-migrations.ts';
 import {openExpoStore} from '../db/open-expo-store.ts';
 import {InstallationStore} from './installation-store.ts';
-import {Session} from './session.ts';
+import {Session,type IdentitySource} from './session.ts';
 import {secureVault} from './secure-vault.ts';
-import type {IdentityTransport} from './types.ts';
 
 export function nativeId():string {
   const random=getRandomValues(new Uint8Array(10));
@@ -17,7 +16,7 @@ export function nativeId():string {
   return time.slice(0,8)+'-'+time.slice(8)+'-7'+hex.slice(0,3)+'-'+
     ((random[2]!&3)|8).toString(16)+hex.slice(5,8)+'-'+hex.slice(8,20);
 }
-export async function openExpoSession(identity:IdentityTransport) {
+export async function openExpoSession(identity:IdentitySource) {
   const sqlite=openDatabaseSync('installation.db');
   try {
     sqlite.execSync('PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL;');
