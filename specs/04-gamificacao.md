@@ -28,6 +28,8 @@ Toda a lógica deste spec vive em `src/features/gamification/domain/` como **fun
 
 **REQ-GAM-002 — Teto diário por módulo, adaptativo.** O teto **não** é um número fixo: é `max(150, 15 × número de hábitos ativos devidos hoje)` para o módulo de hábitos, e **150 XP** para tarefas. Um teto fixo de 100 seria atingido por quem tem 11 hábitos apenas cumprindo a própria rotina, e a mensagem de limite apareceria justamente quando o usuário fez tudo certo — o oposto do objetivo. O teto existe contra exploit, não contra uso legítimo. Ao atingir, a ação continua funcionando normalmente, apenas não gera XP, e a UI mostra discretamente "meta de XP do dia atingida". Isto é a defesa contra o exploit óbvio: criar e concluir 50 tarefas em um minuto.
 
+**REQ-GAM-002a — Prêmio inteiro.** Q31 (30/09/2026): conceder os 10 XP somente quando couberem integralmente no saldo do teto. Caso contrário, confirmar o cumprimento e registrar `limit_reached`, sem prêmio parcial. A redução de N por exclusão não reabre orçamento nem altera decisões anteriores.
+
 **REQ-GAM-003 — XP não é subtraído, é revertido.** Desfazer uma ação marca `reverted_at` no evento. O total nunca fica negativo e o histórico nunca é apagado.
 
 **REQ-GAM-003a — Restaurar a concessão original.** Aceito em R3-Q14: refazer o mesmo fato após reversão restaura a concessão original, preservando seu valor e `day_key`. Não cria novo prêmio nem consome novamente o teto; desfazer continua sem devolver o orçamento já consumido. Exemplo: cumprimento com 10 XP → desfazer com 0 XP válido → refazer com os mesmos 10 XP. Em tarefas, aplica-se quando a reversão ocorreu dentro das 24 horas de REQ-TAR-004; se o XP não foi revertido, refazer não acrescenta nada. Restauração não autoriza criar XP para uma ação que não recebeu concessão originalmente. O histórico de reversões e restaurações deve ser preservado; limpar `reverted_at` sem manter esse histórico não basta como modelo definitivo.
@@ -131,7 +133,7 @@ Gamificação de comportamento pessoal tem risco real de dano. Estas regras são
 4. Relógio adiantado em 3 dias → servidor rejeita `day_key` futura; app avisa que a data do aparelho parece incorreta
 5. Conquista e marco de ofensiva disparando juntos → celebrações são enfileiradas, nunca empilhadas em cima uma da outra
 6. Usuário desliga ofensiva e liga de novo → a série é recalculada do histórico real, sem lacuna
-7. Hábito excluído com XP já concedido → XP permanece; `source_id` órfão é tolerado por design
+7. Hábito excluído com XP já concedido → Q30 (30/09/2026) substitui a regra anterior: reverter as concessões ativas do hábito, preservar transições técnicas e orçamento consumido, sem permitir restauração desse ID excluído. Não é penalidade por ausência
 8. Migração de curva de nível numa versão futura → nível é derivado, então o recálculo é automático; nunca migrar XP
 
 ## 8. Testes obrigatórios

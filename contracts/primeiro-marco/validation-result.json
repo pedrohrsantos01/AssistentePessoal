@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.1",
-  "schemas": 51,
+  "schemas": 52,
   "endpoints": 11,
-  "fixtures_passed": 48,
-  "positive": 38,
+  "fixtures_passed": 49,
+  "positive": 39,
   "negative": 10,
   "scope": "Transport document, JSON Schema fixtures, PostgreSQL syntax and SQLite constraints. No server/mobile integration or PostgreSQL execution tested.",
   "postgres_statements_parsed": 27,

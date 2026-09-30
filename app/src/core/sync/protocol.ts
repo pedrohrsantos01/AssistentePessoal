@@ -4,6 +4,7 @@ export type CreateHabit = {
   startDayKey: string; timeContext: TimeContext; iconKey: string | null; colorToken: string | null; sortOrder: number;
 };
 export type Command = CreateHabit
+  | {type:'habit.delete';habitId:string}
   | {type:'habit.mark';habitId:string;dayKey:string;timeContext:TimeContext;observedUndoIds:string[]}
   | {type:'habit.unmark';habitId:string;dayKey:string;timeContext:TimeContext}
   | {type:'habit.patchMetadata';habitId:string;patch:{title?:string;iconKey?:string|null;colorToken?:string|null;sortOrder?:number}}

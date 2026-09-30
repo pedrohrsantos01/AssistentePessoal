@@ -5,6 +5,7 @@ import dev.ritmo.identity.Identity;
 import dev.ritmo.habits.Habits;
 import dev.ritmo.gamification.Gamification;
 import java.time.Instant;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.HashSet;
@@ -23,9 +24,9 @@ import tools.jackson.databind.node.ObjectNode;
 @Service
 public class Sync {
     private final Sql db; private final TenantTransactions transactions; private final TransactionTemplate nested;
-    private final Cursors cursors; private final Identity identity; private final Habits habits; private final Gamification xp;
-    public Sync(@Qualifier("domainSql") Sql db,TenantTransactions transactions,PlatformTransactionManager manager,Identity identity,Habits habits,Gamification xp,Cursors cursors) {
-        this.cursors=cursors;this.db=db;this.transactions=transactions;this.identity=identity;this.habits=habits;this.xp=xp;
+    private final Clock clock; private final Cursors cursors; private final Identity identity; private final Habits habits; private final Gamification xp;
+    public Sync(@Qualifier("domainSql") Sql db,TenantTransactions transactions,PlatformTransactionManager manager,Identity identity,Habits habits,Gamification xp,Cursors cursors,Clock clock) {
+        this.clock=clock;this.cursors=cursors;this.db=db;this.transactions=transactions;this.identity=identity;this.habits=habits;this.xp=xp;
         nested=new TransactionTemplate(manager);nested.setPropagationBehavior(TransactionDefinition.PROPAGATION_NESTED);
     }
     private List<Entity> projections(String user) {
@@ -59,7 +60,7 @@ public class Sync {
             for(var operation:ordered) completed.put(operation.path("operationId").asString(),process(user,operation,cycles));
             var results=Json.array();
             for(var operation:body.path("operations")) results.add(completed.get(operation.path("operationId").asString()));
-            var result=Json.object().put("serverTime",Instant.now().toString());result.set("results",results);return result;
+            var result=Json.object().put("serverTime",clock.instant().toString());result.set("results",results);return result;
         });
     }
     private boolean reaches(String target,String id,Map<String,JsonNode> operations,Set<String> visited) {
@@ -111,7 +112,7 @@ public class Sync {
                 saveReceipt(user,operation,hash,receipt,affected);
                 var change=Json.object().put("revision",revision);
                 change.set("operationResults",Json.array().add(receipt));change.set("entities",Json.entities(affected));
-                db.execute("insert into sync_changes(user_id,revision,committed_at,envelope) values(?::uuid,?::bigint,now(),?::jsonb)",user,revision,change.toString());
+                db.execute("insert into sync_changes(user_id,revision,committed_at,envelope) values(?::uuid,?::bigint,?::timestamptz,?::jsonb)",user,revision,clock.instant().toString(),change.toString());
                 db.execute("update sync_account_state set last_revision=?::bigint where user_id=?::uuid",revision,user);
                 return result(receipt,false,affected);
             });
@@ -139,7 +140,9 @@ public class Sync {
     }
     private JsonNode result(JsonNode receipt,boolean replayed,List<Entity> affected) {
         var result=Json.object().put("replayed",replayed);result.set("receipt",receipt);
-        if(!receipt.path("status").asString().equals("rejected")) result.set("projections",Json.entities(affected));
+        // The complete transaction remains in the feed. Large deletion histories use the existing snapshot path.
+        var visible=affected.size()>32?affected.stream().filter(e->e.kind().equals("tombstone")).toList():affected;
+        if(!receipt.path("status").asString().equals("rejected")) result.set("projections",Json.entities(visible));
         return result;
     }
 
@@ -148,7 +151,7 @@ public class Sync {
     }
     private String pullCursor(String user,String epoch,long after,long high) {
         return cursors.seal(Json.object().put("kind","pull").put("user",user).put("epoch",epoch)
-            .put("after",Long.toString(after)).put("high",Long.toString(high)).put("issued",Instant.now().toString()));
+            .put("after",Long.toString(after)).put("high",Long.toString(high)).put("issued",clock.instant().toString()));
     }
     public JsonNode pull(String user,String cursor) {
         if(cursor==null) throw new HttpFailure(409,"resync_required");
@@ -156,19 +159,20 @@ public class Sync {
         return transactions.run(user,()->{
             lock(user);var state=state(user);
             if(!state.path("epoch").asString().equals(token.path("epoch").asString())||
-                Instant.parse(token.path("issued").asString()).isBefore(Instant.now().minusSeconds(90L*86400))) throw new HttpFailure(409,"resync_required");
+                Instant.parse(token.path("issued").asString()).isBefore(clock.instant().minusSeconds(90L*86400))) throw new HttpFailure(409,"resync_required");
             long after=Long.parseLong(token.path("after").asString()),high=Long.parseLong(token.path("high").asString());
             if(after==high) high=Long.parseLong(state.path("revision").asString());
             var rows=db.rows("select envelope from sync_changes where user_id=?::uuid and revision>?::bigint and revision<=?::bigint order by revision limit 500",user,Long.toString(after),Long.toString(high));
+            if(rows.stream().anyMatch(change->change.path("entities").size()>32)) throw new HttpFailure(409,"resync_required");
             long next=rows.isEmpty()?after:Long.parseLong(rows.getLast().path("revision").asString());
             var response=Json.object().put("nextCursor",pullCursor(user,state.path("epoch").asString(),next,high)).put("hasMore",next<high)
-                .put("highWaterRevision",Long.toString(high)).put("serverTime",Instant.now().toString());
+                .put("highWaterRevision",Long.toString(high)).put("serverTime",clock.instant().toString());
             var changes=Json.array();rows.forEach(changes::add);response.set("changes",changes);return response;
         });
     }
     public JsonNode snapshot(String user) {
         return transactions.run(user,()->{
-            lock(user);var state=state(user);String id=Json.id(),expires=Instant.now().plusSeconds(900).toString();
+            lock(user);var state=state(user);String id=Json.id(),expires=clock.instant().plusSeconds(900).toString();
             var all=projections(user).stream().sorted(java.util.Comparator.comparing(Entity::key)).toList();
             db.execute("insert into sync_snapshots(user_id,id,high_water_revision,feed_epoch,expires_at,entity_count) values(?::uuid,?::uuid,?::bigint,?::uuid,?::timestamptz,?::int)",
                 user,id,state.path("revision").asString(),state.path("epoch").asString(),expires,Integer.toString(all.size()));
@@ -183,7 +187,7 @@ public class Sync {
         return cursors.seal(Json.object().put("kind","snapshot").put("user",user).put("snapshot",id).put("position",position));
     }
     private JsonNode snapshotState(String user,String id) {
-        var rows=db.rows("select jsonb_build_object('revision',high_water_revision::text,'epoch',feed_epoch,'expired',expires_at<=now(),'count',entity_count) from sync_snapshots where user_id=?::uuid and id=?::uuid",user,id);
+        var rows=db.rows("select jsonb_build_object('revision',high_water_revision::text,'epoch',feed_epoch,'expired',expires_at<=?::timestamptz,'count',entity_count) from sync_snapshots where user_id=?::uuid and id=?::uuid",clock.instant().toString(),user,id);
         if(rows.isEmpty()) throw new HttpFailure(404,"resource_inaccessible");
         if(rows.getFirst().path("expired").asBoolean()) throw new HttpFailure(410,"snapshot_expired");
         return rows.getFirst();

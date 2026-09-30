@@ -98,7 +98,7 @@ Como usuário, quero marcar que cumpri um hábito ontem, porque esqueci de regis
 - Mudar a **meta quantitativa** de hábito existente vale a partir do próximo dia lógico após aceitação pelo servidor, preservando a meta de hoje e as anteriores (R4-Q17 e R6-Q25). Mesmo uma correção de meta digitada errada respeita essa vigência
 - Depois do primeiro registro, **tipo e unidade ficam fixos** no v1 (R6-Q26). Para mudá-los, arquivar o hábito e criar outro, preservando o histórico anterior; o novo hábito começa outra série. Antes de existir histórico, permitir corrigir a configuração validando os campos relacionados. Alterar só a meta numérica continua permitido
 - Arquivar remove do Briefing, cancela lembretes, preserva histórico e congela a ofensiva
-- Excluir exige confirmação e informa que o histórico será perdido
+- Excluir exige confirmação e informa que o histórico será perdido. Q30 (30/09/2026): reverter as concessões de XP desse hábito, sem devolver orçamento consumido. A exclusão é definitiva para esse ID e vence edições/registros atrasados; outro hábito exige ID novo. Fatos e recibos técnicos são preservados conforme spec/00 §12, sem reabrir histórico do hábito na UI. Confirmação visual depende do protótipo
 
 ### REQ-HAB-007a — Vigência e avaliação histórica
 Agenda e meta são avaliadas pela regra aplicável ao dia lógico de destino, inclusive em registro retroativo, recálculo de ofensiva e recuperação de dados. Não usar a configuração atual para reinterpretar dias passados. Ver [ADR-018](../docs/adr/0018-vigencia-das-regras-de-habitos.md).

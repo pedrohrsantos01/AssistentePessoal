@@ -1563,6 +1563,22 @@
         ],
         "additionalProperties": false
       },
+      "DeleteHabitCommand": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "habit.delete"
+          },
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          }
+        },
+        "required": [
+          "type",
+          "habitId"
+        ],
+        "additionalProperties": false
+      },
       "Command": {
         "oneOf": [
           {
@@ -1579,6 +1595,9 @@
           },
           {
             "$ref": "#/components/schemas/UnmarkCommand"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteHabitCommand"
           }
         ]
       },

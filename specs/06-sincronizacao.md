@@ -54,6 +54,8 @@ Salvar uma edição de regra de hábito offline confirma sua persistência como 
 
 **REQ-SYN-009** — Tombstones: registros com `deleted_at` são retornados no pull para propagar exclusão. Retenção de 90 dias.
 
+Exclusão/tombstones em 30/09/2026: `habit.delete` persiste offline, invalida hábito e XP local, grava o ID excluído e reverte XP na aceitação sem devolver consumo (Q30). Pendência/ack antigo não restaura o ID; intenção recusada permanece recuperável. Snapshot conserva tombstones mesmo após expiração do cursor/feed. Exclusão extensa cruza o limite de 32 efeitos via `resync_required` e snapshot estável, inclusive depois do push. [Contrato](13-contrato-primeiro-marco.md#18-contrato-do-incremento-de-exclusão--30092026) e [evidências](../docs/analises/2026-09-30-exclusao-e-tombstones.md). A confirmação visual e a rotina física de expurgo/compactação continuam pendentes.
+
 ### 3.1 Recorte implementado em 28/09/2026
 
 REQ-SYN-005/008 têm núcleo, adapters Expo e testes: sync na abertura/login, retorno ao primeiro plano, reconexão e a cada cinco minutos; timers/envios seguintes pausam sem rede ou fora do primeiro plano. Gatilhos concorrentes são agrupados; uma resposta em trânsito pode concluir, mas a geração da sessão impede aplicar dados de outra conta. O scheduler consulta o prazo persistido antes da primeira requisição após reiniciar. Revogações pendentes usam execução independente da conta ativa.

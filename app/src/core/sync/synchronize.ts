@@ -58,6 +58,14 @@ async function pull(store:AccountStore,api:HttpSync) {
     if(!page.hasMore) break;
   }
 }
+async function pullWithRecovery(store:AccountStore,api:HttpSync) {
+  try {await pull(store,api);}
+  catch(error) {
+    if(!(error instanceof SyncHttpError)||error.code!=='resync_required') throw error;
+    await recover(store,api);
+    await pull(store,api);
+  }
+}
 async function recover(store:AccountStore,api:HttpSync) {
   for(let attempt=0;attempt<2;attempt++) {
     try {await copySnapshot(store,api);return;}
@@ -107,12 +115,7 @@ export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number
   if(running.has(store)) return;
   running.add(store);
   try {
-    try {await pull(store,api);}
-    catch(error) {
-      if(!(error instanceof SyncHttpError)||error.code!=='resync_required') throw error;
-      await recover(store,api);
-      await pull(store,api);
-    }
+    await pullWithRecovery(store,api);
     const pending=new Set(store.readyOperations(now()).map(operation=>operation.operationId));
     while(pending.size) {
       const batch=store.readyOperations(now()).filter(operation=>pending.has(operation.operationId)).slice(0,50);
@@ -134,7 +137,7 @@ export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number
       if(expected.size) throw new Error('ack_mismatch');
       store.applyAck(ack.results,now());
     }
-    await pull(store,api);
+    await pullWithRecovery(store,api);
     return store.retryState();
   } finally {running.delete(store);}
 }

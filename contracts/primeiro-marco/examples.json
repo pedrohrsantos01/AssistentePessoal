@@ -766,6 +766,22 @@
     }
   },
   {
+    "name": "delete",
+    "schema": "Operation",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "deviceId": "01996300-0000-7000-8000-000000000002",
+      "clientSequence": 3,
+      "occurredAt": "2026-09-25T13:00:00Z",
+      "dependsOn": [],
+      "command": {
+        "type": "habit.delete",
+        "habitId": "01996300-0000-7000-8000-000000000003"
+      }
+    }
+  },
+  {
     "name": "create",
     "schema": "Operation",
     "valid": true,

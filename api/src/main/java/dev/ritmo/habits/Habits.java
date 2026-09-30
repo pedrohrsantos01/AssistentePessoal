@@ -20,11 +20,12 @@ public class Habits {
         Instant acceptedAt=clock.instant();
         String now=acceptedAt.toString(),occurred=operation.path("occurredAt").asString();
         if(Instant.parse(occurred).isAfter(acceptedAt.plusSeconds(86400))) throw new BusinessFailure("day_invalid");
-        if(!type.equals("habit.patchMetadata")) {
+        if(type.equals("habit.create")||type.equals("habit.mark")||type.equals("habit.unmark")) {
             String target=command.path(type.equals("habit.create")?"startDayKey":"dayKey").asString();
             if(LocalDate.parse(target).isAfter(logicalDay(acceptedAt,profileTimeContext).plusDays(1))) throw new BusinessFailure("day_invalid");
         }
         if(type.equals("habit.create")) {
+            if(!db.rows("select to_jsonb(entity_id) from sync_deleted_ids where user_id=?::uuid and entity_kind='habit' and entity_id=?::uuid",user,habit).isEmpty()) throw new BusinessFailure("id_content_conflict");
             String title=title(command.path("title").asString());
             ensureTitle(user,title,habit);
             if(!db.rows("select to_jsonb(id) from habits where user_id=?::uuid and id=?::uuid",user,habit).isEmpty()) throw new BusinessFailure("id_content_conflict");
@@ -38,6 +39,14 @@ public class Habits {
             return;
         }
         JsonNode existing=db.one("select jsonb_build_object('start',start_day_key,'title',title) from habits where user_id=?::uuid and id=?::uuid and deleted_at is null",user,habit);
+        if(type.equals("habit.delete")) {
+            var sources=db.rows("select to_jsonb(id) from habit_day_states where user_id=?::uuid and habit_id=?::uuid",user,habit).stream().map(v->v.asString()).toList();
+            db.execute("update habits set deleted_at=?::timestamptz,updated_at=?::timestamptz,revision=?::bigint where user_id=?::uuid and id=?::uuid",now,now,revision,user,habit);
+            db.execute("insert into sync_deleted_ids(user_id,entity_kind,entity_id,deleted_revision) values(?::uuid,'habit',?::uuid,?::bigint)",user,habit,revision);
+            db.execute("update habit_day_states set done=false,revision=?::bigint where user_id=?::uuid and habit_id=?::uuid",revision,user,habit);
+            events.publishEvent(new HabitDeleted(user,sources,existing.path("start").asString(),revision,operation.path("operationId").asString(),now));
+            return;
+        }
         if(type.equals("habit.patchMetadata")) {
             var patch=command.path("patch");
             if(patch.has("title")) {
@@ -77,8 +86,11 @@ public class Habits {
             and c.mark_operation_id=m.operation_id and c.undo_operation_id=u.operation_id))))
             """,user,source).asBoolean();
         db.execute("update habit_day_states set done=?::boolean,revision=?::bigint where user_id=?::uuid and id=?::uuid",Boolean.toString(done),revision,user,source);
-        int due=db.one("select to_jsonb(count(*)) from habits where user_id=?::uuid and deleted_at is null and start_day_key<=?::date",user,day).asInt();
+        int due=dueCount(user,day);
         events.publishEvent(new HabitChanged(user,source,day,done,due,revision,op,now));
+    }
+    public int dueCount(String user,String day) {
+        return db.one("select to_jsonb(count(*)) from habits where user_id=?::uuid and deleted_at is null and start_day_key<=?::date",user,day).asInt();
     }
     public static LocalDate logicalDay(Instant instant,JsonNode context) {
         try {
@@ -120,6 +132,12 @@ public class Habits {
             where f.user_id=d.user_id and f.habit_day_id=d.id and f.kind='unmark'),'[]'::jsonb))
             from habit_day_states d where d.user_id=?::uuid
             """,user).forEach(v->result.add(new Entity("habitDay",v)));
+        db.rows("""
+            select jsonb_build_object('entityKind','habit','entityId',h.id,
+            'deletedAt',to_char(h.deleted_at at time zone 'UTC','YYYY-MM-DD"T"HH24:MI:SS.MS"Z"'),'revision',d.deleted_revision::text)
+            from sync_deleted_ids d join habits h on h.user_id=d.user_id and h.id=d.entity_id
+            where d.user_id=?::uuid and d.entity_kind='habit' and h.deleted_at is not null
+            """,user).forEach(v->result.add(new Entity("tombstone",v)));
         return result;
     }
 }

@@ -91,5 +91,5 @@ for case in domain['xpBudget']:
     assert 10*n<=case['expectedLimit']
 report['domain_fixture_checks_passed'] = sum(len(x) for x in domain.values())
 report['normalization_reference_unicode'] = unicodedata.unidata_version
-(ROOT/'validation-result.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+(ROOT/'validation-result.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
 print(json.dumps(report,ensure_ascii=False))

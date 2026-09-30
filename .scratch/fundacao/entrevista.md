@@ -372,3 +372,9 @@ Resultado: a condição de aceitação do servidor vale para ambos os cortes, se
 Informação operacional registrada na etapa de stack/build em 25/09/2026: Pedro informou **não ter assinatura ativa do Apple Developer Program**. Isso não altera a escolha do iPhone 16e como aparelho principal; o build físico via EAS depende da assinatura ou de uma alternativa local com Mac. Não houve autorização de compra nem criação de conta. Ver a pesquisa de stack/build.
 
 Após cada rodada, registrar escolhas, razões e perguntas desbloqueadas. Criar glossário e ADRs conforme houver definições resolvidas; atualizar os contratos afetados sem confundir propostas da auditoria com decisões do Pedro.
+
+
+## Esclarecimentos do recorte de exclusão — 30/09/2026
+
+- **Q30:** Pedro escolheu reverter o XP das concessões do hábito excluído, sem devolver o orçamento consumido, preservando os registros técnicos necessários à sincronização. Substitui explicitamente o caso antigo de spec/04 §7 que preservava XP após exclusão. O histórico de produto deixa de estar disponível; fatos/contextos, decisões, transições e recibos técnicos seguem spec/00 §12 e desaparecem com a exclusão da conta.
+- **Q31:** Pedro escolheu prêmio inteiro ou nenhum XP: confirmar o cumprimento; conceder 10 somente quando couber integralmente no saldo do teto. Sem prêmio parcial. A decisão inicial sem prêmio permanece no desfazer/refazer.

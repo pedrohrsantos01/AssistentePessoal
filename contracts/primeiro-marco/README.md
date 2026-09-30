@@ -1,6 +1,6 @@
 # Contratos executáveis — primeiro marco
 
-Revisão: 26/09/2026 (ajuste de refresh aprovado). Baseline de engenharia `m1.1`, OpenAPI 3.1.1. São arquivos de especificação e verificação, **não um backend ou app implementado**. Decisões de produto: [spec/13](../../specs/13-contrato-primeiro-marco.md) e [entrevista](../../.scratch/fundacao/entrevista.md).
+Revisão: 30/09/2026 (exclusão de hábito, Q30/Q31 e recuperação de histórico extenso). Baseline de engenharia `m1.1`, OpenAPI 3.1.1. São arquivos de especificação e verificação, **não um backend ou app implementado**. Decisões de produto: [spec/13](../../specs/13-contrato-primeiro-marco.md) e [entrevista](../../.scratch/fundacao/entrevista.md).
 
 - `openapi.json`: formatos completos de 11 endpoints e suas mensagens.
 - `examples.json`: fixtures positivas/negativas, com credenciais fictícias.
@@ -83,9 +83,9 @@ Revogação invalida imediatamente renovação. Access JWT stateless já emitido
 
 ## XP e fronteira deste recorte
 
-O M1 expõe somente criação de hábitos binários diários, metadados e marcar/desmarcar. Não expõe arquivamento, exclusão de hábito, outros prêmios ou edição de agenda/meta. Para N hábitos devidos em um dia, cada origem consome 10 uma vez; logo consumo ≤ 10N ≤ max(150,15N). N não diminui nesse recorte. Desfazer/refazer não muda o consumo. Portanto saldo insuficiente para um prêmio nominal não é atingível por uma sequência válida do M1; não é necessário inventar uma política de prêmio parcial para entregá-lo.
+O núcleo do M1 acrescenta `habit.delete` em 30/09/2026; a UI de confirmação depende do protótipo. Q30 reverte XP do hábito excluído sem devolver consumo e substitui o antigo caso de preservação de XP. Q31 aprova prêmio inteiro: conceder 10 somente se couber no saldo; caso contrário, decidir `limit_reached`, sem prêmio parcial. Desfazer/refazer conserva a decisão original.
 
-O ledger ainda registra decisões de ausência de prêmio, e M1-17/20 podem verificar estados sem prêmio como fixtures defensivas. Antes de introduzir arquivamento, exclusão ou bônus, decidir o caso de saldo parcial. A sugestão anterior de prêmio inteiro permanece proposta, não foi atribuída ao Pedro nem transformada em regra aprovada.
+Exclusão grava tombstone/ID excluído e reverte os cumprimentos/XP na mesma revisão. O tombstone invalida a projeção local mesmo contra pendências e ack antigo, sem apagar as intenções recuperáveis. Quando a transação exceder 32 entidades, ack/replay devolvem o tombstone e pull exige snapshot paginado; não aumentar limites nem emitir envelope truncado. Ver spec/13 §18.
 
 ## Invariantes além de JSON Schema
 

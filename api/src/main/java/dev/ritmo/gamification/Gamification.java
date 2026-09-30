@@ -1,6 +1,8 @@
 package dev.ritmo.gamification;
 import dev.ritmo.shared.*;
 import dev.ritmo.habits.HabitChanged;
+import dev.ritmo.habits.HabitDeleted;
+import dev.ritmo.habits.Habits;
 import java.util.List;
 import java.util.ArrayList;
 import org.springframework.stereotype.Service;
@@ -10,8 +12,8 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 
 @Service
 public class Gamification {
-    private final Sql db;
-    public Gamification(@Qualifier("domainSql") Sql db) {this.db=db;}
+    private final Sql db; private final Habits habits;
+    public Gamification(@Qualifier("domainSql") Sql db,Habits habits) {this.db=db;this.habits=habits;}
     @EventListener public void onHabitChanged(HabitChanged event) {
         if(!TransactionSynchronizationManager.isActualTransactionActive()) throw new IllegalStateException("xp_requires_domain_transaction");
         String user=event.userId(),source=event.habitDayId(),revision=event.revision();
@@ -20,7 +22,7 @@ public class Gamification {
         int cost=0;String grant=null,transition=null;
         if(decisions.isEmpty()) {
             int consumed=db.rows("select to_jsonb(consumed) from xp_daily_budgets where user_id=?::uuid and day_key=?::date and module='habits'",user,event.dayKey()).stream().mapToInt(v->v.asInt()).findFirst().orElse(0);
-            // The valid M1 path always has room. Keep an explicit defensive no-award decision.
+            // Q31: award the nominal ten only when the whole prize fits.
             boolean awarded=consumed+10<=Math.max(150,15*event.dueHabits());
             if(awarded) {
                 grant=Json.id();cost=10;transition="grant";
@@ -50,6 +52,21 @@ public class Gamification {
             on conflict(user_id,day_key,module) do update set consumed=xp_daily_budgets.consumed+excluded.consumed,
             due_habit_count=excluded.due_habit_count,revision=excluded.revision
             """,user,event.dayKey(),Integer.toString(cost),Integer.toString(event.dueHabits()),revision);
+    }
+    @EventListener public void onHabitDeleted(HabitDeleted event) {
+        if(!TransactionSynchronizationManager.isActualTransactionActive()) throw new IllegalStateException("xp_requires_domain_transaction");
+        String user=event.userId(),revision=event.revision();
+        for(String source:event.habitDayIds()) {
+            var active=db.rows("select to_jsonb(id) from xp_events where user_id=?::uuid and source_type='habit_log' and source_id=?::uuid and active",user,source);
+            for(var grant:active) {
+                db.execute("update xp_events set active=false,revision=?::bigint where user_id=?::uuid and id=?::uuid",revision,user,grant.asString());
+                db.execute("insert into xp_transitions(user_id,operation_id,xp_event_id,kind,accepted_at,revision) values(?::uuid,?::uuid,?::uuid,'reverse',?::timestamptz,?::bigint)",
+                    user,event.operationId(),grant.asString(),event.acceptedAt(),revision);
+            }
+        }
+        var budgets=db.rows("select to_jsonb(day_key) from xp_daily_budgets where user_id=?::uuid and module='habits' and day_key>=?::date",user,event.startDayKey());
+        for(var day:budgets) db.execute("update xp_daily_budgets set due_habit_count=?::int,revision=?::bigint where user_id=?::uuid and module='habits' and day_key=?::date",
+            Integer.toString(habits.dueCount(user,day.asString())),revision,user,day.asString());
     }
     public List<Entity> projections(String user) {
         var result=new ArrayList<Entity>();

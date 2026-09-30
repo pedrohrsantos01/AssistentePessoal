@@ -78,7 +78,7 @@ Envelope lógico, antes de definir os schemas de validação na implementação:
 - `occurredAt` e `timeContext` explicam o `dayKey` escolhido. O servidor valida formato, fuso, limites e contexto sem reinterpretar registros antigos pelo perfil atual. Horário do aparelho não desempata edições concorrentes.
 - O conteúdo de uma operação enviada fica congelado, inclusive ao reagrupar o lote. Mesmo ID com conteúdo diferente é erro de protocolo. Coalescência só ocorre antes de envio e quando preserva intenção e dependências.
 
-Comandos do caminho mínimo: `profile.setOnboarding`, `habit.create` (binário/diário), `habit.patchMetadata`, `habit.mark`, `habit.unmark`. Os contratos de arquivar/excluir continuam válidos e devem ser cobertos quando esses controles de gestão forem incluídos; não introduzir comandos de módulos futuros para justificar uma arquitetura genérica. Alterações de agenda/meta posteriores obedecem a REQ-HAB-007b e não se confundem com `patchMetadata`.
+Comandos do caminho mínimo: `profile.setOnboarding`, `habit.create` (binário/diário), `habit.patchMetadata`, `habit.mark`, `habit.unmark`; o incremento de 30/09/2026 acrescenta `habit.delete` para cobrir tombstones/M1-13. Arquivamento continua para o incremento de gestão; confirmação visual de exclusão segue REQ-HAB-007 e depende do protótipo; não introduzir comandos de módulos futuros para justificar uma arquitetura genérica. Alterações de agenda/meta posteriores obedecem a REQ-HAB-007b e não se confundem com `patchMetadata`.
 
 O patch de metadados contém somente campos alterados e validados. Título editado num aparelho não sobrescreve cor ou ícone alterado no outro. Um mesmo campo concorrente segue a ordem de aceitação do servidor. Campos interdependentes não são mesclados sem validação conjunta.
 
@@ -112,7 +112,7 @@ No primeiro marco, a concessão nominal é 10 XP por cumprimento elegível. Apli
 
 A primeira avaliação elegível registra também a decisão de **não conceder** quando o limite impedir o prêmio. A ausência de uma linha de XP não significa “ainda não avaliado”. Desfazer/refazer esse cumprimento mantém a decisão original sem prêmio, conforme REQ-GAM-003a; não aproveitar um limite aumentado posteriormente para conceder no refazer. Criar uma decisão por origem canônica, ligada à concessão quando existente.
 
-Proposta de detalhe para o limite: conceder o prêmio nominal somente quando couber integralmente no saldo do teto; caso contrário, confirmar o cumprimento sem nova concessão e devolver `xpLimitReached`. Não criar prêmio parcial silencioso. Esse detalhe deve constar nos exemplos de teste e ser confrontado com REQ-GAM-002 antes de fechar o contrato de gamificação; não é uma resposta atribuída ao Pedro na entrevista.
+Q31, aprovada em 30/09/2026: conceder o prêmio nominal somente quando couber integralmente no saldo do teto; caso contrário, confirmar o cumprimento com decisão `limit_reached`, sem nova concessão e sem prêmio parcial. Desfazer/refazer mantém a decisão original.
 
 O cliente calcula uma projeção provisória para responder offline. O servidor devolve as concessões aceitas e o orçamento reconciliado; a projeção local se recompõe deles e das operações ainda pendentes. `user_progress` continua um cache. Um comando não pode enviar `totalXp`, editar um prêmio ou devolver orçamento por conta própria.
 
@@ -238,13 +238,13 @@ Executar cenários pelo ponto de entrada real do módulo/repositório. Testes de
 
 ## 10. O que falta para liberar implementação
 
-1. Preparação concluída: [contratos executáveis](../contracts/primeiro-marco/README.md) com 11 endpoints, 51 schemas e 48 fixtures após o ajuste de refresh. DDL incorporado ao modelo; migrations/roles e testes de integração já executados no recorte técnico, com cobertura parcial da matriz M1 registrada nos relatórios.
+1. Preparação concluída: [contratos executáveis](../contracts/primeiro-marco/README.md) com 11 endpoints, 51 schemas e 48 fixtures após o ajuste de refresh; a extensão de exclusão em 30/09/2026 totaliza 52 schemas e 49 fixtures. DDL incorporado ao modelo; migrations/roles e testes de integração já executados no recorte técnico, com cobertura parcial da matriz M1 registrada nos relatórios.
 2. Baseline e caminhos de build documentados na [pesquisa de stack](../docs/analises/2026-09-25-stack-e-build-primeiro-marco.md). Java 21 preservado; Boot 4.1.1/Modulith 2.1.1 substituem a linha Boot 3 sem suporte aberto. Dependências, build Android técnico e testes locais/integrados já foram executados nos recortes documentados; o aceite completo nos aparelhos permanece pendente. Pedro informou não ter assinatura Apple Developer; rota EAS física no iPhone depende disso ou de alternativa local com Mac.
 3. Definir configuração operacional de e-mail, segredos, deploy e restore de backup, sem gravar credenciais nos docs.
 4. Completar M1-01 a M1-20 com fixtures/testes de implementação. A cobertura parcial está registrada nos relatórios; a matriz inteira ainda não passou.
 5. Integrar o protótipo quando Pedro o concluir; até lá, manter o gate visual aberto. Não transformar esse gate em impedimento para documentar e testar o domínio.
 
-Contextos têm limite técnico explícito e não podem ser truncados. Recovery, retenção e snapshot foram concretizados no README dos contratos. Saldo parcial de XP não é alcançável pelo recorte válido do M1; continua decisão necessária antes de incrementos que reduzam N ou adicionem outros prêmios. Nenhum desses detalhes autoriza mudar silenciosamente decisões de produto.
+Contextos têm limite técnico explícito e não podem ser truncados. Recovery, retenção e snapshot foram concretizados no README dos contratos. Q31 fecha o saldo parcial para o incremento que reduz N: prêmio inteiro ou nenhum XP. Nenhum desses detalhes autoriza mudar silenciosamente decisões de produto.
 
 
 ## 11. Incremento de execução automática — 28/09/2026
@@ -302,3 +302,14 @@ O núcleo de M1-12 agora inclui getDayKey no app, resolução explícita de lacu
 SQLite/HTTP/Postgres reais provam mudanças offline de fuso/início, envelopes preservados após reabertura, duas semanas de transporte tardio e concessão/orçamento no dia de destino. Exatamente sete dias retroativos é válido na criação; oito dias, data antes do início ou depois do dia da ação e relógio acima de 24h recebem rejeição recuperável sem efeitos. Exemplos compartilhados verificam offsets fracionários, mês/ano, ano bissexto e dias de 23/25h.
 
 [Relatório e reprodução](../docs/analises/2026-09-30-datas-e-fusos.md). Tarefa 05 e M1 continuam abertos: os clientes são de desktop, sem aceite Android/iPhone neste recorte. Timer/integração visual da virada e confirmação de mudança detectada de fuso aguardam o protótipo. Próximo recorte: exclusão/tombstones de M1-13; operação e demais lacunas permanecem pendentes. Schema e HTTP m1.1 foram preservados.
+
+
+## 18. Contrato do incremento de exclusão — 30/09/2026
+
+`habit.delete` contém apenas `type` e `habitId` no envelope normal; a camada de apresentação deve exigir a confirmação de REQ-HAB-007 antes de enfileirar. O núcleo persiste a intenção offline e remove o hábito/XP da projeção. Aceitação marca `deleted_at`, grava `sync_deleted_ids`, invalida cumprimentos projetados e reverte concessões ativas, com transições, sem devolver consumo. Atualiza N dos orçamentos afetados pelo início do hábito. Tudo participa da mesma transação/revisão/recibo.
+
+Q30 altera a regra antiga de spec/04 §7: histórico de produto indisponível; manter fatos/contextos/IDs e histórico técnico de XP para reconciliação, sem recuperá-los como hábito ativo. ID excluído não pode ser recriado. Nova edição/marcação/desfazer/exclusão sobre recurso excluído recebe `resource_inaccessible`; tentativa de criar novamente recebe `id_content_conflict`. Recibo original aceito continua aceito no replay. Exclusão concorrente vence qualquer ordem de edição/marcação.
+
+Tombstone é uma invalidação definitiva do hábito e do XP ligado aos seus cumprimentos, inclusive durante rebase de pendências ou chegada de ack antigo. Pendências não são apagadas: o servidor as classifica, conservando rejeições recuperáveis. Snapshot conserva tombstones e registro mínimo de IDs, mesmo após a janela do feed.
+
+Não aumentar silenciosamente o limite existente de 32 entidades por envelope. Exclusão com mais efeitos devolve no ack o tombstone, preserva o envelope completo interno e obriga `resync_required` quando o pull cruzaria essa transação. O cliente recupera o snapshot estável/paginado, consultando recibos em H antes do swap. Nenhuma página do feed corta a transação; o tombstone torna o hábito/XP inválidos imediatamente enquanto a cópia segue. Replay do recibo extenso mantém essa resposta limitada.

@@ -64,7 +64,7 @@ CREATE TABLE xp_events (
  module text NOT NULL CHECK(module='habits'), budget_cost integer NOT NULL CHECK(budget_cost=10),
  active boolean NOT NULL, revision bigint NOT NULL CHECK(revision>0),
  PRIMARY KEY(user_id,id), UNIQUE(user_id,source_type,source_id), UNIQUE(user_id,id,source_id)
- -- Deliberately no source FK: domain deletion preserves the already earned XP (spec/04 §7).
+ -- No source FK: preserve technical grant identity/history across deletion; Q30 reverses active XP.
 );
 CREATE TABLE xp_award_decisions (
  user_id uuid NOT NULL REFERENCES users(id) ON DELETE CASCADE, source_type text NOT NULL CHECK(source_type='habit_log'),

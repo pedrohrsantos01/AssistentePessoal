@@ -111,6 +111,82 @@ class RuntimeTests {
         assertThat(grants.getFirst().at("/value/active").asBoolean()).isTrue();
     }
 
+    private tools.jackson.databind.JsonNode getSync(String path,String token,int expected) throws Exception {
+        var request=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+"/api/v1/sync/"+path))
+            .header("X-Ritmo-Protocol","m1.1").header("X-App-Version","0.1.0")
+            .header("Authorization","Bearer "+token).GET().build();
+        var response=HttpClient.newHttpClient().send(request,HttpResponse.BodyHandlers.ofString());
+        assertThat(response.statusCode()).as(response.body()).isEqualTo(expected);
+        return dev.ritmo.shared.Json.read(response.body());
+    }
+    @Test void aDeletionXpFailureRollsBackTombstoneGrantReceiptAndFeed() throws Exception {
+        var session=account("deletion-rollback");String token=session.path("accessToken").asString(),user=session.path("accountId").asString(),habit=dev.ritmo.shared.Json.id();
+        post("sync/push",token,batch(operation(dev.ritmo.shared.Json.id(),1,createCommand(habit))),200);
+        var mark=dev.ritmo.shared.Json.object().put("type","habit.mark").put("habitId",habit).put("dayKey","2026-09-25");
+        mark.set("timeContext",dev.ritmo.shared.Json.read("{\"timezone\":\"America/Sao_Paulo\",\"dayStartHour\":4}"));
+        mark.set("observedUndoIds",dev.ritmo.shared.Json.array());
+        post("sync/push",token,batch(operation(dev.ritmo.shared.Json.id(),2,mark)),200);
+        var deletion=operation(dev.ritmo.shared.Json.id(),3,dev.ritmo.shared.Json.object().put("type","habit.delete").put("habitId",habit));
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());var statement=owner.createStatement()) {
+            statement.execute("""
+                create function test_fail_deletion_transition() returns trigger language plpgsql as $$
+                begin if new.user_id::text='%s' and new.kind='reverse' then raise exception 'fixture_deletion_failure'; end if; return new; end $$
+                """.formatted(user));
+            statement.execute("create trigger test_fail_deletion_transition before insert on xp_transitions for each row execute function test_fail_deletion_transition()");
+            try {
+                assertThat(post("sync/push",token,batch(deletion),503).at("/error/code").asString()).isEqualTo("temporarily_unavailable");
+                var manifest=post("sync/snapshots",token,"{}",201);
+                assertThat(manifest.path("highWaterRevision").asString()).isEqualTo("2");
+                var page=getSync("snapshots/"+manifest.path("snapshotId").asString()+"?cursor="+manifest.path("firstPageCursor").asString(),token,200);
+                var all=java.util.stream.StreamSupport.stream(page.path("entities").spliterator(),false).toList();
+                assertThat(all.stream().filter(e->e.path("kind").asString().equals("tombstone")).count()).isZero();
+                assertThat(all.stream().filter(e->e.path("kind").asString().equals("habit")).count()).isEqualTo(1);
+                assertThat(all.stream().filter(e->e.path("kind").asString().equals("xpGrant")&&e.at("/value/active").asBoolean()).count()).isEqualTo(1);
+                var query=dev.ritmo.shared.Json.object().put("snapshotId",manifest.path("snapshotId").asString());
+                query.set("operationIds",dev.ritmo.shared.Json.array().add(deletion.path("operationId")));
+                assertThat(post("sync/receipts",token,query.toString(),200).at("/results/0/status").asString()).isEqualTo("notProcessedAtH");
+            } finally {
+                statement.execute("drop trigger test_fail_deletion_transition on xp_transitions");
+                statement.execute("drop function test_fail_deletion_transition()");
+            }
+        }
+        assertThat(post("sync/push",token,batch(deletion),200).at("/results/0/receipt/status").asString()).isEqualTo("accepted");
+    }
+
+    @Test void anExpiredDeletionFeedKeepsItsIdAndOriginalReceiptsThroughSnapshot() throws Exception {
+        RESET_CLOCK.now=java.time.Instant.parse("2026-09-30T12:00:00Z");
+        var session=account("deletion-retention");String token=session.path("accessToken").asString(),user=session.path("accountId").asString();
+        String habit=dev.ritmo.shared.Json.id();
+        var initial=post("sync/snapshots",token,"{}",201);
+        var first=getSync("snapshots/"+initial.path("snapshotId").asString()+"?cursor="+initial.path("firstPageCursor").asString(),token,200);
+        String cursor=first.path("pullCursor").asString();
+        var creation=operation(dev.ritmo.shared.Json.id(),1,createCommand(habit));
+        post("sync/push",token,batch(creation),200);
+        var deletion=operation(dev.ritmo.shared.Json.id(),2,dev.ritmo.shared.Json.object().put("type","habit.delete").put("habitId",habit));
+        post("sync/push",token,batch(deletion),200);
+        RESET_CLOCK.now=java.time.Instant.parse("2026-12-29T12:00:00Z"); // Exactly 90 days, inclusive.
+        getSync("pull?cursor="+cursor,token,200);
+        RESET_CLOCK.now=RESET_CLOCK.now.plusSeconds(1);
+        assertThat(getSync("pull?cursor="+cursor,token,409).at("/error/code").asString()).isEqualTo("resync_required");
+        // External fixture simulates removal of the expired feed; retain IDs, soft delete and receipts.
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());
+            var purge=owner.prepareStatement("delete from sync_changes where user_id=?::uuid")) {
+            purge.setString(1,user);purge.executeUpdate();
+        }
+        var manifest=post("sync/snapshots",token,"{}",201);
+        var page=getSync("snapshots/"+manifest.path("snapshotId").asString()+"?cursor="+manifest.path("firstPageCursor").asString(),token,200);
+        assertThat(page.path("entities").size()).isEqualTo(2);
+        assertThat(java.util.stream.StreamSupport.stream(page.path("entities").spliterator(),false).filter(e->e.path("kind").asString().equals("tombstone")).count()).isEqualTo(1);
+        var replay=post("sync/push",token,batch(creation),200);
+        assertThat(replay.at("/results/0/replayed").asBoolean()).isTrue();
+        assertThat(replay.at("/results/0/receipt/acceptedRevision").asString()).isEqualTo("1");
+        var retry=post("sync/push",token,batch(operation(dev.ritmo.shared.Json.id(),3,createCommand(habit))),200);
+        assertThat(retry.at("/results/0/receipt/error/code").asString()).isEqualTo("id_content_conflict");
+        var query=dev.ritmo.shared.Json.object().put("snapshotId",manifest.path("snapshotId").asString());
+        query.set("operationIds",dev.ritmo.shared.Json.array().add(creation.path("operationId")));
+        assertThat(post("sync/receipts",token,query.toString(),200).at("/results/0/acceptedRevision").asString()).isEqualTo("1");
+    }
+
     @Test void aNewClientReceivesAnAccountScopedSnapshot() throws Exception {
         var session=post("auth/register",null,"{\"email\":\"snapshot@example.test\",\"password\":\"fixture-password\",\"displayName\":\"Pessoa\",\"deviceId\":\"01996300-0000-7000-8000-000000000002\"}",201);
         var manifest=post("sync/snapshots",session.path("accessToken").asString(),"{}",201);
@@ -141,6 +217,22 @@ class RuntimeTests {
             .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
         builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
         builder.environment().put("RITMO_TEST_SERVER_TIME",RESET_CLOCK.instant().toString());
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
+    @Test void mobileDeletionsConvergeThroughTheRealHttpApi() throws Exception {
+        RESET_CLOCK.now=java.time.Instant.parse("2026-09-30T12:00:00Z");
+        var log=java.nio.file.Path.of("build/deletion-integration.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/deletion.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
         var process=builder.start();
         boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
         if(!ended) process.destroyForcibly();

@@ -31,7 +31,8 @@ S['CreateHabitCommand'] = obj({'type':{'const':'habit.create'},'habitId':ref('Id
 S['PatchHabitCommand'] = obj({'type':{'const':'habit.patchMetadata'},'habitId':ref('Id'),'patch':ref('MetadataPatch')})
 S['MarkCommand'] = obj({'type':{'const':'habit.mark'},'habitId':ref('Id'),'dayKey':ref('Day'),'timeContext':ref('TimeContext'),'observedUndoIds':arr(ref('Id'),4096,unique=True)})
 S['UnmarkCommand'] = obj({'type':{'const':'habit.unmark'},'habitId':ref('Id'),'dayKey':ref('Day'),'timeContext':ref('TimeContext')})
-S['Command'] = {'oneOf':[ref(x) for x in ('OnboardingCommand','CreateHabitCommand','PatchHabitCommand','MarkCommand','UnmarkCommand')]}
+S['DeleteHabitCommand'] = obj({'type':{'const':'habit.delete'},'habitId':ref('Id')})
+S['Command'] = {'oneOf':[ref(x) for x in ('OnboardingCommand','CreateHabitCommand','PatchHabitCommand','MarkCommand','UnmarkCommand','DeleteHabitCommand')]}
 S['Operation'] = obj({'operationId':ref('Id'),'deviceId':ref('Id'),'clientSequence':integer(1,9007199254740991),'occurredAt':ref('Instant'),'dependsOn':arr(ref('Id'),4096,unique=True),'supersedesOperationId':nullable(ref('Id')),'command':ref('Command')},('supersedesOperationId',))
 S['AccountProfile'] = obj({'accountId':ref('Id'),'displayName':text(80),'timeContext':ref('TimeContext'),'plan':{'const':'free'},'onboardedAt':nullable(ref('Instant')),'analyticsConsentAt':nullable(ref('Instant')),'revision':ref('Revision')})
 S['Habit'] = obj({'habitId':ref('Id'),'title':text(),'habitType':{'const':'binary'},'scheduleKind':{'const':'daily'},'startDayKey':ref('Day'),'creationTimeContext':ref('TimeContext'),'iconKey':nullable(text(64)),'colorToken':nullable(text(64)),'sortOrder':integer(0,1000000),'createdAt':ref('Instant'),'updatedAt':ref('Instant'),'deletedAt':nullable(ref('Instant')),'revision':ref('Revision')})
@@ -139,7 +140,7 @@ example('receipts-request','ReceiptsRequest',{'snapshotId':ID(20),'operationIds'
 example('receipts-response','ReceiptsResponse',{'snapshotId':ID(20),'highWaterRevision':'3','results':[RECEIPT,{'operationId':ID(11),'status':'notProcessedAtH'}]})
 for code in HTTP_CODES:
     example(code,'ApiError',{'error':{'code':code,'requestId':ID(30),'fields':[],'retryAfterSeconds':2 if code in ('rate_limited','temporarily_unavailable') else None}})
-for name,command in [('create',{'type':'habit.create','habitId':ID(3),'title':'Caminhar','habitType':'binary','scheduleKind':'daily','startDayKey':'2026-09-25','timeContext':TC,'iconKey':None,'colorToken':None,'sortOrder':0}),('patch',{'type':'habit.patchMetadata','habitId':ID(3),'patch':{'title':'Caminhada'}}),('unmark',{'type':'habit.unmark','habitId':ID(3),'dayKey':'2026-09-25','timeContext':TC}),('onboarding',{'type':'profile.setOnboarding','timeContext':TC,'completed':True,'analyticsConsent':False})]:
+for name,command in [('delete',{'type':'habit.delete','habitId':ID(3)}),('create',{'type':'habit.create','habitId':ID(3),'title':'Caminhar','habitType':'binary','scheduleKind':'daily','startDayKey':'2026-09-25','timeContext':TC,'iconKey':None,'colorToken':None,'sortOrder':0}),('patch',{'type':'habit.patchMetadata','habitId':ID(3),'patch':{'title':'Caminhada'}}),('unmark',{'type':'habit.unmark','habitId':ID(3),'dayKey':'2026-09-25','timeContext':TC}),('onboarding',{'type':'profile.setOnboarding','timeContext':TC,'completed':True,'analyticsConsent':False})]:
     op=copy.deepcopy(OP); op['command']=command; example(name,'Operation',op)
 bad=copy.deepcopy(OP); bad['userId']=ID(99); example('reject-client-owner','Operation',bad,False)
 bad=copy.deepcopy(OP); bad['command']['totalXp']=100; example('reject-client-xp','Operation',bad,False)
@@ -152,5 +153,5 @@ bad=copy.deepcopy(OP); bad['command']['type']='xp.setTotal'; example('reject-unk
 example('reject-unknown-result','PushResponse',{'results':[{'status':'success'}],'serverTime':TIME},False)
 example('reject-unsupported-habit','CreateHabitCommand',{'type':'habit.create','habitId':ID(3),'title':'Beber','habitType':'quantitative','scheduleKind':'daily','startDayKey':'2026-09-25','timeContext':TC,'iconKey':None,'colorToken':None,'sortOrder':0},False)
 for name,data in [('openapi.json',API),('examples.json',EX)]:
-    (ROOT/name).write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    (ROOT/name).write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8', newline='\n')
 print(f'Generated {len(S)} schemas, {len(paths)} endpoints, {len(EX)} fixtures.')

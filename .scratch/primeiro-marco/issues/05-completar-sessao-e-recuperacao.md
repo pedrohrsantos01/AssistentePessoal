@@ -168,3 +168,21 @@ Exercitar meia-noite, início configurado, mês/ano, dias de 23/25h, offsets de 
 - Datas inválidas geram rejeição recuperável e sem efeitos, conservada após reinício. Exatamente 24h é aceito dentro do limite de dia; 24h + 1 ms e dia além do limite são recusados.
 
 [Relatório, testes e limites](../../../docs/analises/2026-09-30-datas-e-fusos.md). Checks finais: typecheck/lint, 91 testes locais do app, 28 cenários HTTP de datas; API check com 34 casos aprovados e 1 nativo ignorado, incluindo ModularityTests. Sem mudança de contrato/schema/dependência. M1 e tarefa 05 continuam abertos; timer/aviso visual e detecção de fuso dependem do protótipo. Próximo recorte: exclusão/tombstones e prevenção de ressurreição (M1-13). Operação, demais lacunas e aceite dos aparelhos permanecem pendentes.
+
+
+## Incremento de exclusão e tombstones — iniciado em 30/09/2026
+
+Pedro autorizou o próximo recorte recomendado: REQ-HAB-007, REQ-SYN-009/010 e restante de M1-13. Fronteiras de teste já aprovadas: AccountStore/HTTP com SQLite e Postgres reais; transporte/relógio/falhas de armazenamento externos. Primeiro tracer: tombstone recebido impede que pendência/ack antigo restaure o hábito, sem apagar o envelope recuperável. Seguir com exclusão offline, reconciliação, XP, replays, snapshot e isolamento. UI de confirmação depende do protótipo.
+
+Definições novas aprovadas nesta sessão: Q30 reverte XP do hábito excluído, preservando orçamento consumido e registros técnicos; Q31 concede prêmio inteiro apenas quando couber no teto, sem XP parcial. Registrar essas definições nos specs antes do comando servidor.
+
+
+### Entregue no incremento de exclusão e tombstones — 30/09/2026
+
+- Intenção de exclusão offline durável e tombstone terminal: pending/ack antigo não restaura hábito nem XP; rejeição mantém conteúdo recuperável.
+- Aceitação atômica com ID excluído, invalidação dos cumprimentos, reversões de concessões ativas, N recalculado e consumo original preservado. Q30 substitui o caso antigo de XP mantido após exclusão; Q31 aprova prêmio inteiro ou nenhum XP. Specs/entrevista/contrato atualizados.
+- Dez cenários SQLite/HTTP/Postgres: reabertura, ack perdido/replay, ID novo com título liberado, histórico extenso por snapshot, saldo 5 de XP sem prêmio parcial, seis ordens de exclusão concorrente e isolamento entre contas.
+- Cursor exatamente em 90 dias e um segundo depois; feed removido como fixture com snapshot/recibos/ID excluído preservados. Falha de gravação de XP retorna 503 e desfaz exclusão/revisão/recibo; retry da mesma intenção é aceito.
+- Sem novo schema/dependência. Contratos: 52 schemas/49 fixtures; app typecheck/lint e 94 testes aprovados; API check com 37 casos aprovados e um nativo ignorado, incluindo ModularityTests.
+
+[Relatório, comandos e limites](../../../docs/analises/2026-09-30-exclusao-e-tombstones.md). M1/tarefa 05 continuam abertos; confirmação visual e aceite dos aparelhos dependem do protótipo/rota de instalação. Retenção mínima está preservada, mas não há job físico de expurgo/compactação de produção. Próximo recorte recomendado: operação (rate limiting, retenção/expurgo seguro, provisionamento reproduzível e backup/restore), validada localmente antes de exposição externa. Depois das lacunas do M1, decompor os demais eixos com `grilling`.
