@@ -117,3 +117,19 @@ Próximo passo autorizado por Pedro: núcleo de REQ-SYN-014. Fronteiras de teste
 - Drizzle 0001 verificada contra a versão anterior; cenário HTTP/Postgres/SQLite prova reenvio das intenções após upgrade sem duplicar XP.
 
 [Relatório, comandos e limites](../../../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md). Tarefa 05 e M1 continuam abertos. Próximo recorte recomendado: HTTP real no harness Android. O aviso visual depende do protótipo; iPhone, matriz M1 restante e operação real seguem pendentes.
+
+
+## Incremento de HTTP nativo Android — iniciado em 29/09/2026
+
+Próximo passo autorizado por Pedro. Manter as fronteiras públicas de Session/AccountStore/HTTP, agora com SQLite, SecureStore, fetch, AppState e expo-network reais no emulador. A API/Postgres descartáveis serão controlados por teste finito. Cenário: cadastro, hábito/marcação offline, encerramento do processo, reabertura ainda offline e sincronização automática ao recuperar rede/foreground, com convergência observada por outro cliente sem duplicar XP. Harness sem UI de produto, pacote Android separado e HTTP em loopback por adb reverse; sem reset dos dados do harness anterior ou acesso à VPS. Registrar comandos e limitações; não declarar aceite iPhone nem M1 completo.
+
+
+### Entregue no incremento HTTP nativo — 30/09/2026
+
+- Variante Android isolada com runtime, SQLite, SecureStore, fetch e eventos nativos reais; API/Postgres descartáveis em teste finito.
+- Criação/marcação offline, force-stop com SQLite aberto e reabertura preservam exatamente envelopes/projeção e recuperam a sessão protegida.
+- Rede restabelecida em segundo plano não envia pendências; retorno ao primeiro plano converge automaticamente com outro cliente SQLite/HTTP.
+- Replays, marcação independente do mesmo hábito/dia e nova abertura mantêm 10 XP; refresh rotacionado sobrevive ao reinício.
+- Script reproduzível valida o pacote antes de instalar e restaura rádios/encaminhamento; variante padrão não recebe a exceção de HTTP.
+
+[Relatório, comandos e limites](../../../docs/analises/2026-09-30-http-nativo-android.md). Tarefa 05 e M1 continuam abertos. Próximo recorte recomendado: matriz de concorrência M1-04/06 e datas/relógios/fusos M1-12. Permanecem UI vinculada ao protótipo, iPhone, exclusão/tombstones, demais lacunas da matriz e operação real.

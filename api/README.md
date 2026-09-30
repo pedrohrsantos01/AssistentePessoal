@@ -15,6 +15,12 @@ Java 21 e Docker precisam estar disponíveis. O teste inicia GreenMail em loopba
 
 `RuntimeTests` verifica HTTP, RLS, transações, recibos e executa os cenários em `app/test/integration/`: sync/sessão, recuperação de senha, scheduler, rejeições, snapshots e compatibilidade. `ModularityTests` verifica fronteiras. Os relatórios ficam em `build/reports/tests/test/index.html`; o resultado dos clientes em `build/mobile-integration.log`, `build/mobile-recovery.log`, `build/mobile-scheduler.log` `build/mobile-rejections.log`, `build/snapshot-integration.log` e `build/compatibility-integration.log`.
 
+## Integração nativa Android (opt-in)
+
+O comando `scripts/verify-android-http.ps1 -Serial <emulator-serial>`, executado na raiz, gera e instala o APK isolado e executa o cenário Android dentro de `RuntimeTests`. Pré-requisitos e efeitos no emulador estão no [README do app](../app/README.md#harness-android-com-http-real). A API do teste escuta somente em `127.0.0.1`; Testcontainers/GreenMail continuam descartáveis.
+
+Sem `RITMO_ANDROID_SERIAL`, o caso nativo é ignorado explicitamente; as demais suítes continuam independentes de Android. Com essa variável, Gradle sempre executa os testes; `RITMO_ANDROID_APK` também registra o APK como entrada. O caminho completo pelo script evita testar acidentalmente um APK antigo. Resultado nativo em `build/android-http-integration.log`; [relatório e limites](../docs/analises/2026-09-30-http-nativo-android.md).
+
 ## Conexões e permissões
 
 Antes de aplicar Flyway num banco novo, um administrador executa [bootstrap-roles.sql](ops/bootstrap-roles.sql). Provisiona separadamente um login membro de `ritmo_domain`, outro de `ritmo_identity` e o dono das migrations. Nenhum login de aplicação recebe `SUPERUSER`, `BYPASSRLS`, propriedade de tabelas ou as duas memberships.

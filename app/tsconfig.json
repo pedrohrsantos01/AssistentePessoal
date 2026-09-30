@@ -17,6 +17,7 @@
   "include": [
     "src/**/*.ts",
     "test/**/*.ts",
-    "harness/**/*.ts"
+    "harness/**/*.ts",
+    "app.config.ts"
   ]
 }

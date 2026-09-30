@@ -15,11 +15,11 @@ A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `
 
 `AccountStore.enqueue` grava a intenção imutável, sequência e projeção na mesma transação síncrona. Recebimento de ack atualiza entidades por revisão e não avança o cursor; pull reconhece recibos antes de reaplicar pendências. O snapshot usa staging no mesmo banco. Não há `await` dentro de transações Drizzle, evitando o alistamento de consultas assíncronas externas.
 
-`synchronize` recebe um transporte vinculado à mesma conta, valida respostas geradas do OpenAPI, recupera snapshot quando necessário e troca lotes de até 50 operações. Erros preservam o banco. O uso autenticado passa por `Session.synchronize`, que verifica a geração da sessão e renova acesso quando necessário. O scheduler automático e o backoff estão descritos abaixo; o aceite visual e a rede nativa em aparelho permanecem pendentes.
+`synchronize` recebe um transporte vinculado à mesma conta, valida respostas geradas do OpenAPI, recupera snapshot quando necessário e troca lotes de até 50 operações. Erros preservam o banco. O uso autenticado passa por `Session.synchronize`, que verifica a geração da sessão e renova acesso quando necessário. O scheduler automático e o backoff estão descritos abaixo; o aceite visual e a execução em iPhone permanecem pendentes. O cenário HTTP nativo Android está descrito abaixo.
 
 ## Sincronização automática
 
-`openExpoRuntime(origin)` compõe identidade HTTP, sessão, SQLite/SecureStore e scheduler. A futura entrada do app deve manter uma instância e chamar `close()` no encerramento. `runtime.sync.status()` expõe o estado de sync e revogações; `runtime.sync.retry()` retoma falhas transitórias esgotadas preservando os IDs. O harness atual mantém seu transporte fictício; ainda não usa essa fábrica.
+`openExpoRuntime(origin)` compõe identidade HTTP, sessão, SQLite/SecureStore e scheduler. A futura entrada do app deve manter uma instância e chamar `close()` no encerramento. `runtime.sync.status()` expõe o estado de sync e revogações; `runtime.sync.retry()` retoma falhas transitórias esgotadas preservando os IDs. A variante HTTP do harness usa essa fábrica; o harness básico de armazenamento mantém seu transporte fictício.
 
 O adapter combina AppState com expo-network 57.0.2. Abertura, login, retorno ao primeiro plano, reconexão e o período de cinco minutos acionam a sincronização com rede. Enquanto o app estiver inativo ou sem conectividade, nenhum novo envio automático começa; uma resposta já em trânsito pode ser reconciliada. `close()` remove listeners e timers.
 
@@ -64,7 +64,7 @@ Não há reconstrução ou limpeza automática: arquivos das contas, intenções
 
 ## Harness Android
 
-`harness/index.ts` é somente um teste nativo sem interface visual. Usa SQLite e SecureStore reais com um transporte de identidade fictício, troca entre A/B e escreve somente o resultado não sensível em `RITMO_HARNESS`. A segunda execução verifica pendências e sessão protegida após reiniciar o processo. O teste HTTP real usa a suíte integrada de desktop; não equivale à rede nativa Android. Não é o Briefing nem define a identidade visual.
+`harness/index.ts` é somente um teste nativo sem interface visual. Usa SQLite e SecureStore reais com um transporte de identidade fictício, troca entre A/B e escreve somente o resultado não sensível em `RITMO_HARNESS`. A segunda execução verifica pendências e sessão protegida após reiniciar o processo. A variante básica usa o pacote `dev.ritmo.foundationharness`. A variante HTTP abaixo usa outro pacote. Nenhuma delas é o Briefing ou define a identidade visual.
 
 ```powershell
 pnpm exec expo prebuild --platform android --no-install
@@ -78,6 +78,24 @@ O template do Expo usa seu próprio Gradle 9.3.1; o wrapper 8.14.4 pertence some
 A configuração `node-linker=hoisted` encurta caminhos para CMake/Ninja no Windows; a instalação isolada anterior excedeu o limite de caminhos nativos. O lockfile conserva as versões.
 
 iPhone: nenhum build instalado ou teste físico realizado; a rota a partir do Windows ainda depende de Apple Developer ativo ou de alternativa com Mac. Protótipo visual permanece aberto.
+
+## Harness Android com HTTP real
+
+Na raiz do repositório, com Java 21, Android SDK, Docker e um emulador **já iniciado com Wi-Fi habilitado**:
+
+```powershell
+$env:JAVA_HOME='C:\Program Files\Android\Android Studio\jbr' # ajustar à instalação
+$env:ANDROID_HOME='H:\Android\Sdk' # ajustar à instalação
+.\scripts\verify-android-http.ps1 -Serial emulator-5560 # usar o serial de adb devices
+```
+
+O script verifica app, gera/valida/instala o APK e executa `check bootJar` da API, incluindo o teste nativo opt-in. Ele não inicia o emulador. O teste é restrito a emuladores: desliga temporariamente Wi-Fi/dados, encerra apenas `dev.ritmo.httpharness` e restaura os rádios em `finally`. Não limpa dados nem desinstala o harness anterior. Requer a porta reversa `tcp:18765` livre; remove somente o encaminhamento que criou.
+
+`EXPO_PUBLIC_RITMO_HTTP_HARNESS=1`, aplicado pelo script no prebuild e no bundle, seleciona `dev.ritmo.httpharness` e a entrada `harness/http.ts`. O plugin permite HTTP somente para `127.0.0.1` nessa variante. O app alcança a API descartável via `adb reverse`; API e SMTP ficam em loopback no host. Sem a flag, o pacote básico e a política normal de rede continuam selecionados. Diretórios nativos são gerados; mudanças no bundle/configuração exigem reconstruir e reinstalar o APK.
+
+O driver `test/integration/android-http.test.ts` usa sessão/runtime e adapters nativos reais: cadastro/onboarding técnico, criação/marcação offline, force-stop/reabertura, restauração de credenciais e dos envelopes, pausa em segundo plano, sincronização automática ao voltar ao primeiro plano, refresh persistido e leitura independente por outro cliente SQLite/HTTP. Replays e marcação do mesmo dia pelo segundo cliente devem conservar 10 XP. A fixture usa UTC/início do dia 0; não substitui a matriz de fusos/virada lógica.
+
+O log `api/build/android-http-integration.log` registra fases e contagens. O logcat `RITMO_HTTP_HARNESS` contém somente os dados sintéticos do cenário, sem credenciais; não adaptar esse logging para contas reais. Cada execução cria uma conta de teste na API descartável; dados locais de execuções anteriores ficam no pacote isolado. [Evidências e limitações](../docs/analises/2026-09-30-http-nativo-android.md).
 
 ## Sessão e isolamento
 

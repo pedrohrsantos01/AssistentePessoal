@@ -25,6 +25,7 @@ class RuntimeTests {
         } catch(java.sql.SQLException e) { throw new ExceptionInInitializerError(e); }
     }
     @DynamicPropertySource static void database(DynamicPropertyRegistry properties) {
+        properties.add("server.address",()->"127.0.0.1");
         properties.add("spring.datasource.url", POSTGRES::getJdbcUrl);
         properties.add("spring.datasource.username", ()->"ritmo_domain");
         properties.add("spring.flyway.url",POSTGRES::getJdbcUrl);
@@ -664,6 +665,23 @@ class RuntimeTests {
         builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
         var process=builder.start();
         boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
+    @Test
+    @org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable(named="RITMO_ANDROID_SERIAL",matches="emulator-[0-9]+")
+    void androidRuntimeSynchronizesThroughNativeStorageAndHttp() throws Exception {
+        var log=java.nio.file.Path.of("build/android-http-integration.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/android-http.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        var process=builder.start();
+        boolean ended=process.waitFor(240,java.util.concurrent.TimeUnit.SECONDS);
         if(!ended) process.destroyForcibly();
         String output=java.nio.file.Files.readString(log);
         if(output.length()>12000) output=output.substring(output.length()-12000);

@@ -68,6 +68,8 @@ Etapa seguinte de preparação concluída em 25/09/2026: [OpenAPI e DDL de refer
 
 Atualização de 27/09/2026: [recuperação de senha](../../docs/analises/2026-09-27-recuperacao-de-senha.md) implementada e testada com SMTP local, API e SQLite. Host/provedor, abertura nativa e protótipo continuam pendentes.
 
+Atualização de 30/09/2026: [HTTP nativo Android](../../docs/analises/2026-09-30-http-nativo-android.md) com criação/marcação offline, force-stop/reabertura, sessão protegida, retomada automática e convergência sem XP duplicado. O segundo cliente é SQLite de desktop; o aceite iPhone/Android, o protótipo e a matriz M1 restante continuam pendentes.
+
 ## Resultado
 
 Concluída: não.

@@ -277,3 +277,10 @@ A abertura dos bancos locais interrompe schema desconhecido ou migration falha c
 REQ-SYN-014 tem núcleo persistente: incompatibilidade exige leitura local, preserva pendências e não avança a página com efeito essencial desconhecido. `Session` protege escrita e troca de conta; identidade, sync e scheduler compartilham o estado da instalação. Um build diferente precisa de resposta válida para liberar escritas. Campos opcionais continuam tolerados. A API mantém `min_supported_version` na configuração global com SELECT apenas para runtime; a política é aplicada antes de autenticação/escrita.
 
 Migrations Drizzle 0001 e Flyway V3 e cabeçalho SemVer foram incorporados ao modelo/contrato. O corpo das mensagens continua m1.1. [Evidências e limites](../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md). O próximo recorte é HTTP real no harness Android; UI de atualização e aceite em iPhone permanecem abertos, assim como o restante da matriz M1 e a operação real.
+
+
+## 15. Evidência de HTTP nativo Android — 30/09/2026
+
+M1-02 recebeu prova com SQLite/SecureStore nativos: criar/marcar offline, encerrar o processo com o banco aberto e recuperar exatamente envelopes/projeção e credenciais. AppState/expo-network reais preservam a pausa em segundo plano e acionam convergência ao voltar ao primeiro plano. Replays e uma marcação pelo segundo cliente conservam uma concessão de 10 XP; refresh rotacionado permanece utilizável após nova abertura.
+
+[Relatório e reprodução](../docs/analises/2026-09-30-http-nativo-android.md). O segundo cliente é SQLite/HTTP de desktop; não há aceite entre Android e iPhone. Replay explícito amplia M1-03/07, mas não injeta perda de resposta na rede nativa. M1-04/06 e M1-12 continuam entre os próximos cenários a completar. UI/protótipo, demais lacunas da matriz e operação permanecem abertos; contratos HTTP e schemas não mudaram neste incremento.

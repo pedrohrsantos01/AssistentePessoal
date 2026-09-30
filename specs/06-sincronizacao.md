@@ -132,3 +132,10 @@ Concretização do núcleo em 29/09/2026: restrição persistida por instalaçã
 Cenários acrescentados em R3: desfazer vs marcação concorrente nas duas ordens de chegada; remarcar após incorporar correção; soma de contribuições e reversão individual; retry de incremento e de reversão; título e prazo editados separadamente; ciclo de desfazer/refazer com uma concessão de XP. A coalescência deve preservar esses resultados.
 
 Cenários acrescentados em R4-Q15: edição anterior no relógio do aparelho aceita depois vence o mesmo campo concorrente; retry da edição já processada não sobrescreve uma edição posterior; relógios incorretos não mudam o desempate; sequência conhecida e regras específicas de desfazer/exclusão continuam prevalecendo.
+
+
+## Evidência nativa Android — 30/09/2026
+
+O harness HTTP exerce REQ-SYN-005/008 com os adapters reais de SQLite/SecureStore, fetch, AppState e expo-network. Preserva a fila após force-stop offline, pausa envios ao recuperar rede em segundo plano e converge automaticamente no retorno ao primeiro plano, sem duplicar XP após replay e marcação por outro cliente. [Relatório e comando reproduzível](../docs/analises/2026-09-30-http-nativo-android.md).
+
+A evidência cobre emulador Android 15 e um cliente SQLite de desktop contra API/Postgres reais descartáveis. Não conclui o aceite iPhone/Android nem a matriz de fusos/concorrência, UI ou operação. O pacote de teste e a exceção HTTP de loopback são separados da configuração padrão.
