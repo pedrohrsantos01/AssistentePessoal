@@ -133,3 +133,21 @@ Próximo passo autorizado por Pedro. Manter as fronteiras públicas de Session/A
 - Script reproduzível valida o pacote antes de instalar e restaura rádios/encaminhamento; variante padrão não recebe a exceção de HTTP.
 
 [Relatório, comandos e limites](../../../docs/analises/2026-09-30-http-nativo-android.md). Tarefa 05 e M1 continuam abertos. Próximo recorte recomendado: matriz de concorrência M1-04/06 e datas/relógios/fusos M1-12. Permanecem UI vinculada ao protótipo, iPhone, exclusão/tombstones, demais lacunas da matriz e operação real.
+
+
+## Incremento de concorrência binária — iniciado em 30/09/2026
+
+Pedro autorizou seguir os recortes recomendados antes de decompor os demais eixos. Recorte atual: M1-04/M1-06 e REQ-HAB-004a, com reversão/restauração original de XP. Fronteiras já aprovadas: AccountStore/Session e HTTP, SQLite real por cliente e API/Postgres descartáveis; sem mocks de módulos internos. Controlar a ordem de chegada de envios, preservar envelopes após reinício e observar o estado pelas interfaces públicas.
+
+Aceite: desfazer vence marcação que não o conhecia em ambas as ordens; dois desfazeres vencem remarcação que conhece só um; remarcação posterior incorporando ambos restaura o cumprimento e a mesma concessão, sem novo consumo. Replays e respostas atrasadas não alteram o contexto da intenção nem duplicam efeitos. Incluir chegada simultânea pela API, sem presumir uma ordem de commits. Domínio/persistência/rede podem avançar sem o protótipo; o M1 e o aceite visual permanecem abertos.
+
+
+### Entregue no incremento de concorrência binária — 30/09/2026
+
+- M1-04: desfazer contra marcação sem contexto em ambas as ordens e com envios HTTP simultâneos; dois clientes convergem para desmarcado/0 XP.
+- M1-06: duas correções independentes e remarcação parcial nas três ordens que preservam sua dependência. Contexto parcial fica desmarcado; nova marcação incorporando ambos restaura o cumprimento.
+- SQLite local também incorpora o desfazer remoto enquanto a remarcação parcial está pendente, conservando o resultado após reabertura e repetição da página.
+- Concessão original de 10 XP, orçamento consumido de 10 e histórico de reversões/restaurações preservados. Reenvios devolvem o recibo original sem avançar a revisão; confirmações antigas não desfazem a restauração posterior.
+- Envelopes preservados após reinício; resposta da remarcação parcial descartada após commit e reconhecida no pull. O núcleo existente passou; o incremento acrescenta testes, sem mudança de produção/schema/contrato.
+
+[Relatório, comandos e limites](../../../docs/analises/2026-09-30-concorrencia-binaria.md). Checks: 70 testes locais do app; typecheck/lint aprovados; API check com 33 casos aprovados e 1 nativo ignorado, incluindo 8 cenários no arquivo HTTP de sync. Tarefa 05 e M1 continuam abertos. Próximo recorte: datas/relógios/fusos M1-12. Exclusão/tombstones, operação, UI/protótipo e aceite dos aparelhos permanecem pendentes. A decomposição posterior dos demais eixos usará `grilling` para esclarecer decisões antes de atualizar specs e issues verticais.

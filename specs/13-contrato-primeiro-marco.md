@@ -284,3 +284,12 @@ Migrations Drizzle 0001 e Flyway V3 e cabeçalho SemVer foram incorporados ao mo
 M1-02 recebeu prova com SQLite/SecureStore nativos: criar/marcar offline, encerrar o processo com o banco aberto e recuperar exatamente envelopes/projeção e credenciais. AppState/expo-network reais preservam a pausa em segundo plano e acionam convergência ao voltar ao primeiro plano. Replays e uma marcação pelo segundo cliente conservam uma concessão de 10 XP; refresh rotacionado permanece utilizável após nova abertura.
 
 [Relatório e reprodução](../docs/analises/2026-09-30-http-nativo-android.md). O segundo cliente é SQLite/HTTP de desktop; não há aceite entre Android e iPhone. Replay explícito amplia M1-03/07, mas não injeta perda de resposta na rede nativa. M1-04/06 e M1-12 continuam entre os próximos cenários a completar. UI/protótipo, demais lacunas da matriz e operação permanecem abertos; contratos HTTP e schemas não mudaram neste incremento.
+
+
+## 16. Evidência de concorrência binária — 30/09/2026
+
+O núcleo de M1-04/06 passou por duas sessões, SQLite por cliente e HTTP/Postgres reais. Desfazer vence marcação sem contexto nas duas ordens e em envios simultâneos. Dois desfazeres vencem remarcação que conhece só um nas três ordens que preservam sua dependência. Incorporar ambos permite restaurar a mesma concessão, com valor/dia e orçamento original preservados; as transições intermediárias permanecem no histórico.
+
+Envelopes sobrevivem à reabertura; uma confirmação descartada é reconhecida no pull. Reenvios retornam o recibo original sem alterar a revisão global ou efeitos, e confirmações antigas não fazem a projeção retroceder após restauração. A projeção local também incorpora o desfazer remoto enquanto há remarcação parcial pendente. O incremento amplia M1-05/07/17; o núcleo existente passou sem alteração de produção ou contrato.
+
+[Relatório e reprodução](../docs/analises/2026-09-30-concorrencia-binaria.md). Esta é evidência de clientes SQLite de desktop, sem novo aceite Android/iPhone ou UI. M1 e tarefa 05 continuam abertos. O próximo recorte é M1-12; exclusão/tombstones, operação e demais lacunas da matriz continuam pendentes.
