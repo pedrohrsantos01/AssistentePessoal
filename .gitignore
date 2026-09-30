@@ -37,3 +37,9 @@ Thumbs.db
 *.db-wal
 *.sqlite
 *.sqlite3
+
+# Backup archives contain account data and stay outside version control.
+*.dump
+*.dump.sha256
+*.dump.partial.*
+*.dump.sha256.partial.*

@@ -23,6 +23,14 @@ Listas sempre virtualizadas (`FlashList`). Nenhuma query síncrona na thread de 
 - **REQ-NFR-004 — Restauração testada.** Restaurar o dump num container limpo e subir a API contra ele é item do **Definition of Done da Fatia 0**, não boa intenção. Backup que ninguém restaurou não é backup. Repetir o teste a cada release maior
 - Adicionalmente, exportação local em JSON a cada 7 dias no armazenamento do dispositivo
 
+### 2.1 Ensaio de backup/restauração — 30/09/2026
+
+[Procedimento local](../api/ops/backup-restore.md) e [evidência de REQ-NFR-004](../docs/analises/2026-09-30-backup-e-restauracao.md): dump custom completo, checksum, banco destino vazio, grupos/logins separados recompostos, ACLs/RLS e histórico Flyway preservados, API real iniciada após encerrar a origem. Verificar dados de conta/hábito/XP, recibos, tombstones, isolamento e envio de intenções SQLite ainda não confirmadas no corte. Não sobrescrever backup nem limpar automaticamente banco destino ocupado.
+
+O ensaio local não provisiona backup agendado, destino externo ou retenção de produção. Esses requisitos de §2 continuam obrigatórios antes da operação externa.
+
+**[DECISÃO PENDENTE] Recuperação após o ponto do dump.** Definir cadência/destino de produção, RPO/RTO e a estratégia necessária para a meta de perda zero. Definir também como reconciliar clientes que já receberam confirmações/cursors/credenciais posteriores ao backup restaurado: o contrato atual não estabelece recuperação de revisão do servidor menor que a observada no cliente. O ensaio cobre o ponto do dump e pendências ainda não enviadas, sem definir PITR, rewind de cursor, epoch novo ou reenvio automático de operações já confirmadas. Fechar essa definição antes da exposição externa; não substituir a meta de §2 por uma perda admissível inventada.
+
 ## 3. Observabilidade
 
 - **Sentry** para crash e erro, com breadcrumb das últimas ações e **sem PII** no payload

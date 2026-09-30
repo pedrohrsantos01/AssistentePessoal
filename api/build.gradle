@@ -37,6 +37,7 @@ tasks.named('test') {
     // RuntimeTests also execute these TypeScript clients and their SQLite migrations.
     inputs.files(fileTree('../app/src'), fileTree('../app/test'), fileTree('../app/drizzle'), fileTree('../app/drizzle-control'))
     inputs.files(fileTree('../app/harness'))
+    inputs.files(fileTree('ops'))
     inputs.property('androidSerial', providers.environmentVariable('RITMO_ANDROID_SERIAL').orElse(''))
     if (providers.environmentVariable('RITMO_ANDROID_SERIAL').isPresent()) outputs.upToDateWhen { false }
     def androidApk = providers.environmentVariable('RITMO_ANDROID_APK')

@@ -201,3 +201,18 @@ Próximo recorte autorizado por Pedro. Q32 fecha as quotas de spec/07 §4.1. Fro
 - Checks: app typecheck/lint e 94 testes aprovados; API check com 48 aprovados e um nativo ignorado; ModularityTests e bootJar aprovados. Sem migration ou mudança no contrato gerado.
 
 [Relatório e limites](../../../docs/analises/2026-09-30-rate-limiting.md); [configuração operacional](../../../api/ops/rate-limits.md). M1/tarefa 05 continuam abertos. Próximo recorte recomendado: REQ-NFR-004, backup/restauração em ambiente limpo. Proxy confiável/provisionamento, expurgo seguro, aceite de e-mail/aparelhos e interface Q28 continuam pendentes. Decompor os demais eixos com grilling após as lacunas do marco.
+
+
+## Incremento de backup/restauração — iniciado em 30/09/2026
+
+Próximo recorte autorizado por Pedro: REQ-NFR-004, dump completo em formato custom e restauração em Postgres limpo, seguida da API real. Manter as fronteiras HTTP/Session/AccountStore e PostgreSQL real já aprovadas; dump/cópia/restauração são fixtures da fronteira externa de armazenamento. Testar recomposição dos grupos NOLOGIN e logins separados, dados de conta/hábitos/XP/recibos/tombstones e isolamento após restauração. Não consultar tabelas privadas para afirmar resultado de domínio. Sem conexão à VPS, sem escolher credenciais/destino externo/cadência de produção e sem modificar schema.
+
+
+### Entregue no incremento de backup/restauração — 30/09/2026
+
+- Scripts de dump custom com checksum/publicação sem sobrescrita e restore em transação única, preservando ACLs/RLS e histórico Flyway. Banco destino precisa estar vazio; roles e segredos são recompostos fora do dump.
+- Dois cenários reais encerram a origem, restauram em outro cluster/dono e iniciam a API com logins separados. Verificam conta/sessão, snapshot/recibos/replay, hábito/XP, isolamento e recusas por corrupção/banco ocupado; ausência de roles desfaz a restauração inteira.
+- Session/AccountStore com SQLite reaberto preserva envelopes offline, sincroniza contra destino, conserva tombstones e converge com segundo cliente sem novo XP por replay. Nenhuma consulta privada usada como asserção de domínio.
+- Guia operacional e decisão pendente registrados em spec/07 §2.1: restauração de confirmações/cursors/credenciais posteriores ao corte e RPO/RTO precisam de definição antes da exposição externa. Nenhuma política de produto/schema inventada.
+
+[Relatório e limites](../../../docs/analises/2026-09-30-backup-e-restauracao.md); [procedimento](../../../api/ops/backup-restore.md). Checks completos: typecheck/lint e 94 testes do app aprovados; API check com 50 aprovados e um nativo ignorado, incluindo os dois testes de restauração e ModularityTests. M1/tarefa 05 continuam abertos; agenda Coolify/destino fora da VPS/30 dias, provisionamento/proxy/TLS, expurgo seguro, e-mail/aparelhos e protótipo seguem pendentes. Próximo recorte recomendado: esclarecer recuperação pós-corte e parâmetros operacionais com grilling antes de provisionar o ambiente externo.

@@ -40,7 +40,7 @@ Os valores constantes nos testes pertencem exclusivamente ao container descartá
 
 Implementados: cadastro, login, refresh rotativo, revoke, solicitação/confirmação de recuperação de senha e cinco rotas de Sync (push, pull, criar snapshot, página de snapshot e consulta de recibos), sob `/api/v1`. Recuperação usa token de uma hora, invalida links anteriores após uma confirmação e revoga as sessões da conta na mesma transação. Configuração e limitações estão no [guia de e-mail](ops/email-recovery.md). Refresh e revoke usam transação e lock da família; duas renovações concorrentes do mesmo token produzem um sucesso e um 401. Cada refresh novo vale 30 dias e estende a família; a capacidade de revogação original não muda. Reutilizar um refresh consumido é recusado, sem invalidar o sucessor legítimo. Revogação bloqueia renovação imediatamente; access emitido continua limitado aos 15 minutos originais.
 
-Os testes usam dados fictícios. Antes do uso diário ainda faltam aceite real da recuperação por e-mail/aparelho, matriz ampliada de snapshot/migrations e recuperação completa, limpeza/retenção operacional, configuração de e-mail, deploy/backup e o restante da matriz M1. Essas pendências estão na [tarefa seguinte](../.scratch/primeiro-marco/issues/05-completar-sessao-e-recuperacao.md). Não publicar este scaffold como versão pronta.
+Os testes usam dados fictícios. Antes do uso diário ainda faltam aceite real da recuperação por e-mail/aparelho, matriz ampliada de snapshot/migrations e recuperação completa, limpeza/retenção operacional, configuração de e-mail, deploy/backup agendado externo e o restante da matriz M1. Essas pendências estão na [tarefa seguinte](../.scratch/primeiro-marco/issues/05-completar-sessao-e-recuperacao.md). Não publicar este scaffold como versão pronta.
 
 Migrations aplicadas não devem ser editadas ao evoluir o schema: criar V4 e seguintes, atualizar spec/00 e testar a migração. V1 concretiza o DDL aprovado; V2 adiciona grants e políticas de perfil; V3 acrescenta a política global de compatibilidade.
 
@@ -64,3 +64,10 @@ A mudança de política vale na próxima requisição, sem reiniciar a API. Um b
 ## Limites de requisição
 
 Bucket4j aplica as quotas Q32 por peer TCP, endpoint anônimo e conta do JWT validado, com 429/Retry-After e armazenamento local limitado. [Configuração e alcance](ops/rate-limits.md); [testes e pendências](../docs/analises/2026-09-30-rate-limiting.md). Proxy confiável e validação da exposição via Coolify seguem no recorte operacional.
+
+
+## Backup e restauração
+
+[Guia de operação](ops/backup-restore.md) e [evidência de REQ-NFR-004](../docs/analises/2026-09-30-backup-e-restauracao.md). `RestoreTests` gera dump, encerra a origem, recompõe roles em cluster limpo, restaura com outro dono e sobe a API com logins restritos. Valida conta/sessão, hábitos/XP, snapshots/recibos, tombstones, isolamento e intenções offline no SQLite reaberto. Incluído em `check`; resultado móvel em `build/restore-mobile-integration.log`.
+
+Os scripts exigem cliente PostgreSQL 18, shell POSIX/GNU coreutils e credenciais via ambiente/libpq. Recusam sobrescrita, par corrompido e destino preenchido. O ensaio não configura Coolify/destino externo/retenção nem recupera confirmações posteriores ao ponto do dump. Estratégia de recuperação pós-corte segue pendente em spec/07 §2.1.
