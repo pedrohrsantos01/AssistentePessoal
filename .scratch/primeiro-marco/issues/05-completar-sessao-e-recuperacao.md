@@ -151,3 +151,20 @@ Aceite: desfazer vence marcação que não o conhecia em ambas as ordens; dois d
 - Envelopes preservados após reinício; resposta da remarcação parcial descartada após commit e reconhecida no pull. O núcleo existente passou; o incremento acrescenta testes, sem mudança de produção/schema/contrato.
 
 [Relatório, comandos e limites](../../../docs/analises/2026-09-30-concorrencia-binaria.md). Checks: 70 testes locais do app; typecheck/lint aprovados; API check com 33 casos aprovados e 1 nativo ignorado, incluindo 8 cenários no arquivo HTTP de sync. Tarefa 05 e M1 continuam abertos. Próximo recorte: datas/relógios/fusos M1-12. Exclusão/tombstones, operação, UI/protótipo e aceite dos aparelhos permanecem pendentes. A decomposição posterior dos demais eixos usará `grilling` para esclarecer decisões antes de atualizar specs e issues verticais.
+
+
+## Incremento de datas e fusos — iniciado em 30/09/2026
+
+Próximo recorte autorizado por Pedro: M1-12, REQ-SYN-018, REQ-HAB-006/011 e spec/04 §2. Fronteiras mantidas: função canônica pública getDayKey já especificada, AccountStore/Session e HTTP com SQLite/Postgres reais; relógio é fronteira externa controlável. Registrar e preservar o contexto da intenção, calcular novos dias pelo perfil vigente e validar datas/instantes sem usar idade de transmissão como expiração. Seguir a política já documentada de primeira ocorrência em hora repetida e primeiro instante válido em hora inexistente.
+
+Exercitar meia-noite, início configurado, mês/ano, dias de 23/25h, offsets de 30/45 minutos, mudanças offline de fuso/início, reinício e duas semanas sem sincronizar. Janela retroativa deve considerar occurredAt e início do hábito; relógio acima de 24h e dia acima do limite futuro devem gerar rejeição recuperável. Sem UI de detecção/viagem ou timer visual do Briefing enquanto o protótipo estiver aberto.
+
+
+### Entregue no incremento de datas e fusos — 30/09/2026
+
+- Função canônica getDayKey no domínio do app; primeira ocorrência de hora repetida e primeiro instante válido em hora inexistente, sem subtrair 24h para obter a data anterior.
+- API resolve corretamente a lacuna de Chatham, usa Clock injetável e aplica o limite futuro do perfil atual, conservando o contexto histórico para a janela retroativa.
+- Dois clientes SQLite/HTTP provam mudança offline de fuso/início, reinício, duas semanas sem enviar, destino retroativo de sete dias, orçamento no destino e replay sem novo XP.
+- Datas inválidas geram rejeição recuperável e sem efeitos, conservada após reinício. Exatamente 24h é aceito dentro do limite de dia; 24h + 1 ms e dia além do limite são recusados.
+
+[Relatório, testes e limites](../../../docs/analises/2026-09-30-datas-e-fusos.md). Checks finais: typecheck/lint, 91 testes locais do app, 28 cenários HTTP de datas; API check com 34 casos aprovados e 1 nativo ignorado, incluindo ModularityTests. Sem mudança de contrato/schema/dependência. M1 e tarefa 05 continuam abertos; timer/aviso visual e detecção de fuso dependem do protótipo. Próximo recorte: exclusão/tombstones e prevenção de ressurreição (M1-13). Operação, demais lacunas e aceite dos aparelhos permanecem pendentes.

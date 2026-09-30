@@ -56,6 +56,9 @@ O exemplo acima usa o padrão das 04:00. A virada efetiva segue o perfil; os gru
 
 Função canônica: `getDayKey(date: Date, timezone: string, dayStartHour: number): string`. Testes obrigatórios: virada de meia-noite, 03:59 vs 04:01, horário de verão (23h e 25h), fusos com offset de 30 e 45 minutos, dispositivo com relógio adiantado.
 
+Evidência técnica em 30/09/2026: função disponível em `app/src/features/gamification/domain/day-key.ts`; 21 testes do cálculo e 28 cenários HTTP verificam M1-12. Hora repetida usa a primeira ocorrência e hora inexistente o primeiro instante válido, conforme o contrato do M1. A API aplica o limite futuro do perfil atual sem recalcular registros históricos e preserva o orçamento no destino em envio tardio. [Relatório e limites](../docs/analises/2026-09-30-datas-e-fusos.md). Timer e integração visual de REQ-GAM-008a continuam pendentes do protótipo; esta evidência não declara ofensivas/gamificação completas entregues.
+
+
 ## 3. Níveis
 
 Curva: `xpParaNivel(n) = 100 * n^1.5`, arredondado para múltiplo de 10.

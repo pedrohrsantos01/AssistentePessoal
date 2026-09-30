@@ -12,13 +12,18 @@ import tools.jackson.databind.JsonNode;
 
 @Service
 public class Habits {
-    private final Sql db; private final ApplicationEventPublisher events;
-    public Habits(@Qualifier("domainSql") Sql db,ApplicationEventPublisher events) {this.db=db;this.events=events;}
-    public void execute(String user,JsonNode operation,String revision) {
+    private final Sql db; private final ApplicationEventPublisher events; private final Clock clock;
+    public Habits(@Qualifier("domainSql") Sql db,ApplicationEventPublisher events,Clock clock) {this.db=db;this.events=events;this.clock=clock;}
+    public void execute(String user,JsonNode operation,String revision,JsonNode profileTimeContext) {
         var command=operation.path("command");
         String type=command.path("type").asString(),habit=command.path("habitId").asString();
-        String now=Instant.now().toString(),occurred=operation.path("occurredAt").asString();
-        if(Instant.parse(occurred).isAfter(Instant.now().plusSeconds(86400))) throw new BusinessFailure("day_invalid");
+        Instant acceptedAt=clock.instant();
+        String now=acceptedAt.toString(),occurred=operation.path("occurredAt").asString();
+        if(Instant.parse(occurred).isAfter(acceptedAt.plusSeconds(86400))) throw new BusinessFailure("day_invalid");
+        if(!type.equals("habit.patchMetadata")) {
+            String target=command.path(type.equals("habit.create")?"startDayKey":"dayKey").asString();
+            if(LocalDate.parse(target).isAfter(logicalDay(acceptedAt,profileTimeContext).plusDays(1))) throw new BusinessFailure("day_invalid");
+        }
         if(type.equals("habit.create")) {
             String title=title(command.path("title").asString());
             ensureTitle(user,title,habit);
@@ -81,7 +86,10 @@ public class Habits {
             ZoneId zone=ZoneId.of(context.path("timezone").asString());int hour=context.path("dayStartHour").asInt();
             if(hour<0||hour>23) throw new IllegalArgumentException();
             LocalDate date=instant.atZone(zone).toLocalDate();
-            return instant.isBefore(date.atTime(hour,0).atZone(zone).toInstant())?date.minusDays(1):date;
+            LocalDateTime wall=date.atTime(hour,0);
+            var offsets=zone.getRules().getValidOffsets(wall);
+            Instant boundary=offsets.isEmpty()?zone.getRules().getTransition(wall).getInstant():wall.toInstant(offsets.getFirst());
+            return instant.isBefore(boundary)?date.minusDays(1):date;
         } catch(DateTimeException|IllegalArgumentException e) {throw new BusinessFailure("day_invalid");}
     }
     public static String key(String title) {

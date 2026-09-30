@@ -105,7 +105,7 @@ public class Sync {
                 long current=db.one("select to_jsonb(last_revision) from sync_account_state where user_id=?::uuid",user).asLong();
                 String revision=Long.toString(Math.addExact(current,1));
                 if(operation.at("/command/type").asString().equals("profile.setOnboarding")) identity.onboard(user,operation.path("command"),revision);
-                else habits.execute(user,operation,revision);
+                else habits.execute(user,operation,revision,identity.projections(user).getFirst().value().path("timeContext"));
                 var affected=projections(user).stream().filter(e->e.value().path("revision").asString().equals(revision)).toList();
                 var receipt=Json.object().put("operationId",id).put("status","accepted").put("acceptedRevision",revision);
                 saveReceipt(user,operation,hash,receipt,affected);

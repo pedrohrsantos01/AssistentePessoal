@@ -134,6 +134,23 @@ class RuntimeTests {
         System.out.println(output);
     }
 
+    @Test void mobileLogicalDaysRemainStableThroughTheRealHttpApi() throws Exception {
+        RESET_CLOCK.now=java.time.Instant.parse("2026-11-03T12:00:00Z");
+        var log=java.nio.file.Path.of("build/time-integration.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/time.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        builder.environment().put("RITMO_TEST_SERVER_TIME",RESET_CLOCK.instant().toString());
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
     private java.sql.Connection connection(String user,String password) throws java.sql.SQLException {
         return java.sql.DriverManager.getConnection(POSTGRES.getJdbcUrl(),user,password);
     }

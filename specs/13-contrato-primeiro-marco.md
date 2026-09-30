@@ -293,3 +293,12 @@ O núcleo de M1-04/06 passou por duas sessões, SQLite por cliente e HTTP/Postgr
 Envelopes sobrevivem à reabertura; uma confirmação descartada é reconhecida no pull. Reenvios retornam o recibo original sem alterar a revisão global ou efeitos, e confirmações antigas não fazem a projeção retroceder após restauração. A projeção local também incorpora o desfazer remoto enquanto há remarcação parcial pendente. O incremento amplia M1-05/07/17; o núcleo existente passou sem alteração de produção ou contrato.
 
 [Relatório e reprodução](../docs/analises/2026-09-30-concorrencia-binaria.md). Esta é evidência de clientes SQLite de desktop, sem novo aceite Android/iPhone ou UI. M1 e tarefa 05 continuam abertos. O próximo recorte é M1-12; exclusão/tombstones, operação e demais lacunas da matriz continuam pendentes.
+
+
+## 17. Evidência de datas e fusos — 30/09/2026
+
+O núcleo de M1-12 agora inclui getDayKey no app, resolução explícita de lacunas/sobreposições na API e Clock de domínio injetável. A validação usa o contexto original para a janela retroativa e o perfil atual somente para o limite futuro do servidor. Foi corrigida a recusa indevida de registro na lacuna de Chatham e a aceitação de dia acima do limite com contexto divergente.
+
+SQLite/HTTP/Postgres reais provam mudanças offline de fuso/início, envelopes preservados após reabertura, duas semanas de transporte tardio e concessão/orçamento no dia de destino. Exatamente sete dias retroativos é válido na criação; oito dias, data antes do início ou depois do dia da ação e relógio acima de 24h recebem rejeição recuperável sem efeitos. Exemplos compartilhados verificam offsets fracionários, mês/ano, ano bissexto e dias de 23/25h.
+
+[Relatório e reprodução](../docs/analises/2026-09-30-datas-e-fusos.md). Tarefa 05 e M1 continuam abertos: os clientes são de desktop, sem aceite Android/iPhone neste recorte. Timer/integração visual da virada e confirmação de mudança detectada de fuso aguardam o protótipo. Próximo recorte: exclusão/tombstones de M1-13; operação e demais lacunas permanecem pendentes. Schema e HTTP m1.1 foram preservados.
