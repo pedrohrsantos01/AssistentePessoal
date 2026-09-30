@@ -186,3 +186,18 @@ Definições novas aprovadas nesta sessão: Q30 reverte XP do hábito excluído,
 - Sem novo schema/dependência. Contratos: 52 schemas/49 fixtures; app typecheck/lint e 94 testes aprovados; API check com 37 casos aprovados e um nativo ignorado, incluindo ModularityTests.
 
 [Relatório, comandos e limites](../../../docs/analises/2026-09-30-exclusao-e-tombstones.md). M1/tarefa 05 continuam abertos; confirmação visual e aceite dos aparelhos dependem do protótipo/rota de instalação. Retenção mínima está preservada, mas não há job físico de expurgo/compactação de produção. Próximo recorte recomendado: operação (rate limiting, retenção/expurgo seguro, provisionamento reproduzível e backup/restore), validada localmente antes de exposição externa. Depois das lacunas do M1, decompor os demais eixos com `grilling`.
+
+
+## Incremento de rate limiting — iniciado em 30/09/2026
+
+Próximo recorte autorizado por Pedro. Q32 fecha as quotas de spec/07 §4.1. Fronteiras de teste já aprovadas: HTTP real, identidade/sessão/AccountStore públicos e SQLite/Postgres reais; relógio/transportes externos controláveis. Primeiro tracer: esgotar a quota de login do mesmo IP, receber 429/Retry-After sem executar autenticação e recuperar após reposição. Ampliar para conta, endpoints anônimos, concorrência, cabeçalhos forjados, limite de memória e retry de intenção local. Não criar UI antes do protótipo.
+
+
+### Entregue no incremento de rate limiting — 30/09/2026
+
+- Quotas Q32 por conta/IP/endpoints, configuráveis, com Bucket4j, 429/Retry-After e erro m1.1. JWT validado identifica conta; cabeçalhos forjados e caminhos codificados não contornam a quota.
+- Memória limitada sem evicção de dívida; cardinalidade nova recebe 503/Retry-After até reposição segura. Default local de uma instância, sem persistência entre starts.
+- Onze testes HTTP: concorrência, quotas cumulativas/independentes, recuperação uniforme, credenciais recusadas intactas, lote de 50 e SQLite preservando envelope/deadline após 429 real e reabertura.
+- Checks: app typecheck/lint e 94 testes aprovados; API check com 48 aprovados e um nativo ignorado; ModularityTests e bootJar aprovados. Sem migration ou mudança no contrato gerado.
+
+[Relatório e limites](../../../docs/analises/2026-09-30-rate-limiting.md); [configuração operacional](../../../api/ops/rate-limits.md). M1/tarefa 05 continuam abertos. Próximo recorte recomendado: REQ-NFR-004, backup/restauração em ambiente limpo. Proxy confiável/provisionamento, expurgo seguro, aceite de e-mail/aparelhos e interface Q28 continuam pendentes. Decompor os demais eixos com grilling após as lacunas do marco.

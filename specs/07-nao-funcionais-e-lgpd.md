@@ -42,6 +42,28 @@ Listas sempre virtualizadas (`FlashList`). Nenhuma query síncrona na thread de 
 - Certificate pinning e SQLite local criptografado: fora do v1
 - Dependências auditadas no CI (`pnpm audit` e `./gradlew dependencyCheckAnalyze`), build falha com vulnerabilidade alta
 
+### 4.1 Rate limiting do primeiro marco — Q32, 30/09/2026
+
+Valores iniciais aprovados, configuráveis por ambiente:
+
+| Escopo | Capacidade e reposição | Identidade |
+|---|---|---|
+| Rotas autenticadas da API | 120/minuto | `user_id` do JWT validado, compartilhado entre aparelhos/rotas |
+| Toda a API `/api/v1/` | 300/minuto | IP do peer, inclusive requisições inválidas/recusadas |
+| Login | 10/minuto | IP |
+| Cadastro | 5/minuto | IP |
+| Solicitar recuperação | 3/15 minutos | IP, sem distinguir existência do e-mail |
+| Confirmar recuperação | 10/minuto | IP |
+| Refresh / revoke | 60/minuto cada | IP, buckets independentes |
+
+Bucket4j usa capacidade inicial cheia e reposição contínua (greedy). Cada requisição custa um token; um push com até 50 operações continua sendo uma requisição. Requisições recusadas não alteram dados de domínio, credenciais ou recibos nem descartam fila. Cotas da API e do endpoint são cumulativas; trocar endereço/e-mail/dispositivo no corpo não cria orçamento novo. Rotas anônimas não inferem conta de campos enviados.
+
+Excesso retorna HTTP 429, `rate_limited` e `Retry-After` em segundos inteiros arredondados para cima. Não dormir/bloquear a thread para esperar reposição. O app conserva intenções e segue o backoff existente. A resposta de recuperação continua uniforme para conta existente/inexistente.
+
+Implementação inicial local em memória, uma instância de API conforme §9. Reinício de processo restaura a capacidade inicial; não representa quota persistente nem proteção distribuída. Armazenamento de buckets é limitado, sem evicção antecipada de dívida: pressão de cardinalidade recusa novas identidades com 503/Retry-After até haver espaço seguro. Não gravar IP/credenciais/payload em logs/banco/memória durável.
+
+Por padrão, cabeçalhos de IP encaminhado não são confiáveis: a origem é o peer TCP. Identificação por proxy depende de configuração explícita de peers confiáveis no recorte operacional antes da exposição externa. Não aceitar IP arbitrário de `X-Forwarded-For`, `Forwarded` ou campo do corpo.
+
 ## 5. LGPD
 
 O app trata **dado pessoal** e, com a Fase 2, passará a tratar **dado sensível de saúde** e financeiro. As obrigações abaixo valem desde o v1.

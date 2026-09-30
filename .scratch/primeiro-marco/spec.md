@@ -52,7 +52,7 @@ A matriz canônica é [M1-01 a M1-20](../../specs/13-contrato-primeiro-marco.md#
 | Builds efetivos e rota iOS | Matriz documentada; Pedro não tem Apple Developer ativo. EAS físico exige essa dependência ou alternativa local com Mac | Pesquisa [02 concluída](issues/02-validar-stack-e-build.md); build Android técnico aprovado; execução nativa e rota iOS conforme relatório da tarefa 04 |
 | Protótipo ainda sendo feito pelo Pedro | Impede fechar visual e aceite do Briefing; não bloqueia contratos/testes sem UI | [Tarefa 03](issues/03-integrar-prototipo.md) |
 | SMTP/deep link, segredos, deploy e restore | Recuperação testada em SMTP local; impede aceite de e-mail/aparelho e disponibilidade operacional | Configuração documentada no [guia de e-mail](../../api/ops/email-recovery.md); fornecer parâmetros operacionais sem inserir credenciais nos docs |
-| Saldo de XP menor que prêmio nominal | Demonstrado fora do caminho válido do M1 (10N ≤ max(150,15N)); não assumir política silenciosamente ao ampliar escopo | Resolver antes de arquivamento/exclusão/bônus; prova e limites no README dos contratos |
+| Saldo de XP menor que prêmio nominal | Q31 resolvida e implementada: prêmio inteiro de 10 XP somente quando couber; caso contrário, cumprimento sem XP | [Exclusão e tombstones](../../docs/analises/2026-09-30-exclusao-e-tombstones.md); gamificação ampliada segue fora deste recorte |
 | Exportação/exclusão de conta e funcionalidades restantes da Fase 1 | Contratos integrais ainda incompletos; não declarar Fase 1 pronta nem liberar distribuição externa por ter passado M1 | Manter no backlog de Conta/Fase 1 e fechar antes dos fluxos correspondentes |
 
 Há comportamentos posteriores já decididos (quantidades, vigência de regras, recorrência, negativos e proteções) cujos modelos ainda não estão prontos. Isso não bloqueia o caminho binário diário, mas proíbe extrapolar seu algoritmo para esses casos.
@@ -69,6 +69,8 @@ Etapa seguinte de preparação concluída em 25/09/2026: [OpenAPI e DDL de refer
 Atualização de 27/09/2026: [recuperação de senha](../../docs/analises/2026-09-27-recuperacao-de-senha.md) implementada e testada com SMTP local, API e SQLite. Host/provedor, abertura nativa e protótipo continuam pendentes.
 
 Atualização de 30/09/2026: [HTTP nativo Android](../../docs/analises/2026-09-30-http-nativo-android.md) com criação/marcação offline, force-stop/reabertura, sessão protegida, retomada automática e convergência sem XP duplicado. O segundo cliente é SQLite de desktop; o aceite iPhone/Android, o protótipo e a matriz M1 restante continuam pendentes.
+
+Atualização de 30/09/2026: [rate limiting Q32](../../docs/analises/2026-09-30-rate-limiting.md) verificado por HTTP, concorrência e cliente SQLite. Quotas configuráveis, 429/Retry-After, memória limitada e ausência de ressurreição/perda de intenção após retry. Proxy confiável, provisionamento e backup/restauração seguem pendentes; protótipo Q28 continua aberto.
 
 ## Resultado
 

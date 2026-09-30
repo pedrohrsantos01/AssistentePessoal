@@ -13,8 +13,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component @Order(Ordered.HIGHEST_PRECEDENCE)
 class ProtocolFilter extends OncePerRequestFilter {
-    private final Sql db;
-    ProtocolFilter(@Qualifier("domainSql") Sql db) {this.db=db;}
+    private final Sql db; private final RateLimits limits;
+    ProtocolFilter(@Qualifier("domainSql") Sql db,RateLimits limits) {this.db=db;this.limits=limits;}
     private static final String NUMBER="(0|[1-9][0-9]{0,5})";
     private static final Pattern VERSION=Pattern.compile(NUMBER+"[.]"+NUMBER+"[.]"+NUMBER+
         "(?:-([0-9A-Za-z-]+(?:[.][0-9A-Za-z-]+)*))?(?:[+][0-9A-Za-z-]+(?:[.][0-9A-Za-z-]+)*)?");
@@ -38,8 +38,10 @@ class ProtocolFilter extends OncePerRequestFilter {
     private void fail(HttpServletResponse response,int status,String code) throws IOException {
         response.setStatus(status);response.setContentType("application/json");response.getWriter().write(HttpErrors.body(code).toString());
     }
-    @Override protected boolean shouldNotFilter(HttpServletRequest request) {return !request.getRequestURI().startsWith("/api/v1/");}
+    @Override protected boolean shouldNotFilter(HttpServletRequest request) {return !request.getServletPath().startsWith("/api/v1/");}
     @Override protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain chain) throws IOException,ServletException {
+        try {limits.checkIp(request.getRemoteAddr(),request.getServletPath(),request.getMethod());}
+        catch(HttpFailure failure) {HttpErrors.write(response,failure);return;}
         var version=Version.parse(request.getHeader("X-App-Version"));
         if(!"m1.1".equals(request.getHeader("X-Ritmo-Protocol"))||version==null) {
             fail(response,426,"unsupported_version");return;

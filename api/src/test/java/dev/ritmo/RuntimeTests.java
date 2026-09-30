@@ -26,6 +26,8 @@ class RuntimeTests {
     }
     @DynamicPropertySource static void database(DynamicPropertyRegistry properties) {
         properties.add("server.address",()->"127.0.0.1");
+        for(String scope:java.util.List.of("api-ip","account","login","register","reset-request","reset-confirm","refresh","revoke"))
+            properties.add("ritmo.rate-limits."+scope+".capacity",()->1000000);
         properties.add("spring.datasource.url", POSTGRES::getJdbcUrl);
         properties.add("spring.datasource.username", ()->"ritmo_domain");
         properties.add("spring.flyway.url",POSTGRES::getJdbcUrl);

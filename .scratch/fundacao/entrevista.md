@@ -378,3 +378,8 @@ Após cada rodada, registrar escolhas, razões e perguntas desbloqueadas. Criar 
 
 - **Q30:** Pedro escolheu reverter o XP das concessões do hábito excluído, sem devolver o orçamento consumido, preservando os registros técnicos necessários à sincronização. Substitui explicitamente o caso antigo de spec/04 §7 que preservava XP após exclusão. O histórico de produto deixa de estar disponível; fatos/contextos, decisões, transições e recibos técnicos seguem spec/00 §12 e desaparecem com a exclusão da conta.
 - **Q31:** Pedro escolheu prêmio inteiro ou nenhum XP: confirmar o cumprimento; conceder 10 somente quando couber integralmente no saldo do teto. Sem prêmio parcial. A decisão inicial sem prêmio permanece no desfazer/refazer.
+
+
+## Limites operacionais da API — 30/09/2026
+
+- **Q32:** Pedro aprovou quotas iniciais configuráveis: 120 requisições/minuto por conta; 300/minuto por IP na API. Por IP: login 10/minuto, cadastro 5/minuto, solicitação de recuperação 3/15 minutos, confirmação 10/minuto e refresh/revoke 60/minuto cada. Excesso retorna 429 com Retry-After sem descartar alterações locais.

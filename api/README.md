@@ -40,7 +40,7 @@ Os valores constantes nos testes pertencem exclusivamente ao container descartá
 
 Implementados: cadastro, login, refresh rotativo, revoke, solicitação/confirmação de recuperação de senha e cinco rotas de Sync (push, pull, criar snapshot, página de snapshot e consulta de recibos), sob `/api/v1`. Recuperação usa token de uma hora, invalida links anteriores após uma confirmação e revoga as sessões da conta na mesma transação. Configuração e limitações estão no [guia de e-mail](ops/email-recovery.md). Refresh e revoke usam transação e lock da família; duas renovações concorrentes do mesmo token produzem um sucesso e um 401. Cada refresh novo vale 30 dias e estende a família; a capacidade de revogação original não muda. Reutilizar um refresh consumido é recusado, sem invalidar o sucessor legítimo. Revogação bloqueia renovação imediatamente; access emitido continua limitado aos 15 minutos originais.
 
-Os testes usam dados fictícios. Antes do uso diário ainda faltam aceite real da recuperação por e-mail/aparelho, rate limiting, matriz ampliada de snapshot/migrations e recuperação completa, limpeza/retenção operacional, configuração de e-mail, deploy/backup e o restante da matriz M1. Essas pendências estão na [tarefa seguinte](../.scratch/primeiro-marco/issues/05-completar-sessao-e-recuperacao.md). Não publicar este scaffold como versão pronta.
+Os testes usam dados fictícios. Antes do uso diário ainda faltam aceite real da recuperação por e-mail/aparelho, matriz ampliada de snapshot/migrations e recuperação completa, limpeza/retenção operacional, configuração de e-mail, deploy/backup e o restante da matriz M1. Essas pendências estão na [tarefa seguinte](../.scratch/primeiro-marco/issues/05-completar-sessao-e-recuperacao.md). Não publicar este scaffold como versão pronta.
 
 Migrations aplicadas não devem ser editadas ao evoluir o schema: criar V4 e seguintes, atualizar spec/00 e testar a migração. V1 concretiza o DDL aprovado; V2 adiciona grants e políticas de perfil; V3 acrescenta a política global de compatibilidade.
 
@@ -59,3 +59,8 @@ Antes de autenticar `/api/v1/*`, o filtro exige protocolo `m1.1` e lê a linha `
 A política armazena uma versão estável `major.minor.patch`, cada componente com até seis dígitos, sem zeros à esquerda. O cabeçalho tem até 64 caracteres e aceita pré-release/metadados válidos. A comparação é numérica; pré-release fica abaixo da estável de mesmo núcleo e metadados de build não alteram a ordem ([SemVer 2.0.0](https://semver.org/)). Versão abaixo da mínima, formato inválido ou protocolo desconhecido devolve `426 unsupported_version` antes de processar o corpo. Linha ausente ou falha de leitura devolve `503 temporarily_unavailable`; não se presume uma versão mínima.
 
 A mudança de política vale na próxima requisição, sem reiniciar a API. Um build já bloqueado no app permanece bloqueado mesmo que o operador reduza a mínima: a liberação local exige um build diferente e confirmação online. Por isso, só elevar a mínima quando houver um build compatível distribuível. [Evidências e limites](../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md).
+
+
+## Limites de requisição
+
+Bucket4j aplica as quotas Q32 por peer TCP, endpoint anônimo e conta do JWT validado, com 429/Retry-After e armazenamento local limitado. [Configuração e alcance](ops/rate-limits.md); [testes e pendências](../docs/analises/2026-09-30-rate-limiting.md). Proxy confiável e validação da exposição via Coolify seguem no recorte operacional.

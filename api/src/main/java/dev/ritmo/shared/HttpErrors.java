@@ -14,7 +14,23 @@ public class HttpErrors {
         error.set("fields",Json.array());error.putNull("retryAfterSeconds");
         var body=Json.object();body.set("error",error);return body;
     }
-    @ExceptionHandler(HttpFailure.class) ResponseEntity<JsonNode> http(HttpFailure e) {return ResponseEntity.status(e.status).body(body(e.code));}
+    public static JsonNode body(HttpFailure failure) {
+        var body=body(failure.code);
+        // The m1.1 optional body field is capped at 300; the header carries the full wait.
+        if(failure.retryAfterSeconds>0&&failure.retryAfterSeconds<=300)
+            ((tools.jackson.databind.node.ObjectNode)body.path("error")).put("retryAfterSeconds",failure.retryAfterSeconds);
+        return body;
+    }
+    public static void write(jakarta.servlet.http.HttpServletResponse response,HttpFailure failure) throws java.io.IOException {
+        response.setStatus(failure.status);response.setContentType("application/json");
+        if(failure.retryAfterSeconds>0) response.setHeader("Retry-After",Long.toString(failure.retryAfterSeconds));
+        response.getWriter().write(body(failure).toString());
+    }
+    @ExceptionHandler(HttpFailure.class) ResponseEntity<JsonNode> http(HttpFailure e) {
+        var response=ResponseEntity.status(e.status);
+        if(e.retryAfterSeconds>0) response.header("Retry-After",Long.toString(e.retryAfterSeconds));
+        return response.body(body(e));
+    }
     @ExceptionHandler(BusinessFailure.class) ResponseEntity<JsonNode> business(BusinessFailure e) {
         return ResponseEntity.status(e.code.equals("invalid_credentials")?401:400).body(body(e.code.equals("invalid_credentials")?e.code:"invalid_request"));
     }

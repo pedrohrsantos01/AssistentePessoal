@@ -313,3 +313,8 @@ Q30 altera a regra antiga de spec/04 §7: histórico de produto indisponível; m
 Tombstone é uma invalidação definitiva do hábito e do XP ligado aos seus cumprimentos, inclusive durante rebase de pendências ou chegada de ack antigo. Pendências não são apagadas: o servidor as classifica, conservando rejeições recuperáveis. Snapshot conserva tombstones e registro mínimo de IDs, mesmo após a janela do feed.
 
 Não aumentar silenciosamente o limite existente de 32 entidades por envelope. Exclusão com mais efeitos devolve no ack o tombstone, preserva o envelope completo interno e obriga `resync_required` quando o pull cruzaria essa transação. O cliente recupera o snapshot estável/paginado, consultando recibos em H antes do swap. Nenhuma página do feed corta a transação; o tombstone torna o hábito/XP inválidos imediatamente enquanto a cópia segue. Replay do recibo extenso mantém essa resposta limitada.
+
+
+## Rate limiting do transporte — 30/09/2026
+
+Quotas do primeiro marco aprovadas na Q32: [spec/07 §4.1](07-nao-funcionais-e-lgpd.md#41-rate-limiting-do-primeiro-marco--q32-30092026). A recusa 429 usa rate_limited e Retry-After; pressão no armazenamento limitado de buckets usa 503/Retry-After. Não produz recibo nem alteração de domínio/credencial. A fila local mantém o mesmo envelope e respeita a espera, inclusive após reabertura. O campo opcional retryAfterSeconds conserva o intervalo m1.1 de 1 a 300 ou null; o cabeçalho transporta integralmente uma espera maior configurada pelo operador. [Evidências e limitações](../docs/analises/2026-09-30-rate-limiting.md).
