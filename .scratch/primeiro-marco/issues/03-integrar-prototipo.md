@@ -24,3 +24,5 @@ Concluída: não.
 ## Comments
 
 25/09/2026: depende de artefato externo do Pedro, não de uma tarefa técnica anterior. Não bloqueia as tarefas 01 e 02.
+
+30/09/2026: preparados o [briefing funcional para o Claude Design](../../../docs/design/briefing-claude-design.md) e o [prompt de uso](../../../docs/design/prompt-claude-design.md), por solicitação de Pedro. Cobrem M1, Fase 1, expansão 2A, erros/offline e 29 jornadas de revisão. O material orienta a criação do protótipo; não fecha Q28 nem conclui esta tarefa.
