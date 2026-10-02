@@ -1,7 +1,7 @@
 # Recuperação operacional do Ritmo — plano para confirmação
 
 Data: 01/10/2026.
-Estado: **plano confirmado por Pedro em 02/10/2026; incrementos 1/2/3 concluídos localmente; incremento 4 é o próximo**.
+Estado: **plano confirmado por Pedro em 02/10/2026; incrementos 1/2/3 concluídos localmente; incremento 4 em preparação local**.
 Origem: [entrevista, Q33–Q43](../fundacao/entrevista.md).
 Vínculo: [REQ-NFR-004 e confiabilidade](../../specs/07-nao-funcionais-e-lgpd.md), [sincronização](../../specs/06-sincronizacao.md), [contrato do primeiro marco](../../specs/13-contrato-primeiro-marco.md) e [tarefa 05 do M1](../primeiro-marco/issues/05-completar-sessao-e-recuperacao.md).
 
@@ -84,3 +84,8 @@ Fontes técnicas primárias verificadas durante a entrevista: [replicação sín
 Fornecedor/região/capacidade/custo do destino e do detector, acesso ao Coolify/VPS, cofre escolhido, destinatário e transporte de e-mail, acessos TLS/replicação e armazenamento serão definidos no provisionamento após a prova local. Essas dependências estão explícitas; nenhum valor de credencial é solicitado ou salvo aqui. A confirmação deste plano autoriza o recorte local descrito, não compra ou publicação externa.
 
 Outros gates do M1 continuam conforme a tarefa 05: protótipo Q28, UI, validação dos aparelhos, distribuição iOS, e-mail real de recuperação, proxy/TLS e demais critérios de aceite. Este plano não declara a aplicação pronta para produção nem encerra a Fase 1.
+
+
+## Preparação de provisionamento — 02/10/2026
+
+Recorte 4 iniciado pela definição, sem implantação externa. O [caderno de execução/aceite](../../api/ops/external-provisioning.md) organiza 4A (ambiente/custos), 4B (pacote testado), 4C (instalação isolada) e 4D (provas externas). Q44 confirmou Hostinger/Campinas (2 vCPU/8 GB/100 GB, Ubuntu 24.04/Coolify 4.3.23); Q45 pediu recomendação de custos, sem aprovar teto, e Q46 informou Resend e pediu sugestão de cofre. Compra/publicação não são presumidas. [Referências oficiais](../../docs/analises/2026-10-02-referencias-provisionamento-externo.md) orientam engenharia, sem comprovar instalação. A [tarefa 04](issues/04-validar-operacao-externa.md) está em preparação local, com dependências externas abertas; M1 permanece aberto. [Evidência do preparo](../../docs/analises/2026-10-02-preparacao-do-provisionamento.md).

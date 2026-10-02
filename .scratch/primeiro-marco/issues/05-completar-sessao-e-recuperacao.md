@@ -235,3 +235,8 @@ Recorte 2 concluído localmente: confirmações protegidas antes da publicação
 ### Ciclo operacional — 02/10/2026
 
 [Recorte 3](../../recuperacao-operacional/issues/03-operar-backups-e-alertas.md) concluído localmente: agenda com fuso, catálogo imutável, âncora/WAL por dependência, monitor/deduplicação/retry e ensaio mensal/major. Seleção independente do alvo após perder o primário foi comprovada por restauração/API nas duas timelines; corrupção/gaps/histórias ausentes recusam avanço. [Relatório/limites](../../../docs/analises/2026-10-02-ciclo-operacional-de-backups.md). Checks completos: app 94 testes/typecheck/lint; API check 58 aprovados/1 Android opt-in ignorado + 8 operacionais. Próximo gate: [04 — provisionamento/aceite externo](../../recuperacao-operacional/issues/04-validar-operacao-externa.md). Janela/RPO/RTO reais, e-mail/cofre/supervisor/TLS e UI/aparelhos continuam pendentes. Tarefa 05 e M1 não são encerrados por esta prova local.
+
+
+### Preparação de provisionamento — 02/10/2026
+
+[Recorte 4](../../recuperacao-operacional/issues/04-validar-operacao-externa.md) iniciado com caderno de execução, capacidade/custos e gates de aceite. [Relatório](../../../docs/analises/2026-10-02-preparacao-do-provisionamento.md). Q44 confirmou VPS Hostinger/Campinas e Q46 informou Resend; Q47 autorizou perfil A/artefatos locais e adiou orçamento; Q48 escolheu Bitwarden Free; implantação/proxy/supervisor/agenda e provas externas não estão concluídos. App typecheck/lint + 94 testes; API check aprovado, operationsTest 8/8 e suíte Java UP-TO-DATE. M1 e tarefa 05 seguem abertos; nenhuma UI ou implantação externa acrescentada.

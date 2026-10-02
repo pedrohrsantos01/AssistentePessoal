@@ -431,3 +431,20 @@ Próximo ponto: confirmar entendimento do [plano consolidado do recorte](../recu
 ## Recuperação operacional — entendimento confirmado, 02/10/2026
 
 Pedro confirmou o plano consolidado com “Pode comecar o recorte 1”. Iniciar contenção e retomada integral no ambiente local, nas fronteiras HTTP/Session/AccountStore, SQLite/PostgreSQL e operação externa de armazenamento já descritas. Q33–Q43 consolidadas no [ADR-019](../../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md) e spec/07. Provisionamento, compras, exposição externa e garantias medidas em produção permanecem etapas posteriores.
+
+
+## Provisionamento externo — Q44–Q46, 02/10/2026
+
+- **Q44 — Ambiente existente:** Pedro confirmou VPS disponível na **Hostinger, Campinas/SP**, com **2 vCPU, 8 GB RAM, 100 GB disco, Ubuntu 24.04 e Coolify 4.3.23**. São informações declaradas pelo operador; utilização livre, arquitetura/configuração e acessos ainda não foram inspecionados no host. Não há necessidade confirmada de contratar outro primário.
+- **Q45 — Orçamento:** Pedro não tem teto mensal mensurado; pediu recomendação mais específica de abordagens/custos. Preparar proposta com fontes oficiais, receptor/detector e ensaios discriminados. Nenhum preço/teto/fornecedor adicional foi aprovado.
+- **Q46 — Cofre e e-mail:** Pedro ainda não possui cofre externo e pediu sugestões; já usa **Resend**. Bitwarden Free cloud foi recomendado, com Premium opcional; a escolha de cofre ainda não foi confirmada. Resend tem SMTP compatível com o contrato, mas plano/quota/domínio/remetente/destinatário e credenciais operacionais continuam a conferir pelo canal privado.
+
+Referências: [caderno de provisionamento](../../api/ops/external-provisioning.md) e [preparo/evidências](../../docs/analises/2026-10-02-preparacao-do-provisionamento.md). Esta rodada registra dados do ambiente e solicitações de recomendação; não autoriza contratação ou exposição nem confirma RPO/RTO externo.
+
+
+## Proposta operacional — Q47/Q48, 02/10/2026
+
+- **Q47:** Pedro escolheu o perfil A como referência enxuta, com **artefatos locais primeiro e contratação/orçamento depois**. Pediu comparar também outra VPS Hostinger e Cloudflare R2; informou já ter storage, sem fornecer capacidade/configuração/credenciais. Não escolheu AWS/DO como fornecedores definitivos nem autorizou compra/upload/exposição. Avaliar R2 como cópia auxiliar, mantendo a condição de WAL síncrono durável de Q33/Q35; qualquer substituição dessa condição exigiria decisão explícita.
+- **Q48:** Pedro escolheu **Bitwarden Free hospedado pelo Bitwarden**. Configuração de conta, recuperação/2FA e injeção privada de segredos ainda serão realizadas pelo canal apropriado; nenhum segredo foi solicitado.
+
+A [proposta](../../docs/analises/2026-10-02-proposta-de-infraestrutura.md) contém cotações para comparação, não orçamento contratado. Prosseguir com pacote local/ensaios antes da escolha final dos fornecedores e do aceite externo.
