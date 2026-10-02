@@ -1,7 +1,7 @@
 # Recuperação operacional do Ritmo — plano para confirmação
 
 Data: 01/10/2026.
-Estado: **plano confirmado por Pedro em 02/10/2026; incrementos 1/2 concluídos localmente; incremento 3 é o próximo**.
+Estado: **plano confirmado por Pedro em 02/10/2026; incrementos 1/2/3 concluídos localmente; incremento 4 é o próximo**.
 Origem: [entrevista, Q33–Q43](../fundacao/entrevista.md).
 Vínculo: [REQ-NFR-004 e confiabilidade](../../specs/07-nao-funcionais-e-lgpd.md), [sincronização](../../specs/06-sincronizacao.md), [contrato do primeiro marco](../../specs/13-contrato-primeiro-marco.md) e [tarefa 05 do M1](../primeiro-marco/issues/05-completar-sessao-e-recuperacao.md).
 
@@ -49,10 +49,10 @@ As tarefas de execução têm arquivos individuais em `issues/`, com dependênci
 |---|---|---|
 | **1 — concluído localmente** | Contenção e retomada após recuperação integral, API + cliente local | API real em quarentena não entrega nem aceita estado potencialmente antigo; SQLite reaberto mantém leitura/envelopes/novas intenções. Após validação e invalidação das credenciais anteriores, novo login permite retomar sem perda ou duplicação. |
 | **2 — concluído localmente** | Durabilidade síncrona e recuperação física pós-corte | Primário e receptor descartáveis; base anterior às operações; perda do primário; recuperação da cauda de WAL preserva confirmações, recibos, contas, senha vigente, tombstones e XP. Falha/cancelamento não gera falsa confirmação. |
-| 3 | Ciclo de backup, retenção, detector e procedimento | Publicação de bases válidas, expurgo por dependência, alertas Q42 sem conteúdo pessoal, falhas e ausência de agenda detectáveis. Procedimento reproduzível de reconstrução e ensaio cronometrado. |
+| **3 — concluído localmente** | Ciclo de backup, retenção, detector e procedimento | Publicação de bases válidas, expurgo por dependência, alertas Q42 sem conteúdo pessoal, falhas e ausência de agenda detectáveis. Procedimento reproduzível de reconstrução e ensaio cronometrado. |
 | 4 | Provisionamento e aceite externo | Escolher e configurar destino, acessos, cofre, canal de e-mail, Coolify, TLS/proxy, agenda e monitor externo; medir recuperação integral no ambiente real antes da exposição. |
 
-Cada incremento combina implementação, testes pertinentes e documentação, com commits semânticos e atômicos. O [incremento 1](issues/01-conter-e-retomar-api.md) tem evidência em [relatório](../../docs/analises/2026-10-02-contencao-e-retomada-operacional.md); o [incremento 2](issues/02-provar-wal-pos-corte.md) tem [prova local de WAL/recuperação](../../docs/analises/2026-10-02-wal-e-recuperacao-fisica.md); o próximo trabalho local é o incremento 3, incluindo inventário/seleção de alvo conservador fora do primário. O protótipo não é pré-requisito para esses testes técnicos; M1, UI e aceite no iPhone/Android continuam abertos.
+Cada incremento combina implementação, testes pertinentes e documentação, com commits semânticos e atômicos. O [incremento 1](issues/01-conter-e-retomar-api.md) tem evidência em [relatório](../../docs/analises/2026-10-02-contencao-e-retomada-operacional.md); o [incremento 2](issues/02-provar-wal-pos-corte.md) tem [prova local de WAL/recuperação](../../docs/analises/2026-10-02-wal-e-recuperacao-fisica.md); o [incremento 3](issues/03-operar-backups-e-alertas.md) tem [evidência local de agenda/cadeia/monitor](../../docs/analises/2026-10-02-ciclo-operacional-de-backups.md), com alvo selecionado fora do primário perdido. O próximo trabalho é definir/provisionar e aceitar o ambiente real no incremento 4. O protótipo não é pré-requisito para esses testes técnicos; M1, UI e aceite no iPhone/Android continuam abertos.
 
 ## Provas necessárias
 

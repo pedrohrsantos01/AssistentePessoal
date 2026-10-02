@@ -72,8 +72,8 @@ class WalRecoveryTests {
             statement.setQueryTimeout(3);try(var result=statement.executeQuery(query)) {assertThat(result.next()).isTrue();return result.getString(1);}
         }
     }
-    private void succeed(GenericContainer<?> container,String... command) throws Exception {
-        var result=container.execInContainer(command);assertThat(result.getExitCode()).as(result.getStderr()).isZero();
+    private String succeed(GenericContainer<?> container,String... command) throws Exception {
+        var result=container.execInContainer(command);assertThat(result.getExitCode()).as(result.getStderr()).isZero();return result.getStdout();
     }
     private GenericContainer<?> receiver(Network network) {
         return new GenericContainer<>(IMAGE).withNetwork(network).withCommand("sh","-c","exec sleep infinity")
@@ -198,8 +198,12 @@ class WalRecoveryTests {
             .waitingFor(org.testcontainers.containers.wait.strategy.Wait.forLogMessage(".*fixture-ready.*",1))
             .withCopyFileToContainer(MountableFile.forHostPath(archive),"/tmp/archive.tar")
             .withCopyFileToContainer(MountableFile.forHostPath("ops/restore-physical.sh"),"/tmp/restore-physical.sh")
+            .withCopyFileToContainer(MountableFile.forHostPath("ops/select-wal-target.sh"),"/tmp/select-wal-target.sh")
             .withCopyFileToContainer(MountableFile.forHostPath("ops/prepare-recovery.sh"),"/tmp/prepare-recovery.sh")
             .withCopyFileToContainer(MountableFile.forHostPath("ops/prepare-recovery.sql"),"/tmp/prepare-recovery.sql");
+    }
+    private java.math.BigInteger lsnNumber(String value) {
+        var pieces=value.split("/");return new java.math.BigInteger(pieces[0],16).shiftLeft(32).add(new java.math.BigInteger(pieces[1],16));
     }
     private String refuseIncomplete(GenericContainer<?> target,String directory,String wal,String lsn) throws Exception {
         succeed(target,"env","RITMO_RECOVERY_QUARANTINE=true","sh","/tmp/restore-physical.sh","/tmp/archive/base",wal,directory,lsn,"1");
@@ -259,7 +263,14 @@ class WalRecoveryTests {
                 succeed(restored,"cp","-R","/tmp/archive/wal","/tmp/corrupt-wal");
                 succeed(restored,"sh","-c","printf X | dd of=/tmp/corrupt-wal/"+segment+".partial bs=1 seek=0 count=1 conv=notrunc 2>/dev/null");
                 assertThat(refuseIncomplete(restored,"/tmp/corrupt","/tmp/corrupt-wal",target)).contains("invalid magic number");
-                succeed(restored,"env","RITMO_RECOVERY_QUARANTINE=true","sh","/tmp/restore-physical.sh","/tmp/archive/base","/tmp/archive/wal","/tmp/recovered",target,"1");
+                var selected=succeed(restored,"env","RITMO_WAL_FROZEN=true","sh","/tmp/select-wal-target.sh","/tmp/archive/base","/tmp/archive/wal").trim().split(" ");
+                String selectedTarget=selected[0];assertThat(selected[1]).isEqualTo("1");
+                assertThat(lsnNumber(selectedTarget)).isGreaterThanOrEqualTo(lsnNumber(target));
+                succeed(restored,"cp","-R","/tmp/archive/wal","/tmp/nonzero-tail");
+                succeed(restored,"sh","-c","printf X | dd of=/tmp/nonzero-tail/"+segment+".partial bs=1 seek=16777215 count=1 conv=notrunc 2>/dev/null");
+                for(String damaged:List.of("/tmp/gap-wal","/tmp/corrupt-wal","/tmp/nonzero-tail"))
+                    assertThat(restored.execInContainer("env","RITMO_WAL_FROZEN=true","sh","/tmp/select-wal-target.sh","/tmp/archive/base",damaged).getExitCode()).isNotZero();
+                succeed(restored,"env","RITMO_RECOVERY_QUARANTINE=true","sh","/tmp/restore-physical.sh","/tmp/archive/base","/tmp/archive/wal","/tmp/recovered",selectedTarget,"1");
                 succeed(restored,"pg_ctl","-D","/tmp/recovered","-l","/tmp/recovery.log","-w","start");
                 Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(restored,owner,password,"SELECT pg_is_wal_replay_paused() AND pg_last_wal_replay_lsn()>='"+target+"'::pg_lsn").equals("t"));
                 sql(restored,owner,password,"SELECT pg_wal_replay_resume()");
@@ -298,7 +309,12 @@ class WalRecoveryTests {
                 succeed(receiver,"tar","-cf","/tmp/archive.tar","-C","/tmp/archive",".");receiver.copyFileFromContainer("/tmp/archive.tar",archive.toString());
                 try(var second=recoveryTarget(network,archive)) {
                     second.start();succeed(second,"sh","-c","mkdir /tmp/archive; tar -xf /tmp/archive.tar -C /tmp/archive");
-                    succeed(second,"env","RITMO_RECOVERY_QUARANTINE=true","sh","/tmp/restore-physical.sh","/tmp/archive/base","/tmp/archive/wal","/tmp/recovered",secondTarget,"2");
+                    succeed(second,"cp","-R","/tmp/archive/wal","/tmp/no-history");succeed(second,"rm","/tmp/no-history/00000002.history");
+                    assertThat(second.execInContainer("sh","/tmp/select-wal-target.sh","/tmp/archive/base","/tmp/no-history","closed").getExitCode()).isNotZero();
+                    succeed(second,"sh","/tmp/select-wal-target.sh","/tmp/archive/base","/tmp/archive/wal","closed");
+                    var selectedSecond=succeed(second,"env","RITMO_WAL_FROZEN=true","sh","/tmp/select-wal-target.sh","/tmp/archive/base","/tmp/archive/wal").trim().split(" ");
+                    assertThat(selectedSecond[1]).isEqualTo("2");assertThat(lsnNumber(selectedSecond[0])).isGreaterThanOrEqualTo(lsnNumber(secondTarget));
+                    succeed(second,"env","RITMO_RECOVERY_QUARANTINE=true","sh","/tmp/restore-physical.sh","/tmp/archive/base","/tmp/archive/wal","/tmp/recovered",selectedSecond[0],"2");
                     succeed(second,"pg_ctl","-D","/tmp/recovered","-l","/tmp/recovery.log","-w","start");
                     Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(second,owner,password,"SELECT pg_is_wal_replay_paused() AND pg_last_wal_replay_lsn()>='"+secondTarget+"'::pg_lsn").equals("t"));
                     sql(second,owner,password,"SELECT pg_wal_replay_resume()");

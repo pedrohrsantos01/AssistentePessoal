@@ -11,7 +11,7 @@ pnpm --dir ../app install --frozen-lockfile
 .\gradlew.bat check --no-daemon
 ```
 
-Java 21 e Docker precisam estar disponíveis. O teste inicia GreenMail em loopback, sem entrega externa, e um Postgres 18.6 descartável, fixado por digest; aplica Flyway e cria roles de teste sem privilégios administrativos. O Testcontainers encerra os containers ao terminar. WalRecoveryTests usa primário e receptor em filesystems separados, com fsync ativado, e restaura base física/WAL após perdas e promoção; ver [procedimento de WAL](ops/wal-recovery.md). Nenhuma conexão com a VPS é necessária.
+Java 21, Docker e Python 3.11+ com IANA tzdata precisam estar disponíveis. `check` inclui `operationsTest` (stdlib, sem instalar pacotes); `RITMO_PYTHON` pode apontar para o executável Python do ambiente. O teste inicia GreenMail em loopback, sem entrega externa, e um Postgres 18.6 descartável, fixado por digest; aplica Flyway e cria roles de teste sem privilégios administrativos. O Testcontainers encerra os containers ao terminar. WalRecoveryTests usa primário e receptor em filesystems separados, com fsync ativado, e restaura base física/WAL após perdas e promoção; ver [procedimento de WAL](ops/wal-recovery.md). Nenhuma conexão com a VPS é necessária.
 
 `RuntimeTests` verifica HTTP, RLS, transações, recibos e executa os cenários em `app/test/integration/`: sync/sessão, recuperação de senha, scheduler, rejeições, snapshots e compatibilidade. `ModularityTests` verifica fronteiras. Os relatórios ficam em `build/reports/tests/test/index.html`; o resultado dos clientes em `build/mobile-integration.log`, `build/mobile-recovery.log`, `build/mobile-scheduler.log` `build/mobile-rejections.log`, `build/snapshot-integration.log` e `build/compatibility-integration.log`.
 
@@ -76,3 +76,7 @@ Os scripts exigem cliente PostgreSQL 18, shell POSIX/GNU coreutils e credenciais
 ## Proteção das confirmações externas
 
 O recorte 2 acrescenta barreira de publicação opt-in com `RITMO_REQUIRE_WAL=true`, obrigatória no provisionamento externo. Exige receptor síncrono nomeado, flush remoto antes/depois das rotas e base física/cadeia válidas no destino independente. A barreira verifica o WAL; não substitui a validação da base, o inventário/seleção de alvo nem a quarentena. Desenvolvimento descartável sem receptor usa false. [Configuração, permissões, ferramentas e limites](ops/wal-recovery.md); [contrato](../specs/13-contrato-primeiro-marco.md#20-durabilidade-remota-do-transporte--02102026).
+
+## Ciclo operacional
+
+[operations.py e runbook](ops/operations.md) oferecem jobs finitos de agenda/catálogo/expurgo, congelamento e restauração verificados, probe/monitor e ensaio mensal/por major. O seletor nativo usa somente WAL independente e recusa gaps/corrupção/cauda ausente/história de timeline ausente. Não inicia cron, supervisor ou infraestrutura externa. Instalação Linux e aceites de operação/SMTP/cofre/TLS ficam no recorte 4; M1/UI/aparelhos seguem abertos.

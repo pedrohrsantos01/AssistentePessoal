@@ -37,7 +37,7 @@ tasks.named('test') {
     // RuntimeTests also execute these TypeScript clients and their SQLite migrations.
     inputs.files(fileTree('../app/src'), fileTree('../app/test'), fileTree('../app/drizzle'), fileTree('../app/drizzle-control'))
     inputs.files(fileTree('../app/harness'))
-    inputs.files(fileTree('ops'))
+    inputs.files(fileTree('ops').matching { include '*.sh', '*.sql' })
     inputs.property('androidSerial', providers.environmentVariable('RITMO_ANDROID_SERIAL').orElse(''))
     if (providers.environmentVariable('RITMO_ANDROID_SERIAL').isPresent()) outputs.upToDateWhen { false }
     def androidApk = providers.environmentVariable('RITMO_ANDROID_APK')
@@ -47,3 +47,13 @@ tasks.named('test') {
 }
 
 tasks.named('processResources') { from('../contracts/primeiro-marco/openapi.json') { into 'contracts' } }
+
+// Finite operational jobs share check with the API; no scheduler/service is started.
+tasks.register('operationsTest', Exec) {
+    workingDir 'ops'
+    def python = providers.environmentVariable('RITMO_PYTHON').orElse(System.getProperty('os.name').toLowerCase().contains('windows') ? 'python' : 'python3')
+    commandLine python.get(), '-m', 'unittest', 'discover', '-p', 'test_operations.py', '-v'
+    environment 'PYTHONDONTWRITEBYTECODE', '1'
+    inputs.files(fileTree('ops').matching { include '*.py' })
+}
+tasks.named('check') { dependsOn 'operationsTest' }
