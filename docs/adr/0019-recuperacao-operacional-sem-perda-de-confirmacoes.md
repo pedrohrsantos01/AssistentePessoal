@@ -22,3 +22,8 @@ Credenciais/configurações sensíveis e eventuais chaves em cofre externo aos s
 Consequência: acrescentar um destino operacional independente para durabilidade, sem ampliar a arquitetura de domínio, adicionar microserviços ou instalar módulos futuros. O M1, UI/protótipo Q28 e aceite dos aparelhos continuam pendentes. Evidência anterior de dump permanece limitada ao corte capturado.
 
 Origem: [entrevista Q33–Q43](../../.scratch/fundacao/entrevista.md). Contratos: [confiabilidade](../../specs/07-nao-funcionais-e-lgpd.md), [conta](../../specs/01-conta-e-onboarding.md), [sync](../../specs/06-sincronizacao.md) e [contrato M1](../../specs/13-contrato-primeiro-marco.md).
+
+
+## Concretização local do WAL — 02/10/2026
+
+[Recorte 2](../analises/2026-10-02-wal-e-recuperacao-fisica.md): receptor pg_receivewal --synchronous com slot físico/nome dedicados; barreira de publicação com marcador vazio e flush remoto, incluindo leituras/replay e commit incerto. Base/cauda/timeline foram recuperadas após duas perdas, com fatos confirmados verificados pela API; corrupção/ausência e disco sem espaço recusaram avanço. [Procedimento](../../api/ops/wal-recovery.md) e spec/13 §20 registram engenharia/permissões/ativação, sem ampliar o domínio. Inventário/alvo conservador fora do primário e ciclo operacional ficam no incremento 3; aceite externo de RPO/RTO permanece obrigatório.

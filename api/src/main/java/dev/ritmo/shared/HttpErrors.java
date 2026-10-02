@@ -37,5 +37,6 @@ public class HttpErrors {
     @ExceptionHandler(DuplicateKeyException.class) ResponseEntity<JsonNode> duplicate() {return ResponseEntity.status(409).body(body("email_unavailable"));}
     @ExceptionHandler({MethodArgumentNotValidException.class,HttpMessageNotReadableException.class,IllegalArgumentException.class})
     ResponseEntity<JsonNode> invalid() {return ResponseEntity.badRequest().body(body("invalid_request"));}
-    @ExceptionHandler(DataAccessException.class) ResponseEntity<JsonNode> storage() {return ResponseEntity.status(503).body(body("temporarily_unavailable"));}
+    @ExceptionHandler({DataAccessException.class,org.springframework.transaction.TransactionSystemException.class,
+        org.springframework.transaction.CannotCreateTransactionException.class}) ResponseEntity<JsonNode> storage() {return ResponseEntity.status(503).body(body("temporarily_unavailable"));}
 }

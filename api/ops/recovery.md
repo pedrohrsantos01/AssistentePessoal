@@ -25,6 +25,7 @@ RITMO_RECOVERY_QUARANTINE=true RITMO_RECOVERY_VERIFIED=true sh ops/prepare-recov
 ## Reabrir com autenticação nova
 
 - Gerar e guardar no cofre externo uma chave **nova e diferente**, com pelo menos 32 bytes, configurada em `RITMO_SIGNING_KEY`; nunca publicar seu valor. Rotação sozinha não invalida hashes de refresh/reset; o script acima também é obrigatório. Preservar a senha correta recuperada.
+- Reestabelecer receptor, slot e sincronismo com `RITMO_REQUIRE_WAL=true`, conforme [WAL](wal-recovery.md), antes de liberar clientes. Base/cadeia precisam estar comprovadas; o feedback de flush sozinho não verifica arquivos de base nem retenção.
 - Ainda com rede isolada, validar uma instância controlada com chave nova e quarentena false: access/refresh e links antigos recusados; login com senha correta e operações permitidas; nenhum processo com a chave anterior permanece acessível. Confirmar isolamento, domínio/XP/recibos e retomada com cliente local. Parar a validação, ajustar o modo dos processos definitivos e só então liberar acesso dos clientes.
 - Access antigo recebe 401; eventual refresh recusado exige login online para o remoto, conservando a conta local ativa. Se o refresh teve resultado incerto/transitório, a política existente pode exigir login sem reutilizar o token; SQLite/pendências permanecem.
 - Nova autenticação na mesma conta reabre seu SQLite. Cursor assinado antes da rotação recebe `resync_required`; snapshot integral classifica pendências no corte antes da instalação. Confirmados não voltam à fila. Outra conta não pode ler/enviar o banco preservado.
@@ -33,4 +34,4 @@ RITMO_RECOVERY_QUARANTINE=true RITMO_RECOVERY_VERIFIED=true sh ops/prepare-recov
 
 Testes em `RestoreTests` exercitam HTTP real, script administrativo, SMTP descartável e SQLite reaberto. Executar pelo Gradle com Java 21 e Docker, além dos checks de CLAUDE.md. [Plano e tarefas](../../.scratch/recuperacao-operacional/spec.md).
 
-Apenas a contenção e a retomada são este recorte. WAL síncrono/cauda/timelines, comprovação de completude pós-corte, backup diário, cadeia de 30 dias, detector/e-mail externo, ensaio mensal e RTO real continuam nos incrementos seguintes. Não chamar operação externa de pronta pela existência dessas flags/scripts.
+Este procedimento trata contenção e retomada. [WAL e reconstrução física](wal-recovery.md) acrescentam a prova local pós-base, cauda e timelines. Backup diário, inventário/seleção de alvo, cadeia de 30 dias, detector/e-mail externo, ensaio mensal e RTO real continuam nos incrementos 3/4. Não chamar operação externa de pronta pela existência dessas flags/scripts.

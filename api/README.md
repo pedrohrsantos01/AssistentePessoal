@@ -11,7 +11,7 @@ pnpm --dir ../app install --frozen-lockfile
 .\gradlew.bat check --no-daemon
 ```
 
-Java 21 e Docker precisam estar disponíveis. O teste inicia GreenMail em loopback, sem entrega externa, e um Postgres 18.6 descartável, fixado por digest; aplica Flyway e cria roles de teste sem privilégios administrativos. O Testcontainers encerra seu container ao terminar. Nenhuma conexão com a VPS é necessária.
+Java 21 e Docker precisam estar disponíveis. O teste inicia GreenMail em loopback, sem entrega externa, e um Postgres 18.6 descartável, fixado por digest; aplica Flyway e cria roles de teste sem privilégios administrativos. O Testcontainers encerra os containers ao terminar. WalRecoveryTests usa primário e receptor em filesystems separados, com fsync ativado, e restaura base física/WAL após perdas e promoção; ver [procedimento de WAL](ops/wal-recovery.md). Nenhuma conexão com a VPS é necessária.
 
 `RuntimeTests` verifica HTTP, RLS, transações, recibos e executa os cenários em `app/test/integration/`: sync/sessão, recuperação de senha, scheduler, rejeições, snapshots e compatibilidade. `ModularityTests` verifica fronteiras. Os relatórios ficam em `build/reports/tests/test/index.html`; o resultado dos clientes em `build/mobile-integration.log`, `build/mobile-recovery.log`, `build/mobile-scheduler.log` `build/mobile-rejections.log`, `build/snapshot-integration.log` e `build/compatibility-integration.log`.
 
@@ -71,3 +71,8 @@ Bucket4j aplica as quotas Q32 por peer TCP, endpoint anônimo e conta do JWT val
 [Guia de operação](ops/backup-restore.md) e [evidência de REQ-NFR-004](../docs/analises/2026-09-30-backup-e-restauracao.md). `RestoreTests` gera dump, encerra a origem, recompõe roles em cluster limpo, restaura com outro dono e sobe a API com logins restritos. Valida conta/sessão, hábitos/XP, snapshots/recibos, tombstones, isolamento e intenções offline no SQLite reaberto. Incluído em `check`; resultado móvel em `build/restore-mobile-integration.log`.
 
 Os scripts exigem cliente PostgreSQL 18, shell POSIX/GNU coreutils e credenciais via ambiente/libpq. Recusam sobrescrita, par corrompido e destino preenchido. O ensaio não configura Coolify/destino externo/retenção nem recupera confirmações posteriores ao ponto do dump. Estratégia pós-corte aprovada em ADR-019/spec/07 §2.2; prova de durabilidade e provisionamento ainda pendentes. Contenção/reativação em [ops/recovery.md](ops/recovery.md).
+
+
+## Proteção das confirmações externas
+
+O recorte 2 acrescenta barreira de publicação opt-in com `RITMO_REQUIRE_WAL=true`, obrigatória no provisionamento externo. Exige receptor síncrono nomeado, flush remoto antes/depois das rotas e base física/cadeia válidas no destino independente. A barreira verifica o WAL; não substitui a validação da base, o inventário/seleção de alvo nem a quarentena. Desenvolvimento descartável sem receptor usa false. [Configuração, permissões, ferramentas e limites](ops/wal-recovery.md); [contrato](../specs/13-contrato-primeiro-marco.md#20-durabilidade-remota-do-transporte--02102026).

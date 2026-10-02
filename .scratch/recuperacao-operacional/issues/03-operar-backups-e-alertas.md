@@ -20,3 +20,6 @@ Concluída: não.
 ## Comments
 
 02/10/2026: plano confirmado; executar respeitando dependências. Somente o recorte 1 foi iniciado.
+
+
+02/10/2026: dependência 02 concluída localmente; próximo recorte recomendado. Além da agenda/retencão/detector, consolidar inventário imutável, congelamento/publicação da cadeia e seleção/custódia de alvo conservador no destino independente. A fixture 02 protegeu um alvo registrado antes da perda; produção não pode depender de consultar o primário perdido. [Evidências](../../../docs/analises/2026-10-02-wal-e-recuperacao-fisica.md). Não liberar operação externa antes dos gates 03/04.

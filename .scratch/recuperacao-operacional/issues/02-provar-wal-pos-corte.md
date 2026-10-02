@@ -15,8 +15,15 @@ HTTP/Session/AccountStore públicos, SQLite/PostgreSQL reais e fronteiras operac
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim — 02/10/2026.
 
 ## Comments
 
 02/10/2026: plano confirmado; executar respeitando dependências. Somente o recorte 1 foi iniciado.
+
+
+### Entregue em 02/10/2026
+
+Barreira de publicação antes/depois das rotas, marcador vazio com flush local/feedback do receptor síncrono e slot designado; erros de início/commit incerto retornam 503. Base física verificada, receptor contínuo e preparação isolada por alvo/pausa. Cinco WalRecoveryTests reais provam perda abrupta, cauda parcial, contas/senha/tombstone/XP/recibos, cancelamento/timeout sem falsa confirmação, falta de espaço, recusa de base/cauda corrompida ou ausente e segunda perda atravessando timeline com a base original. Dono operacional sem superprivilégio e sem estatísticas no runtime também verificado.
+
+App typecheck/lint + 94 testes; API check 58 aprovados/1 nativo ignorado. [Relatório e limites](../../../docs/analises/2026-10-02-wal-e-recuperacao-fisica.md), [procedimento](../../../api/ops/wal-recovery.md). Prova local; RPO/RTO externos e inventário/seleção de alvo conservador fora do primário permanecem pendentes. Próximo: tarefa 03; M1 continua aberto.
