@@ -1,0 +1,32 @@
+# Allow only source build inputs; credentials/data never belong to the context.
+**
+!api/
+!api/Dockerfile
+!api/gradlew
+!api/build.gradle
+!api/settings.gradle
+!api/gradle.lockfile
+!api/gradle/
+!api/gradle/wrapper/
+!api/gradle/wrapper/gradle-wrapper.jar
+!api/gradle/wrapper/gradle-wrapper.properties
+!api/src/
+!api/src/main/
+!api/src/main/**
+!contracts/
+!contracts/primeiro-marco/
+!contracts/primeiro-marco/openapi.json
+# Even an accidentally added secret or backup below src/main is excluded.
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/*.p12
+**/*.pfx
+**/*.jks
+**/*.keystore
+**/*.db
+**/*.db-*
+**/*.sqlite*
+**/*.dump*
+**/*.log

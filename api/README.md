@@ -80,3 +80,8 @@ O recorte 2 acrescenta barreira de publicação opt-in com `RITMO_REQUIRE_WAL=tr
 ## Ciclo operacional
 
 [operations.py e runbook](ops/operations.md) oferecem jobs finitos de agenda/catálogo/expurgo, congelamento e restauração verificados, probe/monitor e ensaio mensal/por major. O seletor nativo usa somente WAL independente e recusa gaps/corrupção/cauda ausente/história de timeline ausente. Não inicia cron, supervisor ou infraestrutura externa. Instalação Linux e aceites de operação/SMTP/cofre/TLS ficam no recorte 4; M1/UI/aparelhos seguem abertos.
+
+
+## Imagem de implantação local
+
+[Contrato e comandos](ops/container-deployment.md), [Dockerfile](Dockerfile) e [exemplo de ambiente sem segredos](deploy/.env.example). O contexto de build é a raiz do repositório, com wrapper/lockfile, fontes, migrations e OpenAPI. Java 21 JDK compila; JRE executa como UID/GID 10001. A imagem exige WAL e inicia em quarentena por padrão. ContainerPackagingTests constrói o artefato e o verifica por HTTP com PG18 descartável; incluído em check. Instalação, supervisão/agenda/transporte/proxy e aceite externo seguem na [tarefa 04](../.scratch/recuperacao-operacional/issues/04-validar-operacao-externa.md).

@@ -31,10 +31,13 @@ Continuação autorizada por Pedro. [Caderno de provisionamento/aceite](../../..
 | Etapa | Estado |
 |---|---|
 | 4A — ambiente/custos/rede/custódia | Ambiente declarado, perfil A enxuto/Bitwarden Free/Resend definidos; fornecedores/orçamento final adiados |
-| 4B — pacote de implantação testado | Autorizada a preparação local em Q47; build da API primeiro, seguido de supervisão/agenda/transporte/proxy |
+| 4B — pacote de implantação testado | Imagem da API verificada por build/PG/HTTP; supervisão/agenda/transporte/proxy ainda pendentes |
 | 4C — instalação isolada | Pendente de proposta/acessos definidos |
 | 4D — aceite externo/RTO | Pendente; prova local não substitui o ambiente real |
 
 Respostas [Q44–Q46](../../fundacao/entrevista.md): Hostinger/Campinas, 2 vCPU/8 GB/100 GB, Ubuntu 24.04/Coolify 4.3.23; Q45 solicitou recomendação sem aprovar teto; Resend já usado, cofre a escolher. [Proposta concreta](../../../docs/analises/2026-10-02-proposta-de-infraestrutura.md) registra Q47: perfil A/artefatos locais primeiro, fornecedores/orçamento depois e comparação Hostinger/R2; Q48: Bitwarden Free cloud escolhido. Nenhum fornecedor adicional ou orçamento foi tratado como aprovado. Remoto Git/domínios/acessos também continuam a confirmar na etapa de instalação.
 
 A revisão identificou dependências concretas: build precisa incluir contracts pela raiz do repositório; confiança do proxy ainda está desligada; probe atual mede disco do receptor e não saúde do próprio detector/SMTP ou disco/slot do primário. Essas integrações precisam de implementação e provas na operação externa. Detector DigitalOcean tem restrição SMTP 25/465/587: alternativa Resend 2587 documentada, mas acesso/entrega real ainda a aceitar. Registrar catálogo/histórico real para não afirmar uma janela retroativa inexistente. [Relatório do preparo e limites](../../../docs/analises/2026-10-02-preparacao-do-provisionamento.md). Contratação/aceite externo ainda dependem de informação; Concluída: não permanece.
+
+
+02/10/2026 — 4B, imagem API: [Dockerfile/contrato local](../../../api/ops/container-deployment.md) e exemplo de runtime sem segredos; contexto restrito na raiz, Java 21 fixado, JAR com contrato/Flyway, UID 10001 e WAL/quarentena ativos por padrão. Build Docker/PG18/HTTP passou, assim como checks completos: app 94/94; API 59 aprovados/1 Android opt-in ignorado; operações 8/8. [Evidência e limites](../../../docs/analises/2026-10-02-imagem-de-implantacao-da-api.md). Próximo incremento local: supervisão real do receiver e parada/inibição de restart; em seguida agenda/transporte/proxy. Sem contratação, deploy ou upload R2. A etapa 4B permanece aberta, com Concluída: não.

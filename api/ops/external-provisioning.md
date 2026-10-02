@@ -83,7 +83,7 @@ Q45 solicitou uma recomendação; preços/data/fontes e condições comerciais e
 
 Instalação Linux; Python 3.11+ com IANA tzdata, clientes PostgreSQL 18 e coreutils. PostgreSQL do mesmo formato/arquitetura usado pela base; segmentos WAL de 16 MiB e sem tablespaces adicionais. Registrar versões/digests verificados e commit da aplicação; não usar tag latest. A [pesquisa de referências](../../docs/analises/2026-10-02-referencias-provisionamento-externo.md) orienta o pacote 4B e não substitui ensaio.
 
-O checkout ainda não tem Dockerfile/Compose de implantação. O build precisa incluir contracts/primeiro-marco/openapi.json, consumido por processResources a partir de ../contracts. Preparar contexto de build na raiz do repositório com cópias explícitas e exclusão de segredos/bancos/builds locais. Testar a imagem resultante com PG real e HTTP, não só a sintaxe do Dockerfile. Checks completos fora do build continuam obrigatórios.
+O pacote local começa pela [imagem da API](container-deployment.md): contexto na raiz, cópias explícitas e exclusão de segredos/bancos/builds locais. Inclui contracts/primeiro-marco/openapi.json, consumido por processResources a partir de ../contracts, e migrations. A imagem é ensaiada com PG real e HTTP. Checks completos fora do build continuam obrigatórios. Compose/configuração real de rede/proxy/supervisão/agenda/transporte continuam pendentes; a imagem não os substitui.
 
 | Componente | Condições antes de seguir |
 |---|---|

@@ -38,6 +38,8 @@ tasks.named('test') {
     inputs.files(fileTree('../app/src'), fileTree('../app/test'), fileTree('../app/drizzle'), fileTree('../app/drizzle-control'))
     inputs.files(fileTree('../app/harness'))
     inputs.files(fileTree('ops').matching { include '*.sh', '*.sql' })
+    // Packaging fixture must be rerun when build inputs change.
+    inputs.files('Dockerfile', '../.dockerignore', 'gradlew', 'gradle.lockfile', fileTree('gradle/wrapper'))
     inputs.property('androidSerial', providers.environmentVariable('RITMO_ANDROID_SERIAL').orElse(''))
     if (providers.environmentVariable('RITMO_ANDROID_SERIAL').isPresent()) outputs.upToDateWhen { false }
     def androidApk = providers.environmentVariable('RITMO_ANDROID_APK')

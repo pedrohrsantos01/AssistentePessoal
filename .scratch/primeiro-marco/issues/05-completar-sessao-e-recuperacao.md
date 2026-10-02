@@ -240,3 +240,6 @@ Recorte 2 concluído localmente: confirmações protegidas antes da publicação
 ### Preparação de provisionamento — 02/10/2026
 
 [Recorte 4](../../recuperacao-operacional/issues/04-validar-operacao-externa.md) iniciado com caderno de execução, capacidade/custos e gates de aceite. [Relatório](../../../docs/analises/2026-10-02-preparacao-do-provisionamento.md). Q44 confirmou VPS Hostinger/Campinas e Q46 informou Resend; Q47 autorizou perfil A/artefatos locais e adiou orçamento; Q48 escolheu Bitwarden Free; implantação/proxy/supervisor/agenda e provas externas não estão concluídos. App typecheck/lint + 94 testes; API check aprovado, operationsTest 8/8 e suíte Java UP-TO-DATE. M1 e tarefa 05 seguem abertos; nenhuma UI ou implantação externa acrescentada.
+
+
+02/10/2026: pacote local 4B iniciado pela [imagem da API](../../../api/ops/container-deployment.md), com build/PG18/HTTP e defaults WAL/quarentena verificados. [Checks e limites](../../../docs/analises/2026-10-02-imagem-de-implantacao-da-api.md): app 94/94, API 59 aprovados/1 Android opt-in ignorado, operações 8/8. Supervisão/agenda/transporte/proxy e aceite externo continuam na tarefa de recuperação; isso não aceita M1/UI/distribuição/aparelhos nem inicia a avaliação da Fase 1.
