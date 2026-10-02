@@ -48,3 +48,7 @@ Recompensa atribuída a um cumprimento ou outro fato elegível. Desfazer e refaz
 
 **Pendência de sincronização**:
 Alteração feita pelo usuário no Ritmo que ainda aguarda confirmação da sincronização. Permanece vinculada à conta que a criou, inclusive quando o usuário sai dessa conta.
+
+
+**Quarentena operacional**:
+API indisponível aos clientes enquanto a completude de uma recuperação não estiver comprovada. Não encerra o uso local da conta ativa nem permite publicar uma cópia histórica incompleta. Ver ADR-019.

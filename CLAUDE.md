@@ -165,3 +165,8 @@ See @TERMBAKER.md for the capabilities of this Termbaker environment.
 ## Memória entre sessões
 
 O vínculo ai-memory, as instruções de continuidade e as skills gerenciadas estão em [AGENTS.md](AGENTS.md). Leia essa seção ao retomar trabalho. Configuração e validação: [guia local](docs/agents/ai-memory.md).
+
+
+## Recuperação operacional
+
+[ADR-019](docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md) acrescenta receptor de WAL/destino independente para preservar confirmações na perda da VPS primária, sem ampliar módulos de domínio. Antes de qualquer API sobre dados recuperados, ativar quarentena externa ao banco; liberação exige recuperação integral, invalidação de sessões/links e chave nova conforme spec/13 §19. Provisionamento e garantia externa continuam sujeitos aos ensaios do plano de recuperação.

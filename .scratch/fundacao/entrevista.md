@@ -383,3 +383,51 @@ Após cada rodada, registrar escolhas, razões e perguntas desbloqueadas. Criar 
 ## Limites operacionais da API — 30/09/2026
 
 - **Q32:** Pedro aprovou quotas iniciais configuráveis: 120 requisições/minuto por conta; 300/minuto por IP na API. Por IP: login 10/minuto, cadastro 5/minuto, solicitação de recuperação 3/15 minutos, confirmação 10/minuto e refresh/revoke 60/minuto cada. Excesso retorna 429 com Retry-After sem descartar alterações locais.
+
+
+## Recuperação operacional — rodada 1, 01/10/2026
+
+Entrevista com a skill grilling em andamento. As respostas abaixo fecham objetivos; mecanismo, parâmetros e procedimento ainda serão detalhados antes da confirmação do plano completo e da implementação.
+
+- **Q33 — Perda aceitável em desastre:** Pedro respondeu **A**. Preservar todas as transações já confirmadas pela API mesmo com perda total da VPS primária; exigir cópia durável em destino independente antes de confirmar. A indisponibilidade do destino pode fazer a sincronização esperar. Não foi aceita uma janela de perda nesse cenário. A escolha exige proteção além de dump periódico assíncrono.
+- **Q34 — Prazo de recuperação:** Pedro respondeu **A**. Meta inicial de até **24 horas** para reconstruir o ambiente, restaurar os dados, verificar a API e liberar a sincronização. Meta operacional a comprovar em ensaio; o tempo do teste local não equivale a RTO medido em produção.
+
+Perguntas desbloqueadas: topologia de proteção externa compatível com RPO zero/RTO24h; contenção de restauração incompleta e uso local durante o incidente; política de sessões/links após recuperação integral. Fornecedor, orçamento, agenda, retenção da cadeia física/WAL, alertas e provisionamento continuam sem definição concluída. Nenhuma política de replay de operações confirmadas foi aprovada.
+
+
+## Recuperação operacional — rodada 2, 01/10/2026
+
+Pedro respondeu **A** nas três perguntas. Entrevista em andamento; estas escolhas não concluem o plano nem comprovam RPO/RTO no ambiente real.
+
+- **Q35 — Estrutura remota:** receptor contínuo de WAL fora da VPS primária, acompanhado de backup físico recuperável. Reconstruir o PostgreSQL a partir dessa base e cadeia de WAL; não manter um segundo banco completo continuamente aplicando WAL neste recorte. Exigir destino independente disponível antes de confirmar as transações protegidas.
+- **Q36 — Recuperação incompleta:** manter a API bloqueada para os clientes enquanto a completude não for comprovada. A conta local ativa continua permitindo leitura e novos registros locais, preservando envelopes e fila. Não instalar snapshot antigo nem reenviar automaticamente operações acknowledged para tentar reconstruir o histórico. Isolamento entre contas e regras de logout permanecem.
+- **Q37 — Após recuperação integral:** invalidar sessões, access/refresh tokens e links de recuperação anteriores e exigir nova autenticação online para comunicação remota. Preservar a senha recuperada correta, o SQLite e as pendências. Não exigir troca de senha nesse caminho integral nem tratar invalidação remota como autorização para apagar/bloquear os dados locais.
+
+Perguntas desbloqueadas: cadência das bases, significado da retenção de30 dias para a cadeia física/WAL, canal de alerta independente da VPS e frequência dos ensaios operacionais. A confirmação do plano completo continua pendente. Detalhes de sincronismo, cauda parcial, timelines, timeout/resultado incerto e expurgo por dependência serão elaborados e testados como engenharia; configurar o receptor isoladamente não comprova perda zero.
+
+
+## Recuperação operacional — rodada 3, 01/10/2026
+
+Pedro respondeu **A** em Q38 a Q41. Entrevista em andamento; ainda falta confirmar o plano completo antes de implementar seus mecanismos.
+
+- **Q38 — Cadência:** base física completa diária e dump lógico diário, às **03:00 em America/Sao_Paulo**, mantendo a recepção de WAL continuamente. A base física atende à recuperação com WAL; o dump lógico é uma cópia auxiliar e não comprova sozinho a preservação das transações confirmadas.
+- **Q39 — Retenção:** janela contínua recuperável de **30 dias**. Conservar também a base âncora anterior ao início dessa janela e o WAL necessário, mesmo quando esses arquivos ultrapassarem 30 dias. Expurgar por dependência da cadeia, não apenas pela idade dos arquivos. Isso amplia a formulação anterior de retenção de arquivos; restaurar um ponto histórico continua sujeito à contenção de Q36.
+- **Q40 — Alertas:** canal por **e-mail**, com detecção fora da VPS primária. Destinatário e credenciais serão configurados no provisionamento, sem registrar seus valores nos documentos ou na memória.
+- **Q41 — Ensaios:** recuperação integral em ambiente isolado **mensalmente e a cada release major**, verificando integridade, comportamento da API e tempo total até a liberação. A frequência mensal complementa a exigência já existente por release major; não significa que RPO zero ou RTO de 24 horas estejam comprovados em produção.
+
+Perguntas desbloqueadas: critérios iniciais de alerta e custódia dos segredos necessários à reconstrução após perder a VPS. Fornecedores, custos e instalação externa ficam para o provisionamento após a prova local; nenhuma compra, publicação ou envio de e-mail foi executado nesta entrevista. A confirmação de entendimento do recorte local e do procedimento operacional permanece pendente.
+
+
+## Recuperação operacional — rodada 4, 01/10/2026
+
+Pedro respondeu **A** em Q42 e Q43. Decisões registradas; a confirmação de entendimento do plano consolidado ainda está pendente.
+
+- **Q42 — Critérios iniciais de alerta:** verificar disponibilidade da API e do receptor de WAL a cada **60 segundos**, alertando após **duas falhas consecutivas**; alertar se o último backup físico ou lógico válido ultrapassar **26 horas**; alertar imediatamente quando uma execução de backup ou ensaio falhar; avisar com armazenamento em **80%** e elevar para crítico em **90%**. Enviar e-mail na abertura, agravamento e resolução do incidente, sem repetir enquanto o estado permanecer igual. Parâmetros configuráveis. O critério por idade cobre também a ausência silenciosa de execução agendada.
+- **Q43 — Custódia:** guardar credenciais, configurações sensíveis e eventuais chaves de criptografia em **cofre de senhas externo aos servidores**, acessível por Pedro mesmo após perder a VPS. Documentação guarda apenas referências; valores serão configurados no provisionamento. Não foi escolhido fornecedor de cofre nem fornecido qualquer segredo.
+
+Próximo ponto: confirmar entendimento do [plano consolidado do recorte](../recuperacao-operacional/spec.md). Ele distingue o primeiro incremento local, as provas seguintes e as dependências antes da operação externa. A entrevista deste recorte não autoriza compras ou publicação, não conclui o M1 e não substitui o gate visual de Q28.
+
+
+## Recuperação operacional — entendimento confirmado, 02/10/2026
+
+Pedro confirmou o plano consolidado com “Pode comecar o recorte 1”. Iniciar contenção e retomada integral no ambiente local, nas fronteiras HTTP/Session/AccountStore, SQLite/PostgreSQL e operação externa de armazenamento já descritas. Q33–Q43 consolidadas no [ADR-019](../../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md) e spec/07. Provisionamento, compras, exposição externa e garantias medidas em produção permanecem etapas posteriores.

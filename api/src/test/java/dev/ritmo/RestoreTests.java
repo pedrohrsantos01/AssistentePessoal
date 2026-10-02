@@ -20,13 +20,15 @@ class RestoreTests {
     private record Api(ConfigurableApplicationContext context,String origin) implements AutoCloseable {
         @Override public void close() {context.close();}
     }
-    private Api startApi(PostgreSQLContainer db) {
+    private Api startApi(PostgreSQLContainer db) {return startApi(db,Map.of());}
+    private Api startApi(PostgreSQLContainer db,Map<String,String> overrides) {
         var settings=new LinkedHashMap<String,String>();
         settings.put("server.port","0");settings.put("server.address","127.0.0.1");settings.put("logging.level.root","ERROR");
         settings.put("spring.datasource.url",db.getJdbcUrl());settings.put("spring.datasource.username","app_domain");settings.put("spring.datasource.password","fixture-domain");
         settings.put("spring.flyway.url",db.getJdbcUrl());settings.put("spring.flyway.user",db.getUsername());settings.put("spring.flyway.password",db.getPassword());
         settings.put("ritmo.identity.url",db.getJdbcUrl());settings.put("ritmo.identity.username","app_identity");settings.put("ritmo.identity.password","fixture-identity");
         settings.put("ritmo.signing-key",Base64.getEncoder().encodeToString(new byte[32]));settings.put("spring.mail.host","127.0.0.1");
+        settings.putAll(overrides);
         var args=settings.entrySet().stream().map(e->"--"+e.getKey()+"="+e.getValue()).toArray(String[]::new);
         var context=new SpringApplicationBuilder(RitmoApplication.class).run(args);
         int port=context.getEnvironment().getRequiredProperty("local.server.port",Integer.class);
@@ -52,7 +54,7 @@ class RestoreTests {
             """);
     }
     private void scripts(PostgreSQLContainer db) {
-        for(String script:List.of("backup.sh","restore.sh")) db.copyFileToContainer(MountableFile.forHostPath("ops/"+script),"/tmp/"+script);
+        for(String script:List.of("backup.sh","restore.sh","prepare-recovery.sh","prepare-recovery.sql")) db.copyFileToContainer(MountableFile.forHostPath("ops/"+script),"/tmp/"+script);
     }
     private JsonNode post(Api api,String path,String token,JsonNode body,int expected) throws Exception {
         var request=HttpRequest.newBuilder(URI.create(api.origin()+"/api/v1/"+path))
@@ -81,6 +83,136 @@ class RestoreTests {
         var uri=URI.create(api.origin()+"/api/v1/sync/snapshots/"+manifest.path("snapshotId").asString()+"?cursor="+manifest.path("firstPageCursor").asString());
         var request=HttpRequest.newBuilder(uri).header("Authorization","Bearer "+token).header("X-Ritmo-Protocol","m1.1").header("X-App-Version","0.1.0").GET().build();
         var response=http.send(request,HttpResponse.BodyHandlers.ofString());assertThat(response.statusCode()).isEqualTo(expected);return Json.read(response.body());
+    }
+    @Test @Timeout(120) void quarantinedApiNeverPublishesARecoveredSnapshot() throws Exception {
+        try(var db=new PostgreSQLContainer(IMAGE).withUsername("recovery_owner")) {
+            db.start();provision(db);JsonNode account,manifest;
+            try(var api=startApi(db)) {
+                account=registration(api,"quarantine@example.test");
+                manifest=post(api,"sync/snapshots",account.path("accessToken").asString(),Json.object(),201);
+            }
+            try(var api=startApi(db,Map.of("ritmo.operations.quarantined","true"))) {
+                var failure=post(api,"sync/snapshots",account.path("accessToken").asString(),Json.object(),503);
+                assertThat(failure.at("/error/code").asString()).isEqualTo("temporarily_unavailable");
+                for(String route:List.of("auth/register","auth/login","auth/password-reset/request","auth/password-reset/confirm","auth/refresh","auth/revoke","sync/receipts","sync/push"))
+                    assertThat(post(api,route,"invalid-fixture-token",Json.object(),503).at("/error/code").asString()).isEqualTo("temporarily_unavailable");
+                for(String route:List.of("sync/pull","%73ync/pull")) {
+                    var request=HttpRequest.newBuilder(URI.create(api.origin()+"/api/v1/"+route)).GET().build();
+                    assertThat(http.send(request,HttpResponse.BodyHandlers.ofString()).statusCode()).isEqualTo(503);
+                }
+                assertThat(page(api,account.path("accessToken").asString(),manifest,503).at("/error/code").asString()).isEqualTo("temporarily_unavailable");
+                var malformed=HttpRequest.newBuilder(URI.create(api.origin()+"/api/v1/auth/login"))
+                    .POST(HttpRequest.BodyPublishers.ofString("{")).build();
+                assertThat(http.send(malformed,HttpResponse.BodyHandlers.ofString()).statusCode()).isEqualTo(503);
+                db.stop();
+                assertThat(post(api,"sync/snapshots",null,Json.object(),503).at("/error/code").asString()).isEqualTo("temporarily_unavailable");
+            }
+        }
+    }
+    @Test @Timeout(180) void recoveryPreparationRevokesAllFamiliesAndResetLinksWithoutChangingPasswords() throws Exception {
+        var mail=new com.icegreen.greenmail.util.GreenMail(new com.icegreen.greenmail.util.ServerSetup(0,"127.0.0.1","smtp"));
+        mail.start();
+        try(var db=new PostgreSQLContainer(IMAGE).withUsername("recovery_owner")) {
+            db.start();provision(db);JsonNode a,b,renewed;String reset;
+            var smtp=Map.of("spring.mail.port",Integer.toString(mail.getSmtp().getPort()),
+                "spring.mail.properties.mail.smtp.auth","false","spring.mail.properties.mail.smtp.starttls.required","false",
+                "spring.mail.properties.mail.smtp.starttls.enable","false","ritmo.recovery.origin","https://api.example.test",
+                "ritmo.recovery.from","no-reply@example.test");
+            try(var api=startApi(db,smtp)) {
+                a=registration(api,"recovery-a@example.test");b=registration(api,"recovery-b@example.test");
+                post(api,"auth/password-reset/request",null,Json.object().put("email","recovery-a@example.test"),202);
+                org.awaitility.Awaitility.await().atMost(java.time.Duration.ofSeconds(10)).until(()->mail.getReceivedMessages().length==1);
+                try(var input=mail.getReceivedMessages()[0].getInputStream()) {
+                    var match=java.util.regex.Pattern.compile("token=([A-Za-z0-9_-]{43})")
+                        .matcher(new String(input.readAllBytes(),java.nio.charset.StandardCharsets.UTF_8));
+                    assertThat(match.find()).isTrue();reset=match.group(1);
+                }
+            }
+            for(String script:List.of("prepare-recovery.sh","prepare-recovery.sql"))
+                db.copyFileToContainer(MountableFile.forHostPath("ops/"+script),"/tmp/"+script);
+            refuses(db,"recovery_requires_quarantine","sh","/tmp/prepare-recovery.sh");
+            refuses(db,"recovery_requires_verified_restore","env","RITMO_RECOVERY_QUARANTINE=true","sh","/tmp/prepare-recovery.sh");
+            refuses(db,"recovery_requires_migration_owner","env","PGUSER=app_identity","PGPASSWORD=fixture-identity",
+                "RITMO_RECOVERY_QUARANTINE=true","RITMO_RECOVERY_VERIFIED=true","sh","/tmp/prepare-recovery.sh");
+            // Fault in the final statement must roll back earlier revocations. Assert only via HTTP.
+            succeeds(db,"psql","--no-password","-v","ON_ERROR_STOP=1","-c","ALTER TABLE identity_password_resets RENAME COLUMN used_at TO fixture_used_at");
+            refuses(db,"used_at","env","RITMO_RECOVERY_QUARANTINE=true","RITMO_RECOVERY_VERIFIED=true","sh","/tmp/prepare-recovery.sh");
+            succeeds(db,"psql","--no-password","-v","ON_ERROR_STOP=1","-c","ALTER TABLE identity_password_resets RENAME COLUMN fixture_used_at TO used_at");
+            try(var api=startApi(db,smtp)) {
+                renewed=post(api,"auth/refresh",null,Json.object().put("refreshToken",a.path("refreshToken").asString()),200);
+            }
+            succeeds(db,"psql","--no-password","-v","ON_ERROR_STOP=1","-c","""
+                CREATE ROLE recovery_operator LOGIN NOSUPERUSER NOBYPASSRLS PASSWORD 'fixture-operator';
+                GRANT USAGE ON SCHEMA public TO recovery_operator;
+                ALTER TABLE identity_sessions OWNER TO recovery_operator;
+                ALTER TABLE identity_refresh_tokens OWNER TO recovery_operator;
+                ALTER TABLE identity_password_resets OWNER TO recovery_operator;
+                """);
+            for(int repeat=0;repeat<2;repeat++) succeeds(db,"env","PGUSER=recovery_operator","PGPASSWORD=fixture-operator",
+                "RITMO_RECOVERY_QUARANTINE=true","RITMO_RECOVERY_VERIFIED=true","sh","/tmp/prepare-recovery.sh");
+            var rotated=new LinkedHashMap<>(smtp);rotated.put("ritmo.signing-key",Base64.getEncoder().encodeToString("11111111111111111111111111111111".getBytes(java.nio.charset.StandardCharsets.US_ASCII)));
+            try(var api=startApi(db,rotated)) {
+                post(api,"sync/snapshots",a.path("accessToken").asString(),Json.object(),401);
+                post(api,"auth/refresh",null,Json.object().put("refreshToken",renewed.path("refreshToken").asString()),401);
+                post(api,"auth/refresh",null,Json.object().put("refreshToken",b.path("refreshToken").asString()),401);
+                assertThat(post(api,"auth/password-reset/confirm",null,Json.object().put("resetToken",reset).put("newPassword","unwanted-password"),401)
+                    .at("/error/code").asString()).isEqualTo("reset_invalid");
+                var login=post(api,"auth/login",null,Json.object().put("email","recovery-a@example.test").put("password","fixture-password").put("deviceId",Json.id()),200);
+                assertThat(login.path("accountId")).isEqualTo(a.path("accountId"));
+                post(api,"sync/snapshots",login.path("accessToken").asString(),Json.object(),201);
+                post(api,"auth/refresh",null,Json.object().put("refreshToken",login.path("refreshToken").asString()),200);
+                post(api,"auth/login",null,Json.object().put("email","recovery-b@example.test").put("password","fixture-password").put("deviceId",Json.id()),200);
+            }
+        } finally {mail.stop();}
+    }
+    private void awaitMarker(Process process,Path marker,Path log) throws Exception {
+        long deadline=System.nanoTime()+java.time.Duration.ofSeconds(90).toNanos();
+        while(process.isAlive()&&!Files.exists(marker)&&System.nanoTime()<deadline) Thread.sleep(20);
+        assertThat(Files.exists(marker)).as(Files.exists(log)?Files.readString(log):"missing integration log").isTrue();
+    }
+    private void importArchive(PostgreSQLContainer target,Path dump) throws Exception {
+        target.start();provision(target);scripts(target);
+        target.copyFileToContainer(MountableFile.forHostPath(dump),"/tmp/source.dump");
+        target.copyFileToContainer(MountableFile.forHostPath(dump+".sha256"),"/tmp/source.dump.sha256");
+        succeeds(target,"sh","/tmp/restore.sh","/tmp/source.dump");
+    }
+    @Test @Timeout(300) void mobileKeepsPostCutConfirmationsWhileHistoricalCopyIsQuarantinedAndResumesOnlyAfterIntegralRecovery() throws Exception {
+        var directory=Files.createTempDirectory(Path.of("build"),"operational-recovery-").toAbsolutePath();
+        var old=directory.resolve("old.dump");var full=directory.resolve("full.dump");
+        var log=Path.of("build/operational-recovery-integration.log");Process process=null;
+        var rotated=Base64.getEncoder().encodeToString("11111111111111111111111111111111".getBytes(java.nio.charset.StandardCharsets.US_ASCII));
+        try(var source=new PostgreSQLContainer(IMAGE).withUsername("source_owner");
+            var historical=new PostgreSQLContainer(IMAGE).withUsername("historical_owner");
+            var target=new PostgreSQLContainer(IMAGE).withUsername("restore_owner")) {
+            source.start();provision(source);scripts(source);
+            try(var api=startApi(source)) {
+                var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/operational-recovery.test.ts")
+                    .directory(Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+                builder.environment().put("RITMO_TEST_API",api.origin());builder.environment().put("RITMO_RECOVERY_DIRECTORY",directory.toString());
+                process=builder.start();awaitMarker(process,directory.resolve("cut-ready"),log);
+                succeeds(source,"sh","/tmp/backup.sh","/tmp/old.dump");
+                source.copyFileFromContainer("/tmp/old.dump",old.toString());source.copyFileFromContainer("/tmp/old.dump.sha256",old+".sha256");
+                Files.writeString(directory.resolve("advance"),"ready");awaitMarker(process,directory.resolve("complete-ready"),log);
+            }
+            succeeds(source,"sh","/tmp/backup.sh","/tmp/full.dump");
+            source.copyFileFromContainer("/tmp/full.dump",full.toString());source.copyFileFromContainer("/tmp/full.dump.sha256",full+".sha256");source.stop();
+            importArchive(historical,old);
+            try(var api=startApi(historical,Map.of("ritmo.operations.quarantined","true","ritmo.signing-key",rotated))) {
+                Files.writeString(directory.resolve("release"),"quarantine\n"+api.origin());
+                awaitMarker(process,directory.resolve("quarantine-checked"),log);
+            }
+            historical.stop();importArchive(target,full);
+            succeeds(target,"env","RITMO_RECOVERY_QUARANTINE=true","RITMO_RECOVERY_VERIFIED=true","sh","/tmp/prepare-recovery.sh");
+            try(var api=startApi(target,Map.of("ritmo.signing-key",rotated))) {
+                Files.writeString(directory.resolve("release"),"active\n"+api.origin());
+                assertThat(process.waitFor(90,java.util.concurrent.TimeUnit.SECONDS)).as(Files.readString(log)).isTrue();
+                assertThat(process.exitValue()).as(Files.readString(log)).isZero();System.out.println(Files.readString(log));
+            }
+        } finally {
+            if(process!=null&&process.isAlive()) process.destroyForcibly().waitFor();
+            try(var files=Files.list(directory)) {for(var file:files.toList()) Files.delete(file);}
+            Files.delete(directory);
+        }
     }
     @Test @Timeout(180) void anArchiveRestoresAccountsHabitsXpReceiptsAndIsolationIntoACleanServer() throws Exception {
         var dump=Files.createTempFile("ritmo-restore-",".dump");

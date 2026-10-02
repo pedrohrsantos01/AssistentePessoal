@@ -29,7 +29,17 @@ Listas sempre virtualizadas (`FlashList`). Nenhuma query síncrona na thread de 
 
 O ensaio local não provisiona backup agendado, destino externo ou retenção de produção. Esses requisitos de §2 continuam obrigatórios antes da operação externa.
 
-**[DECISÃO PENDENTE] Recuperação após o ponto do dump.** Definir cadência/destino de produção, RPO/RTO e a estratégia necessária para a meta de perda zero. Definir também como reconciliar clientes que já receberam confirmações/cursors/credenciais posteriores ao backup restaurado: o contrato atual não estabelece recuperação de revisão do servidor menor que a observada no cliente. O ensaio cobre o ponto do dump e pendências ainda não enviadas, sem definir PITR, rewind de cursor, epoch novo ou reenvio automático de operações já confirmadas. Fechar essa definição antes da exposição externa; não substituir a meta de §2 por uma perda admissível inventada.
+### 2.2 Recuperação pós-corte — Q33–Q43, confirmada em 02/10/2026
+
+[ADR-019](../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md) e [plano de execução](../.scratch/recuperacao-operacional/spec.md): RPO zero para transações confirmadas pela API na perda total da VPS primária, com WAL durável em destino independente antes da confirmação; RTO alvo até 24 h para reconstrução, restauração, verificações e reabertura. Sem fallback assíncrono; indisponibilidade do receptor pode impedir confirmação remota.
+
+Base física completa e dump lógico diários às 03:00, America/Sao_Paulo; WAL contínuo. A retenção de 30 dias de §2 significa **janela PITR recuperável**, incluindo base âncora e WAL necessários anteriores ao início da janela. Expurgo por dependência. Ensaio integral mensal e por release major, com integridade, API e duração verificadas.
+
+Quarentena bloqueia todas as rotas de clientes até comprovar completude. Conta local ativa conserva leitura, novas intenções, SQLite e envelopes. Não instalar snapshot antigo nem reenviar acknowledged para reconstruir perdas. Após recuperação integral, invalidar access/refresh, sessões e links antigos e exigir novo login, preservando senha correta e dados locais. Detalhamento de contenção/reativação em spec/13 §19.
+
+Alertas por e-mail com detector fora da VPS primária: probes 60 s/duas falhas consecutivas; backup físico ou lógico válido >26 h; execução falha imediatamente; disco 80% aviso/90% crítico. Configuráveis, com e-mail na abertura/agravamento/resolução, sem repetição do mesmo estado. Segredos/configurações sensíveis e eventuais chaves em cofre externo aos servidores, acessível após perder a VPS; documentos contêm só referências.
+
+**Implementação e aceite em andamento:** o dump já testado não comprova RPO zero pós-corte. Sincronismo, WAL parcial/timelines, resultado incerto, cadeia/expurgo, agenda/alertas e ambiente externo serão provados nos próximos incrementos. Fornecedor/custos/acessos/configuração reais ficam para provisionamento após a prova local. Manter a operação externa bloqueada até esses critérios passarem.
 
 ## 3. Observabilidade
 
@@ -122,3 +132,8 @@ pt-BR apenas no v1, mas **sem string hardcoded**. Datas, números e plurais via 
 ## 9. Escala alvo
 
 V1: 1 usuário, numa VPS. Arquitetura preparada para alguns milhares sem reescrita — Spring Modulith com fronteiras explícitas é justamente o que permite extrair um módulo depois, **se** um dia precisar. **Não otimize além disso.** Nenhum cache distribuído, nenhuma fila, nenhum microserviço, nenhum Kubernetes na Fase 1.
+
+
+## Evidência de contenção e retomada — 02/10/2026
+
+Recorte 1 local de REQ-NFR-004 concluído: quarentena, preparação de credenciais e retomada preservando SQLite/pendências comprovadas por HTTP/PostgreSQL/SMTP/SQLite reais. [Relatório e limites](../docs/analises/2026-10-02-contencao-e-retomada-operacional.md). Em quarentena, spec/13 §19 prevalece sobre a cobrança normal de quotas: resposta 503 antes dos filtros de requisição. Durabilidade pós-base/WAL, RPO/RTO medidos e operação externa continuam pendentes.

@@ -216,3 +216,10 @@ Próximo recorte autorizado por Pedro: REQ-NFR-004, dump completo em formato cus
 - Guia operacional e decisão pendente registrados em spec/07 §2.1: restauração de confirmações/cursors/credenciais posteriores ao corte e RPO/RTO precisam de definição antes da exposição externa. Nenhuma política de produto/schema inventada.
 
 [Relatório e limites](../../../docs/analises/2026-09-30-backup-e-restauracao.md); [procedimento](../../../api/ops/backup-restore.md). Checks completos: typecheck/lint e 94 testes do app aprovados; API check com 50 aprovados e um nativo ignorado, incluindo os dois testes de restauração e ModularityTests. M1/tarefa 05 continuam abertos; agenda Coolify/destino fora da VPS/30 dias, provisionamento/proxy/TLS, expurgo seguro, e-mail/aparelhos e protótipo seguem pendentes. Próximo recorte recomendado: esclarecer recuperação pós-corte e parâmetros operacionais com grilling antes de provisionar o ambiente externo.
+
+
+## Contenção e retomada operacional — 02/10/2026
+
+Plano Q33–Q43 confirmado por Pedro; [ADR-019](../../../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md) e [tarefas de recuperação](../../recuperacao-operacional/spec.md) consolidados. Recorte 1 concluído: quarentena externa ao banco, preparação transacional das credenciais e retomada com novo login/chave sem apagar SQLite. Cópia histórica permaneceu bloqueada enquanto confirmações pós-corte/exclusões/XP e novas pendências foram preservados; cópia completa retomou com replay, segundo cliente e isolamento de conta.
+
+[Relatório e limites](../../../docs/analises/2026-10-02-contencao-e-retomada-operacional.md). App: typecheck/lint + 94 testes; API check: 53 aprovados/1 Android nativo ignorado, incluindo cinco cenários de restauração e ModularityTests. Próximo recorte: prova de WAL síncrono/recuperação pós-base, cauda/timelines e cancelamento/resultado incerto. Tarefa 05/M1 permanecem abertos; operação externa/RPO/RTO, agenda/retencão/alertas, proxy/TLS/e-mail real, protótipo e aparelhos continuam pendentes conforme os planos.

@@ -89,3 +89,8 @@ Editar nome, fuso, hora de início do dia, ativar/desativar ofensiva, horário d
 7. Logout offline com alterações ainda não sincronizadas → saída permitida; pendências preservadas sem expiração automática e isoladas; reentrada exige autenticação online como a mesma conta (ADR-016)
 8. Login como B com pendências de A → uso de B permitido; os dados de A não aparecem nem são exportados ou enviados na sessão de B
 9. Pendência mais antiga que o refresh token ou a retenção de tombstones → não descartar por idade; recuperar após autenticação na mesma conta e reconciliar conforme o contrato de sync
+
+
+## Recuperação operacional — Q36/Q37, 02/10/2026
+
+Após recuperação integral do servidor, invalidar access/refresh, sessões e links de recuperação anteriores e exigir novo login online, preservando a senha correta recuperada. Recusa remota não encerra a conta local ativa nem apaga SQLite/pendências; logout deliberado e troca de conta mantêm ADR-016. Durante quarentena, identidade e sync retornam indisponibilidade transitória. [ADR-019](../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md) e [procedimento/contrato](13-contrato-primeiro-marco.md#19-contenção-e-retomada-operacional--02102026).

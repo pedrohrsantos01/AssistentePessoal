@@ -141,3 +141,8 @@ Cenários acrescentados em R4-Q15: edição anterior no relógio do aparelho ace
 O harness HTTP exerce REQ-SYN-005/008 com os adapters reais de SQLite/SecureStore, fetch, AppState e expo-network. Preserva a fila após force-stop offline, pausa envios ao recuperar rede em segundo plano e converge automaticamente no retorno ao primeiro plano, sem duplicar XP após replay e marcação por outro cliente. [Relatório e comando reproduzível](../docs/analises/2026-09-30-http-nativo-android.md).
 
 A evidência cobre emulador Android 15 e um cliente SQLite de desktop contra API/Postgres reais descartáveis. Não conclui o aceite iPhone/Android nem a matriz de fusos/concorrência, UI ou operação. O pacote de teste e a exceção HTTP de loopback são separados da configuração padrão.
+
+
+## Recuperação operacional — Q36/Q37, 02/10/2026
+
+Quarentena recusa todas as rotas de clientes com 503 `temporarily_unavailable`, incluindo pull, snapshot, recibos e push. Conta local ativa mantém leitura e novas intenções; não instalar estado antigo nem reenviar acknowledged para reconstruir perdas. Após recuperação integral, novo login e cursores inválidos seguem ressincronização existente, classificando pendências antes de instalar base completa e preservando tombstones/XP. Isolamento e logout do ADR-016 permanecem. [ADR-019](../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md), [contrato §19](13-contrato-primeiro-marco.md#19-contenção-e-retomada-operacional--02102026).

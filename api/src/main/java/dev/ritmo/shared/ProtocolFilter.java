@@ -13,8 +13,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component @Order(Ordered.HIGHEST_PRECEDENCE)
 class ProtocolFilter extends OncePerRequestFilter {
-    private final Sql db; private final RateLimits limits;
-    ProtocolFilter(@Qualifier("domainSql") Sql db,RateLimits limits) {this.db=db;this.limits=limits;}
+    private final Sql db; private final RateLimits limits; private final boolean quarantined;
+    ProtocolFilter(@Qualifier("domainSql") Sql db,RateLimits limits,
+        @org.springframework.beans.factory.annotation.Value("${ritmo.operations.quarantined}") boolean quarantined) {
+        this.db=db;this.limits=limits;this.quarantined=quarantined;
+    }
     private static final String NUMBER="(0|[1-9][0-9]{0,5})";
     private static final Pattern VERSION=Pattern.compile(NUMBER+"[.]"+NUMBER+"[.]"+NUMBER+
         "(?:-([0-9A-Za-z-]+(?:[.][0-9A-Za-z-]+)*))?(?:[+][0-9A-Za-z-]+(?:[.][0-9A-Za-z-]+)*)?");
@@ -40,6 +43,7 @@ class ProtocolFilter extends OncePerRequestFilter {
     }
     @Override protected boolean shouldNotFilter(HttpServletRequest request) {return !request.getServletPath().startsWith("/api/v1/");}
     @Override protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain chain) throws IOException,ServletException {
+        if(quarantined) {fail(response,503,"temporarily_unavailable");return;}
         try {limits.checkIp(request.getRemoteAddr(),request.getServletPath(),request.getMethod());}
         catch(HttpFailure failure) {HttpErrors.write(response,failure);return;}
         var version=Version.parse(request.getHeader("X-App-Version"));
