@@ -171,3 +171,9 @@ Executor e referência sanitizada à evidência:
 ## 9. Bloqueios atuais e próximo passo
 
 Q44 e o uso existente de Resend foram confirmados. Perfil enxuto e Bitwarden Free estão escolhidos. Próximo passo autorizado: preparar/testar os artefatos locais 4B; comparar Hostinger/R2 e fechar capacidade/rede/custódia/remoto/domínios/acessos e orçamento antes da contratação/instalação. Este caderno e a pesquisa são preparo revisável, não uma configuração instalada ou prova de RPO/RTO externo.
+
+## Segunda VPS no Coolify existente — guia proposto
+
+O [guia de cadastro e operação](coolify-remote-server.md), solicitado por Pedro em 03/10/2026, explica SSH/chaves, portas, destino dos recursos, persistência e gestão após perda do painel. Cadastrar um Server não cria rede privada entre hosts, failover ou réplica de dados. A [pesquisa oficial](../../docs/analises/2026-10-03-referencias-coolify-multiplos-servidores.md) sustenta o procedimento; menus/configuração instalados ainda precisam ser conferidos.
+
+Recomendação documental: manter acesso administrativo independente e supervisão/agenda críticos no próprio host; alternativa de receiver Compose gerenciado pelo Coolify requer identidade e bloqueio de start/redeploy/reboot durante freeze. A escolha e o pacote são pendências de 4B, sem arquitetura/fornecedor/contratação aprovados por este guia. Nenhum cadastro, chave, firewall, serviço ou deployment remoto foi executado.
