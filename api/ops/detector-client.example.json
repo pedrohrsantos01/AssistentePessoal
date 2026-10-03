@@ -1,0 +1,8 @@
+{
+  "host": "10.80.0.3",
+  "port": 22,
+  "keyFile": "/etc/ritmo/detector-probe-key",
+  "knownHostsFile": "/etc/ritmo/detector-known-hosts",
+  "kind": "detector",
+  "timeout": 10
+}

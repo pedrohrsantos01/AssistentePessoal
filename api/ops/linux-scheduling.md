@@ -69,3 +69,7 @@ sudo python3 /opt/ritmo/schedule.py health --job backup
 ## Limites e continuidade
 
 [Relatório local](../../docs/analises/2026-10-03-agenda-operacional-linux.md). A fixture usa systemd real e processos controlados na fronteira externa; a regra civil das 03h é testada com relógio controlado e os backups/PG reais têm provas dos recortes anteriores. Reinício do PID 1 preserva o filesystem do container; não representa perda de energia da VPS. SMTP/transporte e instalação no Ubuntu remoto não foram ativados. Próximo incremento: transporte privado autenticado do probe e integração do detector/canal; proxy/TLS e aceite externo permanecem abertos.
+
+## Transporte e watchdog — continuação local 4B
+
+O [incremento de transporte/detector](probe-transport.md) fornece fetch-probe/fetch-detector e acrescenta job watchdog, com service/timer no receptor B. Monitor C exige saúde do watchdog de B; B verifica detector/ciclo/SMTP usando canal alternativo independente a prover. Evidência, falha latente, deadline, exclusão e ack seguem as mesmas regras nativas. Usar job watchdog/units ritmo-watchdog no procedimento administrativo acima. A [prova local](../../docs/analises/2026-10-03-transporte-privado-do-probe.md) cobre unit real e protocolo, sem aceitar instalação/entrega externas. Próximo incremento local: proxy/TLS/origem confiável.

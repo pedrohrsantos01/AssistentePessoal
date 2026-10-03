@@ -1,0 +1,8 @@
+{
+  "host": "10.80.0.2",
+  "port": 22,
+  "keyFile": "/etc/ritmo/receiver-probe-key",
+  "knownHostsFile": "/etc/ritmo/receiver-known-hosts",
+  "kind": "receiver",
+  "timeout": 10
+}

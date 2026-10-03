@@ -1,0 +1,4 @@
+# Exact arguments only. Never grant a Python wildcard or SETENV.
+Defaults:ritmo-probe env_reset
+Defaults:ritmo-probe secure_path=/usr/bin:/bin
+ritmo-probe ALL=(root) NOPASSWD: NOSETENV: /usr/bin/python3 /opt/ritmo/probe_export.py

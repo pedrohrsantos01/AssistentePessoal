@@ -1,0 +1,2 @@
+# Template only: replace IP and PUBLIC key; no private key belongs here.
+restrict,from="10.80.0.3" ssh-ed25519 CHAVE_PUBLICA_DO_PAR_A_SUBSTITUIR

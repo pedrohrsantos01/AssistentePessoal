@@ -1,0 +1,9 @@
+{
+  "host": "smtp.example.invalid",
+  "port": 587,
+  "sender": "ritmo@example.invalid",
+  "recipients": ["operador@example.invalid"],
+  "messageIdDomain": "example.invalid",
+  "username": "USUARIO_SMTP_A_SUBSTITUIR",
+  "passwordFile": "/etc/ritmo/smtp-password"
+}

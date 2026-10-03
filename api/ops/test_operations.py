@@ -226,4 +226,32 @@ class ScheduleAlerts(unittest.TestCase):
             report['schedule']={'available':True,'failed':False}
             now+=timedelta(seconds=60);monitor.check(now,fetch)
             self.assertEqual({(e['code'],e['level']) for e in sent[-2:]},{('receiver-host',0),('job-backup',0)})
+
+class DetectorWatchdogAlerts(unittest.TestCase):
+    def test_missing_cycle_and_smtp_require_two_checks_and_execution_failure_is_immediate(self):
+        from operations import Monitor
+        from datetime import timedelta
+        with tempfile.TemporaryDirectory() as directory:
+            now=datetime(2026,10,3,12,tzinfo=timezone.utc);sent=[]
+            report={'version':1,'kind':'detector','checked':None,'smtp':False,
+                'schedule':{'available':True,'failed':False},'storagePercent':20}
+            def fetch(): return {**report,'at':now.isoformat()}
+            monitor=Monitor(Path(directory)/'watchdog.json',sent.append,source='detector')
+            monitor.check(now,fetch);self.assertEqual(sent,[])
+            now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual({e['code'] for e in sent},{'detector-cycle','smtp-channel'})
+            report['schedule']['failed']=True
+            now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual(sent[-1]['code'],'job-monitor')
+            # Invalid metadata may report lost transport, but never resolve existing incidents.
+            report['storagePercent']=float('nan')
+            for _ in range(2):
+                now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual(sent[-1]['code'],'detector-host')
+            report.update(checked=now.isoformat(),smtp=True,storagePercent=20)
+            report['schedule']['failed']=False
+            now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual({e['code'] for e in sent if e['level']==0},
+                             {'detector-host','detector-cycle','smtp-channel','job-monitor'})
+
 if __name__ == "__main__": unittest.main()

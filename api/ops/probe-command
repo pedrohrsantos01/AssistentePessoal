@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+[ "${SSH_ORIGINAL_COMMAND-}" = "ritmo-probe-v1" ] || exit 1
+exec /usr/bin/env -i PATH=/usr/bin:/bin LC_ALL=C /usr/bin/sudo -n /usr/bin/python3 /opt/ritmo/probe_export.py

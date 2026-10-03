@@ -1,0 +1,24 @@
+[Unit]
+Description=Ritmo finite reciprocal detector and mail-channel watchdog
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/srv/ritmo-watchdog /var/lib/ritmo-jobs
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStartPre=/usr/bin/python3 /opt/ritmo/schedule.py begin --job watchdog
+ExecStart=/usr/bin/python3 /opt/ritmo/operations.py monitor --source detector --state /srv/ritmo-watchdog/state.json --probe-command /opt/ritmo/fetch-detector --smtp-config /etc/ritmo/watchdog-smtp.json
+ExecStopPost=/usr/bin/python3 /opt/ritmo/schedule.py record --job watchdog
+TimeoutStartSec=45s
+TimeoutStopSec=10s
+KillMode=control-group
+UMask=0077
+StateDirectory=ritmo-jobs
+StateDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/srv/ritmo-watchdog

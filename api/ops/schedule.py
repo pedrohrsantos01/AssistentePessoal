@@ -16,13 +16,13 @@ from operations import UTC, read_json, run_process, stamp, write_json
 from receiver import trusted
 
 ROOT = Path('/var/lib/ritmo-jobs')
-JOBS = ('backup', 'monitor')
+JOBS = ('backup', 'monitor', 'watchdog')
 RESULTS = {'success', 'timeout', 'exit-code', 'signal', 'core-dump', 'resources', 'protocol',
            'watchdog', 'start-limit-hit', 'oom-kill'}
 
 
-def properties(unit: str) -> dict[str, str]:
-    output = run_process(['systemctl', 'show', unit, '--property=LoadState,FragmentPath,ActiveState,SubState,Type,User,KillMode,MainPID,ControlGroup,Result,ExecMainStartTimestampMonotonic,InvocationID,Unit'], 5)
+def properties(unit: str, isolated: bool = True) -> dict[str, str]:
+    output = run_process(['systemctl', 'show', unit, '--property=LoadState,FragmentPath,ActiveState,SubState,Type,User,KillMode,MainPID,ControlGroup,Result,ExecMainStartTimestampMonotonic,InvocationID,Unit'], 5, isolated=isolated)
     return dict(line.split('=', 1) for line in output.splitlines() if '=' in line)
 
 
@@ -87,11 +87,11 @@ def record(job: str) -> None:
             'result': result, 'failure': failure, 'attempt': None}, replace=True)
 
 
-def health(job: str) -> dict[str, bool]:
+def health(job: str, isolated: bool = True) -> dict[str, bool]:
     available = False; failed = False
     try:
-        service = properties('ritmo-' + job + '.service')
-        timer = properties('ritmo-' + job + '.timer')
+        service = properties('ritmo-' + job + '.service',isolated)
+        timer = properties('ritmo-' + job + '.timer',isolated)
         failed = service.get('Result') in RESULTS - {'success'} or service.get('ActiveState') == 'failed'
         proof = state(job) if (ROOT / (job + '.json')).exists() else None
         if proof is not None:

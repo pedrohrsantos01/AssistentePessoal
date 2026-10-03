@@ -329,8 +329,10 @@ class Operations:
 
 class Monitor:
     def __init__(self, state: Path, send: Callable[[dict], None], interval: int = 60,
-                 failures: int = 2, max_age_hours: int = 26, warn: int = 80, critical: int = 90, require_schedule: bool = False):
+                 failures: int = 2, max_age_hours: int = 26, warn: int = 80, critical: int = 90, require_schedule: bool = False, source: str = "receiver", require_watchdog: bool = False):
         if interval < 1 or failures < 1 or max_age_hours < 1 or not 0 < warn < critical <= 100: raise ValueError("invalid_limits")
+        if source not in ("receiver","detector"): raise ValueError("invalid_monitor_source")
+        self.source=source;self.require_watchdog=require_watchdog
         self.path=state.absolute(); self.send=send; self.interval=interval; self.failures=failures
         self.max_age=timedelta(hours=max_age_hours); self.warn=warn; self.critical=critical; self.require_schedule=require_schedule
         if any(p.is_symlink() for p in [self.path, *self.path.parents]): raise ValueError("symlink_refused")
@@ -352,36 +354,56 @@ class Monitor:
             report=fetch()
             age=now-instant(report["at"])
             if age<timedelta(seconds=-self.interval) or age>timedelta(seconds=self.interval*2): raise ValueError("stale_probe")
-            if not isinstance(report["primary"],bool) or not isinstance(report["receiver"],bool): raise ValueError("invalid_probe")
-            if not 0<=report["storagePercent"]<=100: raise ValueError("invalid_probe")
-            # Validate all fields before any condition may be resolved.
-            for kind in ("physical","logical"):
-                if report[kind] is not None and instant(report[kind])>now+timedelta(seconds=self.interval): raise ValueError("future_backup")
-            if type(report["catalogValid"]) is not bool or type(report["storagePercent"]) not in (int,float): raise ValueError("invalid_probe")
-            for key in ("failures","incomplete"):
-                if not isinstance(report[key],list): raise ValueError("invalid_probe")
-                for event in report[key]:
-                    if not isinstance(event,dict) or event["kind"] not in ("physical","logical","drill"): raise ValueError("invalid_probe")
-                    if key=="incomplete": instant(event["at"])
-            schedule=report.get("schedule")
-            if self.require_schedule or schedule is not None:
-                if not isinstance(schedule,dict) or type(schedule.get("available")) is not bool or type(schedule.get("failed")) is not bool: raise ValueError("invalid_schedule_probe")
-            available("receiver-host",True)
-            if schedule is not None:
-                available("agenda-backup",schedule["available"])
-                desired["job-backup"]=2 if schedule["failed"] else 0
-            available("primary",report["primary"]);available("receiver",report["receiver"])
-            desired["catalog"]=0 if report["catalogValid"] is True else 2
-            for kind in ("physical","logical"):
-                value=report[kind]
-                desired["backup-"+kind]=2 if value is None or now-instant(value)>self.max_age else 0
-            for kind in ("physical","logical","drill"):
-                incomplete=any(e["kind"]==kind and now-instant(e["at"])>self.max_age for e in report["incomplete"])
-                desired["execution-"+kind]=2 if incomplete or any(e["kind"]==kind for e in report["failures"]) else 0
-            percent=report["storagePercent"]
-            desired["storage"]=2 if percent>=self.critical else (1 if percent>=self.warn else 0)
+            if self.source=="detector":
+                # Same transition engine, with a different restricted metadata source.
+                from probe_transport import metadata, utc
+                metadata(report,"detector")
+                checked=report["checked"]
+                if checked is not None and utc(checked)>now+timedelta(seconds=self.interval): raise ValueError("future_cycle")
+                available("detector-host",True)
+                available("agenda-monitor",report["schedule"]["available"])
+                desired["job-monitor"]=2 if report["schedule"]["failed"] else 0
+                available("detector-cycle",checked is not None and now-utc(checked)<=timedelta(seconds=self.interval*2))
+                available("smtp-channel",report["smtp"])
+                percent=report["storagePercent"]
+                desired["detector-storage"]=2 if percent>=self.critical else (1 if percent>=self.warn else 0)
+            else:
+                if not isinstance(report["primary"],bool) or not isinstance(report["receiver"],bool): raise ValueError("invalid_probe")
+                if not 0<=report["storagePercent"]<=100: raise ValueError("invalid_probe")
+                # Validate all fields before any condition may be resolved.
+                for kind in ("physical","logical"):
+                    if report[kind] is not None and instant(report[kind])>now+timedelta(seconds=self.interval): raise ValueError("future_backup")
+                if type(report["catalogValid"]) is not bool or type(report["storagePercent"]) not in (int,float): raise ValueError("invalid_probe")
+                for key in ("failures","incomplete"):
+                    if not isinstance(report[key],list): raise ValueError("invalid_probe")
+                    for event in report[key]:
+                        if not isinstance(event,dict) or event["kind"] not in ("physical","logical","drill"): raise ValueError("invalid_probe")
+                        if key=="incomplete": instant(event["at"])
+                schedule=report.get("schedule")
+                if self.require_schedule or schedule is not None:
+                    if not isinstance(schedule,dict) or type(schedule.get("available")) is not bool or type(schedule.get("failed")) is not bool: raise ValueError("invalid_schedule_probe")
+                watchdog=report.get("watchdog")
+                if self.require_watchdog or watchdog is not None:
+                    if not isinstance(watchdog,dict) or set(watchdog)!={"available","failed"} or any(type(v) is not bool for v in watchdog.values()): raise ValueError("invalid_watchdog_probe")
+                available("receiver-host",True)
+                if watchdog is not None:
+                    available("agenda-watchdog",watchdog["available"])
+                    desired["job-watchdog"]=2 if watchdog["failed"] else 0
+                if schedule is not None:
+                    available("agenda-backup",schedule["available"])
+                    desired["job-backup"]=2 if schedule["failed"] else 0
+                available("primary",report["primary"]);available("receiver",report["receiver"])
+                desired["catalog"]=0 if report["catalogValid"] is True else 2
+                for kind in ("physical","logical"):
+                    value=report[kind]
+                    desired["backup-"+kind]=2 if value is None or now-instant(value)>self.max_age else 0
+                for kind in ("physical","logical","drill"):
+                    incomplete=any(e["kind"]==kind and now-instant(e["at"])>self.max_age for e in report["incomplete"])
+                    desired["execution-"+kind]=2 if incomplete or any(e["kind"]==kind for e in report["failures"]) else 0
+                percent=report["storagePercent"]
+                desired["storage"]=2 if percent>=self.critical else (1 if percent>=self.warn else 0)
         except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError):
-            desired={}; available("receiver-host",False)  # Unknown health never resolves previous alerts.
+            desired={}; available("detector-host" if self.source=="detector" else "receiver-host",False)  # Unknown health never resolves previous alerts.
         state["checked"]=stamp(now)
         write_json(self.path,state,replace=True)
         sent=[]
@@ -399,17 +421,17 @@ class Monitor:
         return sent
 
 
-def run_process(args: list[str], timeout: float = 30, env: dict[str,str] | None = None) -> str:
+def run_process(args: list[str], timeout: float = 30, env: dict[str,str] | None = None, isolated: bool = True) -> str:
     import signal
     with subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=env,
-                          start_new_session=os.name!="nt") as child:
+                          start_new_session=os.name!="nt" and isolated) as child:
         try: output,_=child.communicate(timeout=timeout)
         except BaseException as failure:
-            if os.name=="nt": child.kill()
+            if os.name=="nt" or not isolated: child.kill()
             else: os.killpg(child.pid,signal.SIGTERM)
             try: child.communicate(timeout=5)
             except subprocess.TimeoutExpired:
-                if os.name=="nt": child.kill()
+                if os.name=="nt" or not isolated: child.kill()
                 else: os.killpg(child.pid,signal.SIGKILL)
                 child.communicate()
             if isinstance(failure,subprocess.TimeoutExpired): raise RuntimeError("operational_process_timeout") from None
@@ -425,66 +447,86 @@ def private_config(path: Path | None) -> dict:
 
 
 class NativeProcess:
-    def __init__(self, physical: dict, logical: dict, receiver_state: str | None, timeout: int = 86400, receiver: Receiver | None = None):
+    def __init__(self, physical: dict, logical: dict, receiver_state: str | None, timeout: int = 86400, receiver: Receiver | None = None, isolated: bool = True):
         self.physical={**os.environ,**physical};self.logical={**os.environ,**logical}
-        self.receiver_state=receiver_state;self.timeout=timeout;self.receiver=receiver
+        self.receiver_state=receiver_state;self.timeout=timeout;self.receiver=receiver;self.isolated=isolated
         if timeout<1: raise ValueError("invalid_timeout")
         self.ops=Path(__file__).resolve().parent
+
+    def run(self, args: list[str], timeout: float = 30, env: dict[str,str] | None = None) -> str:
+        return run_process(args,timeout,env,self.isolated)
 
     def __call__(self, args: list[str]) -> str:
         kind,*values=args
         if kind in ("physical","logical"):
             script="physical-base.sh" if kind=="physical" else "backup.sh"
-            return run_process(["sh",str(self.ops / script),*values],self.timeout,self.physical if kind=="physical" else self.logical)
+            return self.run(["sh",str(self.ops / script),*values],self.timeout,self.physical if kind=="physical" else self.logical)
         if kind in ("verify","control","list"):
             tool={"verify":"pg_verifybackup","control":"pg_controldata","list":"pg_restore"}[kind]
-            return run_process([tool,*( ["--list"] if kind=="list" else []),*values],self.timeout)
+            return self.run([tool,*( ["--list"] if kind=="list" else []),*values],self.timeout)
         if kind in ("select","check-chain"):
-            return run_process(["sh",str(self.ops / "select-wal-target.sh"),*values,*( ["closed"] if kind=="check-chain" else [])],
+            return self.run(["sh",str(self.ops / "select-wal-target.sh"),*values,*( ["closed"] if kind=="check-chain" else [])],
                 self.timeout,{**os.environ,"RITMO_WAL_FROZEN":"true"})
         if kind=="restore":
-            return run_process(["sh",str(self.ops / "restore-physical.sh"),*values],self.timeout,
+            return self.run(["sh",str(self.ops / "restore-physical.sh"),*values],self.timeout,
                 {**os.environ,"RITMO_RECOVERY_QUARANTINE":"true"})
         if kind=="cluster":
-            return run_process(["psql","--no-password","-XAt","-v","ON_ERROR_STOP=1","-c","SELECT system_identifier::text FROM pg_control_system()"],5,self.logical)
+            return self.run(["psql","--no-password","-XAt","-v","ON_ERROR_STOP=1","-c","SELECT system_identifier::text FROM pg_control_system()"],5,self.logical)
         if kind=="stopped":
-            state=self.receiver.state() if self.receiver else (run_process([self.receiver_state],5).strip() if self.receiver_state else None)
+            state=self.receiver.state() if self.receiver else (self.run([self.receiver_state],5).strip() if self.receiver_state else None)
             if state!="stopped": raise RuntimeError("receiver_not_verified_stopped")
             return ""
         if kind=="schedule":
             from schedule import health
-            return json.dumps(health("backup"))
+            return json.dumps(health("backup",isolated=self.isolated))
         if kind=="health":
             query="SELECT json_build_object('primary',NOT pg_is_in_recovery(),'receiver',EXISTS(SELECT 1 FROM pg_stat_replication r JOIN pg_replication_slots s ON s.active_pid=r.pid WHERE r.usename='ritmo_wal_receiver' AND r.application_name='ritmo_wal' AND r.state='streaming' AND r.sync_state='sync' AND r.flush_lsn IS NOT NULL AND s.slot_name='ritmo_wal' AND s.slot_type='physical'))"
-            try: health=json.loads(run_process(["psql","--no-password","-XAt","-v","ON_ERROR_STOP=1","-c",query],5,self.physical))
+            try: health=json.loads(self.run(["psql","--no-password","-XAt","-v","ON_ERROR_STOP=1","-c",query],5,self.physical))
             except (ValueError,RuntimeError,OSError): health={"primary":False,"receiver":False}
-            try: alive=(self.receiver.state() if self.receiver else (run_process([self.receiver_state],5).strip() if self.receiver_state else None))=="running"
+            try: alive=(self.receiver.state() if self.receiver else (self.run([self.receiver_state],5).strip() if self.receiver_state else None))=="running"
             except (RuntimeError,OSError): alive=False
             health["receiver"]=health["receiver"] and alive
             return json.dumps(health)
         if kind=="drill":
             api=self.ops.parent
-            return run_process(["sh",str(api / "gradlew"),"-p",str(api),"check","--rerun-tasks","--no-daemon"],self.timeout)
+            return self.run(["sh",str(api / "gradlew"),"-p",str(api),"check","--rerun-tasks","--no-daemon"],self.timeout)
         raise ValueError("unknown_operational_process")
 
 
 class SmtpEmail:
     def __init__(self, config: dict): self.config=config
-    def __call__(self, event: dict) -> None:
+
+    @contextmanager
+    def connection(self):
         import smtplib
         import ssl
+        config=self.config
+        ca=config.get("caFile")
+        if ca is not None:
+            from receiver import trusted
+            trusted(Path(ca))
+        with smtplib.SMTP(config["host"],config.get("port",587),timeout=5) as smtp:
+            smtp.ehlo();smtp.starttls(context=ssl.create_default_context(cafile=ca));smtp.ehlo()
+            if config.get("username"):
+                secret=Path(config["passwordFile"])
+                if secret.is_symlink() or (os.name!="nt" and secret.stat().st_mode & 0o077): raise ValueError("smtp_requires_private_secret")
+                smtp.login(config["username"],secret.read_text().rstrip("\r\n"))
+            yield smtp
+
+    def health(self) -> bool:
+        import smtplib
+        try:
+            with self.connection() as smtp: return smtp.noop()[0]==250
+        except (OSError,ValueError,KeyError,TypeError,smtplib.SMTPException): return False
+
+    def __call__(self, event: dict) -> None:
         from email.message import EmailMessage
         config=self.config
         message=EmailMessage();message["From"]=config["sender"];message["To"]=", ".join(config["recipients"])
         message["Subject"]=f"Ritmo: {event['code']} / {event['level']}"
         message["Message-ID"]=f"<ritmo-{event['id']}@{config['messageIdDomain']}>"
         message.set_content(f"condition={event['code']}\nseverity={event['level']}\nevent={event['id']}\n")
-        with smtplib.SMTP(config["host"],config.get("port",587),timeout=10) as smtp:
-            smtp.ehlo();smtp.starttls(context=ssl.create_default_context());smtp.ehlo()
-            if config.get("username"):
-                secret=Path(config["passwordFile"])
-                if secret.is_symlink() or (os.name!="nt" and secret.stat().st_mode & 0o077): raise ValueError("smtp_requires_private_secret")
-                smtp.login(config["username"],secret.read_text().rstrip("\r\n"))
+        with self.connection() as smtp:
             if smtp.send_message(message): raise RuntimeError("smtp_recipient_refused")
 
 
@@ -506,12 +548,15 @@ def main() -> int:
     monitor=commands.add_parser("monitor")
     monitor.add_argument("--state",type=Path,required=True);monitor.add_argument("--probe-command",required=True);monitor.add_argument("--smtp-config",type=Path,required=True)
     monitor.add_argument("--require-schedule",action="store_true")
+    monitor.add_argument("--require-watchdog",action="store_true")
+    monitor.add_argument("--source",choices=("receiver","detector"),default="receiver")
     monitor.add_argument("--interval",type=int,default=60);monitor.add_argument("--failures",type=int,default=2)
     monitor.add_argument("--max-age-hours",type=int,default=26);monitor.add_argument("--warn",type=int,default=80);monitor.add_argument("--critical",type=int,default=90)
     args=parser.parse_args();now=datetime.now(UTC)
     if args.command=="monitor":
-        instance=Monitor(args.state,SmtpEmail(private_config(args.smtp_config)),args.interval,args.failures,args.max_age_hours,args.warn,args.critical,args.require_schedule)
-        print(json.dumps(instance.check(now,lambda:json.loads(run_process([args.probe_command],10)))))
+        instance=Monitor(args.state,SmtpEmail(private_config(args.smtp_config)),args.interval,args.failures,args.max_age_hours,args.warn,args.critical,args.require_schedule,args.source,args.require_watchdog)
+        from probe_transport import bounded_process
+        print(json.dumps(instance.check(now,lambda:json.loads(bounded_process([args.probe_command],10)))))
         return 0
     if args.root is None: parser.error("--root is required for this job")
     receiver=None

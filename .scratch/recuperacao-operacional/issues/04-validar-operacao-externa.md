@@ -31,7 +31,7 @@ Continuação autorizada por Pedro. [Caderno de provisionamento/aceite](../../..
 | Etapa | Estado |
 |---|---|
 | 4A — ambiente/custos/rede/custódia | Ambiente declarado, perfil A enxuto/Bitwarden Free/Resend definidos; fornecedores/orçamento final adiados |
-| 4B — pacote de implantação testado | Imagem API, supervisão e agenda nativas verificadas localmente; transporte/detector/proxy ainda pendentes |
+| 4B — pacote de implantação testado | Imagem API, supervisão, agenda e transporte/detector verificados localmente; proxy/TLS ainda pendentes |
 | 4C — instalação isolada | Pendente de proposta/acessos definidos |
 | 4D — aceite externo/RTO | Pendente; prova local não substitui o ambiente real |
 
@@ -51,3 +51,5 @@ A revisão identificou dependências concretas: build precisa incluir contracts 
 
 
 03/10/2026 — 4B, agenda Linux: incremento autorizado por Pedro. [Contrato/pacote nativo](../../../api/ops/linux-scheduling.md) e [evidência local](../../../docs/analises/2026-10-03-agenda-operacional-linux.md): pares service/timer de backup e detector, chamadas por minuto/Persistent/boot e exclusão, deadlines/cgroup, início/término privado/fsync/flock, falha retida e ack exato. CLI/probe detectam timer parado/evidência ausente; detector aplica duas coletas ou falha imediata e dedupe. Teste adicional fecha publicação terminal ausente, que não pode desaparecer num sucesso posterior. Sem instalação remota/SMTP real. Continuação: transporte privado autenticado do probe e integração do detector/canal; depois proxy/TLS e provisão/aceite externos. 4B/tarefa 04/M1 continuam abertos; Concluída: não.
+
+03/10/2026 — 4B, transporte privado e detector: incremento autorizado por Pedro. [Contrato/pacote](../../../api/ops/probe-transport.md) e [evidência local](../../../docs/analises/2026-10-03-transporte-privado-do-probe.md): SSH com pin/conta restrita/comando fixo/sudo exato, JSON filtrado e limites de saída/deadline; detector integrado e watchdog recíproco nativo, agenda/ciclo/canal/disco C e canal SMTP alternativo separado. Provas com SSH/sudo/STARTTLS reais e parada do detector; NOOP não comprova caixa postal. Não houve instalação remota, contratação, envio externo ou escolha de provedor alternativo. Próximo incremento local: proxy/TLS e origem confiável do cliente; disco/slot primário, canais/hosts reais/PITR/RTO continuam gates. 4B/tarefa 04/M1 permanecem abertos; Concluída: não.
