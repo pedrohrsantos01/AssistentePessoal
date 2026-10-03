@@ -221,10 +221,11 @@ class WalRecoveryTests {
             try(var initial=startApi(db.getJdbcUrl(),owner,password,Map.of("ritmo.operations.require-wal","false"))) {assertThat(initial.origin()).isNotBlank();}
             configureWal(db);receiver.start();startReceiver(receiver);awaitFlush(db,receiver);
             receiver.copyFileToContainer(MountableFile.forHostPath("ops/physical-base.sh"),"/tmp/physical-base.sh");
-            succeed(receiver,"sh","/tmp/physical-base.sh","/tmp/archive/base");succeed(receiver,"test","-f","/tmp/archive/base/backup_manifest");
+            succeed(receiver,"sh","/tmp/physical-base.sh","/tmp/archive/base");succeed(receiver,"test","-f","/tmp/archive/base/backup_manifest");awaitFlush(db,receiver);
             JsonNode a,b,mark,deleted;String target,segment;String device=Json.id(),h1=Json.id(),h2=Json.id();
             String day=java.time.Instant.now().minusSeconds(4*3600).atZone(java.time.ZoneOffset.UTC).toLocalDate().toString();
-            var smtp=Map.of("spring.mail.port",Integer.toString(mail.getSmtp().getPort()),"spring.mail.properties.mail.smtp.auth","false",
+            // Restoration correctness uses the normal production WAL budget; fault fixtures retain 250 ms.
+            var smtp=Map.of("ritmo.operations.wal-wait-ms","2000","spring.mail.port",Integer.toString(mail.getSmtp().getPort()),"spring.mail.properties.mail.smtp.auth","false",
                 "spring.mail.properties.mail.smtp.starttls.required","false","spring.mail.properties.mail.smtp.starttls.enable","false",
                 "ritmo.recovery.origin","https://api.example.test","ritmo.recovery.from","no-reply@example.test");
             try(var api=startApi(db.getJdbcUrl(),owner,password,smtp)) {

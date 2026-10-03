@@ -12,7 +12,10 @@ import time
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Callable
+from typing import Callable, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from receiver import Receiver
 from zoneinfo import ZoneInfo
 
 UTC = timezone.utc
@@ -411,9 +414,9 @@ def private_config(path: Path | None) -> dict:
 
 
 class NativeProcess:
-    def __init__(self, physical: dict, logical: dict, receiver_state: str | None, timeout: int = 86400):
+    def __init__(self, physical: dict, logical: dict, receiver_state: str | None, timeout: int = 86400, receiver: Receiver | None = None):
         self.physical={**os.environ,**physical};self.logical={**os.environ,**logical}
-        self.receiver_state=receiver_state;self.timeout=timeout
+        self.receiver_state=receiver_state;self.timeout=timeout;self.receiver=receiver
         if timeout<1: raise ValueError("invalid_timeout")
         self.ops=Path(__file__).resolve().parent
 
@@ -434,13 +437,14 @@ class NativeProcess:
         if kind=="cluster":
             return run_process(["psql","--no-password","-XAt","-v","ON_ERROR_STOP=1","-c","SELECT system_identifier::text FROM pg_control_system()"],5,self.logical)
         if kind=="stopped":
-            if not self.receiver_state or run_process([self.receiver_state],5).strip()!="stopped": raise RuntimeError("receiver_not_verified_stopped")
+            state=self.receiver.state() if self.receiver else (run_process([self.receiver_state],5).strip() if self.receiver_state else None)
+            if state!="stopped": raise RuntimeError("receiver_not_verified_stopped")
             return ""
         if kind=="health":
             query="SELECT json_build_object('primary',NOT pg_is_in_recovery(),'receiver',EXISTS(SELECT 1 FROM pg_stat_replication r JOIN pg_replication_slots s ON s.active_pid=r.pid WHERE r.usename='ritmo_wal_receiver' AND r.application_name='ritmo_wal' AND r.state='streaming' AND r.sync_state='sync' AND r.flush_lsn IS NOT NULL AND s.slot_name='ritmo_wal' AND s.slot_type='physical'))"
             try: health=json.loads(run_process(["psql","--no-password","-XAt","-v","ON_ERROR_STOP=1","-c",query],5,self.physical))
             except (ValueError,RuntimeError,OSError): health={"primary":False,"receiver":False}
-            try: alive=self.receiver_state is not None and run_process([self.receiver_state],5).strip()=="running"
+            try: alive=(self.receiver.state() if self.receiver else (run_process([self.receiver_state],5).strip() if self.receiver_state else None))=="running"
             except (RuntimeError,OSError): alive=False
             health["receiver"]=health["receiver"] and alive
             return json.dumps(health)
@@ -475,6 +479,7 @@ def main() -> int:
     parser=argparse.ArgumentParser(description="Finite Ritmo backup and monitor jobs; see operations.md")
     parser.add_argument("--root",type=Path)
     parser.add_argument("--physical-env",type=Path);parser.add_argument("--logical-env",type=Path)
+    parser.add_argument("--receiver-config",type=Path)
     parser.add_argument("--receiver-state-command");parser.add_argument("--timeout",type=int,default=86400)
     commands=parser.add_subparsers(dest="command",required=True)
     for command in ("tick","backup","status","probe"): commands.add_parser(command)
@@ -493,7 +498,12 @@ def main() -> int:
         print(json.dumps(instance.check(now,lambda:json.loads(run_process([args.probe_command],10)))))
         return 0
     if args.root is None: parser.error("--root is required for this job")
-    process=NativeProcess(private_config(args.physical_env),private_config(args.logical_env),args.receiver_state_command,args.timeout)
+    receiver=None
+    if args.receiver_config is not None:
+        from receiver import Receiver
+        receiver=Receiver(args.receiver_config)
+        if args.root.absolute()!=receiver.root: raise ValueError("receiver_archive_mismatch")
+    process=NativeProcess(private_config(args.physical_env),private_config(args.logical_env),args.receiver_state_command,args.timeout,receiver)
     ops=Operations(args.root,process,lambda:datetime.now(UTC))
     if args.command=="tick":
         ran=ops.tick(now);print(json.dumps({"ran":ran}))
@@ -506,7 +516,9 @@ def main() -> int:
     elif args.command=="prune": print(json.dumps(ops.prune(now,args.apply)))
     elif args.command=="freeze":
         if os.environ.get("RITMO_RECOVERY_QUARANTINE")!="true": raise ValueError("freeze_requires_quarantine")
-        print(ops.freeze(now,args.before))
+        if receiver is None: raise ValueError("freeze_requires_native_receiver_guard")
+        with receiver.freeze_guard(): frozen=ops.freeze(now,args.before)
+        print(frozen)
     elif args.command=="restore": ops.restore(args.frozen,args.destination,os.environ.get("RITMO_RECOVERY_QUARANTINE")=="true")
     elif args.command=="drill": return 0 if ops.drill(now,args.major) else 1
     elif args.command=="drill-due":

@@ -31,7 +31,7 @@ Continuação autorizada por Pedro. [Caderno de provisionamento/aceite](../../..
 | Etapa | Estado |
 |---|---|
 | 4A — ambiente/custos/rede/custódia | Ambiente declarado, perfil A enxuto/Bitwarden Free/Resend definidos; fornecedores/orçamento final adiados |
-| 4B — pacote de implantação testado | Imagem da API verificada por build/PG/HTTP; supervisão/agenda/transporte/proxy ainda pendentes |
+| 4B — pacote de implantação testado | Imagem API e supervisão nativa verificadas localmente; agenda/transporte/proxy ainda pendentes |
 | 4C — instalação isolada | Pendente de proposta/acessos definidos |
 | 4D — aceite externo/RTO | Pendente; prova local não substitui o ambiente real |
 
@@ -46,3 +46,5 @@ A revisão identificou dependências concretas: build precisa incluir contracts 
 02/10/2026: Pedro pediu analisar a HostGator. [Análise](../../../docs/analises/2026-10-02-analise-hostgator.md) e [comparação atualizada](../../../docs/analises/2026-10-02-proposta-de-infraestrutura.md): catálogo atual VPS NVMe/Oracle Cloud Brasil, root/SO Simples e preços de promoção/renovação por ciclo conferidos. NVMe 4 entra como candidato condicional a receptor; região real, independência, cadeia/capacidade/I/O, RTT/flush, banda e SMTP continuam gates de ensaio. Nenhum orçamento/fornecedor foi aprovado, nem recurso adquirido. Continuação local 4B permanece supervisão/parada do receiver.
 
 03/10/2026: Pedro solicitou documentar uma segunda VPS como Server do Coolify existente. [Guia](../../../api/ops/coolify-remote-server.md) e [fontes oficiais](../../../docs/analises/2026-10-03-referencias-coolify-multiplos-servidores.md) cobrem SSH/chaves, rede/portas, deploy no destino, persistência e perda do controller. Proposta híbrida com supervisor/agenda críticos independentes; alternativa Compose exige bloqueio de start/redeploy além de Stop/restart policy. Escolha de empacotamento e provas seguem abertas em 4B; sem compra/configuração/deploy/atualização remotos. Concluída: não.
+
+03/10/2026 — 4B, supervisão: Pedro autorizou implementar o próximo incremento. [Pacote nativo](../../../api/ops/receiver-supervision.md) e [evidência/limites](../../../docs/analises/2026-10-03-supervisao-do-receptor-wal.md): unidade real, supervisor/filho/UID/cgroup/trava verificados, inibição fsyncada antes de Stop e exclusão durante todo o freeze, reconexão/crash, Start/reboot, writer externo/impostor e erro de armazenamento com intervenção. Prova Linux local, sem implantação remota. Continuação: agenda Linux; depois transporte privado autenticado/proxy e provas do detector. 4B/tarefa 04 permanecem abertos; Concluída: não.

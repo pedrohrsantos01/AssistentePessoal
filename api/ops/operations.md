@@ -36,16 +36,17 @@ Instalação Linux, usuário operacional dedicado, raiz privada fora do primári
 
 Arquivos de configuração libpq JSON privados (0600), separados para base e dump, são fornecidos por `--physical-env /run/ritmo/physical.json` e `--logical-env /run/ritmo/logical.json`. Contêm PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSFILE/PGSSLMODE=verify-full/PGSSLROOTCERT; senhas ficam no PGPASSFILE provisionado pelo cofre. Dump usa login administrativo de backup capaz de preservar ACLs/RLS e consultar pg_control_system(). A publicação exige o mesmo System-Identifier do catálogo físico e verifica estabilidade da identidade antes/depois do dump. Esse acesso é operacional e não é concedido ao runtime. O login é separado do runtime. Base/health usam credencial operacional com replicação e visibilidade do receptor, nunca logins de usuário.
 
-`--receiver-state-command /opt/ritmo/receiver-state` é um executável finito controlado pelo operador: consulta o supervisor e retorna exatamente `running` ou `stopped`, após verificar identidade/estado do processo. Não inferir parada por arquivo booleano ou PID sem verificar identidade. Ao congelar, supervisor inibe restart e clientes precisam estar efetivamente em quarentena. A flag da CLI declara essa verificação; não modifica a API. Estado running é combinado com conexão/slot/feedback do PG, sem usar idade do último WAL.
+[Supervisor nativo](receiver-supervision.md): `--receiver-config /etc/ritmo/receiver.json` verifica unidade, supervisor Python e filho PG18 reais, UID/cgroup/trava de escrita. `inhibit` persiste o bloqueio e comprova Stop; a CLI de freeze exige essa configuração, marcador persistente e duas travas mantidas durante toda a operação. Start explícito/reboot não atravessam o guard. `resume` é administrativo e explícito depois da recuperação. Saúde combina estado do processo com conexão/slot/feedback do PostgreSQL, sem inferir disponibilidade pela idade do último WAL. Jobs de controle/catálogo/probes nativos rodam como root; serviço contínuo sob `ritmo-receiver` tem escrita limitada a WAL. O adaptador `--receiver-state-command` permanece para probes legados, mas não autoriza freeze. A flag de quarentena declara isolamento previamente efetivado; não modifica a API.
 
 ```sh
 # Opções globais precedem o subcomando; repetir as opções de ambiente/supervisor nos jobs.
-python3 /opt/ritmo/operations.py --root /srv/ritmo-backup --physical-env /run/ritmo/physical.json --logical-env /run/ritmo/logical.json tick
-python3 /opt/ritmo/operations.py --root /srv/ritmo-backup --physical-env /run/ritmo/physical.json prune
+python3 /opt/ritmo/operations.py --root /srv/ritmo-recovery --physical-env /run/ritmo/physical.json --logical-env /run/ritmo/logical.json tick
+python3 /opt/ritmo/operations.py --root /srv/ritmo-recovery --physical-env /run/ritmo/physical.json prune
 # Revisar o plano JSON antes do primeiro expurgo; rotina validada pode usar prune --apply.
-# Após quarentena e parada verificada/inibição de restart:
-RITMO_RECOVERY_QUARANTINE=true python3 /opt/ritmo/operations.py --root /srv/ritmo-backup --receiver-state-command /opt/ritmo/receiver-state freeze
-RITMO_RECOVERY_QUARANTINE=true python3 /opt/ritmo/operations.py --root /srv/ritmo-backup restore /srv/ritmo-backup/frozen/ID /novo/pgdata
+# Após quarentena:
+sudo python3 /opt/ritmo/receiver.py inhibit
+RITMO_RECOVERY_QUARANTINE=true python3 /opt/ritmo/operations.py --root /srv/ritmo-recovery --receiver-config /etc/ritmo/receiver.json freeze
+RITMO_RECOVERY_QUARANTINE=true python3 /opt/ritmo/operations.py --root /srv/ritmo-recovery restore /srv/ritmo-recovery/frozen/ID /novo/pgdata
 ```
 
 `freeze --before INSTANTE_UTC` escolhe base concluída antes desse instante para PITR histórico isolado. O pacote verifica a cadeia até o último registro durável; o alvo integral padrão nunca é reduzido. Para investigar um instante histórico: preparar outro PGDATA, manter quarentena, configurar recovery_target_lsn='' e recovery_target_time no instante desejado, pause, e validar a consistência da base nesse instante. Recuperação histórica não autoriza publicar estado antigo de Q36. A janela cresce com o histórico desde a consistência da base mais antiga.

@@ -1,0 +1,27 @@
+[Unit]
+Description=Ritmo synchronous WAL receiver
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/srv/ritmo-recovery/wal /var/lib/ritmo-receiver
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=exec
+User=ritmo-receiver
+Group=ritmo-receiver
+ExecStart=/usr/bin/python3 /opt/ritmo/receiver.py run
+KillMode=control-group
+TimeoutStopSec=30
+Restart=on-failure
+RestartSec=2
+RestartPreventExitStatus=1 78
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/srv/ritmo-recovery/wal
+
+[Install]
+WantedBy=multi-user.target

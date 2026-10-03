@@ -139,3 +139,5 @@ V1: 1 usuário, numa VPS. Arquitetura preparada para alguns milhares sem reescri
 ## Evidência de contenção e retomada — 02/10/2026
 
 Recorte 1 local de REQ-NFR-004 concluído: quarentena, preparação de credenciais e retomada preservando SQLite/pendências comprovadas por HTTP/PostgreSQL/SMTP/SQLite reais. [Relatório e limites](../docs/analises/2026-10-02-contencao-e-retomada-operacional.md). Em quarentena, spec/13 §19 prevalece sobre a cobrança normal de quotas: resposta 503 antes dos filtros de requisição. Durabilidade pós-base/WAL, RPO/RTO medidos e operação externa continuam pendentes.
+
+03/10/2026 — supervisão local 4B: [serviço/controle nativos](../api/ops/receiver-supervision.md) com inibição persistente, verificação de supervisor/filho/UID/cgroup/escritor e guarda exclusiva durante todo o freeze. [Ensaios reais e limites](../docs/analises/2026-10-03-supervisao-do-receptor-wal.md) cobrem reconexão/crash, perda do primário, Stop/Start/reboot, congelamento/restauração, impostor e erro de armazenamento. Agenda/transporte/proxy e todo o aceite externo continuam pendentes; REQ-NFR-004/M1 não estão encerrados.

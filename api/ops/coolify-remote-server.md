@@ -38,9 +38,9 @@ flowchart LR
 
 A/B/C são papéis, não IDs de fornecedores. O receptor guarda WAL/base sem um segundo PostgreSQL completo em replay contínuo. Detector fica em outro host, separado de A/B; R2 permanece auxiliar. [Contrato de topologia](external-provisioning.md), [WAL](wal-recovery.md).
 
-Recomendo como proposta inicial uma configuração híbrida: B cadastrado no Coolify para recursos Docker, com receptor/agenda/recuperação críticos supervisionados localmente em B e acesso administrativo direto. Serviços nativos não aparecem como recursos Docker com deploy por clique. Esse pacote ainda precisa de implementação e prova em 4B.
+Recomendo como proposta inicial uma configuração híbrida: B cadastrado no Coolify para recursos Docker, com receptor/agenda/recuperação críticos supervisionados localmente em B e acesso administrativo direto. Serviços nativos não aparecem como recursos Docker com deploy por clique. O supervisor nativo foi implementado e ensaiado localmente em 4B; agenda e aceite externo ainda estão pendentes.
 
-Uma alternativa é empacotar o receptor como recurso Compose gerenciado pelo Coolify. Exige imagem própria testada, mounts persistentes, identificação do processo e bloqueio de restart/redeploy durante freeze. Esse pacote ainda não existe no repositório; template de banco não o substitui. A escolha entre nativo e containerizado será fechada no incremento de supervisão, sem tratar esta sugestão documental como arquitetura aceita.
+Uma alternativa é empacotar o receptor como recurso Compose gerenciado pelo Coolify. Exige imagem própria testada, mounts persistentes, identificação do processo e bloqueio de restart/redeploy durante freeze. Esse pacote ainda não existe no repositório; template de banco não o substitui. O incremento local de supervisão adotou o serviço nativo. Esta alternativa Compose não foi implementada; fornecedor/cadastro/instalação externos continuam a definir.
 
 ## 3. Preparação e chaves
 
@@ -104,7 +104,7 @@ Evitar builds pesados na VPS do receptor. Durante congelamento, bloquear deploy 
 
 ## 7. Supervisão e agenda independentes
 
-Receiver é processo contínuo, não tarefa cron. Precisa reconectar com mesmo slot/diretório, preservar `.partial`/`.history` e emitir estado verificado. Antes de freeze, parar e inibir reinício, inclusive por reboot, start manual e redeploy. Stop no painel sozinho não prova o contrato. `receiver-state`/supervisor ainda estão abertos em 4B. [WAL](wal-recovery.md), [CLI](operations.md).
+Receiver é processo contínuo, não tarefa cron. Precisa reconectar com mesmo slot/diretório, preservar `.partial`/`.history` e emitir estado verificado. Antes de freeze, parar e inibir reinício, inclusive por reboot, start manual e redeploy. Stop no painel sozinho não prova o contrato. O [supervisor nativo](receiver-supervision.md) foi verificado localmente; a instalação e o aceite desse processo na VPS seguem em 4C/4D. [WAL](wal-recovery.md), [CLI](operations.md).
 
 Na proposta nativa, serviço e timer/cron residem em B e são operáveis por SSH próprio. Na alternativa Docker, restart é aplicado localmente: `unless-stopped` preserva parada manual após restart do daemon, mas não impede recriação por Compose/Coolify. Não usar dois supervisores concorrentes para iniciar o mesmo container. Política/bloqueio de deploy precisam de prova. No código público da tag v4.3.23, StartService recria os containers; uma parada prévia não inibe esse caminho. [StartService v4.3.23](https://github.com/coollabsio/coolify/blob/v4.3.23/app/Actions/Service/StartService.php), [Restart Docker](https://docs.docker.com/engine/containers/start-containers-automatically/).
 
@@ -140,8 +140,10 @@ Para reconstruir gestão, preservar também `/data/coolify/ssh/keys/`, autoriza�
 - [ ] Gestão restaurada com backup/APP_KEY/chaves em ambiente isolado, sem sobrescrever receptor existente.
 - [ ] Cadeia/PITR, perda de primário de ensaio, recuperação integral e RTO comprovados conforme [matriz](external-provisioning.md).
 
-Produzir este guia não aceita esses itens. Próximo incremento de código permanece supervisão/parada em 4B. Cadastro e execução remotos ficam para provisionamento; protótipo e decisão comercial continuam independentes.
+Este guia não aceita os gates externos. O [supervisor nativo](receiver-supervision.md) foi implementado e ensaiado localmente em 4B; o próximo incremento é a agenda dos jobs finitos. Cadastro e execução remotos ficam para provisionamento; protótipo e decisão comercial continuam independentes.
 
 ## 10. Verificação deste incremento documental
 
 App typecheck/lint/test aprovados (exit 0), 94/94 sem ignorados. API: Java 21, `gradlew.bat -p api check --no-daemon` aprovado em 16 s; operationsTest executou 8/8, suíte Java permaneceu UP-TO-DATE. Nenhum teste novo para esta mudança só de documentação. Não houve acesso a VPS/painel, geração de credencial, instalação, alteração de firewall, contratação, deploy nem teste de recuperação externa. Checklist acima permanece pendente.
+
+03/10/2026 — pacote local de supervisão: [receiver-supervision.md](receiver-supervision.md) implementa o serviço nativo fora do ciclo Compose/Coolify e seu protocolo de Stop/inibição/retomada/congelamento. [Ensaios locais](../../docs/analises/2026-10-03-supervisao-do-receptor-wal.md) não aceitam instalação/agenda externa, capacidade, independência física ou RTO. Registrar caminho de controle/locks/unidade e permissões no ensaio externo; impedir alteração desses artefatos enquanto houver freeze.
