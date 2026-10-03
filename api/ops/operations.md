@@ -61,3 +61,8 @@ Expurgo online valida segmentos fechados e caudas de timelines ancestrais imutá
 ## Continuação externa
 
 O [caderno do recorte 4](external-provisioning.md) especifica inventário, dimensionamento, sequência de instalação e matriz de aceite externo. A preparação não instala supervisor/agenda/TLS/proxy nem confirma capacidade, SMTP, janela real ou RTO. O monitor atual recebe disco do receptor: a saúde do próprio detector/canal e disco/slot do primário exigem integração operacional adicional. Estado/decisões ficam na [tarefa 04](../../.scratch/recuperacao-operacional/issues/04-validar-operacao-externa.md).
+
+
+## Agenda nativa — incremento local 4B
+
+[Unidades, evidência e runbook Linux](linux-scheduling.md): timer por minuto/Persistent/boot, jobs finitos sem sobreposição, início/término privado com invocação nativa e falha retida até reconhecimento explícito. O probe de implantação usa `--schedule-job backup` antes de `probe`; o detector nativo usa `monitor --require-schedule`. Ausência do timer/evidência é condição própria de duas coletas; falha ou tentativa sem término não são apagadas por tick sem trabalho e alertam na próxima coleta. Parar timer/jobs antes de freeze/manutenção, mantendo também inibição do receiver; não remover lock de ciclo incerto automaticamente. [Evidência local](../../docs/analises/2026-10-03-agenda-operacional-linux.md). Instalação/transportes/SMTP/vigilância do detector/aceite externo continuam pendentes.

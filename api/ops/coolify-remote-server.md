@@ -38,7 +38,7 @@ flowchart LR
 
 A/B/C são papéis, não IDs de fornecedores. O receptor guarda WAL/base sem um segundo PostgreSQL completo em replay contínuo. Detector fica em outro host, separado de A/B; R2 permanece auxiliar. [Contrato de topologia](external-provisioning.md), [WAL](wal-recovery.md).
 
-Recomendo como proposta inicial uma configuração híbrida: B cadastrado no Coolify para recursos Docker, com receptor/agenda/recuperação críticos supervisionados localmente em B e acesso administrativo direto. Serviços nativos não aparecem como recursos Docker com deploy por clique. O supervisor nativo foi implementado e ensaiado localmente em 4B; agenda e aceite externo ainda estão pendentes.
+Recomendo como proposta inicial uma configuração híbrida: B cadastrado no Coolify para recursos Docker, com receptor/agenda/recuperação críticos supervisionados localmente em B e acesso administrativo direto. Serviços nativos não aparecem como recursos Docker com deploy por clique. O supervisor e a [agenda nativa](linux-scheduling.md) foram implementados e ensaiados localmente em 4B; transporte/detector/proxy e aceite externo ainda estão pendentes.
 
 Uma alternativa é empacotar o receptor como recurso Compose gerenciado pelo Coolify. Exige imagem própria testada, mounts persistentes, identificação do processo e bloqueio de restart/redeploy durante freeze. Esse pacote ainda não existe no repositório; template de banco não o substitui. O incremento local de supervisão adotou o serviço nativo. Esta alternativa Compose não foi implementada; fornecedor/cadastro/instalação externos continuam a definir.
 

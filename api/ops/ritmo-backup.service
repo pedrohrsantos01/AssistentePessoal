@@ -1,0 +1,24 @@
+[Unit]
+Description=Ritmo finite daily backup tick
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/srv/ritmo-recovery /var/lib/ritmo-jobs
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStartPre=/usr/bin/python3 /opt/ritmo/schedule.py begin --job backup
+ExecStart=/usr/bin/python3 /opt/ritmo/operations.py --root /srv/ritmo-recovery --physical-env /etc/ritmo/physical.json --logical-env /etc/ritmo/logical.json tick
+ExecStopPost=/usr/bin/python3 /opt/ritmo/schedule.py record --job backup
+TimeoutStartSec=24h
+TimeoutStopSec=30s
+KillMode=control-group
+UMask=0077
+StateDirectory=ritmo-jobs
+StateDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/srv/ritmo-recovery

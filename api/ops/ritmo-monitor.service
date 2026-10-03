@@ -1,0 +1,24 @@
+[Unit]
+Description=Ritmo finite independent detector check
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/srv/ritmo-monitor /var/lib/ritmo-jobs
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+ExecStartPre=/usr/bin/python3 /opt/ritmo/schedule.py begin --job monitor
+ExecStart=/usr/bin/python3 /opt/ritmo/operations.py monitor --state /srv/ritmo-monitor/state.json --probe-command /opt/ritmo/fetch-probe --smtp-config /etc/ritmo/smtp.json --require-schedule
+ExecStopPost=/usr/bin/python3 /opt/ritmo/schedule.py record --job monitor
+TimeoutStartSec=45s
+TimeoutStopSec=10s
+KillMode=control-group
+UMask=0077
+StateDirectory=ritmo-jobs
+StateDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/srv/ritmo-monitor

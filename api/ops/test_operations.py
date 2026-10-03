@@ -199,4 +199,31 @@ class BackupIdentity(unittest.TestCase):
             self.assertEqual(ops.status()["logical"],"2026-10-02T14:00:00+00:00")
             self.assertEqual([e["kind"] for e in ops.status()["failures"]],["physical"])
 
+class ScheduleAlerts(unittest.TestCase):
+    def test_missing_agenda_requires_two_probes_but_job_failure_is_immediate_and_retained(self):
+        from operations import Monitor
+        from datetime import timedelta
+        with tempfile.TemporaryDirectory() as directory:
+            now=datetime(2026,10,3,12,tzinfo=timezone.utc);sent=[]
+            report={'primary':True,'receiver':True,'physical':now.isoformat(),'logical':now.isoformat(),
+                'failures':[],'incomplete':[],'storagePercent':20,'catalogValid':True,
+                'schedule':{'available':False,'failed':False}}
+            monitor=Monitor(Path(directory)/'monitor.json',sent.append,require_schedule=True)
+            def fetch(): return {**report,'at':now.isoformat()}
+            monitor.check(now,fetch);self.assertEqual(sent,[])
+            now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual([(e['code'],e['level']) for e in sent],[('agenda-backup',2)])
+            report['schedule']={'available':True,'failed':True}
+            now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual({(e['code'],e['level']) for e in sent[-2:]},{('agenda-backup',0),('job-backup',2)})
+            now+=timedelta(seconds=60);monitor.check(now,fetch);self.assertEqual(len(sent),3)
+            # An omitted or malformed schedule must not resolve a known execution failure.
+            report.pop('schedule')
+            now+=timedelta(seconds=60);monitor.check(now,fetch);self.assertEqual(len(sent),3)
+            report['schedule']={'available':'yes','failed':False}
+            now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual(sent[-1]['code'],'receiver-host')
+            report['schedule']={'available':True,'failed':False}
+            now+=timedelta(seconds=60);monitor.check(now,fetch)
+            self.assertEqual({(e['code'],e['level']) for e in sent[-2:]},{('receiver-host',0),('job-backup',0)})
 if __name__ == "__main__": unittest.main()

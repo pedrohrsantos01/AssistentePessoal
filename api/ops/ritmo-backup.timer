@@ -1,0 +1,13 @@
+[Unit]
+Description=Ritmo backup agenda independent of Coolify
+
+[Timer]
+OnCalendar=*-*-* *:*:00 UTC
+OnBootSec=30s
+Persistent=true
+AccuracySec=1s
+RandomizedDelaySec=0
+Unit=ritmo-backup.service
+
+[Install]
+WantedBy=timers.target

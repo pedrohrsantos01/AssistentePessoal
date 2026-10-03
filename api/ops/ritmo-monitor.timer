@@ -1,0 +1,13 @@
+[Unit]
+Description=Ritmo independent detector agenda
+
+[Timer]
+OnCalendar=*-*-* *:*:00 UTC
+OnBootSec=30s
+Persistent=true
+AccuracySec=1s
+RandomizedDelaySec=0
+Unit=ritmo-monitor.service
+
+[Install]
+WantedBy=timers.target

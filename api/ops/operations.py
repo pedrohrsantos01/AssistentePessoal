@@ -310,7 +310,7 @@ class Operations:
                 extra={"scope":"local","major":major,"elapsedSeconds":elapsed})
             return success
 
-    def probe(self, now: datetime) -> dict:
+    def probe(self, now: datetime, include_schedule: bool = False) -> dict:
         try:
             status=self.status();valid=True
         except (OSError,ValueError,KeyError,TypeError,RuntimeError):
@@ -318,16 +318,21 @@ class Operations:
         try: health=json.loads(self.process(["health"]))
         except (OSError,ValueError,RuntimeError,subprocess.SubprocessError): health={"primary":False,"receiver":False}
         disk=shutil.disk_usage(self.root)
-        return {**status,"at":stamp(now),"primary":health["primary"],"receiver":health["receiver"],"catalogValid":valid,
+        schedule = {}
+        if include_schedule:
+            try: evidence = json.loads(self.process(["schedule"]))
+            except (OSError,ValueError,KeyError,TypeError,RuntimeError,subprocess.SubprocessError): evidence = {"available":False,"failed":False}
+            schedule = {"schedule": evidence}
+        return {**status,**schedule,"at":stamp(now),"primary":health["primary"],"receiver":health["receiver"],"catalogValid":valid,
                 "storagePercent":100*(disk.total-disk.free)/disk.total}
 
 
 class Monitor:
     def __init__(self, state: Path, send: Callable[[dict], None], interval: int = 60,
-                 failures: int = 2, max_age_hours: int = 26, warn: int = 80, critical: int = 90):
+                 failures: int = 2, max_age_hours: int = 26, warn: int = 80, critical: int = 90, require_schedule: bool = False):
         if interval < 1 or failures < 1 or max_age_hours < 1 or not 0 < warn < critical <= 100: raise ValueError("invalid_limits")
         self.path=state.absolute(); self.send=send; self.interval=interval; self.failures=failures
-        self.max_age=timedelta(hours=max_age_hours); self.warn=warn; self.critical=critical
+        self.max_age=timedelta(hours=max_age_hours); self.warn=warn; self.critical=critical; self.require_schedule=require_schedule
         if any(p.is_symlink() for p in [self.path, *self.path.parents]): raise ValueError("symlink_refused")
         self.path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
 
@@ -358,7 +363,13 @@ class Monitor:
                 for event in report[key]:
                     if not isinstance(event,dict) or event["kind"] not in ("physical","logical","drill"): raise ValueError("invalid_probe")
                     if key=="incomplete": instant(event["at"])
+            schedule=report.get("schedule")
+            if self.require_schedule or schedule is not None:
+                if not isinstance(schedule,dict) or type(schedule.get("available")) is not bool or type(schedule.get("failed")) is not bool: raise ValueError("invalid_schedule_probe")
             available("receiver-host",True)
+            if schedule is not None:
+                available("agenda-backup",schedule["available"])
+                desired["job-backup"]=2 if schedule["failed"] else 0
             available("primary",report["primary"]);available("receiver",report["receiver"])
             desired["catalog"]=0 if report["catalogValid"] is True else 2
             for kind in ("physical","logical"):
@@ -440,6 +451,9 @@ class NativeProcess:
             state=self.receiver.state() if self.receiver else (run_process([self.receiver_state],5).strip() if self.receiver_state else None)
             if state!="stopped": raise RuntimeError("receiver_not_verified_stopped")
             return ""
+        if kind=="schedule":
+            from schedule import health
+            return json.dumps(health("backup"))
         if kind=="health":
             query="SELECT json_build_object('primary',NOT pg_is_in_recovery(),'receiver',EXISTS(SELECT 1 FROM pg_stat_replication r JOIN pg_replication_slots s ON s.active_pid=r.pid WHERE r.usename='ritmo_wal_receiver' AND r.application_name='ritmo_wal' AND r.state='streaming' AND r.sync_state='sync' AND r.flush_lsn IS NOT NULL AND s.slot_name='ritmo_wal' AND s.slot_type='physical'))"
             try: health=json.loads(run_process(["psql","--no-password","-XAt","-v","ON_ERROR_STOP=1","-c",query],5,self.physical))
@@ -480,6 +494,7 @@ def main() -> int:
     parser.add_argument("--root",type=Path)
     parser.add_argument("--physical-env",type=Path);parser.add_argument("--logical-env",type=Path)
     parser.add_argument("--receiver-config",type=Path)
+    parser.add_argument("--schedule-job",choices=("backup",))
     parser.add_argument("--receiver-state-command");parser.add_argument("--timeout",type=int,default=86400)
     commands=parser.add_subparsers(dest="command",required=True)
     for command in ("tick","backup","status","probe"): commands.add_parser(command)
@@ -490,11 +505,12 @@ def main() -> int:
         drill=commands.add_parser(command);drill.add_argument("--major",type=int,required=True)
     monitor=commands.add_parser("monitor")
     monitor.add_argument("--state",type=Path,required=True);monitor.add_argument("--probe-command",required=True);monitor.add_argument("--smtp-config",type=Path,required=True)
+    monitor.add_argument("--require-schedule",action="store_true")
     monitor.add_argument("--interval",type=int,default=60);monitor.add_argument("--failures",type=int,default=2)
     monitor.add_argument("--max-age-hours",type=int,default=26);monitor.add_argument("--warn",type=int,default=80);monitor.add_argument("--critical",type=int,default=90)
     args=parser.parse_args();now=datetime.now(UTC)
     if args.command=="monitor":
-        instance=Monitor(args.state,SmtpEmail(private_config(args.smtp_config)),args.interval,args.failures,args.max_age_hours,args.warn,args.critical)
+        instance=Monitor(args.state,SmtpEmail(private_config(args.smtp_config)),args.interval,args.failures,args.max_age_hours,args.warn,args.critical,args.require_schedule)
         print(json.dumps(instance.check(now,lambda:json.loads(run_process([args.probe_command],10)))))
         return 0
     if args.root is None: parser.error("--root is required for this job")
@@ -512,7 +528,7 @@ def main() -> int:
         ops.backup(now);status=ops.status();print(json.dumps(status))
         if status["failures"]: return 1
     elif args.command=="status": print(json.dumps(ops.status()))
-    elif args.command=="probe": print(json.dumps(ops.probe(now)))
+    elif args.command=="probe": print(json.dumps(ops.probe(now,args.schedule_job is not None)))
     elif args.command=="prune": print(json.dumps(ops.prune(now,args.apply)))
     elif args.command=="freeze":
         if os.environ.get("RITMO_RECOVERY_QUARANTINE")!="true": raise ValueError("freeze_requires_quarantine")
