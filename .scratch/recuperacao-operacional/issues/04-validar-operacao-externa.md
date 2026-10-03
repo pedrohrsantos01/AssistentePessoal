@@ -41,3 +41,6 @@ A revisão identificou dependências concretas: build precisa incluir contracts 
 
 
 02/10/2026 — 4B, imagem API: [Dockerfile/contrato local](../../../api/ops/container-deployment.md) e exemplo de runtime sem segredos; contexto restrito na raiz, Java 21 fixado, JAR com contrato/Flyway, UID 10001 e WAL/quarentena ativos por padrão. Build Docker/PG18/HTTP passou, assim como checks completos: app 94/94; API 59 aprovados/1 Android opt-in ignorado; operações 8/8. [Evidência e limites](../../../docs/analises/2026-10-02-imagem-de-implantacao-da-api.md). Próximo incremento local: supervisão real do receiver e parada/inibição de restart; em seguida agenda/transporte/proxy. Sem contratação, deploy ou upload R2. A etapa 4B permanece aberta, com Concluída: não.
+
+
+02/10/2026: Pedro pediu analisar a HostGator. [Análise](../../../docs/analises/2026-10-02-analise-hostgator.md) e [comparação atualizada](../../../docs/analises/2026-10-02-proposta-de-infraestrutura.md): catálogo atual VPS NVMe/Oracle Cloud Brasil, root/SO Simples e preços de promoção/renovação por ciclo conferidos. NVMe 4 entra como candidato condicional a receptor; região real, independência, cadeia/capacidade/I/O, RTT/flush, banda e SMTP continuam gates de ensaio. Nenhum orçamento/fornecedor foi aprovado, nem recurso adquirido. Continuação local 4B permanece supervisão/parada do receiver.

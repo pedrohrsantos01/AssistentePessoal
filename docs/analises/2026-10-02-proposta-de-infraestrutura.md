@@ -51,6 +51,30 @@ Cloudflare R2 Standard é candidato a cópias auxiliares futuras: US$0,015/GB-m�
 
 R2 fornece interface de objetos, enquanto o caminho atual confirma flush contínuo em disco POSIX por pg_receivewal --synchronous, inclusive antes de fechar um segmento. Upload posterior de segmentos fechados não cobre sozinho esse intervalo. R2 pode complementar bases/dumps/WAL fechado verificados; não substitui o receptor síncrono nem sua cadeia recuperável neste contrato. Nenhum upload foi implementado. [Interface R2](https://developers.cloudflare.com/r2/api/s3/api/), [pg_receivewal PG18](https://www.postgresql.org/docs/18/app-pgreceivewal.html). Detalhes e limites comerciais na [pesquisa](2026-10-02-referencias-provisionamento-externo.md).
 
+## Comparação adicional: HostGator
+
+Pedro pediu analisar também a HostGator. O catálogo brasileiro atual é VPS NVMe em Oracle Cloud no Brasil; não aplicar à oferta atual as características de VPS SSD/Snappy/Entry antigos ou do site americano. A modalidade SO Simples oferece root por SSH. A documentação lista Ubuntu 22.04 LTS, AlmaLinux 9 e Rocky Linux 9; verificar a imagem efetivamente disponível antes de instalar os clientes PG18/Python. Para o receptor, preferir servidor limpo, sem cPanel/n8n/painéis adicionais. [VPS atual](https://www.hostgator.com.br/servidor-vps), [SO/root](https://suporte.hostgator.com.br/hc/pt-br/articles/30816739471123-Como-come%C3%A7ar-a-usar-a-VPS-na-HostGator).
+
+Valores observados na página renderizada em 02/10/2026, desempenho padrão e sem adicional cPanel. A campanha observada era até 73%; a busca indexada ainda mostrava campanha anterior. A primeira coluna mensal é equivalente, com pagamento integral por 36 meses; a última é um ciclo mensal regular distinto.
+
+| Plano | vCPU / RAM / NVMe total | Promoção equivalente mensal | Primeiro ciclo de 3 anos | Renovação regular de 3 anos | Ciclo mensal regular |
+|---|---|---|---|---|---|
+| NVMe 2 | 1 / 2 GB / 50 GB | R$20,99 | R$755,64 | R$1.259,40 | R$54,98 |
+| NVMe 4 | 2 / 4 GB / 100 GB | R$30,39 | R$1.094,11 | R$2.279,40 | R$96,65 |
+| NVMe 8 | 4 / 8 GB / 200 GB | R$45,49 | R$1.637,77 | R$4.199,40 | R$173,32 |
+
+Fontes: [oferta e condições promocionais](https://www.hostgator.com.br/servidor-vps), [tabela regular, opção Servidor VPS NVMe](https://www.hostgator.com.br/precos-hostgator). Desconto somente no primeiro período; renovação automática no mesmo ciclo, com controles no portal. A tabela regular publica equivalentes trienais R$34,99/R$63,39/R$116,69, mas sua multiplicação por 36 não reproduz exatamente os totais exibidos: usar os totais literais para comparação e esclarecer a divergência na cotação futura. O valor riscado na oferta não é a fatura de renovação trienal. Não criar contrato a partir do banner nem contratar três anos antes do ensaio de viabilidade.
+
+**Recomendação para nossa comparação:** colocar o NVMe 4 na shortlist de receptor, junto às alternativas já pesquisadas. Oferece 100 GB totais e mais RAM que a hipótese inicial A, com custo publicado em reais e outro fornecedor comercial em relação ao primário Hostinger. Isso não comprova independência física, latência ou retenção: o SO/arquivos consomem parte desses 100 GB; base âncora, WAL, dumps, staging e cópias congeladas precisam caber com margem. NVMe 2 pode servir a ensaio menor se a cadeia medida couber nos 50 GB; NVMe 8 só se o dimensionamento justificar os 200 GB. Não reduzir a janela recuperável ou usar R2 como substituição do flush para acomodar um plano.
+
+O material da oferta reporta benchmark interno de 8 ms até OCI/São Paulo, com ressalvas. Não é nosso RTT Campinas→receptor nem prazo de confirmação da API. Confirmar região/endereço do recurso e medir rota/TLS/flush/banda antes da escolha final; o país publicado, o nome do provedor e NVMe não atestam fsync durável ou sobrevivência à perda definida no ADR-019. [Fonte do benchmark](https://www.hostgator.com.br/servidor-vps).
+
+A HostGator deixa backups da VPS sob responsabilidade do cliente e impõe limites de recursos/I/O. Transferência ilimitada publicitária tem limites físicos/políticas, não banda garantida. A saída SMTP/STARTTLS do VPS NVMe atual para Resend precisa ser testada; não importar automaticamente a restrição DigitalOcean ou uma lista legada de portas cPanel. Detector continua em host separado do receptor/primário. [Termos, seção de VPS](https://www.hostgator.com.br/termos-de-servico), [limitações](https://suporte.hostgator.com.br/hc/pt-br/articles/30816318898963-Quais-s%C3%A3o-as-limita%C3%A7%C3%B5es-dos-servidores-da-HostGator).
+
+Upgrades entre categorias podem trocar a instância; esclarecer expansão e custódia do acesso root antes da escolha. [Termos §15.5/15.7](https://www.hostgator.com.br/termos-de-servico).
+
+[Análise detalhada, fontes e pendências](2026-10-02-analise-hostgator.md). A pesquisa amplia as alternativas; Q47 continua artefatos locais primeiro, orçamento/fornecedores/contratação depois.
+
 ## Cofre escolhido e alternativas pesquisadas
 
 | Opção | Custo consultado | Uso neste projeto |
