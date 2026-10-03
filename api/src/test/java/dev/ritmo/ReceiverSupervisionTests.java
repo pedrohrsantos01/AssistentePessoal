@@ -148,6 +148,8 @@ class ReceiverSupervisionTests {
                 #!/bin/sh
                 touch /srv/verify-entered
                 while [ ! -e /srv/verify-release ]; do sleep 0.1; done
+                # A valid slow verification must not impose a 20s whole-freeze deadline.
+                if [ ! -e /srv/verifier-delayed ]; then touch /srv/verifier-delayed; sleep 45; fi
                 exec /usr/lib/postgresql/18/bin/pg_verifybackup "$@"
                 """,0755);
             assertThat(execute(nativeHost,"env","RITMO_RECOVERY_QUARANTINE=true","python3","/opt/ritmo/operations.py","--root","/srv/ritmo-recovery","freeze").exit()).isNotZero();
@@ -157,7 +159,10 @@ class ReceiverSupervisionTests {
             execute(nativeHost,"systemctl","start","ritmo-wal-receiver.service");
             Awaitility.await().atMost(Duration.ofSeconds(5)).until(()->property(nativeHost,"MainPID").equals("0"));
             succeed(nativeHost,"touch","/srv/verify-release");
-            Awaitility.await().atMost(Duration.ofSeconds(20)).untilAsserted(()-> {
+            Awaitility.await().atMost(Duration.ofSeconds(10)).until(()->execute(nativeHost,"test","-f","/srv/verifier-delayed").exit()==0);
+            assertThat(receiver(nativeHost,"resume").exit()).isNotZero();
+            // Covers verification, copying, hashing and fsync without changing the runtime deadline.
+            Awaitility.await().atMost(Duration.ofSeconds(120)).untilAsserted(()-> {
                 assertThat(succeed(nativeHost,"systemctl","show","--value","--property=ActiveState","fixture-freeze.service")).isEqualTo("inactive");
                 assertThat(succeed(nativeHost,"systemctl","show","--value","--property=ExecMainStatus","fixture-freeze.service")).isEqualTo("0");
             });
