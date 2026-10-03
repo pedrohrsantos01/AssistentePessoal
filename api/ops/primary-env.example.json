@@ -1,0 +1,11 @@
+{
+  "PGHOST": "postgres.private.example.test",
+  "PGPORT": "5432",
+  "PGDATABASE": "ritmo",
+  "PGUSER": "ritmo_primary_probe",
+  "PGAPPNAME": "ritmo_primary_probe",
+  "PGSSLMODE": "verify-full",
+  "PGSSLROOTCERT": "/etc/ritmo/primary-ca.pem",
+  "PGPASSFILE": "/etc/ritmo/primary.pgpass",
+  "PGCONNECT_TIMEOUT": "2"
+}

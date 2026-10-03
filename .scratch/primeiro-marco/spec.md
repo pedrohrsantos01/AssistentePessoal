@@ -51,7 +51,7 @@ A matriz canônica é [M1-01 a M1-20](../../specs/13-contrato-primeiro-marco.md#
 | Execução das migrations, roles e contratos nos runtimes reais | Primeiro recorte com migrations, RLS e integração real verificados; matriz M1 ainda incompleta | Preparação [01 concluída](issues/01-fechar-contratos.md); execução na [04](issues/04-exercitar-fundacao-sem-ui.md) |
 | Builds efetivos e rota iOS | Matriz documentada; Pedro não tem Apple Developer ativo. EAS físico exige essa dependência ou alternativa local com Mac | Pesquisa [02 concluída](issues/02-validar-stack-e-build.md); build Android técnico aprovado; execução nativa e rota iOS conforme relatório da tarefa 04 |
 | Protótipo ainda sendo feito pelo Pedro | Impede fechar visual e aceite do Briefing; não bloqueia contratos/testes sem UI | [Tarefa 03](issues/03-integrar-prototipo.md) |
-| SMTP/deep link, segredos, deploy e recuperação operacional | SMTP local e dump/restore em cluster limpo testados; configuração real e recuperação de confirmações após o corte ainda impedem aceite operacional | [Guia de e-mail](../../api/ops/email-recovery.md), [backup/restauração](../../api/ops/backup-restore.md) e decisão pendente de spec/07 §2.1; fornecer parâmetros operacionais sem inserir credenciais nos docs |
+| SMTP/deep link, segredos, deploy e recuperação operacional | SMTP local, dump/restore e recuperação física pós-corte testados; pacote operacional local verificado, com definição/instalação/aceite real ainda pendentes | [Guia de e-mail](../../api/ops/email-recovery.md), [backup/restauração](../../api/ops/backup-restore.md) e [recuperação operacional aprovada](../recuperacao-operacional/spec.md); fornecer parâmetros operacionais sem inserir credenciais nos docs |
 | Saldo de XP menor que prêmio nominal | Q31 resolvida e implementada: prêmio inteiro de 10 XP somente quando couber; caso contrário, cumprimento sem XP | [Exclusão e tombstones](../../docs/analises/2026-09-30-exclusao-e-tombstones.md); gamificação ampliada segue fora deste recorte |
 | Exportação/exclusão de conta e funcionalidades restantes da Fase 1 | Contratos integrais ainda incompletos; não declarar Fase 1 pronta nem liberar distribuição externa por ter passado M1 | Manter no backlog de Conta/Fase 1 e fechar antes dos fluxos correspondentes |
 
@@ -79,3 +79,6 @@ Atualização de 30/09/2026: [backup/restauração](../../docs/analises/2026-09-
 Concluída: não.
 
 A preparação documental avançou; a entrega funcional só poderá ser concluída com evidência dos cenários acima. O marco não inicia automaticamente os 30 dias de validação da Fase 1 completa.
+
+
+Atualização de 03/10/2026: [telemetria privada do primário](../../docs/analises/2026-10-03-telemetria-do-primario.md) completa as integrações locais previstas no escopo atual do pacote operacional 4B. Saúde/disco/slot, monitor/watchdog e runbook verificados localmente; definição/dimensionamento 4A, instalação 4C e aceite 4D continuam abertos. UI/protótipo, distribuição/aparelhos, e-mail real e demais lacunas da matriz permanecem no M1.

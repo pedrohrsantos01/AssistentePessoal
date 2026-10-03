@@ -10,6 +10,7 @@ User=root
 Group=root
 ExecStartPre=/usr/bin/python3 /opt/ritmo/schedule.py begin --job monitor
 ExecStart=/usr/bin/python3 /opt/ritmo/operations.py monitor --state /srv/ritmo-monitor/state.json --probe-command /opt/ritmo/fetch-probe --smtp-config /etc/ritmo/smtp.json --require-schedule --require-watchdog
+ExecStart=/usr/bin/python3 /opt/ritmo/operations.py monitor --source primary --state /srv/ritmo-monitor/primary-state.json --probe-command /opt/ritmo/fetch-primary --smtp-config /etc/ritmo/smtp.json
 ExecStopPost=/usr/bin/python3 /opt/ritmo/schedule.py record --job monitor
 TimeoutStartSec=45s
 TimeoutStopSec=10s

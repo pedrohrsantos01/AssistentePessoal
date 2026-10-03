@@ -254,4 +254,68 @@ class DetectorWatchdogAlerts(unittest.TestCase):
             self.assertEqual({e['code'] for e in sent if e['level']==0},
                              {'detector-host','detector-cycle','smtp-channel','job-monitor'})
 
+
+class PrimaryTelemetry(unittest.TestCase):
+    def test_primary_host_loss_alerts_after_two_collections_without_receiver_dependency(self):
+        from datetime import timedelta
+        from operations import Monitor
+        with tempfile.TemporaryDirectory() as directory:
+            sent=[];now=datetime(2026,10,3,12,tzinfo=timezone.utc)
+            monitor=Monitor(Path(directory)/"primary.json",sent.append,source="primary")
+            def lost(): raise TimeoutError("fixture primary unavailable")
+            self.assertEqual(monitor.check(now,lost),[])
+            monitor.check(now+timedelta(seconds=30),lost)
+            self.assertEqual(sent,[])
+            monitor.check(now+timedelta(seconds=60),lost)
+            self.assertEqual([(e["code"],e["level"]) for e in sent],[("primary-host",2)])
+            Monitor(Path(directory)/"primary.json",sent.append,source="primary").check(now+timedelta(seconds=120),lost)
+            self.assertEqual(len(sent),1)
+    def test_primary_storage_and_slot_transitions_preserve_unknown_incidents(self):
+        from datetime import timedelta
+        from operations import Monitor
+        with tempfile.TemporaryDirectory() as directory:
+            sent=[];now=datetime(2026,10,3,12,tzinfo=timezone.utc)
+            report={"version":1,"kind":"primary","at":now.isoformat(),"database":True,"durable":True,
+                "slot":{"present":True,"active":True,"healthy":True,"invalidated":False,"status":"reserved","retainedBytes":16777216},
+                "storage":{"data":80,"wal":20}}
+            state=Path(directory)/"primary.json"
+            def collect(): return {**report,"at":now.isoformat()}
+            Monitor(state,sent.append,source="primary").check(now,collect)
+            self.assertEqual([(e["code"],e["level"]) for e in sent],[("primary-data-storage",1)])
+            report["storage"]={"data":90,"wal":90}
+            now+=timedelta(seconds=60);Monitor(state,sent.append,source="primary").check(now,collect)
+            self.assertEqual([(e["code"],e["level"]) for e in sent[-2:]],[("primary-data-storage",2),("primary-wal-storage",2)])
+            report["slot"]={**report["slot"],"active":False,"healthy":False}
+            now+=timedelta(seconds=60);Monitor(state,sent.append,source="primary").check(now,collect)
+            now+=timedelta(seconds=60);Monitor(state,sent.append,source="primary").check(now,collect)
+            self.assertEqual((sent[-1]["code"],sent[-1]["level"]),("primary-slot",2))
+            report["database"]=False;report["durable"]=None;report["slot"]=None
+            now+=timedelta(seconds=60);Monitor(state,sent.append,source="primary").check(now,collect)
+            self.assertFalse(any(e["code"]=="primary-slot" and e["level"]==0 for e in sent))
+            report["database"]=True;report["durable"]=True
+            report["slot"]={"present":True,"active":True,"healthy":True,"invalidated":False,"status":"extended","retainedBytes":33554432}
+            report["storage"]={"data":20,"wal":20}
+            now+=timedelta(seconds=60);Monitor(state,sent.append,source="primary").check(now,collect)
+            self.assertEqual({e["code"] for e in sent[-3:]},{"primary-data-storage","primary-wal-storage","primary-slot"})
+            self.assertTrue(all(e["level"]==0 for e in sent[-3:]))
+            self.assertTrue(all(set(e)=={"code","level","id"} for e in sent))
+    def test_invalid_primary_metadata_never_resolves_a_known_storage_incident(self):
+        import copy
+        from datetime import timedelta
+        from operations import Monitor
+        from probe_transport import metadata
+        with tempfile.TemporaryDirectory() as directory:
+            sent=[];now=datetime(2026,10,3,12,tzinfo=timezone.utc)
+            report={"version":1,"kind":"primary","at":now.isoformat(),"database":False,"durable":None,"slot":None,
+                "storage":{"data":90,"wal":20}}
+            monitor=Monitor(Path(directory)/"primary.json",sent.append,source="primary")
+            monitor.check(now,lambda:report)
+            for mutation in ({"extra":"private"},{"database":True},{"storage":{"data":False,"wal":20}},
+                             {"storage":{"data":float('nan'),"wal":20}},{"storage":{"data":0,"wal":101}}):
+                bad={**copy.deepcopy(report),**mutation}
+                with self.assertRaises(ValueError): metadata(bad,"primary")
+                now+=timedelta(seconds=60);monitor.check(now,lambda:bad)
+            self.assertFalse(any(e["code"]=="primary-data-storage" and e["level"]==0 for e in sent))
+            self.assertTrue(any(e["code"]=="primary-host" and e["level"]==2 for e in sent))
+
 if __name__ == "__main__": unittest.main()

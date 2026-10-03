@@ -33,6 +33,29 @@ def utc(value: str) -> datetime:
 
 
 def metadata(report: dict, kind: str) -> dict:
+    if kind == "primary":
+        if not isinstance(report,dict) or set(report)!={"version","kind","at","database","durable","slot","storage"}:
+            raise ValueError("invalid_primary_fields")
+        if type(report["version"]) is not int or report["version"]!=1 or report["kind"]!=kind: raise ValueError("invalid_probe_identity")
+        utc(report["at"])
+        if type(report["database"]) is not bool: raise ValueError("invalid_primary_database")
+        storage=report["storage"]
+        if not isinstance(storage,dict) or set(storage)!={"data","wal"}: raise ValueError("invalid_primary_storage")
+        for percent in storage.values():
+            if type(percent) not in (int,float) or not math.isfinite(percent) or not 0<=percent<=100: raise ValueError("invalid_primary_storage")
+        slot=report["slot"]
+        if not report["database"]:
+            if report["durable"] is not None or slot is not None: raise ValueError("unknown_primary_requires_null")
+        else:
+            if type(report["durable"]) is not bool or not isinstance(slot,dict) or set(slot)!={"present","active","healthy","invalidated","status","retainedBytes"}:
+                raise ValueError("invalid_primary_slot")
+            if any(type(slot[key]) is not bool for key in ("present","active","healthy","invalidated")): raise ValueError("invalid_primary_slot")
+            if slot["status"] not in (None,"reserved","extended","unreserved","lost"): raise ValueError("invalid_primary_slot")
+            size=slot["retainedBytes"]
+            if size is not None and (type(size) is not int or size<0): raise ValueError("invalid_primary_retention")
+            if slot["healthy"] and not (slot["present"] and slot["active"] and not slot["invalidated"] and slot["status"] in ("reserved","extended") and size is not None):
+                raise ValueError("contradictory_primary_slot")
+        return report
     common = {"version", "kind", "at", "storagePercent", "schedule"}
     extra = ({"primary", "receiver", "catalogValid", "physical", "logical", "failures", "incomplete", "watchdog"}
              if kind == "receiver" else {"checked", "smtp"})
@@ -61,13 +84,13 @@ def metadata(report: dict, kind: str) -> dict:
     return report
 
 
-def bounded_process(args: list[str], timeout: float, isolated: bool = True) -> bytes:
+def bounded_process(args: list[str], timeout: float, isolated: bool = True, environment: dict[str,str] | None = None) -> bytes:
     """Limit both wall-clock duration and memory; discard potentially secret stderr."""
     if sys.platform != "linux": raise ValueError("probe_requires_linux")
     deadline = time.monotonic() + timeout
     output = bytearray()
     with subprocess.Popen(args, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL,
-                          env={"PATH": "/usr/bin:/bin", "LC_ALL": "C"}, start_new_session=isolated) as child:
+                          env=environment or {"PATH": "/usr/bin:/bin", "LC_ALL": "C"}, start_new_session=isolated) as child:
         try:
             with selectors.DefaultSelector() as selector:
                 selector.register(child.stdout, selectors.EVENT_READ)
@@ -102,7 +125,7 @@ def fetch(path: Path) -> dict:
     if type(port) is not int or not 1 <= port <= 65535 or type(timeout) is not int or not 1 <= timeout <= 10:
         raise ValueError("invalid_probe_bounds")
     kind = values["kind"]
-    if kind not in ("receiver", "detector"): raise ValueError("invalid_probe_kind")
+    if kind not in ("receiver", "detector", "primary"): raise ValueError("invalid_probe_kind")
     key = trusted(Path(values["keyFile"])); hosts = trusted(Path(values["knownHostsFile"]))
     if key.stat().st_mode & 0o077: raise ValueError("probe_requires_private_key")
     args = ["/usr/bin/ssh", "-F", "/dev/null", "-T", "-i", str(key), "-p", str(port)]

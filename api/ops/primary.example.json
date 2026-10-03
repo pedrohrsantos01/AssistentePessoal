@@ -1,0 +1,7 @@
+{
+  "dataPath": "/srv/ritmo-postgres/data",
+  "walPath": "/srv/ritmo-postgres/data/pg_wal",
+  "dataOwnerUid": 999,
+  "binaryDir": "/usr/lib/postgresql/18/bin",
+  "environmentFile": "/etc/ritmo/primary-env.json"
+}

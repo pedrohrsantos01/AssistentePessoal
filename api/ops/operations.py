@@ -331,7 +331,7 @@ class Monitor:
     def __init__(self, state: Path, send: Callable[[dict], None], interval: int = 60,
                  failures: int = 2, max_age_hours: int = 26, warn: int = 80, critical: int = 90, require_schedule: bool = False, source: str = "receiver", require_watchdog: bool = False):
         if interval < 1 or failures < 1 or max_age_hours < 1 or not 0 < warn < critical <= 100: raise ValueError("invalid_limits")
-        if source not in ("receiver","detector"): raise ValueError("invalid_monitor_source")
+        if source not in ("receiver","detector","primary"): raise ValueError("invalid_monitor_source")
         self.source=source;self.require_watchdog=require_watchdog
         self.path=state.absolute(); self.send=send; self.interval=interval; self.failures=failures
         self.max_age=timedelta(hours=max_age_hours); self.warn=warn; self.critical=critical; self.require_schedule=require_schedule
@@ -354,7 +354,19 @@ class Monitor:
             report=fetch()
             age=now-instant(report["at"])
             if age<timedelta(seconds=-self.interval) or age>timedelta(seconds=self.interval*2): raise ValueError("stale_probe")
-            if self.source=="detector":
+            if self.source=="primary":
+                from probe_transport import metadata
+                metadata(report,"primary")
+                available("primary-host",True)
+                available("primary-database",report["database"])
+                if report["database"]:
+                    available("primary-durability",report["durable"])
+                    available("primary-slot",report["slot"]["healthy"])
+                else:
+                    counts["primary-durability"]=0;counts["primary-slot"]=0
+                for filesystem,percent in report["storage"].items():
+                    desired["primary-"+filesystem+"-storage"]=2 if percent>=self.critical else (1 if percent>=self.warn else 0)
+            elif self.source=="detector":
                 # Same transition engine, with a different restricted metadata source.
                 from probe_transport import metadata, utc
                 metadata(report,"detector")
@@ -403,7 +415,7 @@ class Monitor:
                 percent=report["storagePercent"]
                 desired["storage"]=2 if percent>=self.critical else (1 if percent>=self.warn else 0)
         except (OSError, ValueError, KeyError, TypeError, RuntimeError, subprocess.SubprocessError):
-            desired={}; available("detector-host" if self.source=="detector" else "receiver-host",False)  # Unknown health never resolves previous alerts.
+            desired={}; available(self.source+"-host",False)  # Unknown health never resolves previous alerts.
         state["checked"]=stamp(now)
         write_json(self.path,state,replace=True)
         sent=[]
@@ -549,7 +561,7 @@ def main() -> int:
     monitor.add_argument("--state",type=Path,required=True);monitor.add_argument("--probe-command",required=True);monitor.add_argument("--smtp-config",type=Path,required=True)
     monitor.add_argument("--require-schedule",action="store_true")
     monitor.add_argument("--require-watchdog",action="store_true")
-    monitor.add_argument("--source",choices=("receiver","detector"),default="receiver")
+    monitor.add_argument("--source",choices=("receiver","detector","primary"),default="receiver")
     monitor.add_argument("--interval",type=int,default=60);monitor.add_argument("--failures",type=int,default=2)
     monitor.add_argument("--max-age-hours",type=int,default=26);monitor.add_argument("--warn",type=int,default=80);monitor.add_argument("--critical",type=int,default=90)
     args=parser.parse_args();now=datetime.now(UTC)

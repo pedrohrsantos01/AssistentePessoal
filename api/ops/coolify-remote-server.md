@@ -32,6 +32,7 @@ flowchart LR
     R -->|Conexão privada com TLS| P
     P -.->|WAL e confirmação de flush| R
     M[Host C — detector independente] -->|Probe restrito| B
+    M -->|Saúde/disco/slot via SSH| P
     M -->|SMTP STARTTLS| E[Resend]
     B -->|SSH privado: saúde do detector| M
     B -->|SMTP independente a definir| F[Canal alternativo]
@@ -40,7 +41,7 @@ flowchart LR
 
 A/B/C são papéis, não IDs de fornecedores. O receptor guarda WAL/base sem um segundo PostgreSQL completo em replay contínuo. Detector fica em outro host, separado de A/B; R2 permanece auxiliar. [Contrato de topologia](external-provisioning.md), [WAL](wal-recovery.md).
 
-Recomendo como proposta inicial uma configuração híbrida: B cadastrado no Coolify para recursos Docker, com receptor/agenda/recuperação críticos supervisionados localmente em B e acesso administrativo direto. Serviços nativos não aparecem como recursos Docker com deploy por clique. O supervisor e a [agenda nativa](linux-scheduling.md) foram implementados e ensaiados localmente em 4B; [transporte SSH e watchdog recíproco](probe-transport.md) também foram verificados localmente; [proxy/TLS e origem confiável](proxy-activation.md) têm pacote/prova locais; instalação e aceite externo ainda estão pendentes.
+Recomendo como proposta inicial uma configuração híbrida: B cadastrado no Coolify para recursos Docker, com receptor/agenda/recuperação críticos supervisionados localmente em B e acesso administrativo direto. Serviços nativos não aparecem como recursos Docker com deploy por clique. O supervisor e a [agenda nativa](linux-scheduling.md) foram implementados e ensaiados localmente em 4B; [transporte SSH e watchdog recíproco](probe-transport.md) também foram verificados localmente; [proxy/TLS e origem confiável](proxy-activation.md) e [telemetria primária](primary-telemetry.md) têm pacote/prova locais; instalação e aceite externo ainda estão pendentes.
 
 Uma alternativa é empacotar o receptor como recurso Compose gerenciado pelo Coolify. Exige imagem própria testada, mounts persistentes, identificação do processo e bloqueio de restart/redeploy durante freeze. Esse pacote ainda não existe no repositório; template de banco não o substitui. O incremento local de supervisão adotou o serviço nativo. Esta alternativa Compose não foi implementada; fornecedor/cadastro/instalação externos continuam a definir.
 
@@ -142,7 +143,7 @@ Para reconstruir gestão, preservar também `/data/coolify/ssh/keys/`, autoriza�
 - [ ] Gestão restaurada com backup/APP_KEY/chaves em ambiente isolado, sem sobrescrever receptor existente.
 - [ ] Cadeia/PITR, perda de primário de ensaio, recuperação integral e RTO comprovados conforme [matriz](external-provisioning.md).
 
-Este guia não aceita os gates externos. O [supervisor nativo](receiver-supervision.md) foi implementado e ensaiado localmente em 4B; o próximo incremento é a agenda dos jobs finitos. Cadastro e execução remotos ficam para provisionamento; protótipo e decisão comercial continuam independentes.
+Este guia não aceita os gates externos. O [supervisor nativo](receiver-supervision.md) foi implementado e ensaiado localmente em 4B; agenda, transporte/watchdog, proxy/TLS e telemetria primária também têm pacote/prova locais. A próxima etapa operacional é definição/dimensionamento e instalação/aceite isolados em 4C/4D. Cadastro e execução remotos ficam para provisionamento; protótipo e decisão comercial continuam independentes.
 
 ## 10. Verificação deste incremento documental
 

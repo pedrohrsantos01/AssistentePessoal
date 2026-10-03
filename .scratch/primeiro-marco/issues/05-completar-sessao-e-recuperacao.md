@@ -1,7 +1,7 @@
 # 05 — Completar sessão e recuperação antes do uso diário
 
-Status: ready-for-agent
-Blocked by: 04-exercitar-fundacao-sem-ui.md
+Status: in-progress
+Dependência técnica: 04-exercitar-fundacao-sem-ui.md concluída em 26/09/2026; aceite operacional/visual/aparelhos ainda aberto
 
 ## Resultado esperado
 
@@ -245,3 +245,6 @@ Recorte 2 concluído localmente: confirmações protegidas antes da publicação
 02/10/2026: pacote local 4B iniciado pela [imagem da API](../../../api/ops/container-deployment.md), com build/PG18/HTTP e defaults WAL/quarentena verificados. [Checks e limites](../../../docs/analises/2026-10-02-imagem-de-implantacao-da-api.md): app 94/94, API 59 aprovados/1 Android opt-in ignorado, operações 8/8. Supervisão/agenda/transporte/proxy e aceite externo continuam na tarefa de recuperação; isso não aceita M1/UI/distribuição/aparelhos nem inicia a avaliação da Fase 1.
 
 03/10/2026 — proxy/TLS no pacote local 4B: [contrato/ativação](../../../api/ops/proxy-activation.md) e [evidência](../../../docs/analises/2026-10-03-proxy-tls-e-origem-confiavel.md). TLS real, origem confiável e quotas/erros/quarentena foram ensaiados localmente. Continuação operacional: telemetria de disco/slot primário, depois instalação/aceite externo; interface/protótipo/distribuição/aparelhos e e-mail real continuam gates. Tarefa 05/M1 abertos.
+
+
+03/10/2026 — telemetria primária local 4B: [pacote/instalação futura](../../../api/ops/primary-telemetry.md) e [evidência](../../../docs/analises/2026-10-03-telemetria-do-primario.md). Saúde/disco/slot do primário integrados ao detector, com estados/ciclo verificáveis. O escopo atual dos artefatos operacionais locais está concretizado; falta dimensionar/definir/instalar/aceitar o ambiente real. Tarefa 05/M1 continuam abertos: retenção física do feed/tombstones e recuperação de exceções exigem contrato fechado, protótipo/UI, e-mail/deep link real, rota iOS e aceite iPhone/Android seguem pendentes. Esta entrega não inicia a avaliação da Fase 1 completa.

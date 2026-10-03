@@ -73,3 +73,8 @@ sudo python3 /opt/ritmo/schedule.py health --job backup
 ## Transporte e watchdog — continuação local 4B
 
 O [incremento de transporte/detector](probe-transport.md) fornece fetch-probe/fetch-detector e acrescenta job watchdog, com service/timer no receptor B. Monitor C exige saúde do watchdog de B; B verifica detector/ciclo/SMTP usando canal alternativo independente a prover. Evidência, falha latente, deadline, exclusão e ack seguem as mesmas regras nativas. Usar job watchdog/units ritmo-watchdog no procedimento administrativo acima. A [prova local](../../docs/analises/2026-10-03-transporte-privado-do-probe.md) cobre unit real e protocolo, sem aceitar instalação/entrega externas. Próximo incremento local: proxy/TLS/origem confiável.
+
+
+## Coleta primária — continuação local 4B
+
+A unidade monitor atual executa também fetch-primary/monitor --source primary com primary-state.json privado; backup/monitor/watchdog mantêm as mesmas agendas/deadlines. O exportador detector considera o ciclo mais antigo receiver/primary. Seguir [telemetria e instalação coordenada](primary-telemetry.md) antes de atualizar em C; preservar os estados e validar a duração combinada no ensaio externo. [Evidência local](../../docs/analises/2026-10-03-telemetria-do-primario.md); gates 4C/4D continuam abertos.

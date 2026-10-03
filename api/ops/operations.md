@@ -60,7 +60,7 @@ Expurgo online valida segmentos fechados e caudas de timelines ancestrais imutá
 
 ## Continuação externa
 
-O [caderno do recorte 4](external-provisioning.md) especifica inventário, dimensionamento, sequência de instalação e matriz de aceite externo. A preparação não instala supervisor/agenda/TLS/proxy nem confirma capacidade, SMTP, janela real ou RTO. O monitor atual recebe disco do receptor: a saúde do detector/canal possui [watchdog local](probe-transport.md); disco/slot do primário e instalação/entrega reais exigem integração/aceite adicionais. Estado/decisões ficam na [tarefa 04](../../.scratch/recuperacao-operacional/issues/04-validar-operacao-externa.md).
+O [caderno do recorte 4](external-provisioning.md) especifica inventário, dimensionamento, sequência de instalação e matriz de aceite externo. A preparação não instala supervisor/agenda/TLS/proxy nem confirma capacidade, SMTP, janela real ou RTO. O monitor recebe disco do receptor, saúde/canal/disco do detector por [watchdog](probe-transport.md) e saúde/disco/slot do primário por [telemetria privada](primary-telemetry.md). Instalação, capacidade e entrega reais exigem aceite adicional. Estado/decisões ficam na [tarefa 04](../../.scratch/recuperacao-operacional/issues/04-validar-operacao-externa.md).
 
 
 ## Agenda nativa — incremento local 4B
@@ -70,3 +70,8 @@ O [caderno do recorte 4](external-provisioning.md) especifica inventário, dimen
 ## Transporte privado — incremento local 4B
 
 [Contrato, configurações e instalação futura](probe-transport.md): wrappers fetch-probe/fetch-detector fornecidos, conta SSH restrita, comando fixo/sudo exato, pin de host e JSON filtrado. Monitor nativo exige agenda/watchdog; watchdog em B usa monitor --source detector para agenda/ciclo/canal/disco C. Probes/SMTP são finitos e limitados; import não inicia serviços. [Prova local](../../docs/analises/2026-10-03-transporte-privado-do-probe.md). Sem instalação remota ou entrega externa; NOOP não comprova recebimento. Proxy/TLS/origem confiável, telemetria de disco/slot primário e aceite 4C/4D permanecem pendentes.
+
+
+## Primário — continuação local 4B
+
+[Contrato/configurações/runbook](primary-telemetry.md): monitor --source primary coleta PG18/durabilidade/slot e espaço dos filesystems ativos, por SSH privado e login SQL mínimo. Estado primary-state.json separado; ciclo detector é o mais antigo das duas coletas. Preservar alertas desconhecidos em falha SQL e não reparar slot/WAL pelo monitor. [Prova local](../../docs/analises/2026-10-03-telemetria-do-primario.md). Pacote local do escopo atual verificado; capacidade, instalação e aceite externo permanecem na tarefa 04.

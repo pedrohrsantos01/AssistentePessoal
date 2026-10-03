@@ -2,19 +2,19 @@
 
 Contrato local 4B: [REQ-NFR-004](../../specs/07-nao-funcionais-e-lgpd.md), [plano aprovado](../../.scratch/recuperacao-operacional/spec.md) e [agenda](linux-scheduling.md). Sem alteração no protocolo da aplicação ou instalação remota.
 
-A = primário; B = receptor; C = detector independente. C consulta B por OpenSSH; B consulta C para vigiar agenda, execução e canal. Cada direção usa chave exclusiva/conta ritmo-probe/endereço privado fixo. Watchdog em B requer SMTP independente; escolha/provisão desse canal permanece no aceite externo.
+A = primário; B = receptor; C = detector independente. C consulta B e A por OpenSSH; B consulta C para vigiar agenda, execução e canal. Cada direção usa chave exclusiva/conta ritmo-probe/endereço privado fixo. Watchdog em B requer SMTP independente; escolha/provisão desse canal permanece no aceite externo.
 
 Autenticação só por chave, pin de host key conferida por canal administrativo independente. IPv4 RFC1918; loopback somente fixture. Sem DNS, endereço público, TOFU ou endpoint novo na API. Conta /bin/sh, código/configurações/ancestors protegidos por root. ForceCommand fixo, chave restrict/from, sem PTY, user rc ou forwarding; PermitUserEnvironment global no. Wrapper aceita exclusivamente ritmo-probe-v1, limpa ambiente e usa sudo para programa/argumentos exatos, sem Python genérico/wildcard.
 
-JSON UTF-8 até 256 KiB: version 1, kind receiver/detector, at UTC. Cliente rejeita campos extras, tipos/instantes inválidos e papel diferente. Receiver: primary/receiver/catalogValid booleanos, physical/logical UTC|null, failures/incomplete até três registros kind physical/logical/drill e at UTC, storagePercent 0..100, schedule/watchdog available/failed booleanos. Detector: checked UTC|null, schedule do monitor, smtp booleano, storagePercent. Somente metadados, sem dumps, usuários, credenciais ou erros de subprocessos. SMTP true = STARTTLS/certificado/auth configurada/NOOP; não comprova caixa postal.
+JSON UTF-8 até 256 KiB: version 1, kind receiver/detector/primary, at UTC. Cliente rejeita campos extras, tipos/instantes inválidos e papel diferente. Receiver: primary/receiver/catalogValid booleanos, physical/logical UTC|null, failures/incomplete até três registros kind physical/logical/drill e at UTC, storagePercent 0..100, schedule/watchdog available/failed booleanos. Detector: checked UTC|null (o mais antigo dos estados receiver/primary), schedule do monitor, smtp booleano, storagePercent. Primary: saúde/durabilidade PG18, slot/retainedBytes e disco data/wal conforme [contrato](primary-telemetry.md). Somente metadados, sem dumps, usuários, credenciais ou erros de subprocessos. SMTP true = STARTTLS/certificado/auth configurada/NOOP; não comprova caixa postal.
 
 Deadline cliente 1..10 s (padrão 10), uma tentativa, sem interação/agent/config pessoal, limite de saída e encerramento do grupo em timeout/overflow. Exportador worker fixo limitado a 8 s/256 KiB. Nenhum comando remoto arbitrário. Import não inicia processos/timers.
 
 Intervalo 60 s; indisponibilidade exige duas coletas; falha nativa imediata. Probe ausente/inválido/velho não resolve incidentes. Watchdog: detector-host, agenda-monitor, detector-cycle (checked ausente ou >120 s), smtp-channel, job-monitor e disco 80/90%. C verifica também agenda/falha do watchdog de B. Estado privado/fsync, dedupe e abertura/escalada/resolução existentes; envio recusado não é reconhecido. Message-ID estável não promete exactly-once. Falha simultânea de B/C ou dos dois canais exige vigilância externa.
 
-Configurações root:root 0600 em /etc/ritmo 0700. Clientes probe-client.json (C) e detector-client.json (B): host, port, keyFile, knownHostsFile, kind, timeout opcional. Exportador probe-export.json: somente kind. Receiver usa receiver.json/physical.json e raiz do receiver; detector /srv/ritmo-monitor/state.json e smtp.json. Watchdog usa watchdog-smtp.json independente. Arquivos de segredos via cofre, sem valores reais no Git.
+Configurações root:root 0600 em /etc/ritmo 0700. Clientes probe-client.json (C) e detector-client.json (B): host, port, keyFile, knownHostsFile, kind, timeout opcional. Exportador probe-export.json: somente kind. Receiver usa receiver.json/physical.json e raiz do receiver; detector /srv/ritmo-monitor/state.json, primary-state.json e smtp.json. Primary usa primary.json/primary-env.json em A e primary-client.json em C, com chave/pin exclusivos C→A. Watchdog usa watchdog-smtp.json independente. Arquivos de segredos via cofre, sem valores reais no Git.
 
-Instalação futura: código protegido /opt/ritmo, wrappers 0755; visudo -cf, sshd -t/-T, systemd-analyze verify antes de reload, manter sessão administrativa. Rede privada/firewall, independência, SMTP entregue, capacidade/slot/disco primário, PITR/RTO e contratação continuam gates externos.
+Instalação futura: código protegido /opt/ritmo, wrappers 0755; visudo -cf, sshd -t/-T, systemd-analyze verify antes de reload, manter sessão administrativa. Rede privada/firewall, independência, SMTP entregue, capacidade/slot/disco primário reais, PITR/RTO e contratação continuam gates externos.
 
 Fontes: [sshd_config](https://man.openbsd.org/sshd_config.5), [authorized_keys](https://man.openbsd.org/sshd.8), [ssh_config](https://man.openbsd.org/ssh_config.5), [SMTP/STARTTLS](https://docs.python.org/3.11/library/smtplib.html).
 
@@ -39,3 +39,8 @@ Para inspeção/pausa/ack do watchdog, usar o mesmo [procedimento de agenda](lin
 [Prova local e limites](../../docs/analises/2026-10-03-transporte-privado-do-probe.md). O Ubuntu local validou sintaxe de units/cliente SSH/sudoers; sshd real foi exercitado na fixture Debian, não instalado no WSL. Conferir versão/configuração efetivas no Ubuntu remoto durante 4C.
 
 A restrição de argumentos segue o [manual oficial sudoers](https://github.com/sudo-project/sudo/blob/main/docs/sudoers.man.in): ausência de argumentos na regra concede argumentos livres; a regra fornecida declara o caminho exato do exportador. Não adicionar wildcard.
+
+
+## Coleta primária — continuação local 4B
+
+[Telemetria/runbook](primary-telemetry.md) acrescenta fetch-primary, role operacional mínima e configuração do volume/cluster em A. C executa receiver/primary no mesmo job, em estados separados; o watchdog usa o ciclo mais antigo. Atualizar exporter/scripts/unidade juntos e preservar estado existente. [Prova local](../../docs/analises/2026-10-03-telemetria-do-primario.md); instalação e aceite de rede/SMTP/capacidade externos permanecem em 4C/4D.

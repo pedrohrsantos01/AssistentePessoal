@@ -95,9 +95,19 @@ class TransportTests(unittest.TestCase):
         write_json(self.config,self.values,replace=True)
         write_json(Path("/srv/ritmo-monitor/state.json"),{"version":1,"checked":datetime.now(timezone.utc).isoformat(),
             "reported":{},"consecutive":{}},replace=True)
+        write_json(Path("/srv/ritmo-monitor/primary-state.json"),{"version":1,"checked":datetime.now(timezone.utc).isoformat(),"reported":{},"consecutive":{}},replace=True)
         self.primary.healthy=True;self.primary.refuse=False;self.primary.tls_enabled=True
         self.alternate.refuse=False
         run("systemctl","start","ritmo-monitor.timer")
+
+    def test_missing_primary_collection_prevents_a_healthy_detector_cycle(self):
+        path=Path("/srv/ritmo-monitor/primary-state.json")
+        write_json(path,{"version":1,"checked":(datetime.now(timezone.utc)-timedelta(seconds=180)).isoformat(),
+            "reported":{},"consecutive":{}},replace=True)
+        report=fetch(self.config)
+        self.assertGreater((datetime.now(timezone.utc)-datetime.fromisoformat(report["checked"])).total_seconds(),170)
+        path.unlink()
+        self.assertIsNone(fetch(self.config)["checked"])
 
     def test_authorized_key_fetches_only_detector_metadata(self):
         report=fetch(self.config)
@@ -213,21 +223,26 @@ class TransportTests(unittest.TestCase):
         def fresh():
             run("systemctl","start","ritmo-monitor.service")
             return fetch(self.config)
+        def check(instance):
+            # Native collection can exceed the accelerated one-second test interval.
+            # Sample the clock after transport; keep real SSH/SMTP and production limits.
+            report=fresh()
+            instance.check(datetime.now(timezone.utc),lambda:report)
         monitor=Monitor(state,SmtpEmail(self.other),interval=1,source="detector")
-        monitor.check(datetime.now(timezone.utc),fresh)
+        check(monitor)
         time.sleep(1.1)
-        monitor.check(datetime.now(timezone.utc),fresh)
+        check(monitor)
         subjects=[str(m["Subject"]) for m in self.alternate.messages[sent_before:]]
         self.assertIn("Ritmo: smtp-channel / 2",subjects)
         self.assertIn("condition=smtp-channel\n",str(self.alternate.messages[-1].get_content()).replace("\r\n","\n"))
         count=len(self.alternate.messages)
-        time.sleep(1.1);Monitor(state,SmtpEmail(self.other),interval=1,source="detector").check(datetime.now(timezone.utc),fresh)
+        time.sleep(1.1);check(Monitor(state,SmtpEmail(self.other),interval=1,source="detector"))
         self.assertEqual(len(self.alternate.messages),count)
         self.primary.healthy=True;self.alternate.refuse=True
         time.sleep(1.1)
-        with self.assertRaises(OSError): monitor.check(datetime.now(timezone.utc),fresh)
+        with self.assertRaises(OSError): check(monitor)
         self.alternate.refuse=False
-        time.sleep(1.1);monitor.check(datetime.now(timezone.utc),fresh)
+        time.sleep(1.1);check(monitor)
         self.assertIn("Ritmo: smtp-channel / 0",[str(m["Subject"]) for m in self.alternate.messages])
         # Native watchdog command uses the production service, wrappers and schedule evidence.
         run("systemctl","start","ritmo-watchdog.timer");run("systemctl","start","ritmo-watchdog.service")

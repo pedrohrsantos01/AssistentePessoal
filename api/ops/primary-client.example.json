@@ -1,0 +1,8 @@
+{
+  "host": "10.80.0.1",
+  "port": 22,
+  "keyFile": "/etc/ritmo/primary-key",
+  "knownHostsFile": "/etc/ritmo/primary-known_hosts",
+  "kind": "primary",
+  "timeout": 10
+}

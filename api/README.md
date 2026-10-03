@@ -85,3 +85,8 @@ O recorte 2 acrescenta barreira de publicação opt-in com `RITMO_REQUIRE_WAL=tr
 ## Imagem de implantação local
 
 [Contrato e comandos](ops/container-deployment.md), [Dockerfile](Dockerfile) e [exemplo de ambiente sem segredos](deploy/.env.example). O contexto de build é a raiz do repositório, com wrapper/lockfile, fontes, migrations e OpenAPI. Java 21 JDK compila; JRE executa como UID/GID 10001. A imagem exige WAL e inicia em quarentena por padrão. ContainerPackagingTests constrói o artefato e o verifica por HTTP com PG18 descartável; incluído em check. Instalação, supervisão/agenda/transporte/proxy e aceite externo seguem na [tarefa 04](../.scratch/recuperacao-operacional/issues/04-validar-operacao-externa.md).
+
+
+## Telemetria primária — continuação local 4B
+
+[Contrato/runbook e exemplos](ops/primary-telemetry.md): probe privado de PG18/durabilidade/slot/retainedBytes e disco dados/WAL, role mínima/read-only, identidade do cluster e volume; fonte primary no monitor e ciclo mais antigo no watchdog. [Evidência local](../docs/analises/2026-10-03-telemetria-do-primario.md). Artefatos operacionais locais verificados no escopo atual; instalação, capacidade e aceite externo seguem abertos, assim como M1/UI/aparelhos.

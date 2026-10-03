@@ -43,6 +43,10 @@ Alertas por e-mail com detector fora da VPS primária: probes 60 s/duas falhas c
 
 A [imagem local da API](../api/ops/container-deployment.md) concretiza a primeira parte de 4B: build na raiz com contrato/migrations, Java 21 fixado, execução sem privilégios e WAL/quarentena ativos por padrão. [Prova por Docker/PG/HTTP e checks completos](../docs/analises/2026-10-02-imagem-de-implantacao-da-api.md). Os pacotes de supervisão e agenda nativas têm provas locais; transporte privado/detector têm [prova local](../docs/analises/2026-10-03-transporte-privado-do-probe.md); proxy/TLS têm [pacote e prova local](../docs/analises/2026-10-03-proxy-tls-e-origem-confiavel.md); todas as provas externas continuam pendentes. Esses incrementos não aceitam REQ-NFR-004 externo nem M1.
 
+### Evidência operacional complementar — 03/10/2026
+
+A [telemetria privada do primário](../api/ops/primary-telemetry.md) concretiza localmente saúde PG18/configuração síncrona/slot físico e ocupação dos filesystems dados/WAL. C consulta A por SSH restrito com chave/pin próprios e SQL operacional mínimo; não remove/avança slot nem emite WAL. Estados desconhecidos não resolvem alertas. Q42 mantém 60 s/duas coletas e disco 80/90%; retainedBytes não introduz quota/limite novo. O detector acompanha o ciclo mais antigo das coletas receptor/primário. [Prova local e limites](../docs/analises/2026-10-03-telemetria-do-primario.md). Escopo atual do pacote local 4B verificado; capacidade/instalação/alertas/independência/RPO/RTO reais permanecem gates de 4A/4C/4D.
+
 ## 3. Observabilidade
 
 - **Sentry** para crash e erro, com breadcrumb das últimas ações e **sem PII** no payload

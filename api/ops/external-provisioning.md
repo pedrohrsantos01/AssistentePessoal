@@ -41,7 +41,7 @@ Registrar identificadores operacionais não sensíveis; credenciais, chaves, des
 | Cliente → proxy Coolify → única API | HTTPS/TLS e HSTS; API inacessível diretamente pela internet; só o proxy observado pode fornecer identidade encaminhada |
 | API/Flyway → PostgreSQL primário | Rede privada do primário; logins distintos de domínio, identidade e migrations; uma URL de cluster comum |
 | Receptor → PostgreSQL primário | Rede privada entre hosts, TLS verify-full e CA confiável; login operacional dedicado, HBA restrito, WAL síncrono e captura da base/dump |
-| Detector → receptor | Transporte autenticado e restrito; programa finito devolve só JSON do probe; timeout e host key/certificado conferidos |
+| Detector → receptor e primário | SSH autenticado/restrito com chave e pin exclusivos por direção; programa finito devolve só JSON do papel correto; timeout e identidade conferidos |
 | Detector → SMTP | STARTTLS e validação do certificado; credencial privada; mensagens apenas com códigos operacionais |
 | Operador → hosts/cofre/provedores | Gestão restrita e recuperável; operador consegue parar/inibir receiver e isolar clientes antes de congelar arquivos |
 | Verificador independente → detector | Watchdog nativo em B consulta C por SSH restrito e usa SMTP alternativo independente; validar canal/independência/recebimento reais conforme [contrato](probe-transport.md) |
@@ -67,7 +67,7 @@ bases físicas publicadas retidas (âncora + posteriores)
 
 A rotina conserva bases completas diárias: orçamento de uma única cópia do banco é insuficiente. Usar o catálogo para contar os pacotes retidos; a âncora pode preceder 30 dias e execuções falhas/órfãs não são limpas automaticamente. Reservar espaço antes de congelar base e WAL, pois a cópia não é um hardlink para a fonte mutável. Dimensionar para permanecer abaixo do aviso de 80% no uso normal e registrar a hipótese de crescimento; não apagar a cadeia para caber numa quota. A política de expurgo está em [operations.md](operations.md).
 
-No primário, medir também o WAL retido pelo slot quando o receptor fica indisponível. Definir monitoramento de disco/slot e procedimento de intervenção; remover/invalidar o slot ou baixar o sincronismo para liberar espaço não é uma recuperação que preserve Q33. O probe atual mede disco do receptor, não disco do primário.
+No primário, medir também o WAL retido pelo slot quando o receptor fica indisponível. Definir monitoramento de disco/slot e procedimento de intervenção; remover/invalidar o slot ou baixar o sincronismo para liberar espaço não é uma recuperação que preserve Q33. O [probe primário](primary-telemetry.md) mede disco de dados/WAL e retenção potencial do slot; caminho ativo, capacidade e evolução reais ainda exigem inventário/ensaio externo.
 
 | Parcela da proposta | O que incluir |
 |---|---|
@@ -83,7 +83,7 @@ Q45 solicitou uma recomendação; preços/data/fontes e condições comerciais e
 
 Instalação Linux; Python 3.11+ com IANA tzdata, clientes PostgreSQL 18 e coreutils. PostgreSQL do mesmo formato/arquitetura usado pela base; segmentos WAL de 16 MiB e sem tablespaces adicionais. Registrar versões/digests verificados e commit da aplicação; não usar tag latest. A [pesquisa de referências](../../docs/analises/2026-10-02-referencias-provisionamento-externo.md) orienta o pacote 4B e não substitui ensaio.
 
-O pacote local começa pela [imagem da API](container-deployment.md): contexto na raiz, cópias explícitas e exclusão de segredos/bancos/builds locais. Inclui contracts/primeiro-marco/openapi.json, consumido por processResources a partir de ../contracts, e migrations. A imagem é ensaiada com PG real e HTTP. Checks completos fora do build continuam obrigatórios. A configuração externa de rede/proxy/supervisão/agenda/transporte continua pendente; a imagem não os substitui.
+O pacote local começa pela [imagem da API](container-deployment.md): contexto na raiz, cópias explícitas e exclusão de segredos/bancos/builds locais. Inclui contracts/primeiro-marco/openapi.json, consumido por processResources a partir de ../contracts, e migrations. A imagem é ensaiada com PG real e HTTP. Checks completos fora do build continuam obrigatórios. Rede/proxy/supervisão/agenda/transporte e telemetria têm pacotes/provas locais; a instalação externa continua pendente e a imagem não a substitui.
 
 | Componente | Condições antes de seguir |
 |---|---|
@@ -94,12 +94,12 @@ O pacote local começa pela [imagem da API](container-deployment.md): contexto n
 | Proxy/IP | Política explícita para os peers observados, remoção/tratamento de cabeçalhos forjados e impossibilidade de acesso direto; validar quotas por clientes distintos |
 | Receptor | Usuário/diretórios privados, pg_receivewal --synchronous, identidade de processo verificada, restart supervisionado e procedimento verificável de parada/inibição |
 | Jobs | tick pelo menos a cada minuto para 03:00 America/Sao_Paulo; lock e eventos persistidos, falha detectável; backup explícito para repetição incerta; expurgo revisado antes de --apply |
-| Probe/monitor | JSON operacional restrito, relógios corretos, timeout, Q42 e estado persistente no detector; testar atraso/ausência de agenda e perda de hosts |
+| Probe/monitor | JSON restrito por papel, chaves/pins próprios, relógios corretos, Q42 e estados persistentes receiver/primary no detector; provar agenda/ciclo/hosts/SMTP e mounts/UID/identidade ativos de dados/WAL |
 | Cofre/SMTP | libpq JSON/PGPASSFILE e SMTP JSON privados; nomes/referências em docs, valores pelo cofre; confirmar restauração do acesso e recebimento de alertas |
 
 Os nomes reais de variáveis da API estão em [application.properties](../src/main/resources/application.properties); os jobs usam [operations.md](operations.md). Não misturar secrets de build com secrets de runtime. Os grupos/ACLs, arquivos de configuração e rotinas de custódia devem ser reconstruíveis além do dump.
 
-A configuração atual ignora cabeçalhos encaminhados (server.forward-headers-strategy=none). Ainda não há allowlist configurada/ensaiada do proxy. Não trocar por confiança irrestrita: atrás do proxy a política atual agrega clientes, e o uso de IP arbitrário permite contornar quotas. A solução 4B depende da rede e da versão de Coolify/Tomcat confirmadas.
+A configuração mantém server.forward-headers-strategy=none e uma [fronteira própria de origem](proxy-tls.md) com allowlist exata, default sem confiança e prova local TLS/quotas. Preencher peers observados e provar sanitização/bypass no Coolify conforme [ativação](proxy-activation.md); o pacote não descobre a rede nem aceita o proxy real por inferência.
 
 O receiver-state é um executável operacional que devolve exatamente running ou stopped depois de verificar unidade/processo e comando correto. Um PID ou arquivo booleano isolado não basta. Freeze exige parada efetiva e restart inibido durante a cópia, além de quarentena real de clientes. A flag não faz isolamento por conta própria.
 
@@ -134,7 +134,7 @@ Cada linha requer data, configuração/commit, executor, resultado e referência
 | Reconstrução integral/RTO | Perda do primário de ensaio, novo host/PGDATA, cauda/timeline derivadas no receptor sem consultar a origem; credenciais antigas inválidas, login novo e dados/SQLite corretos; duração total <=24h |
 | Mensal/major | Agenda/responsável para repetir o ensaio integral mensal e por major; prova local do job drill não renova aceite externo por si só |
 
-O monitor atual não verifica saúde da própria máquina/canal nem espaço do PG primário. Essas integrações são entregas de 4B/4C e exigem provas próprias; não marcar esses itens como atendidos pela existência de operations.py. A duração da base, do expurgo e do fetch deve ser compatível com a cadência dos jobs e com os timeouts medidos.
+O [watchdog do detector](probe-transport.md) e a [telemetria do primário](primary-telemetry.md) têm integrações/provas locais. Ainda faltam instalação e ensaios de perda/entrega/capacidade reais; não marcar esses gates externos como atendidos pela existência dos scripts. A duração da base, do expurgo e do fetch deve ser compatível com a cadência dos jobs e com os timeouts medidos.
 
 Na instalação nova, medir o histórico disponível e ensaiar o intervalo já coberto. A janela de 30 dias é um gate progressivo; não inventar histórico nem fechar a linha por ter configurado retenção=30.
 
@@ -186,3 +186,6 @@ Recomendação documental: manter acesso administrativo independente e supervis�
 03/10/2026 — transporte/detector local 4B: [pacote/runbook](probe-transport.md), [evidência](../../docs/analises/2026-10-03-transporte-privado-do-probe.md). Acrescentar ao inventário chaves exclusivas por direção, host pins conferidos, arquivos protegidos e SMTP alternativo independente do Resend principal; provedor/quota/entrega/custódia ainda a definir e aceitar. Watchdog de B verifica C; C exige saúde do watchdog de B. Instalar/validar ambos no ensaio isolado; não duplicar no Coolify. Sintaxe Ubuntu local e fixture Linux não aceitam rede/firewall/sshd/TLS/SMTP reais nem RTO. Próximo incremento local: proxy/TLS/origem confiável; disco/slot primário e demais gates continuam abertos.
 
 03/10/2026 — proxy/TLS local 4B: [fronteira de confiança](proxy-tls.md), [fragmentos e aplicação futura no Coolify](proxy-activation.md), [prova local](../../docs/analises/2026-10-03-proxy-tls-e-origem-confiavel.md). Acrescentar ao inventário rede exclusiva, peer TCP observado, allowlist exata, sanitização de headers e certificado/resolver/rotas reais. API/PG não publicam portas; configuração inválida falha no startup; HSTS vale nos erros. Preservar rotas/mounts/entrypoints do painel ao integrar os exemplos. Próximo incremento local: telemetria privada de disco/slot do primário e impacto da retenção WAL. Domínio/DNS/ACME, latência/WAL, independência/canais reais, janela e RTO continuam no aceite; 4B/4C/4D abertos.
+
+
+03/10/2026 — telemetria primária local 4B: [contrato e instalação futura](primary-telemetry.md), [prova local](../../docs/analises/2026-10-03-telemetria-do-primario.md). Inventariar mounts/UID/binários PG18/identidade SQL e configurar chave/pin C→A próprios; monitor reúne coletas com estados privados separados e watchdog usa o ciclo mais antigo. O escopo atual do pacote local reúne imagem, supervisão, agenda, transporte/detector, proxy/TLS e telemetria. Continuação operacional: dimensionar/fechar 4A, instalar isoladamente em 4C e aceitar 4D, incluindo SMTP alternativo e perda/RPO/RTO reais. Nenhuma VPS foi acessada/configurada; tarefa 04/M1 permanecem abertos.
