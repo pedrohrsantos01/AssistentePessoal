@@ -63,7 +63,7 @@ A mudança de política vale na próxima requisição, sem reiniciar a API. Um b
 
 ## Limites de requisição
 
-Bucket4j aplica as quotas Q32 por peer TCP, endpoint anônimo e conta do JWT validado, com 429/Retry-After e armazenamento local limitado. [Configuração e alcance](ops/rate-limits.md); [testes e pendências](../docs/analises/2026-09-30-rate-limiting.md). Proxy confiável e validação da exposição via Coolify seguem no recorte operacional.
+Bucket4j aplica as quotas Q32 por origem confiável, endpoint anônimo e conta do JWT validado, com 429/Retry-After e armazenamento local limitado. O padrão usa o peer TCP; allowlist exata permite XFF sanitizado por um único proxy. [Configuração e alcance](ops/rate-limits.md), [proxy/TLS e ativação](ops/proxy-activation.md) e [prova local](../docs/analises/2026-10-03-proxy-tls-e-origem-confiavel.md). A exposição real via Coolify permanece no aceite externo.
 
 
 ## Backup e restauração

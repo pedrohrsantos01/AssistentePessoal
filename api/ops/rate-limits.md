@@ -31,9 +31,9 @@ O campo opcional `error.retryAfterSeconds` continua compatível com m1.1: inteir
 
 ## Proxy e reinício
 
-`server.forward-headers-strategy=none` mantém a identidade do peer TCP. `Forwarded` e `X-Forwarded-For` enviados pelo cliente são ignorados. Não ativar confiança genérica em cabeçalhos para obter o IP externo.
+`server.forward-headers-strategy=none` conserva o peer TCP. Por padrão, cabeçalhos de origem são ignorados. A lista RITMO_TRUSTED_PROXY_PEERS aceita somente IPs literais exatos; apenas desses peers a quota usa um XFF único e válido, normalizado. Ambiguidade ou erro voltam ao orçamento do peer. Não ativar confiança genérica em cabeçalhos.
 
-Antes da exposição via Coolify, configurar e testar os peers/proxies confiáveis e a impossibilidade de acesso direto que contorne essa política. Esse provisionamento permanece pendente. Atrás de um proxy sem essa configuração, o limite por IP agrega os clientes daquele proxy. A validação deste incremento cobre HTTP de loopback, sem proxy real/TLS.
+O [pacote proxy/TLS](proxy-tls.md) e a [ativação no Coolify](proxy-activation.md) concretizam sanitização na borda e allowlist privada. A [prova local](../../docs/analises/2026-10-03-proxy-tls-e-origem-confiavel.md) atravessa TLS/Traefik/API reais; instalação externa, peer observado, firewall e ausência de bypass público continuam gates obrigatórios. Atrás de um proxy sem allowlist, o limite por IP agrega seus clientes.
 
 Reiniciar a API esvazia os buckets e restaura a capacidade inicial. Não há quota persistente ou distribuída; múltiplas réplicas não compartilham orçamento. Não registrar IP, senha, credenciais ou payload de recuperação/sync em logs. Os testes usam identidades fictícias, PostgreSQL/SMTP descartáveis e relógio monotônico externo controlado; a API de produção não expõe uma rota de teste.
 

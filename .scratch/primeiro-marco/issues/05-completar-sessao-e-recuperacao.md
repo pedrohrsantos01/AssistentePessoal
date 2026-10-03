@@ -243,3 +243,5 @@ Recorte 2 concluído localmente: confirmações protegidas antes da publicação
 
 
 02/10/2026: pacote local 4B iniciado pela [imagem da API](../../../api/ops/container-deployment.md), com build/PG18/HTTP e defaults WAL/quarentena verificados. [Checks e limites](../../../docs/analises/2026-10-02-imagem-de-implantacao-da-api.md): app 94/94, API 59 aprovados/1 Android opt-in ignorado, operações 8/8. Supervisão/agenda/transporte/proxy e aceite externo continuam na tarefa de recuperação; isso não aceita M1/UI/distribuição/aparelhos nem inicia a avaliação da Fase 1.
+
+03/10/2026 — proxy/TLS no pacote local 4B: [contrato/ativação](../../../api/ops/proxy-activation.md) e [evidência](../../../docs/analises/2026-10-03-proxy-tls-e-origem-confiavel.md). TLS real, origem confiável e quotas/erros/quarentena foram ensaiados localmente. Continuação operacional: telemetria de disco/slot primário, depois instalação/aceite externo; interface/protótipo/distribuição/aparelhos e e-mail real continuam gates. Tarefa 05/M1 abertos.

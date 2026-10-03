@@ -1,0 +1,48 @@
+# Fictitious hostname/backend. Certificate paths are for the local fixture only.
+# Production: retain Coolify's existing ACME resolver/certificate management.
+http:
+  routers:
+    ritmo-http:
+      rule: "Host(`api.example.test`)"
+      entryPoints: [web]
+      middlewares: [ritmo-https]
+      service: ritmo-api
+    ritmo-api:
+      rule: "Host(`api.example.test`)"
+      entryPoints: [websecure]
+      middlewares: [ritmo-security]
+      service: ritmo-api
+      tls:
+        options: ritmo@file
+  services:
+    ritmo-api:
+      loadBalancer:
+        serversTransport: ritmo
+        servers:
+          - url: "http://ritmo-api:8080"
+  serversTransports:
+    ritmo:
+      forwardingTimeouts:
+        dialTimeout: 5s
+        responseHeaderTimeout: 25s
+        idleConnTimeout: 60s
+  middlewares:
+    ritmo-https:
+      redirectScheme:
+        scheme: https
+        permanent: true
+    ritmo-security:
+      headers:
+        stsSeconds: 31536000
+        stsIncludeSubdomains: false
+        stsPreload: false
+        customRequestHeaders:
+          Forwarded: ""
+          X-Real-IP: ""
+tls:
+  options:
+    ritmo:
+      minVersion: VersionTLS12
+  certificates:
+    - certFile: /etc/traefik/certs/ritmo.crt
+      keyFile: /etc/traefik/certs/ritmo.key

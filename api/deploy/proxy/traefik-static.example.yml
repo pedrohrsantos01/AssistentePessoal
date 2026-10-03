@@ -1,0 +1,29 @@
+# Reference fragment; do not replace the shared Coolify proxy configuration.
+entryPoints:
+  web:
+    address: ":80"
+    forwardedHeaders:
+      insecure: false
+      trustedIPs: []
+    transport:
+      respondingTimeouts:
+        readTimeout: 30s
+        writeTimeout: 35s
+        idleTimeout: 60s
+  websecure:
+    address: ":443"
+    forwardedHeaders:
+      insecure: false
+      trustedIPs: []
+    transport:
+      respondingTimeouts:
+        readTimeout: 30s
+        writeTimeout: 35s
+        idleTimeout: 60s
+providers:
+  file:
+    filename: /etc/traefik/dynamic/ritmo.yml
+    watch: true
+log:
+  level: ERROR
+# No access log, dashboard, Docker socket, PROXY protocol or external trusted proxy.
