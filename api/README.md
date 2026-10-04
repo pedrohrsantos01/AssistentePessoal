@@ -90,3 +90,7 @@ O recorte 2 acrescenta barreira de publicação opt-in com `RITMO_REQUIRE_WAL=tr
 ## Telemetria primária — continuação local 4B
 
 [Contrato/runbook e exemplos](ops/primary-telemetry.md): probe privado de PG18/durabilidade/slot/retainedBytes e disco dados/WAL, role mínima/read-only, identidade do cluster e volume; fonte primary no monitor e ciclo mais antigo no watchdog. [Evidência local](../docs/analises/2026-10-03-telemetria-do-primario.md). Artefatos operacionais locais verificados no escopo atual; instalação, capacidade e aceite externo seguem abertos, assim como M1/UI/aparelhos.
+
+## Retenção física do feed
+
+[Runbook e configuração](ops/sync-retention.md), [modelo V5](../specs/00-modelo-de-dados.md#1211-retenção-física-do-feed--04102026) e [prova local](../docs/analises/2026-10-04-retencao-fisica-do-feed.md). Worker diário por conta remove prefixo de envelopes com mais de 90 × 24 horas e snapshots expirados em lotes; progresso e limite são persistidos. Cursor abaixo do limite removido exige ressincronização, mantendo o protocolo m1.1. Quarentena pausa o job. Recibos, hashes, IDs excluídos e dados técnicos de domínio permanecem. Instalação e aceite externo continuam abertos.

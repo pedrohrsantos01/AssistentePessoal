@@ -357,3 +357,11 @@ A API mantém o soft delete e consulta também `sync_deleted_ids` antes de criar
 ### 12.10 Estado operacional de WAL — 02/10/2026
 
 Flyway V4 acrescenta `ritmo_wal_status(target pg_lsn) RETURNS jsonb`, função operacional sem tabela/campo de produto. Retorna `{position, durable}` para a barreira de publicação do spec/13 §20; posição é metadado do cluster, não cursor de conta. SECURITY DEFINER, search_path pg_catalog, sem SQL dinâmico; PUBLIC sem EXECUTE, ritmo_domain com EXECUTE. Dono de migrations precisa de visibilidade das estatísticas de replicação; runtime não recebe pg_read_all_stats nem REPLICATION. A função pode emitir um marcador operacional vazio/não transacional no WAL com flush local; nenhum acesso a tabelas de domínio/identidade ocorre nela. Configuração e arquivo físico de WAL não são dados sincronizados nem dispensam RLS nas consultas de negócio.
+
+### 12.11 Retenção física do feed — 04/10/2026
+
+Flyway V5 acrescenta em sync_account_state: feed_compacted_through BIGINT NOT NULL DEFAULT 0, com 0 ≤ limite ≤ last_revision; retention_next_at TIMESTAMPTZ NOT NULL DEFAULT '-infinity'; retention_completed_at TIMESTAMPTZ NULL. RLS/FORCE e grants existentes continuam válidos. Migration não remove o feed existente; o cleaner atualiza o limite junto ao prefixo removido. Não muda época, mensagens m1.1 ou schema SQLite.
+
+ritmo_expire_sync(p_user UUID,p_now TIMESTAMPTZ,p_next TIMESTAMPTZ,p_limit INTEGER) RETURNS JSONB é SECURITY INVOKER, search_path pg_catalog, sem SQL dinâmico; PUBLIC sem EXECUTE, ritmo_domain com EXECUTE. Exige p_user igual a app.user_id e usa filtro explícito em todas as tabelas de domínio. Trava a linha da conta; processa apenas prefixo contíguo elegível e respeita H de snapshots válidos. Remove itens de cópias expiradas em lotes limitados; só remove manifestos vazios, sem cascata grande. Índice snapshots_account_expiry(user_id,expires_at,id) delimita a busca por conta. Identity enumera somente IDs com seu login existente; nenhum privilégio runtime novo sobre dados pessoais.
+
+Agenda diária por conta e limites: [runbook](../api/ops/sync-retention.md). Falha não publica limite; batches incompletos permanecem devidos. Estado canônico, recibos, hashes, IDs excluídos, fatos/contextos, XP e orçamento não são objetos do expurgo.

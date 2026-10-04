@@ -1,6 +1,6 @@
 # 01 — Expurgar feed e snapshots com retomada segura e execução diária
 
-Status: needs-info
+Status: ready-for-agent
 Blocked by: none
 
 ## Resultado esperado
@@ -9,7 +9,7 @@ Implementar o [plano consolidado](../spec.md) de Q49/Q50 como uma entrega vertic
 
 ## Pré-requisito de execução
 
-As decisões Q49/Q50 estão aprovadas. Falta somente Pedro confirmar o entendimento do plano consolidado, conforme a skill grilling. Atualizar para ready-for-agent após essa confirmação; não tratar os checks da baseline como evidência de implementação.
+Pedro confirmou o entendimento do plano consolidado com “sim” em 04/10/2026. Escopo local e fronteiras HTTP/cliente, PostgreSQL/SQLite, relógio/processo/rotina operacional confirmados. Não tratar os checks da baseline como evidência de implementação.
 
 ## Escopo e critérios de aceite
 
@@ -26,8 +26,10 @@ As decisões Q49/Q50 estão aprovadas. Falta somente Pedro confirmar o entendime
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim — implementação e aceites locais verificados em 04/10/2026. M1 e instalação/aceite externo não fazem parte deste encerramento.
 
 ## Comments
 
 04/10/2026 — Q49=A e Q50=A aprovadas por Pedro. Investigação de contratos/código concluída; plano preparado para confirmação de entendimento. Não há implementação ou migration de retenção neste registro. M1 continua aberto.
+
+04/10/2026 — Pedro confirmou com “sim”. Entrega local concluída: V5/modelo, rotina diária limitada, cursor seguro, snapshots e retomada. App typecheck/lint/94 testes, API check (83 aprovados/um Android opt-in ignorado), 13 testes operacionais e contratos aprovados. Links/UTF-8 e diff revisados. [Relatório](../../../docs/analises/2026-10-04-retencao-fisica-do-feed.md). M1, UI/aparelhos e instalação externa continuam abertos.

@@ -1,7 +1,7 @@
-# Retenção física do feed — plano para confirmação
+# Retenção física do feed — plano confirmado e implementação
 
 Data: 04/10/2026.
-Estado: **Q49/Q50 aprovadas; entendimento do plano consolidado aguardando confirmação; implementação não iniciada**.
+Estado: **entendimento confirmado por Pedro em 04/10/2026; implementação local concluída e verificada**.
 Origem: [entrevista Q49/Q50](../fundacao/entrevista.md).
 Contratos: [sync](../../specs/06-sincronizacao.md), [primeiro marco](../../specs/13-contrato-primeiro-marco.md), [mensagens m1.1](../../contracts/primeiro-marco/README.md) e [modelo de dados](../../specs/00-modelo-de-dados.md).
 Vínculo: [tarefa 05 do M1](../primeiro-marco/issues/05-completar-sessao-e-recuperacao.md).
@@ -13,7 +13,7 @@ Vínculo: [tarefa 05 do M1](../primeiro-marco/issues/05-completar-sessao-e-recup
 - Mantêm-se as garantias existentes: snapshot de 15 minutos, reserva do feed após H enquanto válido, pendências sem expiração automática e recibos/hash de lotes/IDs excluídos enquanto a conta existir.
 - A janela se aplica ao transporte do feed. Estado canônico, fatos/contextos necessários à reconciliação, histórico técnico de XP e orçamentos não serão apagados neste recorte.
 
-## Diagnóstico verificado no checkout
+## Diagnóstico na abertura do recorte
 
 `Sync.pullCursor` renova a data de emissão a cada resposta. `Sync.pull` verifica idade e época, mas não compara a revisão pedida com um limite de expurgo. Um cursor recente pode apontar para revisões antigas. Remover essas revisões sem a nova proteção permitiria avançar silenciosamente sobre alterações ausentes.
 
@@ -35,7 +35,7 @@ Uma [tarefa de implementação](issues/01-expurgar-feed-e-snapshots.md) reúne e
 6. Tratar a enumeração operacional de contas separadamente das consultas de domínio. Não ampliar SELECT sobre dados pessoais, não conceder BYPASSRLS aos logins runtime; todo expurgo ocorre em contexto e filtro explícitos de uma conta. Qualquer função/permissão nova deve constar da migration/modelo e de testes de privilégios.
 7. Verificar o fluxo pelo app público, SQLite, HTTP e PostgreSQL reais, incluindo reinício e pendências. Preservar mensagens m1.1; nenhum endpoint administrativo exposto ao cliente é necessário.
 
-Os detalhes de SQL, índices, limites numéricos da execução e agenda serão concretizados como engenharia no contrato/runbook antes do código, respeitando as escolhas acima. Não há decisão de produto adicional pendente para o escopo delimitado.
+SQL, índice, limites numéricos e agenda foram concretizados no [runbook](../../api/ops/sync-retention.md) e em spec/00 §12.11, respeitando as escolhas acima. Não há decisão de produto adicional pendente para o escopo delimitado.
 
 ## Aceite
 
@@ -51,8 +51,8 @@ Os detalhes de SQL, índices, limites numéricos da execução e agenda serão c
 
 Compactação física de hábitos/fatos/contextos/XP, exclusão da conta, corrupção local, cofre indisponível e resolução de conflitos de identidade são recortes próprios. Hábitos em soft delete continuam necessários ao tombstone do snapshot atual. UI depende do protótipo de Q28; instalação externa, SMTP/deep link reais, distribuição iOS e aceite nos aparelhos permanecem abertos.
 
-Após confirmação do entendimento, implementar a tarefa, executar app typecheck/lint/test e API check com ModularityTests e integração real, validar migration/contratos/links, registrar relatório e commit semântico atômico. Os checks da baseline não constituem prova do cleaner ainda inexistente.
+Pedro confirmou o entendimento e as fronteiras de teste com “sim” em 04/10/2026. Implementação e provas dirigidas registradas no [relatório](../../docs/analises/2026-10-04-retencao-fisica-do-feed.md); app typecheck/lint/94 testes e API check completo aprovados, incluindo ModularityTests, HTTP/PostgreSQL/SQLite e operação; um teste nativo Android opt-in continua não executado. Os checks da baseline documental não constituem prova do cleaner.
 
 ## Verificação do registro documental
 
-Decisões e diagnóstico documentados, sem cleaner ou migration novos. Checks da implementação atual aprovados em 04/10/2026; [relatório e limites](../../docs/analises/2026-10-04-contrato-de-retencao-feed.md). A confirmação do entendimento e os critérios de implementação continuam pendentes.
+A [etapa documental anterior](../../docs/analises/2026-10-04-contrato-de-retencao-feed.md) registrou decisões/diagnóstico sem cleaner. Após confirmação, a implementação local acrescentou V5 e a rotina real; [provas e validação concluída](../../docs/analises/2026-10-04-retencao-fisica-do-feed.md). M1, UI/aparelhos e aceite externo permanecem abertos.

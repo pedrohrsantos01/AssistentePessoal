@@ -63,7 +63,7 @@ Falhas antes de autenticar não recebem recibo de domínio. Falhas transitórias
 
 ## Retenção do feed — Q49/Q50, 04/10/2026
 
-A janela de 90 dias abrange todos os envelopes do feed, incluindo tombstones. Expurgo automático diário, configurável e em lotes limitados; reservar o feed após H de snapshots válidos. Cursor que aponta para alterações já removidas deve receber `409 resync_required`, mesmo se sua emissão for recente. Não remover estado canônico, fatos/contextos necessários à reconciliação, histórico técnico de XP, recibos mínimos, hashes de lotes ou IDs excluídos neste recorte. Esses registros mantêm seus contratos próprios, incluindo exclusão da conta. [Plano para confirmação](../../.scratch/retencao-feed/spec.md); implementação pendente.
+A janela de 90 dias abrange todos os envelopes do feed, incluindo tombstones. Expurgo automático diário, configurável e em lotes limitados; reservar o feed após H de snapshots válidos. Cursor que aponta para alterações já removidas deve receber `409 resync_required`, mesmo se sua emissão for recente. Não remover estado canônico, fatos/contextos necessários à reconciliação, histórico técnico de XP, recibos mínimos, hashes de lotes ou IDs excluídos neste recorte. Esses registros mantêm seus contratos próprios, incluindo exclusão da conta. [Plano confirmado](../../.scratch/retencao-feed/spec.md), [modelo V5](../../specs/00-modelo-de-dados.md#1211-retenção-física-do-feed--04102026) e [provas da implementação local](../../docs/analises/2026-10-04-retencao-fisica-do-feed.md). A limpeza usa as mensagens m1.1 existentes; não há mudança de schema de transporte.
 
 ## Snapshot e confirmação ao corte H
 

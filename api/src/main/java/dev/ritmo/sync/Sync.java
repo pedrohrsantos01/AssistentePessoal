@@ -147,7 +147,7 @@ public class Sync {
     }
 
     private JsonNode state(String user) {
-        return db.one("select jsonb_build_object('revision',last_revision::text,'epoch',feed_epoch) from sync_account_state where user_id=?::uuid",user);
+        return db.one("select jsonb_build_object('revision',last_revision::text,'epoch',feed_epoch,'floor',feed_compacted_through::text) from sync_account_state where user_id=?::uuid",user);
     }
     private String pullCursor(String user,String epoch,long after,long high) {
         return cursors.seal(Json.object().put("kind","pull").put("user",user).put("epoch",epoch)
@@ -161,6 +161,7 @@ public class Sync {
             if(!state.path("epoch").asString().equals(token.path("epoch").asString())||
                 Instant.parse(token.path("issued").asString()).isBefore(clock.instant().minusSeconds(90L*86400))) throw new HttpFailure(409,"resync_required");
             long after=Long.parseLong(token.path("after").asString()),high=Long.parseLong(token.path("high").asString());
+            if(after<Long.parseLong(state.path("floor").asString())) throw new HttpFailure(409,"resync_required");
             if(after==high) high=Long.parseLong(state.path("revision").asString());
             var rows=db.rows("select envelope from sync_changes where user_id=?::uuid and revision>?::bigint and revision<=?::bigint order by revision limit 500",user,Long.toString(after),Long.toString(high));
             if(rows.stream().anyMatch(change->change.path("entities").size()>32)) throw new HttpFailure(409,"resync_required");
@@ -196,7 +197,7 @@ public class Sync {
         var token=cursors.open(cursor,user,"snapshot");
         if(!token.path("snapshot").asString().equals(id)) throw new HttpFailure(404,"resource_inaccessible");
         return transactions.run(user,()->{
-            var state=snapshotState(user,id);int position=token.path("position").asInt();
+            lock(user);var state=snapshotState(user,id);int position=token.path("position").asInt();
             var rows=db.rows("select entity from sync_snapshot_items where user_id=?::uuid and snapshot_id=?::uuid and position>=?::int order by position limit 500",user,id,Integer.toString(position));
             boolean complete=position+rows.size()==state.path("count").asInt();
             var response=Json.object().put("snapshotId",id).put("highWaterRevision",state.path("revision").asString()).put("complete",complete);
@@ -210,7 +211,7 @@ public class Sync {
     }
     public JsonNode receipts(String user,JsonNode request) {
         return transactions.run(user,()->{
-            String snapshot=request.path("snapshotId").asString();var state=snapshotState(user,snapshot);
+            lock(user);String snapshot=request.path("snapshotId").asString();var state=snapshotState(user,snapshot);
             var results=Json.array();long high=Long.parseLong(state.path("revision").asString());
             for(var id:request.path("operationIds")) {
                 var rows=db.rows("select result from sync_operation_receipts where user_id=?::uuid and operation_id=?::uuid and (outcome='rejected' or accepted_revision<=?::bigint)",user,id.asString(),Long.toString(high));
