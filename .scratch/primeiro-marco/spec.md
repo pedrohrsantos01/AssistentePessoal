@@ -82,3 +82,5 @@ A preparação documental avançou; a entrega funcional só poderá ser concluí
 
 
 Atualização de 03/10/2026: [telemetria privada do primário](../../docs/analises/2026-10-03-telemetria-do-primario.md) completa as integrações locais previstas no escopo atual do pacote operacional 4B. Saúde/disco/slot, monitor/watchdog e runbook verificados localmente; definição/dimensionamento 4A, instalação 4C e aceite 4D continuam abertos. UI/protótipo, distribuição/aparelhos, e-mail real e demais lacunas da matriz permanecem no M1.
+
+04/10/2026 — Q49/Q50 fecham abrangência/cadência de retenção: todos os envelopes do feed por 90 dias; expurgo automático diário, configurável e limitado. [Plano consolidado para confirmação](../retencao-feed/spec.md) e [tarefa vertical](../retencao-feed/issues/01-expurgar-feed-e-snapshots.md). Garantias de snapshot, recibos/IDs e pendências preservadas; cleaner/migration/provas não implementados. M1 continua aberto.

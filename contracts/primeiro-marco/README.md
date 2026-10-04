@@ -61,6 +61,10 @@ Dependência desconhecida: `deferred`. Dependência definitivamente rejeitada: r
 
 Falhas antes de autenticar não recebem recibo de domínio. Falhas transitórias não encerram operações. Mensagens humanas são traduzidas no app a partir dos códigos; erros não incluem senha, token, SQL ou payload original.
 
+## Retenção do feed — Q49/Q50, 04/10/2026
+
+A janela de 90 dias abrange todos os envelopes do feed, incluindo tombstones. Expurgo automático diário, configurável e em lotes limitados; reservar o feed após H de snapshots válidos. Cursor que aponta para alterações já removidas deve receber `409 resync_required`, mesmo se sua emissão for recente. Não remover estado canônico, fatos/contextos necessários à reconciliação, histórico técnico de XP, recibos mínimos, hashes de lotes ou IDs excluídos neste recorte. Esses registros mantêm seus contratos próprios, incluindo exclusão da conta. [Plano para confirmação](../../.scratch/retencao-feed/spec.md); implementação pendente.
+
 ## Snapshot e confirmação ao corte H
 
 O primeiro pull sem cursor retorna `409 resync_required`. `POST /sync/snapshots` materializa, em uma transação de leitura consistente, as projeções permitidas e a revisão H observada naquela mesma visão. Gravar um manifesto e itens imutáveis ordenados por tipo/chave; publicar o manifesto somente quando todos os itens estiverem disponíveis. Não manter uma conexão/transação aberta entre requisições HTTP.

@@ -52,7 +52,7 @@ Salvar uma edição de regra de hábito offline confirma sua persistência como 
 
 **REQ-SYN-008** — Gatilhos de sync: abertura do app, volta do background, a cada 5 minutos com app aberto, e ao recuperar conectividade.
 
-**REQ-SYN-009** — Tombstones: registros com `deleted_at` são retornados no pull para propagar exclusão. Retenção de 90 dias.
+**REQ-SYN-009** — Tombstones: registros com `deleted_at` são retornados no pull para propagar exclusão. Q49 (04/10/2026) confirma retenção de 90 dias para **todos os envelopes do feed**, incluindo tombstones. Q50 confirma expurgo automático diário, configurável e em lotes limitados. A reserva do feed após H enquanto um snapshot estiver válido prevalece sobre a elegibilidade por idade; a limpeza não expira pendências nem apaga estado canônico, fatos/contextos necessários à reconciliação, histórico técnico de XP, recibos, hashes de lotes ou IDs excluídos. Contrato: spec/13 §21; [plano para confirmação](../.scratch/retencao-feed/spec.md). A rotina física ainda não está implementada.
 
 Exclusão/tombstones em 30/09/2026: `habit.delete` persiste offline, invalida hábito e XP local, grava o ID excluído e reverte XP na aceitação sem devolver consumo (Q30). Pendência/ack antigo não restaura o ID; intenção recusada permanece recuperável. Snapshot conserva tombstones mesmo após expiração do cursor/feed. Exclusão extensa cruza o limite de 32 efeitos via `resync_required` e snapshot estável, inclusive depois do push. [Contrato](13-contrato-primeiro-marco.md#18-contrato-do-incremento-de-exclusão--30092026) e [evidências](../docs/analises/2026-09-30-exclusao-e-tombstones.md). A confirmação visual e a rotina física de expurgo/compactação continuam pendentes.
 

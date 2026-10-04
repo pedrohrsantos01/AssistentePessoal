@@ -448,3 +448,12 @@ Referências: [caderno de provisionamento](../../api/ops/external-provisioning.m
 - **Q48:** Pedro escolheu **Bitwarden Free hospedado pelo Bitwarden**. Configuração de conta, recuperação/2FA e injeção privada de segredos ainda serão realizadas pelo canal apropriado; nenhum segredo foi solicitado.
 
 A [proposta](../../docs/analises/2026-10-02-proposta-de-infraestrutura.md) contém cotações para comparação, não orçamento contratado. Prosseguir com pacote local/ensaios antes da escolha final dos fornecedores e do aceite externo.
+
+## Retenção física do feed — Q49/Q50, 04/10/2026
+
+Pedro respondeu **A** nas duas perguntas:
+
+- **Q49 — Abrangência:** retenção de 90 dias para todos os envelopes de transação do feed, incluindo tombstones. Preservar estado atual, fatos necessários à reconciliação, histórico técnico de XP, recibos e IDs excluídos. Snapshot válido continua reservando o feed após H; a janela não expira pendências locais.
+- **Q50 — Execução:** rotina automática diária, configurável e em lotes limitados. Preparar implementação e testes locais neste recorte; instalação externa continua no seu gate próprio.
+
+As escolhas foram propagadas para spec/06, spec/13 e README dos contratos. Não há pergunta de produto adicional para o escopo delimitado. O entendimento do [plano consolidado](../retencao-feed/spec.md) ainda precisa ser confirmado antes da implementação, conforme grilling. Corrupção física, cofre indisponível e conflitos de identidade são recortes independentes; não apagar dados técnicos de domínio sob a política de expurgo do feed.

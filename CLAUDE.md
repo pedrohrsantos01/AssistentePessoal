@@ -90,7 +90,7 @@ Baseline completa, fontes e comandos futuros: [stack e build do primeiro marco](
 - **Nomes**: `snake_case` no banco, `camelCase` no TS, `camelCase` no Java com `@Column` explícito.
 - **API**: versionada em `/api/v1/{modulo}`. Quebra de contrato exige `/v2`, nunca alteração silenciosa.
 - **Enums**: `text` com `check` no Postgres, string union no TS, enum Java. **Nunca** enum nativo do Postgres.
-- **Exclusão e retenção**: entidades mutáveis sincronizadas usam `deleted_at`; fatos, recibos e transições seguem o contrato próprio de `specs/00-modelo-de-dados.md` §12. Tombstones do feed têm retenção de 90 dias; não apagar o registro mínimo necessário para impedir ressurreição por aparelho antigo. Exclusão de conta abrange todas essas representações.
+- **Exclusão e retenção**: entidades mutáveis sincronizadas usam `deleted_at`; fatos, recibos e transições seguem o contrato próprio de `specs/00-modelo-de-dados.md` §12. Todos os envelopes do feed, incluindo tombstones, têm retenção de 90 dias (Q49); expurgo automático diário, configurável e em lotes limitados (Q50). Preservar o feed após H dos snapshots válidos e não apagar o registro mínimo necessário para impedir ressurreição por aparelho antigo. Exclusão de conta abrange todas essas representações.
 - **Commits**: Conventional Commits citando o ID do requisito — `feat(habits): marca hábito como feito (REQ-HAB-004)`. Código e testes da mesma intenção ficam juntos. Para documentação ou infraestrutura sem requisito de produto, cite a tarefa/documento de origem com `Refs:` no corpo, sem inventar ID. Detalhes em [Git e commits](docs/agents/git.md).
 
 ## 5. Isolamento de dados — leia com atenção
