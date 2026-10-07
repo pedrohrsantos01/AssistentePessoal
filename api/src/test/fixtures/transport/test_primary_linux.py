@@ -142,10 +142,13 @@ class PrimaryTests(unittest.TestCase):
 
     def test_real_filesystem_pressure_reaches_cli_and_delivers_tls_alerts(self):
         state=Path("/srv/ritmo-monitor/primary-state.json")
+        # The native SSH probe has a ten-second bound. A one-second freshness window
+        # would make successful collection depend on the host's scheduling speed.
+        interval=10
         command=["/usr/bin/python3","/opt/ritmo/operations.py","monitor","--source","primary","--state",str(state),
-            "--probe-command","/opt/ritmo/fetch-primary","--smtp-config",str(self.root/"smtp.json"),"--interval","1"]
+            "--probe-command","/opt/ritmo/fetch-primary","--smtp-config",str(self.root/"smtp.json"),"--interval",str(interval)]
         def collect():
-            result=run(*command);time.sleep(1.05);return json.loads(result.stdout)
+            result=run(*command);time.sleep(interval+.05);return json.loads(result.stdout)
         def pressure(target):
             devices=set()
             for folder in (self.data,self.wal):
