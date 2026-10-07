@@ -71,7 +71,9 @@ class TransportTests(unittest.TestCase):
         for name in ("ritmo-monitor.service","ritmo-monitor.timer","ritmo-watchdog.service","ritmo-watchdog.timer"):
             Path("/etc/systemd/system",name).write_text(Path("/opt/ritmo",name).read_text())
         folder=Path("/etc/systemd/system/ritmo-monitor.service.d");folder.mkdir()
-        (folder/"fixture.conf").write_text("[Service]\nExecStart=\nExecStart=/usr/bin/python3 /opt/fixture/monitor_job.py\n")
+        # The one-second fixture deliberately starts six cycles inside systemd's default ten-second burst.
+        # Production runs every minute; disable the burst limit only in this disposable override.
+        (folder/"fixture.conf").write_text("[Unit]\nStartLimitIntervalSec=0\n[Service]\nExecStart=\nExecStart=/usr/bin/python3 /opt/fixture/monitor_job.py\n")
         for folder in ("/srv/ritmo-monitor","/srv/ritmo-watchdog"):
             Path(folder).mkdir(mode=0o700,exist_ok=True)
         write_json(root/"detector-client.json",cls.values)
