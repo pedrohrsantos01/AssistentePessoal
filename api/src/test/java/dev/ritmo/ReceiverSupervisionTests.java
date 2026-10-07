@@ -118,11 +118,20 @@ class ReceiverSupervisionTests {
             succeed(nativeHost,"systemctl","kill","--kill-whom=main","--signal=SIGKILL","ritmo-wal-receiver.service");
             Awaitility.await().atMost(Duration.ofSeconds(20)).until(()->!property(nativeHost,"MainPID").equals(pid));awaitReceiver(db,nativeHost);
             assertThat(succeed(nativeHost,"sh","-c","find /srv/ritmo-recovery/wal -name '*.partial' -printf '%f\\n'")).isEqualTo(partial);
+            // A real, delayed systemd start makes the transitional state deterministic in this disposable fixture.
+            // Only the last restart is delayed; the production unit remains unchanged.
+            succeed(nativeHost,"mkdir","-p","/etc/systemd/system/ritmo-wal-receiver.service.d");
+            copy(nativeHost,"/etc/systemd/system/ritmo-wal-receiver.service.d/delayed-start.conf",
+                "[Service]\nExecStartPre=/usr/bin/sleep 10\n",0644);
+            succeed(nativeHost,"systemctl","daemon-reload");
             // Restart while the source is unavailable: initial connection failure must also retry.
             db.getDockerClient().stopContainerCmd(db.getContainerId()).withTimeout(10).exec();
+            String interrupted=property(nativeHost,"MainPID");
             succeed(nativeHost,"systemctl","kill","--kill-whom=main","--signal=SIGKILL","ritmo-wal-receiver.service");
-            succeed(nativeHost,"sleep","8");
-            assertThat(property(nativeHost,"ActiveState")).isEqualTo("active");
+            Awaitility.await().atMost(Duration.ofSeconds(20)).untilAsserted(()-> {
+                assertThat(property(nativeHost,"MainPID")).isNotIn("0",interrupted);
+                assertThat(property(nativeHost,"ActiveState")).isEqualTo("active");
+            });
             db.getDockerClient().startContainerCmd(db.getContainerId()).exec();awaitReceiver(db,nativeHost);
         });
     }
