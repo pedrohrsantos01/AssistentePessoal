@@ -350,3 +350,30 @@ Pedro aprovou **Q49=A**: os 90 dias abrangem todos os envelopes do feed, incluin
 Pedro aprovou **Q50=A**: expurgo automático diário, configurável e em lotes limitados. Conservar o feed após H de todo snapshot válido e permitir a retomada sem lacuna. Cursor que não cobre mais as revisões removidas recebe o `409 resync_required` existente, mesmo quando foi emitido recentemente. Snapshots expirados e seus itens podem ser removidos, coordenando a limpeza com página/recibos; o app conserva base/fila durante o reinício da cópia conforme §7.
 
 Pedro confirmou o [plano consolidado](../.scratch/retencao-feed/spec.md) e as fronteiras de teste com “sim” em 04/10/2026. A implementação local usa V5/spec/00 §12.11, prefixo/limite atômicos, trava comum dos leitores e agenda por conta em lotes limitados. [Runbook](../api/ops/sync-retention.md) e [provas/estado da validação](../docs/analises/2026-10-04-retencao-fisica-do-feed.md); os ensaios usam o cleaner real. A [tarefa delimitada](../.scratch/retencao-feed/issues/01-expurgar-feed-e-snapshots.md) reúne cursor, expurgo, snapshot e execução diária. Tarefa 05/M1 e aceite externo permanecem abertos.
+
+
+## 22. Recuperação de exceções — Q51/Q52/Q53, 07/10/2026
+
+Pedro aprovou **A** em Q51, Q52 e Q53. [Entrevista](../.scratch/fundacao/entrevista.md), [diagnóstico](../docs/analises/2026-10-07-recuperacao-de-excecoes.md) e [plano para confirmação](../.scratch/recuperacao-excecoes/spec.md). Estas definições complementam §§2/6/7/8; não declaram novos schemas HTTP, tabelas ou comportamentos já implementados.
+
+### Banco local e abertura
+
+Q51 mantém arquivos e interrompe acesso à base ilegível; controle de instalação ilegível bloqueia abertura inteira. Fechar handles adquiridos, classificar falha e expor nova tentativa após corrigir causa/atualizar. Falha de abertura/PRAGMA/armazenamento não prova corrupção física. Não descobrir/abrir conta por arquivos ou credenciais soltas quando o controle for ilegível. Não remover/substituir a única cópia com pendências para instalar estado remoto. Reparo físico, exportação e reconstrução assistida pertencem a recorte próprio.
+
+### Cofre do dispositivo
+
+Q52 permite leitura/escrita local somente com controle saudável `active` e banco da conta saudável. Indisponibilidade do SecureStore pausa acesso remoto, conserva referências e expõe retomada. `get` que lança erro não equivale a ausência/conteúdo inválido. Limpeza antiga incompleta conserva referência para retry; não reativa credencial antiga. Login novo continua exigindo persistência das credenciais antes da ativação; `logging_out/locked` conservam bloqueio. Refresh com resultado perdido conserva a regra de novo login online, sem reutilizar token antigo.
+
+### Recibos e identidade
+
+Correspondência do recibo à intenção deve ser comprovada antes de qualquer reconhecimento local, no ack/pull/swap de snapshot e após reinício. ID igual sozinho não prova conteúdo igual. Incorporar estado canônico não autoriza reconhecer envelope divergente como salvo. Preservar recibo original imutável, conteúdo divergente e evidência do conflito; não substituir um pelo outro.
+
+Colisão de `operationId` com conteúdo diferente ou de `deviceId/clientSequence` não deve ser confundida com rejeição persistida de uma nova criação por ID de entidade existente/excluído. Rejeição comprovada segue o fluxo de correção/descarte já aprovado; identidade cujo resultado original continua incerto segue Q53: operação e dependentes preservados/bloqueados para intervenção técnica, independentes permitidos, sem descarte, nova identidade ou reenvio automático da intenção incerta.
+
+Manter corte H: `notProcessedAtH` não prova rejeição nem autoriza recriar a intenção. Recibos posteriores continuam sujeitos à correspondência, assim como recibos antigos conservados além da retenção do feed. Conflito da chave de lote preserva fila/diagnóstico e não justifica mudar IDs individuais.
+
+A prova física de correspondência, sua consulta/classificação, limites e estratégia de compatibilidade serão concretizados no contrato executável na [tarefa de identidade](../.scratch/recuperacao-excecoes/issues/01-reconciliar-identidade-e-recibos.md), antes do código. Não alterar silenciosamente m1.1; mudança incompatível segue o versionamento vigente. Campos persistidos novos exigem modelo atualizado e migration nova no mesmo commit; V1–V5 permanecem imutáveis.
+
+### Entregas e aceite
+
+[Identidade/recibos](../.scratch/recuperacao-excecoes/issues/01-reconciliar-identidade-e-recibos.md), [cofre](../.scratch/recuperacao-excecoes/issues/02-retomar-cofre-sem-bloquear-uso-local.md) e [abertura local](../.scratch/recuperacao-excecoes/issues/03-expor-recuperacao-da-abertura-local.md) são tarefas verticais separadas, ordenadas por risco. Cada uma exige testes pelas interfaces públicas e bancos reais, preservação/isolamento A/B, reinício/rollback/retomada e checks obrigatórios de app/API. Fronteiras propostas no plano aguardam confirmação do entendimento antes da implementação. A preparação documental não conclui M1, UI/aparelhos ou operação externa.

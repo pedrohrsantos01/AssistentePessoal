@@ -105,3 +105,12 @@ Aprovado por Pedro: refresh retorna `RefreshResponse`, com os campos de sessão 
 ## Compatibilidade implementada — 29/09/2026
 
 `X-App-Version` segue SemVer com até 64 caracteres, componentes principais de até seis dígitos e sem zeros à esquerda; pré-release e metadados podem coexistir. O servidor compara contra a mínima estável em `app_compatibility`, com 426 antes do processamento e 503 quando a configuração não pode ser lida. O protocolo de mensagens permanece m1.1. A migration Flyway V3 mantém grants de leitura operacional; a restrição local usa Drizzle 0001 no banco separado da instalação. [Modelo físico](../../specs/00-modelo-de-dados.md) e [validação do incremento](../../docs/analises/2026-09-29-compatibilidade-e-leitura-local.md).
+
+
+## Recuperação de exceções — decisões Q51–Q53, 07/10/2026
+
+Pedro aprovou A nas três decisões: base ilegível preservada/bloqueada com nova tentativa, sem reconstrução neste recorte; sessão local já ativa e saudável mantém leitura/escrita durante indisponibilidade do SecureStore, com acesso remoto pausado; identidade ainda sem prova mantém operação/dependentes bloqueados para intervenção técnica, sem descarte, nova identidade ou reenvio automático.
+
+O reconhecimento de recibos deve comprovar correspondência à intenção, inclusive em pull/snapshot, conservando recibo original e envelope divergente. ID coincidente não basta. Rejeição comprovada de uma criação por ID de entidade reutilizado é distinta de identidade incerta e segue correção/descarte já aprovados.
+
+[Contrato §22](../../specs/13-contrato-primeiro-marco.md), [plano para confirmação](../../.scratch/recuperacao-excecoes/spec.md) e [diagnóstico](../../docs/analises/2026-10-07-recuperacao-de-excecoes.md). Schemas/fixtures m1.1 permanecem os atuais; prova física/classificação e evolução compatível serão concretizadas antes da implementação na tarefa de identidade. Este registro não declara novo campo/endpoint nem conclusão das tarefas.

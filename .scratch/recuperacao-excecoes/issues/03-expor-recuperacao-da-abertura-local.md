@@ -1,0 +1,30 @@
+# 03 — Expor recuperação segura das falhas de abertura local
+
+Status: needs-info
+Blocked by: none
+
+## Resultado esperado
+
+Entregar o [recorte 3](../spec.md) de Q51=A e REQ-SYN-012/013: preservar arquivos, classificar falhas e oferecer nova tentativa, sem reset/reconstrução/exportação.
+
+## Pré-requisito
+
+Confirmar entendimento consolidado e fronteiras de teste. Estados e diagnósticos serão públicos no núcleo; UI segue Q28.
+
+## Escopo e critérios de aceite
+
+- Tratar abertura SQLite, PRAGMAs e migration na interface pública; distinguir schema desconhecido/migration/abertura sem inferir corrupção de todo erro.
+- Fechar handles adquiridos em falhas e conservar a causa original no diagnóstico técnico sem expor conteúdo/credenciais.
+- Bloquear acesso à base afetada; controle de instalação ilegível bloqueia abertura inteira, sem descobrir conta por arquivos/credenciais soltas.
+- Nova tentativa exige verificar controle/geração; respeitar logout, conta de origem e pendências de contas inativas.
+- Não remover/substituir arquivos nem reconstruir automaticamente; reparo físico/exportação/reconstrução assistida pertencem a outro recorte.
+- Provar corrupção/abertura/migration/retry pela fronteira pública e arquivos SQLite reais, com preservação de pendências e isolamento. Simulação de falha deve ser identificada como tal; não alegar ensaio nativo por teste desktop.
+- Atualizar contratos/modelo se necessário, checks obrigatórios de app/API e relatório com limites.
+
+## Resultado
+
+Concluída: não.
+
+## Comments
+
+07/10/2026 — Q51=A aprovada; falta confirmar entendimento e fronteiras. Testes atuais de rollback/migration não cobrem corrupção física. Sem implementação nesta preparação.

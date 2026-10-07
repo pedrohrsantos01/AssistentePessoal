@@ -146,3 +146,16 @@ A evidência cobre emulador Android 15 e um cliente SQLite de desktop contra API
 ## Recuperação operacional — Q36/Q37, 02/10/2026
 
 Quarentena recusa todas as rotas de clientes com 503 `temporarily_unavailable`, incluindo pull, snapshot, recibos e push. Conta local ativa mantém leitura e novas intenções; não instalar estado antigo nem reenviar acknowledged para reconstruir perdas. Após recuperação integral, novo login e cursores inválidos seguem ressincronização existente, classificando pendências antes de instalar base completa e preservando tombstones/XP. Isolamento e logout do ADR-016 permanecem. [ADR-019](../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md), [contrato §19](13-contrato-primeiro-marco.md#19-contenção-e-retomada-operacional--02102026).
+
+
+## Recuperação de exceções — Q51–Q53, 07/10/2026
+
+**Q51=A:** preservar arquivos diante de base ilegível e bloquear a base afetada; controle de instalação ilegível impede abertura inteira. Oferecer nova tentativa após corrigir causa/atualizar, sem reset, exportação ou reconstrução assistida neste recorte. Não presumir corrupção por qualquer falha de abertura/armazenamento. Reparo físico e descarte de pendências irrecuperáveis exigem recorte/decisão próprios; a alternativa de reconstrução não foi aprovada.
+
+**Q52=A:** uma sessão já ativa com controle e banco saudáveis mantém leitura/escrita local durante indisponibilidade do SecureStore; pausar acesso remoto até recuperar o cofre, conservando referências. Logout/login novo/refresh incerto continuam regidos pelo spec/01 e ADR-016.
+
+**Q53=A:** se a origem de uma identidade conflitante continuar sem prova após consulta ao servidor, preservar operação e dependentes bloqueados, com diagnóstico para intervenção técnica. Permitir intenções independentes; não descartar, criar nova identidade ou reenviar automaticamente a intenção incerta.
+
+REQ-SYN-017/M1-16/18 exigem correspondência comprovada entre recibo e intenção antes de reconhecer confirmação, inclusive em pull/snapshot antes do push ou depois do conflito. Incorporar fatos canônicos não confirma conteúdo divergente. Distinguir conflito de operação/sequência de rejeição definitiva comprovada por ID de entidade reutilizado; esta última segue correção/descarte explícitos já aprovados, sem ressuscitar ID excluído.
+
+[Contrato §22](13-contrato-primeiro-marco.md), [decisões](../.scratch/fundacao/entrevista.md), [plano para confirmação](../.scratch/recuperacao-excecoes/spec.md) e [diagnóstico](../docs/analises/2026-10-07-recuperacao-de-excecoes.md). São definições aprovadas, ainda sem implementação dos novos recortes; UI/aparelhos e M1 continuam abertos.

@@ -256,3 +256,10 @@ Recorte 2 concluído localmente: confirmações protegidas antes da publicação
 Pedro confirmou Q49/Q50, o entendimento e as fronteiras de teste. Implementados limite atômico do prefixo, cleaner real do feed/snapshots, coordenação de páginas/recibos e agenda diária limitada; V5/modelo e runbook acompanham o recorte. [Provas e validação final](../../../docs/analises/2026-10-04-retencao-fisica-do-feed.md), [tarefa vertical](../../retencao-feed/issues/01-expurgar-feed-e-snapshots.md).
 
 Tarefa 05/M1 continuam abertos: contrato e implementação de recuperação de exceções, protótipo/UI, SMTP/deep link real, distribuição iOS e aceite iPhone/Android. Instalação/aceite da infraestrutura é gate externo. Compactação de hábitos/fatos/contextos/XP não foi incluída na retenção do transporte.
+
+
+## Contrato de recuperação de exceções — 07/10/2026
+
+Pedro aprovou Q51–Q53=A: preservar/bloquear banco ilegível sem reconstrução neste recorte; manter uso local da sessão já ativa/saudável durante indisponibilidade do SecureStore; preservar/bloquear identidade ainda incerta e dependentes para intervenção técnica, permitindo independentes.
+
+[Diagnóstico por leitura](../../../docs/analises/2026-10-07-recuperacao-de-excecoes.md), [plano consolidado para confirmação](../../recuperacao-excecoes/spec.md) e [tarefas separadas](../../recuperacao-excecoes/issues/01-reconciliar-identidade-e-recibos.md). Prioridade: impedir reconhecimento indevido de recibos por ID coincidente; depois cofre e abertura. Correspondência, formatos e compatibilidade serão concretizados antes do código. Entendimento/fronteiras ainda aguardam confirmação; nenhuma nova implementação declarada. Tarefa 05/M1 continuam abertos.

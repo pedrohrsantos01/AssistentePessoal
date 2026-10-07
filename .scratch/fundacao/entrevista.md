@@ -457,3 +457,14 @@ Pedro respondeu **A** nas duas perguntas:
 - **Q50 — Execução:** rotina automática diária, configurável e em lotes limitados. Preparar implementação e testes locais neste recorte; instalação externa continua no seu gate próprio.
 
 As escolhas foram propagadas para spec/06, spec/13 e README dos contratos. Não há pergunta de produto adicional para o escopo delimitado. Pedro confirmou o entendimento do [plano consolidado](../retencao-feed/spec.md) e as fronteiras de teste com “sim” em 04/10/2026. [Implementação local e validação](../../docs/analises/2026-10-04-retencao-fisica-do-feed.md). Corrupção física, cofre indisponível e conflitos de identidade são recortes independentes; não apagar dados técnicos de domínio sob a política de expurgo do feed.
+
+
+## Recuperação de exceções — Q51–Q53, 07/10/2026
+
+Pedro escolheu **A** nas três perguntas:
+
+- **Q51 — Banco local ilegível:** preservar arquivos, bloquear a base afetada e permitir nova tentativa após corrigir a causa/atualizar. Controle de instalação ilegível bloqueia abertura inteira. Reparo físico, exportação e reconstrução assistida ficam em recorte próprio; não houve aprovação de reset ou descarte de pendências irrecuperáveis.
+- **Q52 — SecureStore indisponível:** sessão já ativa com controle e banco saudáveis mantém leitura e novas alterações locais. Preservar referências às credenciais e pausar acesso remoto até recuperar o cofre. Logout incompleto/encerrado, login novo e refresh incerto conservam os bloqueios/regras anteriores. SecureStore do dispositivo é distinto de Bitwarden operacional.
+- **Q53 — Identidade ainda sem prova após consulta ao servidor:** preservar operação e dependentes bloqueados com diagnóstico para intervenção técnica; independentes continuam. Não descartar a intenção incerta, gerar nova identidade ou reenviar automaticamente. Rejeição definitiva comprovada e confirmação correspondente conservam as garantias existentes.
+
+Respostas incorporadas aos specs 01/06/13 e README dos contratos. [Diagnóstico verificado por leitura](../../docs/analises/2026-10-07-recuperacao-de-excecoes.md) e [plano consolidado para confirmação](../recuperacao-excecoes/spec.md). Ordem recomendada: identidade/recibos, cofre, abertura local. Não há outra pergunta de produto na fronteira delimitada; entendimento e fronteiras de teste ainda aguardam confirmação antes da implementação. M1/tarefa 05 e gates existentes permanecem abertos.

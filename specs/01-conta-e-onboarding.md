@@ -94,3 +94,12 @@ Editar nome, fuso, hora de início do dia, ativar/desativar ofensiva, horário d
 ## Recuperação operacional — Q36/Q37, 02/10/2026
 
 Após recuperação integral do servidor, invalidar access/refresh, sessões e links de recuperação anteriores e exigir novo login online, preservando a senha correta recuperada. Recusa remota não encerra a conta local ativa nem apaga SQLite/pendências; logout deliberado e troca de conta mantêm ADR-016. Durante quarentena, identidade e sync retornam indisponibilidade transitória. [ADR-019](../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md) e [procedimento/contrato](13-contrato-primeiro-marco.md#19-contenção-e-retomada-operacional--02102026).
+
+
+## Indisponibilidade do cofre do dispositivo — Q52, 07/10/2026
+
+**Q52=A aprovada.** Se o controle de instalação e o banco da conta estiverem saudáveis, uma sessão local já `active` mantém leitura e novas alterações durante indisponibilidade do SecureStore. Pausar acesso remoto até recuperar o cofre; preservar as referências e permitir nova tentativa. Falha de leitura do cofre não equivale a segredo ausente/inválido nem a logout.
+
+A regra não ativa login novo sem persistir credenciais, não reabre `logging_out/locked`, não reutiliza refresh com resultado incerto e não permite acesso aos dados de outra conta. Limpeza de credenciais antigas incompleta conserva referências para retry. Se controle/banco não forem confiáveis, aplicar REQ-SYN-013/Q51, não esta permissão de uso local.
+
+É definição de comportamento para o próximo recorte; o fluxo atual ainda não implementa toda essa retomada. [Contrato §22](13-contrato-primeiro-marco.md), [plano](../.scratch/recuperacao-excecoes/spec.md) e [diagnóstico](../docs/analises/2026-10-07-recuperacao-de-excecoes.md). Bitwarden de Q48 continua sendo custódia operacional externa, separado de SecureStore.
