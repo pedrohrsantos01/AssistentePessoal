@@ -71,11 +71,12 @@ class RetentionLifecycleTests {
                 user=session.path("accountId").asString();token=session.path("accessToken").asString();
                 var operations=Json.array();
                 for(int sequence=1;sequence<=6;sequence++) {
+                    var occurredAt=Instant.now();
                     var command=sequence==1?Json.read("""
-                        {"type":"habit.create","habitId":"%s","title":"Caminhar","habitType":"binary","scheduleKind":"daily","startDayKey":"2026-10-04",
+                        {"type":"habit.create","habitId":"%s","title":"Caminhar","habitType":"binary","scheduleKind":"daily","startDayKey":"%s",
                         "timeContext":{"timezone":"UTC","dayStartHour":0},"iconKey":null,"colorToken":null,"sortOrder":0}
-                        """.formatted(habit)):Json.read("{\"type\":\"habit.patchMetadata\",\"habitId\":\""+habit+"\",\"patch\":{\"title\":\"Edição "+sequence+"\"}}");
-                    var operation=Json.object().put("operationId",Json.id()).put("deviceId",device).put("clientSequence",sequence).put("occurredAt",Instant.now().toString());
+                        """.formatted(habit,occurredAt.atZone(java.time.ZoneOffset.UTC).toLocalDate())):Json.read("{\"type\":\"habit.patchMetadata\",\"habitId\":\""+habit+"\",\"patch\":{\"title\":\"Edição "+sequence+"\"}}");
+                    var operation=Json.object().put("operationId",Json.id()).put("deviceId",device).put("clientSequence",sequence).put("occurredAt",occurredAt.toString());
                     operation.set("dependsOn",Json.array());operation.set("command",command);operations.add(operation);
                 }
                 var body=Json.object();body.set("operations",operations);
@@ -165,11 +166,12 @@ class RetentionLifecycleTests {
             try(var predecessor=start(db,Map.of("spring.flyway.target","4","ritmo.sync-retention.enabled","false"))) {
                 var session=post(predecessor,"auth/register",null,Json.object().put("email",Json.id()+"@example.test").put("displayName","Pessoa").put("password","fixture-password").put("deviceId",device));
                 user=session.path("accountId").asString();token=session.path("accessToken").asString();
+                var occurredAt=Instant.now();
                 var command=Json.read("""
-                    {"type":"habit.create","habitId":"%s","title":"Antes da migration","habitType":"binary","scheduleKind":"daily","startDayKey":"2026-10-04",
+                    {"type":"habit.create","habitId":"%s","title":"Antes da migration","habitType":"binary","scheduleKind":"daily","startDayKey":"%s",
                      "timeContext":{"timezone":"UTC","dayStartHour":0},"iconKey":null,"colorToken":null,"sortOrder":0}
-                    """.formatted(habit));
-                var operation=Json.object().put("operationId",Json.id()).put("deviceId",device).put("clientSequence",1).put("occurredAt",Instant.now().toString());
+                    """.formatted(habit,occurredAt.atZone(java.time.ZoneOffset.UTC).toLocalDate()));
+                var operation=Json.object().put("operationId",Json.id()).put("deviceId",device).put("clientSequence",1).put("occurredAt",occurredAt.toString());
                 operation.set("dependsOn",Json.array());operation.set("command",command);
                 body=Json.object();body.set("operations",Json.array().add(operation));
                 assertThat(post(predecessor,"sync/push",token,body).at("/results/0/receipt/acceptedRevision").asString()).isEqualTo("1");
