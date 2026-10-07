@@ -45,3 +45,29 @@ test('automatic reconnection converges after a lost HTTP acknowledgement and flu
     assert.equal(scheduler.status().revocations.phase,'idle');
   } finally {scheduler.dispose();other.close();f.close();}
 });
+
+
+test('vault unavailability keeps offline work local until public recovery converges through the real API',async()=>{
+  const f=fixture(),clock=new Clock(),identity=new HttpIdentity(origin),email=randomUUID()+'@example.test';
+  const registered=await identity.register(email,'fixture-password','Cofre',id(2));
+  f.identity.login=(email,password,device)=>identity.login(email,password,device);
+  f.identity.refresh=token=>identity.refresh(token);f.identity.revoke=token=>identity.revoke(token);
+  await f.session.login(email,'fixture-password');
+  const get=f.vault.get;f.vault.get=async()=>{throw new Error('platform fixture unavailable');};
+  await f.restart();
+  const store=f.session.account();store.enqueue(command,id(10),at);
+  store.enqueue({type:'habit.mark',habitId:id(3),dayKey:day,timeContext:command.timeContext,observedUndoIds:[]},id(11),at);
+  const scheduler=new SyncScheduler(f.session,origin,clock),other=openTestStore(':memory:',registered.accountId,id(90));
+  let sequence=900;const transport=new HttpSync(origin,registered.accountId,()=>registered.accessToken,()=>id(sequence++));
+  try {
+    scheduler.update({active:true,online:true});await until(()=>scheduler.status().sync.phase==='paused');
+    await clock.advance(600000);assert.equal(store.operations().length,2);
+    assert.deepEqual(f.session.vaultRecovery(),{unavailable:true,cleanupPending:false});
+    await synchronize(other,transport);assert.equal(other.view(day).habits.length,0);assert.equal(other.view(day).totalXp,0);
+    f.vault.get=get;await f.session.retryVault();
+    await until(()=>scheduler.status().sync.phase==='idle'&&store.operations().length===0);
+    await synchronize(other,transport);assert.equal(other.view(day).habits[0]?.done,true);assert.equal(other.view(day).totalXp,10);
+    scheduler.dispose();await f.restart();assert.deepEqual(f.session.vaultRecovery(),{unavailable:false,cleanupPending:false});
+    await f.session.synchronize(origin);await synchronize(other,transport);assert.equal(other.view(day).totalXp,10);
+  } finally {scheduler.dispose();other.close();f.close();}
+});

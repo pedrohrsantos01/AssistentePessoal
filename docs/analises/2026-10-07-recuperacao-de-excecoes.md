@@ -79,3 +79,5 @@ M1/tarefa 05 continuam abertos. UI/protótipo, SMTP/deep link reais, distribuiç
 
 
 07/10/2026 — Pedro confirmou o entendimento e as fronteiras deste plano. O diagnóstico acima descreve a preparação anterior à implementação; resultado posterior de identidade/recibos: [relatório do recorte 1](2026-10-07-correspondencia-de-recibos.md). Cofre e abertura continuam separados.
+
+Atualização de 07/10/2026 — O [recorte 2 do cofre](2026-10-07-retomada-do-cofre.md) foi concluído/verificado localmente: leitura/escrita local com controle/banco saudáveis, referências conservadas, pausa remota, diagnóstico/retry e limpeza segura. A análise acima registra o estado encontrado antes da implementação. Abertura/PRAGMA/retry do banco permanecem no recorte 3; M1 continua aberto.

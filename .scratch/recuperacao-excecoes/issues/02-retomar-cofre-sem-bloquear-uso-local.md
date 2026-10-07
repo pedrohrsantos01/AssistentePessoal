@@ -24,7 +24,9 @@ Entendimento consolidado e fronteiras de teste confirmados por Pedro em 07/10/20
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim.
+
+Sessão ativa/saudável mantém uso local durante falha do cofre; estado e retry públicos preservam referências, geração, fence e regra de refresh incerto. Pausa remota e retomada conservam intenções/deadlines, sem novo DDL/transporte. [Relatório e limites](../../../docs/analises/2026-10-07-retomada-do-cofre.md). App typecheck/lint e 109 testes aprovados; API check integral com 85 testes Java aprovados, 1 Android opt-in ignorado e 13 verificações operacionais aprovadas, incluindo ModularityTests. Recorte 3 e M1 continuam abertos.
 
 ## Comments
 
@@ -32,3 +34,5 @@ Concluída: não.
 
 
 07/10/2026 — Pedro confirmou entendimento e fronteiras de teste do plano com “sim”. Tarefa especificada; implementação continua pendente.
+
+07/10/2026 — Implementação e verificação local concluídas nas fronteiras confirmadas. Nove cenários adicionais de sessão/cofre e uma integração HTTP/PG/SQLite; falhas nativas reais e apresentação da recuperação ainda exigem aceite em aparelho/UI.

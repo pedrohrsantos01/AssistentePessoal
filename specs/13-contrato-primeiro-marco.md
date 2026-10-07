@@ -397,3 +397,14 @@ No lote que contém colisão de identidade, operações novas dependentes (diret
 Ao abrir SQLite de um cliente anterior, resultados acknowledged/rejected sem prova e ainda sem resolução são preservados e classificados como `missing_proof`, junto das dependentes. Não reenviar operações antes reconhecidas: consultar prova pelo fluxo de snapshot. Resoluções já gravadas não são reabertas. Uma sincronização com impasses por prova ausente inicia uma nova consulta no corte antes de push; prova correspondente permite retomar os mesmos IDs das dependentes, sem afirmar que ausência em H é rejeição.
 
 Entrega local do recorte 1: [evidências, validação e limites](../docs/analises/2026-10-07-correspondencia-de-recibos.md). Cofre e abertura permanecem em tarefas próprias; não encerrar M1 por esta entrega.
+
+
+### Concretização do cofre — recorte 2, 07/10/2026
+
+`Session.vaultRecovery()` expõe `{unavailable:boolean,cleanupPending:boolean}`, sem mensagens da plataforma, referências ou segredos. `Session.retryVault()` faz nova leitura da referência atual e limpeza das credenciais antigas, retornando esse estado; não promove chaves órfãs, não refaz login nem refresh. unavailable é observado por get/set/remove; cleanupPending deriva das referências de credenciais inativas já persistidas. Nenhum schema físico ou campo de transporte novo.
+
+A restauração de controle active saudável abre a conta mesmo se o cofre falhar e mantém leitura/escrita autorizadas; falha do banco continua pertencendo a Q51. Ausência/conteúdo inválido da chave atual exige autenticação, distinto de falha de acesso, que preserva a referência. Limpeza incompleta durante restauração/login/rotação já persistidos mantém referências e uso local; logout continua bloqueado até limpar. Login só ativa após os dois segredos persistidos. Set de refresh perdido não restaura a referência antiga.
+
+Indisponibilidade pausa novas requisições de sessão/sync/revogação, mesmo com token em memória. O scheduler observa o estado, sem consumir tentativas de intenções por falha do cofre; recuperação notificada retoma as filas respeitando seus prazos. Leituras/escritas protegidas capturam a geração antes do await; falha ou resposta tardia de A não altera diagnóstico, credencial ou base de B. O erro público vault_unavailable não carrega conteúdo da plataforma.
+
+Recorte 2 concluído localmente: [evidências, validação e limites do cofre](../docs/analises/2026-10-07-retomada-do-cofre.md). Abertura/PRAGMA permanece no recorte 3; M1 continua aberto.

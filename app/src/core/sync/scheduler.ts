@@ -13,12 +13,25 @@ export class SyncScheduler {
   private stopped=false;
   private lanes={sync:lane(),revocations:lane()};
   private key:string|null;
+  private vaultUnavailable:boolean;
+  private beforeVault:{key:string|null;sync:SyncState;revocations:SyncState}|null=null;
   private unsubscribe:()=>void;
   constructor(private session:Session,private origin:string,private clock:SyncClock=systemClock) {
+    this.vaultUnavailable=session.networkState().vaultUnavailable;
     this.key=session.networkState().key;this.lanes.sync.state=this.restoredState();
-    if(session.networkState().updateRequired) this.lanes.revocations.state=this.restoredState();
+    if(session.networkState().updateRequired||this.vaultUnavailable) this.lanes.revocations.state=this.restoredState();
     this.unsubscribe=session.subscribe(()=>{
-      const key=session.networkState().key;
+      const network=session.networkState(),key=network.key;
+      if(network.vaultUnavailable!==this.vaultUnavailable) {
+        if(network.vaultUnavailable) this.beforeVault={key:this.key,sync:{...this.lanes.sync.state},revocations:{...this.lanes.revocations.state}};
+        this.vaultUnavailable=network.vaultUnavailable;
+        for(const lane of Object.values(this.lanes)) {lane.epoch++;lane.cancel?.();lane.cancel=null;}
+        this.lanes.sync.state=this.vaultUnavailable?this.restoredState():
+          this.resumeAfterVault(this.beforeVault?.key===key?this.beforeVault?.sync:undefined,this.restoredState());
+        this.lanes.revocations.state=this.vaultUnavailable?{phase:'paused',failures:0,nextAttemptAt:null}:
+          this.resumeAfterVault(this.beforeVault?.revocations,idle());
+        if(!this.vaultUnavailable) this.beforeVault=null;
+      }
       if(key!==this.key) {
         this.key=key;this.lanes.sync.epoch++;this.lanes.sync.cancel?.();this.lanes.sync.cancel=null;this.lanes.sync.state=this.restoredState();
       }
@@ -29,8 +42,15 @@ export class SyncScheduler {
       this.kick('sync');this.kick('revocations');
     });
   }
+  private resumeAfterVault(previous:SyncState|undefined,current:SyncState):SyncState {
+    if(!previous||['idle','running','paused'].includes(previous.phase)||['failed','update_required'].includes(current.phase)) return current;
+    if(previous.phase!=='retry_wait') return previous;
+    return {phase:'retry_wait',failures:Math.max(previous.failures,current.failures),
+      nextAttemptAt:Math.max(previous.nextAttemptAt??0,current.nextAttemptAt??0)};
+  }
   private restoredState():SyncState {
     if(this.session.networkState().updateRequired) return {phase:'update_required',failures:0,nextAttemptAt:null};
+    if(this.session.networkState().vaultUnavailable) return {phase:'paused',failures:0,nextAttemptAt:null};
     if(!this.key||this.session.access().mode==='read_only') return idle();
     const retry=this.session.account().retryState();
     if(retry.failedCount>0) return {phase:'failed',failures:retry.failures,nextAttemptAt:null};
@@ -57,7 +77,7 @@ export class SyncScheduler {
     const lane=this.lanes[name];
     if(!this.ready()||lane.running) return;
     const network=this.session.networkState();
-    if(network.updateRequired) return;
+    if(network.updateRequired||network.vaultUnavailable) return;
     if(name==='sync'&&!network.key||name==='revocations'&&!network.revocations) return;
     if(!['idle','retry_wait','paused'].includes(lane.state.phase)) return;
     lane.cancel?.();lane.cancel=null;
@@ -77,7 +97,7 @@ export class SyncScheduler {
         } else lane.state=idle();
       } else {
         await this.session.flushRevocations(()=>this.ready());
-        if(this.stopped) return;
+        if(this.stopped||epoch!==lane.epoch) return;
         lane.state=idle();
       }
     } catch(error) {

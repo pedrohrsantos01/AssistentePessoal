@@ -27,6 +27,12 @@ Falhas transitórias esperam 1s, 2s, 4s até cinco minutos; um `Retry-After` vá
 
 [Evidências, reprodução e limites deste incremento](../docs/analises/2026-09-28-sincronizacao-automatica.md).
 
+## Retomada do cofre
+
+Com controle de instalação ativo e banco da conta saudáveis, falha do SecureStore conserva leitura/escrita local e pausa requisições remotas. `runtime.session.vaultRecovery()` expõe `{unavailable,cleanupPending}`, sem referências ou mensagens da plataforma. `runtime.session.retryVault()` tenta reler a credencial atual e limpar as antigas; retorna o estado atualizado e libera o scheduler quando o cofre se recupera, conservando o backoff.
+
+Falha de leitura não apaga referência; ausência/conteúdo inválido exige autenticação. A retomada não promove chaves órfãs nem repete refresh incerto. Logout incompleto conserva a fence e só termina após limpeza; login novo só ativa depois da persistência protegida. [Contrato e evidências](../docs/analises/2026-10-07-retomada-do-cofre.md). A UI de retomada e o aceite físico de falhas de SecureStore permanecem pendentes.
+
 ## Recuperação de rejeições
 
 A UI futura acessa a conta pela sessão e usa três operações do repositório:

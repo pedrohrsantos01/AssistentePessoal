@@ -9,13 +9,34 @@ import type {Credentials,IdentityTransport,SecureVault} from './types.ts';
 
 type OpenAccount=(accountId:string,guard:(write?:boolean)=>void)=>Promise<AccountStore>;
 export type IdentitySource=IdentityTransport|((compatibility:Compatibility)=>IdentityTransport);
+export type VaultRecovery={unavailable:boolean;cleanupPending:boolean};
 export class Session {
+  private vaultUnavailable=false;
+  vaultRecovery():VaultRecovery {
+    const current=this.control.state();
+    return {unavailable:this.vaultUnavailable,cleanupPending:this.control.keys().some(key=>key.purpose==='credentials'&&
+      (current.session_state!=='active'||key.key!==current.credentials_key))};
+  }
+  private markVault(unavailable:boolean) {
+    if(this.vaultUnavailable===unavailable) return;
+    this.vaultUnavailable=unavailable;this.notify();
+  }
+  private assertVault() {if(this.vaultUnavailable) throw new Error('vault_unavailable');}
+  private async protectedOperation<T>(request:()=>Promise<T>,generation:number):Promise<T> {
+    let value:T;
+    try {value=await request();} catch {
+      this.assertGeneration(generation);this.markVault(true);throw new Error('vault_unavailable');
+    }
+    this.assertGeneration(generation);return value;
+  }
+  async retryVault():Promise<VaultRecovery> {await this.restore();return this.vaultRecovery();}
+
   private listeners=new Set<()=>void>();
   subscribe(listener:()=>void) {this.listeners.add(listener);return ()=>{this.listeners.delete(listener);};}
   private notify() {for(const listener of this.listeners) listener();}
   networkState() {
     const state=this.control.state();
-    return {updateRequired:!this.compatibility.requestsAllowed(),key:this.store&&state.session_state==='active'?state.selected_account_id+':'+state.session_generation:null,
+    return {vaultUnavailable:this.vaultUnavailable,updateRequired:!this.compatibility.requestsAllowed(),key:this.store&&state.session_state==='active'?state.selected_account_id+':'+state.session_generation:null,
       revocations:state.session_state!=='logging_out'&&this.control.keys().some(key=>key.purpose==='revocation'&&
         (state.session_state!=='active'||key.key!==state.revoke_key))};
   }
@@ -60,7 +81,7 @@ export class Session {
     return this.authenticate(device=>this.identity.register(email,password,displayName,device));
   }
   private async identityRequest<T>(request:()=>Promise<T>):Promise<T> {
-    this.compatibility.assertRequestAllowed();
+    this.assertVault();this.compatibility.assertRequestAllowed();
     const generation=this.control.state().session_generation;
     try {
       const result=await request();this.assertGeneration(generation);this.compatibility.assertRequestAllowed();return result;
@@ -84,19 +105,19 @@ export class Session {
       this.compatibility.accept();
       const key='ritmo.credentials.'+this.nextId(),revoke='ritmo.revocation.'+this.nextId();
       this.control.remember(revoke,'revocation',session.accountId,session.sessionId);
-      await this.vault.set(revoke,session.revokeToken);
+      await this.protectedOperation(()=>this.vault.set(revoke,session.revokeToken),state.session_generation);
       this.control.remember(key,'credentials',session.accountId,session.sessionId);
-      await this.vault.set(key,JSON.stringify(session));
+      await this.protectedOperation(()=>this.vault.set(key,JSON.stringify(session)),state.session_generation);
       this.assertGeneration(state.session_generation);
       this.close();
       this.control.activate(session.accountId,key,revoke);
       this.credentials=session;
-      await this.cleanCredentials();
+      await this.tryCleanCredentials();
       await this.openCurrent();
     });
   }
   async synchronize(origin:string,now:()=>number=Date.now,allowed:()=>boolean=()=>true) {
-    this.compatibility.assertRequestAllowed();
+    this.assertVault();this.compatibility.assertRequestAllowed();
     const store=this.account(),generation=this.control.state().session_generation;
     const api=new HttpSync(origin,store.accountId,async force=>{
       if(!allowed()) throw new Error('sync_paused');
@@ -113,7 +134,7 @@ export class Session {
   }
   private renewal:Promise<string>|null=null;
   async accessToken(force=false):Promise<string> {
-    this.compatibility.assertRequestAllowed();
+    this.assertVault();this.compatibility.assertRequestAllowed();
     if(this.control.state().session_state!=='active') throw new Error('session_locked');
     if(this.renewal) return this.renewal;
     const current=this.credentials;
@@ -139,19 +160,23 @@ export class Session {
       const session={...renewed,revokeToken:previous.revokeToken};
       const key='ritmo.credentials.'+this.nextId();
       this.control.remember(key,'credentials',session.accountId,session.sessionId);
-      await this.vault.set(key,JSON.stringify(session));
+      await this.protectedOperation(()=>this.vault.set(key,JSON.stringify(session)),generation);
       this.assertGeneration(generation);
       this.control.useCredentials(key);this.credentials=session;
-      await this.cleanCredentials();
-      return session.accessToken;
+      await this.tryCleanCredentials();
+      this.assertVault();return session.accessToken;
     });
   }
   private async cleanCredentials() {
     const current=this.control.state();
     for(const key of this.control.keys().filter(key=>key.purpose==='credentials'&&
       (current.session_state!=='active'||key.key!==current.credentials_key))) {
-      await this.vault.remove(key.key);this.control.forget(key.key);
+      await this.protectedOperation(()=>this.vault.remove(key.key),current.session_generation);this.control.forget(key.key);
     }
+  }
+  private async tryCleanCredentials():Promise<boolean> {
+    try {await this.cleanCredentials();return true;}
+    catch(error) {if(!(error instanceof Error)||error.message!=='vault_unavailable') throw error;return false;}
   }
   logout():Promise<void> {
     // This durable fence precedes every await and every deletion of a secret.
@@ -159,40 +184,48 @@ export class Session {
     this.close();
     return this.exclusive(async()=>{
       await this.cleanCredentials();
-      this.control.lock();this.notify();
+      this.control.lock();this.markVault(false);this.notify();
     });
   }
   flushRevocations(allowed:()=>boolean=()=>true):Promise<void> {
     return this.exclusive(async()=>{
+      this.assertVault();
       for(const key of this.control.keys().filter(key=>key.purpose==='revocation')) {
         const current=this.control.state();
         if(current.session_state==='logging_out') throw new Error('session_locked');
         if(current.session_state==='active'&&current.revoke_key===key.key) continue;
         if(!allowed()) throw new Error('sync_paused');
-        const token=await this.vault.get(key.key);
+        const token=await this.protectedOperation(()=>this.vault.get(key.key),current.session_generation);
         if(!allowed()) throw new Error('sync_paused');
         if(token) await this.identityRequest(()=>this.identity.revoke(token));
-        await this.vault.remove(key.key);this.control.forget(key.key);
+        await this.protectedOperation(()=>this.vault.remove(key.key),current.session_generation);this.control.forget(key.key);
       }
     });
   }
   async restore() {
+    const generation=this.control.state().session_generation;
     if(this.control.state().session_state==='logging_out') {await this.logout();return;}
     await this.exclusive(async()=>{
-      const state=this.control.state();
+      this.assertGeneration(generation);
+      const state=this.control.state();let healthy=true;
       if(state.session_state==='active'&&state.credentials_key) {
-        const value=await this.vault.get(state.credentials_key);
-        this.assertGeneration(state.session_generation);
-        let parsed:unknown=null;
-        try {parsed=value?JSON.parse(value):null;} catch { /* Invalid protected data requires online authentication. */ }
-        const metadata=this.control.keys().find(key=>key.key===state.credentials_key);
-        const candidate=validate.SessionResponse(parsed)?parsed as Credentials:null;
-        if(candidate&&candidate.accountId===state.selected_account_id&&candidate.profile.accountId===candidate.accountId&&candidate.sessionId===metadata?.session_id) {
-          this.credentials=candidate;
-        } else {this.control.useCredentials(null);this.credentials=null;}
+        let value:string|null|undefined;
+        try {value=await this.protectedOperation(()=>this.vault.get(state.credentials_key!),state.session_generation);}
+        catch(error) {if(!(error instanceof Error)||error.message!=='vault_unavailable') throw error;healthy=false;}
+        if(value!==undefined) {
+          this.assertGeneration(state.session_generation);
+          let parsed:unknown=null;
+          try {parsed=value?JSON.parse(value):null;} catch { /* Invalid protected data requires online authentication. */ }
+          const metadata=this.control.keys().find(key=>key.key===state.credentials_key);
+          const candidate=validate.SessionResponse(parsed)?parsed as Credentials:null;
+          if(candidate&&candidate.accountId===state.selected_account_id&&candidate.profile.accountId===candidate.accountId&&candidate.sessionId===metadata?.session_id) {
+            this.credentials=candidate;
+          } else {this.control.useCredentials(null);this.credentials=null;}
+        }
       }
-      await this.cleanCredentials();
-      await this.openCurrent();
+      if(!await this.tryCleanCredentials()) healthy=false;
+      if(!this.store) await this.openCurrent();
+      this.markVault(!healthy);
     });
   }
   close() {this.store?.close();this.store=null;this.credentials=null;this.renewal=null;this.notify();}
