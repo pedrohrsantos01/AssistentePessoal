@@ -225,7 +225,9 @@ class RateLimitTests {
         builder.environment().put("RITMO_TEST_RATE_READY",ready.toString());builder.environment().put("RITMO_TEST_RATE_RELEASE",release.toString());
         var process=builder.start();
         try {
-            long deadline=System.nanoTime()+java.time.Duration.ofSeconds(30).toNanos();
+            // This wait includes Node/tsx startup plus 119 real HTTP requests, not the rate-limit clock.
+            // Match the bounded integration preparation window under host paging; quota assertions stay intact.
+            long deadline=System.nanoTime()+java.time.Duration.ofSeconds(120).toNanos();
             while(process.isAlive()&&!java.nio.file.Files.exists(ready)&&System.nanoTime()<deadline) Thread.sleep(10);
             assertThat(java.nio.file.Files.exists(ready)).as(java.nio.file.Files.readString(log)).isTrue();
             TIME.advance(60000000000L);java.nio.file.Files.writeString(release,"refilled");
