@@ -283,7 +283,7 @@ class WalRecoveryTests {
                 Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(restored,owner,password,"SELECT public.ritmo_wal_status(null)->>'durable'").equals("true"));
                 String secondTarget;String secondDevice=Json.id();JsonNode secondOp;
                 String url="jdbc:postgresql://"+restored.getHost()+":"+restored.getMappedPort(5432)+"/test";
-                try(var api=startApi(url,owner,password,Map.of("ritmo.signing-key",Base64.getEncoder().encodeToString("wal-recovery-key-32-bytes-exactly!".getBytes(java.nio.charset.StandardCharsets.UTF_8))))) {
+                try(var api=startApi(url,owner,password,Map.of("ritmo.operations.wal-wait-ms","2000","ritmo.signing-key",Base64.getEncoder().encodeToString("wal-recovery-key-32-bytes-exactly!".getBytes(java.nio.charset.StandardCharsets.UTF_8))))) {
                     post(api,"auth/login",null,Json.object().put("email","wal-a@example.test").put("password","fixture-password").put("deviceId",device),401);
                     post(api,"auth/refresh",null,Json.object().put("refreshToken",a.path("refreshToken").asString()),401);
                     post(api,"auth/refresh",null,Json.object().put("refreshToken",b.path("refreshToken").asString()),401);
@@ -326,7 +326,7 @@ class WalRecoveryTests {
                     sql(second,owner,password,"ALTER SYSTEM SET synchronous_standby_names='FIRST 1 (ritmo_wal)'");sql(second,owner,password,"SELECT pg_reload_conf()");
                     Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(second,owner,password,"SELECT public.ritmo_wal_status(null)->>'durable'").equals("true"));
                     var key=new byte[32];Arrays.fill(key,(byte)3);
-                    try(var api=startApi("jdbc:postgresql://"+second.getHost()+":"+second.getMappedPort(5432)+"/test",owner,password,Map.of("ritmo.signing-key",Base64.getEncoder().encodeToString(key)))) {
+                    try(var api=startApi("jdbc:postgresql://"+second.getHost()+":"+second.getMappedPort(5432)+"/test",owner,password,Map.of("ritmo.operations.wal-wait-ms","2000","ritmo.signing-key",Base64.getEncoder().encodeToString(key)))) {
                         var login=post(api,"auth/login",null,Json.object().put("email","wal-a@example.test").put("password","fixture-new-password").put("deviceId",secondDevice),200);
                         String token=login.path("accessToken").asString();
                         assertThat(push(api,token,secondOp).at("/results/0/replayed").asBoolean()).isTrue();
