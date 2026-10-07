@@ -113,4 +113,9 @@ Pedro aprovou A nas três decisões: base ilegível preservada/bloqueada com nov
 
 O reconhecimento de recibos deve comprovar correspondência à intenção, inclusive em pull/snapshot, conservando recibo original e envelope divergente. ID coincidente não basta. Rejeição comprovada de uma criação por ID de entidade reutilizado é distinta de identidade incerta e segue correção/descarte já aprovados.
 
-[Contrato §22](../../specs/13-contrato-primeiro-marco.md), [plano para confirmação](../../.scratch/recuperacao-excecoes/spec.md) e [diagnóstico](../../docs/analises/2026-10-07-recuperacao-de-excecoes.md). Schemas/fixtures m1.1 permanecem os atuais; prova física/classificação e evolução compatível serão concretizadas antes da implementação na tarefa de identidade. Este registro não declara novo campo/endpoint nem conclusão das tarefas.
+[Contrato §22](../../specs/13-contrato-primeiro-marco.md), [plano confirmado](../../.scratch/recuperacao-excecoes/spec.md) e [diagnóstico](../../docs/analises/2026-10-07-recuperacao-de-excecoes.md). A extensão aditiva de correspondência está concretizada abaixo e nos schemas/fixtures. Não há novo comando, endpoint ou DDL; cofre e abertura permanecem em entregas separadas.
+
+
+## Correspondência dos recibos — 07/10/2026
+
+Extensão aditiva m1.1: `operationHash` opcional em schemas, sempre emitido pela API atual (SHA-256/JCS da Operation integral); JSON histórico enriquecido em leitura. Colisões efêmeras incluem `error.identityConflict` com tipo, ID e hash originais, enquanto hash do recibo refere-se à tentativa. Hash ausente não autoriza reconhecimento. Rejeição persistida com hash correspondente e sem marcador segue recuperação aprovada. Formatos, limites e implantação API primeiro: [contrato §22](../../specs/13-contrato-primeiro-marco.md#concretização-da-correspondência--recorte-1-07102026).

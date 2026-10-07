@@ -1,3 +1,4 @@
+import {operationHash} from '../../src/core/sync/operation-hash.ts';
 import type {Compatibility} from '../../src/core/sync/compatibility.ts';
 import {CLIENT,type ClientVersion} from '../../src/core/sync/client-version.ts';
 import {mkdtempSync,rmSync} from 'node:fs';
@@ -54,7 +55,7 @@ export function fixture(source?:(compatibility:Compatibility)=>IdentityTransport
 export const pull=(cursor:string)=>Response.json({changes:[],nextCursor:cursor,hasMore:false,highWaterRevision:'0',serverTime:at});
 
 export function acceptedCreate(operationId:string) {
-  return Response.json({results:[{receipt:{operationId,status:'accepted',acceptedRevision:'1'},replayed:false,
+  return Response.json({results:[{receipt:{operationId,operationHash:operationHash({operationId,deviceId:id(2),clientSequence:1,occurredAt:at,dependsOn:[],command}),status:'accepted',acceptedRevision:'1'},replayed:false,
     projections:[{kind:'habit',value:{habitId:command.habitId,title:command.title,habitType:'binary',scheduleKind:'daily',startDayKey:day,
       creationTimeContext:command.timeContext,iconKey:null,colorToken:null,sortOrder:0,createdAt:at,updatedAt:at,deletedAt:null,revision:'1'}}]}],serverTime:at});
 }

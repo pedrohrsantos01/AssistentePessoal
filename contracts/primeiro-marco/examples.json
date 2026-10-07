@@ -1887,5 +1887,117 @@
       "colorToken": null,
       "sortOrder": 0
     }
+  },
+  {
+    "name": "receipt-with-proof",
+    "schema": "Receipt",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "status": "accepted",
+      "acceptedRevision": "3",
+      "operationHash": "672c1f30d1f6b4e70bd791cfb00e90a2a75aa80205fcaaf895794e376db15629"
+    }
+  },
+  {
+    "name": "identity-operation",
+    "schema": "RejectedReceipt",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "operationHash": "672c1f30d1f6b4e70bd791cfb00e90a2a75aa80205fcaaf895794e376db15629",
+      "status": "rejected",
+      "error": {
+        "code": "id_content_conflict",
+        "fields": [],
+        "dependencyIds": [],
+        "identityConflict": {
+          "kind": "operation",
+          "originalOperationId": "01996300-0000-7000-8000-000000000010",
+          "originalOperationHash": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    }
+  },
+  {
+    "name": "identity-sequence",
+    "schema": "RejectedReceipt",
+    "valid": true,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "operationHash": "672c1f30d1f6b4e70bd791cfb00e90a2a75aa80205fcaaf895794e376db15629",
+      "status": "rejected",
+      "error": {
+        "code": "id_content_conflict",
+        "fields": [],
+        "dependencyIds": [],
+        "identityConflict": {
+          "kind": "sequence",
+          "originalOperationId": "01996300-0000-7000-8000-000000000011",
+          "originalOperationHash": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    }
+  },
+  {
+    "name": "reject-invalid-operation-hash",
+    "schema": "Receipt",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "status": "accepted",
+      "acceptedRevision": "3",
+      "operationHash": "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ"
+    }
+  },
+  {
+    "name": "reject-short-operation-hash",
+    "schema": "Receipt",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "status": "accepted",
+      "acceptedRevision": "3",
+      "operationHash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  },
+  {
+    "name": "reject-unknown-identity-kind",
+    "schema": "RejectedReceipt",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "operationHash": "672c1f30d1f6b4e70bd791cfb00e90a2a75aa80205fcaaf895794e376db15629",
+      "status": "rejected",
+      "error": {
+        "code": "id_content_conflict",
+        "fields": [],
+        "dependencyIds": [],
+        "identityConflict": {
+          "kind": "entity",
+          "originalOperationId": "01996300-0000-7000-8000-000000000011",
+          "originalOperationHash": "0000000000000000000000000000000000000000000000000000000000000000"
+        }
+      }
+    }
+  },
+  {
+    "name": "reject-incomplete-identity-proof",
+    "schema": "RejectedReceipt",
+    "valid": false,
+    "value": {
+      "operationId": "01996300-0000-7000-8000-000000000010",
+      "operationHash": "672c1f30d1f6b4e70bd791cfb00e90a2a75aa80205fcaaf895794e376db15629",
+      "status": "rejected",
+      "error": {
+        "code": "id_content_conflict",
+        "fields": [],
+        "dependencyIds": [],
+        "identityConflict": {
+          "kind": "sequence",
+          "originalOperationId": "01996300-0000-7000-8000-000000000011"
+        }
+      }
+    }
   }
 ]

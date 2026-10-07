@@ -57,7 +57,22 @@ public class Sync {
             // At most 50 operations: reachability from each node identifies every member of overlapping cycles.
             for(String id:pending.keySet()) if(reaches(id,id,pending,new HashSet<>())) cycles.add(id);
             for(String id:pending.keySet()) visitDependencies(id,pending,visited,ordered);
-            for(var operation:ordered) completed.put(operation.path("operationId").asString(),process(user,operation,cycles));
+            var uncertain=new HashSet<String>();
+            completed.forEach((id,result)->{if(result.at("/receipt/error/identityConflict").isObject()) uncertain.add(id);});
+            for(var operation:ordered) {
+                String id=operation.path("operationId").asString();
+                var unresolved=Json.array();
+                for(var dependency:operation.path("dependsOn")) if(uncertain.contains(dependency.asString())) unresolved.add(dependency);
+                JsonNode outcome;
+                if(!unresolved.isEmpty()) {
+                    var deferred=Json.object().put("operationId",id).put("status","deferred");
+                    deferred.set("missingDependencyIds",unresolved);outcome=deferred;uncertain.add(id);
+                } else {
+                    outcome=process(user,operation,cycles);
+                    if(outcome.at("/receipt/error/identityConflict").isObject()) uncertain.add(id);
+                }
+                completed.put(id,outcome);
+            }
             var results=Json.array();
             for(var operation:body.path("operations")) results.add(completed.get(operation.path("operationId").asString()));
             var result=Json.object().put("serverTime",clock.instant().toString());result.set("results",results);return result;
@@ -82,12 +97,12 @@ public class Sync {
             """,user,id);
         if(!previous.isEmpty()) {
             var stored=previous.getFirst();
-            if(!stored.path("hash").asString().equals(hash)) return result(rejection(id,"id_content_conflict"),false,List.of());
+            if(!stored.path("hash").asString().equals(hash)) return result(conflict(id,hash,"operation",id,stored.path("hash").asString()),false,List.of());
             var keys=new HashSet<String>();stored.path("keys").forEach(k->keys.add(k.asString()));
-            return result(stored.path("receipt"),true,projections(user).stream().filter(e->keys.contains(e.key())).toList());
+            return result(withHash(stored.path("receipt"),hash),true,projections(user).stream().filter(e->keys.contains(e.key())).toList());
         }
-        var sequence=db.rows("select to_jsonb(operation_id) from sync_operation_receipts where user_id=?::uuid and device_id=?::uuid and client_sequence=?::bigint",user,operation.path("deviceId").asString(),operation.path("clientSequence").asString());
-        if(!sequence.isEmpty()) return result(rejection(id,"id_content_conflict"),false,List.of());
+        var sequence=db.rows("select jsonb_build_object('id',operation_id,'hash',encode(payload_hash,'hex')) from sync_operation_receipts where user_id=?::uuid and device_id=?::uuid and client_sequence=?::bigint",user,operation.path("deviceId").asString(),operation.path("clientSequence").asString());
+        if(!sequence.isEmpty()) return result(conflict(id,hash,"sequence",sequence.getFirst().path("id").asString(),sequence.getFirst().path("hash").asString()),false,List.of());
         if(cycles.contains(id)) {
             var references=new ArrayList<String>();
             for(var dependency:operation.path("dependsOn")) if(cycles.contains(dependency.asString())) references.add(dependency.asString());
@@ -108,7 +123,7 @@ public class Sync {
                 if(operation.at("/command/type").asString().equals("profile.setOnboarding")) identity.onboard(user,operation.path("command"),revision);
                 else habits.execute(user,operation,revision,identity.projections(user).getFirst().value().path("timeContext"));
                 var affected=projections(user).stream().filter(e->e.value().path("revision").asString().equals(revision)).toList();
-                var receipt=Json.object().put("operationId",id).put("status","accepted").put("acceptedRevision",revision);
+                var receipt=Json.object().put("operationId",id).put("status","accepted").put("acceptedRevision",revision).put("operationHash",hash);
                 saveReceipt(user,operation,hash,receipt,affected);
                 var change=Json.object().put("revision",revision);
                 change.set("operationResults",Json.array().add(receipt));change.set("entities",Json.entities(affected));
@@ -122,9 +137,19 @@ public class Sync {
         return reject(user,operation,hash,code,List.of());
     }
     private JsonNode reject(String user,JsonNode operation,String hash,String code,List<String> dependencies) {
-        var receipt=rejection(operation.path("operationId").asString(),code);
+        var receipt=rejection(operation.path("operationId").asString(),code).put("operationHash",hash);
         var ids=Json.array();dependencies.forEach(ids::add);((ObjectNode)receipt.path("error")).set("dependencyIds",ids);
         saveReceipt(user,operation,hash,receipt,List.of());return result(receipt,false,List.of());
+    }
+
+    private ObjectNode withHash(JsonNode receipt,String hash) {
+        return ((ObjectNode)receipt.deepCopy()).put("operationHash",hash);
+    }
+    private ObjectNode conflict(String id,String hash,String kind,String originalId,String originalHash) {
+        var receipt=rejection(id,"id_content_conflict").put("operationHash",hash);
+        ((ObjectNode)receipt.path("error")).set("identityConflict",Json.object().put("kind",kind)
+            .put("originalOperationId",originalId).put("originalOperationHash",originalHash));
+        return receipt;
     }
     private ObjectNode rejection(String id,String code) {
         var error=Json.object().put("code",code);error.set("fields",Json.array());error.set("dependencyIds",Json.array());
@@ -163,7 +188,13 @@ public class Sync {
             long after=Long.parseLong(token.path("after").asString()),high=Long.parseLong(token.path("high").asString());
             if(after<Long.parseLong(state.path("floor").asString())) throw new HttpFailure(409,"resync_required");
             if(after==high) high=Long.parseLong(state.path("revision").asString());
-            var rows=db.rows("select envelope from sync_changes where user_id=?::uuid and revision>?::bigint and revision<=?::bigint order by revision limit 500",user,Long.toString(after),Long.toString(high));
+            var rows=db.rows("""
+                select c.envelope || jsonb_build_object('operationResults',
+                (select jsonb_agg(e.value || jsonb_build_object('operationHash',encode(r.payload_hash,'hex')) order by e.ordinality)
+                 from jsonb_array_elements(c.envelope->'operationResults') with ordinality e(value,ordinality)
+                 join sync_operation_receipts r on r.user_id=c.user_id and r.user_id=?::uuid and r.operation_id=(e.value->>'operationId')::uuid))
+                from sync_changes c where c.user_id=?::uuid and c.revision>?::bigint and c.revision<=?::bigint order by c.revision limit 500
+                """,user,user,Long.toString(after),Long.toString(high));
             if(rows.stream().anyMatch(change->change.path("entities").size()>32)) throw new HttpFailure(409,"resync_required");
             long next=rows.isEmpty()?after:Long.parseLong(rows.getLast().path("revision").asString());
             var response=Json.object().put("nextCursor",pullCursor(user,state.path("epoch").asString(),next,high)).put("hasMore",next<high)
@@ -214,7 +245,7 @@ public class Sync {
             lock(user);String snapshot=request.path("snapshotId").asString();var state=snapshotState(user,snapshot);
             var results=Json.array();long high=Long.parseLong(state.path("revision").asString());
             for(var id:request.path("operationIds")) {
-                var rows=db.rows("select result from sync_operation_receipts where user_id=?::uuid and operation_id=?::uuid and (outcome='rejected' or accepted_revision<=?::bigint)",user,id.asString(),Long.toString(high));
+                var rows=db.rows("select result || jsonb_build_object('operationHash',encode(payload_hash,'hex')) from sync_operation_receipts where user_id=?::uuid and operation_id=?::uuid and (outcome='rejected' or accepted_revision<=?::bigint)",user,id.asString(),Long.toString(high));
                 results.add(rows.isEmpty()?Json.object().put("operationId",id.asString()).put("status","notProcessedAtH"):rows.getFirst());
             }
             var response=Json.object().put("snapshotId",snapshot).put("highWaterRevision",Long.toString(high));response.set("results",results);return response;

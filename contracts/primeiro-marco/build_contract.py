@@ -48,9 +48,11 @@ KINDS = {'profile':'AccountProfile','habit':'Habit','habitDay':'HabitDay','xpGra
 S['Entity'] = {'oneOf':[obj({'kind':{'const':kind},'value':ref(schema)}) for kind,schema in KINDS.items()]}
 S['FieldError'] = obj({'path':text(200),'code':enum('required','invalid','too_long','out_of_range','not_unique')})
 BUSINESS = ('validation_failed','title_unavailable','resource_inaccessible','day_invalid','id_content_conflict','dependency_rejected','dependency_cycle','context_limit_reached')
-S['BusinessError'] = obj({'code':enum(*BUSINESS),'fields':arr(ref('FieldError'),50),'dependencyIds':arr(ref('Id'),4096,unique=True)})
-S['Receipt'] = obj({'operationId':ref('Id'),'status':enum('accepted','reconciled'),'acceptedRevision':ref('Revision')})
-S['RejectedReceipt'] = obj({'operationId':ref('Id'),'status':{'const':'rejected'},'error':ref('BusinessError')})
+S['OperationHash'] = {'type':'string','pattern':'^[0-9a-f]{64}$'}
+S['IdentityConflict'] = obj({'kind':enum('operation','sequence'),'originalOperationId':ref('Id'),'originalOperationHash':ref('OperationHash')})
+S['BusinessError'] = obj({'code':enum(*BUSINESS),'fields':arr(ref('FieldError'),50),'dependencyIds':arr(ref('Id'),4096,unique=True),'identityConflict':ref('IdentityConflict')},('identityConflict',))
+S['Receipt'] = obj({'operationId':ref('Id'),'status':enum('accepted','reconciled'),'acceptedRevision':ref('Revision'),'operationHash':ref('OperationHash')},('operationHash',))
+S['RejectedReceipt'] = obj({'operationId':ref('Id'),'status':{'const':'rejected'},'error':ref('BusinessError'),'operationHash':ref('OperationHash')},('operationHash',))
 S['AcceptedResult'] = obj({'receipt':ref('Receipt'),'replayed':{'type':'boolean'},'projections':arr(ref('Entity'),32)})
 S['RejectedResult'] = obj({'receipt':ref('RejectedReceipt'),'replayed':{'type':'boolean'}})
 S['DeferredResult'] = obj({'operationId':ref('Id'),'status':{'const':'deferred'},'missingDependencyIds':arr(ref('Id'),4096,1,True)})
@@ -152,6 +154,17 @@ example('reject-large-batch','PushRequest',{'operations':[OP]*51},False)
 bad=copy.deepcopy(OP); bad['command']['type']='xp.setTotal'; example('reject-unknown-command','Operation',bad,False)
 example('reject-unknown-result','PushResponse',{'results':[{'status':'success'}],'serverTime':TIME},False)
 example('reject-unsupported-habit','CreateHabitCommand',{'type':'habit.create','habitId':ID(3),'title':'Beber','habitType':'quantitative','scheduleKind':'daily','startDayKey':'2026-09-25','timeContext':TC,'iconKey':None,'colorToken':None,'sortOrder':0},False)
+# Legacy examples deliberately omit the optional proof; current API fixtures include it.
+PROOF='672c1f30d1f6b4e70bd791cfb00e90a2a75aa80205fcaaf895794e376db15629'
+example('receipt-with-proof','Receipt',{**RECEIPT,'operationHash':PROOF})
+for kind in ('operation','sequence'):
+    conflict={'operationId':ID(10),'operationHash':PROOF,'status':'rejected','error':{'code':'id_content_conflict','fields':[],'dependencyIds':[],
+        'identityConflict':{'kind':kind,'originalOperationId':ID(11) if kind=='sequence' else ID(10),'originalOperationHash':'0'*64}}}
+    example('identity-'+kind,'RejectedReceipt',conflict)
+bad={**RECEIPT,'operationHash':'Z'*64};example('reject-invalid-operation-hash','Receipt',bad,False)
+bad={**RECEIPT,'operationHash':'a'*63};example('reject-short-operation-hash','Receipt',bad,False)
+bad=copy.deepcopy(conflict);bad['error']['identityConflict']['kind']='entity';example('reject-unknown-identity-kind','RejectedReceipt',bad,False)
+bad=copy.deepcopy(conflict);del bad['error']['identityConflict']['originalOperationHash'];example('reject-incomplete-identity-proof','RejectedReceipt',bad,False)
 for name,data in [('openapi.json',API),('examples.json',EX)]:
     (ROOT/name).write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8', newline='\n')
 print(f'Generated {len(S)} schemas, {len(paths)} endpoints, {len(EX)} fixtures.')

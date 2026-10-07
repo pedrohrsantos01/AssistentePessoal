@@ -354,7 +354,7 @@ Pedro confirmou o [plano consolidado](../.scratch/retencao-feed/spec.md) e as fr
 
 ## 22. Recuperação de exceções — Q51/Q52/Q53, 07/10/2026
 
-Pedro aprovou **A** em Q51, Q52 e Q53. [Entrevista](../.scratch/fundacao/entrevista.md), [diagnóstico](../docs/analises/2026-10-07-recuperacao-de-excecoes.md) e [plano para confirmação](../.scratch/recuperacao-excecoes/spec.md). Estas definições complementam §§2/6/7/8; não declaram novos schemas HTTP, tabelas ou comportamentos já implementados.
+Pedro aprovou **A** em Q51, Q52 e Q53. [Entrevista](../.scratch/fundacao/entrevista.md), [diagnóstico](../docs/analises/2026-10-07-recuperacao-de-excecoes.md) e [plano confirmado](../.scratch/recuperacao-excecoes/spec.md). Estas definições complementam §§2/6/7/8; a concretização de identidade está abaixo, enquanto cofre e abertura permanecem em tarefas separadas.
 
 ### Banco local e abertura
 
@@ -376,4 +376,24 @@ A prova física de correspondência, sua consulta/classificação, limites e est
 
 ### Entregas e aceite
 
-[Identidade/recibos](../.scratch/recuperacao-excecoes/issues/01-reconciliar-identidade-e-recibos.md), [cofre](../.scratch/recuperacao-excecoes/issues/02-retomar-cofre-sem-bloquear-uso-local.md) e [abertura local](../.scratch/recuperacao-excecoes/issues/03-expor-recuperacao-da-abertura-local.md) são tarefas verticais separadas, ordenadas por risco. Cada uma exige testes pelas interfaces públicas e bancos reais, preservação/isolamento A/B, reinício/rollback/retomada e checks obrigatórios de app/API. Fronteiras propostas no plano aguardam confirmação do entendimento antes da implementação. A preparação documental não conclui M1, UI/aparelhos ou operação externa.
+[Identidade/recibos](../.scratch/recuperacao-excecoes/issues/01-reconciliar-identidade-e-recibos.md), [cofre](../.scratch/recuperacao-excecoes/issues/02-retomar-cofre-sem-bloquear-uso-local.md) e [abertura local](../.scratch/recuperacao-excecoes/issues/03-expor-recuperacao-da-abertura-local.md) são tarefas verticais separadas, ordenadas por risco. Cada uma exige testes pelas interfaces públicas e bancos reais, preservação/isolamento A/B, reinício/rollback/retomada e checks obrigatórios de app/API. Entendimento e fronteiras foram confirmados por Pedro com “sim” em 07/10/2026; cada recorte exige sua própria verificação. A preparação documental não conclui M1, UI/aparelhos ou operação externa.
+
+### Concretização da correspondência — recorte 1, 07/10/2026
+
+Extensão aditiva m1.1: `operationHash` opcional em Receipt/RejectedReceipt, SHA-256 hexadecimal minúsculo (64 caracteres) da Operation integral conforme RFC 8785, antes de normalização de negócio. A API atual sempre emite a prova para recibos persistidos, inclusive replay/pull/consulta em H; enriquece JSON histórico pelo `payload_hash` existente sem reescrever recibos/feed. É hash do envelope público, restrito à própria conta, nunca de credencial.
+
+Colisão efêmera de operação/sequência devolve hash da tentativa e `error.identityConflict={kind:operation|sequence,originalOperationId,originalOperationHash}`. Não persiste outro recibo; original continua consultável pelo ID em H. Rejeição persistida por ID de hábito reutilizado não tem marcador; com hash correspondente segue correção/descarte.
+
+App exige hash correspondente para reconhecer. Hash ausente/divergente ou marcador de colisão preservam/bloqueiam localmente, sem correção/descarte/reenvio automático. Campo ausente permanece JSON válido por compatibilidade, mas constitui prova insuficiente. O gerador dos validadores do app anterior remove additionalProperties das respostas, tolerando campos opcionais adicionais; o contrato de entrada da API permanece estrito. Não mudam comandos/rotas/cabeçalhos; implantar API antes do app. Backend anterior sem prova conserva o bloqueio no app novo.
+
+JSON local de erro: `identity={reason:missing_proof|content_mismatch|operation|sequence,localOperationHash,originalOperationId?,originalOperationHash?,originalReceipt?,conflictReceipt?}`, limitado a um recibo original e um efêmero, persistidos após reinício. Dependentes usam `identity_dependency_unresolved`, também sem correção/descarte. Prova posterior exata pode resolver ausência de prova e liberar dependentes sem resultado mantendo IDs; recibo sem prova não apaga conflito conhecido. Snapshot consulta bloqueadas sem resolução; `notProcessedAtH` conserva o bloqueio.
+
+Hash síncrono no escritor SQLite: @noble/hashes 2.4.0 e canonicalização de Operation (chaves em ordem UTF-16, arrays ordenados como enviados, números ECMAScript, sem normalização Unicode; recusar Unicode inválido/números não finitos). Nenhuma coluna/tabela nova: PostgreSQL já guarda hash e SQLite guarda error/result JSON. Sem migration; V1–V5 intactas. Plano e fronteiras confirmados por Pedro com “sim” em 07/10/2026.
+
+
+No lote que contém colisão de identidade, operações novas dependentes (diretas/transitivas) ficam `deferred`, sem fato, XP, orçamento ou recibo persistido. `missingDependencyIds` referencia as intenções ainda sem correspondência comprovada no lote, mesmo que o ID tenha recibo de outro conteúdo. Independentes prosseguem; replay de um recibo já comprovado mantém seu resultado. Não concluir dependência pela existência isolada do ID original.
+
+
+Ao abrir SQLite de um cliente anterior, resultados acknowledged/rejected sem prova e ainda sem resolução são preservados e classificados como `missing_proof`, junto das dependentes. Não reenviar operações antes reconhecidas: consultar prova pelo fluxo de snapshot. Resoluções já gravadas não são reabertas. Uma sincronização com impasses por prova ausente inicia uma nova consulta no corte antes de push; prova correspondente permite retomar os mesmos IDs das dependentes, sem afirmar que ausência em H é rejeição.
+
+Entrega local do recorte 1: [evidências, validação e limites](../docs/analises/2026-10-07-correspondencia-de-recibos.md). Cofre e abertura permanecem em tarefas próprias; não encerrar M1 por esta entrega.

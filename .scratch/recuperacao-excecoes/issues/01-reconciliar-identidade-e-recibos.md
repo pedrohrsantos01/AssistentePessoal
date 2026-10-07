@@ -1,6 +1,6 @@
 # 01 — Reconciliar identidade sem confirmar conteúdo divergente
 
-Status: needs-info
+Status: ready-for-agent
 Blocked by: none
 
 ## Resultado esperado
@@ -9,7 +9,7 @@ Entregar o [recorte 1 do plano](../spec.md): reconhecer somente a intenção com
 
 ## Pré-requisito
 
-Confirmar entendimento consolidado e fronteiras de teste. Concretizar prova de correspondência, formatos, limites e evolução compatível do protocolo antes do código. Não presumir campo/endpoint já aprovado no contrato executável.
+Entendimento consolidado e fronteiras de teste confirmados por Pedro com “sim” em 07/10/2026. Concretizar prova de correspondência, formatos, limites e evolução compatível do protocolo antes do código. Não presumir campo/endpoint já aprovado no contrato executável.
 
 ## Escopo e critérios de aceite
 
@@ -24,8 +24,10 @@ Confirmar entendimento consolidado e fronteiras de teste. Concretizar prova de c
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim.
+
+Prova do envelope integral em ack/pull/snapshot, diagnóstico persistido e bloqueio de dependentes entregues. Rejeições comprovadas por ID de entidade seguem recuperação explícita; intenções independentes continuam. Sem DDL novo; V1–V5 preservadas. [Relatório e limites](../../../docs/analises/2026-10-07-correspondencia-de-recibos.md): app typecheck/lint e 100 testes; API check integral com 85 aprovados/1 Android opt-in ignorado, 13 operacionais; contrato 56 fixtures. M1 e os recortes 2/3 permanecem abertos.
 
 ## Comments
 
-07/10/2026 — Q53=A aprovada. [Diagnóstico](../../../docs/analises/2026-10-07-recuperacao-de-excecoes.md) demonstrou a lacuna por inspeção; sem reprodução dinâmica/implementação nesta preparação. `needs-info` aguarda entendimento consolidado e fronteiras de teste.
+07/10/2026 — Q53=A aprovada. [Diagnóstico](../../../docs/analises/2026-10-07-recuperacao-de-excecoes.md) demonstrou a lacuna por inspeção; sem reprodução dinâmica/implementação nesta preparação. Confirmação recebida em 07/10/2026; implementação iniciada.

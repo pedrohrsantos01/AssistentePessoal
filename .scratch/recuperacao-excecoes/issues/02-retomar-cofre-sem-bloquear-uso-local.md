@@ -1,6 +1,6 @@
 # 02 — Retomar o cofre preservando uso local da sessão ativa
 
-Status: needs-info
+Status: ready-for-agent
 Blocked by: none
 
 ## Resultado esperado
@@ -9,7 +9,7 @@ Entregar o [recorte 2](../spec.md) de Q52=A: sessão já ativa com controle/banc
 
 ## Pré-requisito
 
-Confirmar entendimento consolidado e fronteiras de teste; identidade e abertura são entregas separadas, sem dependência técnica presumida.
+Entendimento consolidado e fronteiras de teste confirmados por Pedro em 07/10/2026; identidade e abertura são entregas separadas, sem dependência técnica presumida.
 
 ## Escopo e critérios de aceite
 
@@ -29,3 +29,6 @@ Concluída: não.
 ## Comments
 
 07/10/2026 — Q52=A aprovada; falta confirmar entendimento e fronteiras. Sem implementação ou teste novo nesta preparação.
+
+
+07/10/2026 — Pedro confirmou entendimento e fronteiras de teste do plano com “sim”. Tarefa especificada; implementação continua pendente.

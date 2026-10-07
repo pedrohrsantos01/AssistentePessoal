@@ -468,3 +468,6 @@ Pedro escolheu **A** nas três perguntas:
 - **Q53 — Identidade ainda sem prova após consulta ao servidor:** preservar operação e dependentes bloqueados com diagnóstico para intervenção técnica; independentes continuam. Não descartar a intenção incerta, gerar nova identidade ou reenviar automaticamente. Rejeição definitiva comprovada e confirmação correspondente conservam as garantias existentes.
 
 Respostas incorporadas aos specs 01/06/13 e README dos contratos. [Diagnóstico verificado por leitura](../../docs/analises/2026-10-07-recuperacao-de-excecoes.md) e [plano consolidado para confirmação](../recuperacao-excecoes/spec.md). Ordem recomendada: identidade/recibos, cofre, abertura local. Não há outra pergunta de produto na fronteira delimitada; entendimento e fronteiras de teste ainda aguardam confirmação antes da implementação. M1/tarefa 05 e gates existentes permanecem abertos.
+
+
+07/10/2026 — Pedro confirmou com “sim” o plano de recuperação de exceções e as fronteiras de teste; autorizado iniciar o recorte 1 de identidade/recibos.

@@ -1,7 +1,7 @@
-# Recuperação de exceções — plano para confirmação
+# Recuperação de exceções — plano confirmado
 
 Data: 07/10/2026.
-Estado: Q51–Q53 aprovadas na opção A; entendimento consolidado e fronteiras de teste aguardam confirmação. Implementação ainda não iniciada.
+Estado: Q51–Q53 aprovadas na opção A; Pedro confirmou entendimento e fronteiras de teste com “sim” em 07/10/2026. Recorte 1 concluído localmente; cofre e abertura pendentes.
 Origem: [tarefa 05 do M1](../primeiro-marco/issues/05-completar-sessao-e-recuperacao.md), após [retenção concluída](../../docs/analises/2026-10-04-retencao-fisica-do-feed.md).
 [Diagnóstico](../../docs/analises/2026-10-07-recuperacao-de-excecoes.md), [entrevista](../fundacao/entrevista.md).
 
@@ -37,7 +37,7 @@ Falha de `get` não equivale a segredo ausente/inválido e não apaga referênci
 
 Falha de conta bloqueia seu acesso; falha no controle de instalação impede abrir sessão. Não tentar descobrir/abrir conta por arquivos ou credenciais soltas quando o controle é ilegível. Outra conta só pode ser ativada pelo fluxo autorizado, com isolamento e estado da instalação válidos. Não prometer recuperabilidade física ou exportar conteúdo/segredos no diagnóstico.
 
-## Fronteiras propostas para os testes
+## Fronteiras confirmadas para os testes
 
 - Interfaces públicas de sessão, abertura, AccountStore e cliente HTTP; SQLite e PostgreSQL reais.
 - Cofre, sistema de arquivos/armazenamento, relógio e ciclo de vida são fronteiras externas para falhas controladas. Nenhum mock de módulos internos para substituir garantias.
@@ -56,4 +56,6 @@ Reparo físico, exportação, reconstrução assistida, intervenção destrutiva
 
 Concluída: não.
 
-Decisões de produto registradas; falta confirmar o entendimento consolidado e as fronteiras acima antes de implementar, conforme `grilling`. A concretização técnica de cada tarefa faz parte da respectiva entrega.
+Entendimento e fronteiras confirmados em 07/10/2026. Cada tarefa exige sua própria implementação e verificação.
+
+07/10/2026 — [Recorte 1 e provas](../../docs/analises/2026-10-07-correspondencia-de-recibos.md) concluídos: correspondência antes do reconhecimento, compatibilidade de respostas, diagnóstico preservado e dependentes bloqueadas quando a identidade continua incerta. [Recorte 2](issues/02-retomar-cofre-sem-bloquear-uso-local.md) é a próxima entrega recomendada; [recorte 3](issues/03-expor-recuperacao-da-abertura-local.md) permanece pendente. O plano inteiro e M1 continuam abertos.

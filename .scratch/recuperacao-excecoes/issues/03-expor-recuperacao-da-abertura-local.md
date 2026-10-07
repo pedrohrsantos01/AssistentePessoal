@@ -1,6 +1,6 @@
 # 03 — Expor recuperação segura das falhas de abertura local
 
-Status: needs-info
+Status: ready-for-agent
 Blocked by: none
 
 ## Resultado esperado
@@ -27,4 +27,7 @@ Concluída: não.
 
 ## Comments
 
-07/10/2026 — Q51=A aprovada; falta confirmar entendimento e fronteiras. Testes atuais de rollback/migration não cobrem corrupção física. Sem implementação nesta preparação.
+07/10/2026 — Q51=A aprovada; entendimento e fronteiras confirmados por Pedro em 07/10/2026. Testes atuais de rollback/migration não cobrem corrupção física. Sem implementação nesta preparação.
+
+
+07/10/2026 — Pedro confirmou entendimento e fronteiras de teste do plano com “sim”. Tarefa especificada; implementação continua pendente.

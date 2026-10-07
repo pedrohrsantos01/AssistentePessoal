@@ -93,7 +93,7 @@ async function copySnapshot(store:AccountStore,api:HttpSync) {
   // Local writers remain available during requests. Repeat until every current pending id is classified at H.
   const classified=new Map<string,AtCut>();
   for(;;) {
-    const ids=store.operations().map(op=>op.operationId).filter(id=>!classified.has(id));
+    const ids=store.receiptOperationIds().filter(id=>!classified.has(id));
     if(!ids.length) {
       store.installSnapshot(manifest.snapshotId,manifest.entityCount,[...classified.values()].filter((r):r is Receipt=>r.status!=='notProcessedAtH'),pullCursor);
       break;
@@ -115,6 +115,7 @@ export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number
   if(running.has(store)) return;
   running.add(store);
   try {
+    if(store.recovery().some(item=>item.error.identity?.reason==='missing_proof')) await recover(store,api);
     await pullWithRecovery(store,api);
     const pending=new Set(store.readyOperations(now()).map(operation=>operation.operationId));
     while(pending.size) {
@@ -136,6 +137,7 @@ export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number
       }
       if(expected.size) throw new Error('ack_mismatch');
       store.applyAck(ack.results,now());
+      if(ack.results.some(result=>'receipt' in result&&result.receipt.status==='rejected'&&result.receipt.error.identityConflict)) await recover(store,api);
     }
     await pullWithRecovery(store,api);
     return store.retryState();

@@ -1,4 +1,5 @@
 import { sql } from 'drizzle-orm';
+import {operationHash} from '../sync/operation-hash.ts';
 import {retryDelay} from '../sync/retry.ts';
 import type { BaseSQLiteDatabase } from 'drizzle-orm/sqlite-core';
 import { project } from '../../features/habits/domain/project.ts';
@@ -10,7 +11,9 @@ type Payload = {payload:string};
 type Pending = {envelope:string;status:string};
 export type Correction={operationId:string;replacementId:string;command?:Command;occurredAt?:string};
 export type RecoveryResolution={kind:'discarded'}|{kind:'corrected';replacementOperationId:string};
-type RecoveryError={code:string;fields:{path:string;code:string}[];dependencyIds:string[];resolution?:RecoveryResolution};
+export type IdentityEvidence={reason:'missing_proof'|'content_mismatch'|'operation'|'sequence';localOperationHash:string;
+  originalOperationId?:string;originalOperationHash?:string;originalReceipt?:Receipt;conflictReceipt?:Receipt};
+type RecoveryError={identity?:IdentityEvidence;code:string;fields:{path:string;code:string}[];dependencyIds:string[];resolution?:RecoveryResolution};
 export type RecoveryItem={operation:Operation;source:'server'|'local';error:Omit<RecoveryError,'resolution'>;resolution:RecoveryResolution|null};
 export class AccountStore {
   constructor(private db:LocalDatabase,readonly accountId:string,readonly deviceId:string,private shutdown:()=>void,private guard:(write?:boolean)=>void=()=>{}) {
@@ -23,6 +26,9 @@ export class AccountStore {
       tx.run(sql`update sync_mutations set status=case when attempts>=10 then 'blocked_local' else 'retry_wait' end,
         error=case when attempts>=10 then ${JSON.stringify({code:'retry_exhausted'})} else error end
         where account_id=${accountId} and status='in_flight'`);
+      const history=tx.all<Payload>(sql`select result as payload from sync_mutations where account_id=${accountId}
+        and status in ('acknowledged','rejected') and result is not null and json_extract(error,'$.resolution') is null`);
+      for(const row of history) this.recognize(tx,JSON.parse(row.payload) as Receipt);
       this.rebuild(tx);
     });
   }
@@ -33,12 +39,24 @@ export class AccountStore {
     return db.all<Pending>(sql`select envelope,status from sync_mutations where account_id=${this.accountId} and (status in ('pending','in_flight','retry_wait','deferred') or (status='blocked_local' and json_extract(error,'$.code')='retry_exhausted')) order by client_sequence`)
       .map(r=>JSON.parse(r.envelope) as Operation);
   }
+  private unconfirmed(db=this.db):Operation[] {
+    return db.all<Payload>(sql`select envelope as payload from sync_mutations where account_id=${this.accountId}
+      and (status in ('pending','in_flight','retry_wait','deferred') or (status='blocked_local' and
+      (json_extract(error,'$.identity') is not null or json_extract(error,'$.code') in ('retry_exhausted','identity_dependency_unresolved'))))
+      order by client_sequence`).map(row=>JSON.parse(row.payload) as Operation);
+  }
+  receiptOperationIds():string[] {
+    this.guard();
+    const ids=new Set(this.unconfirmed().map(op=>op.operationId));
+    for(const item of this.recovery()) if(!item.resolution&&item.error.identity?.originalOperationId) ids.add(item.error.identity.originalOperationId);
+    return [...ids];
+  }
   enqueue(command:Command,operationId:string,occurredAt:string):Operation {
     this.guard(true);
     return this.db.transaction(tx=>{
       const state=tx.get<{next_sequence:number}>(sql`select next_sequence from sync_state where account_id=${this.accountId}`);
       if(!state||state.next_sequence>=Number.MAX_SAFE_INTEGER) throw new Error('sequence_exhausted');
-      const previous=this.pending(tx);
+      const previous=this.unconfirmed(tx);
       const dependsOn=previous.filter(op=>'habitId' in command && 'habitId' in op.command && op.command.habitId===command.habitId).map(op=>op.operationId);
       const operation:Operation={operationId,deviceId:this.deviceId,clientSequence:state.next_sequence,occurredAt,dependsOn,command};
       tx.run(sql`insert into sync_mutations(account_id,operation_id,device_id,client_sequence,envelope,dependencies,status)
@@ -50,7 +68,17 @@ export class AccountStore {
     });
   }
   private blockDependents(db:LocalDatabase) {
-    const rows=db.all<{envelope:string;status:string;error:string|null}>(sql`select envelope,status,error from sync_mutations where account_id=${this.accountId} order by client_sequence`);
+    const rows=db.all<{envelope:string;status:string;error:string|null;attempts:number}>(sql`select envelope,status,error,attempts from sync_mutations where account_id=${this.accountId} order by client_sequence`);
+    // Recompute only provisional dependency blocks. Definitive rejections keep their history.
+    for(const row of rows) {
+      const error=JSON.parse(row.error??'{}') as RecoveryError;
+      if(row.status!=='blocked_local'||error.resolution||!['identity_dependency_unresolved','dependency_rejected'].includes(error.code)) continue;
+      row.status=row.attempts>=10?'blocked_local':'pending';
+      row.error=row.attempts>=10?JSON.stringify({code:'retry_exhausted'}):null;
+      const operation=JSON.parse(row.envelope) as Operation;
+      db.run(sql`update sync_mutations set status=${row.status},error=${row.error}
+        where account_id=${this.accountId} and operation_id=${operation.operationId}`);
+    }
     for(const row of rows) {
       const operation=JSON.parse(row.envelope) as Operation;
       const paths=[...(operation.dependsOn.length>4096?['dependsOn']:[]),
@@ -70,9 +98,12 @@ export class AccountStore {
         if(row.status==='acknowledged'||blocked.has(operation.operationId)) continue;
         const dependencyIds=operation.dependsOn.filter(id=>blocked.has(id));
         if(!dependencyIds.length) continue;
-        const error:RecoveryError={code:'dependency_rejected',fields:[],dependencyIds};
-        db.run(sql`update sync_mutations set status='blocked_local',next_attempt_at=null,error=${JSON.stringify(error)}
+        const uncertain=rows.some(parent=>dependencyIds.includes((JSON.parse(parent.envelope) as Operation).operationId)
+          && ((JSON.parse(parent.error??'{}') as RecoveryError).identity||(JSON.parse(parent.error??'{}') as RecoveryError).code==='identity_dependency_unresolved'));
+        const error:RecoveryError={code:uncertain?'identity_dependency_unresolved':'dependency_rejected',fields:[],dependencyIds};
+        db.run(sql`update sync_mutations set status='blocked_local',error=${JSON.stringify(error)}
           where account_id=${this.accountId} and operation_id=${operation.operationId}`);
+        row.status='blocked_local';row.error=JSON.stringify(error);
         blocked.add(operation.operationId);changed=true;
       }
     }
@@ -82,7 +113,7 @@ export class AccountStore {
     return this.db.all<{envelope:string;status:string;error:string}>(sql`select envelope,status,error from sync_mutations
       where account_id=${this.accountId} and (status='rejected' or (status='blocked_local' and json_extract(error,'$.code')!='retry_exhausted')) order by client_sequence`)
       .map(row=>{const error=JSON.parse(row.error) as RecoveryError;return {operation:JSON.parse(row.envelope) as Operation,
-        source:row.status==='rejected'?'server':'local',error:{code:error.code,fields:error.fields??[],dependencyIds:error.dependencyIds??[]},resolution:error.resolution??null};});
+        source:row.status==='rejected'?'server':'local',error:{code:error.code,fields:error.fields??[],dependencyIds:error.dependencyIds??[],...(error.identity?{identity:error.identity}:{})},resolution:error.resolution??null};});
   }
   discard(operationIds:string[]) {
     this.guard(true);
@@ -90,7 +121,7 @@ export class AccountStore {
       const items=new Map(this.recovery().map(item=>[item.operation.operationId,item]));
       for(const id of operationIds) {
         const item=items.get(id);
-        if(!item||item.resolution?.kind==='corrected'||item.error.code==='id_content_conflict') throw new Error('operation_not_recoverable');
+        if(!item||item.resolution?.kind==='corrected'||item.error.identity||item.error.code==='identity_dependency_unresolved') throw new Error('operation_not_recoverable');
         tx.run(sql`update sync_mutations set error=json_set(error,'$.resolution',json(${JSON.stringify({kind:'discarded'})}))
           where account_id=${this.accountId} and operation_id=${id}`);
       }
@@ -106,7 +137,7 @@ export class AccountStore {
       const mapping=new Map(history.flatMap(item=>item.resolution?.kind==='corrected'?[[item.operation.operationId,item.resolution.replacementOperationId] as const]:[]));
       for(const correction of corrections) {
         const original=byId.get(correction.operationId);
-        if(!original||original.resolution?.kind==='corrected'||original.error.code==='id_content_conflict') throw new Error('operation_not_recoverable');
+        if(!original||original.resolution?.kind==='corrected'||original.error.identity||original.error.code==='identity_dependency_unresolved') throw new Error('operation_not_recoverable');
         if(tx.get(sql`select operation_id from sync_mutations where account_id=${this.accountId} and operation_id=${correction.replacementId}`)) throw new Error('replacement_id_in_use');
         mapping.set(correction.operationId,correction.replacementId);
       }
@@ -233,11 +264,38 @@ export class AccountStore {
     return this.db.get<{cursor:string|null}>(sql`select cursor from sync_state where account_id=${this.accountId}`)?.cursor??null;
   }
   private recognize(db:LocalDatabase,receipt:Receipt) {
+    // A sequence collision can refer to an original operation with a different id.
+    if(receipt.operationHash&&!(receipt.status==='rejected'&&receipt.error.identityConflict)) {
+      db.run(sql`update sync_mutations set error=json_set(error,'$.identity.originalReceipt',json(${JSON.stringify(receipt)}))
+        where account_id=${this.accountId} and status='blocked_local'
+        and json_extract(error,'$.identity.originalOperationId')=${receipt.operationId}
+        and json_extract(error,'$.identity.originalOperationHash')=${receipt.operationHash}`);
+    }
+    const local=db.get<{envelope:string;error:string|null;result:string|null;status:string}>(sql`select envelope,error,result,status from sync_mutations
+      where account_id=${this.accountId} and operation_id=${receipt.operationId}`);
+    if(!local) return;
+    const hash=operationHash(JSON.parse(local.envelope) as Operation);
+    const previous=JSON.parse(local.error??'{}') as RecoveryError;
+    const proven=local.result?JSON.parse(local.result) as Receipt:null;
+    if(proven?.operationHash===hash && !(proven.status==='rejected'&&proven.error.identityConflict)) return;
+    const conflict=receipt.status==='rejected'?receipt.error.identityConflict:undefined;
+    if(!receipt.operationHash||receipt.operationHash!==hash||conflict) {
+      const identity:IdentityEvidence={...previous.identity,localOperationHash:hash,
+        reason:conflict?.kind??(previous.identity?.reason&&previous.identity.reason!=='missing_proof'?previous.identity.reason:receipt.operationHash?'content_mismatch':'missing_proof')};
+      if(conflict) {
+        identity.originalOperationId=conflict.originalOperationId;identity.originalOperationHash=conflict.originalOperationHash;
+        identity.conflictReceipt=receipt;
+      } else if(receipt.operationHash) {
+        identity.originalOperationId=receipt.operationId;identity.originalOperationHash=receipt.operationHash;identity.originalReceipt=receipt;
+      }
+      const error:RecoveryError={code:'id_content_conflict',fields:[],dependencyIds:[],identity};
+      db.run(sql`update sync_mutations set status='blocked_local',error=${JSON.stringify(error)}
+        where account_id=${this.accountId} and operation_id=${receipt.operationId}`);
+      return;
+    }
     const status=receipt.status==='rejected'?'rejected':'acknowledged';
-    const local=db.get<{error:string|null}>(sql`select error from sync_mutations where account_id=${this.accountId} and operation_id=${receipt.operationId}`);
-    const resolution=local?.error?(JSON.parse(local.error) as RecoveryError).resolution:undefined;
-    const error=receipt.status==='rejected'?JSON.stringify({...receipt.error,...(resolution?{resolution}:{})}):null;
-    db.run(sql`update sync_mutations set status=${status},result=${JSON.stringify(receipt)},error=${error}
+    const error=receipt.status==='rejected'?JSON.stringify({...receipt.error,...(previous.resolution?{resolution:previous.resolution}:{})}):null;
+    db.run(sql`update sync_mutations set status=${status},result=${JSON.stringify(receipt)},error=${error},next_attempt_at=null
       where account_id=${this.accountId} and operation_id=${receipt.operationId}`);
   }
   private incorporate(db:LocalDatabase,entity:Entity) {

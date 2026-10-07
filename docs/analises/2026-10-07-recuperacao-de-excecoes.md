@@ -76,3 +76,6 @@ Esses checks preservam a baseline; não provam as novas correções de exceçõe
 Após confirmar entendimento: [identidade/recibos](../../.scratch/recuperacao-excecoes/issues/01-reconciliar-identidade-e-recibos.md), [cofre](../../.scratch/recuperacao-excecoes/issues/02-retomar-cofre-sem-bloquear-uso-local.md) e [abertura local](../../.scratch/recuperacao-excecoes/issues/03-expor-recuperacao-da-abertura-local.md), nessa ordem por risco. Cada tarefa é uma entrega vertical com testes, contratos/modelo/migration quando necessários e checks de app/API.
 
 M1/tarefa 05 continuam abertos. UI/protótipo, SMTP/deep link reais, distribuição iOS, aceite iPhone 16e/Android e implantação externa permanecem nos gates existentes. Não há nova tabela, migration ou versão de protocolo neste diagnóstico.
+
+
+07/10/2026 — Pedro confirmou o entendimento e as fronteiras deste plano. O diagnóstico acima descreve a preparação anterior à implementação; resultado posterior de identidade/recibos: [relatório do recorte 1](2026-10-07-correspondencia-de-recibos.md). Cofre e abertura continuam separados.

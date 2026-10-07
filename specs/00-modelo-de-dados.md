@@ -365,3 +365,8 @@ Flyway V5 acrescenta em sync_account_state: feed_compacted_through BIGINT NOT NU
 ritmo_expire_sync(p_user UUID,p_now TIMESTAMPTZ,p_next TIMESTAMPTZ,p_limit INTEGER) RETURNS JSONB é SECURITY INVOKER, search_path pg_catalog, sem SQL dinâmico; PUBLIC sem EXECUTE, ritmo_domain com EXECUTE. Exige p_user igual a app.user_id e usa filtro explícito em todas as tabelas de domínio. Trava a linha da conta; processa apenas prefixo contíguo elegível e respeita H de snapshots válidos. Remove itens de cópias expiradas em lotes limitados; só remove manifestos vazios, sem cascata grande. Índice snapshots_account_expiry(user_id,expires_at,id) delimita a busca por conta. Identity enumera somente IDs com seu login existente; nenhum privilégio runtime novo sobre dados pessoais.
 
 Agenda diária por conta e limites: [runbook](../api/ops/sync-retention.md). Falha não publica limite; batches incompletos permanecem devidos. Estado canônico, recibos, hashes, IDs excluídos, fatos/contextos, XP e orçamento não são objetos do expurgo.
+
+
+### Correspondência e diagnóstico de identidade — 07/10/2026
+
+`sync_operation_receipts.payload_hash` existente fornece `operationHash` em respostas, inclusive registros antigos. `sync_mutations.error` guarda diagnóstico limitado com hashes/tipo e até um recibo original/um efêmero; `result` conserva o recibo conhecido sem substituí-lo por tentativa divergente. Dependentes incertas usam `identity_dependency_unresolved`. [Formatos/regras](13-contrato-primeiro-marco.md#concretização-da-correspondência--recorte-1-07102026). Nenhuma coluna nova ou migration; V1–V5 imutáveis.

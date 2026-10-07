@@ -1,20 +1,21 @@
+import {operationHash} from '../src/core/sync/operation-hash.ts';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {fixture,id,command,at,day,pull,acceptedCreate} from './support/scheduler.ts';
-import type {Receipt} from '../src/core/sync/protocol.ts';
-const rejection=(operationId:string,code='title_unavailable'):Receipt=>({operationId,status:'rejected',error:{code,fields:[],dependencyIds:[]}});
+import type {Receipt,Operation} from '../src/core/sync/protocol.ts';
+const rejection=(operation:Operation,code='title_unavailable'):Receipt=>({operationId:operation.operationId,operationHash:operationHash(operation),status:'rejected',error:{code,fields:[],dependencyIds:[]}});
 
 test('a rejected creation keeps its content and blocks dependent intentions across restart',async()=>{
   const f=fixture();await f.session.login('a','fixture-password');
   try {
-    const store=f.session.account(),created=store.enqueue(command,id(10),at);
+    const store=f.session.account(),creation=store.enqueue(command,id(10),at);
     const marked=store.enqueue({type:'habit.mark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext,observedUndoIds:[]},id(11),at);
-    store.applyAck([{receipt:rejection(id(10)),replayed:false}]);
+    store.applyAck([{receipt:rejection(creation),replayed:false}]);
     await f.restart();const reopened=f.session.account();
     assert.deepEqual(reopened.readyOperations(Date.parse(at)),[]);
     assert.equal(reopened.view(day).totalXp,0);assert.deepEqual(reopened.view(day).habits,[]);
     assert.deepEqual(reopened.recovery().map(item=>({operation:item.operation,code:item.error.code,dependencies:item.error.dependencyIds,resolution:item.resolution})),[
-      {operation:created,code:'title_unavailable',dependencies:[],resolution:null},
+      {operation:creation,code:'title_unavailable',dependencies:[],resolution:null},
       {operation:marked,code:'dependency_rejected',dependencies:[id(10)],resolution:null},
     ]);
   } finally {f.close();}
@@ -29,7 +30,7 @@ test('correcting a rejected chain remaps dependencies and undo context atomicall
     const originals=[store.enqueue(command,id(10),at),store.enqueue({...mark,observedUndoIds:[]},id(11),at),
       store.enqueue({type:'habit.unmark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext},id(12),at),
       store.enqueue({...mark,observedUndoIds:[id(12)]},id(13),at)];
-    store.applyAck([{receipt:rejection(id(10)),replayed:false}]);
+    store.applyAck([{receipt:rejection(originals[0]!),replayed:false}]);
     const replacements=store.correct([
       {operationId:id(10),replacementId:id(20),command:{...command,title:'Caminhar cedo'}},
       {operationId:id(11),replacementId:id(21)}, {operationId:id(12),replacementId:id(22)}, {operationId:id(13),replacementId:id(23)},
@@ -51,10 +52,10 @@ test('correcting a rejected chain remaps dependencies and undo context atomicall
 test('discarding only the parent preserves its blocked children and a replayed rejection cannot reopen it',async()=>{
   const f=fixture();await f.session.login('a','fixture-password');
   try {
-    const store=f.session.account();store.enqueue(command,id(10),at);
+    const store=f.session.account();const creation=store.enqueue(command,id(10),at);
     const marked=store.enqueue({type:'habit.mark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext,observedUndoIds:[]},id(11),at);
-    store.applyAck([{receipt:rejection(id(10)),replayed:false}]);store.discard([id(10)]);
-    store.applyAck([{receipt:rejection(id(10)),replayed:true}]);await f.restart();
+    store.applyAck([{receipt:rejection(creation),replayed:false}]);store.discard([id(10)]);
+    store.applyAck([{receipt:rejection(creation),replayed:true}]);await f.restart();
     const items=f.session.account().recovery();assert.equal(items.length,2);
     assert.deepEqual(items[0]?.resolution,{kind:'discarded'});assert.equal(items[1]?.resolution,null);
     assert.deepEqual(items[1]?.operation,marked);assert.deepEqual(f.session.account().readyOperations(Date.parse(at)),[]);
@@ -83,9 +84,9 @@ test('excessive undo context is recoverable locally with every reference intact 
 test('a child corrected later follows the replacement habit and a failed correction leaves no partial chain',async()=>{
   const f=fixture();await f.session.login('a','fixture-password');
   try {
-    const store=f.session.account();store.enqueue(command,id(10),at);
+    const store=f.session.account();const creation=store.enqueue(command,id(10),at);
     store.enqueue({type:'habit.mark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext,observedUndoIds:[]},id(11),at);
-    store.applyAck([{receipt:rejection(id(10)),replayed:false}]);
+    store.applyAck([{receipt:rejection(creation),replayed:false}]);
     assert.throws(()=>store.correct([{operationId:id(10),replacementId:id(20),command:{...command,habitId:id(30)}},
       {operationId:id(11),replacementId:id(21),command}]),/correction_type_mismatch/);
     assert.ok(store.recovery().every(item=>item.resolution===null));assert.deepEqual(store.operations(),[]);
@@ -104,9 +105,9 @@ test('a rejection in the first batch prevents later blocked children from being 
   const f=fixture();await f.session.login('a','fixture-password');const sent:string[]=[];
   t.mock.method(globalThis,'fetch',async(url:RequestInfo|URL,init?:RequestInit)=>{
     if(!String(url).endsWith('/push')) return pull('cursor-rejection-batch');
-    const body=JSON.parse(String(init?.body)) as {operations:{operationId:string}[]};
+    const body=JSON.parse(String(init?.body)) as {operations:Operation[]};
     sent.push(...body.operations.map(op=>op.operationId));
-    return Response.json({results:body.operations.map(op=>({receipt:rejection(op.operationId,op.operationId===id(10)?'title_unavailable':'dependency_rejected'),replayed:false})),serverTime:at});
+    return Response.json({results:body.operations.map(op=>({receipt:rejection(op,op.operationId===id(10)?'title_unavailable':'dependency_rejected'),replayed:false})),serverTime:at});
   });
   try {
     const store=f.session.account();store.enqueue(command,id(10),at);
@@ -137,7 +138,7 @@ test('recovery refuses uncertain outcomes and another account cannot read or cha
     const a=f.session.account(),pending=a.enqueue(command,id(10),at);
     assert.throws(()=>a.correct([{operationId:id(10),replacementId:id(20)}]),/operation_not_recoverable/);
     assert.throws(()=>a.discard([id(10)]),/operation_not_recoverable/);
-    assert.deepEqual(a.operations(),[pending]);a.applyAck([{receipt:rejection(id(10)),replayed:false}]);
+    assert.deepEqual(a.operations(),[pending]);a.applyAck([{receipt:rejection(pending),replayed:false}]);
     await f.session.logout();await f.session.login('b','fixture-password');
     assert.throws(()=>a.recovery(),/session_locked/);assert.throws(()=>a.discard([id(10)]),/session_locked/);
     assert.throws(()=>a.correct([{operationId:id(10),replacementId:id(20)}]),/session_locked/);
@@ -156,7 +157,7 @@ test('a correction that observes a new local undo must wait for that undo before
     const store=f.session.account();store.enqueue(command,id(10),at);
     const accepted=await acceptedCreate(id(10)).json() as {results:import('../src/core/sync/protocol.ts').PushResult[]};store.applyAck(accepted.results);
     const mark={type:'habit.mark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext,observedUndoIds:[]} as const;
-    store.enqueue({...mark,observedUndoIds:[]},id(11),at);store.applyAck([{receipt:rejection(id(11),'day_invalid'),replayed:false}]);
+    const marking=store.enqueue({...mark,observedUndoIds:[]},id(11),at);store.applyAck([{receipt:rejection(marking,'day_invalid'),replayed:false}]);
     const undo=store.enqueue({type:'habit.unmark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext},id(12),at);
     store.beginAttempt([undo],Date.parse(at));store.retryLater([undo],new TypeError('offline'),Date.parse(at));
     const corrected=store.correct([{operationId:id(11),replacementId:id(21),command:{...mark,observedUndoIds:[id(12)]}}])[0];
@@ -169,9 +170,9 @@ test('a proposed correction cannot create a cycle between a marking and its depe
   const f=fixture();await f.session.login('a','fixture-password');
   try {
     const store=f.session.account(),mark={type:'habit.mark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext,observedUndoIds:[]} as const;
-    store.enqueue(command,id(10),at);store.enqueue({...mark,observedUndoIds:[]},id(11),at);
+    const creation=store.enqueue(command,id(10),at);store.enqueue({...mark,observedUndoIds:[]},id(11),at);
     store.enqueue({type:'habit.unmark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext},id(12),at);
-    store.applyAck([{receipt:rejection(id(10)),replayed:false}]);
+    store.applyAck([{receipt:rejection(creation),replayed:false}]);
     assert.throws(()=>store.correct([{operationId:id(10),replacementId:id(20)},
       {operationId:id(11),replacementId:id(21),command:{...mark,observedUndoIds:[id(12)]}},
       {operationId:id(12),replacementId:id(22)}]),/dependency_cycle/);

@@ -651,6 +651,59 @@ class RuntimeTests {
         System.out.println(output);
     }
 
+
+    @Test void historicalReceiptProofIsEnrichedWithoutRewritingHistoryOrLeakingAccounts() throws Exception {
+        var session=account("legacyProof");String user=session.path("accountId").asString(),token=session.path("accessToken").asString();
+        var before=post("sync/snapshots",token,"{}",201);
+        var page=getSync("snapshots/"+before.path("snapshotId").asString()+"?cursor="+before.path("firstPageCursor").asString(),token,200);
+        var operation=operation(dev.ritmo.shared.Json.id(),1,createCommand(dev.ritmo.shared.Json.id()));
+        var accepted=post("sync/push",token,batch(operation),200).at("/results/0/receipt");
+        String hash=dev.ritmo.shared.Json.canonicalHash(operation);
+        assertThat(accepted.path("operationHash").asString()).isEqualTo(hash);
+        // External storage fixture: represent JSON written by the previous API version.
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword())) {
+            try(var update=owner.prepareStatement("update sync_operation_receipts set result=result-'operationHash' where user_id=?::uuid")) {
+                update.setString(1,user);update.executeUpdate();
+            }
+            try(var update=owner.prepareStatement("update sync_changes set envelope=jsonb_set(envelope,'{operationResults}',jsonb_build_array((envelope->'operationResults'->0)-'operationHash')) where user_id=?::uuid")) {
+                update.setString(1,user);update.executeUpdate();
+            }
+        }
+        var replay=post("sync/push",token,batch(operation),200).at("/results/0/receipt");
+        assertThat(replay).isEqualTo(accepted);
+        var pulled=getSync("pull?cursor="+page.path("pullCursor").asString(),token,200);
+        assertThat(pulled.at("/changes/0/operationResults/0")).isEqualTo(accepted);
+        var snapshot=post("sync/snapshots",token,"{}",201);
+        var queryBody=dev.ritmo.shared.Json.object().put("snapshotId",snapshot.path("snapshotId").asString());
+        queryBody.set("operationIds",dev.ritmo.shared.Json.array().add(operation.path("operationId").asString()));String query=queryBody.toString();
+        assertThat(post("sync/receipts",token,query,200).at("/results/0")).isEqualTo(accepted);
+        var foreign=account("legacyProofB");String other=foreign.path("accessToken").asString();
+        var otherSnapshot=post("sync/snapshots",other,"{}",201);
+        String otherQuery=query.replace(snapshot.path("snapshotId").asString(),otherSnapshot.path("snapshotId").asString());
+        var inaccessible=post("sync/receipts",other,otherQuery,200).at("/results/0");
+        assertThat(inaccessible.path("status").asString()).isEqualTo("notProcessedAtH");
+        assertThat(inaccessible.has("operationHash")).isFalse();
+        try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());var statement=owner.prepareStatement(
+            "select jsonb_exists(result,'operationHash'), (select jsonb_exists(envelope->'operationResults'->0,'operationHash') from sync_changes where user_id=?::uuid limit 1) from sync_operation_receipts where user_id=?::uuid")) {
+            statement.setString(1,user);statement.setString(2,user);
+            try(var result=statement.executeQuery()) {assertThat(result.next()).isTrue();assertThat(result.getBoolean(1)).isFalse();assertThat(result.getBoolean(2)).isFalse();}
+        }
+    }
+
+    @Test void mobilePreservesConflictingIdentityThroughTheRealHttpApi() throws Exception {
+        var log=java.nio.file.Path.of("build/mobile-identity-receipts.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/identity-receipts.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        var process=builder.start();
+        boolean ended=process.waitFor(120,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>12000) output=output.substring(output.length()-12000);
+        assertThat(ended).as(output).isTrue();assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
+
     @Test void overlappingCyclesClassifyEveryMemberOfTheCycle() throws Exception {
         String token=account("overlapping").path("accessToken").asString();
         String a=dev.ritmo.shared.Json.id(),b=dev.ritmo.shared.Json.id(),c=dev.ritmo.shared.Json.id();
@@ -681,8 +734,12 @@ class RuntimeTests {
             """.formatted(habit)));
         edit.set("dependsOn",dev.ritmo.shared.Json.array().add(a));create.set("dependsOn",dev.ritmo.shared.Json.array().add(c));
         body.set("operations",dev.ritmo.shared.Json.array().add(edit).add(create));response=post("sync/push",token,body.toString(),200);
-        assertThat(response.at("/results/0/receipt/status").asString()).isEqualTo("accepted");
-        assertThat(response.at("/results/1/receipt/error/code").asString()).isEqualTo("id_content_conflict");
+        assertThat(response.at("/results/0/status").asString()).isEqualTo("deferred");
+        assertThat(response.at("/results/0/missingDependencyIds/0").asString()).isEqualTo(a);
+        assertThat(response.at("/results/1/receipt/error/identityConflict/kind").asString()).isEqualTo("operation");
+        var replay=post("sync/push",token,batch(operation(a,1,createCommand(habit))),200);
+        assertThat(replay.at("/results/0/receipt/acceptedRevision").asString()).isEqualTo("1");
+        assertThat(replay.at("/results/0/replayed").asBoolean()).isTrue();
     }
 
     @Test void paginatedSnapshotsRecoverThroughTheRealHttpApi() throws Exception {

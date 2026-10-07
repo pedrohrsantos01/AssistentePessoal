@@ -1,3 +1,4 @@
+import {operationHash} from '../src/core/sync/operation-hash.ts';
 import SQLite from 'better-sqlite3';
 import {mkdtempSync,rmSync} from 'node:fs';
 import {join} from 'node:path';
@@ -74,7 +75,7 @@ for(const [name,results] of [
 test('receipts include writes during the copy and the feed after H is read before any resend',async t=>{
   const store=openTestStore(':memory:',id(1),id(2));let copied=false,readAfterH=false,added=false;
   store.applyPull({changes:[{revision:'1',operationResults:[],entities:[habit('Anterior')]}],nextCursor:'old-pull-cursor',hasMore:false,highWaterRevision:'1',serverTime:at});
-  store.enqueue({type:'habit.patchMetadata',habitId:id(30),patch:{title:'A com ack perdido'}},id(4),at);
+  const editing=store.enqueue({type:'habit.patchMetadata',habitId:id(30),patch:{title:'A com ack perdido'}},id(4),at);
   const queried:string[][]=[];
   t.mock.method(globalThis,'fetch',async(input:string,init:RequestInit)=>{
     if(input.endsWith('/snapshots')) return Response.json(manifest());
@@ -93,7 +94,7 @@ test('receipts include writes during the copy and the feed after H is read befor
     if(!copied) return resync();
     readAfterH=true;
     return Response.json({changes:[
-      {revision:'3',operationResults:[{operationId:id(4),status:'accepted',acceptedRevision:'3'}],entities:[habit('A com ack perdido','3')]},
+      {revision:'3',operationResults:[{operationId:id(4),operationHash:operationHash(editing),status:'accepted',acceptedRevision:'3'}],entities:[habit('A com ack perdido','3')]},
       {revision:'4',operationResults:[{operationId:id(88),status:'accepted',acceptedRevision:'4'}],entities:[habit('B posterior','4')]},
     ],nextCursor:'after-H-pull-cursor',hasMore:false,highWaterRevision:'4',serverTime:at});
   });
@@ -159,14 +160,14 @@ test('a failed snapshot swap rolls back canonical data, confirmations and cursor
   let store=openTestStore(path,id(1),id(2));const fault=new SQLite(path);
   store.applyPull({changes:[{revision:'1',operationResults:[],entities:[habit('Anterior')]}],nextCursor:'old-pull-cursor',hasMore:false,highWaterRevision:'1',serverTime:at});
   const pending=store.enqueue(command,id(4),at);
-  store.enqueue({...command,habitId:id(31),title:'Rejeitado'},id(6),at);
-  store.applyAck([{receipt:{operationId:id(6),status:'rejected',error:{code:'habit_not_found',fields:[],dependencyIds:[]}},replayed:false}]);
+  const rejected=store.enqueue({...command,habitId:id(31),title:'Rejeitado'},id(6),at);
+  store.applyAck([{receipt:{operationId:id(6),operationHash:operationHash(rejected),status:'rejected',error:{code:'habit_not_found',fields:[],dependencyIds:[]}},replayed:false}]);
   store.discard([id(6)]);
   const previous=store.view(day),history=store.recovery();
   t.mock.method(globalThis,'fetch',async(input:string)=>{
     if(input.endsWith('/snapshots')) return Response.json(manifest(id(20),2));
     if(input.includes('/snapshots/')) return Response.json(page(id(20),[habit('Servidor'),habit('Canônico','2',command.habitId)]));
-    if(input.endsWith('/receipts')) return Response.json({snapshotId:id(20),highWaterRevision:'2',results:[{operationId:id(4),status:'accepted',acceptedRevision:'2'}]});
+    if(input.endsWith('/receipts')) return Response.json({snapshotId:id(20),highWaterRevision:'2',results:[{operationId:id(4),operationHash:operationHash(pending),status:'accepted',acceptedRevision:'2'}]});
     return store.cursor()==='old-pull-cursor'?resync():idle();
   });
   try {

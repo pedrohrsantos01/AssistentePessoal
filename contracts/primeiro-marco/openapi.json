@@ -2179,6 +2179,34 @@
         ],
         "additionalProperties": false
       },
+      "OperationHash": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "IdentityConflict": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "operation",
+              "sequence"
+            ]
+          },
+          "originalOperationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "originalOperationHash": {
+            "$ref": "#/components/schemas/OperationHash"
+          }
+        },
+        "required": [
+          "kind",
+          "originalOperationId",
+          "originalOperationHash"
+        ],
+        "additionalProperties": false
+      },
       "BusinessError": {
         "type": "object",
         "properties": {
@@ -2211,6 +2239,9 @@
             "minItems": 0,
             "maxItems": 4096,
             "uniqueItems": true
+          },
+          "identityConflict": {
+            "$ref": "#/components/schemas/IdentityConflict"
           }
         },
         "required": [
@@ -2235,6 +2266,9 @@
           },
           "acceptedRevision": {
             "$ref": "#/components/schemas/Revision"
+          },
+          "operationHash": {
+            "$ref": "#/components/schemas/OperationHash"
           }
         },
         "required": [
@@ -2255,6 +2289,9 @@
           },
           "error": {
             "$ref": "#/components/schemas/BusinessError"
+          },
+          "operationHash": {
+            "$ref": "#/components/schemas/OperationHash"
           }
         },
         "required": [

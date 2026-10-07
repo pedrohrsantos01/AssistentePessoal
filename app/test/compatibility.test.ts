@@ -1,3 +1,4 @@
+import {operationHash} from '../src/core/sync/operation-hash.ts';
 import {HttpIdentity,IdentityHttpError} from '../src/core/identity/http-identity.ts';
 import {SyncScheduler} from '../src/core/sync/scheduler.ts';
 import {test} from 'node:test';
@@ -118,7 +119,7 @@ test('an unknown required effect keeps the committed cursor and blocks correctio
   try {
     await f.session.login('a','fixture-password');const store=f.session.account();
     const rejected=store.enqueue(command,id(10),at);
-    store.applyAck([{receipt:{operationId:id(10),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]);
+    store.applyAck([{receipt:{operationId:id(10),operationHash:operationHash(rejected),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]);
     await f.session.synchronize('https://sync.test');
     t.mock.method(globalThis,'fetch',async()=>Response.json({changes:[{revision:'1',operationResults:[],entities:[{kind:'futureRequiredEffect',value:{}}]}],
       nextCursor:'unusable-cursor-001',hasMore:false,highWaterRevision:'1',serverTime:at}));

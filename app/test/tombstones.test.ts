@@ -1,3 +1,4 @@
+import {operationHash} from '../src/core/sync/operation-hash.ts';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtempSync,rmSync} from 'node:fs';
@@ -27,7 +28,7 @@ test('a remote tombstone wins over a pending old creation and survives restart a
     store.close();store=openTestStore(path,id(1),id(2));
     assert.deepEqual(store.view(day).habits,[]);
     assert.deepEqual(store.operations(),[pending]);
-    store.applyAck([{receipt:{operationId:pending.operationId,status:'accepted',acceptedRevision:'1'},replayed:true,projections:[habit]}]);
+    store.applyAck([{receipt:{operationId:pending.operationId,operationHash:operationHash(pending),status:'accepted',acceptedRevision:'1'},replayed:true,projections:[habit]}]);
     store.applyPull(page([habit],'1'));
     assert.deepEqual(store.view(day).habits,[]);
     assert.equal(store.view(day).totalXp,0);
@@ -62,7 +63,7 @@ test('an offline deletion hides habit and XP durably; a definitive rejection res
     store.close();store=openTestStore(path,id(1),id(2));
     assert.deepEqual(store.operations(),[deletion]);
     assert.equal(store.view(day).totalXp,0);
-    store.applyAck([{receipt:{operationId:deletion.operationId,status:'rejected',error:{code:'validation_failed',fields:[],dependencyIds:[]}},replayed:false}]);
+    store.applyAck([{receipt:{operationId:deletion.operationId,operationHash:operationHash(deletion),status:'rejected',error:{code:'validation_failed',fields:[],dependencyIds:[]}},replayed:false}]);
     assert.deepEqual(store.view(day),{habits:[{habitId:id(3),title:'Caminhar',done:true}],totalXp:10,pendingCount:0,rejectedCount:1});
     assert.deepEqual(store.recovery()[0]?.operation,deletion);
   } finally {store.close();rmSync(directory,{recursive:true,force:true});}

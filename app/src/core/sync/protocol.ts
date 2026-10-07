@@ -25,8 +25,9 @@ export type Entity =
   | {kind:'xpTransition';value:{operationId:string;grantId:string;kind:'grant'|'reverse'|'restore';acceptedAt:string;revision:string}}
   | {kind:'profile';value:{accountId:string;displayName:string;timeContext:TimeContext;plan:'free';onboardedAt:string|null;analyticsConsentAt:string|null;revision:string}}
   | {kind:'tombstone';value:{entityKind:'habit';entityId:string;deletedAt:string;revision:string}};
-export type Receipt = {operationId:string;status:'accepted'|'reconciled';acceptedRevision:string}
-  | {operationId:string;status:'rejected';error:{code:string;fields:{path:string;code:string}[];dependencyIds:string[]}};
+export type IdentityConflict={kind:'operation'|'sequence';originalOperationId:string;originalOperationHash:string};
+export type Receipt = {operationId:string;operationHash?:string;status:'accepted'|'reconciled';acceptedRevision:string}
+  | {operationId:string;operationHash?:string;status:'rejected';error:{code:string;fields:{path:string;code:string}[];dependencyIds:string[];identityConflict?:IdentityConflict}};
 export type PushResult = {receipt:Receipt;replayed:boolean;projections?:Entity[]}
   | {operationId:string;status:'deferred';missingDependencyIds:string[]};
 export type Change = {revision:string;operationResults:Receipt[];entities:Entity[]};

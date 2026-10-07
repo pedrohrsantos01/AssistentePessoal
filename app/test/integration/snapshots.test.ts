@@ -1,3 +1,4 @@
+import {operationHash} from '../../src/core/sync/operation-hash.ts';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -58,7 +59,7 @@ test('501 changes and 502 snapshot entities keep a stable cut; interrupted copy 
     const snapshotHabit=[...page1.entities,...page2.entities].find(entity=>entity.kind==='habit'&&entity.value.habitId===habits[0]);
     assert.ok(snapshotHabit?.kind==='habit');assert.equal(snapshotHabit.value.title,'Primeira edição');
     const classification=await api.receipts(cut.snapshotId,[operations[0]!.operationId,lost.operationId]);
-    assert.deepEqual(classification.results,[{operationId:operations[0]!.operationId,status:'accepted',acceptedRevision:'1'},
+    assert.deepEqual(classification.results,[{operationId:operations[0]!.operationId,operationHash:operationHash(operations[0]!),status:'accepted',acceptedRevision:'1'},
       {operationId:lost.operationId,status:'notProcessedAtH'}]);
     await assert.rejects(otherApi.page(cut.snapshotId,cut.firstPageCursor),(error:unknown)=>error instanceof SyncHttpError&&error.status===404);
     await assert.rejects(otherApi.receipts(cut.snapshotId,[lost.operationId]),(error:unknown)=>error instanceof SyncHttpError&&error.status===404);
