@@ -1,6 +1,6 @@
 # 03 — Expor recuperação segura das falhas de abertura local
 
-Status: completed
+Status: ready-for-agent
 Blocked by: none
 
 ## Resultado esperado

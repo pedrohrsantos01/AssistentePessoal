@@ -1,6 +1,6 @@
 # Provisionamento e aceite externo
 
-Status: in-progress (artefatos locais; contratação/aceite externo ainda dependem de informação)
+Status: needs-info
 Dependência técnica: 03-operar-backups-e-alertas.md concluída localmente; faltam definições/acessos de provisionamento.
 
 Origem: [plano confirmado](../spec.md), REQ-NFR-004 e [ADR-019](../../../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md).
@@ -58,3 +58,5 @@ A revisão identificou dependências de build/contracts, proxy e cobertura dos p
 
 
 03/10/2026 — 4B, telemetria primária: continuação autorizada por Pedro para as pendências do M1. [Contrato/runbook](../../../api/ops/primary-telemetry.md) e [evidência](../../../docs/analises/2026-10-03-telemetria-do-primario.md): coleta privada/read-only de PG18, sincronismo/slot/retainedBytes e dados/WAL; identidade/permissões/caminhos conferidos; monitor separado e ciclo mais antigo no watchdog. Provas PG/filesystem/SSH/sudo/SMTP locais, sem configurar VPS nem reparar slot/WAL. Escopo atual do pacote local concretizado; próximo gate operacional é dimensionamento/definições 4A e instalação/aceite 4C/4D. Tarefa 04 e M1 abertos; Concluída: não.
+
+08/10/2026 — [Consolidação de aceite M1](../../aceite-m1/spec.md): 4B mantém resultado local verificado; 4A/4C/4D e esta tarefa continuam abertos. Rótulo alinhado ao vocabulário canônico needs-info; orçamento/contratação permanecem adiados em Q47. Q54 informa domínio ainda a escolher; [guia manual](../../../api/ops/domain-and-email-setup.md) preparado. Nenhuma instalação externa executada.

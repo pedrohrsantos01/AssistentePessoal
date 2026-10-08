@@ -1,5 +1,7 @@
 # Primeiro marco do Ritmo — especificação da entrega
 
+Estado atual em 08/10/2026: núcleo de exceções concluído localmente e pacote operacional 4B verificado no escopo atual; M1 aberto. [Plano de aceite restante](../aceite-m1/spec.md) consolida aparelhos, domínio/e-mail e gates existentes. Q54: Pedro escolherá o domínio e pediu roteiro manual. Q55=B: rota iOS adiada; iPhone continua obrigatório. A evidência Android foi renovada e aprovada com as fontes atuais; o segundo cliente da prova ainda é desktop. Atualizações anteriores abaixo preservam seu contexto histórico.
+
 Estado em 26/09/2026: comportamento aprovado, baseline m1.1 e implementação técnica em andamento. A tarefa 04 entregou a primeira fatia executável; a tarefa 05 já acrescentou [sessão e isolamento](../../docs/analises/2026-09-26-sessao-e-isolamento.md), com testes reais. Direção visual aguarda o protótipo de Pedro; recuperação por e-mail e os demais itens da [tarefa 05](issues/05-completar-sessao-e-recuperacao.md) permanecem pendentes.
 
 Atualização de 27/09/2026: [recuperação de senha](../../docs/analises/2026-09-27-recuperacao-de-senha.md) implementada e testada com SMTP local, API e SQLite. Host/provedor, abertura nativa e protótipo continuam pendentes.
@@ -49,7 +51,7 @@ A matriz canônica é [M1-01 a M1-20](../../specs/13-contrato-primeiro-marco.md#
 | Lacuna | Efeito sobre execução | Encaminhamento |
 |---|---|---|
 | Execução das migrations, roles e contratos nos runtimes reais | Primeiro recorte com migrations, RLS e integração real verificados; matriz M1 ainda incompleta | Preparação [01 concluída](issues/01-fechar-contratos.md); execução na [04](issues/04-exercitar-fundacao-sem-ui.md) |
-| Builds efetivos e rota iOS | Matriz documentada; Pedro não tem Apple Developer ativo. EAS físico exige essa dependência ou alternativa local com Mac | Pesquisa [02 concluída](issues/02-validar-stack-e-build.md); build Android técnico aprovado; execução nativa e rota iOS conforme relatório da tarefa 04 |
+| Builds efetivos e rota iOS | Android técnico tem evidência; rota iOS adiada em Q55=B. Personal Team gratuito com Mac não cobre Associated Domains/Universal Links; iPhone permanece obrigatório | Pesquisa [02 concluída](issues/02-validar-stack-e-build.md); [aceite atual](../aceite-m1/spec.md) e [relatório/fontes](../../docs/analises/2026-10-08-plano-de-aceite-m1.md) |
 | Protótipo ainda sendo feito pelo Pedro | Impede fechar visual e aceite do Briefing; não bloqueia contratos/testes sem UI | [Tarefa 03](issues/03-integrar-prototipo.md) |
 | SMTP/deep link, segredos, deploy e recuperação operacional | SMTP local, dump/restore e recuperação física pós-corte testados; pacote operacional local verificado, com definição/instalação/aceite real ainda pendentes | [Guia de e-mail](../../api/ops/email-recovery.md), [backup/restauração](../../api/ops/backup-restore.md) e [recuperação operacional aprovada](../recuperacao-operacional/spec.md); fornecer parâmetros operacionais sem inserir credenciais nos docs |
 | Saldo de XP menor que prêmio nominal | Q31 resolvida e implementada: prêmio inteiro de 10 XP somente quando couber; caso contrário, cumprimento sem XP | [Exclusão e tombstones](../../docs/analises/2026-09-30-exclusao-e-tombstones.md); gamificação ampliada segue fora deste recorte |

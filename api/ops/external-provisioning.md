@@ -1,6 +1,6 @@
 # Provisionamento e aceite externo — REQ-NFR-004, recorte 4
 
-Data: 02/10/2026. Estado: **preparação local; ambiente e custos ainda não definidos**.
+Data: 02/10/2026; estado atualizado em 08/10/2026: **ambiente declarado; pacote local 4B verificado no escopo atual; dimensionamento/instalação/aceite externos pendentes**.
 Origem: [tarefa 04](../../.scratch/recuperacao-operacional/issues/04-validar-operacao-externa.md), [plano confirmado](../../.scratch/recuperacao-operacional/spec.md), [spec/07 §2.2](../../specs/07-nao-funcionais-e-lgpd.md) e [ADR-019](../../docs/adr/0019-recuperacao-operacional-sem-perda-de-confirmacoes.md).
 
 Este caderno organiza a execução do contrato já aprovado. Não escolhe fornecedor, contrata recurso ou atesta um ambiente real. Q44 confirmou a VPS existente; Q45 solicitou propostas de orçamento e Q46 informou Resend, com cofre ainda a escolher. Q47 escolheu perfil enxuto para artefatos locais, adiando fornecedores/orçamento/contratação e pedindo comparação Hostinger/R2; Q48 escolheu Bitwarden Free cloud. A [proposta concreta](../../docs/analises/2026-10-02-proposta-de-infraestrutura.md) ainda é cotação para comparação; valores de segredos nunca entram aqui.
@@ -108,7 +108,7 @@ O receiver-state é um executável operacional que devolve exatamente running ou
 1. Registrar inventário/revisão, referências de cofre, responsáveis e orçamento. Conferir recuperação das contas de gestão e acesso às configurações após perda dos hosts.
 2. Preparar rede privada, TLS/CA/nomes, firewall/HBA e destino independente; verificar que PG/API interna não são alcançáveis pela internet. Separar gestão de tráfego de clientes.
 3. Provisionar PG e papéis administrativos/runtime com clientes bloqueados. Criar a identidade operacional/slot e conectar o receptor antes de transações que dependam de sincronismo. Não expor um PG com proteção provisoriamente incompleta.
-4. Ativar a configuração síncrona exigida; iniciar a API isolada com proteção WAL e quarentena; conferir Flyway V1–V4 e ausência de privilégios indevidos. Migração pode esperar o receptor: não resolver espera desligando a proteção num ambiente aberto.
+4. Ativar a configuração síncrona exigida; iniciar a API isolada com proteção WAL e quarentena; conferir Flyway V1–V5 e ausência de privilégios indevidos. Migração pode esperar o receptor: não resolver espera desligando a proteção num ambiente aberto.
 5. Capturar/publicar base física e dump, verificar identidade/cadeia, instalar supervisor/agenda, detector e SMTP. Confirmar inventário, eventos, relógios e alertas Q42. O sucesso de uma base não comprova a cauda posterior.
 6. Executar os gates e ensaios abaixo com dados fictícios e instância de validação acessível só pela rede de ensaio. API de clientes permanece bloqueada; encerrar a instância de validação ao terminar.
 7. Revisar a evidência externa e a capacidade de operação com Pedro. Preparar a configuração definitiva; liberação aos clientes é uma etapa explícita posterior ao aceite. Nunca apresentar snapshot histórico como recuperação integral.
@@ -170,7 +170,7 @@ Executor e referência sanitizada à evidência:
 
 ## 9. Bloqueios atuais e próximo passo
 
-Q44 e o uso existente de Resend foram confirmados. Perfil enxuto e Bitwarden Free estão escolhidos. Próximo passo autorizado: preparar/testar os artefatos locais 4B; comparar Hostinger/R2 e fechar capacidade/rede/custódia/remoto/domínios/acessos e orçamento antes da contratação/instalação. Este caderno e a pesquisa são preparo revisável, não uma configuração instalada ou prova de RPO/RTO externo.
+Q44 e o uso existente de Resend foram confirmados. Perfil enxuto e Bitwarden Free estão escolhidos. As seis integrações do pacote local 4B foram verificadas no escopo atual; o próximo gate operacional é fechar dimensionamento/rede/custódia/remoto/acessos em 4A, antes de instalação isolada 4C e aceite 4D. Fornecedores/orçamento/contratação continuam adiados por Q47. Q54 informou domínio ainda a escolher: [roteiro manual](domain-and-email-setup.md). Este caderno é preparo revisável, não configuração instalada ou prova externa de RPO/RTO. [Consolidação de aceite M1](../../.scratch/aceite-m1/spec.md).
 
 ## Segunda VPS no Coolify existente — guia proposto
 

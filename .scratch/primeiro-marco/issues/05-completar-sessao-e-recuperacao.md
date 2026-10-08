@@ -1,6 +1,6 @@
 # 05 — Completar sessão e recuperação antes do uso diário
 
-Status: in-progress
+Status: needs-info
 Dependência técnica: 04-exercitar-fundacao-sem-ui.md concluída em 26/09/2026; aceite operacional/visual/aparelhos ainda aberto
 
 ## Resultado esperado
@@ -269,3 +269,9 @@ Pedro aprovou Q51–Q53=A: preservar/bloquear banco ilegível sem reconstrução
 07/10/2026 — [Recorte 2: retomada do cofre](../../../docs/analises/2026-10-07-retomada-do-cofre.md) concluído localmente: referência atual/limpeza preservadas, Session pública com diagnóstico/retry, uso local e pausa remota; retomada sem refresh antigo, mistura A/B ou antecipação de backoff. App typecheck/lint e 109 testes aprovados; API check integral com 85 testes Java aprovados, 1 Android opt-in ignorado e 13 verificações operacionais aprovadas, incluindo ModularityTests. Próxima entrega: [recorte 3 — abertura local](../../recuperacao-excecoes/issues/03-expor-recuperacao-da-abertura-local.md). UI/Q28, SMTP/deep link real, distribuição/aparelhos e aceite operacional externo mantêm tarefa 05/M1 abertos.
 
 08/10/2026 — [Recorte 3: abertura/recuperação local](../../../docs/analises/2026-10-08-recuperacao-da-abertura-local.md) concluído/verificado. Plano local de exceções (Q51–Q53) concluído: diagnóstico/retry sem perda de arquivos/intenções, bloqueio da instalação ilegível e proteção de geração/logout. App typecheck/lint e 121 testes aprovados; API check integral reexecutado com 85 Java aprovados, 1 Android opt-in ignorado e 13 operacionais; integração HTTP/PostgreSQL aprovada. M1/tarefa 05 continuam abertos: UI/Q28, aparelhos, SMTP/deep link real, distribuição iOS e instalação/aceite externo. Reparo/exportação/reconstrução assistida têm recortes próprios.
+
+## Consolidação do aceite restante — 08/10/2026
+
+Três recortes de exceções concluídos localmente; pacote 4B verificado no escopo atual. [Plano/tarefas de aceite](../../aceite-m1/spec.md) organiza renovação Android, configuração manual de domínio, recuperação nativa e matriz final, sem duplicar a tarefa visual 03 ou a operacional 04. Q54: domínio ainda a escolher, guia solicitado. Q55=B: rota iOS adiada; iPhone permanece obrigatório. Triagem needs-info indica definições/aceites faltantes, não invalida os incrementos concluídos. [Relatório](../../../docs/analises/2026-10-08-plano-de-aceite-m1.md). Concluída: não.
+
+08/10/2026 — Renovação Android concluída com fontes atuais e checks integrais aprovados, incluindo caso nativo habilitado; [evidências/timeout inicial/limites](../../../docs/analises/2026-10-08-plano-de-aceite-m1.md). Segundo cliente ainda é desktop. Q54/Q55 e restantes gates continuam conforme plano; Concluída: não.

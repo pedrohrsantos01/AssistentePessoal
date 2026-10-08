@@ -32,3 +32,7 @@ A resposta 202 aceita uma solicitação para processamento e é uniforme para co
 O hash é confirmado no banco antes do SMTP; falha de envio não troca senha nem encerra sessões. Falhas do worker registram somente `password_reset_delivery_failed`, sem destinatário, token ou exceção que exponha payload. Capacidade esgotada retorna 503 independentemente da existência da conta. Rate limiting por cliente/endereço e monitoramento operacional continuam na tarefa 05 antes de exposição externa.
 
 Antes do aceite real: configurar segredos, verificar remetente/DNS, abrir o link no build correto, trocar a senha, recusar reutilização e comprovar que as pendências locais continuam após novo login.
+
+## Preparação manual de domínio — 08/10/2026
+
+Q54 informou domínio ainda a escolher; Pedro pediu [roteiro de registro/DNS/Resend](domain-and-email-setup.md). Origem/remetente e configurações reais continuam pendentes. Q55=B adia rota iOS, mantendo Universal Links/iPhone obrigatórios para M1. [Plano de aceite](../../.scratch/aceite-m1/spec.md). O guia não altera este contrato nem comprova entrega de e-mail.

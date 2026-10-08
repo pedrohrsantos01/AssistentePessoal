@@ -471,3 +471,10 @@ Respostas incorporadas aos specs 01/06/13 e README dos contratos. [Diagnóstico 
 
 
 07/10/2026 — Pedro confirmou com “sim” o plano de recuperação de exceções e as fronteiras de teste; autorizado iniciar o recorte 1 de identidade/recibos.
+
+## Aceite restante do M1 — Q54/Q55, 08/10/2026
+
+- **Q54 — Domínio:** Pedro informou não ter domínio disponível; escolherá o nome e fará a configuração na conta de hospedagem/e-mail existente. Pediu documento com instruções para executar a configuração. [Roteiro manual](../../api/ops/domain-and-email-setup.md). Nome, provedor/benefício efetivo da conta, DNS, domínio de envio/remetente e origem HTTPS ainda não foram confirmados; não presumir gratuidade.
+- **Q55 — Rota iOS:** Pedro escolheu **B — adiar a rota iOS** e continuar o preparo Android. M1 permanece aberto até validar o iPhone 16e; não houve dispensa do aparelho nem dos Universal Links, contratação Apple ou autorização para uma alternativa sem esses requisitos.
+
+[Plano de aceite e dependências](../aceite-m1/spec.md). Integração visual continua aguardando Q28; contratação/orçamento permanecem adiados por Q47. Renovar o teste Android existente é trabalho já autorizado; novos parâmetros/integrações de link serão fechados após a configuração manual.

@@ -67,3 +67,5 @@ M1 e tarefa 05 continuam abertos. Próximo recorte recomendado: completar a matr
 - [Expo config plugins](https://github.com/expo/expo/blob/main/docs/pages/config-plugins/plugins.mdx) e [mods de arquivos](https://github.com/expo/expo/blob/main/docs/pages/config-plugins/dangerous-mods.mdx): integração do manifest/XML na geração nativa.
 - [Android Network Security Configuration](https://developer.android.com/privacy-and-security/security-config): exceção de cleartext delimitada por domínio.
 - [ADB](https://developer.android.com/tools/adb) e [acesso a servidor local](https://developer.android.com/develop/ui/views/layout/webapps/access-local-server): encaminhamento reverso e ciclo do aplicativo.
+
+08/10/2026 — Esta evidência histórica foi [renovada com as fontes c5e7b51](2026-10-08-plano-de-aceite-m1.md): novo APK reconstruído e cenário existente/checks integrais aprovados. Hash e contagens atuais estão no relatório novo; a execução de 30/09 e seus limites permanecem registrados acima. iPhone e interface continuam pendentes.

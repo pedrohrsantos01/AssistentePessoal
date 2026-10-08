@@ -83,7 +83,7 @@ Redes Docker são locais: cadastrar B não une a rede `coolify` dos hosts nem cr
 | A → B | SSH, restrito à origem administrativa do Coolify |
 | Pedro → B | SSH próprio por origem autorizada/VPN, além do console |
 | B → A | PostgreSQL privado, geralmente 5432, HBA restrito e TLS `verify-full` |
-| Detector C → B | Probe autenticado/restrito com timeout, ainda a implementar |
+| Detector C → B | Probe SSH autenticado/restrito com timeout, verificado localmente; instalar/aceitar em 4C/4D |
 | B → serviços necessários | Saída DNS/horário/repositórios/registry utilizado |
 | C → Resend | STARTTLS com certificado validado; porta/entrega a testar |
 
