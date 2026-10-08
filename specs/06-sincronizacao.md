@@ -104,6 +104,8 @@ Para desfazer conclusão recorrente, aplicar a regra específica de REQ-TAR-005b
 
 Concretização parcial em 28/09/2026: abertura de conta/instalação recusa histórico Drizzle desconhecido e devolve erro tipado quando a migration falha. Fecha o handle e interrompe a abertura, preservando arquivos e pendências; não reconstrói bancos automaticamente. Testes com SQLite real exercitam rollback, nova tentativa, conta inativa e fence de logout. A UI de recuperação e eventual exportação/reparo de arquivo corrompido continuam pendentes; [relatório](../docs/analises/2026-09-28-abertura-segura.md).
 
+Concretização do núcleo de recuperação em 08/10/2026 (Q51=A): owner público conserva bloqueio da instalação e oferece diagnóstico/retry; sessão conserva o bloqueio da conta e revalida geração/estado antes de publicar abertura tardia. Falhas de abertura/PRAGMA/migration/inicialização permanecem distintas, sem tratar erro genérico como corrupção. Arquivos e pendências preservados; nova tentativa não reconstrói. [Contrato §22](13-contrato-primeiro-marco.md), [provas e limites](../docs/analises/2026-10-08-recuperacao-da-abertura-local.md). UI/aceite nativo e reparo/exportação/reconstrução permanecem separados.
+
 ## 5.1 Compatibilidade entre versões do app
 
 **REQ-SYN-014** — Dois aparelhos do mesmo usuário podem estar em versões diferentes do app. Regras:

@@ -1,6 +1,6 @@
 # 03 — Expor recuperação segura das falhas de abertura local
 
-Status: ready-for-agent
+Status: completed
 Blocked by: none
 
 ## Resultado esperado
@@ -23,7 +23,7 @@ Confirmar entendimento consolidado e fronteiras de teste. Estados e diagnóstico
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim — recorte local; aceite visual/nativo e reparo físico continuam separados.
 
 ## Comments
 
@@ -31,3 +31,5 @@ Concluída: não.
 
 
 07/10/2026 — Pedro confirmou entendimento e fronteiras de teste do plano com “sim”. Tarefa especificada; implementação continua pendente.
+
+08/10/2026 — Resultado final: abertura/PRAGMA/migration/inicialização classificados, owner/sessão com diagnóstico e retry, arquivos/filas preservados, controle bloqueia abertura inteira e logout/fechamento invalidam tentativas tardias. App typecheck/lint e 121 testes aprovados; API check integral reexecutado com 85 testes Java aprovados, 1 Android opt-in ignorado e 13 operacionais aprovados. Integração nova HTTP/PostgreSQL aprovada. [Evidências e limites](../../../docs/analises/2026-10-08-recuperacao-da-abertura-local.md).

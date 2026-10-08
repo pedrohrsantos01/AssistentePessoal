@@ -1,3 +1,6 @@
+import {openingFixture} from '../support/opening.ts';
+import {openLocalSession} from '../../src/core/identity/session-opening.ts';
+import {mkdirSync,rmdirSync,readFileSync} from 'node:fs';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
@@ -70,4 +73,33 @@ test('vault unavailability keeps offline work local until public recovery conver
     scheduler.dispose();await f.restart();assert.deepEqual(f.session.vaultRecovery(),{unavailable:false,cleanupPending:false});
     await f.session.synchronize(origin);await synchronize(other,transport);assert.equal(other.view(day).totalXp,10);
   } finally {scheduler.dispose();other.close();f.close();}
+});
+
+test('public SQLite opening recovery preserves intentions and converges once through HTTP and PostgreSQL',async()=>{
+  const f=openingFixture(),clock=new Clock(),api=new HttpIdentity(origin),email=randomUUID()+'@example.test';
+  const registered=await api.register(email,'fixture-password','Abertura',id(2));
+  f.identity.login=(email,password,device)=>api.login(email,password,device);
+  f.identity.refresh=token=>api.refresh(token);f.identity.revoke=token=>api.revoke(token);
+  let owner=await openLocalSession(f.storage,f.vault,f.identity,f.nextId);
+  await owner.session.login(email,'fixture-password');const account=owner.session.account().accountId;
+  const pending=owner.session.account().enqueue(command,id(10),at);
+  owner.session.account().enqueue({type:'habit.mark',habitId:id(3),dayKey:day,timeContext:command.timeContext,observedUndoIds:[]},id(11),at);
+  owner.close();const bytes=readFileSync(f.path(account));f.hide(account);mkdirSync(f.path(account));
+  owner=await openLocalSession(f.storage,f.vault,f.identity,f.nextId);
+  const scheduler=new SyncScheduler(owner.session,origin,clock),other=openTestStore(':memory:',account,id(90));
+  let sequence=900;const transport=new HttpSync(origin,account,()=>registered.accessToken,()=>id(sequence++));
+  try {
+    assert.equal(owner.recovery()?.stage,'open');scheduler.update({active:true,online:true});
+    assert.equal(scheduler.status().sync.phase,'paused');await clock.advance(600000);
+    await synchronize(other,transport);assert.equal(other.view(day).habits.length,0);
+    rmdirSync(f.path(account));f.unhide(account);assert.deepEqual(readFileSync(f.path(account)),bytes);
+    await owner.retryDatabase();assert.equal(owner.recovery(),null);
+    // The scheduler may already be sending; operation identity and sequence still match the preserved intent.
+    assert.equal(owner.session.account().operations()[0]?.operationId,pending.operationId);
+    await until(()=>scheduler.status().sync.phase==='idle'&&owner.session.account().operations().length===0);
+    await synchronize(other,transport);assert.equal(other.view(day).totalXp,10);assert.equal(other.view(day).habits[0]?.done,true);
+    scheduler.dispose();owner.close();owner=await openLocalSession(f.storage,f.vault,f.identity,f.nextId);
+    await owner.session.synchronize(origin);await synchronize(other,transport);assert.equal(other.view(day).totalXp,10);
+    assert.equal(owner.session.account().view(day).pendingCount,0);
+  } finally {scheduler.dispose();owner.close();other.close();f.close();}
 });

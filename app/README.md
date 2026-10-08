@@ -136,3 +136,10 @@ Um build diferente mantém leitura local até validar uma resposta de sync, logi
 ## Correspondência e identidade dos recibos — 07/10/2026
 
 AccountStore compara operationHash/JCS antes de reconhecer ack/pull/snapshot; ausência de prova ou divergência bloqueiam a intenção e dependentes sem reenviar ou trocar IDs. recovery() expõe error.identity com até um recibo original e um de conflito. receiptOperationIds() inclui impasses e IDs originais necessários à consulta no corte H. A abertura confere histórico sem resolução; prova posterior correspondente libera dependentes mantendo prazo/esgotamento de retry. Implantar API antes do app. [Contrato e evidências](../docs/analises/2026-10-07-correspondencia-de-recibos.md); cofre/abertura e aceite nativo continuam nos recortes/gates existentes.
+
+
+## Recuperação da abertura local — 08/10/2026
+
+`openExpoRuntime(origin)` e `openExpoSession(identity)` conservam um owner quando a instalação não abre. Consulte `recovery()` antes de obter `session`: o diagnóstico informa base lógica/escopo/etapa/classificação e não inclui causas SQL ou segredos. Com controle bloqueado, `session` lança `installation_locked`; no runtime, identidade/scheduler também aguardam abertura saudável. `retryDatabase()` repete a abertura após corrigir a causa/atualizar; `close()` encerra o owner e invalida tentativas atrasadas.
+
+Com controle saudável e falha na conta, a sessão existe, mas `account()` permanece bloqueado; `session.databaseRecovery()` expõe o problema e `session.retryDatabase()` só tenta a conta selecionada na geração atual. Logout e troca de conta mantêm isolamento. O scheduler de domínio fica `paused` até a abertura bem-sucedida. Arquivos e pendências são preservados; nenhum retry reconstrói/restaura/substitui banco. Reparo e apresentação visual permanecem separados. [Contrato, testes e limites](../docs/analises/2026-10-08-recuperacao-da-abertura-local.md).

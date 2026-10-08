@@ -1,3 +1,4 @@
+import {LocalRecoveryRequired,type DatabaseRecovery} from '../db/local-migrations.ts';
 import {Compatibility} from '../sync/compatibility.ts';
 import {failureKind} from '../sync/retry.ts';
 import {CLIENT,type ClientVersion} from '../sync/client-version.ts';
@@ -40,6 +41,16 @@ export class Session {
       revocations:state.session_state!=='logging_out'&&this.control.keys().some(key=>key.purpose==='revocation'&&
         (state.session_state!=='active'||key.key!==state.revoke_key))};
   }
+  private databaseFailure:LocalRecoveryRequired|null=null;
+  private openEpoch=0;
+  databaseRecovery():DatabaseRecovery|null {return this.databaseFailure?.diagnostic('account')??null;}
+  retryDatabase():Promise<void> {
+    const generation=this.control.state().session_generation,epoch=this.openEpoch;
+    return this.exclusive(async()=>{
+      this.assertGeneration(generation);if(epoch!==this.openEpoch) throw new Error('session_locked');
+      if(!this.store) await this.openCurrent();
+    });
+  }
   private store:AccountStore|null=null;
   private credentials:Credentials|null=null;
   private serial:Promise<unknown>=Promise.resolve();
@@ -60,15 +71,20 @@ export class Session {
   private async openCurrent() {
     const state=this.control.state();
     if(state.session_state!=='active'||!state.selected_account_id) return;
-    const generation=state.session_generation,account=state.selected_account_id;
+    const generation=state.session_generation,account=state.selected_account_id,epoch=this.openEpoch;
     const guard=(write=false)=>{
       const current=this.control.state();
-      if(current.session_generation!==generation||current.session_state!=='active'||current.selected_account_id!==account)
+      if(epoch!==this.openEpoch||current.session_generation!==generation||current.session_state!=='active'||current.selected_account_id!==account)
         throw new Error('session_locked');
       if(write) this.compatibility.assertWritable();
     };
-    const opened=await this.open(account,guard);
-    try {guard();this.store=opened;this.notify();} catch(error) {opened.close();throw error;}
+    let opened:AccountStore|undefined;
+    try {opened=await this.open(account,guard);guard();this.store=opened;this.databaseFailure=null;this.notify();}
+    catch(error) {
+      opened?.close();guard();
+      this.databaseFailure=error instanceof LocalRecoveryRequired?error:new LocalRecoveryRequired('account-'+account+'.db','local_initialization_failed',error,'initialize');
+      this.notify();
+    }
   }
   account():AccountStore {
     if(!this.store||this.control.state().session_state!=='active') throw new Error('session_locked');
@@ -203,7 +219,7 @@ export class Session {
     });
   }
   async restore() {
-    const generation=this.control.state().session_generation;
+    const generation=this.control.state().session_generation,epoch=this.openEpoch;
     if(this.control.state().session_state==='logging_out') {await this.logout();return;}
     await this.exclusive(async()=>{
       this.assertGeneration(generation);
@@ -224,9 +240,10 @@ export class Session {
         }
       }
       if(!await this.tryCleanCredentials()) healthy=false;
+      if(epoch!==this.openEpoch) throw new Error('session_locked');
       if(!this.store) await this.openCurrent();
       this.markVault(!healthy);
     });
   }
-  close() {this.store?.close();this.store=null;this.credentials=null;this.renewal=null;this.notify();}
+  close() {this.openEpoch++;this.databaseFailure=null;this.store?.close();this.store=null;this.credentials=null;this.renewal=null;this.notify();}
 }

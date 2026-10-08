@@ -51,6 +51,7 @@ export class SyncScheduler {
   private restoredState():SyncState {
     if(this.session.networkState().updateRequired) return {phase:'update_required',failures:0,nextAttemptAt:null};
     if(this.session.networkState().vaultUnavailable) return {phase:'paused',failures:0,nextAttemptAt:null};
+    if(this.session.databaseRecovery()) return {phase:'paused',failures:0,nextAttemptAt:null};
     if(!this.key||this.session.access().mode==='read_only') return idle();
     const retry=this.session.account().retryState();
     if(retry.failedCount>0) return {phase:'failed',failures:retry.failures,nextAttemptAt:null};

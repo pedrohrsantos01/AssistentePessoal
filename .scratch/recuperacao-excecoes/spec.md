@@ -1,7 +1,7 @@
 # Recuperação de exceções — plano confirmado
 
 Data: 07/10/2026.
-Estado: Q51–Q53 aprovadas na opção A; Pedro confirmou entendimento e fronteiras de teste com “sim” em 07/10/2026. Recortes 1 e 2 concluídos localmente; abertura pendente.
+Estado: Q51–Q53 aprovadas na opção A; Pedro confirmou entendimento e fronteiras de teste com “sim” em 07/10/2026. Recortes 1, 2 e 3 concluídos/verificados localmente; aceite de M1 continua aberto.
 Origem: [tarefa 05 do M1](../primeiro-marco/issues/05-completar-sessao-e-recuperacao.md), após [retenção concluída](../../docs/analises/2026-10-04-retencao-fisica-do-feed.md).
 [Diagnóstico](../../docs/analises/2026-10-07-recuperacao-de-excecoes.md), [entrevista](../fundacao/entrevista.md).
 
@@ -54,10 +54,12 @@ Reparo físico, exportação, reconstrução assistida, intervenção destrutiva
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim — os três recortes locais, sem aceite de M1/UI/aparelhos/operação externa.
 
 Entendimento e fronteiras confirmados em 07/10/2026. Cada tarefa exige sua própria implementação e verificação.
 
 07/10/2026 — [Recorte 1 e provas](../../docs/analises/2026-10-07-correspondencia-de-recibos.md) concluídos: correspondência antes do reconhecimento, compatibilidade de respostas, diagnóstico preservado e dependentes bloqueadas quando a identidade continua incerta. [Recorte 2](issues/02-retomar-cofre-sem-bloquear-uso-local.md) é a próxima entrega recomendada; [recorte 3](issues/03-expor-recuperacao-da-abertura-local.md) permanece pendente. O plano inteiro e M1 continuam abertos.
 
 07/10/2026 — [Recorte 2 e provas](../../docs/analises/2026-10-07-retomada-do-cofre.md) concluídos: Session.vaultRecovery/retryVault, uso local preservado, pausa remota, limpeza segura e prazos de retry conservados. App typecheck/lint e 109 testes aprovados; API check integral com 85 testes Java aprovados, 1 Android opt-in ignorado e 13 verificações operacionais aprovadas, incluindo ModularityTests. Próximo: [recorte 3 — abertura local](issues/03-expor-recuperacao-da-abertura-local.md). O plano inteiro e M1 continuam abertos.
+
+08/10/2026 — [Recorte 3 e provas](../../docs/analises/2026-10-08-recuperacao-da-abertura-local.md) concluídos localmente: falhas de abertura/PRAGMA/migration/inicialização, base ilegível, diagnóstico limitado e retry preservando arquivos, filas, isolamento e logout. App typecheck/lint e 121 testes aprovados; API check integral reexecutado com 85 testes Java aprovados, 1 Android opt-in ignorado, 13 operacionais e integração HTTP/PostgreSQL aprovados. O plano local de exceções está concluído. UI/Q28, aparelhos, SMTP/deep link, distribuição iOS e operação externa mantêm M1/tarefa 05 abertos; reparo/exportação/reconstrução assistida exigem recortes próprios.

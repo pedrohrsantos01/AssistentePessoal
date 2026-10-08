@@ -354,11 +354,17 @@ Pedro confirmou o [plano consolidado](../.scratch/retencao-feed/spec.md) e as fr
 
 ## 22. Recuperação de exceções — Q51/Q52/Q53, 07/10/2026
 
-Pedro aprovou **A** em Q51, Q52 e Q53. [Entrevista](../.scratch/fundacao/entrevista.md), [diagnóstico](../docs/analises/2026-10-07-recuperacao-de-excecoes.md) e [plano confirmado](../.scratch/recuperacao-excecoes/spec.md). Estas definições complementam §§2/6/7/8; a concretização de identidade está abaixo, enquanto cofre e abertura permanecem em tarefas separadas.
+Pedro aprovou **A** em Q51, Q52 e Q53. [Entrevista](../.scratch/fundacao/entrevista.md), [diagnóstico](../docs/analises/2026-10-07-recuperacao-de-excecoes.md) e [plano confirmado](../.scratch/recuperacao-excecoes/spec.md). Estas definições complementam §§2/6/7/8; identidade, cofre e abertura foram concretizados em três entregas locais separadas, com evidências abaixo.
 
 ### Banco local e abertura
 
 Q51 mantém arquivos e interrompe acesso à base ilegível; controle de instalação ilegível bloqueia abertura inteira. Fechar handles adquiridos, classificar falha e expor nova tentativa após corrigir causa/atualizar. Falha de abertura/PRAGMA/armazenamento não prova corrupção física. Não descobrir/abrir conta por arquivos ou credenciais soltas quando o controle for ilegível. Não remover/substituir a única cópia com pendências para instalar estado remoto. Reparo físico, exportação e reconstrução assistida pertencem a recorte próprio.
+
+Concretização técnica do recorte 3 (08/10/2026), antes do código: a abertura pública mantém um owner com `recovery()`, `retryDatabase()` e `close()`. `session` só fica disponível após controle saudável. A sessão expõe `databaseRecovery()` e `retryDatabase()` para sua conta selecionada; `account()` permanece bloqueado durante a falha. O runtime Expo conserva o owner mesmo se a instalação não abrir e só inicia o scheduler após obter sessão.
+
+O diagnóstico público é limitado a nome lógico da base, escopo (`installation/account`), etapa (`open/pragma/migration/initialize`), código estável e código SQLite reconhecido. Não inclui caminho absoluto, mensagem SQL, conteúdo nem credenciais. A exceção técnica conserva `cause` e eventual falha de fechamento, sem serializá-las nesse diagnóstico. `SQLITE_CORRUPT/SQLITE_NOTADB` estruturados permitem classificar base ilegível; falhas de armazenamento e causas desconhecidas permanecem distintas. Drivers que não entregam código estruturado recebem causa desconhecida, sem inferência por texto.
+
+A abertura aplica PRAGMAs, histórico/migration e inicialização antes de publicar o handle; qualquer falha fecha o handle adquirido. Retry de conta captura a geração antes de aguardar a fila e revalida conta/estado após a abertura. Logout/fechamento invalidam uma abertura em andamento; retry não autentica, não reabre conta encerrada e não reutiliza intenções de outra conta. Retry de instalação relê exclusivamente o controle persistido e respeita `logging_out/locked`; nunca vasculha arquivos/cofre para escolher conta. Repetir a falha mantém o bloqueio. Estado de recuperação é derivado novamente após reinício; nenhum DDL ou formato HTTP muda.
 
 ### Cofre do dispositivo
 
@@ -408,3 +414,5 @@ A restauração de controle active saudável abre a conta mesmo se o cofre falha
 Indisponibilidade pausa novas requisições de sessão/sync/revogação, mesmo com token em memória. O scheduler observa o estado, sem consumir tentativas de intenções por falha do cofre; recuperação notificada retoma as filas respeitando seus prazos. Leituras/escritas protegidas capturam a geração antes do await; falha ou resposta tardia de A não altera diagnóstico, credencial ou base de B. O erro público vault_unavailable não carrega conteúdo da plataforma.
 
 Recorte 2 concluído localmente: [evidências, validação e limites do cofre](../docs/analises/2026-10-07-retomada-do-cofre.md). Abertura/PRAGMA permanece no recorte 3; M1 continua aberto.
+
+08/10/2026 — [Abertura/recuperação local: recorte 3](../docs/analises/2026-10-08-recuperacao-da-abertura-local.md) concluído/verificado: owner/sessão com diagnóstico e retry, controle ilegível bloqueia abertura inteira, arquivos/intenções preservados e tentativas tardias invalidadas por logout/fechamento. App 121 testes/typecheck/lint; API check integral reexecutado com 85 Java aprovados, 1 Android opt-in ignorado e 13 operacionais; integração HTTP/PostgreSQL aprovada. Os três recortes locais de exceções estão concluídos, sem encerrar M1/aparelhos/UI/operação externa.
