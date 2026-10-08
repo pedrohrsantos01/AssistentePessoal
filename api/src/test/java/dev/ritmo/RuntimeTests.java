@@ -859,4 +859,21 @@ class RuntimeTests {
         System.out.println(output);
     }
 
+
+    @Test
+    @org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable(named="RITMO_ANDROID_SERIAL",matches="emulator-[0-9]+")
+    void androidRuntimePreservesExceptionsAndAccountIsolationThroughNativeAdapters() throws Exception {
+        var log=java.nio.file.Path.of("build/android-exceptions-integration.log");
+        var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/android-exceptions.test.ts")
+            .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+        builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        var process=builder.start();
+        boolean ended=process.waitFor(420,java.util.concurrent.TimeUnit.SECONDS);
+        if(!ended) process.destroyForcibly();
+        String output=java.nio.file.Files.readString(log);
+        if(output.length()>16000) output=output.substring(output.length()-16000);
+        assertThat(ended).as(output).isTrue();
+        assertThat(process.exitValue()).as(output).isZero();
+        System.out.println(output);
+    }
 }

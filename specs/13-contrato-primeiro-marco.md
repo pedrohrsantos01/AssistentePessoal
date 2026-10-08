@@ -416,3 +416,10 @@ Indisponibilidade pausa novas requisições de sessão/sync/revogação, mesmo c
 Recorte 2 concluído localmente: [evidências, validação e limites do cofre](../docs/analises/2026-10-07-retomada-do-cofre.md). Abertura/PRAGMA permanece no recorte 3; M1 continua aberto.
 
 08/10/2026 — [Abertura/recuperação local: recorte 3](../docs/analises/2026-10-08-recuperacao-da-abertura-local.md) concluído/verificado: owner/sessão com diagnóstico e retry, controle ilegível bloqueia abertura inteira, arquivos/intenções preservados e tentativas tardias invalidadas por logout/fechamento. App 121 testes/typecheck/lint; API check integral reexecutado com 85 Java aprovados, 1 Android opt-in ignorado e 13 operacionais; integração HTTP/PostgreSQL aprovada. Os três recortes locais de exceções estão concluídos, sem encerrar M1/aparelhos/UI/operação externa.
+
+
+### Evidência Android de exceções e isolamento — 08/10/2026
+
+[Plano](../.scratch/aceite-android-excecoes/spec.md) e [relatório](../docs/analises/2026-10-08-excecoes-e-isolamento-android.md): cinco casos nativos aprovados em ensaio direcionado e check integral. Q52: falha controlada de leitura do cofre conserva escritas, reinício e pausa remota; retry retoma automaticamente sem duplicar XP. Q51: falhas de open/PRAGMA e migration de ensaio conservam envelopes após rollback/retry, fecham handles e bloqueiam a instalação sem fallback. Q53: colisões de operação/sequência conservam intenção/filha/recibo, persistem no reinício e permitem trabalho independente; hash Unicode Hermes/Node correspondente. M1-10: logout offline e reentrada online A/B/A preservam isolamento e pendências.
+
+SQLite/Drizzle/SecureStore/HTTP são reais nos caminhos saudáveis; indisponibilidade do cofre/open/PRAGMA é controlada na fronteira externa. Não é prova física de corrupção/disco/keystore, UI ou convergência iPhone/Android. App 121/typecheck/lint, API 87 Java sem ignorados e 13 operacionais aprovados; nenhuma mudança de comportamento/schema/contrato. Interface, links reais, iOS Q55=B e aceite operacional externo mantêm M1 aberto.

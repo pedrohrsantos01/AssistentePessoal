@@ -2,6 +2,7 @@ import {registerRootComponent} from 'expo';
 import {useEffect} from 'react';
 import {Linking} from 'react-native';
 import {exerciseHttp} from './http.ts';
+import {exerciseExceptions} from './exceptions.ts';
 import {openExpoSession} from '../src/core/identity/open-expo-session.ts';
 import type {Credentials,IdentityTransport} from '../src/core/identity/types.ts';
 
@@ -51,7 +52,11 @@ async function exercise() {
 }
 function Harness() {
   useEffect(()=>{void (async()=>{
-    if(process.env.EXPO_PUBLIC_RITMO_HTTP_HARNESS==='1') await exerciseHttp(await Linking.getInitialURL());
+    if(process.env.EXPO_PUBLIC_RITMO_HTTP_HARNESS==='1') {
+      const link=await Linking.getInitialURL();
+      if(link?.startsWith('ritmo-http://acceptance/')) await exerciseExceptions(link);
+      else await exerciseHttp(link);
+    }
     else await exercise();
   })().catch(error=>console.error('RITMO_HARNESS:'+JSON.stringify({passed:false,error:String(error)})));},[]);
   return null;

@@ -43,3 +43,6 @@ Cada prova registra commit/build, ambiente, interfaces exercitadas, resultado e 
 ## Resultado
 
 Concluída: não — consolidação preparada; M1 permanece aberto. [Análise/evidência atual](../../docs/analises/2026-10-08-plano-de-aceite-m1.md).
+
+
+08/10/2026 — Continuação autorizada antes do domínio: [aceite técnico de exceções e isolamento Android](../aceite-android-excecoes/spec.md) concluído. Cinco casos novos aprovados com os adapters nativos, falhas externas controladas e reinício; cenário original e checks integrais reexecutados (app 121, API 87 Java/zero ignorados, 13 operacionais). [Relatório e limites](../../docs/analises/2026-10-08-excecoes-e-isolamento-android.md). Estas provas não encerram as tarefas 02–04 nem o M1.

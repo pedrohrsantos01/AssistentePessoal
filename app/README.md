@@ -95,9 +95,9 @@ $env:ANDROID_HOME='H:\Android\Sdk' # ajustar à instalação
 .\scripts\verify-android-http.ps1 -Serial emulator-5560 # usar o serial de adb devices
 ```
 
-O script verifica app, gera/valida/instala o APK e executa `check bootJar` da API, incluindo o teste nativo opt-in. Ele não inicia o emulador. O teste é restrito a emuladores: desliga temporariamente Wi-Fi/dados, encerra apenas `dev.ritmo.httpharness` e restaura os rádios em `finally`. Não limpa dados nem desinstala o harness anterior. Requer a porta reversa `tcp:18765` livre; remove somente o encaminhamento que criou.
+O script verifica app, gera/valida/instala o APK e executa `check bootJar` da API, incluindo os dois métodos Java nativos opt-in: o cenário original e os cinco casos de exceções/isolamento. Ele não inicia o emulador. O teste é restrito a emuladores: desliga temporariamente Wi-Fi/dados, encerra apenas `dev.ritmo.httpharness` e restaura os rádios em `finally`. Não limpa dados nem desinstala o harness anterior. Requer a porta reversa `tcp:18765` livre; remove somente o encaminhamento que criou.
 
-`EXPO_PUBLIC_RITMO_HTTP_HARNESS=1`, aplicado pelo script no prebuild e no bundle, seleciona `dev.ritmo.httpharness` e a entrada `harness/http.ts`. O plugin permite HTTP somente para `127.0.0.1` nessa variante. O app alcança a API descartável via `adb reverse`; API e SMTP ficam em loopback no host. Sem a flag, o pacote básico e a política normal de rede continuam selecionados. Diretórios nativos são gerados; mudanças no bundle/configuração exigem reconstruir e reinstalar o APK.
+`EXPO_PUBLIC_RITMO_HTTP_HARNESS=1`, aplicado pelo script no prebuild e no bundle, seleciona `dev.ritmo.httpharness` e as entradas `harness/http.ts` e `harness/exceptions.ts`. O plugin permite HTTP somente para `127.0.0.1` nessa variante. O app alcança a API descartável via `adb reverse`; API e SMTP ficam em loopback no host. Sem a flag, o pacote básico e a política normal de rede continuam selecionados. Diretórios nativos são gerados; mudanças no bundle/configuração exigem reconstruir e reinstalar o APK.
 
 O driver `test/integration/android-http.test.ts` usa sessão/runtime e adapters nativos reais: cadastro/onboarding técnico, criação/marcação offline, force-stop/reabertura, restauração de credenciais e dos envelopes, pausa em segundo plano, sincronização automática ao voltar ao primeiro plano, refresh persistido e leitura independente por outro cliente SQLite/HTTP. Replays e marcação do mesmo dia pelo segundo cliente devem conservar 10 XP. A fixture usa UTC/início do dia 0; não substitui a matriz de fusos/virada lógica.
 
@@ -143,3 +143,24 @@ AccountStore compara operationHash/JCS antes de reconhecer ack/pull/snapshot; au
 `openExpoRuntime(origin)` e `openExpoSession(identity)` conservam um owner quando a instalação não abre. Consulte `recovery()` antes de obter `session`: o diagnóstico informa base lógica/escopo/etapa/classificação e não inclui causas SQL ou segredos. Com controle bloqueado, `session` lança `installation_locked`; no runtime, identidade/scheduler também aguardam abertura saudável. `retryDatabase()` repete a abertura após corrigir a causa/atualizar; `close()` encerra o owner e invalida tentativas atrasadas.
 
 Com controle saudável e falha na conta, a sessão existe, mas `account()` permanece bloqueado; `session.databaseRecovery()` expõe o problema e `session.retryDatabase()` só tenta a conta selecionada na geração atual. Logout e troca de conta mantêm isolamento. O scheduler de domínio fica `paused` até a abertura bem-sucedida. Arquivos e pendências são preservados; nenhum retry reconstrói/restaura/substitui banco. Reparo e apresentação visual permanecem separados. [Contrato, testes e limites](../docs/analises/2026-10-08-recuperacao-da-abertura-local.md).
+
+
+## Exceções e isolamento nativos — 08/10/2026
+
+`harness/exceptions.ts` exercita Q51–Q53 e M1-10 no mesmo pacote HTTP isolado. O driver `test/integration/android-exceptions.test.ts` contém cinco casos: leitura do cofre indisponível/retomada, open/PRAGMA/migration/rollback, colisão de operação, colisão de sequência e logout offline → B → reentrada online em A. Cada cenário usa seus próprios arquivos nativos por UUID e preserva dados de execuções anteriores.
+
+Falhas de leitura/open/PRAGMA são controladas na fronteira externa, com SecureStore/SQLite reais nos caminhos saudáveis. A migration exclusiva de ensaio executa uma escrita e SQL inválido pelo migrator Expo/Drizzle real; retry deve recuperar os envelopes anteriores. Não muda o bundle de migrations de produção. Outro cliente SQLite/HTTP observa a API descartável e confere recibos, hash Unicode Hermes/Node, isolamento e ausência de XP duplicado.
+
+Para repetir somente estes casos, depois de reconstruir e instalar o APK HTTP, com o emulador visível e Wi-Fi habilitado, executar na raiz:
+
+```powershell
+$env:RITMO_ANDROID_SERIAL='emulator-5560' # ajustar ao emulador iniciado
+$env:RITMO_ADB=Join-Path $env:ANDROID_HOME 'platform-tools/adb.exe'
+.\api\gradlew.bat -p api test --tests dev.ritmo.RuntimeTests.androidRuntimePreservesExceptionsAndAccountIsolationThroughNativeAdapters --no-daemon
+```
+
+Não executar o driver isoladamente contra API compartilhada: o Gradle fornece Spring/PostgreSQL/SMTP descartáveis e a origem em loopback. O caminho completo `scripts/verify-android-http.ps1` reconstrói/instala e roda ambos os métodos nativos no check integral. Logs resumidos ficam em `api/build/android-exceptions-integration.log`; logcat `RITMO_ANDROID_ACCEPTANCE` contém apenas fixtures sintéticas e diagnóstico público, sem credenciais.
+
+`scripts/watch-android-tests.ps1 -GradleLog <log-absoluto-da-execução> -CompletionPath <json-absoluto-de-conclusão>` permite abrir um console visível de acompanhamento. O runner deve redirecionar o Gradle para esse log e escrever `{"exitCode":0}` ou o código de falha no JSON ao terminar, inclusive em erro. O painel só mostra fases observadas em logs atuais e fecha cinco segundos após a conclusão; não é uma UI de produto. Emulador e painel iniciados para o teste devem ser encerrados ao terminar, preservando processos preexistentes.
+
+[Evidências, falha inicial do comparador e limites](../docs/analises/2026-10-08-excecoes-e-isolamento-android.md). Falhas controladas não comprovam defeito físico de keystore/disco. UI, iPhone, links HTTPS reais e aceite operacional externo permanecem nos gates existentes.

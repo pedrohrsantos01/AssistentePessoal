@@ -21,8 +21,8 @@ Nomes de domínio/remetente/subdomínios e identidades finais do app continuam p
 | Frente | Evidência disponível | Falta para aceite |
 |---|---|---|
 | Conta, sync, hábito binário e XP | HTTP/PostgreSQL/SQLite; concorrência, snapshots, datas/fusos, tombstones, retenção e isolamento nos relatórios da tarefa 05 | Integração visual e comportamento conjunto nos aparelhos |
-| Exceções Q51–Q53 | [Recibos](2026-10-07-correspondencia-de-recibos.md), [cofre](2026-10-07-retomada-do-cofre.md), [abertura](2026-10-08-recuperacao-da-abertura-local.md); arquivos/intenção preservados | Estados na UI e cenários específicos de falha nos adapters nativos; reparo físico pertence a recorte próprio |
-| Android técnico | APK reconstruído, cenário nativo e checks integrais aprovados; [cenário original](2026-09-30-http-nativo-android.md) | Interface/links/falhas nativas específicas e aceite iPhone/Android; segundo cliente da prova ainda é desktop |
+| Exceções Q51–Q53 | Núcleo local e [cinco casos Android](2026-10-08-excecoes-e-isolamento-android.md) aprovados: cofre, abertura/rollback, colisões de operação/sequência e isolamento A/B/A | Estados na UI, falhas físicas não simuladas e aceite conjunto dos aparelhos; reparo físico pertence a recorte próprio |
+| Android técnico | APK reconstruído, cenário original e nova bateria de exceções/isolamento aprovados com checks integrais; [relatório atual](2026-10-08-excecoes-e-isolamento-android.md) | Interface/links, falhas físicas ainda sem prova e aceite iPhone/Android; segundo cliente continua desktop |
 | iPhone/distribuição | Alvo iPhone 16e; Apple Developer inativo informado | Rota adiada Q55=B, build próprio/instalação e Universal Links reais |
 | Recuperação por e-mail | Contratos HTTP/parser e SMTP local testados; Resend existente | Domínio/remetente/quota, DNS, SMTP real, recebimento e abertura por OS no build próprio |
 | Interface/Q28 | Brief/prompt enviados para Claude Design; tarefa visual existente | Protótipo entregue, tokens/fluxos/estados/acessibilidade e integração vertical |
@@ -73,3 +73,10 @@ Logs locais ignorados: `.scratch/runtime/2026-10-08-acceptance-android.log`, `20
 As tarefas novas usam os rótulos canônicos com conclusão separada. O rótulo inválido `completed` da tarefa anterior de abertura local foi normalizado, preservando seu resultado concluído. Instruções atuais do caderno operacional e tabela Coolify foram alinhadas à conclusão local de 4B; comentários históricos permanecem.
 
 Não houve mudança de código, schema, dependências, UI, conta/DNS/SMTP remoto, fornecedor, contratação ou implantação. Consolidação e renovação Android são evidência técnica; M1/tarefa 05, gates externos e Fase 1 continuam abertos.
+
+
+## Continuação: exceções e isolamento nativos — 08/10/2026
+
+Pedro autorizou testar os quatro itens independentes de Q54. [Recorte Android concluído](../../.scratch/aceite-android-excecoes/spec.md): cinco casos novos aprovados, cenário original reexecutado, app 121/typecheck/lint, API 87 Java/zero ignorados e 13 operacionais aprovados. Falha inicial em dois asserts de recibo foi diagnosticada como comparação da ordem das propriedades JSON e corrigida apenas no harness; todas as propriedades/valores continuam conferidos. [Build, fases, resultados e limites](2026-10-08-excecoes-e-isolamento-android.md).
+
+A verificação anterior deste documento permanece histórica, com seu APK/86 Java e timeout WAL próprio. A nova bateria usa outro APK e adiciona um método Java com cinco casos Node; não substitui o aceite da UI, dos links, iPhone ou operação externa. Emulador/painel visíveis nos ensaios e encerrados após seus testes. Nenhum domínio, recurso remoto ou contratação foi definido.
