@@ -17,13 +17,15 @@ A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `
 
 `synchronize` recebe um transporte vinculado à mesma conta, valida respostas geradas do OpenAPI, recupera snapshot quando necessário e troca lotes de até 50 operações. Erros preservam o banco. O uso autenticado passa por `Session.synchronize`, que verifica a geração da sessão e renova acesso quando necessário. O scheduler automático e o backoff estão descritos abaixo; o aceite visual e a execução em iPhone permanecem pendentes. O cenário HTTP nativo Android está descrito abaixo.
 
-## Interface do recorte 01
+## Interface dos recortes 01 e 02
 
 `index.js` inicia Expo Router/`src/app`. `Journey` traduz apenas comandos/estados públicos de Session/AccountStore; componentes não chamam HTTP. O SQLite preserva o passo do onboarding, perfil público, intenções, IDs e projeções. `AccountStore.subscribe` publica após a transação externa confirmar; rollback não publica sucesso. Dados de domínio não são duplicados no Zustand, usado somente para navegação e rascunho de sugestão.
 
-Entrada, cadastro/login, confirmação de fuso/início do dia, primeiro hábito ou pular, Briefing, criação posterior, lista básica de hábitos e ajustes mínimos estão nesta jornada. Gestão avançada, avisos detalhados, recuperação por link e preferências persistidas continuam nos recortes seguintes. O aviso de privacidade para testes identifica a política pública ainda pendente; não foi inventado um contrato legal final.
+Entrada, cadastro/login, confirmação de fuso/início do dia, primeiro hábito ou pular, Briefing, criação posterior e ajustes mínimos estão nesta jornada. A gestão inclui todos os ativos, inclusive antes do início; o Briefing lista apenas os devidos. A gestão usa lista virtualizada, edição de título/ícone/cor com prévia, ordenação e exclusão confirmada. Avisos detalhados, recuperação por link e preferências persistidas continuam nos recortes seguintes. O aviso de privacidade para testes identifica a política pública ainda pendente; não foi inventado um contrato legal final.
 
 Holograma acompanha o tema do sistema. Os mesmos tokens suportam Cockpit/Neo em claro/escuro; seleção/persistência de aparência fica no recorte 06. Onze pesos locais de Chakra Petch, Space Grotesk e JetBrains Mono entram no bundle; licenças SIL OFL em `assets/licenses/`, incluídas também nos assets do APK pelo plugin de build. Não há download de fontes, telemetria, áudio ou permissões futuras neste recorte.
+
+Na gestão, patches contêm somente campos alterados; metadados desconhecidos são preservados. A ordenação enfileira mudanças de posições na mesma transação local. Exclusão reverte XP sem devolver orçamento e usa os tombstones existentes. Validação de unicidade usa a tabela Unicode full casefold gerada por `scripts/generate-habit-casefold.py`, com fonte versionada e licença Unicode nos assets. Relatório: [gestão nativa](../docs/analises/2026-10-09-interface-gestao-de-habitos.md).
 
 O Briefing registra providers locais independentes de hábitos/XP com fronteira de erro por card. Uma assinatura acompanha commits/pull e a geração da sessão. Um timer calcula a próxima virada lógica IANA, incluindo DST, e é refeito ao retornar ao foreground; não há polling de minuto nem timer que confirme sync. Marca/desfaz usa o dia no momento do toque e todos os desfazeres conhecidos.
 

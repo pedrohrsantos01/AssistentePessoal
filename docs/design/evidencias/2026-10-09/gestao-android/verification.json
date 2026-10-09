@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-09",
+  "app": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "nodeSqlitePassed": 144,
+    "componentsPassed": 12
+  },
+  "apiCheck": {
+    "command": "api/gradlew.bat check --no-daemon",
+    "tests": 88,
+    "passed": 85,
+    "skipped": 3,
+    "failed": 0,
+    "pythonOperationsPassed": 13,
+    "httpClientPassed": 9,
+    "duration": "11m 35s"
+  },
+  "android": {
+    "testPassed": 1,
+    "seconds": 426.08,
+    "futureStartCasePassed": true,
+    "minimumTouchLogicalUnits": 44,
+    "textScales": [
+      "100%",
+      "200%"
+    ],
+    "apkSha256": "5c813e23925ec2493c0440b811d0136702cb226c058d8801c6c2dae4a7299799",
+    "ownEmulatorAndPanelClosed": true
+  }
+}

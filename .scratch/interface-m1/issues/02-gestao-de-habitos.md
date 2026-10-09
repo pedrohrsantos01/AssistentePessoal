@@ -22,8 +22,10 @@ REQ-HAB-001/003/007; REQ-GAM-002a/003; Q30/Q31; spec/13 §3/M1-13; spec/11.
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim, no escopo local deste recorte. Edição/ordem/exclusão ligadas ao Briefing, persistência offline/reinício e convergência HTTP/Android verificadas. [Relatório](../../../docs/analises/2026-10-09-interface-gestao-de-habitos.md). O aceite integral nos aparelhos permanece separado.
 
 ## Comments
 
 09/10/2026: criado após incorporar o protótipo; execução/aceite nativo pendentes.
+
+09/10/2026: entregue lista completa de hábitos ativos (inclusive antes do início), patches somente dos campos alterados, validação Unicode canônica, ordenação atômica local e confirmação da exclusão com Q30. App 156 testes, API check e ensaio Android visível aprovados. Próximo recomendado: recorte 03; arquivamento/tipos/agendas não foram antecipados.

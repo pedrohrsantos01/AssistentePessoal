@@ -7,6 +7,10 @@ import {IdentityHttpError} from '../../core/identity/http-identity.ts';
 import {getDayKey,nextLogicalDayAt} from '../gamification/domain/day-key.ts';
 import type {TimeContext,CreateHabit} from '../../core/sync/protocol.ts';
 import {pt} from '../../i18n/pt-BR.ts';
+import {titleKey} from '../habits/domain/title.ts';
+import {habitIcons} from '../habits/catalog.ts';
+import type {HabitColor} from '../../theme/tokens.ts';
+export type HabitDraft={title:string;iconKey:string|null;colorToken:string|null};
 export type Runtime={readonly session:Session;readonly sync:SyncScheduler;recovery:()=>DatabaseRecovery|null;retryDatabase:()=>Promise<void>;close:()=>void};
 export type JourneyState={gate:'entry'|'database'|'logout'|'initial'|'account';key:string|null;busy:boolean;error:string|null;
   local:ReturnType<AccountStore['presentation']>|null;day:string|null;instant:number;online:boolean;remote:string;writable:boolean};
@@ -64,6 +68,7 @@ export class Journey {
    if(error.code==='email_already_exists'||error.status===409) return pt.emailConflict;
   }
   if(error instanceof Error&&error.message==='duplicate_habit') return pt.duplicateHabit;
+  if(error instanceof Error&&error.message==='habit_unavailable') return pt.habitUnavailable;
   if(error instanceof Error&&error.message==='vault_unavailable') return pt.vault;
   return local?pt.localFailure:pt.genericError;
  }
@@ -95,9 +100,9 @@ export class Journey {
   title=title.normalize('NFC').trim();
   if(!title||Array.from(title).length>120||Array.from(title).some(character=>/^[\uD800-\uDFFF]$/.test(character))) {this.error=pt.invalidHabit;this.refresh();return false;}
   return this.local(store=>{
-   const context=store.profile().timeContext,day=getDayKey(new Date(this.clock.now()),context.timezone,context.dayStartHour),view=store.view(day);
-   if(view.habits.some(habit=>habit.title.toLocaleLowerCase('pt-BR')===title.toLocaleLowerCase('pt-BR'))) throw new Error('duplicate_habit');
-   const command:CreateHabit={type:'habit.create',habitId:this.nextId(),title,habitType:'binary',scheduleKind:'daily',startDayKey:day,timeContext:context,iconKey,colorToken,sortOrder:view.habits.length};
+   const context=store.profile().timeContext,day=getDayKey(new Date(this.clock.now()),context.timezone,context.dayStartHour),view=store.presentation(day);
+   if(view.managementHabits.some(habit=>titleKey(habit.title)===titleKey(title))) throw new Error('duplicate_habit');
+   const command:CreateHabit={type:'habit.create',habitId:this.nextId(),title,habitType:'binary',scheduleKind:'daily',startDayKey:day,timeContext:context,iconKey,colorToken,sortOrder:view.managementHabits.length};
    const at=new Date(this.clock.now()).toISOString();
    if(onboarding) store.finishOnboarding(command,this.nextId(),this.nextId(),at);else store.enqueue(command,this.nextId(),at);
   });
@@ -111,6 +116,45 @@ export class Journey {
    const command=habit.done?{type:'habit.unmark' as const,habitId,dayKey,timeContext:context}:
     {type:'habit.mark' as const,habitId,dayKey,timeContext:context,observedUndoIds:store.observedUndoIds(habitId,dayKey)};
    store.enqueue(command,this.nextId(),new Date(this.clock.now()).toISOString());
+  });
+ }
+ edit(habitId:string,baseline:HabitDraft,draft:HabitDraft) {
+  const title=draft.title===baseline.title?baseline.title:draft.title.normalize('NFC').trim();
+  if(!title||Array.from(title).length>120||Array.from(title).some(character=>/^[\uD800-\uDFFF]$/.test(character))) {this.error=pt.invalidHabit;this.refresh();return false;}
+  return this.local(store=>{
+   const habits=store.presentation(this.snapshot.day!).managementHabits;
+   if(!habits.some(habit=>habit.habitId===habitId)) throw new Error('habit_unavailable');
+   if(habits.some(habit=>habit.habitId!==habitId&&titleKey(habit.title)===titleKey(title))) throw new Error('duplicate_habit');
+   const patch:Extract<import('../../core/sync/protocol.ts').Command,{type:'habit.patchMetadata'}>['patch']={};
+   if(title!==baseline.title) patch.title=title;
+   // Preserve unknown existing keys. Only a newly selected key needs catalogue validation.
+   if(draft.iconKey!==baseline.iconKey) {
+    if(draft.iconKey!==null&&!Object.hasOwn(habitIcons,draft.iconKey)) throw new Error('invalid_metadata');
+    patch.iconKey=draft.iconKey;
+   }
+   if(draft.colorToken!==baseline.colorToken) {
+    const colors:readonly HabitColor[]=['accent','blue','amber','violet','green'];
+    if(draft.colorToken!==null&&!colors.includes(draft.colorToken as HabitColor)) throw new Error('invalid_metadata');
+    patch.colorToken=draft.colorToken;
+   }
+   if(Object.keys(patch).length) store.enqueue({type:'habit.patchMetadata',habitId,patch},this.nextId(),new Date(this.clock.now()).toISOString());
+  });
+ }
+ move(habitId:string,direction:-1|1) {
+  return this.local(store=>{
+   const habits=store.presentation(this.snapshot.day!).managementHabits,index=habits.findIndex(habit=>habit.habitId===habitId),target=index+direction;
+   if(index<0) throw new Error('habit_unavailable');
+   if(target<0||target>=habits.length) return;
+   [habits[index],habits[target]]=[habits[target]!,habits[index]!];
+   // Integer positions resolve ties deterministically; each intent changes only order.
+   const occurredAt=new Date(this.clock.now()).toISOString();
+   store.enqueueBatch(habits.flatMap((habit,sortOrder)=>habit.sortOrder===sortOrder?[]:[{command:{type:'habit.patchMetadata' as const,habitId:habit.habitId,patch:{sortOrder}},operationId:this.nextId(),occurredAt}]));
+  });
+ }
+ delete(habitId:string) {
+  return this.local(store=>{
+   if(!store.presentation(this.snapshot.day!).managementHabits.some(habit=>habit.habitId===habitId)) throw new Error('habit_unavailable');
+   store.enqueue({type:'habit.delete',habitId},this.nextId(),new Date(this.clock.now()).toISOString());
   });
  }
  logout() {return this.perform(()=>this.runtime.session.logout());}

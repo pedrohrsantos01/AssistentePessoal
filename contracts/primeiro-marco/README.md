@@ -119,3 +119,7 @@ O reconhecimento de recibos deve comprovar correspondência à intenção, inclu
 ## Correspondência dos recibos — 07/10/2026
 
 Extensão aditiva m1.1: `operationHash` opcional em schemas, sempre emitido pela API atual (SHA-256/JCS da Operation integral); JSON histórico enriquecido em leitura. Colisões efêmeras incluem `error.identityConflict` com tipo, ID e hash originais, enquanto hash do recibo refere-se à tentativa. Hash ausente não autoriza reconhecimento. Rejeição persistida com hash correspondente e sem marcador segue recuperação aprovada. Formatos, limites e implantação API primeiro: [contrato §22](../../specs/13-contrato-primeiro-marco.md#concretização-da-correspondência--recorte-1-07102026).
+
+## Unicidade local de títulos — 09/10/2026
+
+O app valida títulos com NFKC + full casefold + redução de espaços Unicode, usando os fixtures compartilhados. [Fonte Unicode 17](unicode/CaseFolding-17.0.0.txt), [gerador determinístico](../../scripts/generate-habit-casefold.py) e [licença](../../app/assets/licenses/unicode-3.0.txt) versionados, em consonância com o ICU 78.1 da API. O título de exibição conserva NFC. [Verificação](../../docs/analises/2026-10-09-interface-gestao-de-habitos.md); não houve alteração do normalization_version ou schema.

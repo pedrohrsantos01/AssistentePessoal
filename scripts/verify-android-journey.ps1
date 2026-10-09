@@ -1,6 +1,8 @@
 param(
  [ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',
  [string]$Avd='Pixel_9',
+ [string]$EvidenceDirectory='docs/design/evidencias/2026-10-09/gestao-android',
+ [switch]$FreshTestInstall,
  [switch]$SkipBuild
 )
 $ErrorActionPreference='Stop'
@@ -50,8 +52,14 @@ try {
   Invoke-Checked $taskAdb @('-s',$Serial,'wait-for-device')
  }
  if((& $taskAdb -s $Serial shell getprop ro.kernel.qemu).Trim() -ne '1') {throw 'Testes restritos ao emulador.'}
+ if($FreshTestInstall) {
+  # Only the disposable APK variant validated above, and only in an emulator.
+  $taskInstalled=& $taskAdb -s $Serial shell pm path dev.ritmo.journeytest
+  if($taskInstalled -match '^package:') {Invoke-Checked $taskAdb @('-s',$Serial,'uninstall','dev.ritmo.journeytest')}
+ }
  Invoke-Checked $taskAdb @('-s',$Serial,'install','-r',$taskApk)
- $env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb;$env:RITMO_JOURNEY_EVIDENCE=Join-Path $taskRoot 'docs/design/evidencias/2026-10-09/jornada-android'
+ $env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb;$env:RITMO_JOURNEY_EVIDENCE=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
+ if(-not $env:RITMO_JOURNEY_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidencias devem ficar dentro do workspace.'}
  if(Test-Path -LiteralPath $taskCompletion) {Remove-Item -LiteralPath $taskCompletion}
  [IO.File]::WriteAllText($taskNativeLog,'')
  $taskWatcher=Join-Path $PSScriptRoot 'watch-android-journey.ps1'

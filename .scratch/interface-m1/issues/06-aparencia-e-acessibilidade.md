@@ -1,7 +1,7 @@
 # 06 — Preferências e acabamento acessível
 
 Status: needs-info
-Blocked by: 02-gestao-de-habitos.md; 03-sessao-e-recuperacao-local.md; 04-estados-de-sincronizacao.md
+Blocked by: 03-sessao-e-recuperacao-local.md; 04-estados-de-sincronizacao.md
 
 ## Resultado esperado
 
@@ -31,3 +31,5 @@ Concluída: não.
 ## Comments
 
 09/10/2026: criado após incorporar o protótipo; execução/aceite nativo pendentes.
+
+09/10/2026: dependência 02 removida após entrega de gestão. Preferências, leitores de tela, conteúdo longo, matriz completa e medidas de desempenho continuam neste recorte/aceite dos aparelhos; o ensaio de gestão a 200% não os substitui.

@@ -106,3 +106,70 @@ test('account validation counts Unicode code points, normalizes only the name an
   assert.deepEqual(sent,{password:'😀'.repeat(8),name:'é'.repeat(80)});assert.equal(journey.state().gate,'account');
  } finally {journey.dispose();s.close();}
 });
+
+const remoteHabit=(n:number,title:string,sortOrder=0,iconKey:string|null='reading',colorToken:string|null='blue'):import('../src/core/sync/protocol.ts').Entity=>({kind:'habit',value:{habitId:id(n),title,sortOrder,iconKey,colorToken,habitType:'binary',scheduleKind:'daily',startDayKey:'2026-09-25',creationTimeContext:{timezone:'UTC',dayStartHour:4},createdAt:'2026-09-25T13:00:00Z',updatedAt:'2026-09-25T13:00:00Z',deletedAt:null,revision:'1'}});
+function remoteHabits(store:import('../src/core/db/account-store.ts').AccountStore,entities:import('../src/core/sync/protocol.ts').Entity[],revision='1') {
+ store.applyPull({changes:[{revision,operationResults:[],entities}],nextCursor:'cursor-'+revision,hasMore:false,highWaterRevision:revision,serverTime:'2026-09-25T13:00:00Z'});
+}
+test('editing sends only changed fields, preserves unknown metadata and independent remote fields, and survives reopening',async()=>{
+ const s=setup();let journey=s.make();try {
+  await s.f.session.login('a','password');journey.skip();const store=s.f.session.account();remoteHabits(store,[remoteHabit(301,'Original',7,'future-icon','future-color')]);
+  const initial=journey.state().local!.habits[0]!,baseline={title:initial.title,iconKey:initial.iconKey!,colorToken:initial.colorToken!};
+  const newer=remoteHabit(301,'Original',7,'future-icon','green');if(newer.kind==='habit') newer.value.revision='2';remoteHabits(store,[newer],'2');
+  assert.equal(journey.edit(initial.habitId,baseline,{...baseline,title:'  Café e leitura  '}),true);
+  assert.deepEqual(store.operations().at(-1)!.command,{type:'habit.patchMetadata',habitId:initial.habitId,patch:{title:'Café e leitura'}});
+  assert.equal(journey.state().local?.habits[0]?.colorToken,'green');assert.equal(journey.state().local?.habits[0]?.iconKey,'future-icon');
+  journey.dispose();await s.f.restart();journey=s.make();assert.equal(journey.state().local?.habits[0]?.title,'Café e leitura');assert.equal(journey.state().local?.habits[0]?.sortOrder,7);
+  const current=journey.state().local!.habits[0]!,draft={title:current.title,iconKey:current.iconKey!,colorToken:current.colorToken!},before=s.f.session.account().operations().length;
+  assert.equal(journey.edit(current.habitId,draft,draft),true);assert.equal(s.f.session.account().operations().length,before);
+  // A canonical title from Java strip() may retain NBSP/FEFF. Metadata-only edits preserve it byte for byte.
+  const spaced=remoteHabit(303,'\uFEFFNome\u00A0');if(spaced.kind==='habit') spaced.value.revision='3';remoteHabits(s.f.session.account(),[spaced],'3');
+  const canonical={title:'\uFEFFNome\u00A0',iconKey:'reading',colorToken:'blue'};assert.equal(journey.edit(id(303),canonical,{...canonical,colorToken:'amber'}),true);
+  assert.deepEqual(s.f.session.account().operations().at(-1)!.command,{type:'habit.patchMetadata',habitId:id(303),patch:{colorToken:'amber'}});assert.equal(journey.state().local!.managementHabits.find(h=>h.habitId===id(303))?.title,canonical.title);
+
+ } finally {journey.dispose();s.close();}
+});
+test('canonical Unicode title collisions are blocked before creating or editing an offline intention',async()=>{
+ const s=setup(),journey=s.make();try {
+  await s.f.session.login('a','password');journey.skip();remoteHabits(s.f.session.account(),[remoteHabit(301,'Straße'),remoteHabit(302,'Outro',1)]);
+  const before=s.f.session.account().operations().length;
+  assert.equal(journey.create('ＳＴＲＡＳＳＥ','reading','blue',false),false);assert.equal(journey.state().error,pt.duplicateHabit);
+  const baseline={title:'Outro',iconKey:'reading',colorToken:'blue'};
+  assert.equal(journey.edit(id(302),baseline,{...baseline,title:'STRASSE'}),false);assert.equal(journey.state().error,pt.duplicateHabit);
+  assert.equal(journey.edit(id(302),baseline,{...baseline,title:'  '}),false);assert.equal(journey.state().error,pt.invalidHabit);
+  assert.equal(s.f.session.account().operations().length,before);
+ } finally {journey.dispose();s.close();}
+});
+test('reordering tied positions is durable and atomic when a later write fails',async()=>{
+ const s=setup();let journey=s.make();let fault:SQLite.Database|undefined;try {
+  await s.f.session.login('a','password');journey.skip();const store=s.f.session.account();remoteHabits(store,[remoteHabit(301,'A'),remoteHabit(302,'B'),remoteHabit(303,'C')]);
+  const before=store.operations();let publications=0;store.subscribe(()=>publications++);
+  fault=new SQLite(s.f.accountPath(id(1)));fault.exec(`CREATE TRIGGER fail_reorder BEFORE INSERT ON sync_mutations WHEN json_extract(NEW.envelope,'$.command.type')='habit.patchMetadata' AND json_extract(NEW.envelope,'$.command.habitId')='${id(303)}' BEGIN SELECT RAISE(ABORT,'fixture'); END`);
+  assert.equal(journey.move(id(301),1),false);assert.deepEqual(store.operations(),before);assert.deepEqual(journey.state().local?.habits.map(h=>h.title),['A','B','C']);assert.equal(publications,0);
+  fault.exec('DROP TRIGGER fail_reorder');assert.equal(journey.move(id(301),1),true);assert.equal(publications,1);assert.deepEqual(journey.state().local?.habits.map(h=>h.title),['B','A','C']);
+  const patches=store.operations().slice(before.length);assert.equal(patches.length,2);assert.deepEqual(patches[0]!.command,{type:'habit.patchMetadata',habitId:id(301),patch:{sortOrder:1}});
+  fault.close();fault=undefined;journey.dispose();await s.f.restart();journey=s.make();assert.deepEqual(journey.state().local?.habits.map(h=>h.title),['B','A','C']);
+ } finally {fault?.close();journey.dispose();s.close();}
+});
+test('deletion removes local habit and XP, survives restart and cannot target another account',async()=>{
+ const s=setup();let journey=s.make();try {
+  await s.f.session.login('a','password');journey.confirmTime({timezone:'UTC',dayStartHour:4});journey.create('Excluir','reading','blue',true);const habit=journey.state().local!.habits[0]!;
+  journey.toggle(habit.habitId,false);assert.equal(journey.state().local?.totalXp,10);assert.equal(journey.delete(habit.habitId),true);assert.equal(journey.state().local?.totalXp,0);assert.deepEqual(journey.state().local?.habits,[]);
+  journey.dispose();await s.f.restart();journey=s.make();assert.equal(journey.state().local?.totalXp,0);assert.deepEqual(journey.state().local?.habits,[]);
+  await s.f.session.logout();await s.f.session.login('b','password');const before=s.f.session.account().operations();assert.equal(journey.delete(habit.habitId),false);assert.equal(journey.edit(habit.habitId,{title:'Excluir',iconKey:'reading',colorToken:'blue'},{title:'Vazamento',iconKey:'reading',colorToken:'blue'}),false);assert.deepEqual(s.f.session.account().operations(),before);
+ } finally {journey.dispose();s.close();}
+});
+
+
+test('management includes a not-started habit; Briefing and marking remain limited to due habits',async()=>{
+ const s=setup(),journey=s.make();try {
+  await s.f.session.login('a','password');journey.skip();const store=s.f.session.account(),future=remoteHabit(301,'Amanhã');
+  if(future.kind==='habit') future.value.startDayKey='2026-09-26';remoteHabits(store,[future]);
+  assert.equal(journey.state().local?.habits.length,0);assert.equal(journey.state().local?.managementHabits[0]?.title,'Amanhã');
+  const before=store.operations();journey.toggle(id(301),false);assert.deepEqual(store.operations(),before);
+  assert.equal(journey.create('AMANHÃ','reading','blue',false),false);assert.equal(journey.state().error,pt.duplicateHabit);
+  const baseline={title:'Amanhã',iconKey:'reading',colorToken:'blue'};assert.equal(journey.edit(id(301),baseline,{...baseline,title:'Próximo dia'}),true);
+  assert.equal(journey.state().local?.managementHabits[0]?.title,'Próximo dia');assert.equal(journey.state().local?.habits.length,0);
+  assert.equal(journey.delete(id(301)),true);assert.equal(journey.state().local?.managementHabits.length,0);
+ } finally {journey.dispose();s.close();}
+});

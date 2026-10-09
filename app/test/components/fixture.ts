@@ -18,7 +18,8 @@ export function fixture() {
  const clock:SyncClock={now:()=>at,schedule:()=>()=>{}};
  const credentials=(accountId:string):Credentials=>({accountId,sessionId:id(30),accessToken:'fixture-access-token-for-component-tests',accessExpiresAt:'2099-10-09T13:00:00Z',refreshToken:'fixture-refresh-token-for-component-tests',refreshExpiresAt:'2099-11-09T13:00:00Z',revokeToken:'fixture-revoke-token-for-component-tests',profile:{accountId,displayName:accountId===id(1)?'Pessoa A':'Pessoa B',timeContext:{timezone:'UTC',dayStartHour:4},plan:'free',onboardedAt:null,analyticsConsentAt:null,revision:'0'}});
  const identity:IdentityTransport={async login(email){return credentials(email.startsWith('a')?id(1):id(2));},async register(){return credentials(id(1));},async refresh(){throw new Error('authentication_required');},async revoke(){}};
- const session=new Session(new InstallationStore(db,id(40)),{async get(k){return storage.get(k)??null;},async set(k,v){storage.set(k,v);},async remove(k){storage.delete(k);}},identity,async(account,guard)=>{
+ let requireUpdate=()=>{};
+ const session=new Session(new InstallationStore(db,id(40)),{async get(k){return storage.get(k)??null;},async set(k,v){storage.set(k,v);},async remove(k){storage.delete(k);}},compatibility=>{requireUpdate=()=>compatibility.requireUpdate();return identity;},async(account,guard)=>{
   const sqlite=new SQLite(join(directory,account+'.db')),database=drizzle(sqlite);migrate(database,{migrationsFolder:join(process.cwd(),'drizzle')});
   return new AccountStore(database,account,id(40),()=>sqlite.close(),guard);
  },()=>id(++sequence));
@@ -26,5 +27,5 @@ export function fixture() {
  jest.spyOn(session,'synchronize').mockResolvedValue(undefined);
  const scheduler=new SyncScheduler(session,'http://fixture.invalid',clock);
  const journey=new Journey({session,sync:scheduler,recovery:()=>session.databaseRecovery(),retryDatabase:()=>session.retryDatabase(),close:()=>{}},()=>id(++sequence),clock);
- return {journey,session,scheduler,path:()=>join(directory,id(1)+'.db'),close(){journey.dispose();scheduler.dispose();session.close();control.close();rmSync(directory,{recursive:true,force:true});}};
+ return {journey,session,scheduler,requireUpdate:()=>requireUpdate(),path:()=>join(directory,id(1)+'.db'),close(){journey.dispose();scheduler.dispose();session.close();control.close();rmSync(directory,{recursive:true,force:true});}};
 }

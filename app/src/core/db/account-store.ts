@@ -45,6 +45,10 @@ export class AccountStore {
       try {listener();} catch { /* The failing presentation owns its error boundary. */ }
     }}
   }
+  enqueueBatch(intents:{command:Command;operationId:string;occurredAt:string}[]):Operation[] {
+    this.guard(true);
+    return this.transaction(()=>intents.map(intent=>this.enqueue(intent.command,intent.operationId,intent.occurredAt)));
+  }
   seedProfile(profile:Extract<Entity,{kind:'profile'}>['value']) {
     this.guard();if(profile.accountId!==this.accountId) throw new Error('account_store_mismatch');
     this.transaction(tx=>this.incorporate(tx,{kind:'profile',value:profile}));
@@ -88,17 +92,22 @@ export class AccountStore {
   }
   presentation(day:string) {
     this.guard();const base=this.base(),pending=this.pending(),view=this.view(day);
-    const metadata=new Map(base.flatMap(entity=>entity.kind==='habit'?[[entity.value.habitId,{iconKey:entity.value.iconKey,colorToken:entity.value.colorToken}] as const]:[]));
+    const metadata=new Map(base.flatMap(entity=>entity.kind==='habit'?[[entity.value.habitId,{iconKey:entity.value.iconKey,colorToken:entity.value.colorToken,sortOrder:entity.value.sortOrder}] as const]:[]));
     for(const {command} of pending) {
-      if(command.type==='habit.create') metadata.set(command.habitId,{iconKey:command.iconKey,colorToken:command.colorToken});
-      if(command.type==='habit.patchMetadata') metadata.set(command.habitId,{iconKey:null,colorToken:null,...metadata.get(command.habitId),...command.patch});
+      if(command.type==='habit.create') metadata.set(command.habitId,{iconKey:command.iconKey,colorToken:command.colorToken,sortOrder:command.sortOrder});
+      if(command.type==='habit.patchMetadata') {
+        const previous=metadata.get(command.habitId),patch=command.patch;
+        metadata.set(command.habitId,{iconKey:patch.iconKey===undefined?previous?.iconKey??null:patch.iconKey,
+          colorToken:patch.colorToken===undefined?previous?.colorToken??null:patch.colorToken,sortOrder:patch.sortOrder??previous?.sortOrder??0});
+      }
     }
     const today=base.filter(entity=>!['habitDay','xpGrant','xpDecision'].includes(entity.kind)||
       (entity.kind==='habitDay'||entity.kind==='xpGrant')&&entity.value.dayKey===day||
       entity.kind==='xpDecision'&&base.some(dayEntity=>dayEntity.kind==='habitDay'&&dayEntity.value.habitDayId===entity.value.habitDayId&&dayEntity.value.dayKey===day));
     const todayPending=pending.filter(op=>!('dayKey' in op.command)||op.command.dayKey===day);
+    const decorate=(habits:ReturnType<typeof project>['habits'])=>habits.map(habit=>({...habit,...metadata.get(habit.habitId),limitReached:base.some(entity=>entity.kind==='xpDecision'&&entity.value.outcome==='limit_reached'&&base.some(d=>d.kind==='habitDay'&&d.value.habitDayId===entity.value.habitDayId&&d.value.habitId===habit.habitId&&d.value.dayKey===day))}));
     return {...view,profile:this.profile(),step:this.onboardingStep(),todayXp:project(today,todayPending,day).totalXp,
-      habits:view.habits.map(habit=>({...habit,...metadata.get(habit.habitId),limitReached:base.some(entity=>entity.kind==='xpDecision'&&entity.value.outcome==='limit_reached'&&base.some(d=>d.kind==='habitDay'&&d.value.habitDayId===entity.value.habitDayId&&d.value.habitId===habit.habitId&&d.value.dayKey===day))})),
+      habits:decorate(view.habits),managementHabits:decorate(project(base,pending,day,true).habits),
       blockedCount:this.recovery().filter(item=>!item.resolution).length};
   }
   private base(db=this.db):Entity[] {

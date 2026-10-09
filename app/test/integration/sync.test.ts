@@ -236,3 +236,41 @@ for(const arrival of ['partial-before-second','partial-after-both','other-undo-f
     for(const reply of replies) await f.assertReplay(reply.api,reply.operation,reply.results);
   });
 }
+
+test('public management journey merges independent fields, reorders offline and deletes without returning XP budget',async()=>{
+ const {Session}=await import('../../src/core/identity/session.ts');
+ const {InstallationStore}=await import('../../src/core/identity/installation-store.ts');
+ const {SyncScheduler}=await import('../../src/core/sync/scheduler.ts');
+ const {Journey}=await import('../../src/features/journey/journey.ts');
+ const {default:SQLite}=await import('better-sqlite3');const {drizzle}=await import('drizzle-orm/better-sqlite3');const {migrate}=await import('drizzle-orm/better-sqlite3/migrator');
+ const directory=mkdtempSync(join(tmpdir(),'ritmo-management-http-')),email=id()+'@example.test',device=id(),identity=new HttpIdentity(root!);
+ const credentials=await identity.register(email,'fixture-password','Pessoa',device);
+ const sqlite=new SQLite(join(directory,'installation.db')),db=drizzle(sqlite);migrate(db,{migrationsFolder:'drizzle-control'});
+ const values=new Map<string,string>();
+ const session=new Session(new InstallationStore(db,device),{async get(k){return values.get(k)??null;},async set(k,v){values.set(k,v);},async remove(k){values.delete(k);}},identity,(account,guard)=>Promise.resolve(openTestStore(join(directory,account+'.db'),account,device,guard)),id);
+ const clock={now:()=>Date.parse('2026-09-25T13:00:00Z'),schedule:()=>()=>{}},scheduler=new SyncScheduler(session,root!,clock),journey=new Journey({session,sync:scheduler,recovery:()=>session.databaseRecovery(),retryDatabase:()=>session.retryDatabase(),close:()=>{}},id,clock);
+ const b=openTestStore(':memory:',credentials.accountId,id()),api=new HttpSync(root!,credentials.accountId,()=>credentials.accessToken,id),day='2026-09-25';
+ try {
+  await session.login(email,'fixture-password');journey.confirmTime({timezone:'UTC',dayStartHour:4});journey.create('Ler','reading','blue',true);journey.create('Caminhar','walking','green',false);
+  const first=journey.state().local!.habits[0]!;journey.toggle(first.habitId,false);await session.synchronize(root!);await synchronize(b,api);
+  const baseline={title:first.title,iconKey:first.iconKey!,colorToken:first.colorToken!};assert.equal(journey.edit(first.habitId,baseline,{...baseline,title:'Ler mais'}),true);assert.equal(journey.move(first.habitId,1),true);
+  b.enqueue({type:'habit.patchMetadata',habitId:first.habitId,patch:{iconKey:'writing',colorToken:'amber'}},id(),'2026-09-25T13:00:00Z');await synchronize(b,api);await session.synchronize(root!);await synchronize(b,api);
+  const local=journey.state().local!.habits;assert.deepEqual(local.map(h=>h.title),['Caminhar','Ler mais']);assert.equal(local[1]!.iconKey,'writing');assert.equal(local[1]!.colorToken,'amber');assert.equal(local[1]!.done,true);assert.equal(journey.state().local?.totalXp,10);
+  assert.deepEqual(b.presentation(day).habits.map(h=>({title:h.title,iconKey:h.iconKey,colorToken:h.colorToken})),local.map(h=>({title:h.title,iconKey:h.iconKey,colorToken:h.colorToken})));
+  const late=b.enqueue({type:'habit.patchMetadata',habitId:first.habitId,patch:{title:'Atrasado'}},id(),'2026-09-25T13:00:00Z');
+  assert.equal(journey.delete(first.habitId),true);assert.equal(journey.state().local?.totalXp,0);await session.synchronize(root!);await synchronize(b,api);await session.synchronize(root!);
+  assert.equal(b.view(day).totalXp,0);assert.deepEqual(b.view(day).habits.map(h=>h.title),['Caminhar']);assert.equal(b.recovery().find(r=>r.operation.operationId===late.operationId)?.error.code,'resource_inaccessible');
+  const manifest=await api.snapshot();let cursor=manifest.firstPageCursor;const entities:import('../../src/core/sync/protocol.ts').Entity[]=[];
+  for(;;) {const page=await api.page(manifest.snapshotId,cursor);entities.push(...page.entities);if(page.complete) break;cursor=page.nextPageCursor!;}
+  assert.equal(entities.find(e=>e.kind==='xpBudget')?.kind,'xpBudget');assert.ok(entities.some(e=>e.kind==='xpBudget'&&e.value.consumed===10));assert.ok(entities.some(e=>e.kind==='tombstone'&&e.value.entityId===first.habitId));
+  const futureId=id();b.enqueue({type:'habit.create',habitId:futureId,title:'Amanhã',habitType:'binary',scheduleKind:'daily',startDayKey:'2026-09-26',timeContext:{timezone:'UTC',dayStartHour:4},iconKey:'reading',colorToken:'blue',sortOrder:1},id(),'2026-09-26T13:00:00Z');await synchronize(b,api);await session.synchronize(root!);
+  assert.deepEqual(journey.state().local!.habits.map(h=>h.title),['Caminhar']);assert.deepEqual(journey.state().local!.managementHabits.map(h=>h.title),['Caminhar','Amanhã']);
+  assert.equal(journey.create('AMANHÃ','reading','blue',false),false);assert.equal(journey.edit(futureId,{title:'Amanhã',iconKey:'reading',colorToken:'blue'},{title:'Próximo dia',iconKey:'reading',colorToken:'blue'}),true);await session.synchronize(root!);await synchronize(b,api);assert.equal(b.presentation(day).managementHabits[1]?.title,'Próximo dia');
+  const canonicalId=id(),canonical={title:'\uFEFFMetadado\u00A0',iconKey:'reading',colorToken:'blue'};
+  b.enqueue({type:'habit.create',habitId:canonicalId,...canonical,habitType:'binary',scheduleKind:'daily',startDayKey:day,timeContext:{timezone:'UTC',dayStartHour:4},sortOrder:2},id(),'2026-09-25T13:00:00Z');await synchronize(b,api);await session.synchronize(root!);
+  assert.equal(journey.state().local!.managementHabits.find(h=>h.habitId===canonicalId)?.title,canonical.title);assert.equal(journey.edit(canonicalId,canonical,{...canonical,colorToken:'amber'}),true);
+  assert.deepEqual(session.account().operations().at(-1)!.command,{type:'habit.patchMetadata',habitId:canonicalId,patch:{colorToken:'amber'}});await session.synchronize(root!);await synchronize(b,api);assert.equal(b.presentation(day).managementHabits.find(h=>h.habitId===canonicalId)?.title,canonical.title);
+
+
+ } finally {journey.dispose();scheduler.dispose();session.close();sqlite.close();b.close();rmSync(directory,{recursive:true,force:true});}
+});

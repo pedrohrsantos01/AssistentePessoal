@@ -124,7 +124,7 @@ docker compose up -d db     # Postgres local
 
 Nos testes Android, abrir o emulador e o acompanhamento com janelas visíveis para Pedro. Abrir apenas durante os testes e encerrar ao terminar os processos/janelas iniciados pelo agente, inclusive em falha; preservar processos preexistentes. Preferência confirmada em 08/10/2026.
 
-O app possui a entrada do produto com Expo Router e a primeira jornada sobre o núcleo local; os harnesses técnicos continuam separados por flags/pacotes. Os checks de app/API são executáveis. Teste visível: `scripts/verify-android-journey.ps1`; comandos efetivos e variantes nos READMEs de app/API. Desenvolvimento persistente continua sujeito ao Termbaker; geração automática de schema não foi adicionada.
+O app possui a entrada do produto com Expo Router e a primeira jornada e a gestão de hábitos sobre o núcleo local; os harnesses técnicos continuam separados por flags/pacotes. Os checks de app/API são executáveis. Teste visível: `scripts/verify-android-journey.ps1`; comandos efetivos e variantes nos READMEs de app/API. Desenvolvimento persistente continua sujeito ao Termbaker; geração automática de schema não foi adicionada.
 
 ## 7. Definition of Done
 

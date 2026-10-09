@@ -1,9 +1,9 @@
 param([Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
 $Host.UI.RawUI.WindowTitle='Ritmo — jornada visível no Android'
-$taskDeadline=(Get-Date).AddMinutes(10)
+$taskDeadline=(Get-Date).AddMinutes(15)
 $taskPosition=0
-Write-Host 'RITMO | PRIMEIRA JORNADA NO ANDROID' -ForegroundColor Cyan
-Write-Host 'Cadastro → onboarding → Briefing → offline → reabertura → sincronização'
+Write-Host 'RITMO | JORNADA E GESTAO NO ANDROID' -ForegroundColor Cyan
+Write-Host 'Cadastro → onboarding → Briefing → offline → reabertura → sincronização → editar/ordenar → excluir'
 while ((Get-Date) -lt $taskDeadline -and -not (Test-Path -LiteralPath $CompletionPath)) {
  if (Test-Path -LiteralPath $Log) {
   $taskLines=@(Get-Content -LiteralPath $Log -ErrorAction SilentlyContinue)

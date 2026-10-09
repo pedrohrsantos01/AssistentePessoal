@@ -1,6 +1,6 @@
 import type { Entity, Operation } from '../../../core/sync/protocol.ts';
 
-export function project(base: Entity[], pending: Operation[], day: string) {
+export function project(base: Entity[], pending: Operation[], day: string, includeNotStarted=false) {
   const deleted=new Set(base.flatMap(e=>e.kind==='tombstone'?[e.value.entityId]:e.kind==='habit'&&e.value.deletedAt?[e.value.habitId]:[]));
   for(const op of pending) if(op.command.type==='habit.delete') deleted.add(op.command.habitId);
   const habits = new Map(base.filter(e=>e.kind==='habit').map(e=>[e.value.habitId,e.value]));
@@ -35,7 +35,7 @@ export function project(base: Entity[], pending: Operation[], day: string) {
     const current=grant?.kind==='xpGrant'&&grant.value.active?grant.value.amount:0;
     totalXp+=(done.get(key)&&!denied?10:0)-current;
   }
-  return {habits:[...habits.values()].filter(h=>!deleted.has(h.habitId)&&!h.deletedAt&&h.startDayKey<=day)
+  return {habits:[...habits.values()].filter(h=>!deleted.has(h.habitId)&&!h.deletedAt&&(includeNotStarted||h.startDayKey<=day))
     .sort((a,b)=>a.sortOrder-b.sortOrder||a.habitId.localeCompare(b.habitId))
     .map(h=>({habitId:h.habitId,title:h.title,done:done.get(h.habitId+':'+day)??false})),totalXp};
 }

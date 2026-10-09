@@ -14,7 +14,7 @@ export function Type({children,size='body',tone='primary',mono=false,bold=false,
 // Keep native layout styles flat; pressed feedback changes only opacity.
 export function Touch({style,onPressIn,onPressOut,...props}:Omit<PressableProps,'style'>&{style:ViewStyle}) {
  const t=useTheme(),[pressed,setPressed]=useState(false);
- return <Pressable {...props} onPressIn={event=>{setPressed(true);onPressIn?.(event);}} onPressOut={event=>{setPressed(false);onPressOut?.(event);}} style={[style,{opacity:pressed?t.metrics.pressedOpacity:1}]}/>;
+ return <Pressable {...props} onPressIn={event=>{setPressed(true);onPressIn?.(event);}} onPressOut={event=>{setPressed(false);onPressOut?.(event);}} style={[style,{opacity:props.disabled?t.metrics.disabledOpacity:pressed?t.metrics.pressedOpacity:1}]}/>;
 }
 const AnimatedPressable=Animated.createAnimatedComponent(Pressable);
 export function Button({label,onPress,secondary=false,disabled=false,busy=false,compact=false,displayLabel}:{label:string;displayLabel?:string;onPress:()=>void;secondary?:boolean;disabled?:boolean;busy?:boolean;compact?:boolean}) {
