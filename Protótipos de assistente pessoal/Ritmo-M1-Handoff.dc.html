@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Chakra+Petch:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #F4F3EF; }
+  a { color: #0A6F85; }
+  a:hover { color: #064B5A; }
+</style>
+</helmet>
+
+<div style="font-family: 'Public Sans', system-ui, sans-serif; color: #1A1A18; padding: 40px 24px 80px">
+  <div style="max-width: 1040px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px">
+
+    <header style="display: flex; flex-direction: column; gap: 10px">
+      <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E6B64">Ritmo · handoff · rodada M1 · 30/09/2026</div>
+      <h1 style="margin: 0; font-size: 36px; font-weight: 700; line-height: 1.15">M1: protótipo, sistema visual proposto e cobertura</h1>
+      <p style="margin: 0; font-size: 17px; color: #45433E; line-height: 1.55; max-width: 760px; text-wrap: pretty">Cobre o M1 (conta, onboarding, Briefing, hábitos, sync, sessão) e, em conjunto separado, a Fase 1 completa (tarefas, todos os tipos de hábito, Agenda, assistente, gamificação, privacidade). A Fase 2A (notícias, futebol, mediação condicionada) está em conjunto separado; 2B/3 aparecem só como visão anotada na seção 8. Tudo o que é visual está marcado como <b>proposta</b>, aguardando Pedro (Q28).</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px">
+        <a href="Ritmo-M1.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; background: #1A1A18; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Abrir protótipo M1 →</a>
+        <a href="Ritmo-Fluxo.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; background: #1A1A18; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Fluxo completo →</a>
+        <a href="Ritmo-App.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; background: #0A6F85; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">App navegável →</a>
+        <a href="Ritmo-Fase1.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; background: #8F5609; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Abrir protótipo Fase 1 →</a>
+        <a href="Ritmo-Fase2A.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; background: #5B3FC4; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Abrir exploração Fase 2A →</a>
+        <a href="Ritmo-Briefing.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid #C9C5BB; color: #1A1A18; text-decoration: none; font-weight: 600; font-size: 15px">Explorações visuais anteriores</a>
+      </div>
+    </header>
+
+    <!-- 1 DECISÕES VISUAIS -->
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">1. Decisões visuais para sua revisão</h2>
+      <p style="margin: 0; font-size: 15px; color: #57544E; line-height: 1.55; max-width: 760px">Todas são propostas. Nenhuma paleta, fonte ou navegação está aprovada.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px">
+        <sc-for list="{{ decisions }}" as="d" hint-placeholder-count="8">
+          <div style="background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 8px">
+            <div style="display: flex; gap: 8px; align-items: center"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #8F5609; background: #FBF1E0; border-radius: 4px; padding: 2px 6px">PROPOSTA</span><span style="font-weight: 600; font-size: 15px">{{ d.k }}</span></div>
+            <div style="font-size: 14px; line-height: 1.5">{{ d.v }}</div>
+            <div style="font-size: 13px; color: #6E6B64; line-height: 1.5">{{ d.why }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 2 MAPA -->
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">2. Mapa de navegação</h2>
+      <p style="margin: 0; font-size: 15px; color: #57544E; line-height: 1.55; max-width: 760px">Composição proposta: três abas no M1 (Briefing, Hábitos, Ajustes). Na Fase 1, Tarefas e Agenda entram como abas e o assistente como botão fixo; o Briefing não é redesenhado, só ganha cards.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px">
+        <sc-for list="{{ mapCols }}" as="m" hint-placeholder-count="4">
+          <div style="background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px">
+            <div style="display: flex; justify-content: space-between; align-items: baseline"><span style="font-weight: 700; font-size: 15px">{{ m.title }}</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: {{ m.tagCol }}">{{ m.tag }}</span></div>
+            <sc-for list="{{ m.items }}" as="i" hint-placeholder-count="4">
+              <div style="display: flex; gap: 8px; font-size: 13px; line-height: 1.4; padding: 6px 8px; border-radius: 6px; background: #F7F6F2"><span style="color: #8A867C; font-family: 'JetBrains Mono', monospace">{{ i.arrow }}</span><span>{{ i.t }}</span></div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 3 TOKENS -->
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">3. Tokens semânticos propostos</h2>
+      <p style="margin: 0; font-size: 15px; color: #57544E; line-height: 1.55; max-width: 760px">Mesmos nomes para os três temas e os dois modos; os componentes nunca leem cor direta. Pares de texto sobre fundo foram escolhidos para ficar em 4,5:1 ou mais (conferir com medição na implementação).</p>
+      <div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 820px">
+          <thead><tr style="background: #F7F6F2; text-align: left">
+            <th style="padding: 10px 12px; font-weight: 600">Token</th>
+            <sc-for list="{{ tokenCols }}" as="h" hint-placeholder-count="6"><th style="padding: 10px 8px; font-weight: 600; white-space: nowrap">{{ h }}</th></sc-for>
+          </tr></thead>
+          <tbody>
+            <sc-for list="{{ tokenRows }}" as="r" hint-placeholder-count="12">
+              <tr style="border-top: 1px solid #EEEBE4">
+                <td style="padding: 8px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; white-space: nowrap">{{ r.name }}</td>
+                <sc-for list="{{ r.cells }}" as="x" hint-placeholder-count="6">
+                  <td style="padding: 6px 8px"><span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 18px; height: 18px; border-radius: 4px; background: {{ x }}; border: 1px solid rgba(0,0,0,0.12)"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #57544E">{{ x }}</span></span></td>
+                </sc-for>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px">
+        <sc-for list="{{ scales }}" as="s" hint-placeholder-count="5">
+          <div style="background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px; padding: 14px"><div style="font-weight: 600; font-size: 14px">{{ s.k }}</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #45433E; margin-top: 6px; line-height: 1.6">{{ s.v }}</div></div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 4 COMPONENTES -->
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">4. Componentes e estados</h2>
+      <div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px">
+          <thead><tr style="background: #F7F6F2; text-align: left"><th style="padding: 10px 12px">Componente</th><th style="padding: 10px 12px">Variantes</th><th style="padding: 10px 12px">Estados representados</th><th style="padding: 10px 12px">Onde ver</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ components }}" as="c" hint-placeholder-count="12">
+              <tr style="border-top: 1px solid #EEEBE4; vertical-align: top"><td style="padding: 10px 12px; font-weight: 600">{{ c.n }}</td><td style="padding: 10px 12px; line-height: 1.45">{{ c.v }}</td><td style="padding: 10px 12px; line-height: 1.45">{{ c.s }}</td><td style="padding: 10px 12px; line-height: 1.45; color: #57544E">{{ c.w }}</td></tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5 COBERTURA -->
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">5. Cobertura D01–D29</h2>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 14px">
+        <span><b>{{ cov.rep }}</b> representadas</span><span><b>{{ cov.ann }}</b> anotadas</span><span><b>{{ cov.pend }}</b> pendentes (próximas rodadas)</span>
+      </div>
+      <div style="overflow-x: auto; background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px">
+        <table style="width: 100%; border-collapse: collapse; font-size: 13px; min-width: 760px">
+          <thead><tr style="background: #F7F6F2; text-align: left"><th style="padding: 10px 12px">ID</th><th style="padding: 10px 12px">Jornada</th><th style="padding: 10px 12px">Escopo</th><th style="padding: 10px 12px">Status</th><th style="padding: 10px 12px">Onde / observação</th></tr></thead>
+          <tbody>
+            <sc-for list="{{ coverage }}" as="r" hint-placeholder-count="29">
+              <tr style="border-top: 1px solid #EEEBE4; vertical-align: top">
+                <td style="padding: 9px 12px; font-family: 'JetBrains Mono', monospace; font-weight: 700">{{ r.id }}</td>
+                <td style="padding: 9px 12px; line-height: 1.45">{{ r.j }}</td>
+                <td style="padding: 9px 12px; white-space: nowrap">{{ r.scope }}</td>
+                <td style="padding: 9px 12px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 4px; background: {{ r.bg }}; color: {{ r.fg }}; white-space: nowrap">{{ r.status }}</span></td>
+                <td style="padding: 9px 12px; line-height: 1.45; color: #45433E">{{ r.where }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 6 HANDOFF POR TELA -->
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">6. Handoff por tela (M1)</h2>
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{ screens }}" as="s" hint-placeholder-count="10">
+          <article style="background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap"><h3 style="margin: 0; font-size: 18px; font-weight: 700">{{ s.name }}</h3><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #0A6F85">{{ s.phase }}</span></div>
+            <div style="font-size: 14px; line-height: 1.5">{{ s.goal }}</div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 20px">
+              <sc-for list="{{ s.fields }}" as="x" hint-placeholder-count="7">
+                <div><div style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A867C; font-weight: 600">{{ x.k }}</div><div style="font-size: 13px; line-height: 1.5; margin-top: 3px">{{ x.v }}</div></div>
+              </sc-for>
+            </div>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 7 LACUNAS -->
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">7. Lacunas e itens que dependem da sua aprovação</h2>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{ gaps }}" as="g" hint-placeholder-count="8">
+          <div style="background: #FFFFFF; border: 1px solid #E2DFD7; border-radius: 10px; padding: 14px 16px; display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 7px; border-radius: 4px; background: {{ g.bg }}; color: {{ g.fg }}; flex: none">{{ g.kind }}</span>
+            <div style="flex: 1; min-width: 240px"><div style="font-weight: 600; font-size: 14px">{{ g.t }}</div><div style="font-size: 13px; color: #45433E; line-height: 1.5; margin-top: 4px">{{ g.d }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 16px">
+      <h2 style="margin: 0; font-size: 24px; font-weight: 700">8. Visão futura 2B/3 (hipóteses, sem telas)</h2>
+      <p style="margin: 0; font-size: 15px; color: #57544E; line-height: 1.55; max-width: 760px">Mostra como o app cresce por módulos, sem campos nem regras finais. Cada um entraria em “Mais › Módulos” e se configuraria na primeira abertura, como Notícias e Futebol.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px">
+        <sc-for list="{{ future }}" as="x" hint-placeholder-count="8">
+          <div style="background: #FFFFFF; border: 1px dashed #C9C5BB; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; gap: 8px; align-items: baseline"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; color: #57544E; background: #EEEBE4; border-radius: 4px; padding: 2px 6px">HIPÓTESE · {{ x.ph }}</span><span style="font-weight: 600; font-size: 15px">{{ x.n }}</span></div>
+            <div style="font-size: 14px; line-height: 1.5">{{ x.i }}</div>
+            <div style="font-size: 13px; color: #6E6B64; line-height: 1.5"><b>Falta definir:</b> {{ x.f }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const decisions = [
+      { k: "Três temas escolhíveis", v: "Holograma (padrão), Cockpit e Neo-tokyo, cada um com modo escuro e claro, em Ajustes › Aparência. Primeira abertura segue o modo do sistema.", why: "✅ Aprovado. Veio da sua escolha nas explorações (3A, 3C, 4B) e virou função do produto." },
+      { k: "Tipografia", v: "Chakra Petch (Cockpit/Holograma) ou Space Grotesk (Neo-tokyo) para texto; JetBrains Mono para números, horários, XP e estados.", why: "✅ Aprovado. A mono separa dado de texto e dá o tom geek sem atrapalhar leitura. Escala usada: 12/14/16/20/24/32/40, em rem para suportar 200%." },
+      { k: "Densidade", v: "Média: poucos cards, linha de hábito com 60 pt, alvo do check com 44 pt.", why: "✅ Aprovado. O atrito de registro manda mais que a quantidade de informação na tela." },
+      { k: "Cor de destaque", v: "Um destaque por tema, âmbar para aviso e vermelho só para “não salvo”. Cor por hábito é escolha do usuário, sempre com ícone.", why: "✅ Aprovado. Cor por módulo foi testada (1B, 3D) e descartada por competir com os estados de sync." },
+      { k: "Cards", v: "Borda de 1 px sobre fundo elevado, sem sombra no escuro. Marcas de canto (Cockpit), colchetes e scanline (Holograma), brilho baixo (Neo-tokyo).", why: "✅ Aprovado. Borda funciona nos dois modos e mantém a moldura como identidade do tema." },
+      { k: "Estados de sync", v: "Pílula no topo do Briefing + linha por item: ✓ confirmado, ◐ salvo neste aparelho, ↻ enviando, ⚠ precisa de atenção, ⚠ não salvo.", why: "✅ Aprovado. Forma e texto, não só cor. A pílula abre o detalhe." },
+      { k: "Celebração", v: "Selo “+10 XP” de 1,4 s ao lado do total, sem modal. Som curto opcional (desligado por padrão, em Ajustes). Animação maior ao subir de nível, até 1,5 s, tocável para dispensar. Estático com redução de movimento; não repete no reenvio.", why: "✅ Aprovado. Som e animação de nível adicionados por você. Sem háptico e sem confete." },
+      { k: "Navegação", v: "Abas: Briefing, Hábitos, Ajustes. Sem botão de voz, Tarefas ou Agenda no M1.", why: "✅ Aprovado. Poucos destinos; o Briefing é a home. Fase 1 amplia sem redesenhar." },
+      { k: "Vazios", v: "Emoji grande + frase factual + uma ação. Sem ilustração.", why: "✅ Aprovado. Ilustração fica fora." }
+    ];
+    const mapCols = [
+      { title: "Conta", tag: "M1", tagCol: "#0A6F85", items: [["→", "Entrada"], ["→", "Criar conta → Onboarding"], ["→", "Entrar → Briefing (ou onboarding pendente)"], ["→", "Recuperar → Enviado → link (válido → Nova senha → Entrar; expirado/usado → Pedir novo)"]] },
+      { title: "Onboarding", tag: "M1", tagCol: "#0A6F85", items: [["1", "Fuso + início do dia (04:00)"], ["2", "Primeiro hábito binário diário ou Pular"], ["↺", "Reabrir retoma a etapa"], ["→", "Briefing"]] },
+      { title: "Abas", tag: "M1", tagCol: "#0A6F85", items: [["◉", "Briefing: saudação, pílula de sync, avisos, Hábitos, XP"], ["◉", "Hábitos: lista, ordem, criar/editar (nome, ícone, cor)"], ["◉", "Ajustes: perfil, sincronização, aparência, privacidade, sair"], ["▭", "Folhas: sync, atenção, reautenticar, sair, privacidade"]] },
+      { title: "Fase 1 (proposta)", tag: "PROTÓTIPO FASE 1", tagCol: "#8F5609", items: [["◉", "5 abas: Briefing, Tarefas, Hábitos, Agenda, Ajustes"], ["●", "Botão fixo do assistente acima das abas"], ["→", "Hábito › detalhe (hoje, regra ativa/proposta, 7 dias, 12 meses)"], ["→", "Tarefa › detalhe (prioridade, subtarefas, repetição)"], ["→", "Ajustes › Exportar / Excluir conta"]] }
+    ].map(m => ({ ...m, items: m.items.map(i => ({ arrow: i[0], t: i[1] })) }));
+
+    const P = {
+      cockpit: { dark: ["#06080B", "#0D141A", "#1C2A33", "#DCEAF0", "#93A8B2", "#3EE0FF", "#04161C", "#F0A93B", "#FF8A7A"], light: ["#EEF3F5", "#FFFFFF", "#D3DEE3", "#0D1A20", "#4F6873", "#07758C", "#FFFFFF", "#8F5609", "#B42318"] },
+      neo: { dark: ["#0D0A12", "#171022", "#2D2040", "#EFE9F6", "#AEA2C0", "#FF5FA2", "#12060C", "#FFC24D", "#FF8A7A"], light: ["#F6F1F7", "#FFFFFF", "#E8DCEB", "#1E1424", "#665770", "#C2296D", "#FFFFFF", "#8F5609", "#B42318"] },
+      holo: { dark: ["#04090F", "#08141D", "#143D50", "#D7ECF5", "#88AEBF", "#63F5D8", "#031511", "#FFB661", "#FF8A7A"], light: ["#EDF4F4", "#FFFFFF", "#C7DCDF", "#0B1B20", "#4B6972", "#0B7A68", "#FFFFFF", "#8F5609", "#B42318"] }
+    };
+    const names = ["bg.base", "bg.elevated", "border.default", "text.primary", "text.secondary", "accent", "text.onAccent", "status.warning", "status.error"];
+    const order = [["cockpit", "dark"], ["cockpit", "light"], ["neo", "dark"], ["neo", "light"], ["holo", "dark"], ["holo", "light"]];
+    const tokenCols = ["Cockpit escuro", "Cockpit claro", "Neo escuro", "Neo claro", "Holo escuro", "Holo claro"];
+    const tokenRows = names.map((n, i) => ({ name: n, cells: order.map(o => P[o[0]][o[1]][i]) }));
+    const scales = [
+      { k: "Espaço", v: "0 · 4 · 8 · 12 · 16 · 24 · 32 · 48 · 64" },
+      { k: "Tipo (rem ×16)", v: "12 · 14 · 16 · 20 · 24 · 32 · 40" },
+      { k: "Raio por tema", v: "Cockpit 10 · Neo 20 (botão pílula) · Holo 4" },
+      { k: "Movimento", v: "120 pressionar · 200 cor/estado · 320 máximo · celebração 1,4 s" },
+      { k: "Toque", v: "Mínimo 44 × 44 pt; linha de hábito 60 pt" }
+    ];
+    const components = [
+      { n: "Card", v: "Padrão; com decoração do tema", s: "Normal, carregando (skeleton), vazio", w: "Briefing, Hábitos" },
+      { n: "HabitRow", v: "Briefing (check) · gestão (ordem)", s: "Não feito, feito, pressionado, salvo aqui, enviando, precisa de atenção, não salvo, somente leitura", w: "Briefing, Hábitos" },
+      { n: "Checkbox", v: "28 pt dentro de alvo 44", s: "Vazio, marcado, desabilitado (tracejado + cadeado)", w: "Briefing" },
+      { n: "Button", v: "Primário, secundário, fantasma", s: "Normal, pressionado, carregando, desabilitado", w: "Todas" },
+      { n: "Input", v: "Texto, e-mail, senha com Mostrar/Ocultar", s: "Normal, erro junto ao campo, contador", w: "Conta, hábito, reautenticar" },
+      { n: "SyncPill", v: "Neutra · aviso", s: "Sincronizado, offline, salvas aqui, enviando, atenção, entre para sincronizar, somente leitura, verificando", w: "Briefing, Ajustes" },
+      { n: "Banner", v: "Aviso · bloqueio", s: "Reautenticar, atualização, versão aguardando, recusa", w: "Briefing" },
+      { n: "Sheet", v: "Com título e ações empilhadas", s: "Sair, sincronização, atenção, reautenticar, privacidade", w: "Briefing, Ajustes" },
+      { n: "Toast", v: "Informativo · com ação", s: "Salvo offline, não salvo + Tentar de novo (7 s, estado segue na linha)", w: "Briefing, Hábitos" },
+      { n: "EmptyState", v: "Com ação", s: "Primeiro hábito, lista vazia", w: "Briefing, Hábitos" },
+      { n: "ErrorState", v: "Recuperável", s: "Carga pausada, saída incompleta, link inválido", w: "Carga, Saída, Recuperação" },
+      { n: "ProgressBar", v: "Linear", s: "Etapas do onboarding, carga inicial", w: "Onboarding, Carga" },
+      { n: "Chip / StreakBadge", v: "Nível, série 🔥, ATIVA/PROPOSTA", s: "Some por inteiro com séries desligadas", w: "Fase 1 › Briefing, Hábito" },
+      { n: "Assistant sheet", v: "Consentimento, entrada, esclarecimento, confirmação, resultado", s: "Gravando, transcrição editável, parcial 2/3, desfazer 10 s, manual", w: "Fase 1 › botão do microfone" },
+      { n: "Heatmap", v: "12 meses, 53×7", s: "Feito, parcial, não feito, protegido, folga + resumo em texto", w: "Fase 1 › Hábito" }
+    ];
+
+    const R = "REPRESENTADA", A = "ANOTADA", N = "PENDENTE";
+    const col = { [R]: ["#E3F2EE", "#0B5D50"], [A]: ["#FBF1E0", "#8F5609"], [N]: ["#EEEBE4", "#57544E"] };
+    const cv = [
+      ["D01", "Cadastro → fuso/04h → pular hábito → Briefing útil/CTA", "M1", R, "Protótipo M1 › jornada D01. Briefing mostra convite para o primeiro hábito."],
+      ["D02", "Interromper/retomar onboarding; criar Meditar e aparecer na home", "M1", R, "Jornada D02 + “Fechar e reabrir o app”."],
+      ["D03", "Offline criar/marcar → salvo local; reabertura preserva", "M1", R, "Jornada D03. Pílula e linha mostram “Salvo neste aparelho”."],
+      ["D04", "Duplo toque = um cumprimento/10 XP; desfazer 0; remarcar 10", "M1", R, "Jornada D04. Toques em menos de 450 ms são ignorados (valor proposto)."],
+      ["D05", "Rede volta → confirmado; sem celebrar retry", "M1", R, "Jornada D05 + Conexão ONLINE."],
+      ["D06", "Falha local sem check/XP; entrada/retry", "M1", R, "Jornada D06. Linha “Não salvo” + botão Tentar + aviso com ação."],
+      ["D07", "Título duplicado recusado → motivo/corrigir/descartar", "M1", R, "Jornada D07. Folha “precisa da sua atenção”."],
+      ["D08", "Logout offline; B isolada; A exige login online", "M1", R, "Jornada D08. Pendências de Pedro não aparecem para Bia."],
+      ["D09", "Recuperação: pedido/expirado/usado/novo/sucesso/login", "M1", R, "Jornada D09 + botões “Abrir link do e-mail”."],
+      ["D10", "Expiração remota offline mantém local; autenticar ao reconectar", "M1", R, "Jornada D10. Banner + folha de reautenticação."],
+      ["D11", "Carga em novo aparelho retomável; falha não vira vazio", "M1", R, "Jornada D11. Para em 60% e retoma."],
+      ["D12", "Atualização exige leitura; build novo offline protegido", "M1", R, "Jornada D12. Checks com cadeado; libera só após verificação online."],
+      ["D13", "00:30 sexta: tarefa atrasada, hábito pertence à quinta", "Fase 1", R, "Fase 1 › jornada D13 (relógio sexta 00:30). Aviso no Briefing, hábitos “de quinta”, tarefa de quinta em Atrasadas."],
+      ["D14", "Água 0,5 + 0,7 = 1,2 L; desfazer 0,5", "Fase 1", R, "Fase 1 › D14. Detalhe de Beber água: contribuições por aparelho e desfazer individual; +10 XP só ao atingir a meta."],
+      ["D15", "Meta offline proposta/regra antiga; vigência", "Fase 1", R, "Fase 1 › D15. Regra ATIVA e PROPOSTA; ao conectar, aceita quinta e vale sexta."],
+      ["D16", "Quota semanal → próxima segunda lógica", "Fase 1", R, "Fase 1 › D16. Correr 3→4× vale na segunda, 6 out."],
+      ["D17", "Retroativo permitido/restaurar série; futuro bloqueado", "Fase 1", R, "Fase 1 › D17. Últimos 7 dias com Registrar/Desfazer; futuro e 8º dia bloqueados."],
+      ["D18", "Negativo: resistência/recaída neutra", "Fase 1", R, "Fase 1 › D18. Resisti hoje (+10) / Tive uma recaída (neutro, sem tirar XP)."],
+      ["D19", "Proteção conjunta; correção parcial/completa", "Fase 1", R, "Fase 1 › D19. Aviso “Usamos uma proteção ontem”; corrigir um mantém, corrigir os dois devolve (Ajustes › 2 de 2)."],
+      ["D20", "Desligar séries tira toda UI de ofensiva", "Fase 1", R, "Fase 1 › D20. Ajustes › Séries e ofensivas remove toda a UI de séries; XP e nível ficam."],
+      ["D21", "Tarefa/subtarefas; recorrente editada impede desfazer", "Fase 1", R, "Fase 1 › D21. Subtarefas com confirmação; recorrente com próxima editada bloqueia desfazer."],
+      ["D22", "Calendar recusado/revogado; evento pendente/falho", "Fase 1", R, "Fase 1 › D22. Conectar/cancelar, escolher calendários, revogar; eventos pendente/falho/sem permissão."],
+      ["D23", "Voz simulada/transcrição/ambiguidade/confirmação", "Fase 1", R, "Fase 1 › D23. Consentimento de IA, segurar para falar (simulado), transcrição editável, “academia” ambígua, 15:00 explícito."],
+      ["D24", "Três ações, uma falha → retry só da falha; IA offline/quota", "Fase 1", R, "Fase 1 › D24. 2 de 3 com repetir só a falha; offline e quota levam ao manual."],
+      ["D25", "Recusar microfone/notificações/IA/analytics separadamente", "Fase 1", R, "Fase 1 › D25. IA, analytics, microfone e notificações recusáveis separadamente."],
+      ["D26", "Exportar JSON / excluir com confirmação digitada", "Fase 1", R, "Fase 1 › D26. Exportar (pedido/falha/offline) e Excluir com EXCLUIR digitado; processamento a detalhar."],
+      ["D27", "Notícias: tema/fonte/prévia/URL insegura", "Fase 2A", R, "Fase 2A › D27a–e: temas em dois níveis com prioritário, fonte com prévia, URL insegura/sem feed/passageira/domínio parecido, sem novidade, link original, cache offline."],
+      ["D28", "Gol/VAR/Estou assistindo/adiado/provedor antigo", "Fase 2A", R, "Fase 2A › D28a–e: gol e VAR com alerta de correção, Estou assistindo, adiado e pênaltis, provedor desatualizado, homônimos, push recusado."],
+      ["D29", "Claro/escuro, texto 200%, conteúdo longo, redução de movimento, leitor de tela", "Todos", R, "Painel › Visual e acessibilidade. Leitor de tela: rótulos e papéis no código; validar no VoiceOver/TalkBack real."]
+    ];
+    const coverage = cv.map(r => ({ id: r[0], j: r[1], scope: r[2], status: r[3], where: r[4], bg: col[r[3]][0], fg: col[r[3]][1] }));
+    const cov = { rep: cv.filter(r => r[3] === R).length, ann: cv.filter(r => r[3] === A).length, pend: cv.filter(r => r[3] === N).length };
+
+    const sc = (name, phase, goal, rows) => ({ name, phase, goal, fields: rows.map(r => ({ k: r[0], v: r[1] })) });
+    const screens = [
+      sc("Entrada", "M1", "Primeiro contato. Leva a criar conta ou entrar; mostra aviso depois de sair.", [["Entradas", "Nenhuma; aviso de saída quando houver"], ["Ações", "Criar conta · Já tenho conta · Política de privacidade"], ["Destinos", "Cadastro, Login, folha de privacidade"], ["Vazio/erro", "—"], ["Restrição", "Sem convidado e sem login social"]]),
+      sc("Cadastro", "M1", "Criar conta com nome, e-mail e senha.", [["Entradas", "Nome 1–80 · e-mail até 254 (sem espaços externos, sem diferença de caixa) · senha 8–128, nunca aparada"], ["Ações", "Mostrar/ocultar senha · Criar conta (carregando no botão)"], ["Destinos", "Onboarding etapa 1"], ["Validação", "Erro junto ao campo; campos preservados"], ["Erros", "Offline: “Criar conta exige conexão…” · e-mail em uso (texto proposto)"], ["Restrição", "Exige conexão"]]),
+      sc("Login", "M1", "Entrar numa conta existente, inclusive depois de sair.", [["Entradas", "E-mail, senha"], ["Ações", "Entrar · Esqueci minha senha"], ["Destinos", "Briefing, ou onboarding pendente"], ["Erros", "“E-mail ou senha incorretos.” · offline: “Entrar exige conexão…”"], ["Efeito", "Pendências guardadas da própria conta voltam e são enviadas"], ["Restrição", "Exige conexão"]]),
+      sc("Recuperação (pedido, enviado, link, nova senha)", "M1", "Trocar a senha sem revelar se o e-mail tem conta.", [["Entradas", "E-mail; depois nova senha ×2"], ["Ações", "Enviar instruções · Pedir outro link · Salvar nova senha"], ["Destinos", "Enviado (resposta uniforme) → link válido/expirado/usado → Login"], ["Validação", "8–128, senhas iguais"], ["Erros", "Link expirado ou usado oferece outro · offline preserva o que foi digitado"], ["Efeito", "Reset consome o link, encerra sessões, não entra sozinho"]]),
+      sc("Onboarding 1 · Fuso e início do dia", "M1", "Confirmar fuso detectado e virada do dia lógico.", [["Entradas", "Fuso (lista) · início 0–23 h, padrão 04:00"], ["Ações", "Alterar fuso · − / + · Continuar"], ["Destinos", "Etapa 2"], ["Vazio/erro", "—"], ["Efeito", "Reabrir o app retoma esta etapa"], ["Restrição", "Pode ser concluído offline depois de criada a conta"]]),
+      sc("Onboarding 2 / Formulário de hábito", "M1", "Criar hábito binário diário (título, ícone, cor). No onboarding, com Pular.", [["Entradas", "Título até 120 · ícone · cor"], ["Ações", "Criar/Salvar · Pular por agora (onboarding)"], ["Destinos", "Briefing ou Hábitos"], ["Validação", "Vazio/só espaços; título único entre ativos, sem diferença de caixa e espaços"], ["Erros", "“Já existe um hábito ativo com este nome.” · falha local mantém o formulário"], ["Restrição", "Sem tipo, agenda, meta, arquivar ou excluir no M1"]]),
+      sc("Briefing", "M1", "Home diária: saudação, estado de sync, avisos, hábitos devidos e XP básico.", [["Entradas", "Hábitos, XP, estado de sessão/versão/sync"], ["Ações", "Marcar/desfazer · Tentar (não salvo) · Pílula de sync · Revisar recusa · Entrar (reautenticar) · Atualizar"], ["Destinos", "Hábitos, folhas"], ["Vazio", "“Seu primeiro hábito pode começar hoje.” + Criar hábito · “Tudo feito por hoje.”"], ["Erros", "Não salvo, recusa, sessão, somente leitura: cada um no próprio lugar"], ["Efeito", "+10 XP uma vez por hábito/dia; XP local marcado como sem confirmação"], ["Restrição", "Sem ofensiva, nível, agenda, tarefas ou voz"]]),
+      sc("Hábitos", "M1", "Gestão: ordem e metadados.", [["Entradas", "Hábitos ativos"], ["Ações", "+ Novo · Editar · Mover para cima/baixo"], ["Destinos", "Formulário de hábito"], ["Vazio", "“Nenhum hábito ainda.”"], ["Restrição", "Somente leitura desabilita edição"]]),
+      sc("Ajustes / Aparência", "M1", "Perfil, sincronização, visual, privacidade e saída.", [["Entradas", "Nome, e-mail, fuso, início do dia"], ["Ações", "Sincronização · Aparência (tema e modo) · Privacidade · Sair da conta"], ["Destinos", "Folhas; Aparência"], ["Efeito", "Sair funciona offline e em somente leitura"], ["Restrição", "Edição de perfil não está no protótipo M1 (a definir)"]]),
+      sc("Estados de sistema", "M1", "Carga em aparelho novo, saída incompleta, reautenticação, atualização.", [["Carga", "Progresso retomável; falha nunca vira conta vazia"], ["Saída incompleta", "Acesso bloqueado + Terminar saída"], ["Reautenticar", "Folha com senha; registros preservados"], ["Atualização", "Somente leitura; nova versão offline continua bloqueada até verificar online"], ["Não expor", "Banco, tokens, IDs, HTTP"]])
+    ];
+
+    const G = { g: ["#EEEBE4", "#45433E"], p: ["#FBF1E0", "#8F5609"], q: ["#E7EEF8", "#1F4E8C"], d: ["#E3F1E8", "#1E6B3A"] };
+    const gaps = [
+      ["DECIDIDO", "d", "Temas escolhíveis dentro do app", "Aprovado: Cockpit, Neo-tokyo e Holograma, cada um com claro e escuro. Padrão na primeira abertura: Holograma, seguindo o modo do sistema."],
+      ["DECIDIDO", "d", "Mensagem de e-mail já cadastrado no Cadastro", "Aprovada a mensagem neutra, sem confirmar se a conta existe. Proposta: “Não foi possível usar este e-mail. Se já tem conta, entre ou recupere a senha.” A alternativa é uniformizar também o cadastro."],
+      ["DECIDIDO", "d", "Janela de 450 ms para ignorar o segundo toque", "Aprovada: 450 ms. A regra de não duplicar XP continua valendo independentemente da janela."],
+      ["DECIDIDO", "d", "Cores de hábito (5) e ícones (10)", "Aprovado como catálogo do M1; os nomes das cores são lidos pelo leitor de tela."],
+      ["DECIDIDO", "d", "Identidade visual (Q28)", "Aprovada a direção: três temas geek/HUD, tipografia Chakra Petch / Space Grotesk + JetBrains Mono, cards com moldura por tema, celebração curta."],
+      ["Q28", "q", "Nome definitivo", "Pedro ainda está avaliando. “Ritmo” segue como nome provisório."],
+      ["DECIDIDO", "d", "Edição de perfil (fuso e início do dia) depois do onboarding", "Vale a partir do próximo dia lógico; o dia de hoje segue a regra antiga. Representado em Fase 1 › Ajustes › Fuso e início do dia (jornada PERF): ATIVA/AGENDADA/PROPOSTA."],
+      ["LACUNA", "g", "Texto final da política de privacidade", "Folha com marcador “[Texto final a definir]”. Sem provedores inventados."],
+      ["DECIDIDO", "d", "Fase 1: cinco abas e botão fixo do assistente", "Composição proposta para crescer sem redesenhar o Briefing. Alternativa: Agenda dentro do Briefing e Tarefas como aba."],
+      ["DECIDIDO", "d", "Conquistas", "Poucas e simples no lançamento (ex.: primeira semana, 30 dias, nível 10). Lista final e textos ainda a escrever. Som de celebração e animação de nível estão na Fase 1 (Ajustes; jornada NÍV)."],
+      ["DECIDIDO", "d", "XP restante menor que o prêmio (teto diário)", "Prêmio parcial: concede só o que falta até o teto (ex.: faltam 4, hábito vale 10 → +4). Mensagem: “+4 XP · teto de hoje atingido”. O cumprimento é registrado inteiro."],
+      ["DECIDIDO", "d", "Fase 2A: Notícias e Futebol pelo card e por Mais › Módulos", "Aprovado. Na implementação, a Fase 2A mantém as cinco abas da Fase 1 e acrescenta os módulos em Mais › Módulos; as abas do protótipo 2A são só para navegar."],
+      ["DECIDIDO", "d", "Notícias: janela única de 3 h", "Briefing e Notícias usam a mesma janela de estabilidade de 3 h; atualização manual continua possível. Até 2 das 5 vagas vão para temas prioritários."],
+      ["DECIDIDO", "d", "Mediação de agenda", "Avisa sobreposição de horários e dia cheio (mais de 6 h de compromissos). No máximo um aviso por dia; nunca reagenda sozinha. Trajeto continua fora."],
+      ["LACUNA", "g", "Provedor esportivo e temas/fontes de notícias", "Times e competições definidos; provedor, fontes e classificação de temas ainda abertos. Placares e manchetes do protótipo são demonstrativos."],
+      ["DECIDIDO", "d", "Voz sem internet", "Voz só online. Offline, o botão vira campo de texto com interpretação local limitada (título de tarefa simples)."],
+      ["DECIDIDO", "d", "“Marcar como feito” na notificação (iOS)", "Tentar a ação na própria notificação; se a validação no iPhone falhar, a notificação abre o app e aplica o registro."],
+      ["DECIDIDO", "d", "Limite de 64 notificações agendadas", "40 para lembretes; Briefing da manhã e alerta de série dentro das 24 restantes, com prioridade para o Briefing."],
+      ["DECIDIDO", "d", "Mudar fuso/início com mudança já agendada", "A nova substitui a agendada, com aviso. Continua valendo no próximo dia lógico."],
+      ["DECIDIDO", "d", "Tipo/unidade alterado num aparelho e registro em outro", "Vale o que chegou primeiro ao servidor. O outro aparelho recebe recusa com o registro preservado para refazer, sem conversão silenciosa."],
+      ["DECIDIDO", "d", "Conquistas do lançamento", "Primeiro hábito criado; primeira semana completa; 7 dias seguidos; 30 dias seguidos; 100 registros; nível 5; nível 10; primeira tarefa recorrente concluída; um mês sem usar proteção. Textos finais a escrever."],
+      ["DECIDIDO", "d", "Futebol: times e competições", "Botafogo, Barcelona e Liverpool; Brasileirão, Premier League e Champions League. Provedor de dados ainda a escolher."],
+      ["PROPOSTA", "p", "Fluxo completo", "Mapa em Ritmo-Fluxo (7 etapas, 34 telas) e app único em Ritmo-App com seletor M1 / Fase 1 / Fase 2A."],
+      ["LIMITE", "g", "O que o protótipo não prova", "Armazenamento, rede, sessão, e-mail e leitor de tela são simulados ou só marcados no código. Desempenho (300 ms, 2 s, 100 ms) não é medido aqui."]
+    ].map(g => ({ kind: g[0], bg: G[g[1]][0], fg: G[g[1]][1], t: g[2], d: g[3] }));
+
+    const future = [
+      ["2B", "Treinos", "Rotina, checklist e sessão.", "exercícios e licença, kg/lb, força/cardio, descanso, supersets/RIR, rascunho."],
+      ["2B", "Finanças", "Visão via Open Finance/agregador, depois de Treinos.", "provedor, contas e cartões, faturas, transferências, parcelas, estornos, competência/caixa. Sem pagamentos ou crédito."],
+      ["2B", "Busca global", "Encontrar conteúdo ativo em vários módulos.", "pelo menos quatro módulos com volume real; diferente de agir com IA."],
+      ["3", "Refeições", "Alimentação, receitas e compras.", "base e licença, medidas, porções. XP reconhece registro, nunca peso ou restrição."],
+      ["3", "Leitura", "Progresso em formatos diferentes.", "páginas, posições digitais, áudio, ISBN."],
+      ["3", "OCR, QR e importação", "Facilitar entrada; recibos depois de Finanças.", "fontes, correção, privacidade, qualidade."],
+      ["3", "Wearables e processamento no aparelho", "Quando houver necessidade real.", "consentimento, técnica, revisão de saúde."],
+      ["—", "Comercialização", "Posterior ao uso pessoal.", "preço, billing, licenças, custos, lançamento."]
+    ].map(x => ({ ph: x[0], n: x[1], i: x[2], f: x[3] }));
+    return { future, decisions, mapCols, tokenCols, tokenRows, scales, components, coverage, cov, screens, gaps };
+  }
+}
+</script>
+</body>
+</html>

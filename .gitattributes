@@ -6,3 +6,6 @@
 *.jpeg binary
 *.webp binary
 *.pdf binary
+
+# Exportacoes de design recebidas: preservar bytes e whitespace original.
+"Protótipos de assistente pessoal/**" -text whitespace=-blank-at-eol

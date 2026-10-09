@@ -1,11 +1,11 @@
 # 03 — Incorporar o protótipo ao contrato visual
 
-Status: ready-for-human
+Status: ready-for-agent
 Blocked by: none
 
 ## Dependência externa
 
-Pedro está produzindo o protótipo e pediu que a direção visual permanecesse em aberto até concluí-lo (R6-Q28). Esta tarefa registra essa dependência; não solicita uma nova confirmação nem aprova visual provisório.
+Dependência atendida em 09/10/2026: Pedro entregou o pacote Claude Design para orientar a implementação. Spec/11 consolida a direção. Esta tarefa acompanha também a integração/validação visual; não fica concluída só pela revisão do artefato.
 
 ## Resultado esperado
 
@@ -26,3 +26,5 @@ Concluída: não.
 25/09/2026: depende de artefato externo do Pedro, não de uma tarefa técnica anterior. Não bloqueia as tarefas 01 e 02.
 
 30/09/2026: preparados o [briefing funcional para o Claude Design](../../../docs/design/briefing-claude-design.md) e o [prompt de uso](../../../docs/design/prompt-claude-design.md), por solicitação de Pedro. Cobrem M1, Fase 1, expansão 2A, erros/offline e 29 jornadas de revisão. O material orienta a criação do protótipo; não fecha Q28 nem conclui esta tarefa.
+
+09/10/2026: [revisão](../../../docs/analises/2026-10-09-revisao-do-prototipo.md), tokens/catálogos, matriz e [seis recortes](../../interface-m1/spec.md) registrados. Spec/11 fechado para direção, PRD Q5 atualizado. Primeira jornada pronta para execução; custódia de preferência/áudio pendente no recorte 06. Concluída: não — integração visual e acessibilidade nos clientes reais ainda necessárias.

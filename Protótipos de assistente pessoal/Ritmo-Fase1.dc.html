@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #E4E2DC; }
+  a { color: #0A6F85; }
+  a:hover { color: #064B5A; }
+  button { font-family: inherit; }
+  .rt-scroll::-webkit-scrollbar { width: 0; height: 0; }
+  @keyframes rt-pop { 0% { transform: translateY(6px) scale(0.9); opacity: 0 } 20% { transform: none; opacity: 1 } 80% { opacity: 1 } 100% { transform: translateY(-8px); opacity: 0 } }
+  @keyframes rt-lvl { 0% { transform: scale(0.85); opacity: 0 } 18% { transform: scale(1.04); opacity: 1 } 30% { transform: scale(1) } 85% { opacity: 1 } 100% { opacity: 0 } }
+  @keyframes rt-ring { 0% { transform: scale(0.6); opacity: 0.9 } 100% { transform: scale(1.6); opacity: 0 } }
+  @keyframes rt-wave { 0%,100% { transform: scaleY(0.35) } 50% { transform: scaleY(1) } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition: none !important } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; padding: 28px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; justify-content: center; font-family: 'Public Sans', system-ui, sans-serif; color: #1A1A18">
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; gap: 8px; align-items: center; font-size: 13px; color: #57544E">
+      <span style="font-weight: 700; background: #8F5609; color: #FFFFFF; padding: 3px 8px; border-radius: 4px; font-size: 12px; letter-spacing: 0.06em">FASE 1</span>
+      <span>iPhone 16e · {{ skinName }} {{ modeName }} · texto {{ scaleLabel }}</span>
+    </div>
+
+    <div role="application" aria-label="Protótipo Ritmo Fase 1" style="width: 390px; height: 844px; border-radius: 50px; background: {{ t.bg }}; color: {{ t.text }}; font-family: {{ t.head }}; position: relative; overflow: hidden; box-shadow: 0 0 0 11px #141414, 0 24px 60px rgba(0,0,0,0.28)">
+
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 47px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px 0 34px; font-family: -apple-system, 'Public Sans', sans-serif; font-size: 15px; font-weight: 600; z-index: 5">
+        <span>{{ clockTime }}</span>
+        <span style="font-size: 12px; color: {{ netColor }}">{{ netLabel }}</span>
+      </div>
+
+      <div class="rt-scroll" style="position: absolute; top: 47px; left: 0; right: 0; bottom: 83px; overflow-y: auto; overflow-x: hidden">
+
+        <!-- ================= BRIEFING ================= -->
+        <sc-if value="{{ is.briefing }}" hint-placeholder-val="{{ true }}">
+          <div style="padding: 10px 18px 110px; display: flex; flex-direction: column; gap: 12px">
+            <div style="padding: 4px 2px 0">
+              <div style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}; letter-spacing: 0.08em; text-transform: uppercase">{{ dateLabel }}</div>
+              <h1 style="margin: 6px 0 0; font-size: 1.75rem; font-weight: 600; line-height: 1.15">{{ greeting }}</h1>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px">
+                <span style="font-family: {{ t.mono }}; font-size: 0.75rem; padding: 5px 10px; border-radius: 999px; border: 1px solid {{ t.accentLine }}; color: {{ t.accentText }}">Nível {{ lvl.n }} · {{ lvl.cur }}/{{ lvl.span }} XP</span>
+                <sc-if value="{{ streaksOn }}"><span style="font-family: {{ t.mono }}; font-size: 0.75rem; padding: 5px 10px; border-radius: 999px; border: 1px solid {{ t.bord }}; color: {{ t.text }}">🔥 {{ globalStreak }} dias com registro</span></sc-if>
+              </div>
+              <div role="progressbar" aria-label="Progresso para o nível {{ lvl.next }}" aria-valuenow="{{ lvl.pct }}" aria-valuemin="0" aria-valuemax="100" style="margin-top: 10px; height: 6px; border-radius: 3px; background: {{ t.track }}; overflow: hidden"><div style="height: 100%; width: {{ lvl.pct }}%; background: {{ t.accent }}; transition: {{ t.tr }}"></div></div>
+            </div>
+
+            <sc-if value="{{ showProtection }}">
+              <div role="status" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.surf }}; border: 1px solid {{ t.bord }}; font-size: 0.9375rem; line-height: 1.45"><span aria-hidden="true">🛡️</span><span>Usamos uma proteção ontem. Suas séries de Meditar e Beber água continuam.</span></div>
+            </sc-if>
+            <sc-if value="{{ showRevoked }}">
+              <div role="status" style="display: flex; gap: 10px; align-items: center; padding: 10px 14px; border-radius: {{ t.innerR }}px; background: {{ t.warnSoft }}; border: 1px solid {{ t.warnLine }}; font-size: 0.875rem; line-height: 1.4"><span aria-hidden="true" style="color: {{ t.warn }}">⚠</span><span style="flex: 1">O acesso ao Google Calendar foi removido. A Agenda saiu do Briefing.</span><button type="button" onClick="{{ goAgenda }}" style="min-height: 44px; padding: 0 12px; border: 1.5px solid {{ t.warn }}; border-radius: {{ t.btnR }}px; background: transparent; color: {{ t.text }}; font-weight: 600; cursor: pointer">Reconectar</button></div>
+            </sc-if>
+            <sc-if value="{{ isMidnight }}">
+              <div role="note" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.surf }}; border: 1px dashed {{ t.bordStrong }}; font-size: 0.875rem; line-height: 1.45"><span aria-hidden="true">🌙</span><span>Já é sexta no calendário, mas os hábitos ainda contam para quinta até as 04:00. Prazos de tarefas seguem a meia-noite.</span></div>
+            </sc-if>
+
+            <section aria-labelledby="c-hab" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; padding: 16px 16px 6px; position: relative">
+              <sc-for list="{{ corners }}" as="c" hint-placeholder-count="0"><span aria-hidden="true" style="position: absolute; left: {{ c.l }}; top: {{ c.t }}; right: {{ c.r }}; bottom: {{ c.b }}; width: {{ c.s }}px; height: {{ c.s }}px; border-left: {{ c.bl }}; border-top: {{ c.bt }}; border-right: {{ c.br }}; border-bottom: {{ c.bb }}; opacity: {{ c.o }}"></span></sc-for>
+              <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 4px"><span aria-hidden="true">🎯</span><h2 id="c-hab" style="margin: 0; font-size: 1rem; font-weight: 600">{{ habitsTitle }}</h2><span style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.dim }}; margin-left: auto">{{ habDoneLabel }}</span></div>
+              <sc-for list="{{ hRows }}" as="h" hint-placeholder-count="5">
+                <div style="display: flex; align-items: center; gap: 10px; min-height: 60px; border-top: {{ h.sep }}">
+                  <sc-if value="{{ h.isCheck }}">
+                    <button type="button" onClick="{{ h.quick }}" aria-pressed="{{ h.done }}" aria-label="{{ h.aria }}" style="width: 44px; height: 44px; margin-left: -8px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex: none; padding: 0" style-active="transform: scale(0.9)">
+                      <span style="width: 28px; height: 28px; box-sizing: border-box; border-radius: {{ t.boxR }}px; border: {{ h.boxBorder }}; background: {{ h.boxBg }}; display: flex; align-items: center; justify-content: center; transition: {{ t.tr }}"><sc-if value="{{ h.done }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ t.onAccent }}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 13 9 18 20 6"></polyline></svg></sc-if></span>
+                    </button>
+                  </sc-if>
+                  <sc-if value="{{ h.isQty }}">
+                    <button type="button" onClick="{{ h.quick }}" aria-label="{{ h.aria }}" style="width: 44px; height: 44px; margin-left: -8px; border: none; background: transparent; cursor: pointer; flex: none; padding: 0; display: flex; align-items: center; justify-content: center">
+                      <span style="width: 28px; height: 28px; box-sizing: border-box; border-radius: {{ t.boxR }}px; border: 1.5px solid {{ t.bordStrong }}; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center"><span style="position: absolute; left: 0; right: 0; bottom: 0; height: {{ h.pct }}%; background: {{ t.accent }}; opacity: 0.45"></span><span style="position: relative; font-size: 0.875rem; font-weight: 700">+</span></span>
+                    </button>
+                  </sc-if>
+                  <button type="button" onClick="{{ h.open }}" style="flex: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 10px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 0">
+                    <span aria-hidden="true" style="font-size: 1.0625rem">{{ h.icon }}</span>
+                    <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 1rem; line-height: 1.3">{{ h.title }}</span><span style="display: block; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ h.subCol }}; margin-top: 2px">{{ h.sub }}</span></span>
+                    <sc-if value="{{ h.showStreak }}"><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.warn }}; flex: none">🔥{{ h.streak }}</span></sc-if>
+                  </button>
+                </div>
+              </sc-for>
+            </section>
+
+            <sc-if value="{{ showAgendaCard }}">
+              <section aria-labelledby="c-ag" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; padding: 16px; position: relative">
+                <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 10px"><span aria-hidden="true">📅</span><h2 id="c-ag" style="margin: 0; font-size: 1rem; font-weight: 600">{{ agendaCardTitle }}</h2><sc-if value="{{ offline }}"><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; color: {{ t.dim }}; margin-left: auto">atualizado às 07:58</span></sc-if></div>
+                <div style="display: flex; flex-direction: column; gap: 10px">
+                  <sc-for list="{{ agendaCard }}" as="ev" hint-placeholder-count="3">
+                    <div style="display: flex; gap: 12px; align-items: baseline; padding: {{ ev.pad }}; border-radius: {{ t.innerR }}px; background: {{ ev.bg }}">
+                      <span style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.accentText }}; width: 44px; flex: none">{{ ev.h }}</span>
+                      <span style="flex: 1"><span style="display: block; font-size: 1rem; line-height: 1.3">{{ ev.t }}</span><sc-if value="{{ ev.hasSub }}"><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}; margin-top: 2px">{{ ev.sub }}</span></sc-if></span>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ agendaCardEmpty }}"><div style="font-size: 0.9375rem; color: {{ t.dim }}">Nada mais na agenda hoje.</div></sc-if>
+                </div>
+              </section>
+            </sc-if>
+
+            <section aria-labelledby="c-tk" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; padding: 16px 16px 6px; position: relative">
+              <div style="display: flex; align-items: baseline; gap: 9px; margin-bottom: 4px"><span aria-hidden="true">✅</span><h2 id="c-tk" style="margin: 0; font-size: 1rem; font-weight: 600">Tarefas</h2><span style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.dim }}; margin-left: auto">{{ tkCardCount }}</span></div>
+              <sc-for list="{{ tkCard }}" as="k" hint-placeholder-count="4">
+                <div style="display: flex; align-items: center; gap: 10px; min-height: 56px; border-top: {{ k.sep }}">
+                  <button type="button" onClick="{{ k.toggle }}" aria-pressed="{{ k.done }}" aria-label="Concluir {{ k.title }}" style="width: 44px; height: 44px; margin-left: -8px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex: none; padding: 0"><span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 13px; border: {{ k.boxBorder }}; background: {{ k.boxBg }}; display: flex; align-items: center; justify-content: center"><sc-if value="{{ k.done }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ t.onAccent }}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 13 9 18 20 6"></polyline></svg></sc-if></span></button>
+                  <button type="button" onClick="{{ k.open }}" style="flex: 1; min-width: 0; min-height: 52px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 0">
+                    <span style="display: block; font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere">{{ k.title }}</span>
+                    <span style="display: block; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ k.metaCol }}; margin-top: 2px">{{ k.meta }}</span>
+                  </button>
+                </div>
+              </sc-for>
+              <div style="border-top: 1px solid {{ t.bord }}; display: flex; justify-content: flex-end"><button type="button" onClick="{{ nav.tarefas }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">Ver todas</button></div>
+            </section>
+          </div>
+        </sc-if>
+
+        <!-- ================= TAREFAS ================= -->
+        <sc-if value="{{ is.tarefas }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 110px; display: flex; flex-direction: column; gap: 14px">
+            <h1 style="margin: 4px 2px 0; font-size: 1.75rem; font-weight: 600">Tarefas</h1>
+            <div style="display: flex; gap: 8px">
+              <label for="quick" style="position: absolute; left: -9999px">Nova tarefa</label>
+              <input id="quick" type="text" placeholder="Nova tarefa" value="{{ quick }}" onChange="{{ onQuick }}" onKeyDown="{{ quickKey }}" maxlength="500" style="flex: 1; min-width: 0; min-height: 48px; box-sizing: border-box; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <button type="button" onClick="{{ addQuick }}" style="min-width: 76px; min-height: 48px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Criar</button>
+            </div>
+            <sc-if value="{{ quickCalc }}"><div style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.dim }}; margin-top: -6px">Cálculo: {{ quickCalcVal }} · o título fica como você digitou</div></sc-if>
+            <div style="display: flex; gap: 8px">
+              <label for="q" style="position: absolute; left: -9999px">Buscar tarefas</label>
+              <input id="q" type="search" placeholder="Buscar (ex.: reuniao)" value="{{ q }}" onChange="{{ onQ }}" style="flex: 1; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 0.9375rem">
+            </div>
+            <div role="tablist" style="display: flex; gap: 6px; background: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 4px">
+              <sc-for list="{{ taskTabs }}" as="b" hint-placeholder-count="2"><button type="button" role="tab" aria-selected="{{ b.sel }}" onClick="{{ b.pick }}" style="flex: 1; min-height: 44px; border: none; border-radius: {{ t.innerR }}px; background: {{ b.bg }}; color: {{ b.fg }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">{{ b.label }}</button></sc-for>
+            </div>
+            <sc-if value="{{ noSearchResult }}"><div role="status" style="font-size: 0.9375rem; color: {{ t.dim }}; padding: 8px 2px">Nada encontrado para “{{ q }}”. Tente outra palavra.</div></sc-if>
+            <sc-for list="{{ taskGroups }}" as="g" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <h2 style="margin: 0 4px; font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.1em; color: {{ g.col }}; font-weight: 600">{{ g.label }} · {{ g.n }}</h2>
+                <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 14px">
+                  <sc-for list="{{ g.items }}" as="k" hint-placeholder-count="2">
+                    <div style="display: flex; align-items: center; gap: 10px; min-height: 58px; border-top: {{ k.sep }}">
+                      <button type="button" onClick="{{ k.toggle }}" aria-pressed="{{ k.done }}" aria-label="Concluir {{ k.title }}" style="width: 44px; height: 44px; margin-left: -8px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex: none; padding: 0"><span style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 13px; border: {{ k.boxBorder }}; background: {{ k.boxBg }}; display: flex; align-items: center; justify-content: center"><sc-if value="{{ k.done }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ t.onAccent }}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 13 9 18 20 6"></polyline></svg></sc-if></span></button>
+                      <button type="button" onClick="{{ k.open }}" style="flex: 1; min-width: 0; min-height: 52px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 0">
+                        <span style="display: block; font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere">{{ k.title }}</span>
+                        <span style="display: block; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ k.metaCol }}; margin-top: 2px">{{ k.meta }}</span>
+                      </button>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ noDoneTasks }}"><div style="font-size: 0.9375rem; color: {{ t.dim }}; padding: 8px 2px">Nenhuma tarefa concluída nos últimos 30 dias.</div></sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ================= TAREFA DETALHE ================= -->
+        <sc-if value="{{ is.tarefa }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ taskBack }}" aria-label="Voltar para Tarefas" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 20px 110px; display: flex; flex-direction: column; gap: 16px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div style="display: flex; justify-content: space-between"><label for="tt" style="font-size: 0.875rem; font-weight: 600">Título</label><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}">{{ tk.len }}/500</span></div>
+              <input id="tt" type="text" value="{{ tk.draft }}" onChange="{{ tk.onTitle }}" maxlength="500" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1.0625rem">
+              <sc-if value="{{ tk.hasCalc }}"><div style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.dim }}">Cálculo: {{ tk.calc }}</div></sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div id="pr-l" style="font-size: 0.875rem; font-weight: 600">Prioridade</div>
+              <div role="radiogroup" aria-labelledby="pr-l" style="display: flex; gap: 6px; flex-wrap: wrap">
+                <sc-for list="{{ tk.prios }}" as="p" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{ p.sel }}" onClick="{{ p.pick }}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid {{ p.border }}; background: {{ p.bg }}; color: {{ t.text }}; font-size: 0.875rem; cursor: pointer">{{ p.label }}</button></sc-for>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+              <div style="padding: 12px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}"><div style="font-size: 0.75rem; color: {{ t.dim }}">Prazo</div><div style="font-size: 0.9375rem; margin-top: 3px">{{ tk.due }}</div></div>
+              <div style="padding: 12px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}"><div style="font-size: 0.75rem; color: {{ t.dim }}">Repetição</div><div style="font-size: 0.9375rem; margin-top: 3px">{{ tk.rec }}</div></div>
+            </div>
+            <sc-if value="{{ tk.hasSubs }}">
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <div style="display: flex; justify-content: space-between"><span style="font-size: 0.875rem; font-weight: 600">Subtarefas</span><span style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.dim }}">{{ tk.subProg }}</span></div>
+                <div style="border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 12px">
+                  <sc-for list="{{ tk.subs }}" as="s" hint-placeholder-count="5">
+                    <button type="button" role="checkbox" aria-checked="{{ s.done }}" onClick="{{ s.toggle }}" style="width: 100%; min-height: 48px; display: flex; align-items: center; gap: 12px; border: none; border-top: {{ s.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 0">
+                      <span aria-hidden="true" style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 6px; border: {{ s.border }}; background: {{ s.bg }}; display: flex; align-items: center; justify-content: center; color: {{ t.onAccent }}; font-size: 0.75rem">{{ s.mark }}</span><span style="font-size: 0.9375rem">{{ s.t }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ tk.editedNext }}"><div role="note" style="font-size: 0.875rem; color: {{ t.dim }}; line-height: 1.45">Esta é a próxima ocorrência de uma série. Alterar aqui conta como intervenção sua.</div></sc-if>
+            <button type="button" onClick="{{ tk.save }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Salvar</button>
+            <button type="button" onClick="{{ tk.complete }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">{{ tk.completeLabel }}</button>
+            <button type="button" onClick="{{ tk.del }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.err }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Excluir tarefa</button>
+          </div>
+        </sc-if>
+
+        <!-- ================= HÁBITOS LISTA ================= -->
+        <sc-if value="{{ is.habitos }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 110px; display: flex; flex-direction: column; gap: 14px">
+            <h1 style="margin: 4px 2px 0; font-size: 1.75rem; font-weight: 600">Hábitos</h1>
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 10px">
+              <sc-for list="{{ hRows }}" as="h" hint-placeholder-count="5">
+                <button type="button" onClick="{{ h.open }}" style="width: 100%; min-height: 64px; display: flex; align-items: center; gap: 12px; border: none; border-top: {{ h.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 8px 4px">
+                  <span aria-hidden="true" style="font-size: 1.25rem">{{ h.icon }}</span>
+                  <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 1rem">{{ h.title }}</span><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}; margin-top: 2px">{{ h.typeLabel }}</span></span>
+                  <sc-if value="{{ h.showStreak }}"><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.warn }}">🔥{{ h.streak }}</span></sc-if>
+                  <span aria-hidden="true" style="color: {{ t.dim }}">›</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ================= HÁBITO DETALHE ================= -->
+        <sc-if value="{{ is.habito }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ nav.habitos }}" aria-label="Voltar para Hábitos" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 18px 110px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: center; gap: 12px; padding: 0 2px">
+              <span aria-hidden="true" style="font-size: 2rem">{{ hd.icon }}</span>
+              <div style="flex: 1"><h1 style="margin: 0; font-size: 1.5rem; font-weight: 600">{{ hd.title }}</h1><div style="font-size: 0.875rem; color: {{ t.dim }}; margin-top: 2px">{{ hd.typeLabel }}</div></div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 8px">
+              <sc-for list="{{ hd.stats }}" as="s" hint-placeholder-count="3"><div style="padding: 10px 12px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}; background: {{ t.surf }}"><div style="font-size: 0.75rem; color: {{ t.dim }}">{{ s.k }}</div><div style="font-family: {{ t.mono }}; font-size: 1.125rem; font-weight: 700; margin-top: 3px">{{ s.v }}</div></div></sc-for>
+            </div>
+
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+              <h2 style="margin: 0; font-size: 1rem; font-weight: 600">{{ hd.todayTitle }}</h2>
+              <sc-if value="{{ hd.isBin }}">
+                <button type="button" onClick="{{ hd.toggle }}" aria-pressed="{{ hd.done }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: {{ hd.binBorder }}; background: {{ hd.binBg }}; color: {{ hd.binFg }}; font-size: 1rem; font-weight: 600; cursor: pointer">{{ hd.binLabel }}</button>
+              </sc-if>
+              <sc-if value="{{ hd.isQty }}">
+                <div style="display: flex; align-items: baseline; gap: 8px"><span style="font-family: {{ t.mono }}; font-size: 1.75rem; font-weight: 700; color: {{ t.accentText }}">{{ hd.sum }}</span><span style="font-size: 0.9375rem; color: {{ t.dim }}">de {{ hd.goal }}</span><sc-if value="{{ hd.goalMet }}"><span style="margin-left: auto; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.accentText }}">✓ meta · +10 XP</span></sc-if></div>
+                <div role="progressbar" aria-valuenow="{{ hd.pct }}" aria-valuemin="0" aria-valuemax="100" aria-label="Progresso da meta" style="height: 8px; border-radius: 4px; background: {{ t.track }}; overflow: hidden"><div style="height: 100%; width: {{ hd.pct }}%; background: {{ t.accent }}; transition: {{ t.tr }}"></div></div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                  <sc-for list="{{ hd.adds }}" as="a" hint-placeholder-count="3"><button type="button" onClick="{{ a.run }}" style="flex: 1; min-width: 80px; min-height: 48px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-family: {{ t.mono }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">+ {{ a.label }}</button></sc-for>
+                </div>
+                <div style="display: flex; flex-direction: column">
+                  <sc-for list="{{ hd.contribs }}" as="c" hint-placeholder-count="2">
+                    <div style="display: flex; align-items: center; gap: 10px; min-height: 48px; border-top: 1px solid {{ t.bord }}">
+                      <span style="font-family: {{ t.mono }}; font-size: 0.9375rem; width: 64px">{{ c.amt }}</span>
+                      <span style="flex: 1; font-size: 0.8125rem; color: {{ t.dim }}">{{ c.dev }}</span>
+                      <button type="button" onClick="{{ c.undo }}" aria-label="Desfazer {{ c.amt }}" style="min-height: 44px; padding: 0 12px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">Desfazer</button>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ hd.isNeg }}">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                  <button type="button" onClick="{{ hd.resist }}" aria-pressed="{{ hd.resisted }}" style="flex: 1; min-width: 130px; min-height: 52px; border-radius: {{ t.btnR }}px; border: {{ hd.resBorder }}; background: {{ hd.resBg }}; color: {{ hd.resFg }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Resisti hoje</button>
+                  <button type="button" onClick="{{ hd.relapse }}" aria-pressed="{{ hd.relapsed }}" style="flex: 1; min-width: 130px; min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: {{ hd.relBg }}; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Tive uma recaída</button>
+                </div>
+                <div role="status" style="font-size: 0.9375rem; line-height: 1.45">{{ hd.negMsg }}</div>
+                <sc-if value="{{ hd.canUndoNeg }}"><button type="button" onClick="{{ hd.undoNeg }}" style="align-self: flex-start; min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-weight: 600; cursor: pointer; padding: 0">Desfazer registro de hoje</button></sc-if>
+              </sc-if>
+              <sc-if value="{{ hd.isWeek }}">
+                <div style="font-family: {{ t.mono }}; font-size: 1.25rem; font-weight: 700">{{ hd.weekLabel }}</div>
+                <div style="display: flex; gap: 6px"><sc-for list="{{ hd.weekDots }}" as="w" hint-placeholder-count="3"><span style="flex: 1; height: 10px; border-radius: 3px; background: {{ w }}"></span></sc-for></div>
+                <button type="button" onClick="{{ hd.addRun }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">{{ hd.runLabel }}</button>
+                <sc-if value="{{ hd.extraNote }}"><div style="font-size: 0.875rem; color: {{ t.dim }}">Meta da semana cumprida. Registros extras entram no histórico, sem XP adicional.</div></sc-if>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ hd.hasRule }}">
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+                <h2 style="margin: 0; font-size: 1rem; font-weight: 600">{{ hd.ruleTitle }}</h2>
+                <div style="display: flex; gap: 10px; align-items: baseline"><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; padding: 2px 6px; border-radius: 4px; background: {{ t.accentSoft }}; color: {{ t.accentText }}">ATIVA</span><span style="font-size: 0.9375rem">{{ hd.ruleNow }}</span></div>
+                <sc-if value="{{ hd.hasProposal }}"><div style="display: flex; gap: 10px; align-items: baseline"><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; padding: 2px 6px; border-radius: 4px; background: {{ t.warnSoft }}; color: {{ t.text }}; border: 1px solid {{ t.warnLine }}">{{ hd.propTag }}</span><span style="font-size: 0.9375rem; line-height: 1.45">{{ hd.propText }}</span></div></sc-if>
+                <div style="display: flex; align-items: center; gap: 10px">
+                  <button type="button" onClick="{{ hd.ruleMinus }}" aria-label="Diminuir" style="width: 48px; height: 48px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1.25rem; cursor: pointer">−</button>
+                  <div style="flex: 1; text-align: center; font-family: {{ t.mono }}; font-size: 1.25rem; font-weight: 700">{{ hd.ruleDraft }}</div>
+                  <button type="button" onClick="{{ hd.rulePlus }}" aria-label="Aumentar" style="width: 48px; height: 48px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1.25rem; cursor: pointer">+</button>
+                </div>
+                <button type="button" onClick="{{ hd.saveRule }}" style="min-height: 48px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Salvar nova regra</button>
+              </div>
+            </sc-if>
+
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px 16px 8px">
+              <h2 style="margin: 0 0 6px; font-size: 1rem; font-weight: 600">Últimos 7 dias</h2>
+              <sc-for list="{{ hd.days }}" as="d" hint-placeholder-count="8">
+                <div style="display: flex; align-items: center; gap: 10px; min-height: 50px; border-top: {{ d.sep }}">
+                  <span style="width: 92px; font-size: 0.875rem; flex: none">{{ d.d }}</span>
+                  <span style="flex: 1; display: flex; align-items: center; gap: 6px; font-size: 0.875rem; color: {{ d.col }}"><span aria-hidden="true" style="font-family: {{ t.mono }}">{{ d.icon }}</span><span>{{ d.label }}</span></span>
+                  <sc-if value="{{ d.canAct }}"><button type="button" onClick="{{ d.act }}" style="min-height: 44px; padding: 0 12px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer; flex: none">{{ d.actLabel }}</button></sc-if>
+                </div>
+              </sc-for>
+              <div style="font-size: 0.8125rem; color: {{ t.dim }}; line-height: 1.45; padding: 8px 0">Dá para corrigir os 7 dias anteriores. Datas mais antigas e dias que ainda não chegaram ficam bloqueados.</div>
+            </div>
+
+            <sc-if value="{{ hd.showHeat }}">
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+                <h2 style="margin: 0; font-size: 1rem; font-weight: 600">12 meses</h2>
+                <div role="img" aria-label="{{ hd.heatAlt }}" style="display: flex; gap: 2px; overflow: hidden">
+                  <sc-for list="{{ hd.heat }}" as="w" hint-placeholder-count="53"><div style="display: flex; flex-direction: column; gap: 2px"><sc-for list="{{ w }}" as="x" hint-placeholder-count="7"><span style="width: 4px; height: 4px; border-radius: 1px; background: {{ x }}"></span></sc-for></div></sc-for>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 10px; font-size: 0.75rem; color: {{ t.dim }}">
+                  <sc-for list="{{ legend }}" as="l" hint-placeholder-count="5"><span style="display: inline-flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 2px; background: {{ l.c }}; border: 1px solid {{ t.bord }}"></span>{{ l.icon }} {{ l.t }}</span></sc-for>
+                </div>
+                <div style="font-size: 0.8125rem; line-height: 1.45">{{ hd.heatAlt }}</div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ================= AGENDA ================= -->
+        <sc-if value="{{ is.agenda }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 110px; display: flex; flex-direction: column; gap: 14px">
+            <h1 style="margin: 4px 2px 0; font-size: 1.75rem; font-weight: 600">Agenda</h1>
+            <sc-if value="{{ ag.showConnect }}">
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+                <div style="font-size: 1.125rem; font-weight: 600">{{ ag.connectTitle }}</div>
+                <div style="font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">{{ ag.connectText }}</div>
+                <button type="button" onClick="{{ ag.connect }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">{{ ag.connectBtn }}</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ ag.showCals }}">
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <div style="font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">Escolha os calendários que aparecem no Ritmo.</div>
+                <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 12px">
+                  <sc-for list="{{ ag.cals }}" as="c" hint-placeholder-count="4">
+                    <button type="button" role="checkbox" aria-checked="{{ c.on }}" onClick="{{ c.toggle }}" style="width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; border: none; border-top: {{ c.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 0">
+                      <span aria-hidden="true" style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 6px; border: {{ c.border }}; background: {{ c.bg }}; display: flex; align-items: center; justify-content: center; color: {{ t.onAccent }}; font-size: 0.875rem">{{ c.mark }}</span>
+                      <span style="flex: 1"><span style="display: block; font-size: 1rem">{{ c.name }}</span><span style="display: block; font-size: 0.75rem; color: {{ t.dim }}">{{ c.sub }}</span></span>
+                    </button>
+                  </sc-for>
+                </div>
+                <div style="font-size: 0.8125rem; color: {{ t.dim }}">Proposta (Q8): só o principal vem marcado.</div>
+                <button type="button" onClick="{{ ag.saveCals }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Salvar</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ ag.showList }}">
+              <sc-if value="{{ offline }}"><div role="status" style="font-size: 0.8125rem; color: {{ t.dim }}">⊘ Sem conexão · mostrando a última atualização, às 07:58.</div></sc-if>
+              <sc-for list="{{ ag.days }}" as="d" hint-placeholder-count="2">
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <h2 style="margin: 0 4px; font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.1em; color: {{ t.dim }}; font-weight: 600">{{ d.label }}</h2>
+                  <sc-for list="{{ d.allDay }}" as="a" hint-placeholder-count="1"><div style="padding: 8px 12px; border-radius: {{ t.innerR }}px; background: {{ t.accentSoft }}; font-size: 0.875rem">▬ {{ a }}</div></sc-for>
+                  <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 14px">
+                    <sc-for list="{{ d.events }}" as="ev" hint-placeholder-count="3">
+                      <div style="display: flex; gap: 12px; align-items: flex-start; min-height: 52px; padding: 10px 0; border-top: {{ ev.sep }}">
+                        <span style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.accentText }}; width: 84px; flex: none; padding-top: 2px">{{ ev.h }}</span>
+                        <span style="flex: 1; min-width: 0">
+                          <span style="display: block; font-size: 1rem; line-height: 1.3; text-decoration: {{ ev.deco }}; color: {{ ev.col }}">{{ ev.t }}</span>
+                          <sc-if value="{{ ev.hasSub }}"><span style="display: block; font-size: 0.8125rem; color: {{ ev.subCol }}; margin-top: 3px; line-height: 1.4">{{ ev.sub }}</span></sc-if>
+                          <sc-if value="{{ ev.hasAct }}"><button type="button" onClick="{{ ev.act }}" style="margin-top: 6px; min-height: 44px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer">{{ ev.actLabel }}</button></sc-if>
+                        </span>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+              <button type="button" onClick="{{ ag.editCals }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">Escolher calendários</button>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ================= AJUSTES ================= -->
+        <sc-if value="{{ is.ajustes }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 110px; display: flex; flex-direction: column; gap: 16px">
+            <h1 style="margin: 4px 2px 0; font-size: 1.75rem; font-weight: 600">Ajustes</h1>
+            <sc-for list="{{ settings }}" as="g" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column; gap: 8px">
+                <h2 style="margin: 0 4px; font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.12em; color: {{ t.dim }}; font-weight: 500">{{ g.title }}</h2>
+                <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 14px">
+                  <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3">
+                    <button type="button" role="{{ r.role }}" aria-checked="{{ r.on }}" onClick="{{ r.run }}" style="width: 100%; min-height: 58px; display: flex; align-items: center; gap: 12px; border: none; border-top: {{ r.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 8px 0">
+                      <span style="flex: 1; min-width: 0"><span style="display: block; font-size: 1rem">{{ r.k }}</span><sc-if value="{{ r.hasSub }}"><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}; margin-top: 2px; line-height: 1.4">{{ r.sub }}</span></sc-if></span>
+                      <sc-if value="{{ r.isSwitch }}"><span aria-hidden="true" style="width: 48px; height: 28px; border-radius: 14px; background: {{ r.swBg }}; position: relative; flex: none; transition: {{ t.tr }}"><span style="position: absolute; top: 3px; left: {{ r.knob }}px; width: 22px; height: 22px; border-radius: 11px; background: {{ r.knobBg }}; transition: {{ t.tr }}"></span></span></sc-if>
+                      <sc-if value="{{ r.isLink }}"><span style="font-size: 0.8125rem; color: {{ t.dim }}; flex: none">{{ r.val }} ›</span></sc-if>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ notifDeniedMsg }}"><div role="status" style="font-size: 0.875rem; line-height: 1.45; padding: 0 4px">Você pode continuar sem lembretes e ativá-los depois.</div></sc-if>
+            <div style="font-size: 0.8125rem; color: {{ t.dim }}; line-height: 1.45; padding: 0 4px">Silêncio de gamificação: 22:00–07:00. O botão “Marcar como feito” na notificação depende de validação no iPhone; sem ela, a notificação abre o app e aplica o registro.</div>
+          </div>
+        </sc-if>
+
+        <!-- ================= PERFIL ================= -->
+        <sc-if value="{{ is.perfil }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ nav.ajustes }}" aria-label="Voltar para Ajustes" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 20px 110px; display: flex; flex-direction: column; gap: 16px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600">Fuso e início do dia</h1>
+            <p style="margin: 0; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">O início do dia define quando hábitos e XP viram para o dia seguinte. Prazos de tarefas continuam na meia-noite.</p>
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px">
+              <div style="display: flex; gap: 10px; align-items: baseline"><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; padding: 2px 6px; border-radius: 4px; background: {{ t.accentSoft }}; color: {{ t.accentText }}">ATIVA</span><span style="font-size: 0.9375rem">{{ pf.now }}</span></div>
+              <sc-if value="{{ pf.hasProp }}"><div style="display: flex; gap: 10px; align-items: baseline"><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; padding: 2px 6px; border-radius: 4px; background: {{ t.warnSoft }}; color: {{ t.text }}; border: 1px solid {{ t.warnLine }}">{{ pf.propTag }}</span><span style="font-size: 0.9375rem; line-height: 1.45">{{ pf.propText }}</span></div></sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="pf-tz" style="font-size: 0.875rem; font-weight: 600">Fuso horário</label>
+              <select id="pf-tz" value="{{ pf.tz }}" onChange="{{ pf.onTz }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 12px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+                <sc-for list="{{ pf.tzs }}" as="o" hint-placeholder-count="5"><option value="{{ o }}">{{ o }}</option></sc-for>
+              </select>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div id="pf-st" style="font-size: 0.875rem; font-weight: 600">Início do dia</div>
+              <div role="radiogroup" aria-labelledby="pf-st" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px">
+                <sc-for list="{{ pf.starts }}" as="o" hint-placeholder-count="7"><button type="button" role="radio" aria-checked="{{ o.sel }}" onClick="{{ o.pick }}" style="min-height: 48px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ o.border }}; background: {{ o.bg }}; color: {{ t.text }}; font-family: {{ t.mono }}; font-size: 0.875rem; cursor: pointer">{{ o.label }}</button></sc-for>
+              </div>
+            </div>
+            <sc-if value="{{ pf.dirty }}"><div role="note" style="font-size: 0.875rem; line-height: 1.45; padding: 10px 12px; border-radius: {{ t.innerR }}px; border: 1px dashed {{ t.bordStrong }}">{{ pf.preview }}</div></sc-if>
+            <button type="button" onClick="{{ pf.save }}" disabled="{{ pf.clean }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; opacity: {{ pf.op }}">Salvar</button>
+            <sc-if value="{{ pf.hasProp }}"><button type="button" onClick="{{ pf.cancel }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-weight: 600; cursor: pointer">Cancelar mudança agendada</button></sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ================= EXPORTAR ================= -->
+        <sc-if value="{{ is.exportar }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ nav.ajustes }}" aria-label="Voltar para Ajustes" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 20px 110px; display: flex; flex-direction: column; gap: 16px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600">Exportar meus dados</h1>
+            <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.5">Um arquivo JSON com todos os seus dados, enviado por e-mail ou pelo compartilhamento do aparelho em até 24 horas.</p>
+            <sc-if value="{{ ex.idle }}"><button type="button" onClick="{{ ex.request }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Pedir exportação</button></sc-if>
+            <sc-if value="{{ ex.hasMsg }}"><div role="status" style="display: flex; gap: 10px; padding: 14px 16px; border-radius: {{ t.innerR }}px; background: {{ ex.bg }}; border: 1px solid {{ ex.border }}; font-size: 0.9375rem; line-height: 1.45"><span aria-hidden="true">{{ ex.icon }}</span><span>{{ ex.msg }}</span></div></sc-if>
+            <sc-if value="{{ ex.canRetry }}"><button type="button" onClick="{{ ex.request }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Tentar de novo</button></sc-if>
+            <div style="font-size: 0.8125rem; color: {{ t.dim }}">Estados de processamento e entrega ainda a detalhar.</div>
+          </div>
+        </sc-if>
+
+        <!-- ================= EXCLUIR ================= -->
+        <sc-if value="{{ is.excluir }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ nav.ajustes }}" aria-label="Voltar para Ajustes" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 20px 110px; display: flex; flex-direction: column; gap: 16px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600">Excluir conta</h1>
+            <sc-if value="{{ del.notDone }}">
+              <ul style="margin: 0; padding-left: 20px; font-size: 0.9375rem; line-height: 1.6">
+                <li>Seus dados pessoais são anonimizados na hora e apagados de vez em até 30 dias.</li>
+                <li>Todas as sessões e a conexão com o Google são encerradas.</li>
+                <li>{{ del.pendText }}</li>
+              </ul>
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <label for="delc" style="font-size: 0.875rem; font-weight: 600">Digite EXCLUIR para confirmar</label>
+                <input id="delc" type="text" autocomplete="off" value="{{ del.text }}" onChange="{{ del.onText }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: {{ t.mono }}; font-size: 1rem; letter-spacing: 0.08em">
+              </div>
+              <button type="button" onClick="{{ del.run }}" disabled="{{ del.disabled }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.err }}; background: {{ t.errSoft }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer; opacity: {{ del.op }}">{{ del.btn }}</button>
+            </sc-if>
+            <sc-if value="{{ del.done }}"><div role="status" style="font-size: 1rem; line-height: 1.5">Conta excluída. Os dados já foram anonimizados e serão apagados de vez em até 30 dias. (Tela final e e-mail de confirmação a detalhar.)</div></sc-if>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- FAB assistente -->
+      <sc-if value="{{ showFab }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ openAI }}" aria-label="Abrir assistente" style="position: absolute; right: 18px; bottom: 99px; z-index: 4; width: 60px; height: 60px; border-radius: {{ t.fabR }}px; border: none; background: {{ t.accent }}; color: {{ t.onAccent }}; display: flex; align-items: center; justify-content: center; gap: 3px; cursor: pointer; box-shadow: 0 10px 26px rgba(0,0,0,0.4)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z"></path><path d="M5 11a7 7 0 0 0 14 0"></path><path d="M12 18v3"></path></svg>
+        </button>
+      </sc-if>
+
+      <!-- TABS -->
+      <nav aria-label="Principal" style="position: absolute; left: 0; right: 0; bottom: 0; height: 83px; box-sizing: border-box; padding: 6px 6px 34px; display: flex; background: {{ t.tabBg }}; border-top: 1px solid {{ t.bord }}; z-index: 4">
+        <sc-for list="{{ tabs }}" as="b" hint-placeholder-count="5">
+          <button type="button" onClick="{{ b.go }}" aria-current="{{ b.cur }}" style="flex: 1; min-height: 44px; border: none; background: transparent; color: {{ b.col }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; font-size: 0.6875rem; font-weight: 600">
+            <span aria-hidden="true" style="font-size: 1.125rem; line-height: 1">{{ b.icon }}</span><span>{{ b.label }}</span>
+          </button>
+        </sc-for>
+      </nav>
+
+      <!-- TOAST -->
+      <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+        <div role="status" aria-live="polite" style="position: absolute; left: 14px; right: 14px; bottom: 170px; z-index: 6; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.toastBg }}; color: {{ t.toastFg }}; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-size: 0.9375rem; line-height: 1.4">
+          <span style="flex: 1">{{ toastText }}</span>
+          <sc-if value="{{ hasToastAction }}"><button type="button" onClick="{{ toastAction }}" style="min-height: 44px; padding: 0 12px; border: none; background: transparent; color: {{ t.toastLink }}; font-size: 0.9375rem; font-weight: 700; cursor: pointer; flex: none">{{ toastActionLabel }}</button></sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ celebrateOn }}">
+        <div aria-hidden="true" onClick="{{ dismissCelebrate }}" style="position: absolute; top: 60px; left: 50%; transform: translateX(-50%); z-index: 7; padding: 8px 14px; border-radius: 999px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-family: {{ t.mono }}; font-size: 0.875rem; font-weight: 700; animation: {{ celebAnim }}; cursor: pointer; white-space: nowrap">{{ celebrateText }}</div>
+      </sc-if>
+
+      <sc-if value="{{ lvlUpOn }}">
+        <div role="status" aria-live="polite" onClick="{{ dismissLvl }}" style="position: absolute; inset: 0; z-index: 7; display: flex; align-items: center; justify-content: center; background: {{ t.overlay }}; cursor: pointer">
+          <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 28px 34px; border-radius: {{ t.r }}px; background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1.5px solid {{ t.accent }}; box-shadow: 0 0 40px {{ t.accentLine }}; animation: {{ lvlAnim }}">
+            <span aria-hidden="true" style="position: absolute; left: 50%; top: 50%; width: 120px; height: 120px; margin: -60px 0 0 -60px; border-radius: 60px; border: 2px solid {{ t.accent }}; animation: {{ ringAnim }}"></span>
+            <span style="font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.2em; color: {{ t.dim }}">NOVO NÍVEL</span>
+            <span style="font-family: {{ t.mono }}; font-size: 3.5rem; font-weight: 700; line-height: 1; color: {{ t.accentText }}">{{ lvlUpN }}</span>
+            <span style="font-size: 0.875rem; color: {{ t.dim }}">Toque para fechar</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- SHEETS -->
+      <sc-if value="{{ hasSheet }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; z-index: 8; background: {{ t.overlay }}; display: flex; flex-direction: column; justify-content: flex-end">
+          <div style="flex: 1" onClick="{{ closeSheet }}"></div>
+          <div role="dialog" aria-modal="true" aria-labelledby="sh-t" class="rt-scroll" style="max-height: 88%; overflow-y: auto; background: {{ t.surf }}; border-top: 1px solid {{ t.bord }}; border-radius: 22px 22px 0 0; padding: 10px 20px 40px; display: flex; flex-direction: column; gap: 14px">
+            <div aria-hidden="true" style="width: 40px; height: 5px; border-radius: 3px; background: {{ t.bordStrong }}; align-self: center"></div>
+
+            <!-- ASSISTENTE -->
+            <sc-if value="{{ sh.ai }}">
+              <div style="display: flex; align-items: center; gap: 8px"><h2 id="sh-t" style="margin: 4px 0 0; font-size: 1.375rem; font-weight: 600; flex: 1">Assistente</h2><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; color: {{ t.dim }}">voz e interpretação simuladas</span></div>
+
+              <sc-if value="{{ ai.consent }}">
+                <p style="margin: 0; font-size: 1rem; line-height: 1.5">Para entender seus comandos, o Ritmo envia à IA só o necessário: o texto do pedido, a tela, a data e o fuso, seus hábitos ativos e as tarefas relacionadas. Notas, e-mail, nome e histórico completo não são enviados.</p>
+                <button type="button" onClick="{{ ai.allow }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Permitir uso de IA</button>
+                <button type="button" onClick="{{ ai.deny }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Agora não</button>
+              </sc-if>
+
+              <sc-if value="{{ ai.manual }}">
+                <div role="status" style="font-size: 1rem; line-height: 1.5">{{ ai.manualMsg }}</div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                  <button type="button" onClick="{{ nav.tarefas }}" style="flex: 1; min-height: 48px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-weight: 600; cursor: pointer">Nova tarefa</button>
+                  <button type="button" onClick="{{ nav.habitos }}" style="flex: 1; min-height: 48px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-weight: 600; cursor: pointer">Hábitos</button>
+                </div>
+                <sc-if value="{{ ai.canReconsent }}"><button type="button" onClick="{{ ai.reconsent }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-weight: 600; cursor: pointer">Rever permissão de IA</button></sc-if>
+              </sc-if>
+
+              <sc-if value="{{ ai.input }}">
+                <div style="display: flex; flex-direction: column; gap: 8px">
+                  <div style="font-size: 0.8125rem; color: {{ t.dim }}">Exemplos para simular o que foi dito:</div>
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap">
+                    <sc-for list="{{ ai.examples }}" as="x" hint-placeholder-count="5"><button type="button" onClick="{{ x.pick }}" aria-pressed="{{ x.sel }}" style="min-height: 40px; padding: 0 12px; border-radius: 999px; border: 1.5px solid {{ x.border }}; background: {{ x.bg }}; color: {{ t.text }}; font-size: 0.8125rem; cursor: pointer; text-align: left">{{ x.label }}</button></sc-for>
+                  </div>
+                </div>
+                <sc-if value="{{ ai.micDenied }}"><div role="status" style="font-size: 0.9375rem; line-height: 1.45">Sem acesso ao microfone. Você pode digitar o comando.</div></sc-if>
+                <sc-if value="{{ ai.canVoice }}">
+                  <button type="button" onPointerDown="{{ ai.holdStart }}" onPointerUp="{{ ai.holdEnd }}" onPointerLeave="{{ ai.holdEnd }}" aria-label="Segure para falar" style="min-height: 72px; border-radius: {{ t.btnR }}px; border: 2px solid {{ t.accent }}; background: {{ ai.micBg }}; color: {{ ai.micFg }}; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; touch-action: none; user-select: none">
+                    <sc-if value="{{ ai.recording }}"><span aria-hidden="true" style="display: flex; gap: 3px; align-items: center; height: 28px"><sc-for list="{{ ai.bars }}" as="b" hint-placeholder-count="7"><span style="width: 4px; height: {{ b.h }}px; border-radius: 2px; background: {{ ai.micFg }}; animation: {{ b.anim }}"></span></sc-for></span></sc-if>
+                    <span>{{ ai.micLabel }}</span>
+                  </button>
+                </sc-if>
+                <div style="display: flex; flex-direction: column; gap: 6px">
+                  <label for="aitx" style="font-size: 0.875rem; font-weight: 600">{{ ai.textLabel }}</label>
+                  <textarea id="aitx" rows="2" value="{{ ai.text }}" onChange="{{ ai.onText }}" style="box-sizing: border-box; width: 100%; min-height: 64px; padding: 12px 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem; resize: none"></textarea>
+                </div>
+                <button type="button" onClick="{{ ai.interpret }}" disabled="{{ ai.noText }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; opacity: {{ ai.sendOp }}">Continuar</button>
+              </sc-if>
+
+              <sc-if value="{{ ai.clarify }}">
+                <div style="font-size: 1rem; line-height: 1.5">“Academia” pode ser mais de uma coisa. O que você quer registrar?</div>
+                <sc-for list="{{ ai.choices }}" as="x" hint-placeholder-count="2"><button type="button" onClick="{{ x.pick }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer; text-align: left; padding: 0 16px">{{ x.label }}</button></sc-for>
+              </sc-if>
+
+              <sc-if value="{{ ai.confirm }}">
+                <div style="font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">{{ ai.confirmIntro }}</div>
+                <ol style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px">
+                  <sc-for list="{{ ai.plan }}" as="p" hint-placeholder-count="3">
+                    <li style="border: 1px solid {{ t.bord }}; border-radius: {{ t.innerR }}px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+                      <div style="display: flex; gap: 8px; align-items: baseline"><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}">{{ p.n }}</span><span style="font-size: 1rem; font-weight: 600; flex: 1">{{ p.title }}</span></div>
+                      <sc-for list="{{ p.fields }}" as="f" hint-placeholder-count="2"><div style="display: flex; gap: 8px; font-size: 0.875rem"><span style="color: {{ t.dim }}; width: 70px; flex: none">{{ f.k }}</span><span>{{ f.v }}</span></div></sc-for>
+                      <sc-if value="{{ p.hasHour }}">
+                        <div role="radiogroup" aria-label="Horário de início" style="display: flex; gap: 6px"><sc-for list="{{ ai.hours }}" as="hh" hint-placeholder-count="2"><button type="button" role="radio" aria-checked="{{ hh.sel }}" onClick="{{ hh.pick }}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1.5px solid {{ hh.border }}; background: {{ hh.bg }}; color: {{ t.text }}; font-family: {{ t.mono }}; font-size: 0.875rem; cursor: pointer">{{ hh.label }}</button></sc-for></div>
+                      </sc-if>
+                    </li>
+                  </sc-for>
+                </ol>
+                <button type="button" onClick="{{ ai.apply }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">{{ ai.applyLabel }}</button>
+                <button type="button" onClick="{{ ai.back }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-weight: 600; cursor: pointer">Editar o texto</button>
+              </sc-if>
+
+              <sc-if value="{{ ai.result }}">
+                <div style="font-size: 1rem; font-weight: 600">{{ ai.resultTitle }}</div>
+                <sc-for list="{{ ai.results }}" as="r" hint-placeholder-count="3">
+                  <div style="display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: {{ t.innerR }}px; border: 1px solid {{ r.border }}">
+                    <span aria-hidden="true" style="color: {{ r.col }}; font-family: {{ t.mono }}">{{ r.icon }}</span>
+                    <span style="flex: 1"><span style="display: block; font-size: 0.9375rem">{{ r.t }}</span><sc-if value="{{ r.hasWhy }}"><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}; margin-top: 3px">{{ r.why }}</span></sc-if></span>
+                  </div>
+                </sc-for>
+                <sc-if value="{{ ai.hasFail }}"><button type="button" onClick="{{ ai.retryFailed }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Tentar só o que falhou</button></sc-if>
+                <sc-if value="{{ ai.canUndo }}"><button type="button" onClick="{{ ai.undo }}" style="min-height: 48px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-weight: 600; cursor: pointer">Desfazer ({{ ai.undoLeft }} s)</button></sc-if>
+                <button type="button" onClick="{{ ai.newCmd }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-weight: 600; cursor: pointer">Novo comando</button>
+              </sc-if>
+            </sc-if>
+
+            <!-- SISTEMA (permissão) -->
+            <sc-if value="{{ sh.sys }}">
+              <div role="alertdialog" aria-labelledby="sh-t" style="margin: 0 auto; width: 270px; border-radius: 14px; background: {{ t.sysBg }}; color: {{ t.sysFg }}; text-align: center; overflow: hidden; font-family: -apple-system, 'Public Sans', sans-serif">
+                <div style="padding: 18px 16px"><div id="sh-t" style="font-size: 1.0625rem; font-weight: 600">{{ sys.title }}</div><div style="font-size: 0.8125rem; margin-top: 6px; line-height: 1.4">{{ sys.body }}</div></div>
+                <div style="display: flex; border-top: 1px solid {{ t.sysLine }}"><button type="button" onClick="{{ sys.deny }}" style="flex: 1; min-height: 44px; border: none; border-right: 1px solid {{ t.sysLine }}; background: transparent; color: #0A84FF; font-size: 1.0625rem; cursor: pointer">Não permitir</button><button type="button" onClick="{{ sys.allow }}" style="flex: 1; min-height: 44px; border: none; background: transparent; color: #0A84FF; font-size: 1.0625rem; font-weight: 600; cursor: pointer">Permitir</button></div>
+              </div>
+              <div style="font-size: 0.75rem; color: {{ t.dim }}; text-align: center">Diálogo do sistema, simulado</div>
+            </sc-if>
+
+            <!-- GOOGLE -->
+            <sc-if value="{{ sh.google }}">
+              <h2 id="sh-t" style="margin: 4px 0 0; font-size: 1.25rem; font-weight: 600">{{ gg.title }}</h2>
+              <p style="margin: 0; font-size: 0.9375rem; line-height: 1.5">{{ gg.body }}</p>
+              <div style="font-size: 0.75rem; color: {{ t.dim }}">Tela do Google, simulada</div>
+              <button type="button" onClick="{{ gg.allow }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Permitir</button>
+              <button type="button" onClick="{{ gg.deny }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Cancelar</button>
+            </sc-if>
+
+            <!-- CONFIRMAR PAI -->
+            <sc-if value="{{ sh.parent }}">
+              <h2 id="sh-t" style="margin: 4px 0 0; font-size: 1.25rem; font-weight: 600">Concluir com subtarefas abertas?</h2>
+              <p style="margin: 0; font-size: 0.9375rem; line-height: 1.5">{{ parentText }}</p>
+              <button type="button" onClick="{{ parentYes }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Concluir todas</button>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Cancelar</button>
+            </sc-if>
+            <sc-if value="{{ sh.deleteTask }}">
+              <h2 id="sh-t" style="margin: 4px 0 0; font-size: 1.25rem; font-weight: 600">Excluir esta tarefa?</h2>
+              <p style="margin: 0; font-size: 0.9375rem; line-height: 1.5">Você ainda pode desfazer por 5 segundos.</p>
+              <button type="button" onClick="{{ deleteYes }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.err }}; background: {{ t.errSoft }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Excluir</button>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Cancelar</button>
+            </sc-if>
+            <sc-if value="{{ sh.discardEdit }}">
+              <h2 id="sh-t" style="margin: 4px 0 0; font-size: 1.25rem; font-weight: 600">Sair sem salvar?</h2>
+              <p style="margin: 0; font-size: 0.9375rem; line-height: 1.5">As alterações nesta tarefa serão perdidas.</p>
+              <button type="button" onClick="{{ discardYes }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Sair sem salvar</button>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Continuar editando</button>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <div aria-hidden="true" style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: {{ t.text }}; opacity: 0.85; z-index: 9"></div>
+    </div>
+  </div>
+
+  <!-- PAINEL -->
+  <aside aria-label="Painel de simulação" style="width: 380px; max-width: 100%; display: flex; flex-direction: column; gap: 16px; font-size: 14px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E6B64">Ritmo · Fase 1 completa · protótipo</div>
+      <div style="font-size: 22px; font-weight: 600; line-height: 1.2">Simulação de estados</div>
+      <div style="font-size: 13px; color: #57544E; line-height: 1.5">Conjunto separado do M1; nada aqui está disponível no M1. Voz, IA, Google, notificações e rede são simulados. Visual é proposta (Q28). <a href="Ritmo-M1.dc.html">M1</a> · <a href="Ritmo-M1-Handoff.dc.html">Handoff</a></div>
+    </div>
+    <div role="status" aria-live="polite" style="background: #1A1A18; color: #F2F1EC; border-radius: 10px; padding: 12px 14px; font-size: 13px; line-height: 1.5">
+      <div style="font-size: 11px; letter-spacing: 0.12em; color: #A9A79E; margin-bottom: 4px">O QUE ACONTECEU</div>{{ note }}
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">JORNADAS FASE 1</div>
+      <sc-for list="{{ journeys }}" as="j" hint-placeholder-count="14">
+        <button type="button" onClick="{{ j.run }}" style="display: flex; gap: 10px; align-items: baseline; text-align: left; border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-size: 13px; color: #1A1A18; line-height: 1.35" style-hover="background: #FFFFFF">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #8F5609; flex: none">{{ j.id }}</span><span>{{ j.t }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">AMBIENTE</div>
+      <sc-for list="{{ toggles }}" as="g" hint-placeholder-count="7">
+        <button type="button" role="switch" aria-checked="{{ g.on }}" onClick="{{ g.flip }}" style="display: flex; align-items: center; gap: 10px; border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; color: #1A1A18; text-align: left">
+          <span style="flex: 1">{{ g.label }}</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: {{ g.bg }}; color: {{ g.fg }}">{{ g.state }}</span>
+        </button>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">VISUAL E ACESSIBILIDADE</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px">
+        <sc-for list="{{ visualBtns }}" as="v" hint-placeholder-count="8"><button type="button" aria-pressed="{{ v.on }}" onClick="{{ v.run }}" style="border: 1px solid {{ v.border }}; background: {{ v.bg }}; color: {{ v.fg }}; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px">{{ v.label }}</button></sc-for>
+      </div>
+    </div>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = this.init();
+  timers = [];
+
+  init() {
+    let v = {};
+    try { v = JSON.parse(localStorage.getItem("ritmo-m1-visual") || "{}"); } catch (e) {}
+    return Object.assign(this.base(), { skin: v.skin || "holo", mode: v.mode || ((typeof matchMedia !== "undefined" && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark") });
+  }
+  base() {
+    return {
+      screen: "briefing", sheet: null, online: true, clock: "normal", streaksOn: true,
+      xpBase: 2130, awards: { "ler:hoje": 10 },
+      habits: this.seedHabits(), habitId: null, ruleDraft: {},
+      protUsed: true, protRestored: false, fixedProt: {},
+      tasks: this.seedTasks(), taskTab: "abertas", q: "", quick: "", taskId: null, taskDraft: null, parentId: null, delId: null,
+      agenda: "conectado", cals: { pessoal: true, trabalho: false, aniv: false, feriados: false }, writeScope: false, gcalFail: false, events: [], googleMode: "read",
+      ai: { consent: null, stage: "input", text: "", ex: null, hour: "15:00", results: null, recording: false, undoLeft: 0 }, mic: null, quota: false, partialFail: true,
+      analytics: false, crash: true, notif: null, notifDenied: false, briefingNotif: true, streakAlert: true,
+      exportState: "idle", exportFail: false, soundOn: false, levelUp: null,
+      profile: { tz: "Belém (UTC−3)", start: "04:00" }, profDraft: null, profProp: null, delText: "", delDone: false,
+      toast: null, celebrate: null, scale: 1, reduce: false,
+      note: "Briefing da Fase 1: hábitos de todos os tipos, Agenda, Tarefas e assistente."
+    };
+  }
+  seedHabits() {
+    const d7 = ["qua, 1 out", "ter, 30 set", "seg, 29 set", "dom, 28 set", "sáb, 27 set", "sex, 26 set", "qui, 25 set"];
+    const mk = arr => arr.map((s, i) => ({ d: d7[i], s }));
+    return [
+      { id: "med", title: "Meditar", icon: "🧘", type: "bin", done: false, streak: 12, record: 30, rate: 86, last7: mk(["protegido", "feito", "feito", "feito", "feito", "feito", "feito"]) },
+      { id: "agua", title: "Beber água", icon: "💧", type: "qty", unit: "L", goal: 2, contribs: [], proposal: null, streak: 4, record: 11, rate: 71, last7: mk(["protegido", "feito", "feito", "feito", "parcial", "feito", "nao"]) },
+      { id: "ler", title: "Ler 20 páginas", icon: "📖", type: "bin", done: true, streak: 5, record: 21, rate: 64, last7: mk(["feito", "feito", "feito", "feito", "nao", "feito", "feito"]) },
+      { id: "redes", title: "Sem redes antes das 9h", icon: "📵", type: "neg", today: null, streak: 9, record: 15, rate: 80, last7: mk(["resisti", "resisti", "semreg", "resisti", "resisti", "resisti", "recaida"]) },
+      { id: "correr", title: "Correr", icon: "🏃", type: "week", quota: 3, week: 2, runsToday: 0, proposal: null, streak: 3, record: 8, rate: 75, last7: mk(["folga", "feito", "folga", "folga", "feito", "folga", "folga"]) }
+    ];
+  }
+  seedTasks() {
+    return [
+      { id: "t1", title: "Responder e-mail da Ana", prio: "media", dd: -2, done: false },
+      { id: "t2", title: "Revisar proposta", prio: "alta", dd: 0, done: false },
+      { id: "t3", title: "Comprar tinta =3*89,90", prio: "baixa", dd: 0, done: false },
+      { id: "t4", title: "Enviar relatório semanal", prio: "media", dd: 0, done: false, rec: "Toda segunda e quinta", recNext: 4 },
+      { id: "t5", title: "Renovar domínio", prio: "media", dd: 1, done: false },
+      { id: "t6", title: "Reunião de projeto: preparar pauta", prio: "nenhuma", dd: 3, done: false },
+      { id: "t7", title: "Organizar viagem", prio: "nenhuma", dd: null, done: false, subs: [{ t: "Passagens", done: true }, { t: "Hotel", done: true }, { t: "Seguro", done: false }, { t: "Roteiro", done: false }, { t: "Mala", done: false }] },
+      { id: "t8", title: "Trocar lâmpada da sala", prio: "baixa", dd: -1, done: true, doneLabel: "concluída ontem" }
+    ];
+  }
+
+  later(fn, ms) { const id = setTimeout(() => { this.timers = this.timers.filter(x => x !== id); fn(); }, ms); this.timers.push(id); return id; }
+  componentDidMount() { this.applyScale(); }
+  componentDidUpdate() { this.applyScale(); }
+  componentWillUnmount() { clearTimeout(this.lvlTimer); this.timers.forEach(clearTimeout); clearInterval(this.undoTimer); clearTimeout(this.toastTimer); document.documentElement.style.fontSize = ""; }
+  applyScale() { const px = (16 * this.state.scale) + "px"; if (document.documentElement.style.fontSize !== px) document.documentElement.style.fontSize = px; }
+  saveVisual(p) { this.setState(p, () => { try { localStorage.setItem("ritmo-m1-visual", JSON.stringify({ skin: this.state.skin, mode: this.state.mode })); } catch (e) {} }); }
+  note(n) { this.setState({ note: n }); }
+  toast(text, label, action, ms) { clearTimeout(this.toastTimer); this.setState({ toast: { text, label, action } }); this.toastTimer = setTimeout(() => this.setState({ toast: null }), ms || 6000); }
+  go(screen, extra) { this.setState(Object.assign({ screen, sheet: null }, extra || {})); }
+  setH(id, fn) { this.setState(s => ({ habits: s.habits.map(h => h.id === id ? { ...h, ...fn(h) } : h) })); }
+  setT(id, fn) { this.setState(s => ({ tasks: s.tasks.map(k => k.id === id ? { ...k, ...fn(k) } : k) })); }
+  xpOf(s) { return s.xpBase + Object.values(s.awards).reduce((a, b) => a + b, 0); }
+  lvlOf(xp) { let n = 0; while (this.thr(n + 1) <= xp) n++; return n; }
+  award(key, xp) {
+    const before = this.lvlOf(this.xpOf(this.state));
+    this.setState(s => ({ awards: { ...s.awards, [key]: xp } }), () => {
+      const after = this.lvlOf(this.xpOf(this.state));
+      if (after > before) {
+        clearTimeout(this.celebTimer); clearTimeout(this.lvlTimer);
+        this.setState({ celebrate: null, levelUp: after });
+        this.beep(true);
+        this.lvlTimer = setTimeout(() => this.setState({ levelUp: null }), 1500);
+        this.note("Subiu para o nível " + after + ". Animação maior, até 1,5 s, fecha com um toque e não bloqueia o registro.");
+      }
+    });
+  }
+  beep(big) {
+    if (!this.state.soundOn) return;
+    try {
+      const C = window.AudioContext || window.webkitAudioContext; if (!C) return;
+      const ctx = this.actx || (this.actx = new C()), now = ctx.currentTime;
+      (big ? [660, 880, 1320] : [880]).forEach((fq, i) => {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = "triangle"; o.frequency.value = fq; o.connect(g); g.connect(ctx.destination);
+        const t0 = now + i * 0.09; g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.12, t0 + 0.01); g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.18);
+        o.start(t0); o.stop(t0 + 0.2);
+      });
+    } catch (e) {}
+  }
+  unaward(key) { this.setState(s => { const a = { ...s.awards }; delete a[key]; return { awards: a }; }); }
+  celebrate(text) { if (this.state.levelUp) return; this.beep(false); this.setState({ celebrate: text }); clearTimeout(this.celebTimer); this.celebTimer = setTimeout(() => this.setState({ celebrate: null }), 1400); }
+  fmt(n) { return n.toLocaleString("pt-BR", { maximumFractionDigits: 2 }); }
+  strip(s) { return (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+  calc(title) {
+    const m = /=\s*([\d\s+\-*/().,]+)$/.exec(title || ""); if (!m) return null;
+    const expr = m[1].replace(/,/g, ".").trim(); if (!/^[\d\s+\-*/().]+$/.test(expr)) return null;
+    try { const v = Function("return (" + expr + ")")(); if (typeof v !== "number" || !isFinite(v)) return null; return v.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); } catch (e) { return null; }
+  }
+  thr(n) { return Math.round(100 * Math.pow(n, 1.5) / 10) * 10; }
+
+  // ---------- hábitos ----------
+  toggleBin(id) {
+    const h = this.state.habits.find(x => x.id === id), nd = !h.done;
+    this.setH(id, () => ({ done: nd }));
+    if (nd) { this.award(id + ":hoje", 10); this.celebrate("+10 XP"); this.note(h.title + " feito: +10 XP. Desfazer tira os 10; remarcar devolve os mesmos 10."); }
+    else { this.unaward(id + ":hoje"); this.note(h.title + " desfeito: XP revertido, histórico preservado."); }
+  }
+  addQty(id, amt, dev) {
+    const h = this.state.habits.find(x => x.id === id);
+    const c = h.contribs.concat([{ id: "c" + Date.now() + Math.random(), amt, dev: dev || "Este iPhone · agora" }]);
+    const sum = c.reduce((a, x) => a + x.amt, 0);
+    this.setH(id, () => ({ contribs: c }));
+    const key = id + ":hoje";
+    if (sum >= h.goal && !this.state.awards[key]) { this.award(key, 10); this.celebrate("Meta de água · +10 XP"); this.note("Meta atingida neste registro: +10 XP, uma vez. Passar da meta não dá XP extra."); }
+    else this.note("Contribuição de " + this.fmt(amt) + " " + h.unit + " somada. Total " + this.fmt(sum) + " " + h.unit + ".");
+  }
+  undoQty(id, cid) {
+    const h = this.state.habits.find(x => x.id === id), removed = h.contribs.find(x => x.id === cid);
+    const c = h.contribs.filter(x => x.id !== cid), sum = c.reduce((a, x) => a + x.amt, 0);
+    this.setH(id, () => ({ contribs: c }));
+    if (sum < h.goal) this.unaward(id + ":hoje");
+    this.note("Desfeita só a contribuição de " + this.fmt(removed.amt) + " " + h.unit + ". Total agora " + this.fmt(sum) + " " + h.unit + ".");
+  }
+  negSet(id, v) {
+    const h = this.state.habits.find(x => x.id === id);
+    if (v === "resisti") { this.setH(id, () => ({ today: "resisti" })); this.award(id + ":hoje", 10); this.celebrate("+10 XP"); this.note("“Resisti hoje” é registro explícito: +10 XP. Sem registro, a série avança na virada, mas sem XP."); }
+    else { this.setH(id, x => ({ today: "recaida", streakBefore: x.streak, streak: 0 })); this.note("Recaída registrada sem julgamento. Série interrompida; XP já ganho continua."); }
+  }
+  negUndo(id) {
+    const h = this.state.habits.find(x => x.id === id);
+    this.setH(id, x => ({ today: null, streak: x.today === "recaida" ? x.streakBefore : x.streak }));
+    if (h.today === "resisti") this.unaward(id + ":hoje");
+    this.note("Registro de hoje desfeito.");
+  }
+  addRun(id) {
+    const h = this.state.habits.find(x => x.id === id), n = h.week + 1;
+    this.setH(id, x => ({ week: n, runsToday: x.runsToday + 1 }));
+    if (n <= h.quota) { this.award(id + ":run" + n, 10); this.celebrate("+10 XP"); this.note("Corrida registrada: " + n + " de " + h.quota + " na semana. +10 XP."); }
+    else this.note("Quota semanal já cumprida: registro extra aceito, sem XP adicional.");
+  }
+  retro(id, idx) {
+    const h = this.state.habits.find(x => x.id === id), day = h.last7[idx];
+    const was = day.s, now = h.type === "neg" ? "resisti" : "feito";
+    const undoing = day.retro;
+    this.setH(id, x => ({ last7: x.last7.map((d, i) => i === idx ? { ...d, s: undoing ? d.orig : now, retro: !undoing, orig: undoing ? undefined : was } : d), streak: !undoing && was === "nao" ? x.streak : x.streak }));
+    const key = id + ":retro:" + idx;
+    if (undoing) { this.unaward(key); this.note("Correção retroativa desfeita."); }
+    else { this.award(key, 10); this.note("Registrado em " + day.d + ": +10 XP naquele dia, pela regra vigente na data."); }
+    if (idx === 0 && (was === "protegido" || undoing)) {
+      const fixed = { ...this.state.fixedProt, [id]: !undoing };
+      const all = fixed.med && fixed.agua;
+      this.setState({ fixedProt: fixed, protRestored: !!all });
+      if (!undoing) this.note(all ? "As duas ausências protegidas de ontem foram corrigidas. A proteção volta para outubro (2 de 2)." : "Correção registrada. A proteção de ontem continua usada, porque " + (id === "med" ? "Beber água" : "Meditar") + " ainda depende dela.");
+    }
+  }
+  saveRule(id) {
+    const s = this.state, h = s.habits.find(x => x.id === id), val = s.ruleDraft[id];
+    if (val == null) return;
+    const cur = h.type === "qty" ? h.goal : h.quota;
+    if (val === cur) { this.note("Nenhuma mudança na regra."); return; }
+    const status = s.online ? "aceita" : "aguardando";
+    this.setH(id, () => ({ proposal: { val, status } }));
+    this.note(s.online ? (h.type === "week" ? "Aceita hoje (quinta). Como muda uma quota semanal, vale a partir da próxima segunda lógica, 6 out. Até lá, a quota antiga vale." : "Aceita hoje (quinta). Vale a partir do próximo dia lógico, sexta, 3 out. Hoje segue a meta antiga.") : "Salva neste aparelho, aguardando conexão. A regra atual continua valendo.");
+  }
+
+  // ---------- tarefas ----------
+  xpFor(p) { return { nenhuma: 5, baixa: 5, media: 8, alta: 12 }[p] || 5; }
+  toggleTask(id) {
+    const k = this.state.tasks.find(x => x.id === id);
+    if (!k.done && k.subs && k.subs.some(x => !x.done)) { this.setState({ sheet: "parent", parentId: id }); return; }
+    this.completeTask(id, !k.done);
+  }
+  completeTask(id, nd, allSubs) {
+    const k = this.state.tasks.find(x => x.id === id);
+    this.setT(id, x => ({ done: nd, doneLabel: nd ? "concluída agora" : null, subs: allSubs && x.subs ? x.subs.map(z => ({ ...z, done: true })) : x.subs }));
+    const key = "task:" + id;
+    if (nd) {
+      this.award(key, this.xpFor(k.prio)); this.celebrate("+" + this.xpFor(k.prio) + " XP");
+      if (k.rec && !this.state.tasks.some(x => x.fromId === id)) {
+        const next = { id: id + "n", title: k.title, prio: k.prio, dd: k.recNext, done: false, rec: k.rec, recNext: k.recNext + 3, fromId: id, edited: false };
+        this.setState(s => ({ tasks: s.tasks.concat([next]) }));
+        this.toast("Concluída. Próxima ocorrência: segunda, 6 out.", "Desfazer", () => this.undoRecurring(id), 8000);
+        this.note("Recorrente concluída: próxima nasce pela data planejada (seg, 6 out), não pela data de conclusão. +" + this.xpFor(k.prio) + " XP.");
+      } else {
+        this.toast("Tarefa concluída.", "Desfazer", () => this.completeTask(id, false));
+        this.note("Tarefa concluída: +" + this.xpFor(k.prio) + " XP (prioridade " + k.prio + "). Desfazer em até 24 h reverte.");
+      }
+    } else { this.unaward(key); this.note("Conclusão desfeita, XP revertido."); }
+  }
+  undoRecurring(id) {
+    const next = this.state.tasks.find(x => x.fromId === id);
+    if (next && next.edited) { this.toast("A próxima ocorrência já foi alterada. Este desfazer não pode ser aplicado."); this.note("Desfazer bloqueado: a próxima ocorrência teve intervenção sua. O trabalho foi preservado."); return; }
+    this.setState(s => ({ tasks: s.tasks.filter(x => x.fromId !== id) }));
+    this.completeTask(id, false);
+    this.note("Desfeito: próxima ocorrência removida e a anterior reaberta.");
+  }
+  openTask(id) { const k = this.state.tasks.find(x => x.id === id); this.go("tarefa", { taskId: id, taskDraft: { title: k.title, prio: k.prio, subs: k.subs ? k.subs.map(z => ({ ...z })) : null } }); }
+  taskDirty() { const s = this.state, k = s.tasks.find(x => x.id === s.taskId), d = s.taskDraft; if (!k || !d) return false; return d.title !== k.title || d.prio !== k.prio || JSON.stringify(d.subs) !== JSON.stringify(k.subs || null); }
+  saveTask() {
+    const s = this.state, d = s.taskDraft, title = d.title.trim();
+    if (!title) { this.toast("Dê um título à tarefa."); return; }
+    this.setT(s.taskId, x => ({ title, prio: d.prio, subs: d.subs, edited: x.fromId ? true : x.edited }));
+    this.go("tarefas"); this.toast(s.online ? "Tarefa salva." : "Salvo neste aparelho. Vamos sincronizar quando a conexão voltar.");
+  }
+  addQuick() {
+    const t = this.state.quick.trim(); if (!t) return;
+    this.setState(s => ({ tasks: [{ id: "q" + Date.now(), title: t, prio: "nenhuma", dd: null, done: false }].concat(s.tasks), quick: "" }));
+    this.note("Tarefa criada “Sem data” só com título" + (this.state.online ? "." : ", salva neste aparelho (offline).") + (this.calc(t) ? " O cálculo aparece ao lado; o título original fica preservado." : ""));
+  }
+
+  // ---------- assistente ----------
+  examples() {
+    return [
+      { id: "med", label: "“marquei meditar”", text: "marquei meditar" },
+      { id: "hab", label: "“cria o hábito alongar todo dia”", text: "cria o hábito alongar todo dia" },
+      { id: "ev", label: "“amanhã às 3 reunião com a Bia”", text: "amanhã às 3 reunião com a Bia" },
+      { id: "amb", label: "“registra academia”", text: "registra academia" },
+      { id: "multi", label: "“bebi dois litros, comprar pão e dentista sexta às 9”", text: "bebi dois litros de água, comprar pão e marcar dentista sexta às 9" }
+    ];
+  }
+  setAI(p) { this.setState(s => ({ ai: { ...s.ai, ...p } })); }
+  openAI() { this.setState({ sheet: "ai" }); if (this.state.ai.consent === null) this.setAI({ stage: "consent" }); else if (this.state.ai.consent === false) this.setAI({ stage: "manual" }); else if (!["result"].includes(this.state.ai.stage)) this.setAI({ stage: "input" }); }
+  holdStart() {
+    const s = this.state;
+    if (s.mic === null) { this.setState({ sheet: "sys", sysKind: "mic" }); return; }
+    if (s.mic === "denied") return;
+    this.setAI({ recording: true }); this.recStart = Date.now();
+  }
+  holdEnd() {
+    if (!this.state.ai.recording) return;
+    const ex = this.examples().find(x => x.id === this.state.ai.ex) || this.examples()[0];
+    const quiet = Date.now() - this.recStart < 400;
+    this.setAI({ recording: false, text: quiet ? this.state.ai.text : ex.text });
+    this.note(quiet ? "Gravação curta demais: nada foi captado. O texto anterior foi preservado." : "Transcrição simulada. Confira e edite antes de continuar.");
+  }
+  interpret() {
+    const s = this.state, txt = this.strip(s.ai.text);
+    if (s.quota) { this.setAI({ stage: "manual", manualMsg: "Você usou o limite do assistente hoje (50 pedidos). Hábitos e tarefas continuam funcionando pelos botões." }); this.note("Quota diária atingida: alternativa manual, sem bloquear hábitos e tarefas."); return; }
+    if (!s.online) {
+      if (/^(comprar|ligar|enviar|pagar|lembrar)\b/.test(txt) && !txt.includes(",")) {
+        this.setState(st => ({ tasks: [{ id: "q" + Date.now(), title: s.ai.text.trim(), prio: "nenhuma", dd: null, done: false }].concat(st.tasks) }));
+        this.setAI({ stage: "result", results: [{ ok: true, t: "Tarefa “" + s.ai.text.trim() + "” criada, sem data", why: "Interpretação local limitada, sem conexão." }] });
+        return;
+      }
+      this.setAI({ stage: "manual", manualMsg: "Sem conexão, o assistente não consegue interpretar este pedido. Você pode registrar manualmente." }); this.note("IA offline: só título de tarefa simples é interpretado localmente."); return;
+    }
+    if (txt.includes("meditar")) { this.runPlan([{ kind: "med" }], false); return; }
+    if (txt.includes("academia")) { this.setAI({ stage: "clarify" }); this.note("Ambiguidade: o assistente pergunta em vez de adivinhar."); return; }
+    if (txt.includes("habito")) { this.setAI({ stage: "confirm", plan: [{ kind: "newhab" }] }); this.note("Criar hábito recorrente sempre pede confirmação."); return; }
+    if (txt.includes("litros") || txt.includes(",")) { this.setAI({ stage: "confirm", plan: [{ kind: "agua2" }, { kind: "task", title: "Comprar pão" }, { kind: "event", title: "Dentista", day: "sex, 3 out", start: "09:00", end: "10:00" }] }); this.note("Três intenções. Uma é evento, que exige confirmação, então o conjunto todo é confirmado de uma vez."); return; }
+    if (txt.includes("reuniao") || txt.includes("bia")) { this.setAI({ stage: "confirm", plan: [{ kind: "event", title: "Reunião com a Bia", day: "sex, 3 out", start: s.ai.hour, end: s.ai.hour === "15:00" ? "16:00" : "04:00", hour: true }] }); this.note("“Às 3” interpretado como 15:00 e mostrado explícito e editável."); return; }
+    this.setAI({ stage: "manual", manualMsg: "Não entendi com segurança e não alterei nada. Você pode reformular ou registrar manualmente." });
+  }
+  runPlan(plan, confirmed) {
+    const s = this.state, results = [];
+    plan.forEach(p => {
+      if (p.kind === "med") { const h = s.habits.find(x => x.id === "med"); if (!h.done) this.toggleBin("med"); results.push({ ok: true, t: "Meditar marcado como feito · +10 XP" }); }
+      if (p.kind === "agua2") { this.addQty("agua", 2, "Assistente · agora"); results.push({ ok: true, t: "Beber água: +2 L" }); }
+      if (p.kind === "task") { this.setState(st => ({ tasks: [{ id: "q" + Date.now() + p.title, title: p.title, prio: "nenhuma", dd: null, done: false }].concat(st.tasks) })); results.push({ ok: true, t: "Tarefa “" + p.title + "” criada" }); }
+      if (p.kind === "newhab") { this.setState(st => st.habits.some(h => h.id === "along") ? null : ({ habits: st.habits.concat([{ id: "along", title: "Alongar", icon: "🤸", type: "bin", done: false, streak: 0, record: 0, rate: 0, last7: [] }]) })); results.push({ ok: true, t: "Hábito “Alongar” criado · todo dia" }); }
+      if (p.kind === "event") {
+        const fail = s.agenda !== "conectado" ? "Agenda não conectada. Posso criar como tarefa." : (!s.writeScope ? "Falta permissão para criar eventos no Google." : (s.partialFail && plan.length > 1 ? "O Google Calendar não respondeu." : null));
+        const ev = { id: "e" + Date.now(), t: p.title, day: p.day, h: p.start + "–" + p.end, status: fail ? (s.agenda === "conectado" ? (s.writeScope ? "falhou" : "permissao") : "semagenda") : (s.online ? "confirmado" : "pendente"), reason: fail };
+        if (s.agenda === "conectado") this.setState(st => ({ events: st.events.concat([ev]) }));
+        results.push({ ok: !fail, t: (fail ? "Evento “" : "Evento “") + p.title + "” · " + p.day + ", " + p.start, why: fail, evId: ev.id, plan: p });
+      }
+    });
+    const nOk = results.filter(r => r.ok).length;
+    this.setAI({ stage: "result", results, undoLeft: 10 });
+    clearInterval(this.undoTimer);
+    this.undoTimer = setInterval(() => { const l = this.state.ai.undoLeft - 1; this.setAI({ undoLeft: Math.max(0, l) }); if (l <= 0) clearInterval(this.undoTimer); }, 1000);
+    if (results.length > 1) this.note(nOk + " de " + results.length + " aplicadas. Só a que falhou pode ser repetida; as outras não são reenviadas.");
+    else if (!confirmed) this.note("Registro simples sem ambiguidade: aplicado direto, com desfazer por 10 s.");
+  }
+  retryFailed() {
+    const s = this.state, results = s.ai.results.map(r => {
+      if (r.ok || !r.evId) return r;
+      if (!s.writeScope && s.agenda === "conectado") { this.setState({ sheet: "google", googleMode: "write" }); return r; }
+      this.setState(st => ({ events: st.events.map(e => e.id === r.evId ? { ...e, status: "confirmado", reason: null } : e) }));
+      return { ...r, ok: true, why: null };
+    });
+    this.setState({ partialFail: false });
+    this.setAI({ results });
+    this.note("Repetido só o evento que falhou. Água e tarefa não foram enviados de novo.");
+  }
+  undoAI() {
+    const r = this.state.ai.results || [];
+    r.forEach(x => {
+      if (x.t.startsWith("Meditar")) this.toggleBin("med");
+      if (x.t.startsWith("Beber água")) { const h = this.state.habits.find(z => z.id === "agua"); const c = h.contribs[h.contribs.length - 1]; if (c) this.undoQty("agua", c.id); }
+      if (x.t.startsWith("Tarefa")) this.setState(st => ({ tasks: st.tasks.filter(k => !("Tarefa “" + k.title + "” criada" === x.t)) }));
+      if (x.t.startsWith("Hábito")) this.setState(st => ({ habits: st.habits.filter(h => h.id !== "along") }));
+      if (x.evId) this.setState(st => ({ events: st.events.filter(e => e.id !== x.evId) }));
+    });
+    clearInterval(this.undoTimer);
+    this.setAI({ stage: "input", results: null, undoLeft: 0 });
+    this.note("Ações do assistente desfeitas dentro dos 10 s, respeitando as regras de cada módulo.");
+  }
+
+  journeys() {
+    const P = (extra, mut, msg) => () => {
+      this.timers.forEach(clearTimeout); this.timers = []; clearInterval(this.undoTimer);
+      const st = Object.assign(this.base(), { skin: this.state.skin, mode: this.state.mode, scale: this.state.scale, reduce: this.state.reduce }, extra, { note: msg });
+      if (mut) mut(st);
+      this.setState(st);
+    };
+    const hab = (st, id, p) => { st.habits = st.habits.map(h => h.id === id ? { ...h, ...p } : h); };
+    return [
+      { id: "D13", t: "00:30 de sexta: tarefa de quinta atrasada, hábito ainda é de quinta", run: P({ clock: "0030" }, null, "Relógio em sexta 00:30. Tarefas usam a meia-noite; hábitos e XP, a virada das 04:00.") },
+      { id: "D14", t: "Água 0,5 (iPhone) + 0,7 (Android) = 1,2 L; desfazer 0,5", run: P({ screen: "habito", habitId: "agua" }, st => hab(st, "agua", { contribs: [{ id: "c1", amt: 0.5, dev: "iPhone · 07:40" }, { id: "c2", amt: 0.7, dev: "Android · 08:05" }] }), "Duas contribuições de aparelhos diferentes somam 1,2 L. Desfaça a de 0,5.") },
+      { id: "D15", t: "Meta de água alterada offline: proposta; aceite quinta vale sexta", run: P({ screen: "habito", habitId: "agua", online: false, ruleDraft: { agua: 2.5 } }, null, "Offline. Salve a nova meta (2,5 L) e depois ligue a conexão.") },
+      { id: "D16", t: "Quota semanal 3→4 aceita quinta vale na próxima segunda", run: P({ screen: "habito", habitId: "correr", ruleDraft: { correr: 4 } }, null, "Salve a nova quota. Como é regra semanal, a vigência é a próxima segunda lógica.") },
+      { id: "D17", t: "Retroativo nos 7 dias; futuro e mais antigo bloqueados", run: P({ screen: "habito", habitId: "med" }, null, "Registre um dia passado. Veja as datas bloqueadas no fim da lista.") },
+      { id: "D18", t: "Negativo: resistir, recaída neutra, ausência sem XP", run: P({ screen: "habito", habitId: "redes" }, null, "Toque em “Resisti hoje” ou “Tive uma recaída”.") },
+      { id: "D19", t: "Proteção conjunta; correção parcial mantém, completa devolve", run: P({ screen: "briefing" }, null, "Ontem uma proteção cobriu Meditar e Beber água. Corrija ontem em um e depois no outro.") },
+      { id: "D20", t: "Desligar séries tira toda a UI de ofensivas; XP fica", run: P({ screen: "ajustes" }, null, "Desligue “Séries e ofensivas” e volte ao Briefing.") },
+      { id: "D21", t: "Subtarefas; recorrente com próxima editada bloqueia desfazer", run: P({ screen: "tarefas" }, null, "Conclua “Organizar viagem” (tem subtarefas abertas). Depois conclua “Enviar relatório semanal”, edite a próxima e tente desfazer.") },
+      { id: "D22", t: "Calendar recusado/revogado; evento pendente e falho", run: P({ screen: "agenda", agenda: "desconectado" }, null, "Conecte e cancele no Google; tente de novo. Depois use “Acesso revogado” no painel.") },
+      { id: "D23", t: "Voz simulada, transcrição editável, ambiguidade, confirmação", run: P({ ai: { consent: null, stage: "consent", text: "", ex: "ev", hour: "15:00", results: null, recording: false, undoLeft: 0 } }, null, "Abra o assistente (botão de microfone). Aceite a IA e segure para falar.") },
+      { id: "D24", t: "Três ações, uma falha → 2/3 e repetir só a falha; offline/quota", run: P({ writeScope: true, ai: { consent: true, stage: "input", text: "bebi dois litros de água, comprar pão e marcar dentista sexta às 9", ex: "multi", hour: "15:00", results: null, recording: false, undoLeft: 0 } }, null, "Abra o assistente e toque Continuar. Depois teste com Conexão OFFLINE ou quota esgotada.") },
+      { id: "D25", t: "Recusar microfone, notificações, IA e analytics separadamente", run: P({ screen: "ajustes" }, null, "Recuse cada permissão por vez. O app continua funcionando manualmente.") },
+      { id: "NÍV", t: "Subir de nível: marque Meditar (faltam 5 XP)", run: P({ xpBase: 2245 }, null, "Faltam poucos XP para o nível 8. Marque Meditar no Briefing. Ligue o som em Ajustes para ouvir.") },
+      { id: "PERF", t: "Mudar início do dia 04:00 → 05:00: vale no próximo dia lógico", run: P({ screen: "perfil", profDraft: { tz: "Belém (UTC−3)", start: "05:00" } }, null, "Salve. Online: aceito hoje, vale sexta. Offline: fica como proposta até confirmar.") },
+      { id: "D26", t: "Exportar JSON e excluir conta com confirmação digitada", run: P({ screen: "exportar" }, null, "Peça a exportação (teste a falha no painel). Depois vá em Excluir conta.") }
+    ];
+  }
+
+  palettes() {
+    return {
+      cockpit: { name: "Cockpit", head: "'Chakra Petch', sans-serif", r: 10, btnR: 8, fabR: 18,
+        dark: { bg: "#06080B", surf: "#0D141A", bord: "#1C2A33", text: "#DCEAF0", dim: "#93A8B2", accent: "#3EE0FF", accentText: "#3EE0FF", onAccent: "#04161C", warn: "#F0A93B", err: "#FF8A7A", link: "#6FE8FF" },
+        light: { bg: "#EEF3F5", surf: "#FFFFFF", bord: "#D3DEE3", text: "#0D1A20", dim: "#4F6873", accent: "#07758C", accentText: "#06687C", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#06687C" } },
+      neo: { name: "Neo-tokyo", head: "'Space Grotesk', sans-serif", r: 20, btnR: 999, fabR: 30,
+        dark: { bg: "#0D0A12", surf: "#171022", bord: "#2D2040", text: "#EFE9F6", dim: "#AEA2C0", accent: "#FF5FA2", accentText: "#FF7DB3", onAccent: "#12060C", warn: "#FFC24D", err: "#FF8A7A", link: "#FF8DBD" },
+        light: { bg: "#F6F1F7", surf: "#FFFFFF", bord: "#E8DCEB", text: "#1E1424", dim: "#665770", accent: "#C2296D", accentText: "#AD2261", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#AD2261" } },
+      holo: { name: "Holograma", head: "'Chakra Petch', sans-serif", r: 4, btnR: 4, fabR: 6,
+        dark: { bg: "#04090F", surf: "#08141D", bord: "#143D50", text: "#D7ECF5", dim: "#88AEBF", accent: "#63F5D8", accentText: "#63F5D8", onAccent: "#031511", warn: "#FFB661", err: "#FF8A7A", link: "#7FF7E0" },
+        light: { bg: "#EDF4F4", surf: "#FFFFFF", bord: "#C7DCDF", text: "#0B1B20", dim: "#4B6972", accent: "#0B7A68", accentText: "#096B5B", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#096B5B" } }
+    };
+  }
+  rgba(hex, a) { const n = parseInt(hex.slice(1), 16); return "rgba(" + (n >> 16) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")"; }
+
+  renderVals() {
+    const s = this.state, P = this.palettes(), S = P[s.skin], c = S[s.mode], dark = s.mode === "dark", R = (h, x) => this.rgba(h, x);
+    const t = Object.assign({}, c, {
+      head: S.head, mono: "'JetBrains Mono', monospace", r: S.r, btnR: S.btnR, fabR: S.fabR,
+      innerR: Math.max(4, Math.min(12, S.r - 4)), boxR: Math.min(9, Math.max(4, Math.round(S.r * 0.5))),
+      track: dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)", inputBg: dark ? "rgba(255,255,255,0.03)" : "#F7F9FA", bordStrong: R(c.text, dark ? 0.32 : 0.34),
+      scan: s.skin === "holo" ? "repeating-linear-gradient(0deg, " + R(c.accent, dark ? 0.035 : 0.05) + " 0 1px, transparent 1px 4px)" : "none",
+      glow: s.skin === "neo" ? "0 12px 30px -18px " + R(c.accent, dark ? 0.4 : 0.28) : (dark ? "none" : "0 1px 2px rgba(0,0,0,0.05)"),
+      warnSoft: R(c.warn, dark ? 0.12 : 0.1), warnLine: R(c.warn, 0.5), errSoft: R(c.err, dark ? 0.12 : 0.07), accentSoft: R(c.accent, 0.13), accentLine: R(c.accent, 0.45),
+      tr: s.reduce ? "none" : "background-color 200ms ease, width 320ms ease, left 200ms ease",
+      overlay: dark ? "rgba(0,0,0,0.62)" : "rgba(10,20,25,0.42)", tabBg: dark ? R(c.bg, 0.96) : R(c.surf, 0.97),
+      toastBg: dark ? "#F2F4F5" : "#12181C", toastFg: dark ? "#0B1115" : "#F2F4F5", toastLink: dark ? "#06687C" : "#6FE8FF",
+      sysBg: dark ? "#2C2C2E" : "#F2F2F7", sysFg: dark ? "#FFFFFF" : "#000000", sysLine: dark ? "#48484A" : "#C6C6C8"
+    });
+    const L = "1px solid " + c.accent;
+    const corners = s.skin === "cockpit" ? [{ l: "8px", t: "8px", r: "auto", b: "auto", s: 7, bl: L, bt: L, br: "none", bb: "none", o: 0.6 }, { l: "auto", t: "auto", r: "8px", b: "8px", s: 7, bl: "none", bt: "none", br: L, bb: L, o: 0.6 }]
+      : s.skin === "holo" ? [{ l: "5px", t: "5px", r: "auto", b: "auto", s: 10, bl: L, bt: L, br: "none", bb: "none", o: 1 }, { l: "auto", t: "5px", r: "5px", b: "auto", s: 10, bl: "none", bt: L, br: L, bb: "none", o: 1 }, { l: "5px", t: "auto", r: "auto", b: "5px", s: 10, bl: L, bt: "none", br: "none", bb: L, o: 1 }, { l: "auto", t: "auto", r: "5px", b: "5px", s: 10, bl: "none", bt: "none", br: L, bb: L, o: 1 }] : [];
+
+    const scr = s.screen, is = {};
+    ["briefing", "tarefas", "tarefa", "habitos", "habito", "agenda", "ajustes", "exportar", "excluir", "perfil"].forEach(k => is[k] = scr === k);
+    const nav = {}; ["briefing", "tarefas", "habitos", "agenda", "ajustes"].forEach(k => nav[k] = () => this.go(k));
+    const tabDefs = [["briefing", "☀", "Briefing", ["briefing"]], ["tarefas", "✓", "Tarefas", ["tarefas", "tarefa"]], ["habitos", "◎", "Hábitos", ["habitos", "habito"]], ["agenda", "▦", "Agenda", ["agenda"]], ["ajustes", "⚙", "Ajustes", ["ajustes", "exportar", "excluir", "perfil"]]];
+    const tabs = tabDefs.map(d => ({ icon: d[1], label: d[2], go: () => this.go(d[0]), cur: d[3].includes(scr) ? "page" : "false", col: d[3].includes(scr) ? c.accentText : c.dim }));
+
+    const mid = s.clock === "0030";
+    const xp = s.xpBase + Object.values(s.awards).reduce((a, b) => a + b, 0);
+    let n = 0; while (this.thr(n + 1) <= xp) n++;
+    const lo = this.thr(n), hi = this.thr(n + 1);
+    const lvl = { n, next: n + 1, cur: (xp - lo).toLocaleString("pt-BR"), span: (hi - lo).toLocaleString("pt-BR"), pct: Math.round((xp - lo) / (hi - lo) * 100) };
+
+    // hábitos
+    const typeLabel = { bin: "Todo dia · sim ou não", qty: "Todo dia · quantidade", neg: "Evitar · registro explícito", week: "N vezes por semana" };
+    const hRows = s.habits.map((h, i) => {
+      let sub = "", done = false, pct = 0, isCheck = false, isQty = false, quick = null, subCol = c.dim;
+      if (h.type === "bin") { isCheck = true; done = h.done; sub = done ? "Feito · +10 XP" : "Toque para marcar"; quick = () => this.toggleBin(h.id); }
+      if (h.type === "qty") { const sum = h.contribs.reduce((a, x) => a + x.amt, 0); isQty = true; pct = Math.min(100, Math.round(sum / h.goal * 100)); done = sum >= h.goal; sub = this.fmt(sum) + " de " + this.fmt(h.goal) + " " + h.unit + (done ? " · meta ✓" : ""); quick = () => this.addQty(h.id, 0.5); }
+      if (h.type === "neg") { isCheck = true; done = h.today === "resisti"; sub = h.today === "resisti" ? "Resisti hoje · +10 XP" : h.today === "recaida" ? "Recaída registrada" : "Sem registro hoje"; quick = () => h.today === "resisti" ? this.negUndo(h.id) : (h.today === "recaida" ? this.go("habito", { habitId: h.id }) : this.negSet(h.id, "resisti")); }
+      if (h.type === "week") { isCheck = true; done = h.runsToday > 0; sub = h.week + " de " + h.quota + " nesta semana"; quick = () => this.addRun(h.id); }
+      return { id: h.id, title: h.title, icon: h.icon, typeLabel: typeLabel[h.type], sub, subCol, done, pct, isCheck, isQty, quick, sep: i === 0 ? "none" : "1px solid " + c.bord,
+        boxBorder: done ? "none" : "1.5px solid " + t.bordStrong, boxBg: done ? c.accent : "transparent",
+        aria: h.title + ": " + sub + ". " + (h.type === "qty" ? "Toque para somar 0,5 L." : "Toque para registrar."),
+        showStreak: s.streaksOn && h.streak > 0, streak: h.type === "week" ? h.streak + "s" : h.streak,
+        open: () => this.go("habito", { habitId: h.id }) };
+    });
+    const doneN = hRows.filter(r => r.done).length;
+
+    // detalhe hábito
+    let hd = {};
+    const h = s.habits.find(x => x.id === s.habitId);
+    if (h) {
+      const sum = h.type === "qty" ? h.contribs.reduce((a, x) => a + x.amt, 0) : 0;
+      const stateInfo = { feito: ["■", "Feito", c.text], parcial: ["◧", "Parcial", c.text], nao: ["▢", "Não feito", c.dim], folga: ["·", "Sem registro (semana)", c.dim], protegido: ["◆", "Protegido (não conta como feito)", c.warn], resisti: ["■", "Resisti", c.text], recaida: ["×", "Recaída", c.text], semreg: ["▢", "Sem registro", c.dim] };
+      const days = [{ d: "sex, 3 out", s: "futuro", future: true }].concat(h.last7.map((d, i) => ({ ...d, idx: i }))).concat([{ d: "qua, 24 set", s: "fora" }]);
+      const draft = s.ruleDraft[h.id] != null ? s.ruleDraft[h.id] : (h.type === "qty" ? h.goal : h.quota);
+      const prop = h.proposal;
+      const stats = [["Taxa (dias devidos)", h.rate + "%"]];
+      if (s.streaksOn) { stats.push([h.type === "week" ? "Série (semanas)" : "Série", String(h.streak)]); stats.push(["Recorde", String(h.record)]); }
+      const seedRand = k => { let x = Math.sin(k * 9301 + h.id.length * 49297) * 233280; return x - Math.floor(x); };
+      const heatCol = { f: c.accent, p: R(c.accent, 0.4), n: t.track, fo: "transparent", pr: c.warn };
+      const heat = []; for (let w = 0; w < 53; w++) { const col = []; for (let d = 0; d < 7; d++) { const r = seedRand(w * 7 + d); col.push(w === 52 && d > 3 ? "transparent" : r < h.rate / 100 ? heatCol.f : r < h.rate / 100 + 0.06 ? heatCol.p : r > 0.985 ? heatCol.pr : heatCol.n); } heat.push(col); }
+      hd = {
+        icon: h.icon, title: h.title, typeLabel: typeLabel[h.type] + (h.type === "qty" ? " · meta " + this.fmt(h.goal) + " " + h.unit : h.type === "week" ? " · " + h.quota + "×" : ""),
+        stats: stats.map(x => ({ k: x[0], v: x[1] })),
+        todayTitle: mid ? "Quinta, 2 out (dia lógico)" : "Hoje",
+        isBin: h.type === "bin", isQty: h.type === "qty", isNeg: h.type === "neg", isWeek: h.type === "week",
+        done: !!h.done, toggle: () => this.toggleBin(h.id), binLabel: h.done ? "✓ Feito hoje · toque para desfazer" : "Marcar como feito",
+        binBg: h.done ? c.accent : "transparent", binFg: h.done ? c.onAccent : c.text, binBorder: h.done ? "none" : "1.5px solid " + t.bordStrong,
+        sum: this.fmt(sum) + " " + (h.unit || ""), goal: this.fmt(h.goal || 0) + " " + (h.unit || ""), pct: h.goal ? Math.min(100, Math.round(sum / h.goal * 100)) : 0, goalMet: h.goal && sum >= h.goal,
+        adds: [0.25, 0.5, 1].map(a => ({ label: this.fmt(a) + " L", run: () => this.addQty(h.id, a) })),
+        contribs: (h.contribs || []).map(x => ({ amt: "+" + this.fmt(x.amt) + " L", dev: x.dev, undo: () => this.undoQty(h.id, x.id) })),
+        resist: () => this.negSet(h.id, "resisti"), relapse: () => this.negSet(h.id, "recaida"), resisted: h.today === "resisti", relapsed: h.today === "recaida",
+        resBg: h.today === "resisti" ? c.accent : "transparent", resFg: h.today === "resisti" ? c.onAccent : c.text, resBorder: h.today === "resisti" ? "none" : "1.5px solid " + t.bordStrong, relBg: h.today === "recaida" ? t.track : "transparent",
+        negMsg: h.today === "resisti" ? "Registrado. +10 XP hoje." : h.today === "recaida" ? "A série foi interrompida. Você pode recomeçar." : "Sem registro hoje. A série avança na virada do dia, mas o XP só vem com “Resisti hoje”.",
+        canUndoNeg: !!h.today, undoNeg: () => this.negUndo(h.id),
+        weekLabel: h.week + " de " + h.quota + " nesta semana", weekDots: Array.from({ length: Math.max(h.quota || 0, h.week || 0) }, (_, i) => i < h.week ? (i < h.quota ? c.accent : R(c.accent, 0.4)) : t.track),
+        addRun: () => this.addRun(h.id), runLabel: "Registrar corrida hoje", extraNote: h.week >= h.quota,
+        hasRule: h.type === "qty" || h.type === "week", ruleTitle: h.type === "qty" ? "Meta diária" : "Vezes por semana",
+        ruleNow: h.type === "qty" ? this.fmt(h.goal) + " L por dia" : h.quota + " vezes por semana",
+        hasProposal: !!prop, propTag: prop && prop.status === "aceita" ? "ACEITA" : "PROPOSTA",
+        propText: !prop ? "" : prop.status === "aguardando" ? "Nova regra: " + (h.type === "qty" ? this.fmt(prop.val) + " L" : prop.val + "×") + ". Salva aqui, aguardando conexão. A regra atual continua valendo." : "Nova regra: " + (h.type === "qty" ? this.fmt(prop.val) + " L. Vale a partir de sexta, 3 out." : prop.val + "× por semana. Vale a partir de segunda, 6 out.") + " Dias anteriores mantêm a regra original.",
+        ruleDraft: h.type === "qty" ? this.fmt(draft) + " L" : draft + "×",
+        ruleMinus: () => this.setState(st => ({ ruleDraft: { ...st.ruleDraft, [h.id]: Math.max(h.type === "qty" ? 0.25 : 1, +(draft - (h.type === "qty" ? 0.25 : 1)).toFixed(2)) } })),
+        rulePlus: () => this.setState(st => ({ ruleDraft: { ...st.ruleDraft, [h.id]: +(draft + (h.type === "qty" ? 0.25 : 1)).toFixed(2) } })),
+        saveRule: () => this.saveRule(h.id),
+        days: days.map((d, i) => {
+          const info = d.future ? ["—", "Ainda não chegou", c.dim] : d.s === "fora" ? ["—", "Fora da janela de 7 dias", c.dim] : stateInfo[d.s] || ["·", d.s, c.dim];
+          const canRetro = !d.future && d.s !== "fora" && h.type !== "week" && (d.retro || ["nao", "protegido", "parcial", "semreg"].includes(d.s));
+          return { d: d.d, icon: info[0], label: info[1] + (d.retro ? " · corrigido" : ""), col: info[2], sep: i === 0 ? "none" : "1px solid " + c.bord, canAct: canRetro, actLabel: d.retro ? "Desfazer" : (h.type === "neg" ? "Resisti" : "Registrar"), act: () => this.retro(h.id, d.idx) };
+        }),
+        showHeat: h.type === "bin" || h.type === "qty", heat,
+        heatAlt: "Últimos 12 meses: " + h.rate + "% dos dias devidos cumpridos" + (s.streaksOn ? ", série atual " + h.streak + ", recorde " + h.record : "") + "."
+      };
+    }
+    const legend = [["■", "feito", c.accent], ["◧", "parcial", R(c.accent, 0.4)], ["▢", "não feito", t.track], ["◆", "protegido", c.warn], ["·", "folga", "transparent"]].map(x => ({ icon: x[0], t: x[1], c: x[2] }));
+
+    // tarefas
+    const todayDD = mid ? 1 : 0;
+    const dueText = dd => { if (dd == null) return "Sem data"; const r = dd - todayDD; const names = { "-2": "ter, 30 set", "-1": "qua, 1 out", "0": "qui, 2 out", "1": "sex, 3 out", "2": "sáb, 4 out", "3": "dom, 5 out", "4": "seg, 6 out", "7": "qui, 9 out" }; const nm = names[String(dd)] || "em " + dd + " dias"; if (r < 0) return "venceu " + (r === -1 ? "ontem, " : "") + nm; if (r === 0) return "hoje"; if (r === 1) return "amanhã"; return nm; };
+    const prioName = { nenhuma: "", baixa: "baixa", media: "média", alta: "alta" };
+    const q = this.strip(s.q);
+    const mkTask = (k, i) => {
+      const r = k.dd == null ? null : k.dd - todayDD, late = r != null && r < 0 && !k.done;
+      const calc = this.calc(k.title);
+      const meta = [k.done ? (k.doneLabel || "concluída") : dueText(k.dd), prioName[k.prio], k.rec ? "↻ " + k.rec : "", k.subs ? k.subs.filter(z => z.done).length + "/" + k.subs.length : "", calc ? "= " + calc : ""].filter(Boolean).join(" · ");
+      return { id: k.id, title: k.title, done: k.done, meta: (late ? "⏰ " : "") + meta, metaCol: late ? c.warn : c.dim, sep: i === 0 ? "none" : "1px solid " + c.bord,
+        boxBorder: k.done ? "none" : (late ? "1.5px solid " + c.warn : "1.5px solid " + t.bordStrong), boxBg: k.done ? c.accent : "transparent",
+        toggle: () => this.toggleTask(k.id), open: () => this.openTask(k.id) };
+    };
+    const open = s.tasks.filter(k => !k.done);
+    const matches = k => !q || this.strip(k.title).includes(q);
+    const groupsDef = [["ATRASADAS", k => k.dd != null && k.dd - todayDD < 0, c.warn], ["HOJE", k => k.dd === todayDD, c.dim], ["AMANHÃ", k => k.dd === todayDD + 1, c.dim], ["PRÓXIMOS 7 DIAS", k => k.dd != null && k.dd - todayDD > 1 && k.dd - todayDD <= 7, c.dim], ["SEM DATA", k => k.dd == null, c.dim]];
+    let taskGroups;
+    if (s.taskTab === "abertas") taskGroups = groupsDef.map(g => { const items = open.filter(g[1]).filter(matches); return { label: g[0], col: g[2], n: items.length, items: items.map(mkTask) }; }).filter(g => g.n);
+    else { const items = s.tasks.filter(k => k.done).filter(matches); taskGroups = items.length ? [{ label: "CONCLUÍDAS · 30 DIAS", col: c.dim, n: items.length, items: items.map(mkTask) }] : []; }
+    const tkCardList = open.filter(k => k.dd != null && k.dd - todayDD <= 0).sort((a, b) => a.dd - b.dd).slice(0, 5);
+    const qc = this.calc(s.quick);
+
+    let tk = {};
+    const tt = s.tasks.find(x => x.id === s.taskId);
+    if (tt && s.taskDraft) {
+      const d = s.taskDraft;
+      tk = {
+        draft: d.title, len: d.title.length, onTitle: ev => { const v = ev.target.value; this.setState(st => ({ taskDraft: { ...st.taskDraft, title: v } })); },
+        hasCalc: !!this.calc(d.title), calc: this.calc(d.title) || "",
+        prios: [["nenhuma", "Nenhuma"], ["baixa", "Baixa"], ["media", "Média"], ["alta", "Alta"]].map(p => ({ label: p[1], sel: d.prio === p[0], border: d.prio === p[0] ? c.accent : c.bord, bg: d.prio === p[0] ? t.accentSoft : "transparent", pick: () => this.setState(st => ({ taskDraft: { ...st.taskDraft, prio: p[0] } })) })),
+        due: dueText(tt.dd), rec: tt.rec || "Não repete",
+        hasSubs: !!d.subs, subProg: d.subs ? d.subs.filter(z => z.done).length + "/" + d.subs.length : "",
+        subs: (d.subs || []).map((z, i) => ({ t: z.t, done: z.done, mark: z.done ? "✓" : "", border: z.done ? "none" : "1.5px solid " + t.bordStrong, bg: z.done ? c.accent : "transparent", sep: i === 0 ? "none" : "1px solid " + c.bord, toggle: () => this.setState(st => ({ taskDraft: { ...st.taskDraft, subs: st.taskDraft.subs.map((y, j) => j === i ? { ...y, done: !y.done } : y) } })) })),
+        editedNext: !!tt.fromId,
+        save: () => this.saveTask(), complete: () => { this.go("tarefas"); this.toggleTask(tt.id); }, completeLabel: tt.done ? "Reabrir" : "Concluir",
+        del: () => this.setState({ sheet: "deleteTask", delId: tt.id })
+      };
+    }
+    const parent = s.tasks.find(x => x.id === s.parentId);
+
+    // agenda
+    const calsOn = Object.values(s.cals).some(Boolean);
+    const agBase = [
+      { day: "qui", h: "09:00–10:00", t: "Reunião de projeto", sub: "Escritório", soon: true },
+      { day: "qui", h: "11:30–12:00", t: "Call com a equipe de Lisboa", sub: "Horário aqui · 15:30 em Lisboa" },
+      { day: "qui", h: "12:30–13:30", t: "Almoço com Bia", sub: "? Convite sem resposta", prov: true },
+      { day: "qui", h: "15:00–16:00", t: "Dentista", sub: "Cancelado", cancel: true },
+      { day: "qui", h: "17:00", t: "Ligar para fornecedor", sub: "Sem horário de fim · 1 h estimada" },
+      { day: "sex", h: "09:30–10:30", t: "Revisão com cliente", sub: "" }
+    ];
+    const extra = s.events.map(e => ({ day: e.day.startsWith("sex") ? "sex" : "qui", h: e.h, t: e.t, sub: { confirmado: "✓ Confirmado no Google Calendar", pendente: "◐ Salvo neste aparelho, aguardando conexão", falhou: "⚠ Este evento ainda não foi confirmado no Google Calendar.", permissao: "⚠ Falta permissão para criar eventos." }[e.status], subCol: e.status === "falhou" || e.status === "permissao" ? c.warn : c.dim, evId: e.id, status: e.status }));
+    const all = agBase.concat(extra);
+    const mkEv = (e, i) => ({ h: e.h, t: e.t, sub: e.sub, hasSub: !!e.sub, subCol: e.subCol || c.dim, sep: i === 0 ? "none" : "1px solid " + c.bord, deco: e.cancel ? "line-through" : "none", col: e.cancel ? c.dim : c.text,
+      hasAct: e.status === "falhou" || e.status === "permissao", actLabel: e.status === "permissao" ? "Autorizar" : "Tentar de novo",
+      act: () => { if (e.status === "permissao") this.setState({ sheet: "google", googleMode: "write" }); else { this.setState(st => ({ events: st.events.map(x => x.id === e.evId ? { ...x, status: st.online ? "confirmado" : "pendente" } : x) })); this.note("Evento reenviado."); } } });
+    const todayKey = mid ? "sex" : "qui";
+    const ag = {
+      showConnect: ["desconectado", "recusado", "revogado"].includes(s.agenda), showCals: s.agenda === "calendarios", showList: s.agenda === "conectado",
+      connectTitle: s.agenda === "recusado" ? "Agenda não conectada" : s.agenda === "revogado" ? "Acesso removido" : "Conectar Google Calendar",
+      connectText: s.agenda === "recusado" ? "Tudo bem. Hábitos, tarefas e o resto do app seguem normais. Você pode conectar quando quiser." : s.agenda === "revogado" ? "O acesso ao Google Calendar foi retirado. Reconecte para ver seus compromissos de novo." : "O Ritmo só lê seus compromissos. Criar eventos pede uma permissão separada, quando você usar.",
+      connectBtn: s.agenda === "desconectado" ? "Conectar" : "Conectar de novo", connect: () => this.setState({ sheet: "google", googleMode: "read" }),
+      cals: [["pessoal", "Pessoal", "Principal"], ["trabalho", "Trabalho", ""], ["aniv", "Aniversários", "Automático do Google"], ["feriados", "Feriados no Brasil", "Assinatura pública"]].map((k, i) => ({ name: k[1], sub: k[2], on: s.cals[k[0]], mark: s.cals[k[0]] ? "✓" : "", border: s.cals[k[0]] ? "none" : "1.5px solid " + t.bordStrong, bg: s.cals[k[0]] ? c.accent : "transparent", sep: i === 0 ? "none" : "1px solid " + c.bord, toggle: () => this.setState(st => ({ cals: { ...st.cals, [k[0]]: !st.cals[k[0]] } })) })),
+      saveCals: () => { this.setState({ agenda: "conectado" }); this.note(calsOn ? "Calendários salvos." : "Nenhum calendário selecionado: o card da Agenda some do Briefing, sem erro."); },
+      editCals: () => this.setState({ agenda: "calendarios" }),
+      days: calsOn ? [["qui", "HOJE · QUI, 2 OUT", ["Conferência de produto · qui a sex"]], ["sex", "AMANHÃ · SEX, 3 OUT", ["Conferência de produto · qui a sex"]]].filter(d => !mid || d[0] === "sex").map(d => ({ label: mid && d[0] === "sex" ? "HOJE · SEX, 3 OUT" : d[1], allDay: d[2], events: all.filter(e => e.day === d[0]).map(mkEv) })) : []
+    };
+    const agendaCard = all.filter(e => e.day === todayKey && !e.cancel).slice(0, 4).map(e => ({ h: e.h.split("–")[0], t: e.t, sub: e.soon && !mid ? "Em 48 min · " + e.sub : (e.prov ? "Provisório · convite sem resposta" : (e.sub || "")), hasSub: !!(e.sub || e.prov || e.soon), pad: e.soon && !mid ? "8px 10px" : "0", bg: e.soon && !mid ? t.accentSoft : "transparent" }));
+
+    // assistente
+    const a = s.ai, st = a.stage;
+    const exs = this.examples();
+    const plan = (a.plan || []).map((p, i) => {
+      if (p.kind === "event") return { n: (i + 1) + ".", title: "Criar evento: " + p.title, fields: [["Data", p.day], ["Início", p.hour ? a.hour : p.start], ["Fim", p.hour ? (a.hour === "15:00" ? "16:00" : "04:00") : p.end], ["Fuso", "Belém (UTC−3)"], ["Destino", s.agenda === "conectado" ? "Google Calendar · Pessoal" : "Agenda não conectada"]].map(f => ({ k: f[0], v: f[1] })), hasHour: !!p.hour };
+      if (p.kind === "newhab") return { n: (i + 1) + ".", title: "Criar hábito: Alongar", fields: [["Tipo", "Sim ou não"], ["Repetição", "Todo dia"]].map(f => ({ k: f[0], v: f[1] })), hasHour: false };
+      if (p.kind === "agua2") return { n: (i + 1) + ".", title: "Registrar Beber água", fields: [["Quantidade", "2 L"]].map(f => ({ k: f[0], v: f[1] })), hasHour: false };
+      return { n: (i + 1) + ".", title: "Criar tarefa: " + p.title, fields: [["Prazo", "Sem data"]].map(f => ({ k: f[0], v: f[1] })), hasHour: false };
+    });
+    const res = (a.results || []).map(r => ({ t: r.t, why: r.why || "", hasWhy: !!r.why, icon: r.ok ? "✓" : "⚠", col: r.ok ? c.accentText : c.warn, border: r.ok ? c.bord : t.warnLine }));
+    const nOk = (a.results || []).filter(r => r.ok).length, nAll = (a.results || []).length;
+    const aiV = {
+      consent: st === "consent", manual: st === "manual", input: st === "input", clarify: st === "clarify", confirm: st === "confirm", result: st === "result",
+      allow: () => { this.setAI({ consent: true, stage: "input" }); this.note("IA permitida. Consentimento separado de analytics e do microfone."); },
+      deny: () => { this.setAI({ consent: false, stage: "manual", manualMsg: "Tudo bem. Nada foi enviado à IA. Você pode registrar tudo manualmente." }); this.note("IA recusada: nada é enviado; funções manuais seguem."); },
+      manualMsg: a.manualMsg || "Tudo bem. Nada foi enviado à IA. Você pode registrar tudo manualmente.", canReconsent: a.consent === false, reconsent: () => this.setAI({ stage: "consent" }),
+      examples: exs.map(x => ({ label: x.label, sel: a.ex === x.id, border: a.ex === x.id ? c.accent : c.bord, bg: a.ex === x.id ? t.accentSoft : "transparent", pick: () => this.setAI({ ex: x.id }) })),
+      micDenied: s.mic === "denied", canVoice: s.mic !== "denied",
+      holdStart: () => this.holdStart(), holdEnd: () => this.holdEnd(), recording: !!a.recording,
+      micBg: a.recording ? c.accent : "transparent", micFg: a.recording ? c.onAccent : c.text, micLabel: a.recording ? "Gravando… solte para parar (até 30 s)" : "Segure para falar",
+      bars: [10, 18, 26, 14, 22, 12, 20].map((hh, i) => ({ h: hh, anim: s.reduce ? "none" : "rt-wave 0.9s ease-in-out " + (i * 0.12).toFixed(2) + "s infinite" })),
+      textLabel: s.mic === "denied" ? "Digite o comando" : "Transcrição (edite se precisar)", text: a.text, onText: ev => this.setAI({ text: ev.target.value }),
+      noText: !a.text.trim(), sendOp: a.text.trim() ? 1 : 0.45, interpret: () => this.interpret(),
+      choices: [{ label: "🏃 Registrar Correr (hábito semanal)", pick: () => { this.addRun("correr"); this.setAI({ stage: "result", results: [{ ok: true, t: "Correr registrado · " + (s.habits.find(x => x.id === "correr").week + 1) + " nesta semana" }], undoLeft: 0 }); } }, { label: "✅ Criar tarefa “Academia”", pick: () => this.runPlan([{ kind: "task", title: "Academia" }], true) }],
+      confirmIntro: plan.length > 1 ? "Confira as " + plan.length + " ações. Como uma delas precisa de confirmação, todas são confirmadas juntas." : "Confira antes de aplicar.",
+      plan, applyLabel: plan.length > 1 ? "Confirmar as " + plan.length : "Confirmar", apply: () => this.runPlan(a.plan, true), back: () => this.setAI({ stage: "input" }),
+      hours: ["15:00", "03:00"].map(x => ({ label: x, sel: a.hour === x, border: a.hour === x ? c.accent : c.bord, bg: a.hour === x ? t.accentSoft : "transparent", pick: () => this.setAI({ hour: x }) })),
+      results: res, resultTitle: nAll > 1 ? nOk + " de " + nAll + " feitas" : (nOk ? "Pronto" : "Não foi possível"), hasFail: nOk < nAll, retryFailed: () => this.retryFailed(),
+      canUndo: a.undoLeft > 0 && nOk > 0, undoLeft: a.undoLeft, undo: () => this.undoAI(), newCmd: () => this.setAI({ stage: "input", text: "", results: null })
+    };
+
+    const sysKind = s.sysKind;
+    const sys = sysKind === "mic"
+      ? { title: "“Ritmo” quer acessar o microfone", body: "Para transformar sua voz em comandos. A gravação só acontece enquanto você segura o botão.",
+          allow: () => { this.setState({ mic: "granted", sheet: "ai" }); this.note("Microfone permitido."); }, deny: () => { this.setState({ mic: "denied", sheet: "ai" }); this.note("Microfone negado: o assistente segue por texto, sem repetir o pedido."); } }
+      : { title: "“Ritmo” quer enviar notificações", body: "Lembretes de hábitos e tarefas e o Briefing da manhã.",
+          allow: () => { this.setState({ notif: "granted", sheet: null }); this.note("Notificações permitidas."); }, deny: () => { this.setState({ notif: "denied", notifDenied: true, sheet: null }); this.note("Notificações negadas: aviso uma única vez; ativar depois pelos Ajustes do sistema."); } };
+    const gg = s.googleMode === "write"
+      ? { title: "Permitir que o Ritmo crie eventos", body: "Com essa permissão, eventos confirmados no assistente vão para o calendário Pessoal. Você pode revogar no Google a qualquer momento.",
+          allow: () => { this.setState(x => ({ writeScope: true, sheet: "ai", events: x.events.map(e => e.status === "permissao" ? { ...e, status: x.online ? "confirmado" : "pendente" } : e), ai: { ...x.ai, results: (x.ai.results || []).map(r => r.why && r.why.startsWith("Falta") ? { ...r, ok: true, why: null } : r) } })); this.note("Permissão de escrita concedida. Evento enviado."); },
+          deny: () => { this.setState({ sheet: null }); this.note("Escrita recusada: o evento fica salvo aqui com o motivo; leitura continua."); } }
+      : { title: "Ritmo quer ver seus calendários", body: "Leitura dos eventos dos calendários que você escolher. Não cria nem altera nada.",
+          allow: () => { this.setState({ agenda: "calendarios", sheet: null }); this.note("Leitura autorizada. Escolha os calendários."); }, deny: () => { this.setState({ agenda: "recusado", sheet: null }); this.note("Conexão cancelada. Os outros módulos não mudam."); } };
+
+    const sw = (k, sub, on, run) => ({ k, sub, hasSub: !!sub, on, run, role: "switch", isSwitch: true, isLink: false, swBg: on ? c.accent : t.track, knob: on ? 23 : 3, knobBg: on ? c.onAccent : (dark ? "#DCEAF0" : "#FFFFFF") });
+    const lk = (k, sub, val, run) => ({ k, sub, hasSub: !!sub, on: "false", run, role: "button", isSwitch: false, isLink: true, val });
+    const sepify = rows => rows.map((r, i) => ({ ...r, sep: i === 0 ? "none" : "1px solid " + c.bord }));
+    const pendN = 0;
+    const settings = [
+      { title: "GAMIFICAÇÃO", rows: sepify([sw("Séries e ofensivas", "Desligar remove séries, proteções e alertas de série. XP, nível e conquistas continuam.", s.streaksOn, () => { this.setState({ streaksOn: !s.streaksOn }); this.note(s.streaksOn ? "Séries desligadas: toda a UI de ofensiva saiu. XP e nível ficam." : "Séries religadas: derivadas do histórico."); })].concat(s.streaksOn ? [lk("Proteções de outubro", "Automáticas, 2 por mês. Não contam como feito.", (s.protRestored ? 2 : 1) + " de 2", () => {})] : []).concat([sw("Som de celebração", "Curto, desligado por padrão. Respeita o modo silencioso do aparelho.", s.soundOn, () => { this.setState({ soundOn: !s.soundOn }); this.note(s.soundOn ? "Som desligado." : "Som ligado: toca ao ganhar XP e um acorde maior ao subir de nível."); }), lk("Conquistas", "Poucas e simples no lançamento", "3 exemplos", () => {})])) },
+      { title: "PERFIL", rows: sepify([lk("Fuso e início do dia", s.profProp ? "Mudança agendada" : "", s.profile.start + " · " + s.profile.tz.split(" (")[0], () => this.go("perfil", { profDraft: { ...(s.profProp || s.profile) } }))]) },
+      { title: "NOTIFICAÇÕES", rows: sepify([lk("Permissão do sistema", "", s.notif === "granted" ? "Permitida" : s.notif === "denied" ? "Negada" : "Não pedida", () => { if (s.notif === null) this.setState({ sheet: "sys", sysKind: "notif" }); }), sw("Briefing da manhã", "07:00, no máximo uma vez por dia.", s.briefingNotif, () => this.setState({ briefingNotif: !s.briefingNotif }))].concat(s.streaksOn ? [sw("Alerta de série", "No máximo um por dia.", s.streakAlert, () => this.setState({ streakAlert: !s.streakAlert }))] : [])) },
+      { title: "PRIVACIDADE", rows: sepify([
+        sw("Assistente com IA", "Recusar mantém tudo manual.", s.ai.consent === true, () => { this.setAI({ consent: s.ai.consent === true ? false : true, stage: s.ai.consent === true ? "manual" : "input" }); this.note(s.ai.consent === true ? "IA desligada." : "IA ligada."); }),
+        sw("Dados de uso anônimos", "Sem títulos, transcrições ou conteúdo pessoal.", s.analytics, () => { this.setState({ analytics: !s.analytics }); this.note("Analytics é opt-in e independente da IA."); }),
+        sw("Relatórios de erro", "Ajuda a corrigir falhas do app.", s.crash, () => this.setState({ crash: !s.crash })),
+        lk("Microfone", "", s.mic === "granted" ? "Permitido" : s.mic === "denied" ? "Negado" : "Não pedido", () => {}),
+        lk("Política de privacidade", "", "", () => {})
+      ]) },
+      { title: "INTEGRAÇÕES E DADOS", rows: sepify([
+        lk("Google Calendar", "", s.agenda === "conectado" ? "Conectado" : "Desconectado", () => this.go("agenda")),
+        lk("Exportar meus dados", "JSON, em até 24 h", "", () => this.go("exportar")),
+        lk("Excluir conta", "", "", () => this.go("excluir"))
+      ]) }
+    ];
+    const exMap = { solicitado: ["✓", "Pedido recebido. Você recebe o arquivo em até 24 horas.", t.accentSoft, t.accentLine], falhou: ["⚠", "Não foi possível pedir a exportação agora. Nada foi perdido.", t.warnSoft, t.warnLine], offline: ["⊘", "Sem conexão. Peça a exportação quando a internet voltar.", t.warnSoft, t.warnLine] };
+    const exm = exMap[s.exportState];
+    const ex = { idle: s.exportState === "idle", hasMsg: !!exm, icon: exm ? exm[0] : "", msg: exm ? exm[1] : "", bg: exm ? exm[2] : "", border: exm ? exm[3] : "", canRetry: s.exportState === "falhou" || s.exportState === "offline",
+      request: () => { const r = !s.online ? "offline" : s.exportFail ? "falhou" : "solicitado"; this.setState({ exportState: r }); this.note({ offline: "Exportação exige conexão.", falhou: "Falha simulada na exportação: estado a detalhar.", solicitado: "Exportação pedida (simulado). Entrega em até 24 h por e-mail ou compartilhamento." }[r]); } };
+    const delOk = s.delText.trim() === "EXCLUIR";
+    const del = { notDone: !s.delDone, done: s.delDone, text: s.delText, onText: ev => this.setState({ delText: ev.target.value }), disabled: !delOk || !s.online, op: delOk && s.online ? 1 : 0.45,
+      btn: !s.online ? "Excluir conta exige conexão" : "Excluir conta", pendText: "Registros ainda não sincronizados neste aparelho serão descartados junto com a conta.",
+      run: () => { this.setState({ delDone: true }); this.note("Exclusão confirmada (simulado): anonimização imediata; processamento e falhas ainda a detalhar."); } };
+
+    const tg = (label, on, flip, a1, a2) => ({ label, on, flip, state: on ? (a1 || "LIGADO") : (a2 || "DESLIGADO"), bg: on ? "#1A1A18" : "#E4E2DC", fg: on ? "#FFFFFF" : "#57544E" });
+    const toggles = [
+      tg("Conexão", s.online, () => { const v = !s.online; this.setState(x => ({ online: v, events: v ? x.events.map(e => e.status === "pendente" ? { ...e, status: "confirmado" } : e) : x.events, habits: v ? x.habits.map(h => h.proposal && h.proposal.status === "aguardando" ? { ...h, proposal: { ...h.proposal, status: "aceita" } } : h) : x.habits, profProp: v && x.profProp && x.profProp.status === "aguardando" ? { ...x.profProp, status: "aceita" } : x.profProp })); this.note(v ? "Online. Propostas pendentes foram aceitas hoje (quinta) e ganham data de vigência." : "Offline: registros locais continuam; Agenda mostra o cache."); }, "ONLINE", "OFFLINE"),
+      tg("Relógio: sexta 00:30", mid, () => this.setState({ clock: mid ? "normal" : "0030" })),
+      tg("Quota do assistente esgotada", s.quota, () => this.setState({ quota: !s.quota })),
+      tg("Falha parcial no Google (1 de 3)", s.partialFail, () => this.setState({ partialFail: !s.partialFail })),
+      tg("Permissão de escrita no Google", s.writeScope, () => this.setState({ writeScope: !s.writeScope })),
+      tg("Acesso ao Google revogado", s.agenda === "revogado", () => { this.setState({ agenda: s.agenda === "revogado" ? "conectado" : "revogado" }); this.note(s.agenda === "revogado" ? "Reconectado." : "Acesso revogado: card da Agenda some do Briefing; aviso não bloqueante."); }),
+      tg("Falha ao pedir exportação", s.exportFail, () => this.setState({ exportFail: !s.exportFail }))
+    ];
+    const vb = (label, on, run) => ({ label, on, run, bg: on ? "#1A1A18" : "#FAF9F6", fg: on ? "#FFFFFF" : "#1A1A18", border: on ? "#1A1A18" : "#D3D0C8" });
+    const visualBtns = [vb("Cockpit", s.skin === "cockpit", () => this.saveVisual({ skin: "cockpit" })), vb("Neo-tokyo", s.skin === "neo", () => this.saveVisual({ skin: "neo" })), vb("Holograma", s.skin === "holo", () => this.saveVisual({ skin: "holo" })), vb("Escuro", dark, () => this.saveVisual({ mode: "dark" })), vb("Claro", !dark, () => this.saveVisual({ mode: "light" })), vb("Texto 100%", s.scale === 1, () => this.setState({ scale: 1 })), vb("Texto 200%", s.scale === 2, () => this.setState({ scale: 2 })), vb("Reduzir movimento", s.reduce, () => this.setState({ reduce: !s.reduce }))];
+
+    return {
+      t, corners, is, nav, tabs, skinName: S.name, modeName: dark ? "escuro" : "claro", scaleLabel: s.scale === 2 ? "200%" : "100%",
+      clockTime: mid ? "00:30" : "08:12", netLabel: s.online ? "5G" : "Sem rede", netColor: s.online ? c.text : c.warn, offline: !s.online,
+      dateLabel: mid ? "Sexta, 3 de outubro" : "Quinta, 2 de outubro", greeting: mid ? "Boa noite, Pedro" : "Bom dia, Pedro",
+      lvl, streaksOn: s.streaksOn, globalStreak: 23, showProtection: s.streaksOn && s.protUsed && !s.protRestored && !mid,
+      showRevoked: s.agenda === "revogado", goAgenda: () => this.go("agenda"), isMidnight: mid,
+      habitsTitle: mid ? "Hábitos de quinta, 2 out" : "Hábitos de hoje", habDoneLabel: doneN + "/" + hRows.length, hRows,
+      showAgendaCard: s.agenda === "conectado" && calsOn, agendaCardTitle: mid ? "Agenda · sexta" : "Agenda de hoje", agendaCard, agendaCardEmpty: !agendaCard.length,
+      tkCard: tkCardList.map(mkTask), tkCardCount: String(tkCardList.length),
+      quick: s.quick, onQuick: ev => this.setState({ quick: ev.target.value }), quickKey: ev => { if (ev.key === "Enter") this.addQuick(); }, addQuick: () => this.addQuick(), quickCalc: !!qc, quickCalcVal: qc || "",
+      q: s.q, onQ: ev => this.setState({ q: ev.target.value }),
+      taskTabs: [["abertas", "Abertas"], ["concluidas", "Concluídas"]].map(b => ({ label: b[1], sel: s.taskTab === b[0], bg: s.taskTab === b[0] ? c.accent : "transparent", fg: s.taskTab === b[0] ? c.onAccent : c.text, pick: () => this.setState({ taskTab: b[0] }) })),
+      taskGroups, noSearchResult: !!q && !taskGroups.length, noDoneTasks: !q && s.taskTab === "concluidas" && !taskGroups.length,
+      tk, taskBack: () => { if (this.taskDirty()) this.setState({ sheet: "discardEdit" }); else this.go("tarefas"); },
+      parentText: parent ? "“" + parent.title + "” tem " + parent.subs.filter(z => !z.done).length + " subtarefas abertas. Concluir a tarefa conclui todas." : "",
+      parentYes: () => { const id = s.parentId; this.setState({ sheet: null }); this.completeTask(id, true, true); },
+      deleteYes: () => { const k = s.tasks.find(x => x.id === s.delId); this.setState(x => ({ tasks: x.tasks.filter(y => y.id !== s.delId), sheet: null, screen: "tarefas" })); this.toast("Tarefa excluída.", "Desfazer", () => this.setState(x => ({ tasks: [k].concat(x.tasks) })), 5000); },
+      discardYes: () => this.go("tarefas"),
+      hd, legend, ag,
+      showFab: true, openAI: () => this.openAI(), ai: aiV, sys, gg,
+      settings, notifDeniedMsg: s.notifDenied, ex, del, pf: (() => {
+        const p = s.profile, d = s.profDraft || p, pr = s.profProp, base = pr || p;
+        const dirty = d.tz !== base.tz || d.start !== base.start;
+        const setD = patch => this.setState(st => ({ profDraft: { ...(st.profDraft || st.profile), ...patch } }));
+        return {
+          now: p.start + " · " + p.tz, tz: d.tz, tzs: ["Belém (UTC−3)", "São Paulo (UTC−3)", "Manaus (UTC−4)", "Rio Branco (UTC−5)", "Lisboa (UTC+1)"],
+          onTz: ev => setD({ tz: ev.target.value }),
+          starts: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"].map(x => ({ label: x, sel: d.start === x, border: d.start === x ? c.accent : c.bord, bg: d.start === x ? t.accentSoft : "transparent", pick: () => setD({ start: x }) })),
+          dirty, clean: !dirty, op: dirty ? 1 : 0.45,
+          preview: "Hoje (quinta) continua com " + p.start + " · " + p.tz.split(" (")[0] + ". A mudança vale a partir do próximo dia lógico, sexta, 3 out.",
+          hasProp: !!pr, propTag: pr && pr.status === "aceita" ? "AGENDADA" : "PROPOSTA",
+          propText: !pr ? "" : pr.start + " · " + pr.tz + (pr.status === "aceita" ? ". Vale a partir de sexta, 3 out." : ". Salva neste aparelho, aguardando conexão. A regra atual continua valendo."),
+          save: () => { const status = s.online ? "aceita" : "aguardando"; this.setState({ profProp: { ...d, status } }); this.toast(s.online ? "Mudança agendada para sexta." : "Salvo neste aparelho. Vamos confirmar quando a conexão voltar."); this.note(s.online ? "Aceita hoje; vale no próximo dia lógico. Hábitos de hoje seguem a virada antiga." : "Offline: proposta local, sem efeito até o aceite remoto."); },
+          cancel: () => { this.setState({ profProp: null, profDraft: { ...p } }); this.note("Mudança agendada cancelada."); }
+        };
+      })(),
+      lvlUpOn: !!s.levelUp, lvlUpN: s.levelUp || "", lvlAnim: s.reduce ? "none" : "rt-lvl 1.5s ease forwards", ringAnim: s.reduce ? "none" : "rt-ring 0.9s ease-out forwards", dismissLvl: () => { clearTimeout(this.lvlTimer); this.setState({ levelUp: null }); },
+      hasSheet: !!s.sheet, closeSheet: () => this.setState({ sheet: null }),
+      sh: { ai: s.sheet === "ai", sys: s.sheet === "sys", google: s.sheet === "google", parent: s.sheet === "parent", deleteTask: s.sheet === "deleteTask", discardEdit: s.sheet === "discardEdit" },
+      hasToast: !!s.toast, toastText: s.toast ? s.toast.text : "", hasToastAction: !!(s.toast && s.toast.label), toastActionLabel: s.toast ? s.toast.label : "", toastAction: () => { const x = s.toast; this.setState({ toast: null }); if (x && x.action) x.action(); },
+      celebrateOn: !!s.celebrate, celebrateText: s.celebrate || "", celebAnim: s.reduce ? "none" : "rt-pop 1.4s ease forwards", dismissCelebrate: () => this.setState({ celebrate: null }),
+      note: s.note, journeys: this.journeys(), toggles, visualBtns
+    };
+  }
+}
+</script>
+</body>
+</html>

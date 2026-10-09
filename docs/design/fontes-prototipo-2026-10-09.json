@@ -1,0 +1,80 @@
+{
+  "received": "2026-10-09",
+  "files": [
+    {
+      "path": "Protótipos de assistente pessoal/.thumbnail",
+      "bytes": 13012,
+      "sha256": "047b2cb94783a3812ba68a914d8e36bbeeec85c1c872d15218d69261831f6b87"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-App.dc.html",
+      "bytes": 203965,
+      "sha256": "a37d1a92cac66cc302cdb0603f5636e079b66369d9feacf13f264964ba0c0557",
+      "lfBytes": 203965,
+      "lfSha256": "a37d1a92cac66cc302cdb0603f5636e079b66369d9feacf13f264964ba0c0557"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-Briefing.dc.html",
+      "bytes": 345205,
+      "sha256": "6316cc24b2c8fe94550a6fb3d3aaebafa46ca3d3ba57c61eed506ea9dac4cbb8",
+      "lfBytes": 345205,
+      "lfSha256": "6316cc24b2c8fe94550a6fb3d3aaebafa46ca3d3ba57c61eed506ea9dac4cbb8"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-Fase1.dc.html",
+      "bytes": 146949,
+      "sha256": "0a46ec6cb40138e92547cefb3797e0102ad26ea1e73450432295f9d91cd4e0a5",
+      "lfBytes": 146949,
+      "lfSha256": "0a46ec6cb40138e92547cefb3797e0102ad26ea1e73450432295f9d91cd4e0a5"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-Fase2A.dc.html",
+      "bytes": 83492,
+      "sha256": "6053c6e0b1b4671c2fe04b70dfc0c3b56e925fe27e5f7c5e47ea524407db6b63",
+      "lfBytes": 83492,
+      "lfSha256": "6053c6e0b1b4671c2fe04b70dfc0c3b56e925fe27e5f7c5e47ea524407db6b63"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-Fluxo.dc.html",
+      "bytes": 10830,
+      "sha256": "ed44078ccc460c861ddb9fcc8e1ae6179a6f19d1ff341c368e09f2c218d0b7d7",
+      "lfBytes": 10830,
+      "lfSha256": "ed44078ccc460c861ddb9fcc8e1ae6179a6f19d1ff341c368e09f2c218d0b7d7"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-M1-Handoff.dc.html",
+      "bytes": 40109,
+      "sha256": "fa8974dbeae7154db131ca22f3727498ed1d09a62005f82ccc1a69c91d81966d",
+      "lfBytes": 40109,
+      "lfSha256": "fa8974dbeae7154db131ca22f3727498ed1d09a62005f82ccc1a69c91d81966d"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-M1-Prototipo.dc.html",
+      "bytes": 206,
+      "sha256": "d3a65cc8ce0e759849eaa1ca985d0fbc49bafb3212f9029731ca08d1bda42293",
+      "lfBytes": 206,
+      "lfSha256": "d3a65cc8ce0e759849eaa1ca985d0fbc49bafb3212f9029731ca08d1bda42293"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/Ritmo-M1.dc.html",
+      "bytes": 125821,
+      "sha256": "00759a9701e734c11744b37b72339fd19751b4574ccb5b8ad8f2f4404d980226",
+      "lfBytes": 125821,
+      "lfSha256": "00759a9701e734c11744b37b72339fd19751b4574ccb5b8ad8f2f4404d980226"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/support.js",
+      "bytes": 69150,
+      "sha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe",
+      "lfBytes": 69150,
+      "lfSha256": "8fe7df74405f3c55f49b7249c74ea1397e65d07dea2b1bd3b4a489bec2e28cbe"
+    },
+    {
+      "path": "Protótipos de assistente pessoal/uploads/briefing-claude-design.md",
+      "bytes": 51949,
+      "sha256": "c8b722c20d1232f7b01130cd0a9b05aebe76131afff845b8e6303c6fc4e21506",
+      "lfBytes": 51949,
+      "lfSha256": "c8b722c20d1232f7b01130cd0a9b05aebe76131afff845b8e6303c6fc4e21506"
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "date": "2026-10-09",
+  "method": "sRGB relativo, alpha composto em bg/surf; inspeção Chromium do protótipo",
+  "base": {
+    "pairs": 78,
+    "failures": [],
+    "minimum": 5.252707549062497
+  },
+  "derived": {
+    "pairs": 138,
+    "failures": [
+      {
+        "skin": "cockpit",
+        "mode": "light",
+        "pair": "dim/accentSoft over bg",
+        "ratio": 4.433836776297374,
+        "pass": false
+      },
+      {
+        "skin": "holo",
+        "mode": "light",
+        "pair": "dim/accentSoft over bg",
+        "ratio": 4.457121102570851,
+        "pass": false
+      }
+    ],
+    "minimum": 4.433836776297374
+  },
+  "interactiveBorderReference": [
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "pair": "borderStrong/bg",
+      "ratio": 2.464173521324525,
+      "pass3": false
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "pair": "borderStrong/surf",
+      "ratio": 2.5700898638055936,
+      "pass3": false
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "pair": "borderStrong/bg",
+      "ratio": 2.1291770573781257,
+      "pass3": false
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "pair": "borderStrong/surf",
+      "ratio": 2.159874835421121,
+      "pass3": false
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "pair": "borderStrong/bg",
+      "ratio": 2.551185630873216,
+      "pass3": false
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "pair": "borderStrong/surf",
+      "ratio": 2.6117717594130734,
+      "pass3": false
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "pair": "borderStrong/bg",
+      "ratio": 2.133525722583167,
+      "pass3": false
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "pair": "borderStrong/surf",
+      "ratio": 2.1631438107252534,
+      "pass3": false
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "pair": "borderStrong/bg",
+      "ratio": 2.4838552593655194,
+      "pass3": false
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "pair": "borderStrong/surf",
+      "ratio": 2.5731542696525205,
+      "pass3": false
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "pair": "borderStrong/bg",
+      "ratio": 2.127374766625515,
+      "pass3": false
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "pair": "borderStrong/surf",
+      "ratio": 2.157324937229358,
+      "pass3": false
+    }
+  ],
+  "observedFontSizes": [
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    20,
+    22,
+    24,
+    28,
+    32,
+    36,
+    40
+  ],
+  "limits": "Não cobre todos os elementos renderizados, hitSlop nativo, leitores de tela nem iOS.",
+  "interactiveBorderCorrection": [
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "pair": "borderInteractive/bg",
+      "ratio": 4.242057325875248,
+      "pass3": true
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "pair": "borderInteractive/surf",
+      "ratio": 4.265112933736746,
+      "pass3": true
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "pair": "borderInteractive/bg",
+      "ratio": 3.1144269811570124,
+      "pass3": true
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "pair": "borderInteractive/surf",
+      "ratio": 3.1927206724170145,
+      "pass3": true
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "pair": "borderInteractive/bg",
+      "ratio": 4.372245031001617,
+      "pass3": true
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "pair": "borderInteractive/surf",
+      "ratio": 4.36286012557786,
+      "pass3": true
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "pair": "borderInteractive/bg",
+      "ratio": 3.124859586322183,
+      "pass3": true
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "pair": "borderInteractive/surf",
+      "ratio": 3.2005598749878037,
+      "pass3": true
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "pair": "borderInteractive/bg",
+      "ratio": 4.2732092333052885,
+      "pass3": true
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "pair": "borderInteractive/surf",
+      "ratio": 4.284618471721976,
+      "pass3": true
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "pair": "borderInteractive/bg",
+      "ratio": 3.110224399640442,
+      "pass3": true
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "pair": "borderInteractive/surf",
+      "ratio": 3.186427452824091,
+      "pass3": true
+    }
+  ]
+}

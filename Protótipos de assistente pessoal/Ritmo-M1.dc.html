@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #E4E2DC; }
+  a { color: #0A6F85; }
+  a:hover { color: #064B5A; }
+  button { font-family: inherit; }
+  .rt-scroll::-webkit-scrollbar { width: 0; height: 0; }
+  @keyframes rt-spin { to { transform: rotate(360deg) } }
+  @keyframes rt-pop { 0% { transform: translateY(6px) scale(0.9); opacity: 0 } 20% { transform: translateY(0) scale(1); opacity: 1 } 80% { opacity: 1 } 100% { transform: translateY(-8px); opacity: 0 } }
+  @keyframes rt-skel { 0% { opacity: 0.45 } 50% { opacity: 0.9 } 100% { opacity: 0.45 } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition: none !important } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; padding: 28px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; justify-content: center; font-family: 'Public Sans', system-ui, sans-serif; color: #1A1A18">
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; gap: 8px; align-items: center; font-size: 13px; color: #57544E">
+      <span style="font-weight: 700; background: #1A1A18; color: #FFFFFF; padding: 3px 8px; border-radius: 4px; font-size: 12px; letter-spacing: 0.06em">M1</span>
+      <span>iPhone 16e · 390 × 844 pt · tema {{ skinName }} {{ modeName }} · texto {{ scaleLabel }}</span>
+    </div>
+
+    <div role="application" aria-label="Protótipo do app Ritmo" style="width: 390px; height: 844px; border-radius: 50px; background: {{ t.bg }}; color: {{ t.text }}; font-family: {{ t.head }}; position: relative; overflow: hidden; box-shadow: 0 0 0 11px #141414, 0 24px 60px rgba(0,0,0,0.28); transition: {{ t.tr }}">
+
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 47px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px 0 34px; font-family: -apple-system, 'Public Sans', sans-serif; font-size: 15px; font-weight: 600; color: {{ t.text }}; z-index: 5">
+        <span>08:12</span>
+        <div style="display: flex; align-items: center; gap: 6px; font-size: 12px">
+          <span style="color: {{ netColor }}">{{ netLabel }}</span>
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3" stroke="{{ t.text }}" opacity="0.5"></rect><rect x="2" y="2" width="15" height="8" rx="1.5" fill="{{ t.text }}"></rect><rect x="23" y="4" width="1.5" height="4" rx="0.75" fill="{{ t.text }}" opacity="0.5"></rect></svg>
+        </div>
+      </div>
+
+      <div class="rt-scroll" style="position: absolute; top: 47px; left: 0; right: 0; bottom: {{ bottomInset }}px; overflow-y: auto; overflow-x: hidden">
+
+        <!-- SPLASH / reabertura -->
+        <sc-if value="{{ is.splash }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 16px 18px; display: flex; flex-direction: column; gap: 12px" aria-busy="true" aria-label="Carregando">
+            <sc-if value="{{ splashSkeleton }}">
+              <div style="height: 14px; width: 40%; border-radius: 6px; background: {{ t.track }}; animation: rt-skel 1.2s ease-in-out infinite"></div>
+              <div style="height: 28px; width: 70%; border-radius: 8px; background: {{ t.track }}; animation: rt-skel 1.2s ease-in-out infinite"></div>
+              <div style="height: 44px; width: 55%; border-radius: 22px; background: {{ t.track }}; animation: rt-skel 1.2s ease-in-out infinite"></div>
+              <div style="height: 220px; border-radius: {{ t.r }}px; background: {{ t.track }}; animation: rt-skel 1.2s ease-in-out infinite"></div>
+              <div style="height: 110px; border-radius: {{ t.r }}px; background: {{ t.track }}; animation: rt-skel 1.2s ease-in-out infinite"></div>
+            </sc-if>
+            <sc-if value="{{ splashLogo }}">
+              <div style="height: 600px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; font-weight: 700; color: {{ t.accent }}">Ritmo</div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ENTRADA -->
+        <sc-if value="{{ is.entrada }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height: 100%; box-sizing: border-box; padding: 40px 24px 24px; display: flex; flex-direction: column; gap: 24px">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 14px; min-height: 360px">
+              <div style="width: 64px; height: 64px; border-radius: {{ t.r }}px; background: {{ t.accentSoft }}; border: 1px solid {{ t.accentLine }}; display: flex; align-items: center; justify-content: center; font-family: {{ t.mono }}; font-size: 1.5rem; font-weight: 700; color: {{ t.accent }}">R</div>
+              <h1 style="margin: 0; font-size: 2.5rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.05">Ritmo</h1>
+              <p style="margin: 0; font-size: 1.125rem; color: {{ t.dim }}; line-height: 1.45; text-wrap: pretty">Seu dia em poucos toques. Hábitos e registros funcionam mesmo sem internet.</p>
+            </div>
+            <sc-if value="{{ hasNotice }}">
+              <div role="status" style="display: flex; gap: 10px; padding: 14px 16px; border-radius: {{ t.innerR }}px; background: {{ t.accentSoft }}; border: 1px solid {{ t.accentLine }}; font-size: 0.9375rem; line-height: 1.45"><span aria-hidden="true">ℹ</span><span>{{ notice }}</span></div>
+            </sc-if>
+            <div style="display: flex; flex-direction: column; gap: 10px">
+              <button type="button" onClick="{{ nav.cadastro }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 12px 20px" style-active="transform: scale(0.98)">Criar conta</button>
+              <button type="button" onClick="{{ nav.login }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer; padding: 12px 20px" style-active="transform: scale(0.98)">Já tenho conta</button>
+              <button type="button" onClick="{{ openPrivacy }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.9375rem; cursor: pointer; text-decoration: underline">Política de privacidade</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- CADASTRO -->
+        <sc-if value="{{ is.cadastro }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px">
+            <button type="button" onClick="{{ nav.entrada }}" aria-label="Voltar" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button>
+          </div>
+          <div style="padding: 0 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600">Criar conta</h1>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-name" style="font-size: 0.875rem; font-weight: 600">Nome de exibição</label>
+              <input id="f-name" type="text" autocomplete="name" maxlength="120" value="{{ f.name }}" onChange="{{ on.name }}" aria-invalid="{{ inv.name }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.name }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <sc-if value="{{ has.name }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem; line-height: 1.35"><span aria-hidden="true">⚠</span><span>{{ e.name }}</span></div></sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-email" style="font-size: 0.875rem; font-weight: 600">E-mail</label>
+              <input id="f-email" type="email" autocomplete="email" inputmode="email" value="{{ f.email }}" onChange="{{ on.email }}" aria-invalid="{{ inv.email }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.email }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <sc-if value="{{ has.email }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem; line-height: 1.35"><span aria-hidden="true">⚠</span><span>{{ e.email }}</span></div></sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-pw" style="font-size: 0.875rem; font-weight: 600">Senha</label>
+              <div style="display: flex; gap: 8px">
+                <input id="f-pw" type="{{ pwType }}" autocomplete="new-password" value="{{ f.pw }}" onChange="{{ on.pw }}" aria-invalid="{{ inv.pw }}" style="flex: 1; min-width: 0; min-height: 48px; box-sizing: border-box; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.pw }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+                <button type="button" onClick="{{ togglePw }}" aria-pressed="{{ showPw }}" style="min-width: 76px; min-height: 48px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">{{ pwToggleLabel }}</button>
+              </div>
+              <div style="font-size: 0.8125rem; color: {{ strength.color }}; line-height: 1.35">{{ strength.text }}</div>
+              <sc-if value="{{ has.pw }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem; line-height: 1.35"><span aria-hidden="true">⚠</span><span>{{ e.pw }}</span></div></sc-if>
+            </div>
+            <div style="font-size: 0.875rem; color: {{ t.dim }}; line-height: 1.45">O Ritmo é para maiores de 18 anos. Ao criar a conta você concorda com os termos e a <button type="button" onClick="{{ openPrivacy }}" style="border: none; background: none; padding: 0; color: {{ t.link }}; text-decoration: underline; font-size: inherit; cursor: pointer">política de privacidade</button>.</div>
+            <sc-if value="{{ has.cadForm }}"><div role="alert" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.errSoft }}; border: 1px solid {{ t.err }}; font-size: 0.9375rem; line-height: 1.4"><span aria-hidden="true" style="color: {{ t.err }}">⚠</span><span>{{ e.cadForm }}</span></div></sc-if>
+            <button type="button" onClick="{{ submitCadastro }}" disabled="{{ busyNow }}" aria-busy="{{ busyNow }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px" style-active="transform: scale(0.98)">
+              <sc-if value="{{ busyNow }}"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 8px; border: 2px solid {{ t.onAccent }}; border-top-color: transparent; animation: rt-spin 0.8s linear infinite"></span></sc-if>
+              <span>{{ label.cadastro }}</span>
+            </button>
+          </div>
+        </sc-if>
+
+        <!-- LOGIN -->
+        <sc-if value="{{ is.login }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px">
+            <button type="button" onClick="{{ nav.entrada }}" aria-label="Voltar" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button>
+          </div>
+          <div style="padding: 0 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600">Entrar</h1>
+            <sc-if value="{{ hasNotice }}">
+              <div role="status" style="display: flex; gap: 10px; padding: 14px 16px; border-radius: {{ t.innerR }}px; background: {{ t.accentSoft }}; border: 1px solid {{ t.accentLine }}; font-size: 0.9375rem; line-height: 1.45"><span aria-hidden="true">ℹ</span><span>{{ notice }}</span></div>
+            </sc-if>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-lemail" style="font-size: 0.875rem; font-weight: 600">E-mail</label>
+              <input id="f-lemail" type="email" autocomplete="email" value="{{ f.lemail }}" onChange="{{ on.lemail }}" aria-invalid="{{ inv.lemail }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.lemail }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <sc-if value="{{ has.lemail }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ e.lemail }}</span></div></sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-lpw" style="font-size: 0.875rem; font-weight: 600">Senha</label>
+              <div style="display: flex; gap: 8px">
+                <input id="f-lpw" type="{{ pwType }}" autocomplete="current-password" value="{{ f.lpw }}" onChange="{{ on.lpw }}" aria-invalid="{{ inv.lpw }}" style="flex: 1; min-width: 0; min-height: 48px; box-sizing: border-box; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.lpw }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+                <button type="button" onClick="{{ togglePw }}" aria-pressed="{{ showPw }}" style="min-width: 76px; min-height: 48px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">{{ pwToggleLabel }}</button>
+              </div>
+              <sc-if value="{{ has.lpw }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ e.lpw }}</span></div></sc-if>
+            </div>
+            <sc-if value="{{ has.loginForm }}"><div role="alert" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.errSoft }}; border: 1px solid {{ t.err }}; font-size: 0.9375rem; line-height: 1.4"><span aria-hidden="true" style="color: {{ t.err }}">⚠</span><span>{{ e.loginForm }}</span></div></sc-if>
+            <button type="button" onClick="{{ submitLogin }}" disabled="{{ busyNow }}" aria-busy="{{ busyNow }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px" style-active="transform: scale(0.98)">
+              <sc-if value="{{ busyNow }}"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 8px; border: 2px solid {{ t.onAccent }}; border-top-color: transparent; animation: rt-spin 0.8s linear infinite"></span></sc-if>
+              <span>{{ label.login }}</span>
+            </button>
+            <button type="button" onClick="{{ nav.recuperar }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Esqueci minha senha</button>
+          </div>
+        </sc-if>
+
+        <!-- RECUPERAR -->
+        <sc-if value="{{ is.recuperar }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px">
+            <button type="button" onClick="{{ nav.login }}" aria-label="Voltar" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button>
+          </div>
+          <div style="padding: 0 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600">Recuperar senha</h1>
+            <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.45">Informe o e-mail da conta. Vamos enviar um link para criar uma nova senha.</p>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-remail" style="font-size: 0.875rem; font-weight: 600">E-mail</label>
+              <input id="f-remail" type="email" autocomplete="email" value="{{ f.remail }}" onChange="{{ on.remail }}" aria-invalid="{{ inv.remail }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.remail }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <sc-if value="{{ has.remail }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ e.remail }}</span></div></sc-if>
+            </div>
+            <sc-if value="{{ has.recForm }}"><div role="alert" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.errSoft }}; border: 1px solid {{ t.err }}; font-size: 0.9375rem; line-height: 1.4"><span aria-hidden="true" style="color: {{ t.err }}">⚠</span><span>{{ e.recForm }}</span></div></sc-if>
+            <button type="button" onClick="{{ submitRecuperar }}" disabled="{{ busyNow }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px" style-active="transform: scale(0.98)">
+              <sc-if value="{{ busyNow }}"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 8px; border: 2px solid {{ t.onAccent }}; border-top-color: transparent; animation: rt-spin 0.8s linear infinite"></span></sc-if>
+              <span>{{ label.recuperar }}</span>
+            </button>
+          </div>
+        </sc-if>
+
+        <!-- RECUPERAR ENVIADO -->
+        <sc-if value="{{ is.recEnviado }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <div aria-hidden="true" style="font-size: 2.5rem">✉️</div>
+            <h1 style="margin: 0; font-size: 1.5rem; font-weight: 600; line-height: 1.3">Se houver uma conta com este e-mail, enviaremos as instruções.</h1>
+            <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.5">O link vale por uma hora e pode ser usado uma vez. Pedir outro não cancela o anterior.</p>
+            <sc-if value="{{ hasNotice }}"><div role="status" style="padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.accentSoft }}; border: 1px solid {{ t.accentLine }}; font-size: 0.9375rem; line-height: 1.45">{{ notice }}</div></sc-if>
+            <button type="button" onClick="{{ nav.login }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Voltar para entrar</button>
+            <button type="button" onClick="{{ resendLink }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Pedir outro link</button>
+          </div>
+        </sc-if>
+
+        <!-- LINK INVÁLIDO -->
+        <sc-if value="{{ is.linkInvalido }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <div aria-hidden="true" style="font-size: 2.5rem">🔗</div>
+            <h1 style="margin: 0; font-size: 1.5rem; font-weight: 600">{{ linkTitle }}</h1>
+            <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.5">{{ linkText }}</p>
+            <button type="button" onClick="{{ nav.recuperar }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Pedir novo link</button>
+            <button type="button" onClick="{{ nav.login }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Voltar para entrar</button>
+          </div>
+        </sc-if>
+
+        <!-- NOVA SENHA -->
+        <sc-if value="{{ is.novaSenha }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 28px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600">Nova senha</h1>
+            <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.45">Depois de salvar, você entra de novo com a nova senha. Outras sessões desta conta serão encerradas.</p>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-np1" style="font-size: 0.875rem; font-weight: 600">Nova senha</label>
+              <input id="f-np1" type="{{ pwType }}" autocomplete="new-password" value="{{ f.np1 }}" onChange="{{ on.np1 }}" aria-invalid="{{ inv.np1 }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.np1 }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <sc-if value="{{ has.np1 }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ e.np1 }}</span></div></sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <label for="f-np2" style="font-size: 0.875rem; font-weight: 600">Repita a nova senha</label>
+              <input id="f-np2" type="{{ pwType }}" autocomplete="new-password" value="{{ f.np2 }}" onChange="{{ on.np2 }}" aria-invalid="{{ inv.np2 }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.np2 }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <sc-if value="{{ has.np2 }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ e.np2 }}</span></div></sc-if>
+            </div>
+            <button type="button" onClick="{{ togglePw }}" aria-pressed="{{ showPw }}" style="align-self: flex-start; min-height: 44px; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">{{ pwToggleLabel }} senhas</button>
+            <sc-if value="{{ has.npForm }}"><div role="alert" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.errSoft }}; border: 1px solid {{ t.err }}; font-size: 0.9375rem; line-height: 1.4"><span aria-hidden="true" style="color: {{ t.err }}">⚠</span><span>{{ e.npForm }}</span></div></sc-if>
+            <button type="button" onClick="{{ submitNovaSenha }}" disabled="{{ busyNow }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px">
+              <sc-if value="{{ busyNow }}"><span aria-hidden="true" style="width: 16px; height: 16px; border-radius: 8px; border: 2px solid {{ t.onAccent }}; border-top-color: transparent; animation: rt-spin 0.8s linear infinite"></span></sc-if>
+              <span>{{ label.novaSenha }}</span>
+            </button>
+          </div>
+        </sc-if>
+
+        <!-- ONBOARDING -->
+        <sc-if value="{{ is.onb }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 16px 24px 0; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; align-items: center; gap: 10px">
+              <span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}; letter-spacing: 0.08em">ETAPA {{ onbStep }} DE 2</span>
+              <div style="flex: 1; display: flex; gap: 4px"><span style="flex: 1; height: 4px; border-radius: 2px; background: {{ t.accent }}"></span><span style="flex: 1; height: 4px; border-radius: 2px; background: {{ onbBar2 }}"></span></div>
+            </div>
+            <sc-if value="{{ resumed }}"><div role="status" style="font-size: 0.875rem; color: {{ t.dim }}">Continuando de onde você parou.</div></sc-if>
+          </div>
+          <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+            <div style="padding: 18px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+              <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600; line-height: 1.2">Olá, {{ userName }}. Quando seu dia começa?</h1>
+              <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.5">Hábitos e XP viram de dia neste horário, para que uma noite longa não quebre sua rotina.</p>
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px">
+                <div style="font-size: 0.875rem; font-weight: 600">Fuso horário</div>
+                <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px">
+                  <div style="flex: 1; font-size: 1.0625rem">{{ tzLabel }}</div>
+                  <button type="button" onClick="{{ toggleTz }}" aria-expanded="{{ tzOpen }}" style="min-height: 44px; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">{{ tzBtn }}</button>
+                </div>
+                <div style="font-size: 0.8125rem; color: {{ t.dim }}; margin-top: 4px">Detectado neste aparelho.</div>
+                <sc-if value="{{ tzOpen }}">
+                  <div role="radiogroup" aria-label="Fuso horário" style="display: flex; flex-direction: column; gap: 6px; margin-top: 12px">
+                    <sc-for list="{{ tzOptions }}" as="z" hint-placeholder-count="4">
+                      <button type="button" role="radio" aria-checked="{{ z.sel }}" onClick="{{ z.pick }}" style="min-height: 44px; display: flex; align-items: center; gap: 10px; padding: 0 12px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ z.border }}; background: transparent; color: {{ t.text }}; font-size: 0.9375rem; cursor: pointer; text-align: left"><span aria-hidden="true" style="font-family: {{ t.mono }}">{{ z.mark }}</span><span>{{ z.label }}</span></button>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px">
+                <div id="ds-label" style="font-size: 0.875rem; font-weight: 600">Início do dia</div>
+                <div style="display: flex; align-items: center; gap: 12px; margin-top: 10px" role="group" aria-labelledby="ds-label">
+                  <button type="button" onClick="{{ dsMinus }}" aria-label="Uma hora mais cedo" style="width: 48px; height: 48px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1.25rem; cursor: pointer">−</button>
+                  <div aria-live="polite" style="flex: 1; text-align: center; font-family: {{ t.mono }}; font-size: 2rem; font-weight: 700; color: {{ t.accent }}">{{ dayStartLabel }}</div>
+                  <button type="button" onClick="{{ dsPlus }}" aria-label="Uma hora mais tarde" style="width: 48px; height: 48px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 1.25rem; cursor: pointer">+</button>
+                </div>
+                <div style="font-size: 0.875rem; color: {{ t.dim }}; margin-top: 10px; line-height: 1.45">{{ dayStartHint }}</div>
+              </div>
+              <button type="button" onClick="{{ onbNext }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer" style-active="transform: scale(0.98)">Continuar</button>
+            </div>
+          </sc-if>
+        </sc-if>
+
+        <!-- FORMULÁRIO DE HÁBITO (onboarding etapa 2 e gestão) -->
+        <sc-if value="{{ showHabitForm }}" hint-placeholder-val="{{ false }}">
+          <sc-if value="{{ is.habitoForm }}">
+            <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px">
+              <button type="button" onClick="{{ formBack }}" aria-label="Voltar" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button>
+            </div>
+          </sc-if>
+          <div style="padding: 12px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600; line-height: 1.2">{{ formTitle }}</h1>
+            <sc-if value="{{ isStep2 }}"><p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.5">Um hábito diário de sim ou não. Você pode pular e criar depois.</p></sc-if>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <div style="display: flex; justify-content: space-between; align-items: baseline"><label for="f-htitle" style="font-size: 0.875rem; font-weight: 600">Nome do hábito</label><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}">{{ draftLen }}/120</span></div>
+              <input id="f-htitle" type="text" placeholder="Ex.: Meditar" value="{{ draft.title }}" onChange="{{ on.htitle }}" aria-invalid="{{ inv.htitle }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.htitle }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+              <sc-if value="{{ has.htitle }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ e.htitle }}</span></div></sc-if>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div id="ic-label" style="font-size: 0.875rem; font-weight: 600">Ícone</div>
+              <div role="radiogroup" aria-labelledby="ic-label" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px">
+                <sc-for list="{{ iconOpts }}" as="o" hint-placeholder-count="10">
+                  <button type="button" role="radio" aria-checked="{{ o.sel }}" aria-label="{{ o.name }}" onClick="{{ o.pick }}" style="min-height: 48px; border-radius: {{ t.innerR }}px; border: 2px solid {{ o.border }}; background: {{ o.bg }}; font-size: 1.375rem; cursor: pointer">{{ o.icon }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <div id="co-label" style="font-size: 0.875rem; font-weight: 600">Cor</div>
+              <div role="radiogroup" aria-labelledby="co-label" style="display: flex; gap: 10px; flex-wrap: wrap">
+                <sc-for list="{{ colorOpts }}" as="o" hint-placeholder-count="5">
+                  <button type="button" role="radio" aria-checked="{{ o.sel }}" aria-label="{{ o.name }}" onClick="{{ o.pick }}" style="width: 48px; height: 48px; border-radius: 24px; border: 3px solid {{ o.ring }}; background: {{ o.hex }}; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0">
+                    <sc-if value="{{ o.sel }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="{{ o.checkCol }}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 13 9 18 20 6"></polyline></svg></sc-if>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: {{ t.innerR }}px; border: 1px dashed {{ t.bordStrong }}">
+              <span aria-hidden="true" style="width: 32px; height: 32px; border-radius: {{ t.tileR }}px; background: {{ draftTile }}; display: flex; align-items: center; justify-content: center">{{ draft.icon }}</span>
+              <span style="flex: 1; font-size: 1rem; overflow-wrap: anywhere">{{ draftPreview }}</span>
+              <span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}">todo dia</span>
+            </div>
+            <sc-if value="{{ has.habitForm }}"><div role="alert" style="display: flex; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.errSoft }}; border: 1px solid {{ t.err }}; font-size: 0.9375rem; line-height: 1.4"><span aria-hidden="true" style="color: {{ t.err }}">⚠</span><span>{{ e.habitForm }}</span></div></sc-if>
+            <button type="button" onClick="{{ saveHabit }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer" style-active="transform: scale(0.98)">{{ formSave }}</button>
+            <sc-if value="{{ isStep2 }}"><button type="button" onClick="{{ skipHabit }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Pular por agora</button></sc-if>
+          </div>
+        </sc-if>
+
+        <!-- CARGA INICIAL -->
+        <sc-if value="{{ is.carga }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 80px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <h1 style="margin: 0; font-size: 1.5rem; font-weight: 600">{{ cargaTitle }}</h1>
+            <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.5">{{ cargaText }}</p>
+            <div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ loadPct }}" aria-label="Carregando dados da conta" style="height: 8px; border-radius: 4px; background: {{ t.track }}; overflow: hidden"><div style="height: 100%; width: {{ loadPct }}%; background: {{ cargaBar }}; transition: {{ t.tr }}"></div></div>
+            <div style="display: flex; justify-content: space-between; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}"><span>{{ cargaStep }}</span><span>{{ loadPct }}%</span></div>
+            <sc-if value="{{ loadErr }}">
+              <div role="alert" style="display: flex; gap: 10px; padding: 14px 16px; border-radius: {{ t.innerR }}px; background: {{ t.warnSoft }}; border: 1px solid {{ t.warnLine }}; font-size: 0.9375rem; line-height: 1.45"><span aria-hidden="true" style="color: {{ t.warn }}">⚠</span><span>Não conseguimos terminar agora. Nada foi perdido, e o que já chegou continua aqui.</span></div>
+              <button type="button" onClick="{{ retryCarga }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Continuar carregando</button>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- SAÍDA FALHOU -->
+        <sc-if value="{{ is.saidaFalhou }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 80px 24px 32px; display: flex; flex-direction: column; gap: 18px">
+            <div aria-hidden="true" style="font-size: 2.25rem">🔒</div>
+            <h1 style="margin: 0; font-size: 1.5rem; font-weight: 600">Não conseguimos terminar de sair.</h1>
+            <p style="margin: 0; font-size: 1rem; color: {{ t.dim }}; line-height: 1.5">O acesso a esta conta continua bloqueado neste aparelho. Nenhum dado foi apagado.</p>
+            <button type="button" onClick="{{ confirmLogout }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Terminar saída</button>
+          </div>
+        </sc-if>
+
+        <!-- BRIEFING -->
+        <sc-if value="{{ is.briefing }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 24px; display: flex; flex-direction: column; gap: 12px">
+            <div style="padding: 4px 2px 0">
+              <div style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}; letter-spacing: 0.08em; text-transform: uppercase">{{ dateLabel }}</div>
+              <h1 style="margin: 6px 0 0; font-size: 1.75rem; font-weight: 600; line-height: 1.15">Bom dia, {{ userName }}</h1>
+              <div style="font-size: 0.9375rem; color: {{ t.dim }}; margin-top: 6px; line-height: 1.4">{{ contextLine }}</div>
+            </div>
+            <button type="button" onClick="{{ openSync }}" aria-label="Sincronização: {{ pill.text }}. Ver detalhes." style="align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; padding: 0 14px; border-radius: 999px; border: 1px solid {{ pill.border }}; background: {{ pill.bg }}; color: {{ pill.fg }}; font-family: {{ t.mono }}; font-size: 0.8125rem; cursor: pointer; text-align: left"><span aria-hidden="true">{{ pill.icon }}</span><span>{{ pill.text }}</span></button>
+
+            <sc-if value="{{ showUpdate }}">
+              <div role="status" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: {{ t.r }}px; background: {{ t.surf }}; border: 1.5px solid {{ t.bordStrong }}">
+                <div style="display: flex; gap: 10px"><span aria-hidden="true">🔒</span><span style="font-size: 0.9375rem; line-height: 1.45">Atualize o Ritmo para voltar a registrar. Seus dados continuam disponíveis para consulta.</span></div>
+                <button type="button" onClick="{{ installUpdate }}" style="align-self: flex-start; min-height: 44px; padding: 0 16px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Atualizar</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ showUpdatePending }}">
+              <div role="status" style="display: flex; gap: 10px; padding: 14px 16px; border-radius: {{ t.r }}px; background: {{ t.surf }}; border: 1.5px solid {{ t.bordStrong }}; font-size: 0.9375rem; line-height: 1.45"><span aria-hidden="true">🔒</span><span>{{ updatePendingText }}</span></div>
+            </sc-if>
+            <sc-if value="{{ showReauth }}">
+              <div role="status" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: {{ t.r }}px; background: {{ t.warnSoft }}; border: 1px solid {{ t.warnLine }}">
+                <div style="display: flex; gap: 10px"><span aria-hidden="true" style="color: {{ t.warn }}">⚠</span><span style="font-size: 0.9375rem; line-height: 1.45">Entre novamente para sincronizar. Seus registros neste aparelho foram preservados.</span></div>
+                <button type="button" onClick="{{ openReauth }}" style="align-self: flex-start; min-height: 44px; padding: 0 16px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.warn }}; background: transparent; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Entrar</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ showRefused }}">
+              <div role="status" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border-radius: {{ t.r }}px; background: {{ t.warnSoft }}; border: 1px solid {{ t.warnLine }}">
+                <div style="display: flex; gap: 10px"><span aria-hidden="true" style="color: {{ t.warn }}">⚠</span><span style="font-size: 0.9375rem; line-height: 1.45">{{ refusedText }}</span></div>
+                <button type="button" onClick="{{ openAtencao }}" style="align-self: flex-start; min-height: 44px; padding: 0 16px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.warn }}; background: transparent; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Revisar</button>
+              </div>
+            </sc-if>
+
+            <section aria-labelledby="card-hab" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; position: relative; padding: 16px 16px 6px">
+              <sc-for list="{{ corners }}" as="c" hint-placeholder-count="0"><span aria-hidden="true" style="position: absolute; left: {{ c.l }}; top: {{ c.t }}; right: {{ c.r }}; bottom: {{ c.b }}; width: {{ c.s }}px; height: {{ c.s }}px; border-left: {{ c.bl }}; border-top: {{ c.bt }}; border-right: {{ c.br }}; border-bottom: {{ c.bb }}; opacity: {{ c.o }}; pointer-events: none"></span></sc-for>
+              <div style="display: flex; align-items: center; gap: 9px; margin-bottom: 6px">
+                <span aria-hidden="true">🎯</span>
+                <h2 id="card-hab" style="margin: 0; font-size: 1rem; font-weight: 600">Hábitos de hoje</h2>
+                <span style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.dim }}; margin-left: auto">{{ doneLabel }}</span>
+              </div>
+              <sc-if value="{{ allDone }}"><div role="status" style="display: flex; gap: 8px; align-items: center; font-size: 0.9375rem; color: {{ t.text }}; padding: 6px 0 4px"><span aria-hidden="true" style="color: {{ t.accent }}">✓</span><span>Tudo feito por hoje. O resto do dia é seu.</span></div></sc-if>
+              <sc-if value="{{ noHabits }}">
+                <div style="padding: 10px 0 14px; display: flex; flex-direction: column; gap: 10px; align-items: flex-start">
+                  <div aria-hidden="true" style="font-size: 1.75rem">🌱</div>
+                  <div style="font-size: 1.0625rem; font-weight: 600">Seu primeiro hábito pode começar hoje.</div>
+                  <div style="font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">Escolha algo pequeno, de sim ou não. Ele aparece aqui todos os dias.</div>
+                  <button type="button" onClick="{{ newHabit }}" disabled="{{ readOnly }}" style="min-height: 48px; padding: 0 18px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer; opacity: {{ roOpacity }}">Criar hábito</button>
+                </div>
+              </sc-if>
+              <sc-for list="{{ rows }}" as="h" hint-placeholder-count="3">
+                <div style="display: flex; align-items: center; gap: 10px; min-height: 60px; border-top: {{ h.sep }}">
+                  <button type="button" onClick="{{ h.toggle }}" disabled="{{ h.disabled }}" aria-pressed="{{ h.done }}" aria-label="{{ h.aria }}" style="width: 44px; height: 44px; margin-left: -8px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; flex: none; padding: 0" style-active="transform: scale(0.9)">
+                    <span style="width: 28px; height: 28px; box-sizing: border-box; border-radius: {{ t.boxR }}px; border: {{ h.boxBorder }}; background: {{ h.boxBg }}; display: flex; align-items: center; justify-content: center; transition: {{ t.tr }}">
+                      <sc-if value="{{ h.done }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="{{ t.onAccent }}" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 13 9 18 20 6"></polyline></svg></sc-if>
+                      <sc-if value="{{ h.showLock }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="{{ t.dim }}" stroke-width="2.4" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></sc-if>
+                    </span>
+                  </button>
+                  <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: {{ t.tileR }}px; background: {{ h.tileBg }}; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; flex: none">{{ h.icon }}</span>
+                  <div style="flex: 1; min-width: 0; padding: 8px 0">
+                    <div style="font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere">{{ h.title }}</div>
+                    <sc-if value="{{ h.hasStatus }}"><div style="display: flex; align-items: center; gap: 6px; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ h.statusColor }}; margin-top: 3px"><span aria-hidden="true">{{ h.statusIcon }}</span><span>{{ h.statusText }}</span></div></sc-if>
+                  </div>
+                  <sc-if value="{{ h.isUnsaved }}"><button type="button" onClick="{{ h.retry }}" style="min-height: 44px; padding: 0 12px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.err }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer; flex: none">Tentar</button></sc-if>
+                  <sc-if value="{{ h.showXp }}"><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.accentText }}; flex: none">+10 XP</span></sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ hasHabits }}">
+                <div style="border-top: 1px solid {{ t.bord }}; display: flex; justify-content: flex-end">
+                  <button type="button" onClick="{{ nav.habitos }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.875rem; font-weight: 600; cursor: pointer; padding: 0 4px">Gerenciar hábitos</button>
+                </div>
+              </sc-if>
+            </section>
+
+            <section aria-labelledby="card-xp" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; position: relative; padding: 16px">
+              <sc-for list="{{ corners }}" as="c" hint-placeholder-count="0"><span aria-hidden="true" style="position: absolute; left: {{ c.l }}; top: {{ c.t }}; right: {{ c.r }}; bottom: {{ c.b }}; width: {{ c.s }}px; height: {{ c.s }}px; border-left: {{ c.bl }}; border-top: {{ c.bt }}; border-right: {{ c.br }}; border-bottom: {{ c.bb }}; opacity: {{ c.o }}; pointer-events: none"></span></sc-for>
+              <div style="display: flex; align-items: center; gap: 9px">
+                <span aria-hidden="true">⚡</span>
+                <h2 id="card-xp" style="margin: 0; font-size: 1rem; font-weight: 600">XP</h2>
+              </div>
+              <div style="display: flex; align-items: baseline; gap: 12px; margin-top: 10px; position: relative">
+                <span aria-live="polite" style="font-family: {{ t.mono }}; font-size: 2.25rem; font-weight: 700; color: {{ t.accentText }}; line-height: 1">{{ xpTotal }}</span>
+                <span style="font-family: {{ t.mono }}; font-size: 0.875rem; color: {{ t.dim }}">+{{ xpToday }} hoje</span>
+                <sc-if value="{{ xpFlashOn }}"><span aria-hidden="true" style="position: absolute; right: 0; top: -4px; font-family: {{ t.mono }}; font-size: 0.875rem; font-weight: 700; color: {{ t.onAccent }}; background: {{ t.accent }}; border-radius: 999px; padding: 4px 10px; animation: {{ xpAnim }}">+10 XP</span></sc-if>
+              </div>
+              <div style="font-size: 0.875rem; color: {{ t.dim }}; margin-top: 10px; line-height: 1.45">Cada hábito feito vale 10 XP, uma vez por dia.</div>
+              <sc-if value="{{ hasPendingXp }}"><div style="display: flex; gap: 6px; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}; margin-top: 8px"><span aria-hidden="true">◐</span><span>{{ pendingXpText }}</span></div></sc-if>
+            </section>
+          </div>
+        </sc-if>
+
+        <!-- HÁBITOS (gestão) -->
+        <sc-if value="{{ is.habitos }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 24px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 4px 2px 0">
+              <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600; flex: 1">Hábitos</h1>
+              <button type="button" onClick="{{ newHabit }}" disabled="{{ readOnly }}" style="min-height: 44px; padding: 0 16px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer; opacity: {{ roOpacity }}">+ Novo</button>
+            </div>
+            <sc-if value="{{ noHabits }}">
+              <div style="padding: 24px 4px; display: flex; flex-direction: column; gap: 10px">
+                <div style="font-size: 1.0625rem; font-weight: 600">Nenhum hábito ainda.</div>
+                <div style="font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">Crie um hábito diário de sim ou não. Ele passa a aparecer no Briefing.</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ hasHabits }}">
+              <div style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; position: relative; padding: 4px 8px">
+                <sc-for list="{{ corners }}" as="c" hint-placeholder-count="0"><span aria-hidden="true" style="position: absolute; left: {{ c.l }}; top: {{ c.t }}; right: {{ c.r }}; bottom: {{ c.b }}; width: {{ c.s }}px; height: {{ c.s }}px; border-left: {{ c.bl }}; border-top: {{ c.bt }}; border-right: {{ c.br }}; border-bottom: {{ c.bb }}; opacity: {{ c.o }}; pointer-events: none"></span></sc-for>
+                <sc-for list="{{ rows }}" as="h" hint-placeholder-count="3">
+                  <div style="display: flex; align-items: center; gap: 8px; min-height: 60px; border-top: {{ h.sep }}">
+                    <button type="button" onClick="{{ h.edit }}" disabled="{{ readOnly }}" aria-label="Editar {{ h.title }}" style="flex: 1; min-width: 0; min-height: 56px; display: flex; align-items: center; gap: 12px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 4px">
+                      <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: {{ t.tileR }}px; background: {{ h.tileBg }}; display: flex; align-items: center; justify-content: center; font-size: 1.0625rem; flex: none">{{ h.icon }}</span>
+                      <span style="flex: 1; min-width: 0">
+                        <span style="display: block; font-size: 1rem; line-height: 1.3; overflow-wrap: anywhere">{{ h.title }}</span>
+                        <span style="display: block; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ h.statusColor }}; margin-top: 2px">{{ h.mgmtSub }}</span>
+                      </span>
+                    </button>
+                    <button type="button" onClick="{{ h.up }}" disabled="{{ h.noUp }}" aria-label="Mover {{ h.title }} para cima" style="width: 44px; height: 44px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; cursor: pointer; opacity: {{ h.upOp }}; flex: none">↑</button>
+                    <button type="button" onClick="{{ h.down }}" disabled="{{ h.noDown }}" aria-label="Mover {{ h.title }} para baixo" style="width: 44px; height: 44px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; cursor: pointer; opacity: {{ h.downOp }}; flex: none">↓</button>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- AJUSTES -->
+        <sc-if value="{{ is.ajustes }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 24px; display: flex; flex-direction: column; gap: 16px">
+            <h1 style="margin: 0; padding: 4px 2px 0; font-size: 1.75rem; font-weight: 600">Ajustes</h1>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <h2 style="margin: 0 4px; font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.12em; color: {{ t.dim }}; font-weight: 500">PERFIL</h2>
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 4px 16px">
+                <sc-for list="{{ profileRows }}" as="p" hint-placeholder-count="4">
+                  <div style="display: flex; align-items: center; gap: 12px; min-height: 52px; border-top: {{ p.sep }}; flex-wrap: wrap; padding: 6px 0">
+                    <span style="flex: 1; font-size: 0.9375rem; color: {{ t.dim }}; min-width: 110px">{{ p.k }}</span>
+                    <span style="font-size: 0.9375rem; overflow-wrap: anywhere">{{ p.v }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px">
+              <h2 style="margin: 0 4px; font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.12em; color: {{ t.dim }}; font-weight: 500">APP</h2>
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 4px 8px">
+                <button type="button" onClick="{{ openSync }}" style="width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 8px">
+                  <span style="flex: 1"><span style="display: block; font-size: 1rem">Sincronização</span><span style="display: block; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ pill.fgDim }}; margin-top: 2px">{{ pill.icon }} {{ pill.text }}</span></span>
+                  <span aria-hidden="true" style="color: {{ t.dim }}">›</span>
+                </button>
+                <button type="button" onClick="{{ nav.aparencia }}" style="width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; border: none; border-top: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 8px">
+                  <span style="flex: 1"><span style="display: block; font-size: 1rem">Aparência</span><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}; margin-top: 2px">{{ skinName }} · {{ modeName }}</span></span>
+                  <span aria-hidden="true" style="color: {{ t.dim }}">›</span>
+                </button>
+                <button type="button" onClick="{{ openPrivacy }}" style="width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; border: none; border-top: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 8px">
+                  <span style="flex: 1; font-size: 1rem">Política de privacidade</span>
+                  <span aria-hidden="true" style="color: {{ t.dim }}">›</span>
+                </button>
+              </div>
+            </div>
+            <button type="button" onClick="{{ openLogout }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Sair da conta</button>
+          </div>
+        </sc-if>
+
+        <!-- APARÊNCIA -->
+        <sc-if value="{{ is.aparencia }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; gap: 4px; padding: 4px 8px">
+            <button type="button" onClick="{{ nav.ajustes }}" aria-label="Voltar para Ajustes" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; display: flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button>
+          </div>
+          <div style="padding: 0 18px 24px; display: flex; flex-direction: column; gap: 18px">
+            <h1 style="margin: 0 2px; font-size: 1.75rem; font-weight: 600">Aparência</h1>
+            <p style="margin: 0 2px; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">Muda só o visual. Seus cards e dados continuam iguais.</p>
+            <div role="radiogroup" aria-label="Modo" style="display: flex; gap: 6px; background: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 5px">
+              <sc-for list="{{ modes }}" as="m" hint-placeholder-count="2">
+                <button type="button" role="radio" aria-checked="{{ m.sel }}" onClick="{{ m.pick }}" style="flex: 1; min-height: 44px; border: none; border-radius: {{ t.innerR }}px; background: {{ m.bg }}; color: {{ m.fg }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">{{ m.label }}</button>
+              </sc-for>
+            </div>
+            <div role="radiogroup" aria-label="Tema" style="display: flex; flex-direction: column; gap: 10px">
+              <sc-for list="{{ skins }}" as="k" hint-placeholder-count="3">
+                <button type="button" role="radio" aria-checked="{{ k.sel }}" onClick="{{ k.pick }}" style="display: flex; align-items: center; gap: 14px; background: {{ t.surf }}; border: 2px solid {{ k.ring }}; border-radius: {{ t.r }}px; padding: 12px; cursor: pointer; text-align: left; color: {{ t.text }}">
+                  <span aria-hidden="true" style="width: 88px; height: 64px; border-radius: 10px; background: {{ k.bg }}; flex: none; padding: 8px; box-sizing: border-box; display: flex; flex-direction: column; gap: 5px; border: 1px solid {{ k.bord }}">
+                    <span style="flex: 1; background: {{ k.surf }}; border: 1px solid {{ k.bord }}; border-radius: {{ k.miniR }}px; display: flex; flex-direction: column; gap: 4px; padding: 6px"><span style="height: 4px; width: 70%; border-radius: 2px; background: {{ k.accent }}"></span><span style="height: 3px; width: 90%; border-radius: 2px; background: {{ k.bord }}"></span></span>
+                  </span>
+                  <span style="flex: 1"><span style="display: block; font-family: {{ k.head }}; font-size: 1.0625rem; font-weight: 600">{{ k.name }}</span><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}; margin-top: 3px; line-height: 1.4">{{ k.tag }}</span></span>
+                  <span aria-hidden="true" style="font-family: {{ t.mono }}; font-size: 0.875rem; color: {{ t.accentText }}">{{ k.mark }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <!-- TAB BAR -->
+      <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="Principal" style="position: absolute; left: 0; right: 0; bottom: 0; height: 83px; box-sizing: border-box; padding: 6px 12px 34px; display: flex; background: {{ t.tabBg }}; border-top: 1px solid {{ t.bord }}; z-index: 4">
+          <button type="button" onClick="{{ nav.briefing }}" aria-current="{{ tab.briefingCur }}" style="flex: 1; min-height: 44px; border: none; background: transparent; color: {{ tab.briefing }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; font-size: 0.6875rem; font-weight: 600">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"></path></svg>
+            <span>Briefing</span>
+          </button>
+          <button type="button" onClick="{{ nav.habitos }}" aria-current="{{ tab.habitosCur }}" style="flex: 1; min-height: 44px; border: none; background: transparent; color: {{ tab.habitos }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; font-size: 0.6875rem; font-weight: 600">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"></rect><polyline points="8 12.5 11 15.5 16 9"></polyline></svg>
+            <span>Hábitos</span>
+          </button>
+          <button type="button" onClick="{{ nav.ajustes }}" aria-current="{{ tab.ajustesCur }}" style="flex: 1; min-height: 44px; border: none; background: transparent; color: {{ tab.ajustes }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; cursor: pointer; font-size: 0.6875rem; font-weight: 600">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="17" x2="20" y2="17"></line><circle cx="9" cy="7" r="2.4" fill="{{ t.tabBg }}"></circle><circle cx="15" cy="17" r="2.4" fill="{{ t.tabBg }}"></circle></svg>
+            <span>Ajustes</span>
+          </button>
+        </nav>
+      </sc-if>
+
+      <!-- TOAST -->
+      <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+        <div role="status" aria-live="polite" style="position: absolute; left: 14px; right: 14px; bottom: {{ toastBottom }}px; z-index: 6; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.toastBg }}; color: {{ t.toastFg }}; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-size: 0.9375rem; line-height: 1.4">
+          <span style="flex: 1">{{ toastText }}</span>
+          <sc-if value="{{ hasToastAction }}"><button type="button" onClick="{{ toastAction }}" style="min-height: 44px; padding: 0 12px; border: none; border-radius: {{ t.innerR }}px; background: transparent; color: {{ t.toastLink }}; font-size: 0.9375rem; font-weight: 700; cursor: pointer; flex: none">{{ toastActionLabel }}</button></sc-if>
+        </div>
+      </sc-if>
+
+      <!-- SHEETS -->
+      <sc-if value="{{ hasSheet }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; z-index: 8; background: {{ t.overlay }}; display: flex; flex-direction: column; justify-content: flex-end">
+          <div style="flex: 1" onClick="{{ closeSheet }}"></div>
+          <div role="dialog" aria-modal="true" aria-labelledby="sheet-title" class="rt-scroll" style="max-height: 82%; overflow-y: auto; background: {{ t.surf }}; border-top: 1px solid {{ t.bord }}; border-radius: 22px 22px 0 0; padding: 10px 20px 40px; display: flex; flex-direction: column; gap: 14px">
+            <div aria-hidden="true" style="width: 40px; height: 5px; border-radius: 3px; background: {{ t.bordStrong }}; align-self: center"></div>
+
+            <sc-if value="{{ sheet.logout }}">
+              <h2 id="sheet-title" style="margin: 4px 0 0; font-size: 1.375rem; font-weight: 600">Sair da conta?</h2>
+              <p style="margin: 0; font-size: 1rem; line-height: 1.5">{{ logoutText }}</p>
+              <sc-if value="{{ offlineNow }}"><p style="margin: 0; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">Você está sem internet. Dá para sair agora, mas para entrar de novo será preciso conexão.</p></sc-if>
+              <button type="button" onClick="{{ confirmLogout }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Sair</button>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Cancelar</button>
+            </sc-if>
+
+            <sc-if value="{{ sheet.reauth }}">
+              <h2 id="sheet-title" style="margin: 4px 0 0; font-size: 1.375rem; font-weight: 600">Entre para sincronizar</h2>
+              <p style="margin: 0; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">Seus registros neste aparelho foram preservados e serão enviados depois que você entrar.</p>
+              <div style="font-size: 0.9375rem"><span style="color: {{ t.dim }}">Conta: </span>{{ userEmail }}</div>
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <label for="f-rpw" style="font-size: 0.875rem; font-weight: 600">Senha</label>
+                <input id="f-rpw" type="{{ pwType }}" autocomplete="current-password" value="{{ f.rpw }}" onChange="{{ on.rpw }}" aria-invalid="{{ inv.rpw }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ fb.rpw }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+                <sc-if value="{{ has.rpw }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ e.rpw }}</span></div></sc-if>
+              </div>
+              <button type="button" onClick="{{ submitReauth }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Entrar e sincronizar</button>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Agora não</button>
+            </sc-if>
+
+            <sc-if value="{{ sheet.sync }}">
+              <h2 id="sheet-title" style="margin: 4px 0 0; font-size: 1.375rem; font-weight: 600">Sincronização</h2>
+              <p style="margin: 0; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">{{ syncExplain }}</p>
+              <div style="display: flex; flex-direction: column">
+                <sc-for list="{{ syncRows }}" as="r" hint-placeholder-count="4">
+                  <div style="display: flex; align-items: center; gap: 12px; min-height: 48px; border-top: {{ r.sep }}">
+                    <span aria-hidden="true" style="width: 22px; text-align: center; color: {{ r.col }}">{{ r.icon }}</span>
+                    <span style="flex: 1; font-size: 0.9375rem">{{ r.label }}</span>
+                    <span style="font-family: {{ t.mono }}; font-size: 0.9375rem">{{ r.n }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ showRefused }}"><button type="button" onClick="{{ openAtencao }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Revisar alterações</button></sc-if>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Fechar</button>
+            </sc-if>
+
+            <sc-if value="{{ sheet.atencao }}">
+              <h2 id="sheet-title" style="margin: 4px 0 0; font-size: 1.375rem; font-weight: 600">Esta alteração precisa da sua atenção.</h2>
+              <p style="margin: 0; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">Nada foi apagado. Corrija e envie de novo, ou descarte o que ainda não foi confirmado.</p>
+              <sc-for list="{{ refusedItems }}" as="x" hint-placeholder-count="1">
+                <div style="border: 1px solid {{ t.warnLine }}; border-radius: {{ t.r }}px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+                  <div style="display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="font-size: 1.125rem">{{ x.icon }}</span><span style="font-size: 1rem; font-weight: 600; overflow-wrap: anywhere">{{ x.title }}</span></div>
+                  <div style="display: flex; gap: 8px; font-size: 0.875rem; line-height: 1.4"><span aria-hidden="true" style="color: {{ t.warn }}">⚠</span><span>Não confirmado: {{ x.reason }}</span></div>
+                  <sc-if value="{{ x.notConfirming }}">
+                    <div style="display: flex; flex-direction: column; gap: 6px">
+                      <label for="fix-{{ x.id }}" style="font-size: 0.875rem; font-weight: 600">Novo nome</label>
+                      <input id="fix-{{ x.id }}" type="text" value="{{ x.fixVal }}" onChange="{{ x.onFix }}" aria-invalid="{{ x.fixInv }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ x.fixBorder }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem">
+                      <sc-if value="{{ x.hasFixErr }}"><div role="alert" style="display: flex; gap: 6px; color: {{ t.err }}; font-size: 0.8125rem"><span aria-hidden="true">⚠</span><span>{{ x.fixErr }}</span></div></sc-if>
+                    </div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                      <button type="button" onClick="{{ x.submit }}" style="flex: 1; min-width: 140px; min-height: 48px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Enviar correção</button>
+                      <button type="button" onClick="{{ x.askDiscard }}" style="flex: 1; min-width: 120px; min-height: 48px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Descartar</button>
+                    </div>
+                  </sc-if>
+                  <sc-if value="{{ x.confirming }}">
+                    <p style="margin: 0; font-size: 0.9375rem; line-height: 1.45">Descartar remove “{{ x.title }}” deste aparelho. Ele nunca foi confirmado na sua conta.</p>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                      <button type="button" onClick="{{ x.confirmDiscard }}" style="flex: 1; min-width: 140px; min-height: 48px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.err }}; background: {{ t.errSoft }}; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Descartar hábito</button>
+                      <button type="button" onClick="{{ x.cancelDiscard }}" style="flex: 1; min-width: 100px; min-height: 48px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Manter</button>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ noRefused }}"><div role="status" style="font-size: 0.9375rem">Tudo resolvido. Não há alterações pendentes de revisão.</div></sc-if>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">Fechar</button>
+            </sc-if>
+
+            <sc-if value="{{ sheet.privacy }}">
+              <h2 id="sheet-title" style="margin: 4px 0 0; font-size: 1.375rem; font-weight: 600">Política de privacidade</h2>
+              <p style="margin: 0; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">[Texto final a definir] Finalidades, subprocessadores, países e transferências aparecem aqui em português, antes do cadastro e em Ajustes. Seus dados não são usados para treinar modelos.</p>
+              <button type="button" onClick="{{ closeSheet }}" style="min-height: 52px; border-radius: {{ t.btnR }}px; background: transparent; border: 1.5px solid {{ t.bordStrong }}; color: {{ t.text }}; font-size: 1rem; font-weight: 600; cursor: pointer">Fechar</button>
+            </sc-if>
+          </div>
+        </div>
+      </sc-if>
+
+      <div aria-hidden="true" style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: {{ t.text }}; opacity: 0.85; z-index: 9"></div>
+    </div>
+  </div>
+
+  <!-- PAINEL DE SIMULAÇÃO -->
+  <aside aria-label="Painel de simulação" style="width: 380px; max-width: 100%; display: flex; flex-direction: column; gap: 16px; font-size: 14px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E6B64">Ritmo · M1 · protótipo navegável</div>
+      <div style="font-size: 22px; font-weight: 600; line-height: 1.2">Simulação de estados</div>
+      <div style="font-size: 13px; color: #57544E; line-height: 1.5">Visual é proposta, não aprovado (Q28). Rede, armazenamento, sessão e e-mail são simulados neste painel; nada aqui é integração real. Contas: <b>pedro@exemplo.com</b> e <b>bia@exemplo.com</b>, senha <b>ritmo2026</b>. <a href="Ritmo-M1-Handoff.dc.html">Handoff e cobertura D01–D29</a>.</div>
+    </div>
+
+    <div role="status" aria-live="polite" style="background: #1A1A18; color: #F2F1EC; border-radius: 10px; padding: 12px 14px; font-size: 13px; line-height: 1.5">
+      <div style="font-size: 11px; letter-spacing: 0.12em; color: #A9A79E; margin-bottom: 4px">O QUE ACONTECEU</div>
+      {{ note }}
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">JORNADAS M1</div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <sc-for list="{{ journeys }}" as="j" hint-placeholder-count="12">
+          <button type="button" onClick="{{ j.run }}" style="display: flex; gap: 10px; align-items: baseline; text-align: left; border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-size: 13px; color: #1A1A18; line-height: 1.35" style-hover="background: #FFFFFF; border-color: #A9A59B">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #0A6F85; flex: none">{{ j.id }}</span><span>{{ j.t }}</span>
+          </button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">AMBIENTE</div>
+      <sc-for list="{{ toggles }}" as="g" hint-placeholder-count="7">
+        <button type="button" role="switch" aria-checked="{{ g.on }}" onClick="{{ g.flip }}" style="display: flex; align-items: center; gap: 10px; border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; color: #1A1A18; text-align: left">
+          <span style="flex: 1">{{ g.label }}</span>
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: {{ g.bg }}; color: {{ g.fg }}">{{ g.state }}</span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">AÇÕES DO SISTEMA</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px">
+        <sc-for list="{{ actions }}" as="k" hint-placeholder-count="6">
+          <button type="button" onClick="{{ k.run }}" style="border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; color: #1A1A18">{{ k.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">VISUAL E ACESSIBILIDADE (D29)</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px">
+        <sc-for list="{{ visualBtns }}" as="v" hint-placeholder-count="8">
+          <button type="button" aria-pressed="{{ v.on }}" onClick="{{ v.run }}" style="border: 1px solid {{ v.border }}; background: {{ v.bg }}; color: {{ v.fg }}; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px">{{ v.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = this.makeInitial();
+  timers = [];
+  taps = {};
+
+  makeInitial() {
+    let v = {};
+    try { v = JSON.parse(localStorage.getItem("ritmo-m1-visual") || "{}"); } catch (e) {}
+    return Object.assign(this.baseState(), { skin: v.skin || "holo", mode: v.mode || ((typeof matchMedia !== "undefined" && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark") });
+  }
+  baseState() {
+    return {
+      screen: "entrada", back: null, sheet: null,
+      online: true, writeFail: false, sessionExpired: false, needsReauth: false, conflict: false,
+      updateRequired: false, updatePending: false, verifying: false, loadFail: false, loadErr: false, logoutFail: false,
+      account: null, accounts: this.seed(),
+      f: {}, e: {}, busy: false, notice: null, showPw: false,
+      onbStep: 1, resumed: false, tzOpen: false,
+      draft: { title: "", icon: "🧘", color: 0 }, editingId: null, formFrom: "habitos",
+      fix: {}, fixErr: {}, discardId: null, linkUsed: false, linkKind: null,
+      toast: null, xpFlash: 0, loadPct: 0,
+      scale: 1, reduce: false,
+      note: "Comece pela Entrada ou escolha uma jornada."
+    };
+  }
+  seed() {
+    return {
+      "pedro@exemplo.com": { name: "Pedro", pw: "ritmo2026", onboarded: true, tz: "Belém (UTC−3)", dayStart: 4, xpBase: 1230,
+        habits: [
+          { id: "h1", title: "Meditar", icon: "🧘", color: 0, done: false, sync: "ok" },
+          { id: "h2", title: "Ler 20 páginas", icon: "📖", color: 1, done: true, sync: "ok" },
+          { id: "h3", title: "Beber água", icon: "💧", color: 2, done: false, sync: "ok" }
+        ] },
+      "bia@exemplo.com": { name: "Bia", pw: "ritmo2026", onboarded: true, tz: "São Paulo (UTC−3)", dayStart: 4, xpBase: 80,
+        habits: [{ id: "b1", title: "Caminhar", icon: "🚶", color: 3, done: false, sync: "ok" }] }
+    };
+  }
+
+  later(fn, ms) { const id = setTimeout(() => { this.timers = this.timers.filter(x => x !== id); fn(); }, ms); this.timers.push(id); return id; }
+  componentDidMount() { this.applyScale(); }
+  componentDidUpdate() { this.applyScale(); }
+  componentWillUnmount() { this.timers.forEach(clearTimeout); clearInterval(this.loadTimer); clearTimeout(this.toastTimer); document.documentElement.style.fontSize = ""; }
+  applyScale() { const px = (16 * this.state.scale) + "px"; if (document.documentElement.style.fontSize !== px) document.documentElement.style.fontSize = px; }
+  saveVisual(p) { this.setState(p, () => { try { localStorage.setItem("ritmo-m1-visual", JSON.stringify({ skin: this.state.skin, mode: this.state.mode })); } catch (e) {} }); }
+
+  acc() { const s = this.state; return s.account ? s.accounts[s.account] : null; }
+  setAcc(fn, cb) { this.setState(s => { if (!s.account) return null; return { accounts: Object.assign({}, s.accounts, { [s.account]: fn(s.accounts[s.account]) }) }; }, cb); }
+  setHabit(id, patch) { this.setAcc(a => ({ ...a, habits: a.habits.map(h => h.id === id ? { ...h, ...(typeof patch === "function" ? patch(h) : patch) } : h) })); }
+  canSync() { const s = this.state; return s.online && !s.needsReauth && !s.sessionExpired && !s.updateRequired && !s.updatePending; }
+  norm(t) { return (t || "").trim().replace(/\s+/g, " ").toLocaleLowerCase("pt-BR"); }
+  note(n) { this.setState({ note: n }); }
+  showToast(text, actionLabel, action) { clearTimeout(this.toastTimer); this.setState({ toast: { text, actionLabel, action } }); this.toastTimer = setTimeout(() => this.setState({ toast: null }), 7000); }
+  go(screen, extra) { this.setState(Object.assign({ screen, e: {}, sheet: null }, extra || {})); }
+  setF(k, v) { this.setState(s => ({ f: { ...s.f, [k]: v }, e: { ...s.e, [k]: null } })); }
+  plural(n, one, many) { return n + " " + (n === 1 ? one : many); }
+
+  // ---------- sync ----------
+  sendHabit(id) {
+    this.later(() => {
+      if (!this.state.account) return;
+      const h = this.acc().habits.find(x => x.id === id);
+      if (!h || h.sync !== "sending") return;
+      if (!this.canSync()) { this.setHabit(id, { sync: "local" }); return; }
+      if (h.isNew && this.state.conflict) {
+        this.setHabit(id, { sync: "refused", reason: "já existe um hábito ativo com este nome." });
+        this.note("Servidor recusou o hábito novo: título duplicado. Conteúdo preservado para corrigir ou descartar.");
+      } else this.setHabit(id, { sync: "ok", isNew: false, reason: null });
+    }, 1000);
+  }
+  syncAll() {
+    const a = this.acc(); if (!a || !this.canSync()) return;
+    const ids = a.habits.filter(h => h.sync === "local").map(h => h.id);
+    if (!ids.length) return;
+    this.setAcc(x => ({ ...x, habits: x.habits.map(h => h.sync === "local" ? { ...h, sync: "sending" } : h) }), () => ids.forEach(id => this.sendHabit(id)));
+    this.note("Conexão disponível: " + this.plural(ids.length, "alteração enviada", "alterações enviadas") + ". O XP não muda e não há nova celebração no reenvio.");
+  }
+  setOnline(v) {
+    this.setState({ online: v }, () => {
+      if (!v) { this.note("Offline. Registrar continua funcionando; tudo fica salvo neste aparelho."); return; }
+      const s = this.state;
+      if (s.sessionExpired && s.account) { this.setState({ needsReauth: true }); this.note("Conexão voltou e o servidor pediu login. Sync pausada; registros locais preservados."); return; }
+      if (s.updatePending) { this.verifyUpdate(); return; }
+      this.syncAll();
+      if (!this.acc() || !this.acc().habits.some(h => h.sync === "local")) this.note("Online.");
+    });
+  }
+
+  // ---------- hábitos ----------
+  toggleHabit(id) {
+    const s = this.state;
+    if (s.updateRequired || s.updatePending) return;
+    const now = Date.now(), last = this.taps[id] || 0; this.taps[id] = now;
+    if (now - last < 450) { this.note("Toque duplo detectado: vale um cumprimento só, sem XP em dobro."); return; }
+    const h = this.acc().habits.find(x => x.id === id);
+    const nd = !h.done;
+    if (s.writeFail) {
+      this.setHabit(id, { done: nd, sync: "sending" });
+      this.later(() => {
+        this.setHabit(id, { done: h.done, sync: "unsaved", wanted: nd });
+        this.showToast("Não foi possível salvar neste aparelho. Tente novamente.", "Tentar de novo", () => this.retryUnsaved(id));
+        this.note("Falha de escrita simulada: o check e o XP otimistas foram retirados. A intenção fica disponível para tentar de novo.");
+      }, 350);
+      return;
+    }
+    this.applyToggle(id, nd, true);
+    if (!this.canSync() && !this.offlineToastShown) { this.offlineToastShown = true; this.showToast("Salvo neste aparelho. Vamos sincronizar quando a conexão voltar."); }
+    this.note(nd ? "Hábito feito: +10 XP (uma vez por dia). Tocar de novo desfaz e tira os 10; remarcar devolve os mesmos 10." : "Desfeito: os 10 XP deste hábito saíram do total. O histórico continua registrado.");
+  }
+  applyToggle(id, nd, flash) {
+    const send = this.canSync();
+    this.setHabit(id, { done: nd, sync: send ? "sending" : "local", wanted: null });
+    if (send) this.sendHabit(id);
+    if (flash && nd) { this.setState({ xpFlash: Date.now() }); this.later(() => this.setState({ xpFlash: 0 }), 1400); }
+  }
+  retryUnsaved(id) {
+    const h = this.acc() && this.acc().habits.find(x => x.id === id); if (!h) return;
+    if (this.state.writeFail) { this.showToast("Ainda não foi possível salvar. Libere espaço no aparelho e tente de novo.", "Tentar de novo", () => this.retryUnsaved(id)); return; }
+    this.setState({ toast: null });
+    this.applyToggle(id, h.wanted == null ? !h.done : h.wanted, true);
+    this.note("Salvo neste aparelho após nova tentativa.");
+  }
+  moveHabit(id, dir) {
+    this.setAcc(a => { const list = a.habits.slice(); const i = list.findIndex(h => h.id === id); const j = i + dir; if (j < 0 || j >= list.length) return a; const tmp = list[i]; list[i] = list[j]; list[j] = tmp; return { ...a, habits: list }; });
+    this.note("Ordem alterada e salva neste aparelho.");
+  }
+  openHabitForm(id) {
+    const s = this.state;
+    if (s.updateRequired || s.updatePending) { this.showToast("Atualize o Ritmo para voltar a registrar. Seus dados continuam disponíveis para consulta."); return; }
+    const h = id ? this.acc().habits.find(x => x.id === id) : null;
+    this.go("habitoForm", { editingId: id || null, formFrom: s.screen, draft: h ? { title: h.title, icon: h.icon, color: h.color } : { title: "", icon: "🧘", color: 0 } });
+  }
+  saveHabit() {
+    const s = this.state, d = s.draft, a = this.acc();
+    const title = d.title.trim().replace(/\s+/g, " ");
+    let err = null;
+    if (!title) err = "Dê um nome ao hábito.";
+    else if (title.length > 120) err = "Use até 120 caracteres.";
+    else if (a.habits.some(h => h.id !== s.editingId && this.norm(h.title) === this.norm(title))) err = "Já existe um hábito ativo com este nome.";
+    if (err) { this.setState({ e: { htitle: err } }); return; }
+    if (s.writeFail) { this.setState({ e: { habitForm: "Não foi possível salvar neste aparelho. Tente novamente." } }); this.note("Falha de escrita: o formulário continua preenchido."); return; }
+    const send = this.canSync();
+    const fromOnb = s.screen === "onb";
+    if (s.editingId) {
+      this.setHabit(s.editingId, { title, icon: d.icon, color: d.color, sync: send ? "sending" : "local" });
+      if (send) this.sendHabit(s.editingId);
+    } else {
+      const id = "n" + Date.now();
+      this.setAcc(x => ({ ...x, habits: x.habits.concat([{ id, title, icon: d.icon, color: d.color, done: false, sync: send ? "sending" : "local", isNew: true }]) }), () => { if (send) this.sendHabit(id); });
+    }
+    if (fromOnb) { this.finishOnb("Hábito “" + title + "” criado. Ele já aparece no Briefing de hoje."); return; }
+    this.go(s.formFrom === "briefing" ? "briefing" : "habitos");
+    this.showToast(send ? (s.editingId ? "Hábito atualizado." : "Hábito criado.") : "Salvo neste aparelho. Vamos sincronizar quando a conexão voltar.");
+  }
+
+  // ---------- recusa ----------
+  submitFix(id) {
+    const s = this.state, a = this.acc();
+    const val = (s.fix[id] != null ? s.fix[id] : a.habits.find(h => h.id === id).title).trim().replace(/\s+/g, " ");
+    let err = null;
+    if (!val) err = "Dê um nome ao hábito.";
+    else if (a.habits.some(h => h.id !== id && this.norm(h.title) === this.norm(val))) err = "Já existe um hábito ativo com este nome.";
+    else if (this.norm(val) === this.norm(a.habits.find(h => h.id === id).title)) err = "Esse nome foi recusado. Escolha outro.";
+    if (err) { this.setState({ fixErr: { ...s.fixErr, [id]: err } }); return; }
+    this.setState({ conflict: false, fixErr: { ...s.fixErr, [id]: null } });
+    const send = this.canSync();
+    this.setHabit(id, { title: val, sync: send ? "sending" : "local", reason: null, isNew: true });
+    if (send) this.sendHabit(id);
+    this.note("Correção enviada como nova intenção válida; o conteúdo original foi preservado até aqui.");
+  }
+  discard(id) {
+    this.setAcc(a => ({ ...a, habits: a.habits.filter(h => h.id !== id) }));
+    this.setState({ discardId: null });
+    this.note("Hábito recusado descartado deste aparelho. Nada tinha sido confirmado na conta.");
+  }
+
+  // ---------- conta ----------
+  validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  submitCadastro() {
+    const s = this.state, f = s.f, e = {};
+    const name = (f.name || "").trim(), email = (f.email || "").trim().toLowerCase(), pw = f.pw || "";
+    if (!name) e.name = "Informe como quer ser chamado."; else if (name.length > 80) e.name = "Use até 80 caracteres.";
+    if (!this.validEmail(email)) e.email = "Informe um e-mail válido, como nome@exemplo.com."; else if (email.length > 254) e.email = "Use um e-mail com até 254 caracteres.";
+    if (pw.length < 8) e.pw = "A senha precisa ter pelo menos 8 caracteres."; else if (pw.length > 128) e.pw = "Use até 128 caracteres.";
+    if (Object.keys(e).length) { this.setState({ e }); return; }
+    if (!s.online) { this.setState({ e: { cadForm: "Criar conta exige conexão. O que você preencheu continua aqui." } }); return; }
+    if (s.accounts[email]) { this.setState({ e: { email: "Não foi possível usar este e-mail. Se já tem conta, entre ou recupere a senha." } }); return; }
+    this.setState({ busy: true });
+    this.later(() => {
+      this.setState(st => ({ busy: false, account: email, accounts: { ...st.accounts, [email]: { name, pw, onboarded: false, tz: "Belém (UTC−3)", dayStart: 4, xpBase: 0, habits: [] } }, screen: "onb", onbStep: 1, resumed: false, f: {}, e: {}, notice: null }));
+      this.note("Conta criada (simulado). Onboarding etapa 1: fuso e início do dia.");
+    }, 900);
+  }
+  submitLogin() {
+    const s = this.state, f = s.f, e = {};
+    const email = (f.lemail || "").trim().toLowerCase(), pw = f.lpw || "";
+    if (!this.validEmail(email)) e.lemail = "Informe um e-mail válido.";
+    if (!pw) e.lpw = "Informe a senha.";
+    if (Object.keys(e).length) { this.setState({ e }); return; }
+    if (!s.online) { this.setState({ e: { loginForm: "Entrar exige conexão. Tente de novo quando a internet voltar." } }); return; }
+    this.setState({ busy: true });
+    this.later(() => {
+      const a = this.state.accounts[email];
+      if (!a || a.pw !== pw) { this.setState({ busy: false, e: { lpw: "E-mail ou senha incorretos." } }); return; }
+      this.setState({ busy: false, account: email, f: {}, e: {}, notice: null, sessionExpired: false, needsReauth: false });
+      if (!a.onboarded) { this.go("onb", { resumed: true }); return; }
+      this.go("briefing");
+      const pend = a.habits.filter(h => h.sync === "local").length;
+      this.note(pend ? "Entrou como " + a.name + ": " + this.plural(pend, "alteração guardada voltou", "alterações guardadas voltaram") + " e está(ão) sendo enviada(s)." : "Entrou como " + a.name + ". Esta conta só vê os próprios dados.");
+      this.later(() => this.syncAll(), 50);
+    }, 900);
+  }
+  submitRecuperar() {
+    const s = this.state, email = (s.f.remail || "").trim().toLowerCase();
+    if (!this.validEmail(email)) { this.setState({ e: { remail: "Informe um e-mail válido." } }); return; }
+    if (!s.online) { this.setState({ e: { recForm: "Sem conexão. Tente de novo quando a internet voltar." } }); return; }
+    this.setState({ busy: true });
+    this.later(() => { this.setState({ busy: false }); this.go("recEnviado", { notice: null, linkUsed: false }); this.note("Resposta uniforme: a tela não revela se o e-mail tem conta. Use “Abrir link do e-mail” no painel."); }, 800);
+  }
+  resendLink() {
+    if (!this.state.online) { this.setState({ notice: "Sem conexão. O link anterior continua válido até expirar." }); return; }
+    this.setState({ notice: "Pedimos outro link. O anterior continua válido até expirar." });
+  }
+  openLink(kind) {
+    if (kind === "valido" && this.state.linkUsed) kind = "usado";
+    if (kind === "valido") { this.go("novaSenha", { f: { ...this.state.f, np1: "", np2: "" } }); this.note("Link válido aberto. Abrir não consome o link; salvar a nova senha consome."); }
+    else { this.go("linkInvalido", { linkKind: kind }); this.note(kind === "expirado" ? "Link com mais de uma hora: oferecemos um novo." : "Link já consumido: oferecemos um novo."); }
+  }
+  submitNovaSenha() {
+    const s = this.state, p1 = s.f.np1 || "", p2 = s.f.np2 || "";
+    if (p1.length < 8) { this.setState({ e: { np1: "A senha precisa ter pelo menos 8 caracteres." } }); return; }
+    if (p1.length > 128) { this.setState({ e: { np1: "Use até 128 caracteres." } }); return; }
+    if (p1 !== p2) { this.setState({ e: { np2: "As senhas não coincidem." } }); return; }
+    if (!s.online) { this.setState({ e: { npForm: "Sem conexão. Sua nova senha ainda não foi salva; tente de novo quando a internet voltar." } }); return; }
+    this.setState({ busy: true });
+    this.later(() => {
+      const email = (this.state.f.remail || "pedro@exemplo.com").trim().toLowerCase();
+      this.setState(st => {
+        const accs = { ...st.accounts };
+        if (accs[email]) accs[email] = { ...accs[email], pw: p1 };
+        const endSession = st.account === email;
+        return { busy: false, accounts: accs, linkUsed: true, account: endSession ? null : st.account, f: { lemail: email }, e: {}, screen: "login", notice: "Senha alterada. Entre com a nova senha." };
+      });
+      this.note("Senha trocada (simulado). O link foi consumido, links anteriores deixam de valer e as sessões desta conta terminam. Não há login automático.");
+    }, 900);
+  }
+  finishOnb(msg) {
+    this.setAcc(a => ({ ...a, onboarded: true }));
+    this.go("briefing", { resumed: false });
+    this.note(msg || "Onboarding concluído sem hábito. O Briefing mostra um convite, não uma lista vazia.");
+  }
+  confirmLogout() {
+    const s = this.state, a = this.acc();
+    if (s.logoutFail) { this.go("saidaFalhou"); this.note("A limpeza da saída falhou. O acesso continua bloqueado; a conta não reabre sozinha."); return; }
+    const pend = a ? a.habits.filter(h => h.sync === "local" || h.sync === "sending" || h.sync === "refused").length : 0;
+    let msg = "Você saiu. Para entrar de novo, é preciso internet.";
+    if (pend) msg = "Você saiu. " + this.plural(pend, "alteração desta conta fica guardada", "alterações desta conta ficam guardadas") + " neste aparelho e volta(m) quando você entrar nela de novo, com internet.";
+    this.setState({ account: null, needsReauth: false, sessionExpired: false, f: {}, toast: null });
+    this.go("entrada", { notice: msg });
+    this.note("Logout encerrou o acesso na hora. Pendências ficam isoladas por conta, sem prazo de expiração.");
+  }
+  submitReauth() {
+    const s = this.state, a = this.acc(), pw = s.f.rpw || "";
+    if (!s.online) { this.setState({ e: { rpw: "Sem conexão. Tente de novo quando a internet voltar." } }); return; }
+    if (pw !== a.pw) { this.setState({ e: { rpw: "Senha incorreta." } }); return; }
+    this.setState({ needsReauth: false, sessionExpired: false, sheet: null, f: { ...s.f, rpw: "" } }, () => this.syncAll());
+    this.note("Sessão renovada. Pendências locais enviadas.");
+  }
+
+  // ---------- sistema ----------
+  installUpdate() {
+    this.setState({ updateRequired: false, updatePending: true });
+    if (this.state.online) this.later(() => this.verifyUpdate(), 50);
+    else this.note("Nova versão instalada sem internet. Continua em leitura até confirmar compatibilidade online.");
+  }
+  verifyUpdate() {
+    this.setState({ verifying: true }); this.note("Verificando a nova versão com o servidor…");
+    this.later(() => { this.setState({ updatePending: false, verifying: false }, () => this.syncAll()); this.note("Versão confirmada online. Registros liberados e fila retomada."); }, 1300);
+  }
+  startCarga(fresh) {
+    clearInterval(this.loadTimer);
+    this.setState({ screen: "carga", sheet: null, loadErr: false, loadPct: fresh ? 0 : this.state.loadPct });
+    this.loadTimer = setInterval(() => {
+      const s = this.state;
+      if (s.loadFail && s.loadPct >= 60) { clearInterval(this.loadTimer); this.setState({ loadErr: true }); this.note("Carga interrompida em 60%. A tela não mostra conta vazia; dá para retomar de onde parou."); return; }
+      if (s.loadPct >= 100) { clearInterval(this.loadTimer); this.go("briefing"); this.note("Carga concluída. Briefing com os dados da conta."); return; }
+      this.setState({ loadPct: Math.min(100, s.loadPct + 10) });
+    }, 260);
+  }
+  reopen() {
+    const back = this.state.screen; clearInterval(this.loadTimer);
+    this.setState({ screen: "splash", sheet: null, toast: null, back });
+    this.later(() => {
+      const a = this.acc();
+      if (!a) { this.go("entrada"); this.note("App reaberto sem sessão: Entrada."); return; }
+      if (back === "carga") { this.startCarga(false); return; }
+      if (back === "saidaFalhou") { this.go("saidaFalhou"); return; }
+      if (!a.onboarded) { this.go("onb", { resumed: true }); this.note("App reaberto: onboarding retomado na etapa " + this.state.onbStep + "."); return; }
+      this.go(["briefing", "habitos", "ajustes", "aparencia"].includes(back) ? back : "briefing");
+      this.note("App reaberto: registros e pendências preservados.");
+      if (this.canSync()) this.syncAll();
+    }, 900);
+  }
+
+  journeys() {
+    const A = "pedro@exemplo.com";
+    const P = (extra, mut, after) => () => {
+      clearInterval(this.loadTimer); this.timers.forEach(clearTimeout); this.timers = []; this.taps = {}; this.offlineToastShown = false;
+      const st = Object.assign(this.baseState(), { skin: this.state.skin, mode: this.state.mode, scale: this.state.scale, reduce: this.state.reduce }, extra);
+      if (mut) mut(st.accounts);
+      this.setState(st, after);
+    };
+    return [
+      { id: "D01", t: "Cadastro → fuso/04h → pular hábito → Briefing útil", run: P({ screen: "cadastro", note: "Preencha o cadastro. Na etapa 2, toque em “Pular por agora”." }) },
+      { id: "D02", t: "Interromper e retomar onboarding; criar Meditar", run: P({ screen: "onb", account: "novo@exemplo.com", onbStep: 1, note: "Avance uma etapa e use “Fechar e reabrir o app”. Depois crie “Meditar”." }, a => { a["novo@exemplo.com"] = { name: "Pedro", pw: "ritmo2026", onboarded: false, tz: "Belém (UTC−3)", dayStart: 4, xpBase: 0, habits: [] }; }) },
+      { id: "D03", t: "Offline: criar e marcar → salvo aqui; reabrir preserva", run: P({ screen: "briefing", account: A, online: false, note: "Sem rede. Marque um hábito, crie outro e use “Fechar e reabrir o app”." }) },
+      { id: "D04", t: "Duplo toque = 1 cumprimento; desfazer 0; remarcar 10", run: P({ screen: "briefing", account: A, note: "Dê dois toques rápidos em Meditar e observe o XP. Depois toque de novo para desfazer." }) },
+      { id: "D05", t: "Rede volta → confirmado, sem celebrar reenvio", run: P({ screen: "briefing", account: A, online: false, note: "Há 2 registros salvos neste aparelho. Ligue a conexão no painel." }, a => { const h = a[A].habits; h[0] = { ...h[0], done: true, sync: "local" }; h[2] = { ...h[2], done: true, sync: "local" }; }) },
+      { id: "D06", t: "Falha local: sem check/XP; manter intenção e tentar", run: P({ screen: "briefing", account: A, writeFail: true, note: "A escrita local está falhando. Marque um hábito; depois desligue a falha e toque em Tentar." }) },
+      { id: "D07", t: "Título duplicado recusado → corrigir ou descartar", run: P({ screen: "briefing", account: A, online: false, conflict: true, note: "“Alongar” foi criado offline, e outro aparelho criou um igual. Ligue a conexão." }, a => { a[A].habits.push({ id: "h9", title: "Alongar", icon: "🤸", color: 4, done: false, sync: "local", isNew: true }); }) },
+      { id: "D08", t: "Logout offline; conta B isolada; A exige login online", run: P({ screen: "ajustes", account: A, online: false, note: "Saia offline. Tente entrar (falha sem rede). Ligue a rede, entre como Bia, saia e entre como Pedro." }, a => { const h = a[A].habits; h[0] = { ...h[0], done: true, sync: "local" }; }) },
+      { id: "D09", t: "Recuperação: pedido, link expirado/usado/novo, sucesso", run: P({ screen: "recuperar", f: { remail: "pedro@exemplo.com" }, note: "Peça o link. Depois use “Abrir link do e-mail” no painel: expirado, válido e de novo válido (já usado)." }) },
+      { id: "D10", t: "Sessão expirada offline mantém uso; entrar ao reconectar", run: P({ screen: "briefing", account: A, online: false, sessionExpired: true, note: "A sessão expirou no servidor, mas offline tudo funciona. Marque algo e ligue a conexão." }) },
+      { id: "D11", t: "Carga em novo aparelho retomável; falha não vira vazio", run: P({ account: A, loadFail: true, screen: "carga", note: "Primeiro acesso neste aparelho, com falha simulada a 60%." }, null, () => this.startCarga(true)) },
+      { id: "D12", t: "Atualização obrigatória; build novo offline segue protegido", run: P({ screen: "briefing", account: A, updateRequired: true, online: false, note: "Somente leitura. Toque em Atualizar (sem internet) e depois ligue a conexão." }) }
+    ];
+  }
+
+  palettes() {
+    return {
+      cockpit: { name: "Cockpit", tag: "Painéis com marcas de canto. Ciano.", head: "'Chakra Petch', sans-serif", r: 10, btnR: 8,
+        dark: { bg: "#06080B", surf: "#0D141A", bord: "#1C2A33", text: "#DCEAF0", dim: "#93A8B2", accent: "#3EE0FF", accentText: "#3EE0FF", onAccent: "#04161C", warn: "#F0A93B", err: "#FF8A7A", link: "#6FE8FF" },
+        light: { bg: "#EEF3F5", surf: "#FFFFFF", bord: "#D3DEE3", text: "#0D1A20", dim: "#4F6873", accent: "#07758C", accentText: "#06687C", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#06687C" } },
+      neo: { name: "Neo-tokyo", tag: "Magenta, cantos macios, brilho baixo.", head: "'Space Grotesk', sans-serif", r: 20, btnR: 999,
+        dark: { bg: "#0D0A12", surf: "#171022", bord: "#2D2040", text: "#EFE9F6", dim: "#AEA2C0", accent: "#FF5FA2", accentText: "#FF7DB3", onAccent: "#12060C", warn: "#FFC24D", err: "#FF8A7A", link: "#FF8DBD" },
+        light: { bg: "#F6F1F7", surf: "#FFFFFF", bord: "#E8DCEB", text: "#1E1424", dim: "#665770", accent: "#C2296D", accentText: "#AD2261", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#AD2261" } },
+      holo: { name: "Holograma", tag: "Colchetes nos quatro cantos, scanline fina.", head: "'Chakra Petch', sans-serif", r: 4, btnR: 4,
+        dark: { bg: "#04090F", surf: "#08141D", bord: "#143D50", text: "#D7ECF5", dim: "#88AEBF", accent: "#63F5D8", accentText: "#63F5D8", onAccent: "#031511", warn: "#FFB661", err: "#FF8A7A", link: "#7FF7E0" },
+        light: { bg: "#EDF4F4", surf: "#FFFFFF", bord: "#C7DCDF", text: "#0B1B20", dim: "#4B6972", accent: "#0B7A68", accentText: "#096B5B", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#096B5B" } }
+    };
+  }
+  rgba(hex, a) { const n = parseInt(hex.slice(1), 16); return "rgba(" + (n >> 16) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")"; }
+
+  renderVals() {
+    const s = this.state, a = this.acc(), P = this.palettes(), S = P[s.skin], c = S[s.mode], dark = s.mode === "dark";
+    const R = (h, x) => this.rgba(h, x);
+    const t = Object.assign({}, c, {
+      head: S.head, mono: "'JetBrains Mono', monospace", r: S.r, btnR: S.btnR,
+      innerR: Math.max(4, Math.min(12, S.r - 4)), boxR: Math.min(9, Math.max(4, Math.round(S.r * 0.5))), tileR: Math.max(4, Math.round(S.r * 0.55)),
+      track: dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)", inputBg: dark ? "rgba(255,255,255,0.03)" : "#F7F9FA",
+      bordStrong: R(c.text, dark ? 0.32 : 0.34),
+      scan: s.skin === "holo" ? "repeating-linear-gradient(0deg, " + R(c.accent, dark ? 0.035 : 0.05) + " 0 1px, transparent 1px 4px)" : "none",
+      glow: s.skin === "neo" ? "0 12px 30px -18px " + R(c.accent, dark ? 0.4 : 0.28) : (dark ? "none" : "0 1px 2px rgba(0,0,0,0.05)"),
+      warnSoft: R(c.warn, dark ? 0.12 : 0.1), warnLine: R(c.warn, 0.5), errSoft: R(c.err, dark ? 0.12 : 0.07),
+      accentSoft: R(c.accent, 0.13), accentLine: R(c.accent, 0.45),
+      tr: s.reduce ? "none" : "background-color 200ms ease, border-color 200ms ease, width 320ms ease",
+      overlay: dark ? "rgba(0,0,0,0.62)" : "rgba(10,20,25,0.42)",
+      tabBg: dark ? R(c.bg, 0.96) : R(c.surf, 0.97),
+      toastBg: dark ? "#F2F4F5" : "#12181C", toastFg: dark ? "#0B1115" : "#F2F4F5", toastLink: dark ? (s.skin === "neo" ? "#AD2261" : "#06687C") : c.accent === "#07758C" ? "#6FE8FF" : (s.skin === "neo" ? "#FF8DBD" : "#7FF7E0")
+    });
+    const L = "1px solid " + c.accent;
+    const corners = s.skin === "cockpit"
+      ? [{ l: "8px", t: "8px", r: "auto", b: "auto", s: 7, bl: L, bt: L, br: "none", bb: "none", o: 0.6 }, { l: "auto", t: "auto", r: "8px", b: "8px", s: 7, bl: "none", bt: "none", br: L, bb: L, o: 0.6 }]
+      : s.skin === "holo"
+      ? [{ l: "5px", t: "5px", r: "auto", b: "auto", s: 10, bl: L, bt: L, br: "none", bb: "none", o: 1 }, { l: "auto", t: "5px", r: "5px", b: "auto", s: 10, bl: "none", bt: L, br: L, bb: "none", o: 1 },
+         { l: "5px", t: "auto", r: "auto", b: "5px", s: 10, bl: L, bt: "none", br: "none", bb: L, o: 1 }, { l: "auto", t: "auto", r: "5px", b: "5px", s: 10, bl: "none", bt: "none", br: L, bb: L, o: 1 }]
+      : [];
+
+    const scr = s.screen;
+    const is = {}; ["splash", "entrada", "cadastro", "login", "recuperar", "recEnviado", "linkInvalido", "novaSenha", "onb", "habitoForm", "carga", "saidaFalhou", "briefing", "habitos", "ajustes", "aparencia"].forEach(k => is[k] = scr === k);
+    const showTabs = !!a && ["briefing", "habitos", "ajustes", "aparencia"].includes(scr);
+    const nav = {}; ["entrada", "cadastro", "login", "recuperar", "briefing", "habitos", "ajustes", "aparencia"].forEach(k => nav[k] = () => this.go(k, k === "login" || k === "entrada" ? { notice: k === "login" ? null : s.notice } : {}));
+    nav.login = () => this.go("login", { notice: null });
+    const tabCol = k => scr === k || (k === "ajustes" && scr === "aparencia") ? c.accentText : c.dim;
+
+    // form helpers
+    const keys = ["name", "email", "pw", "lemail", "lpw", "remail", "np1", "np2", "rpw", "htitle", "cadForm", "loginForm", "recForm", "npForm", "habitForm"];
+    const f = {}, e = {}, fb = {}, has = {}, inv = {}, on = {};
+    keys.forEach(k => { f[k] = s.f[k] || ""; e[k] = s.e[k] || ""; has[k] = !!s.e[k]; inv[k] = s.e[k] ? "true" : "false"; fb[k] = s.e[k] ? c.err : t.bordStrong; on[k] = ev => this.setF(k, ev.target.value); });
+    on.htitle = ev => { const v = ev.target.value; this.setState(st => ({ draft: { ...st.draft, title: v }, e: { ...st.e, htitle: null, habitForm: null } })); };
+    const pw = s.f.pw || "";
+    const strength = pw.length === 0 ? { text: "Use 8 caracteres ou mais. Uma frase longa é mais forte que símbolos.", color: c.dim }
+      : pw.length < 8 ? { text: "Faltam " + (8 - pw.length) + " caracteres.", color: c.dim }
+      : pw.length < 12 ? { text: "Boa. Frases mais longas deixam a senha mais forte.", color: c.dim }
+      : { text: "Senha forte.", color: c.accentText };
+
+    // habits
+    const readOnly = s.updateRequired || s.updatePending;
+    const habits = a ? a.habits : [];
+    const hcol = [c.accent, dark ? "#79B8FF" : "#1F5FA8", c.warn, dark ? "#B69CFF" : "#5B3FC4", dark ? "#7CE38B" : "#2B6E37"];
+    const hname = ["Destaque", "Azul", "Âmbar", "Violeta", "Verde"];
+    const stMap = { local: ["◐", "Salvo neste aparelho", c.dim], sending: ["↻", "Sincronizando…", c.dim], refused: ["⚠", "Precisa de atenção", c.warn], unsaved: ["⚠", "Não salvo neste aparelho", c.err] };
+    const rows = habits.map((h, i) => {
+      const st = stMap[h.sync];
+      return {
+        id: h.id, title: h.title, icon: h.icon, done: h.done, tileBg: R(hcol[h.color % 5], dark ? 0.2 : 0.14),
+        disabled: readOnly || h.sync === "refused", showLock: readOnly && !h.done,
+        boxBorder: h.done ? "none" : (readOnly || h.sync === "refused" ? "1.5px dashed " + t.bordStrong : "1.5px solid " + t.bordStrong), boxBg: h.done ? c.accent : "transparent",
+        aria: h.title + ": " + (h.done ? "feito" : "não feito") + (readOnly ? ", somente leitura" : "") + (st ? ", " + st[1] : ""),
+        hasStatus: !!st, statusIcon: st ? st[0] : "", statusText: st ? st[1] : "", statusColor: st ? st[2] : c.dim,
+        mgmtSub: st ? st[0] + " " + st[1] : "Todo dia · sim ou não",
+        isUnsaved: h.sync === "unsaved", showXp: h.done && h.sync !== "unsaved",
+        sep: i === 0 ? "none" : "1px solid " + c.bord,
+        toggle: () => this.toggleHabit(h.id), retry: () => this.retryUnsaved(h.id), edit: () => this.openHabitForm(h.id),
+        up: () => this.moveHabit(h.id, -1), down: () => this.moveHabit(h.id, 1),
+        noUp: i === 0 || readOnly, noDown: i === habits.length - 1 || readOnly, upOp: i === 0 || readOnly ? 0.35 : 1, downOp: i === habits.length - 1 || readOnly ? 0.35 : 1
+      };
+    });
+    const doneN = habits.filter(h => h.done).length;
+    const cnt = k => habits.filter(h => h.sync === k).length;
+    const nLocal = cnt("local"), nSend = cnt("sending"), nRef = cnt("refused"), nUnsaved = cnt("unsaved"), nOk = cnt("ok");
+    const pendXp = habits.filter(h => h.done && (h.sync === "local" || h.sync === "sending")).length;
+    const xpToday = doneN * 10, xpTotal = ((a ? a.xpBase : 0) + xpToday).toLocaleString("pt-BR");
+
+    let pill;
+    const warnPill = (icon, text) => ({ icon, text, bg: t.warnSoft, border: t.warnLine, fg: c.text, fgDim: c.warn });
+    const okPill = (icon, text) => ({ icon, text, bg: "transparent", border: c.bord, fg: c.dim, fgDim: c.dim });
+    if (s.updateRequired) pill = okPill("🔒", "Somente leitura");
+    else if (s.updatePending) pill = okPill("🔒", s.verifying ? "Verificando versão…" : "Aguardando verificação");
+    else if (s.needsReauth) pill = warnPill("⚠", "Entre para sincronizar");
+    else if (nRef) pill = warnPill("⚠", this.plural(nRef, "alteração precisa de atenção", "alterações precisam de atenção"));
+    else if (!s.online) pill = okPill("⊘", nLocal ? "Offline · " + this.plural(nLocal, "salva aqui", "salvas aqui") : "Offline");
+    else if (nSend) pill = okPill("↻", "Sincronizando…");
+    else if (nLocal) pill = okPill("◐", this.plural(nLocal, "salva neste aparelho", "salvas neste aparelho"));
+    else pill = okPill("✓", "Tudo sincronizado");
+
+    const refusedItems = habits.filter(h => h.sync === "refused").map(h => ({
+      id: h.id, title: h.title, icon: h.icon, reason: h.reason || "motivo não informado.",
+      fixVal: s.fix[h.id] != null ? s.fix[h.id] : h.title, onFix: ev => { const v = ev.target.value; this.setState(st => ({ fix: { ...st.fix, [h.id]: v }, fixErr: { ...st.fixErr, [h.id]: null } })); },
+      fixErr: s.fixErr[h.id] || "", hasFixErr: !!s.fixErr[h.id], fixInv: s.fixErr[h.id] ? "true" : "false", fixBorder: s.fixErr[h.id] ? c.err : t.bordStrong,
+      confirming: s.discardId === h.id, notConfirming: s.discardId !== h.id,
+      submit: () => this.submitFix(h.id), askDiscard: () => this.setState({ discardId: h.id }), cancelDiscard: () => this.setState({ discardId: null }), confirmDiscard: () => this.discard(h.id)
+    }));
+
+    const syncRows = [["✓", "Confirmadas", nOk, c.accentText], ["◐", "Salvas neste aparelho", nLocal, c.dim], ["↻", "Enviando", nSend, c.dim], ["⚠", "Precisam de atenção", nRef, c.warn], ["⚠", "Não salvas", nUnsaved, c.err]]
+      .map((r, i) => ({ icon: r[0], label: r[1], n: r[2], col: r[3], sep: i === 0 ? "none" : "1px solid " + c.bord }));
+    const syncExplain = s.updateRequired || s.updatePending ? "Envios pausados até a versão do app ser confirmada. Nada da fila foi perdido."
+      : s.needsReauth ? "Envios pausados até você entrar de novo. Nada foi perdido."
+      : !s.online ? "Sem conexão. Tudo que você registra fica salvo neste aparelho e é enviado quando a conexão voltar, com o app aberto."
+      : "Registros ficam salvos neste aparelho primeiro e são enviados à sua conta em seguida.";
+
+    const ds = a ? a.dayStart : 4, pad = n => (n < 10 ? "0" : "") + n;
+    const tzList = ["Belém (UTC−3)", "São Paulo (UTC−3)", "Manaus (UTC−4)", "Lisboa (UTC+1)"];
+    const tzOptions = tzList.map(z => ({ label: z, sel: a && a.tz === z, mark: a && a.tz === z ? "●" : "○", border: a && a.tz === z ? c.accent : c.bord, pick: () => { this.setAcc(x => ({ ...x, tz: z })); this.setState({ tzOpen: false }); } }));
+
+    const d = s.draft;
+    const iconList = [["🧘", "Meditação"], ["📖", "Leitura"], ["💧", "Água"], ["🏃", "Corrida"], ["🚶", "Caminhada"], ["🤸", "Alongamento"], ["🎸", "Música"], ["✍️", "Escrita"], ["🌱", "Planta"], ["🎯", "Alvo"]];
+    const iconOpts = iconList.map(o => ({ icon: o[0], name: o[1], sel: d.icon === o[0], border: d.icon === o[0] ? c.accent : c.bord, bg: d.icon === o[0] ? t.accentSoft : "transparent", pick: () => this.setState(st => ({ draft: { ...st.draft, icon: o[0] } })) }));
+    const colorOpts = hcol.map((hx, i) => ({ hex: hx, name: hname[i], sel: d.color === i, ring: d.color === i ? c.text : "transparent", checkCol: dark ? "#06080B" : "#FFFFFF", pick: () => this.setState(st => ({ draft: { ...st.draft, color: i } })) }));
+
+    const isStep2 = is.onb && s.onbStep === 2;
+    const toastBottom = showTabs ? 95 : 46;
+    const skins = ["cockpit", "neo", "holo"].map(k => { const p = P[k], pc = p[s.mode], sel = k === s.skin; return { name: p.name, tag: p.tag, head: p.head, bg: pc.bg, surf: pc.surf, bord: pc.bord, accent: pc.accent, miniR: Math.max(2, Math.round(p.r / 3)), sel, ring: sel ? c.accent : c.bord, mark: sel ? "● atual" : "", pick: () => this.saveVisual({ skin: k }) }; });
+    const modes = [["dark", "Escuro"], ["light", "Claro"]].map(m => ({ label: m[1], sel: s.mode === m[0], bg: s.mode === m[0] ? c.accent : "transparent", fg: s.mode === m[0] ? c.onAccent : c.text, pick: () => this.saveVisual({ mode: m[0] }) }));
+
+    const tg = (label, on, flip, onTxt, offTxt) => ({ label, on, flip, state: on ? (onTxt || "LIGADO") : (offTxt || "DESLIGADO"), bg: on ? "#1A1A18" : "#E4E2DC", fg: on ? "#FFFFFF" : "#57544E" });
+    const toggles = [
+      tg("Conexão", s.online, () => this.setOnline(!s.online), "ONLINE", "OFFLINE"),
+      tg("Falha de escrita local", s.writeFail, () => { this.setState({ writeFail: !s.writeFail }); this.note(!s.writeFail ? "Escrita local vai falhar: marcações serão desfeitas e avisadas como não salvas." : "Escrita local normal de novo."); }),
+      tg("Sessão expirada no servidor", s.sessionExpired, () => { const v = !s.sessionExpired; this.setState({ sessionExpired: v, needsReauth: v && s.online && !!s.account }); this.note(v ? (s.online ? "O servidor pediu login: sync pausada, uso local mantido." : "Sessão expirou no servidor. Offline, o uso local segue normal.") : "Sessão válida."); }),
+      tg("Recusar título duplicado no envio", s.conflict, () => this.setState({ conflict: !s.conflict })),
+      tg("Atualização obrigatória", s.updateRequired, () => { this.setState({ updateRequired: !s.updateRequired, updatePending: false }); this.note(!s.updateRequired ? "Versão incompatível: só leitura local. Consulta e saída continuam." : "Atualização desligada."); }),
+      tg("Falha na carga inicial", s.loadFail, () => this.setState({ loadFail: !s.loadFail })),
+      tg("Falha ao limpar dados na saída", s.logoutFail, () => this.setState({ logoutFail: !s.logoutFail }))
+    ];
+    const actions = [
+      { label: "Fechar e reabrir o app", run: () => this.reopen() },
+      { label: "Abrir link do e-mail · válido", run: () => this.openLink("valido") },
+      { label: "· expirado", run: () => this.openLink("expirado") },
+      { label: "· já usado", run: () => this.openLink("usado") },
+      { label: "Entrar em aparelho novo", run: () => { this.setState({ account: "pedro@exemplo.com", loadPct: 0 }); this.startCarga(true); } }
+    ];
+    const vb = (label, on, run) => ({ label, on, run, bg: on ? "#1A1A18" : "#FAF9F6", fg: on ? "#FFFFFF" : "#1A1A18", border: on ? "#1A1A18" : "#D3D0C8" });
+    const visualBtns = [
+      vb("Cockpit", s.skin === "cockpit", () => this.saveVisual({ skin: "cockpit" })), vb("Neo-tokyo", s.skin === "neo", () => this.saveVisual({ skin: "neo" })), vb("Holograma", s.skin === "holo", () => this.saveVisual({ skin: "holo" })),
+      vb("Escuro", dark, () => this.saveVisual({ mode: "dark" })), vb("Claro", !dark, () => this.saveVisual({ mode: "light" })),
+      vb("Texto 100%", s.scale === 1, () => this.setState({ scale: 1 })), vb("Texto 200%", s.scale === 2, () => this.setState({ scale: 2 })),
+      vb("Reduzir movimento", s.reduce, () => this.setState({ reduce: !s.reduce }))
+    ];
+
+    const linkTitle = s.linkKind === "expirado" ? "Este link expirou" : "Este link já foi usado";
+    const linkText = s.linkKind === "expirado" ? "Links de recuperação valem por uma hora. Peça um novo para continuar." : "Cada link serve para uma troca de senha. Peça um novo se ainda precisar.";
+    const pendAll = habits.filter(h => ["local", "sending", "refused"].includes(h.sync)).length;
+
+    return {
+      t, corners, is, showTabs, nav, bottomInset: showTabs ? 83 : 34,
+      netLabel: s.online ? "5G" : "Sem rede", netColor: s.online ? c.text : c.warn,
+      skinName: S.name, modeName: dark ? "escuro" : "claro", scaleLabel: s.scale === 2 ? "200%" : "100%",
+      tab: { briefing: tabCol("briefing"), habitos: tabCol("habitos"), ajustes: tabCol("ajustes"), briefingCur: scr === "briefing" ? "page" : "false", habitosCur: scr === "habitos" ? "page" : "false", ajustesCur: scr === "ajustes" || scr === "aparencia" ? "page" : "false" },
+      f, e, fb, has, inv, on, showPw: s.showPw, pwType: s.showPw ? "text" : "password", pwToggleLabel: s.showPw ? "Ocultar" : "Mostrar", togglePw: () => this.setState({ showPw: !s.showPw }),
+      strength, busyNow: !!s.busy,
+      label: { cadastro: s.busy ? "Criando conta…" : "Criar conta", login: s.busy ? "Entrando…" : "Entrar", recuperar: s.busy ? "Enviando…" : "Enviar instruções", novaSenha: s.busy ? "Salvando…" : "Salvar nova senha" },
+      submitCadastro: () => this.submitCadastro(), submitLogin: () => this.submitLogin(), submitRecuperar: () => this.submitRecuperar(), submitNovaSenha: () => this.submitNovaSenha(), resendLink: () => this.resendLink(),
+      notice: s.notice || "", hasNotice: !!s.notice, linkTitle, linkText,
+      splashSkeleton: !!a && a.onboarded, splashLogo: !a || !a.onboarded,
+      userName: a ? a.name : "", userEmail: s.account || "",
+      onbStep: s.onbStep, isStep1: is.onb && s.onbStep === 1, isStep2, resumed: s.resumed, onbBar2: s.onbStep === 2 ? c.accent : t.track,
+      tzLabel: a ? a.tz : "", tzOpen: s.tzOpen, tzBtn: s.tzOpen ? "Fechar" : "Alterar", toggleTz: () => this.setState({ tzOpen: !s.tzOpen }), tzOptions,
+      dayStartLabel: pad(ds) + ":00", dsMinus: () => this.setAcc(x => ({ ...x, dayStart: Math.max(0, x.dayStart - 1) })), dsPlus: () => this.setAcc(x => ({ ...x, dayStart: Math.min(23, x.dayStart + 1) })),
+      dayStartHint: ds === 0 ? "O dia vira à meia-noite." : "Registros feitos entre 00:00 e " + pad(ds - 1) + ":59 contam para o dia anterior. Dá para mudar depois em Ajustes.",
+      onbNext: () => { this.setState({ onbStep: 2, resumed: false, tzOpen: false, draft: { title: "", icon: "🧘", color: 0 }, editingId: null, e: {} }); this.note("Etapa 2: primeiro hábito é opcional. “Pular” fica sempre visível."); },
+      showHabitForm: is.habitoForm || isStep2, formTitle: isStep2 ? "Quer começar com um hábito?" : (s.editingId ? "Editar hábito" : "Novo hábito"),
+      formSave: isStep2 ? "Criar hábito" : "Salvar", formBack: () => this.go(s.formFrom === "briefing" ? "briefing" : "habitos"),
+      draft: d, draftLen: d.title.length, draftTile: R(hcol[d.color], dark ? 0.2 : 0.14), draftPreview: d.title.trim() || "Nome do hábito",
+      iconOpts, colorOpts, saveHabit: () => this.saveHabit(), skipHabit: () => this.finishOnb(), newHabit: () => this.openHabitForm(null),
+      loadPct: s.loadPct, loadErr: s.loadErr, cargaBar: s.loadErr ? c.warn : c.accent,
+      cargaTitle: s.loadErr ? "Carregamento pausado" : "Carregando sua conta", cargaText: "É o primeiro acesso neste aparelho. Seus hábitos e registros estão vindo da sua conta.",
+      cargaStep: s.loadPct < 40 ? "Conta e preferências" : s.loadPct < 90 ? "Hábitos e registros" : "Quase lá",
+      retryCarga: () => { this.setState({ loadFail: false }); this.startCarga(false); this.note("Retomando a carga de onde parou (60%)."); },
+      dateLabel: "Quarta, 30 de setembro",
+      contextLine: !habits.length ? "Nenhum hábito ainda. Que tal começar por um?" : doneN === habits.length ? "Tudo feito por hoje." : doneN + " de " + habits.length + " hábitos feitos hoje.",
+      pill, openSync: () => this.setState({ sheet: "sync" }),
+      readOnly, roOpacity: readOnly ? 0.45 : 1,
+      showUpdate: !!a && s.updateRequired, showUpdatePending: !!a && s.updatePending,
+      updatePendingText: s.verifying ? "Verificando a nova versão…" : "Nova versão instalada. Precisamos confirmar com a internet antes de liberar os registros.",
+      installUpdate: () => this.installUpdate(),
+      showReauth: !!a && s.needsReauth, openReauth: () => this.setState({ sheet: "reauth", e: {} }),
+      showRefused: nRef > 0, noRefused: nRef === 0, refusedText: nRef === 1 ? "Esta alteração precisa da sua atenção." : nRef + " alterações precisam da sua atenção.", openAtencao: () => this.setState({ sheet: "atencao" }),
+      rows, hasHabits: habits.length > 0, noHabits: habits.length === 0, allDone: habits.length > 0 && doneN === habits.length, doneLabel: doneN + "/" + habits.length,
+      xpTotal, xpToday, xpFlashOn: !!s.xpFlash, xpAnim: s.reduce ? "none" : "rt-pop 1.4s ease forwards",
+      hasPendingXp: pendXp > 0, pendingXpText: "Inclui " + this.plural(pendXp, "registro salvo", "registros salvos") + " neste aparelho, ainda sem confirmação.",
+      profileRows: a ? [["Nome", a.name], ["E-mail", s.account], ["Fuso", a.tz], ["Início do dia", pad(a.dayStart) + ":00"]].map((r, i) => ({ k: r[0], v: r[1], sep: i === 0 ? "none" : "1px solid " + c.bord })) : [],
+      skins, modes,
+      openLogout: () => this.setState({ sheet: "logout" }), confirmLogout: () => this.confirmLogout(), offlineNow: !s.online,
+      logoutText: pendAll ? this.plural(pendAll, "alteração ainda não foi confirmada", "alterações ainda não foram confirmadas") + ". Fica(m) guardada(s) neste aparelho, separada(s) desta conta, e volta(m) quando você entrar nela de novo." : "Seus dados confirmados continuam na sua conta.",
+      submitReauth: () => this.submitReauth(),
+      openPrivacy: () => this.setState({ sheet: "privacy" }),
+      hasSheet: !!s.sheet, closeSheet: () => this.setState({ sheet: null, discardId: null }),
+      sheet: { logout: s.sheet === "logout", reauth: s.sheet === "reauth", sync: s.sheet === "sync", atencao: s.sheet === "atencao", privacy: s.sheet === "privacy" },
+      syncRows, syncExplain, refusedItems,
+      hasToast: !!s.toast, toastText: s.toast ? s.toast.text : "", hasToastAction: !!(s.toast && s.toast.actionLabel), toastActionLabel: s.toast ? s.toast.actionLabel : "", toastAction: () => { const x = s.toast; this.setState({ toast: null }); if (x && x.action) x.action(); }, toastBottom,
+      note: s.note, journeys: this.journeys(), toggles, actions, visualBtns
+    };
+  }
+}
+</script>
+</body>
+</html>

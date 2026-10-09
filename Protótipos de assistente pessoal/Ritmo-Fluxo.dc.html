@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #E4E2DC; }
+  a { color: #0A6F85; }
+  a:hover { color: #064B5A; }
+</style>
+</helmet>
+
+<div style="padding: 48px 48px 80px; font-family: 'Public Sans', system-ui, sans-serif; color: #1A1A18; display: flex; flex-direction: column; gap: 48px">
+  <header style="display: flex; flex-direction: column; gap: 10px; max-width: 900px">
+    <div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E6B64">Ritmo · nome provisório · iPhone 16e</div>
+    <h1 style="margin: 0; font-size: 34px; font-weight: 700; line-height: 1.15">Fluxo completo de telas</h1>
+    <p style="margin: 0; font-size: 16px; color: #45433E; line-height: 1.55; text-wrap: pretty">Na ordem de uso: primeira abertura, conta, uso diário no M1 e depois o que entra na Fase 1 e na Fase 2A. Cada tela é o app real aberto naquele ponto. Clique em “Abrir” para navegar a partir dela.</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 4px">
+      <a href="Ritmo-App.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; background: #1A1A18; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px">Abrir app navegável →</a>
+      <a href="Ritmo-M1-Handoff.dc.html" style="font-size: 15px">Handoff</a>
+      <span style="display: flex; gap: 8px; margin-left: 8px">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: #0A6F85; color: #FFFFFF">M1</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: #8F5609; color: #FFFFFF">FASE 1</span>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: #5B3FC4; color: #FFFFFF">FASE 2A</span>
+      </span>
+    </div>
+  </header>
+
+  <sc-for list="{{ stages }}" as="st" hint-placeholder-count="7">
+    <section id="{{ st.id }}" style="display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; color: #6E6B64">{{ st.n }}</span>
+        <h2 style="margin: 0; font-size: 24px; font-weight: 700">{{ st.title }}</h2>
+        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: {{ st.bg }}; color: #FFFFFF">{{ st.phase }}</span>
+        <span style="font-size: 14px; color: #57544E; flex-basis: 100%; max-width: 820px; line-height: 1.5">{{ st.desc }}</span>
+      </div>
+      <div style="display: flex; gap: 0; align-items: flex-start; overflow-x: auto; padding-bottom: 8px">
+        <sc-for list="{{ st.screens }}" as="s" hint-placeholder-count="5">
+          <div style="display: flex; align-items: flex-start; flex: none">
+            <sc-if value="{{ s.arrow }}"><div aria-hidden="true" style="width: 44px; height: 476px; display: flex; align-items: center; justify-content: center; color: #8A867D; font-size: 22px">→</div></sc-if>
+            <div style="width: 227px; display: flex; flex-direction: column; gap: 10px">
+              <div style="width: 227px; height: 476px; overflow: hidden; border-radius: 26px; background: #141414">
+                <iframe src="{{ s.src }}" loading="lazy" title="{{ s.name }}" tabindex="-1" style="width: 412px; height: 866px; border: 0; transform: scale(0.55); transform-origin: 0 0; pointer-events: none; background: transparent"></iframe>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: baseline"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #6E6B64">{{ s.id }}</span><span style="font-size: 15px; font-weight: 600; flex: 1">{{ s.name }}</span><a href="{{ s.open }}" style="font-size: 13px; font-weight: 600">Abrir</a></div>
+              <div style="font-size: 13px; color: #57544E; line-height: 1.45; text-wrap: pretty">{{ s.note }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const PH = { m1: ["M1", "#0A6F85"], f1: ["FASE 1", "#8F5609"], "2a": ["FASE 2A", "#5B3FC4"] };
+    const S = (id, name, q, note) => ({ id, name, note, q });
+    const stages = [
+      { id: "primeira-abertura", title: "Primeira abertura", ph: "m1", desc: "Do download ao Briefing útil. Nenhuma tela pede algo antes de explicar o motivo; o onboarding pode ser interrompido e retomado.", screens: [
+        S("1.1", "Boas-vindas", "fase=m1", "Criar conta ou entrar. Sem login social nem convidado."),
+        S("1.2", "Criar conta", "fase=m1&tela=cadastro", "E-mail e senha (8+). E-mail já usado recebe mensagem neutra."),
+        S("1.3", "Erros no campo", "fase=m1&tela=cadastro&err=1", "Erro junto ao campo, com a próxima ação."),
+        S("1.4", "Fuso e início do dia", "fase=m1&tela=onbfuso", "Passo 1 de 2. Fuso detectado, 04:00 padrão, exemplo do caso 00:30."),
+        S("1.5", "Primeiro hábito", "fase=m1&tela=onbhabito", "Passo 2 de 2, opcional. Só sim/não diário no M1."),
+        S("1.6", "Briefing sem hábito", "fase=m1&tela=briefing&hab=0", "Se pulou: convite para criar o primeiro."),
+        S("1.7", "Briefing com o 1º hábito", "fase=m1&tela=briefing&hab=1", "Um toque marca, +10 XP, desfazer devolve.")
+      ] },
+      { id: "conta", title: "Conta e sessão", ph: "m1", desc: "Entrar, recuperar senha e sair. Sair offline preserva pendências isoladas no aparelho; entrar de novo exige internet.", screens: [
+        S("2.1", "Entrar", "fase=m1&tela=entrar", "Erro genérico de credencial, sem revelar se a conta existe."),
+        S("2.2", "Recuperar senha", "fase=m1&tela=recuperar", "Pede o e-mail."),
+        S("2.3", "Link enviado", "fase=m1&tela=recuperar&rec=1", "Resposta neutra e caminho de volta."),
+        S("2.4", "Ajustes do M1", "fase=m1&tela=ajustes", "Perfil, aparência e conta. “Sair” leva a Entrar com aviso.")
+      ] },
+      { id: "m1-diario", title: "Uso diário no M1", ph: "m1", desc: "Briefing é a home. Hábitos tem a lista e a criação. Sem tarefas, Agenda, assistente, níveis ou séries.", screens: [
+        S("3.1", "Briefing", "fase=m1&tela=briefing", "Saudação, hábitos de hoje e XP básico."),
+        S("3.2", "Hábitos", "fase=m1&tela=habitos", "Lista e “+ Novo”."),
+        S("3.3", "Novo hábito", "fase=m1&tela=novohabito", "Nome, tipo (só sim/não), 10 ícones e 5 cores com nome."),
+        S("3.4", "Detalhe do hábito", "fase=m1&habit=med", "Hoje, taxa e últimos 7 dias corrigíveis."),
+        S("3.5", "Fuso e início do dia", "fase=m1&tela=perfil", "Mudança vale no próximo dia lógico; a nova substitui uma agendada.")
+      ] },
+      { id: "f1-briefing", title: "Fase 1 · Briefing, hábitos e gamificação", ph: "f1", desc: "Cinco abas e botão fixo do assistente. Nível, séries e proteções aparecem; tudo some se as séries forem desligadas.", screens: [
+        S("4.1", "Briefing completo", "fase=f1&tela=briefing", "Nível, série, proteção usada, Agenda e Tarefas."),
+        S("4.2", "Hábitos", "fase=f1&tela=habitos", "Quatro tipos com séries."),
+        S("4.3", "Novo hábito", "fase=f1&tela=novohabito", "Sim/não, quantidade, evitar, N vezes por semana."),
+        S("4.4", "Hábito por quantidade", "fase=f1&habit=agua", "Contribuições somadas, regra ativa/proposta."),
+        S("4.5", "Hábito semanal", "fase=f1&habit=correr", "Quota da semana; mudança vale na próxima segunda.")
+      ] },
+      { id: "f1-tarefas", title: "Fase 1 · Tarefas, Agenda e assistente", ph: "f1", desc: "Tarefas com prazo na meia-noite, Agenda Google só leitura por padrão e assistente por texto ou voz com confirmação.", screens: [
+        S("5.1", "Tarefas", "fase=f1&tela=tarefas", "Criação rápida, grupos por prazo, busca."),
+        S("5.2", "Detalhe da tarefa", "fase=f1&task=t7", "Prioridade, subtarefas, repetição."),
+        S("5.3", "Agenda", "fase=f1&tela=agenda", "Hoje e amanhã, provisório, cancelado, fuso de origem."),
+        S("5.4", "Assistente", "fase=f1&tela=briefing&sheet=ai", "Voz só online; offline vira texto com interpretação limitada."),
+        S("5.5", "Ajustes", "fase=f1&tela=ajustes", "Gamificação, som, notificações, privacidade, dados, aparência, conta.")
+      ] },
+      { id: "f1-dados", title: "Fase 1 · Perfil e dados", ph: "f1", desc: "Edição de fuso e início do dia, exportação e exclusão de conta.", screens: [
+        S("6.1", "Fuso e início do dia", "fase=f1&tela=perfil", "ATIVA, AGENDADA e PROPOSTA."),
+        S("6.2", "Exportar dados", "fase=f1&tela=exportar", "Pedido em até 24 h; falha e offline."),
+        S("6.3", "Excluir conta", "fase=f1&tela=excluir", "Confirmação digitada; exige conexão.")
+      ] },
+      { id: "f2a", title: "Fase 2A · Módulos", ph: "2a", desc: "Notícias e Futebol entram pelo card do Briefing e por Mais › Módulos. Times reais que você acompanha; placares e manchetes demonstrativos.", screens: [
+        S("7.1", "Briefing 2A", "fase=2a&tela=briefing", "Sugestão de agenda (dia cheio), Futebol e Notícias."),
+        S("7.2", "Mais › Módulos", "fase=2a&tela=ajustes", "Notícias e Futebol no topo dos Ajustes."),
+        S("7.3", "Notícias", "fase=2a&tela=noticias", "3 a 5 matérias, até 2 vagas prioritárias, janela de 3 h."),
+        S("7.4", "Futebol", "fase=2a&tela=futebol", "Botafogo, Barcelona, Liverpool · Brasileirão, Premier, Champions."),
+        S("7.5", "Partida ao vivo", "fase=2a&tela=partida", "“Estou assistindo” silencia só os gols desta partida.")
+      ] }
+    ];
+    return {
+      stages: stages.map((st, si) => ({ id: st.id, n: String(si + 1).padStart(2, "0"), title: st.title, desc: st.desc, phase: PH[st.ph][0], bg: PH[st.ph][1],
+        screens: st.screens.map((s, i) => ({ ...s, arrow: i > 0, src: "Ritmo-App.dc.html?embed=1&" + s.q, open: "Ritmo-App.dc.html?" + s.q })) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -23,7 +23,7 @@ Ao iniciar uma fatia, leia `CLAUDE.md` e o spec citado.
 
 Conta, onboarding, hábito binário diário, XP básico, persistência, sync e Briefing mínimo precisam ser exercitados juntos. Comportamentos de onboarding/concorrência estão definidos; [spec/13](specs/13-contrato-primeiro-marco.md) concretiza a proposta técnica, com cenários de falha, e spec/00 §12 mapeia os dados. Schemas executáveis, versões compatíveis e validação real ainda são necessários; nenhum desses documentos comprova implementação.
 
-**Dependência visual:** aguardar o protótipo do Pedro conforme Q28 e spec/11. Documentação e validações de domínio/persistência podem avançar; o aceite visual do Briefing permanece bloqueado. Níveis, ofensivas, proteções, conquistas, Agenda, tarefas e voz não são exigidos antes deste marco.
+**Dependência visual atualizada em 09/10/2026:** protótipo recebido e direção consolidada em [spec/11](specs/11-design-system.md); a implementação pode iniciar pelos [recortes de interface M1](.scratch/interface-m1/spec.md). O aceite visual/nativo continua pendente; revisar HTML não comprova telas funcionando. Níveis, ofensivas, proteções, conquistas, Agenda, tarefas e voz não são exigidos antes deste marco.
 
 **Revisão de prazo:** registrar a data de início da implementação e revisar o resultado após quatro semanas conforme ADR-014. Implementação iniciada em **25/09/2026, 18:22**; revisão em **23/10/2026**, registrada na tarefa 04. A revisão não troca automaticamente o backend por BaaS.
 
@@ -81,7 +81,7 @@ Os identificadores de fatia abaixo foram preservados para rastrear os documentos
 - Registro de providers, error boundary por card, carregamento progressivo
 - Cards de saudação, agenda, hábitos e tarefas, acionáveis no próprio card
 - **É a home do app** e absorve a antiga tela Hoje (ADR-009)
-- **Bloqueada até a Q5 (direção visual) ser respondida** — esta é a primeira tela que define o visual de tudo
+- Direção Q5 consolidada em 09/10/2026; seguir spec/11 e os recortes M1. A validação visual/nativa continua necessária
 - **Pronto quando:** dá para viver o dia inteiro sem sair da home, e adicionar um card novo é registrar um provider
 
 ### Fatia 4 — Engine de gamificação

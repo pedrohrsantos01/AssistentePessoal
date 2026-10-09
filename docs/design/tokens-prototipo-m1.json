@@ -1,0 +1,418 @@
+{
+  "version": "ritmo-prototype-2026-10-09",
+  "source": "Protótipos de assistente pessoal/Ritmo-M1.dc.html",
+  "scope": "referência visual; não é runtime nativo nem contrato de produto",
+  "defaultSkin": "holo",
+  "initialColorMode": "system",
+  "skins": {
+    "cockpit": {
+      "name": "Cockpit",
+      "tag": "Painéis com marcas de canto. Ciano.",
+      "head": "'Chakra Petch', sans-serif",
+      "r": 10,
+      "btnR": 8,
+      "dark": {
+        "bg": "#06080B",
+        "surf": "#0D141A",
+        "bord": "#1C2A33",
+        "text": "#DCEAF0",
+        "dim": "#93A8B2",
+        "accent": "#3EE0FF",
+        "accentText": "#3EE0FF",
+        "onAccent": "#04161C",
+        "warn": "#F0A93B",
+        "err": "#FF8A7A",
+        "link": "#6FE8FF"
+      },
+      "light": {
+        "bg": "#EEF3F5",
+        "surf": "#FFFFFF",
+        "bord": "#D3DEE3",
+        "text": "#0D1A20",
+        "dim": "#4F6873",
+        "accent": "#07758C",
+        "accentText": "#06687C",
+        "onAccent": "#FFFFFF",
+        "warn": "#8F5609",
+        "err": "#B42318",
+        "link": "#06687C"
+      }
+    },
+    "neo": {
+      "name": "Neo-tokyo",
+      "tag": "Magenta, cantos macios, brilho baixo.",
+      "head": "'Space Grotesk', sans-serif",
+      "r": 20,
+      "btnR": 999,
+      "dark": {
+        "bg": "#0D0A12",
+        "surf": "#171022",
+        "bord": "#2D2040",
+        "text": "#EFE9F6",
+        "dim": "#AEA2C0",
+        "accent": "#FF5FA2",
+        "accentText": "#FF7DB3",
+        "onAccent": "#12060C",
+        "warn": "#FFC24D",
+        "err": "#FF8A7A",
+        "link": "#FF8DBD"
+      },
+      "light": {
+        "bg": "#F6F1F7",
+        "surf": "#FFFFFF",
+        "bord": "#E8DCEB",
+        "text": "#1E1424",
+        "dim": "#665770",
+        "accent": "#C2296D",
+        "accentText": "#AD2261",
+        "onAccent": "#FFFFFF",
+        "warn": "#8F5609",
+        "err": "#B42318",
+        "link": "#AD2261"
+      }
+    },
+    "holo": {
+      "name": "Holograma",
+      "tag": "Colchetes nos quatro cantos, scanline fina.",
+      "head": "'Chakra Petch', sans-serif",
+      "r": 4,
+      "btnR": 4,
+      "dark": {
+        "bg": "#04090F",
+        "surf": "#08141D",
+        "bord": "#143D50",
+        "text": "#D7ECF5",
+        "dim": "#88AEBF",
+        "accent": "#63F5D8",
+        "accentText": "#63F5D8",
+        "onAccent": "#031511",
+        "warn": "#FFB661",
+        "err": "#FF8A7A",
+        "link": "#7FF7E0"
+      },
+      "light": {
+        "bg": "#EDF4F4",
+        "surf": "#FFFFFF",
+        "bord": "#C7DCDF",
+        "text": "#0B1B20",
+        "dim": "#4B6972",
+        "accent": "#0B7A68",
+        "accentText": "#096B5B",
+        "onAccent": "#FFFFFF",
+        "warn": "#8F5609",
+        "err": "#B42318",
+        "link": "#096B5B"
+      }
+    }
+  },
+  "typography": {
+    "bodyAndDisplay": {
+      "cockpit": "Chakra Petch",
+      "holo": "Chakra Petch",
+      "neo": "Space Grotesk"
+    },
+    "mono": "JetBrains Mono",
+    "bodyWeights": [
+      400,
+      500,
+      600,
+      700
+    ],
+    "monoWeights": [
+      400,
+      500,
+      700
+    ],
+    "observedSizes": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20,
+      22,
+      24,
+      28,
+      32,
+      36,
+      40
+    ],
+    "lineHeight": [
+      1.0,
+      1.05,
+      1.15,
+      1.2,
+      1.3,
+      1.35,
+      1.4,
+      1.45,
+      1.5
+    ]
+  },
+  "metrics": {
+    "touchMin": 44,
+    "inputMinHeight": 48,
+    "primaryButtonMinHeight": 52,
+    "habitRowMinHeight": 60,
+    "checkboxVisual": 28,
+    "iconTile": 36,
+    "screenGutter": {
+      "form": 24,
+      "briefing": 18
+    },
+    "border": {
+      "card": 1,
+      "control": 1.5
+    },
+    "radius": {
+      "cockpit": {
+        "card": 10,
+        "button": 8,
+        "inner": 6,
+        "checkbox": 5,
+        "iconTile": 6
+      },
+      "neo": {
+        "card": 20,
+        "button": 999,
+        "inner": 12,
+        "checkbox": 9,
+        "iconTile": 11
+      },
+      "holo": {
+        "card": 4,
+        "button": 4,
+        "inner": 4,
+        "checkbox": 4,
+        "iconTile": 4
+      }
+    }
+  },
+  "motion": {
+    "pressMs": 120,
+    "stateMs": 200,
+    "maxTransitionMs": 320,
+    "xpFeedbackVisibleMs": 1400,
+    "levelFeedbackMaxMs": 1500,
+    "reducedMotion": "instantâneo/estático"
+  },
+  "habitColors": {
+    "keys": [
+      "accent",
+      "blue",
+      "amber",
+      "violet",
+      "green"
+    ],
+    "dark": [
+      "accent",
+      "#79B8FF",
+      "warning",
+      "#B69CFF",
+      "#7CE38B"
+    ],
+    "light": [
+      "accent",
+      "#1F5FA8",
+      "warning",
+      "#5B3FC4",
+      "#2B6E37"
+    ]
+  },
+  "habitIcons": [
+    {
+      "key": "meditation",
+      "glyph": "🧘",
+      "label": "Meditação"
+    },
+    {
+      "key": "reading",
+      "glyph": "📖",
+      "label": "Leitura"
+    },
+    {
+      "key": "water",
+      "glyph": "💧",
+      "label": "Água"
+    },
+    {
+      "key": "running",
+      "glyph": "🏃",
+      "label": "Corrida"
+    },
+    {
+      "key": "walking",
+      "glyph": "🚶",
+      "label": "Caminhada"
+    },
+    {
+      "key": "stretching",
+      "glyph": "🤸",
+      "label": "Alongamento"
+    },
+    {
+      "key": "music",
+      "glyph": "🎸",
+      "label": "Música"
+    },
+    {
+      "key": "writing",
+      "glyph": "✍️",
+      "label": "Escrita"
+    },
+    {
+      "key": "plant",
+      "glyph": "🌱",
+      "label": "Planta"
+    },
+    {
+      "key": "target",
+      "glyph": "🎯",
+      "label": "Alvo"
+    }
+  ],
+  "derivedReference": {
+    "track": {
+      "dark": {
+        "color": "#FFFFFF",
+        "alpha": 0.08
+      },
+      "light": {
+        "color": "#000000",
+        "alpha": 0.07
+      }
+    },
+    "inputBg": {
+      "dark": {
+        "color": "#FFFFFF",
+        "alpha": 0.03
+      },
+      "light": "#F7F9FA"
+    },
+    "borderStrong": {
+      "color": "text",
+      "alpha": {
+        "dark": 0.32,
+        "light": 0.34
+      },
+      "use": "referência decorativa; aumentar contraste para controles interativos"
+    },
+    "accentSoft": {
+      "color": "accent",
+      "alpha": 0.13
+    },
+    "accentLine": {
+      "color": "accent",
+      "alpha": 0.45
+    },
+    "warningSoft": {
+      "color": "warn",
+      "alpha": {
+        "dark": 0.12,
+        "light": 0.1
+      }
+    },
+    "warningLine": {
+      "color": "warn",
+      "alpha": 0.5
+    },
+    "errorSoft": {
+      "color": "err",
+      "alpha": {
+        "dark": 0.12,
+        "light": 0.07
+      }
+    },
+    "overlay": {
+      "dark": {
+        "color": "#000000",
+        "alpha": 0.62
+      },
+      "light": {
+        "color": "#0A1419",
+        "alpha": 0.42
+      }
+    },
+    "tabBg": {
+      "dark": {
+        "color": "bg",
+        "alpha": 0.96
+      },
+      "light": {
+        "color": "surf",
+        "alpha": 0.97
+      }
+    },
+    "toast": {
+      "dark": {
+        "bg": "#F2F4F5",
+        "fg": "#0B1115",
+        "link": {
+          "cockpit": "#06687C",
+          "holo": "#06687C",
+          "neo": "#AD2261"
+        }
+      },
+      "light": {
+        "bg": "#12181C",
+        "fg": "#F2F4F5",
+        "link": {
+          "cockpit": "#6FE8FF",
+          "holo": "#7FF7E0",
+          "neo": "#FF8DBD"
+        }
+      }
+    },
+    "holoScan": {
+      "color": "accent",
+      "alpha": {
+        "dark": 0.035,
+        "light": 0.05
+      },
+      "linePx": 1,
+      "periodPx": 4
+    },
+    "neoGlow": {
+      "color": "accent",
+      "alpha": {
+        "dark": 0.4,
+        "light": 0.28
+      },
+      "offset": [
+        0,
+        12
+      ],
+      "blur": 30,
+      "spread": -18
+    },
+    "borderInteractive": {
+      "color": "text",
+      "alpha": 0.48,
+      "origin": "correção de acessibilidade: distinguir o controle vazio; referência forte original usa .32/.34"
+    }
+  },
+  "space": {
+    "base": [
+      0,
+      4,
+      8,
+      12,
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "component": [
+      2,
+      6,
+      10,
+      14,
+      18,
+      20
+    ]
+  }
+}

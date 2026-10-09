@@ -6,7 +6,7 @@ Preparação autorizada na continuação do marco. Referencia a [tarefa 05](../p
 
 - Q54: Pedro ainda não tem domínio disponível; escolherá o nome e pediu instruções para configurar pelo provedor. Gratuidade e plano da conta não foram conferidos. [Guia manual](../../api/ops/domain-and-email-setup.md).
 - Q55=B: adiar a rota iOS. iPhone 16e continua exigido para aceitar M1; não substituir por desktop ou dispensar Universal Links.
-- Q28: protótipo em preparação; integração visual permanece na [tarefa 03 existente](../primeiro-marco/issues/03-integrar-prototipo.md).
+- Q28: protótipo recebido em 09/10/2026 e direção consolidada em spec/11; integração visual permanece na [tarefa 03 existente](../primeiro-marco/issues/03-integrar-prototipo.md), decomposta nos recortes de interface M1.
 - Q47: artefatos locais primeiro, fornecedores/orçamento/contratação depois. Operação externa permanece na [tarefa 04 existente](../recuperacao-operacional/issues/04-validar-operacao-externa.md). Pacote 4B verificado localmente; 4A/4C/4D abertos.
 
 ## Árvore de dependências

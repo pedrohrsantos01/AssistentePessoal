@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #E4E2DC; }
+  a { color: #0A6F85; }
+  a:hover { color: #064B5A; }
+  button { font-family: inherit; }
+  .rt-scroll::-webkit-scrollbar { width: 0; height: 0; }
+  @keyframes rt-live { 0%,100% { opacity: 1 } 50% { opacity: 0.35 } }
+  @keyframes rt-spin { to { transform: rotate(360deg) } }
+  @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition: none !important } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; padding: 28px; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; justify-content: center; font-family: 'Public Sans', system-ui, sans-serif; color: #1A1A18">
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <div style="display: flex; gap: 8px; align-items: center; font-size: 13px; color: #57544E">
+      <span style="font-weight: 700; background: #5B3FC4; color: #FFFFFF; padding: 3px 8px; border-radius: 4px; font-size: 12px; letter-spacing: 0.06em">FASE 2A · PLANEJADA</span>
+      <span>{{ skinName }} {{ modeName }} · texto {{ scaleLabel }} · dados demonstrativos</span>
+    </div>
+
+    <div role="application" aria-label="Protótipo Ritmo Fase 2A" style="width: 390px; height: 844px; border-radius: 50px; background: {{ t.bg }}; color: {{ t.text }}; font-family: {{ t.head }}; position: relative; overflow: hidden; box-shadow: 0 0 0 11px #141414, 0 24px 60px rgba(0,0,0,0.28)">
+      <div style="position: absolute; top: 0; left: 0; right: 0; height: 47px; display: flex; align-items: center; justify-content: space-between; padding: 0 30px 0 34px; font-family: -apple-system, 'Public Sans', sans-serif; font-size: 15px; font-weight: 600; z-index: 5">
+        <span>{{ clockTime }}</span><span style="font-size: 12px; color: {{ netColor }}">{{ netLabel }}</span>
+      </div>
+
+      <div class="rt-scroll" style="position: absolute; top: 47px; left: 0; right: 0; bottom: 83px; overflow-y: auto; overflow-x: hidden">
+
+        <!-- ============ BRIEFING ============ -->
+        <sc-if value="{{ is.briefing }}" hint-placeholder-val="{{ true }}">
+          <div style="padding: 10px 18px 40px; display: flex; flex-direction: column; gap: 12px">
+            <div style="display: flex; align-items: flex-end; gap: 10px; padding: 4px 2px 0">
+              <div style="flex: 1">
+                <div style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}; letter-spacing: 0.08em; text-transform: uppercase">Quinta, 2 de outubro</div>
+                <h1 style="margin: 6px 0 0; font-size: 1.75rem; font-weight: 600; line-height: 1.15">{{ greeting }}</h1>
+              </div>
+              <button type="button" onClick="{{ openOrder }}" style="min-height: 44px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer">↕ Organizar</button>
+            </div>
+
+            <sc-for list="{{ briefCards }}" as="bc" hint-placeholder-count="4">
+              <sc-if value="{{ bc.isMed }}">
+                <section aria-label="Sugestão de agenda" style="border: 1px dashed {{ t.bordStrong }}; border-radius: {{ t.r }}px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px">
+                  <div style="display: flex; gap: 8px; align-items: baseline"><span aria-hidden="true">🧭</span><span style="font-size: 0.9375rem; font-weight: 600; flex: 1">Dois compromissos se sobrepõem hoje</span><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; color: {{ t.dim }}">sugestão</span></div>
+                  <div style="font-size: 0.9375rem; line-height: 1.45">Reunião de projeto (15:00–16:00) e Dentista (15:30). Nada foi alterado; você decide.</div>
+                  <div style="display: flex; gap: 8px"><button type="button" onClick="{{ medSee }}" style="flex: 1; min-height: 44px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-weight: 600; cursor: pointer">Ver na Agenda</button><button type="button" onClick="{{ medDismiss }}" style="flex: 1; min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-weight: 600; cursor: pointer">Dispensar</button></div>
+                </section>
+              </sc-if>
+              <sc-if value="{{ bc.isHab }}">
+                <section aria-label="Hábitos" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; padding: 14px 16px; display: flex; align-items: center; gap: 12px">
+                  <span aria-hidden="true">🎯</span><span style="flex: 1; font-size: 1rem; font-weight: 600">Hábitos de hoje</span><span style="font-family: {{ t.mono }}; font-size: 0.875rem; color: {{ t.dim }}">1/5 · Fase 1</span>
+                </section>
+              </sc-if>
+              <sc-if value="{{ bc.isSport }}">
+                <section aria-labelledby="c-sp" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; padding: 16px; position: relative">
+                  <sc-for list="{{ corners }}" as="c" hint-placeholder-count="0"><span aria-hidden="true" style="position: absolute; left: {{ c.l }}; top: {{ c.t }}; right: {{ c.r }}; bottom: {{ c.b }}; width: {{ c.s }}px; height: {{ c.s }}px; border-left: {{ c.bl }}; border-top: {{ c.bt }}; border-right: {{ c.br }}; border-bottom: {{ c.bb }}; opacity: {{ c.o }}"></span></sc-for>
+                  <div style="display: flex; gap: 9px; align-items: baseline; margin-bottom: 12px"><span aria-hidden="true">⚽</span><h2 id="c-sp" style="margin: 0; font-size: 1rem; font-weight: 600; flex: 1">Futebol</h2><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ live.statusCol }}">{{ live.statusShort }}</span></div>
+                  <button type="button" onClick="{{ openMatch }}" style="width: 100%; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; padding: 0; text-align: left; display: flex; flex-direction: column; gap: 8px">
+                    <span style="display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 30px; height: 30px; border-radius: 8px; background: {{ t.accentSoft }}; display: flex; align-items: center; justify-content: center; font-family: {{ t.mono }}; font-size: 0.6875rem; font-weight: 700">TUC</span><span style="flex: 1; font-size: 1rem">Tucuju FC</span><span style="font-family: {{ t.mono }}; font-size: 1.375rem; font-weight: 700">{{ live.h }}</span></span>
+                    <span style="display: flex; align-items: center; gap: 10px"><span aria-hidden="true" style="width: 30px; height: 30px; border-radius: 8px; background: {{ t.track }}; display: flex; align-items: center; justify-content: center; font-family: {{ t.mono }}; font-size: 0.6875rem; font-weight: 700">MZE</span><span style="flex: 1; font-size: 1rem">Marco Zero EC</span><span style="font-family: {{ t.mono }}; font-size: 1.375rem; font-weight: 700">{{ live.a }}</span></span>
+                    <span style="font-size: 0.8125rem; color: {{ live.subCol }}; line-height: 1.4">{{ live.sub }}</span>
+                  </button>
+                </section>
+              </sc-if>
+              <sc-if value="{{ bc.isNews }}">
+                <section aria-labelledby="c-nw" style="background-color: {{ t.surf }}; background-image: {{ t.scan }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; box-shadow: {{ t.glow }}; padding: 16px 16px 6px; position: relative">
+                  <div style="display: flex; gap: 9px; align-items: baseline; margin-bottom: 8px"><span aria-hidden="true">📰</span><h2 id="c-nw" style="margin: 0; font-size: 1rem; font-weight: 600; flex: 1">Notícias</h2><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; color: {{ t.dim }}">{{ newsStamp }}</span></div>
+                  <sc-if value="{{ newsEmpty }}"><div style="font-size: 0.9375rem; color: {{ t.dim }}; padding: 6px 0 12px">Nada relevante por aqui agora.</div></sc-if>
+                  <sc-for list="{{ briefNews }}" as="n" hint-placeholder-count="3">
+                    <button type="button" onClick="{{ n.open }}" style="width: 100%; min-height: 64px; border: none; border-top: {{ n.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 10px 0; display: flex; flex-direction: column; gap: 4px">
+                      <span style="font-size: 1rem; font-weight: 500; line-height: 1.3">{{ n.t }}</span>
+                      <span style="font-family: {{ t.mono }}; font-size: 0.6875rem; color: {{ t.dim }}">{{ n.meta }}</span>
+                    </button>
+                  </sc-for>
+                </section>
+              </sc-if>
+            </sc-for>
+            <sc-if value="{{ hiddenCount }}"><div style="font-size: 0.8125rem; color: {{ t.dim }}; text-align: center">{{ hiddenLabel }}</div></sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ============ NOTÍCIAS ============ -->
+        <sc-if value="{{ is.noticias }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 40px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 4px 2px 0">
+              <h1 style="margin: 0; font-size: 1.75rem; font-weight: 600; flex: 1">Notícias</h1>
+              <sc-if value="{{ newsActive }}"><button type="button" onClick="{{ go.temas }}" style="min-height: 44px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer">Temas</button><button type="button" onClick="{{ go.fontes }}" style="min-height: 44px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer">Fontes</button></sc-if>
+            </div>
+            <sc-if value="{{ newsInactive }}">
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+                <div style="font-size: 1.125rem; font-weight: 600">Escolha pelo menos um tema</div>
+                <div style="font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.5">Três a cinco matérias por vez, com resumo e link para o site original. Sem feed infinito.</div>
+                <button type="button" onClick="{{ go.temas }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Escolher temas</button>
+                <button type="button" onClick="{{ go.briefing }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-weight: 600; cursor: pointer">Pular por agora</button>
+              </div>
+            </sc-if>
+            <sc-if value="{{ newsActive }}">
+              <sc-if value="{{ offline }}"><div role="status" style="font-size: 0.8125rem; color: {{ t.dim }}">⊘ Sem conexão · última coleta às 07:40.</div></sc-if>
+              <sc-if value="{{ sourceDown }}"><div role="status" style="display: flex; gap: 8px; font-size: 0.8125rem; line-height: 1.4; padding: 10px 12px; border-radius: {{ t.innerR }}px; background: {{ t.warnSoft }}; border: 1px solid {{ t.warnLine }}"><span aria-hidden="true" style="color: {{ t.warn }}">⚠</span><span>Diário Exemplo não respondeu. As outras fontes seguem normais.</span></div></sc-if>
+              <sc-if value="{{ newsEmpty }}"><div role="status" style="padding: 28px 4px; display: flex; flex-direction: column; gap: 8px"><div style="font-size: 1.0625rem; font-weight: 600">Nada relevante por aqui agora.</div><div style="font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">Quando houver algo novo nos seus temas, aparece aqui. Você pode revisar os temas se quiser.</div></div></sc-if>
+              <sc-for list="{{ newsList }}" as="n" hint-placeholder-count="4">
+                <article style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap; font-family: {{ t.mono }}; font-size: 0.6875rem; color: {{ t.dim }}"><span>{{ n.src }}</span><span>·</span><span>{{ n.time }}</span><sc-if value="{{ n.hasLang }}"><span style="padding: 1px 6px; border: 1px solid {{ t.bord }}; border-radius: 4px">{{ n.lang }}</span></sc-if><sc-if value="{{ n.prio }}"><span style="padding: 1px 6px; border-radius: 4px; background: {{ t.accentSoft }}; color: {{ t.accentText }}">prioritário</span></sc-if></div>
+                  <h2 style="margin: 0; font-size: 1.0625rem; font-weight: 600; line-height: 1.3">{{ n.t }}</h2>
+                  <sc-if value="{{ n.hasBullets }}"><ul style="margin: 0; padding-left: 18px; font-size: 0.9375rem; line-height: 1.5; display: flex; flex-direction: column; gap: 4px"><sc-for list="{{ n.bullets }}" as="b" hint-placeholder-count="3"><li>{{ b }}</li></sc-for></ul></sc-if>
+                  <sc-if value="{{ n.noBullets }}"><div style="font-size: 0.8125rem; color: {{ t.dim }}">Sem resumo: o conteúdo disponível não permite resumir com segurança.</div></sc-if>
+                  <sc-if value="{{ n.hasAlso }}"><div style="font-size: 0.8125rem; color: {{ t.dim }}">Também em {{ n.also }}</div></sc-if>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap">
+                    <button type="button" onClick="{{ n.open }}" style="flex: 1; min-width: 140px; min-height: 44px; border-radius: {{ t.btnR }}px; border: 1.5px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">Abrir no site ↗</button>
+                    <button type="button" onClick="{{ n.hide }}" style="min-height: 44px; padding: 0 12px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">Não me interessa</button>
+                  </div>
+                </article>
+              </sc-for>
+              <button type="button" onClick="{{ refreshNews }}" style="min-height: 44px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.875rem; font-weight: 600; cursor: pointer">{{ refreshLabel }}</button>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ============ TEMAS ============ -->
+        <sc-if value="{{ is.temas }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ go.noticias }}" aria-label="Voltar para Notícias" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 18px 40px; display: flex; flex-direction: column; gap: 12px">
+            <h1 style="margin: 0 2px; font-size: 1.75rem; font-weight: 600">Temas</h1>
+            <p style="margin: 0 2px; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">Sugestões de exemplo, ajustáveis. Marcar um tema marca os subtemas. ★ deixa um tema prioritário.</p>
+            <sc-for list="{{ topics }}" as="p" hint-placeholder-count="6">
+              <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 10px">
+                <div style="display: flex; align-items: center; gap: 6px; min-height: 56px">
+                  <button type="button" role="checkbox" aria-checked="{{ p.aria }}" onClick="{{ p.toggle }}" style="flex: 1; min-height: 52px; display: flex; align-items: center; gap: 12px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 0">
+                    <span aria-hidden="true" style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 6px; border: {{ p.border }}; background: {{ p.bg }}; display: flex; align-items: center; justify-content: center; color: {{ t.onAccent }}; font-size: 0.875rem; font-weight: 700">{{ p.mark }}</span>
+                    <span style="font-size: 1rem; font-weight: 600">{{ p.name }}</span>
+                  </button>
+                  <sc-if value="{{ p.hasKids }}"><button type="button" onClick="{{ p.expand }}" aria-expanded="{{ p.open }}" aria-label="Subtemas de {{ p.name }}" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.dim }}; cursor: pointer; font-size: 1rem">{{ p.chev }}</button></sc-if>
+                </div>
+                <sc-if value="{{ p.open }}">
+                  <sc-for list="{{ p.kids }}" as="k" hint-placeholder-count="3">
+                    <div style="display: flex; align-items: center; gap: 6px; min-height: 52px; border-top: 1px solid {{ t.bord }}; padding-left: 20px">
+                      <button type="button" role="checkbox" aria-checked="{{ k.on }}" onClick="{{ k.toggle }}" style="flex: 1; min-height: 48px; display: flex; align-items: center; gap: 12px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 0">
+                        <span aria-hidden="true" style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 6px; border: {{ k.border }}; background: {{ k.bg }}; display: flex; align-items: center; justify-content: center; color: {{ t.onAccent }}; font-size: 0.8125rem">{{ k.mark }}</span><span style="font-size: 0.9375rem">{{ k.name }}</span>
+                      </button>
+                      <sc-if value="{{ k.on }}"><button type="button" onClick="{{ k.star }}" aria-pressed="{{ k.prio }}" aria-label="Prioritário: {{ k.name }}" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ k.starCol }}; cursor: pointer; font-size: 1.125rem">{{ k.starIcon }}</button></sc-if>
+                    </div>
+                  </sc-for>
+                </sc-if>
+              </div>
+            </sc-for>
+            <button type="button" onClick="{{ activateNews }}" disabled="{{ noTopic }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer; opacity: {{ topicOp }}">{{ activateLabel }}</button>
+            <sc-if value="{{ noTopic }}"><div style="font-size: 0.8125rem; color: {{ t.dim }}; text-align: center">Marque pelo menos um tema para ativar.</div></sc-if>
+          </div>
+        </sc-if>
+
+        <!-- ============ FONTES ============ -->
+        <sc-if value="{{ is.fontes }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ go.noticias }}" aria-label="Voltar para Notícias" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 18px 40px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: baseline; gap: 8px; padding: 0 2px"><h1 style="margin: 0; font-size: 1.75rem; font-weight: 600; flex: 1">Fontes</h1><span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}">{{ srcCount }}/50</span></div>
+
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+              <label for="surl" style="font-size: 0.875rem; font-weight: 600">Adicionar pelo endereço do site</label>
+              <input id="surl" type="url" inputmode="url" placeholder="https://" value="{{ add.url }}" onChange="{{ add.onUrl }}" aria-invalid="{{ add.inv }}" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ add.border }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: {{ t.mono }}; font-size: 0.9375rem">
+              <div style="display: flex; gap: 6px; flex-wrap: wrap"><sc-for list="{{ add.samples }}" as="x" hint-placeholder-count="6"><button type="button" onClick="{{ x.pick }}" style="min-height: 32px; padding: 0 10px; border-radius: 999px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.dim }}; font-family: {{ t.mono }}; font-size: 0.6875rem; cursor: pointer">{{ x.label }}</button></sc-for></div>
+              <sc-if value="{{ add.hasErr }}"><div role="alert" style="display: flex; gap: 8px; font-size: 0.875rem; line-height: 1.45; color: {{ t.text }}"><span aria-hidden="true" style="color: {{ add.errCol }}">⚠</span><span>{{ add.err }}</span></div></sc-if>
+              <sc-if value="{{ add.checking }}"><div role="status" style="display: flex; gap: 8px; align-items: center; font-size: 0.875rem; color: {{ t.dim }}"><span aria-hidden="true" style="width: 14px; height: 14px; border-radius: 7px; border: 2px solid {{ t.accent }}; border-top-color: transparent; animation: rt-spin 0.8s linear infinite"></span>Verificando o site e procurando o feed…</div></sc-if>
+              <sc-if value="{{ add.showVerify }}"><button type="button" onClick="{{ add.verify }}" style="min-height: 48px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">{{ add.verifyLabel }}</button></sc-if>
+              <sc-if value="{{ add.preview }}">
+                <div style="border: 1px solid {{ t.accentLine }}; border-radius: {{ t.innerR }}px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px">
+                  <div style="font-size: 1rem; font-weight: 600">{{ add.pName }}</div>
+                  <div style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}">{{ add.pMeta }}</div>
+                  <sc-for list="{{ add.pTitles }}" as="x" hint-placeholder-count="3"><div style="font-size: 0.875rem; line-height: 1.4; padding-top: 4px; border-top: 1px solid {{ t.bord }}">{{ x }}</div></sc-for>
+                </div>
+                <sc-if value="{{ add.similar }}"><label style="display: flex; gap: 10px; align-items: flex-start; font-size: 0.875rem; line-height: 1.45; cursor: pointer"><input type="checkbox" checked="{{ add.simOk }}" onChange="{{ add.onSim }}" style="width: 22px; height: 22px; margin: 0; flex: none"><span>Confirmo que é este site. O endereço é parecido com o de outra fonte conhecida.</span></label></sc-if>
+                <button type="button" onClick="{{ add.confirm }}" disabled="{{ add.confirmDisabled }}" style="min-height: 48px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer; opacity: {{ add.confirmOp }}">Adicionar fonte</button>
+              </sc-if>
+            </div>
+
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 14px">
+              <sc-for list="{{ sources }}" as="x" hint-placeholder-count="4">
+                <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 0; border-top: {{ x.sep }}">
+                  <div style="display: flex; align-items: baseline; gap: 8px"><span style="flex: 1; font-size: 1rem; font-weight: 600">{{ x.name }}</span><span style="font-family: {{ t.mono }}; font-size: 0.6875rem; color: {{ x.stCol }}">{{ x.st }}</span></div>
+                  <div style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ t.dim }}">{{ x.meta }}</div>
+                  <sc-if value="{{ x.hasWhy }}"><div style="font-size: 0.8125rem; line-height: 1.4">{{ x.why }}</div></sc-if>
+                  <div style="display: flex; gap: 6px; flex-wrap: wrap">
+                    <button type="button" onClick="{{ x.pause }}" style="min-height: 40px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; cursor: pointer">{{ x.pauseLabel }}</button>
+                    <button type="button" onClick="{{ x.recheck }}" style="min-height: 40px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1px solid {{ t.bordStrong }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; cursor: pointer">Reverificar</button>
+                    <button type="button" onClick="{{ x.remove }}" style="min-height: 40px; padding: 0 12px; border: none; background: transparent; color: {{ t.err }}; font-size: 0.8125rem; cursor: pointer">Remover</button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ ESPORTES ============ -->
+        <sc-if value="{{ is.esportes }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 40px; display: flex; flex-direction: column; gap: 14px">
+            <div style="display: flex; align-items: center; gap: 10px; padding: 4px 2px 0"><h1 style="margin: 0; font-size: 1.75rem; font-weight: 600; flex: 1">Futebol</h1><button type="button" onClick="{{ go.times }}" style="min-height: 44px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer">Times</button><button type="button" onClick="{{ go.alertas }}" style="min-height: 44px; padding: 0 12px; border-radius: {{ t.btnR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer">Alertas</button></div>
+            <sc-for list="{{ matches }}" as="m" hint-placeholder-count="4">
+              <div style="display: flex; flex-direction: column; gap: 6px">
+                <h2 style="margin: 0 4px; font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.1em; color: {{ t.dim }}; font-weight: 600">{{ m.group }}</h2>
+                <button type="button" onClick="{{ m.open }}" style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 14px 16px; color: {{ t.text }}; cursor: pointer; text-align: left; display: flex; flex-direction: column; gap: 6px">
+                  <span style="display: flex; gap: 10px; align-items: center"><span style="flex: 1; font-size: 1rem">{{ m.home }}</span><span style="font-family: {{ t.mono }}; font-size: 1.125rem; font-weight: 700">{{ m.hs }}</span></span>
+                  <span style="display: flex; gap: 10px; align-items: center"><span style="flex: 1; font-size: 1rem">{{ m.away }}</span><span style="font-family: {{ t.mono }}; font-size: 1.125rem; font-weight: 700">{{ m.as }}</span></span>
+                  <span style="font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ m.stCol }}">{{ m.st }}</span>
+                </button>
+              </div>
+            </sc-for>
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <h2 style="margin: 0 4px; font-family: {{ t.mono }}; font-size: 0.75rem; letter-spacing: 0.1em; color: {{ t.dim }}; font-weight: 600">TABELA · SÉRIE EXEMPLO</h2>
+              <table style="width: 100%; border-collapse: collapse; background: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; font-size: 0.875rem">
+                <thead><tr style="color: {{ t.dim }}; font-family: {{ t.mono }}; font-size: 0.6875rem"><th style="text-align: left; padding: 8px 12px; font-weight: 500">#</th><th style="text-align: left; padding: 8px 4px; font-weight: 500">Time</th><th style="text-align: right; padding: 8px 12px; font-weight: 500">Pts</th><th style="text-align: right; padding: 8px 12px; font-weight: 500">J</th></tr></thead>
+                <tbody><sc-for list="{{ table }}" as="r" hint-placeholder-count="5"><tr style="border-top: 1px solid {{ t.bord }}; font-weight: {{ r.w }}"><td style="padding: 10px 12px; font-family: {{ t.mono }}">{{ r.p }}</td><td style="padding: 10px 4px">{{ r.n }}</td><td style="padding: 10px 12px; text-align: right; font-family: {{ t.mono }}">{{ r.pts }}</td><td style="padding: 10px 12px; text-align: right; font-family: {{ t.mono }}">{{ r.j }}</td></tr></sc-for></tbody>
+              </table>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ PARTIDA ============ -->
+        <sc-if value="{{ is.partida }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ go.esportes }}" aria-label="Voltar para Futebol" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 18px 40px; display: flex; flex-direction: column; gap: 14px">
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 18px; display: flex; flex-direction: column; gap: 12px; align-items: center; text-align: center">
+              <div style="display: flex; align-items: center; gap: 8px; font-family: {{ t.mono }}; font-size: 0.75rem; color: {{ live.statusCol }}"><sc-if value="{{ live.isLive }}"><span aria-hidden="true" style="width: 8px; height: 8px; border-radius: 4px; background: {{ t.err }}; animation: {{ liveAnim }}"></span></sc-if><span>{{ live.status }}</span></div>
+              <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; width: 100%">
+                <div style="font-size: 1rem; font-weight: 600">Tucuju FC</div>
+                <div aria-label="Placar {{ live.h }} a {{ live.a }}" style="font-family: {{ t.mono }}; font-size: 2.5rem; font-weight: 700">{{ live.h }} × {{ live.a }}</div>
+                <div style="font-size: 1rem; font-weight: 600">Marco Zero EC</div>
+              </div>
+              <sc-if value="{{ live.hasFix }}"><div role="status" style="font-size: 0.875rem; line-height: 1.45; padding: 10px 12px; border-radius: {{ t.innerR }}px; background: {{ t.warnSoft }}; border: 1px solid {{ t.warnLine }}">Correção: gol de J. Silva anulado pelo VAR. Placar voltou a 0 × 0. Enviamos um alerta de correção.</div></sc-if>
+              <sc-if value="{{ live.stale }}"><div role="status" style="font-size: 0.875rem; line-height: 1.45">Última atualização às 21:18. Não foi possível atualizar agora.</div></sc-if>
+              <button type="button" onClick="{{ toggleWatch }}" aria-pressed="{{ watching }}" style="min-height: 48px; padding: 0 18px; border-radius: {{ t.btnR }}px; border: {{ watchBorder }}; background: {{ watchBg }}; color: {{ watchFg }}; font-size: 0.9375rem; font-weight: 600; cursor: pointer">{{ watchLabel }}</button>
+              <sc-if value="{{ watching }}"><div style="font-size: 0.8125rem; color: {{ t.dim }}; line-height: 1.4">Alertas de gol desta partida silenciados. O resumo final continua. Outras partidas não mudam.</div></sc-if>
+            </div>
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 6px 16px">
+              <sc-for list="{{ live.events }}" as="e" hint-placeholder-count="4">
+                <div style="display: flex; gap: 12px; align-items: baseline; min-height: 48px; padding: 10px 0; border-top: {{ e.sep }}">
+                  <span style="font-family: {{ t.mono }}; font-size: 0.8125rem; color: {{ t.dim }}; width: 34px">{{ e.min }}</span>
+                  <span aria-hidden="true" style="width: 20px">{{ e.icon }}</span>
+                  <span style="flex: 1; font-size: 0.9375rem; line-height: 1.4; text-decoration: {{ e.deco }}; color: {{ e.col }}">{{ e.t }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font-size: 0.75rem; color: {{ t.dim }}; line-height: 1.45">Atualizações chegam até cerca de 60 s depois de o provedor publicar, não do lance no estádio. Horários no fuso do aparelho.</div>
+          </div>
+        </sc-if>
+
+        <!-- ============ TIMES ============ -->
+        <sc-if value="{{ is.times }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ go.esportes }}" aria-label="Voltar para Futebol" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 18px 40px; display: flex; flex-direction: column; gap: 14px">
+            <h1 style="margin: 0 2px; font-size: 1.75rem; font-weight: 600">Times favoritos</h1>
+            <label for="tq" style="font-size: 0.875rem; font-weight: 600">Buscar time</label>
+            <input id="tq" type="search" value="{{ teamQ }}" onChange="{{ onTeamQ }}" placeholder="Ex.: Atlético" style="min-height: 48px; box-sizing: border-box; width: 100%; padding: 0 14px; border-radius: {{ t.innerR }}px; border: 1.5px solid {{ t.bordStrong }}; background: {{ t.inputBg }}; color: {{ t.text }}; font-family: inherit; font-size: 1rem; margin-top: -8px">
+            <sc-if value="{{ hasTeamResults }}"><div style="font-size: 0.8125rem; color: {{ t.dim }}">{{ teamResultsNote }}</div></sc-if>
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 12px">
+              <sc-for list="{{ teams }}" as="x" hint-placeholder-count="4">
+                <button type="button" role="checkbox" aria-checked="{{ x.fav }}" onClick="{{ x.toggle }}" style="width: 100%; min-height: 60px; display: flex; align-items: center; gap: 12px; border: none; border-top: {{ x.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 0">
+                  <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 8px; background: {{ t.track }}; display: flex; align-items: center; justify-content: center; font-family: {{ t.mono }}; font-size: 0.6875rem; font-weight: 700">{{ x.abbr }}</span>
+                  <span style="flex: 1"><span style="display: block; font-size: 1rem">{{ x.name }}</span><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}">{{ x.sub }}</span></span>
+                  <span aria-hidden="true" style="font-size: 1.125rem; color: {{ x.starCol }}">{{ x.star }}</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ ALERTAS ============ -->
+        <sc-if value="{{ is.alertas }}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; align-items: center; padding: 4px 8px"><button type="button" onClick="{{ go.esportes }}" aria-label="Voltar para Futebol" style="width: 44px; height: 44px; border: none; background: transparent; color: {{ t.text }}; cursor: pointer"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"></polyline></svg></button></div>
+          <div style="padding: 0 18px 40px; display: flex; flex-direction: column; gap: 14px">
+            <h1 style="margin: 0 2px; font-size: 1.75rem; font-weight: 600">Alertas de jogo</h1>
+            <sc-if value="{{ pushDenied }}"><div role="status" style="font-size: 0.9375rem; line-height: 1.45; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.warnSoft }}; border: 1px solid {{ t.warnLine }}">Notificações estão desligadas no aparelho. Placar e partidas continuam aqui para consulta.</div></sc-if>
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 14px">
+              <sc-for list="{{ alertRows }}" as="r" hint-placeholder-count="7">
+                <button type="button" role="switch" aria-checked="{{ r.on }}" onClick="{{ r.flip }}" disabled="{{ pushDenied }}" style="width: 100%; min-height: 54px; display: flex; align-items: center; gap: 12px; border: none; border-top: {{ r.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 0; opacity: {{ pushOp }}">
+                  <span style="flex: 1; font-size: 0.9375rem">{{ r.k }}</span>
+                  <span aria-hidden="true" style="width: 48px; height: 28px; border-radius: 14px; background: {{ r.swBg }}; position: relative; flex: none"><span style="position: absolute; top: 3px; left: {{ r.knob }}px; width: 22px; height: 22px; border-radius: 11px; background: {{ r.knobBg }}"></span></span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="font-size: 0.8125rem; color: {{ t.dim }}; line-height: 1.45">Alertas de jogo podem tocar à noite, separados do silêncio de gamificação. Dois favoritos na mesma partida geram um alerta por lance.</div>
+          </div>
+        </sc-if>
+
+        <!-- ============ MÓDULOS ============ -->
+        <sc-if value="{{ is.modulos }}" hint-placeholder-val="{{ false }}">
+          <div style="padding: 10px 18px 40px; display: flex; flex-direction: column; gap: 14px">
+            <h1 style="margin: 4px 2px 0; font-size: 1.75rem; font-weight: 600">Módulos</h1>
+            <p style="margin: 0 2px; font-size: 0.9375rem; color: {{ t.dim }}; line-height: 1.45">Cada módulo se configura na primeira vez que você abre. Pular deixa inativo e sem card.</p>
+            <div style="background-color: {{ t.surf }}; border: 1px solid {{ t.bord }}; border-radius: {{ t.r }}px; padding: 2px 14px">
+              <sc-for list="{{ modules }}" as="m" hint-placeholder-count="3">
+                <button type="button" onClick="{{ m.go }}" style="width: 100%; min-height: 60px; display: flex; align-items: center; gap: 12px; border: none; border-top: {{ m.sep }}; background: transparent; color: {{ t.text }}; cursor: pointer; text-align: left; padding: 6px 0">
+                  <span aria-hidden="true" style="font-size: 1.25rem">{{ m.icon }}</span><span style="flex: 1"><span style="display: block; font-size: 1rem">{{ m.name }}</span><span style="display: block; font-size: 0.8125rem; color: {{ t.dim }}">{{ m.sub }}</span></span><span aria-hidden="true" style="color: {{ t.dim }}">›</span>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+
+      <nav aria-label="Principal" style="position: absolute; left: 0; right: 0; bottom: 0; height: 83px; box-sizing: border-box; padding: 6px 6px 34px; display: flex; background: {{ t.tabBg }}; border-top: 1px solid {{ t.bord }}; z-index: 4">
+        <sc-for list="{{ tabs }}" as="b" hint-placeholder-count="4">
+          <button type="button" onClick="{{ b.go }}" aria-current="{{ b.cur }}" style="flex: 1; min-height: 44px; border: none; background: transparent; color: {{ b.col }}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer; font-size: 0.6875rem; font-weight: 600"><span aria-hidden="true" style="font-size: 1.125rem; line-height: 1">{{ b.icon }}</span><span>{{ b.label }}</span></button>
+        </sc-for>
+      </nav>
+
+      <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+        <div role="status" aria-live="polite" style="position: absolute; left: 14px; right: 14px; bottom: 96px; z-index: 6; display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: {{ t.innerR }}px; background: {{ t.toastBg }}; color: {{ t.toastFg }}; box-shadow: 0 10px 30px rgba(0,0,0,0.3); font-size: 0.9375rem; line-height: 1.4">
+          <span style="flex: 1">{{ toastText }}</span>
+          <sc-if value="{{ hasToastAction }}"><button type="button" onClick="{{ toastAction }}" style="min-height: 44px; padding: 0 12px; border: none; background: transparent; color: {{ t.toastLink }}; font-size: 0.9375rem; font-weight: 700; cursor: pointer; flex: none">{{ toastActionLabel }}</button></sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ hasPush }}">
+        <div role="alert" style="position: absolute; top: 52px; left: 10px; right: 10px; z-index: 7; padding: 12px 14px; border-radius: 18px; background: {{ t.pushBg }}; color: {{ t.pushFg }}; box-shadow: 0 10px 30px rgba(0,0,0,0.35); font-family: -apple-system, 'Public Sans', sans-serif; display: flex; gap: 10px">
+          <span aria-hidden="true" style="width: 34px; height: 34px; border-radius: 8px; background: {{ t.accent }}; color: {{ t.onAccent }}; display: flex; align-items: center; justify-content: center; font-weight: 700; flex: none">R</span>
+          <span style="flex: 1"><span style="display: block; font-size: 0.8125rem; font-weight: 600">{{ push.title }}</span><span style="display: block; font-size: 0.8125rem; margin-top: 2px; line-height: 1.35">{{ push.body }}</span></span>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasSheet }}" hint-placeholder-val="{{ false }}">
+        <div style="position: absolute; inset: 0; z-index: 8; background: {{ t.overlay }}; display: flex; flex-direction: column; justify-content: flex-end">
+          <div style="flex: 1" onClick="{{ closeSheet }}"></div>
+          <div role="dialog" aria-modal="true" aria-labelledby="sh-t" style="background: {{ t.surf }}; border-radius: 22px 22px 0 0; padding: 10px 20px 40px; display: flex; flex-direction: column; gap: 12px">
+            <div aria-hidden="true" style="width: 40px; height: 5px; border-radius: 3px; background: {{ t.bordStrong }}; align-self: center"></div>
+            <h2 id="sh-t" style="margin: 4px 0 0; font-size: 1.25rem; font-weight: 600">Organizar o Briefing</h2>
+            <p style="margin: 0; font-size: 0.875rem; color: {{ t.dim }}; line-height: 1.45">A ordem que você escolher vale mais que a automática, inclusive para jogo ao vivo.</p>
+            <sc-for list="{{ orderRows }}" as="o" hint-placeholder-count="4">
+              <div style="display: flex; align-items: center; gap: 8px; min-height: 52px; border-top: {{ o.sep }}">
+                <span style="flex: 1; font-size: 1rem; color: {{ o.col }}">{{ o.name }}</span>
+                <button type="button" onClick="{{ o.hide }}" aria-pressed="{{ o.hidden }}" style="min-height: 44px; padding: 0 10px; border: none; background: transparent; color: {{ t.link }}; font-size: 0.8125rem; font-weight: 600; cursor: pointer">{{ o.hideLabel }}</button>
+                <button type="button" onClick="{{ o.up }}" aria-label="Subir {{ o.name }}" style="width: 44px; height: 44px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; cursor: pointer">↑</button>
+                <button type="button" onClick="{{ o.down }}" aria-label="Descer {{ o.name }}" style="width: 44px; height: 44px; border-radius: {{ t.innerR }}px; border: 1px solid {{ t.bord }}; background: transparent; color: {{ t.text }}; cursor: pointer">↓</button>
+              </div>
+            </sc-for>
+            <button type="button" onClick="{{ closeSheet }}" style="min-height: 52px; border: none; border-radius: {{ t.btnR }}px; background: {{ t.accent }}; color: {{ t.onAccent }}; font-size: 1rem; font-weight: 600; cursor: pointer">Pronto</button>
+          </div>
+        </div>
+      </sc-if>
+      <div aria-hidden="true" style="position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: {{ t.text }}; opacity: 0.85; z-index: 9"></div>
+    </div>
+  </div>
+
+  <aside aria-label="Painel de simulação" style="width: 380px; max-width: 100%; display: flex; flex-direction: column; gap: 16px; font-size: 14px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <div style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E6B64">Ritmo · Fase 2A · exploração planejada</div>
+      <div style="font-size: 22px; font-weight: 600; line-height: 1.2">Notícias, futebol e mediação</div>
+      <div style="font-size: 13px; color: #57544E; line-height: 1.5">Times, fontes, manchetes e placares são fictícios e só demonstram estados. A taxonomia é sugestão, não escolha sua. A mediação depende de a Agenda estar estável e ainda não tem critério fechado. Visão 2B/3 fica só como anotação no <a href="Ritmo-M1-Handoff.dc.html">handoff</a>. · <a href="Ritmo-Fase1.dc.html">Fase 1</a></div>
+    </div>
+    <div role="status" aria-live="polite" style="background: #1A1A18; color: #F2F1EC; border-radius: 10px; padding: 12px 14px; font-size: 13px; line-height: 1.5"><div style="font-size: 11px; letter-spacing: 0.12em; color: #A9A79E; margin-bottom: 4px">O QUE ACONTECEU</div>{{ note }}</div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">JORNADAS D27 · D28</div>
+      <sc-for list="{{ journeys }}" as="j" hint-placeholder-count="10">
+        <button type="button" onClick="{{ j.run }}" style="display: flex; gap: 10px; align-items: baseline; text-align: left; border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-size: 13px; color: #1A1A18; line-height: 1.35"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; color: #5B3FC4; flex: none">{{ j.id }}</span><span>{{ j.t }}</span></button>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">EVENTOS SIMULADOS</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{ actions }}" as="k" hint-placeholder-count="6"><button type="button" onClick="{{ k.run }}" style="border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; color: #1A1A18">{{ k.label }}</button></sc-for></div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">AMBIENTE</div>
+      <sc-for list="{{ toggles }}" as="g" hint-placeholder-count="5">
+        <button type="button" role="switch" aria-checked="{{ g.on }}" onClick="{{ g.flip }}" style="display: flex; align-items: center; gap: 10px; border: 1px solid #D3D0C8; background: #FAF9F6; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px; color: #1A1A18; text-align: left"><span style="flex: 1">{{ g.label }}</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 999px; background: {{ g.bg }}; color: {{ g.fg }}">{{ g.state }}</span></button>
+      </sc-for>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #57544E">VISUAL E ACESSIBILIDADE</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px"><sc-for list="{{ visualBtns }}" as="v" hint-placeholder-count="8"><button type="button" aria-pressed="{{ v.on }}" onClick="{{ v.run }}" style="border: 1px solid {{ v.border }}; background: {{ v.bg }}; color: {{ v.fg }}; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-size: 13px">{{ v.label }}</button></sc-for></div>
+    </div>
+  </aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = this.init();
+  timers = [];
+  init() {
+    let v = {};
+    try { v = JSON.parse(localStorage.getItem("ritmo-m1-visual") || "{}"); } catch (e) {}
+    return Object.assign(this.base(), { skin: v.skin || "holo", mode: v.mode || ((typeof matchMedia !== "undefined" && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark") });
+  }
+  base() {
+    return {
+      screen: "briefing", sheet: null, online: true, night: false,
+      order: ["med", "sport", "news", "hab"], hidden: {}, medDismissed: false,
+      newsActive: true, newsEmpty: false, sourceDown: false, seen: {}, hiddenNews: {}, refreshed: false,
+      topics: this.seedTopics(), sources: this.seedSources(), add: { url: "", stage: "idle", err: null, kind: null, simOk: false },
+      score: { h: 1, a: 0 }, varFix: false, stale: false, watching: false, status: "live", minute: 63, extraEvents: [],
+      favs: { tuc: true, mze: true }, teamQ: "", pushDenied: false,
+      alerts: { inicio: true, gol: true, vermelho: true, intervalo: false, fim: true, escalacao: false, lembrete: true },
+      toast: null, push: null, scale: 1, reduce: false,
+      note: "Briefing com os cards da Fase 2A. Toque em “Organizar” para mudar a ordem."
+    };
+  }
+  seedTopics() {
+    return [
+      { id: "tec", name: "Tecnologia", open: true, kids: [["ia", "IA", true, true], ["dev", "Desenvolvimento", true, false], ["seg", "Segurança", false, false], ["hw", "Hardware", false, false], ["st", "Startups", false, false]] },
+      { id: "neg", name: "Negócios", open: false, kids: [["eco", "Economia", false, false], ["mer", "Mercado", false, false], ["car", "Carreira", false, false]] },
+      { id: "esp", name: "Esportes", open: false, kids: [] , on: false },
+      { id: "cie", name: "Ciência e saúde pública", open: false, kids: [], on: false },
+      { id: "reg", name: "Regional", open: false, kids: [["ap", "Amapá", true, false], ["no", "Norte", false, false], ["br", "Brasil", false, false]] },
+      { id: "cul", name: "Cultura", open: false, kids: [["cin", "Cinema", true, false], ["mus", "Música", false, false], ["liv", "Livros", false, false]] }
+    ].map(p => ({ ...p, kids: p.kids.map(k => ({ id: k[0], name: k[1], on: k[2], prio: k[3] })) }));
+  }
+  seedSources() {
+    return [
+      { id: "s1", name: "Portal Exemplo Tech", domain: "tech.exemplo.com", status: "ok", last: "hoje, 07:40", vol: 34, origin: "catálogo" },
+      { id: "s2", name: "Diário Exemplo", domain: "diario.exemplo.com", status: "ok", last: "hoje, 07:12", vol: 58, origin: "catálogo" },
+      { id: "s3", name: "Blog do Dev Exemplo", domain: "blogdev.exemplo.org", status: "inativa", last: "17 set", vol: 0, origin: "adicionada por você" },
+      { id: "s4", name: "Revista Exemplo Cinema", domain: "cinema.exemplo.net", status: "ok", last: "ontem, 22:05", vol: 9, origin: "catálogo" }
+    ];
+  }
+  news() {
+    return [
+      { id: "n1", t: "Ferramenta de código aberto propõe padrão para agentes em apps móveis", src: "Portal Exemplo Tech", time: "há 2 h", topic: "ia", prio: true, bullets: ["Proposta descreve como apps expõem ações a assistentes.", "Primeira versão cobre iOS e Android.", "Comunidade abriu consulta pública por 30 dias."], also: "Blog do Dev Exemplo e mais 1 fonte" },
+      { id: "n2", t: "Macapá recebe festival de cinema independente em novembro", src: "Diário Exemplo", time: "há 4 h", topic: "ap", bullets: ["Programação inclui 40 filmes da região Norte.", "Sessões gratuitas em três locais do centro."], also: "" },
+      { id: "n3", t: "Study finds developers spend a third of their time on maintenance", src: "Exemplo Weekly", time: "data estimada: ontem", lang: "EN · resumo em pt-BR", topic: "dev", bullets: ["Pesquisa ouviu profissionais de 12 países.", "Manutenção supera escrita de código novo em equipes maiores."], also: "" },
+      { id: "n4", t: "Estreias da semana: três ficções científicas nacionais", src: "Revista Exemplo Cinema", time: "há 6 h", topic: "cin", bullets: [], also: "" }
+    ];
+  }
+  later(fn, ms) { const id = setTimeout(() => { this.timers = this.timers.filter(x => x !== id); fn(); }, ms); this.timers.push(id); return id; }
+  componentDidMount() { this.applyScale(); }
+  componentDidUpdate() { this.applyScale(); }
+  componentWillUnmount() { this.timers.forEach(clearTimeout); clearTimeout(this.toastTimer); clearTimeout(this.pushTimer); document.documentElement.style.fontSize = ""; }
+  applyScale() { const px = (16 * this.state.scale) + "px"; if (document.documentElement.style.fontSize !== px) document.documentElement.style.fontSize = px; }
+  saveVisual(p) { this.setState(p, () => { try { localStorage.setItem("ritmo-m1-visual", JSON.stringify({ skin: this.state.skin, mode: this.state.mode })); } catch (e) {} }); }
+  note(n) { this.setState({ note: n }); }
+  toast(text, label, action) { clearTimeout(this.toastTimer); this.setState({ toast: { text, label, action } }); this.toastTimer = setTimeout(() => this.setState({ toast: null }), 6000); }
+  pushN(title, body, why) {
+    const s = this.state;
+    if (s.pushDenied) { this.note("Push recusado no aparelho: nenhum alerta sai. " + (why || "")); return; }
+    clearTimeout(this.pushTimer); this.setState({ push: { title, body } }); this.pushTimer = setTimeout(() => this.setState({ push: null }), 4500);
+    if (why) this.note(why);
+  }
+  go(screen, extra) { this.setState(Object.assign({ screen, sheet: null }, extra || {})); }
+
+  // --- fontes ---
+  samples() { return ["https://novo.exemplo.com", "http://site.exemplo.com", "https://192.168.0.10/feed", "https://user:senha@site.exemplo.com", "https://site.exemplo.com:8080", "https://semfeed.exemplo.com", "https://instavel.exemplo.com", "https://diario-exemp1o.com", "https://tech.exemplo.com/outra"]; }
+  checkUrl(u) {
+    let url; try { url = new URL(u.trim()); } catch (e) { return { kind: "invalida", err: "Isso não parece um endereço de site. Confira e tente de novo." }; }
+    if (url.protocol !== "https:") return { kind: "insegura", err: "Endereço sem HTTPS. Por segurança, só aceitamos sites com HTTPS." };
+    if (url.username || url.password) return { kind: "insegura", err: "O endereço tem usuário ou senha embutidos. Remova-os para continuar." };
+    if (/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(url.hostname)) return { kind: "insegura", err: "Endereço de rede privada não é permitido." };
+    if (url.port && url.port !== "443") return { kind: "insegura", err: "Porta não permitida. Use o endereço padrão do site." };
+    if (this.state.sources.some(s => s.domain === url.hostname)) return { kind: "repetido", err: "Você já segue uma fonte deste domínio. Pode adicionar mesmo assim, se for uma seção diferente.", host: url.hostname, soft: true };
+    return { kind: "ok", host: url.hostname };
+  }
+  verify() {
+    const a = this.state.add, r = this.checkUrl(a.url);
+    if (r.kind !== "ok" && !r.soft) { this.setState({ add: { ...a, stage: "erro", err: r.err, kind: r.kind } }); this.note(r.kind === "insegura" ? "URL insegura: bloqueio sem opção de “aceitar mesmo assim”." : "Endereço inválido."); return; }
+    if (!this.state.online) { this.setState({ add: { ...a, stage: "erro", err: "Sem conexão. Tente verificar quando a internet voltar.", kind: "transitoria" } }); return; }
+    this.setState({ add: { ...a, stage: "verificando", err: null, soft: r.soft ? r.err : null } });
+    this.later(() => {
+      const host = r.host;
+      if (host.startsWith("semfeed")) { this.setState({ add: { ...this.state.add, stage: "erro", err: "Não encontramos um feed neste site. Ele não pode ser acompanhado por aqui.", kind: "semfeed" } }); this.note("Site sem feed: não é adicionado."); return; }
+      if (host.startsWith("instavel")) { this.setState({ add: { ...this.state.add, stage: "erro", err: "O site não respondeu agora. Isso costuma ser passageiro.", kind: "transitoria" } }); this.note("Falha transitória: tentar de novo."); return; }
+      const similar = host.includes("exemp1o");
+      this.setState({ add: { ...this.state.add, stage: "previa", host, similar, simOk: false } });
+      this.note(similar ? "Domínio parecido com uma fonte conhecida: pede confirmação explícita." : "Prévia com nome, idioma e três títulos recentes antes de confirmar.");
+    }, 1100);
+  }
+  confirmSource() {
+    const a = this.state.add;
+    if (this.state.sources.length >= 50) { this.toast("Você chegou ao limite de 50 fontes."); return; }
+    this.setState(s => ({ sources: s.sources.concat([{ id: "s" + Date.now(), name: a.similar ? "Diario Exemp1o" : "Novo Exemplo", domain: a.host, status: "ok", last: "agora", vol: 0, origin: "adicionada por você" }]), add: { url: "", stage: "idle", err: null } }));
+    this.toast("Fonte adicionada."); this.note("Fonte adicionada e separada dos temas, sem matriz fonte × assunto.");
+  }
+
+  // --- partida ---
+  goal() {
+    const s = this.state;
+    if (s.stale) { this.note("Provedor desatualizado: o placar não muda até chegar dado novo."); return; }
+    this.setState({ score: { h: s.score.h + 1, a: s.score.a }, minute: 71, extraEvents: s.extraEvents.concat([{ min: "71'", icon: "⚽", t: "Gol · Tucuju FC · R. Costa" }]) });
+    if (s.watching) { this.note("Gol registrado. Você marcou “Estou assistindo”: sem alerta de gol desta partida."); return; }
+    if (!s.alerts.gol) { this.note("Alerta de gol desligado nas preferências."); return; }
+    this.pushN("Gol do Tucuju FC · 71'", "Tucuju FC " + (s.score.h + 1) + " × " + s.score.a + " Marco Zero EC", "Um alerta só, mesmo com os dois times nos favoritos.");
+  }
+  applyVar() {
+    const s = this.state; if (s.varFix) return;
+    this.setState({ varFix: true, score: { h: Math.max(0, s.score.h - 1), a: s.score.a } });
+    if (!s.watching) this.pushN("Correção · Tucuju FC × Marco Zero EC", "Gol de J. Silva anulado pelo VAR. Placar " + Math.max(0, s.score.h - 1) + " × " + s.score.a + ".", "VAR corrige o placar e manda alerta de correção, porque o gol tinha sido notificado.");
+    else this.note("VAR corrigido. Como você está assistindo, não houve alerta do gol, então também não há alerta de correção.");
+  }
+  finish() {
+    const s = this.state;
+    this.setState({ status: "fim", extraEvents: s.extraEvents.concat([{ min: "90'", icon: "■", t: "Fim de jogo" }]) });
+    if (s.alerts.fim) this.pushN("Fim · Tucuju FC " + s.score.h + " × " + s.score.a + " Marco Zero EC", "Resumo final disponível.", "Resumo final chega mesmo com “Estou assistindo”. O resultado fica no Briefing até 12 h depois do fim.");
+  }
+
+  journeys() {
+    const P = (extra, msg, mut) => () => { this.timers.forEach(clearTimeout); this.timers = []; const st = Object.assign(this.base(), { skin: this.state.skin, mode: this.state.mode, scale: this.state.scale, reduce: this.state.reduce }, extra, { note: msg }); if (mut) mut(st); this.setState(st); };
+    return [
+      { id: "D27a", t: "Ativar Notícias: temas em dois níveis, prioritário", run: P({ screen: "noticias", newsActive: false }, "Notícias ainda inativa. Escolha temas; o botão só ativa com pelo menos um.", st => { st.topics = st.topics.map(p => ({ ...p, on: false, kids: p.kids.map(k => ({ ...k, on: false, prio: false })) })); }) },
+      { id: "D27b", t: "Adicionar fonte: verificar → prévia → confirmar", run: P({ screen: "fontes", add: { url: "https://novo.exemplo.com", stage: "idle", err: null } }, "Toque em Verificar. Depois teste os outros endereços de exemplo.") },
+      { id: "D27c", t: "URL insegura, sem feed, falha passageira, domínio parecido", run: P({ screen: "fontes", add: { url: "http://site.exemplo.com", stage: "idle", err: null } }, "Endereço sem HTTPS. Use os atalhos abaixo do campo para os outros casos.") },
+      { id: "D27d", t: "Sem novidade: estado calmo; fonte fora do ar isolada", run: P({ screen: "noticias", newsEmpty: true, sourceDown: true }, "Nada novo nos temas; uma fonte falhou sem afetar as outras.") },
+      { id: "D27e", t: "Link original, “Não me interessa” e cache offline", run: P({ screen: "noticias", online: false }, "Offline: cache com horário. Abra uma matéria ou marque “Não me interessa”.") },
+      { id: "D28a", t: "Gol e correção por VAR com alerta", run: P({ screen: "partida" }, "Use “Gol” e depois “VAR anula gol” no painel.") },
+      { id: "D28b", t: "“Estou assistindo” silencia só os gols desta partida", run: P({ screen: "partida" }, "Toque em “Estou assistindo” e simule um gol. Depois encerre o jogo.") },
+      { id: "D28c", t: "Adiado, prorrogação e pênaltis, resultado recente", run: P({ screen: "esportes" }, "Veja os estados próprios de cada partida.") },
+      { id: "D28d", t: "Provedor desatualizado: sem placar inventado", run: P({ screen: "briefing", stale: true }, "O card e o detalhe mostram a última atualização, não “ao vivo”.") },
+      { id: "D28e", t: "Times homônimos e push recusado", run: P({ screen: "times", teamQ: "Atlético", pushDenied: true }, "Escolha pelo escudo e competição. Com push recusado, a consulta segue manual.") }
+    ];
+  }
+  palettes() {
+    return {
+      cockpit: { name: "Cockpit", head: "'Chakra Petch', sans-serif", r: 10, btnR: 8,
+        dark: { bg: "#06080B", surf: "#0D141A", bord: "#1C2A33", text: "#DCEAF0", dim: "#93A8B2", accent: "#3EE0FF", accentText: "#3EE0FF", onAccent: "#04161C", warn: "#F0A93B", err: "#FF8A7A", link: "#6FE8FF" },
+        light: { bg: "#EEF3F5", surf: "#FFFFFF", bord: "#D3DEE3", text: "#0D1A20", dim: "#4F6873", accent: "#07758C", accentText: "#06687C", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#06687C" } },
+      neo: { name: "Neo-tokyo", head: "'Space Grotesk', sans-serif", r: 20, btnR: 999,
+        dark: { bg: "#0D0A12", surf: "#171022", bord: "#2D2040", text: "#EFE9F6", dim: "#AEA2C0", accent: "#FF5FA2", accentText: "#FF7DB3", onAccent: "#12060C", warn: "#FFC24D", err: "#FF8A7A", link: "#FF8DBD" },
+        light: { bg: "#F6F1F7", surf: "#FFFFFF", bord: "#E8DCEB", text: "#1E1424", dim: "#665770", accent: "#C2296D", accentText: "#AD2261", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#AD2261" } },
+      holo: { name: "Holograma", head: "'Chakra Petch', sans-serif", r: 4, btnR: 4,
+        dark: { bg: "#04090F", surf: "#08141D", bord: "#143D50", text: "#D7ECF5", dim: "#88AEBF", accent: "#63F5D8", accentText: "#63F5D8", onAccent: "#031511", warn: "#FFB661", err: "#FF8A7A", link: "#7FF7E0" },
+        light: { bg: "#EDF4F4", surf: "#FFFFFF", bord: "#C7DCDF", text: "#0B1B20", dim: "#4B6972", accent: "#0B7A68", accentText: "#096B5B", onAccent: "#FFFFFF", warn: "#8F5609", err: "#B42318", link: "#096B5B" } }
+    };
+  }
+  rgba(hex, a) { const n = parseInt(hex.slice(1), 16); return "rgba(" + (n >> 16) + "," + ((n >> 8) & 255) + "," + (n & 255) + "," + a + ")"; }
+
+  renderVals() {
+    const s = this.state, P = this.palettes(), S = P[s.skin], c = S[s.mode], dark = s.mode === "dark", R = (h, x) => this.rgba(h, x);
+    const t = Object.assign({}, c, {
+      head: S.head, mono: "'JetBrains Mono', monospace", r: S.r, btnR: S.btnR, innerR: Math.max(4, Math.min(12, S.r - 4)),
+      track: dark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.07)", inputBg: dark ? "rgba(255,255,255,0.03)" : "#F7F9FA", bordStrong: R(c.text, dark ? 0.32 : 0.34),
+      scan: s.skin === "holo" ? "repeating-linear-gradient(0deg, " + R(c.accent, dark ? 0.035 : 0.05) + " 0 1px, transparent 1px 4px)" : "none",
+      glow: s.skin === "neo" ? "0 12px 30px -18px " + R(c.accent, dark ? 0.4 : 0.28) : (dark ? "none" : "0 1px 2px rgba(0,0,0,0.05)"),
+      warnSoft: R(c.warn, dark ? 0.12 : 0.1), warnLine: R(c.warn, 0.5), accentSoft: R(c.accent, 0.13), accentLine: R(c.accent, 0.45),
+      overlay: dark ? "rgba(0,0,0,0.62)" : "rgba(10,20,25,0.42)", tabBg: dark ? R(c.bg, 0.96) : R(c.surf, 0.97),
+      toastBg: dark ? "#F2F4F5" : "#12181C", toastFg: dark ? "#0B1115" : "#F2F4F5", toastLink: dark ? "#06687C" : "#6FE8FF",
+      pushBg: dark ? "rgba(44,44,46,0.97)" : "rgba(242,242,247,0.97)", pushFg: dark ? "#FFFFFF" : "#000000"
+    });
+    const L = "1px solid " + c.accent;
+    const corners = s.skin === "cockpit" ? [{ l: "8px", t: "8px", r: "auto", b: "auto", s: 7, bl: L, bt: L, br: "none", bb: "none", o: 0.6 }, { l: "auto", t: "auto", r: "8px", b: "8px", s: 7, bl: "none", bt: "none", br: L, bb: L, o: 0.6 }]
+      : s.skin === "holo" ? [{ l: "5px", t: "5px", r: "auto", b: "auto", s: 10, bl: L, bt: L, br: "none", bb: "none", o: 1 }, { l: "auto", t: "auto", r: "5px", b: "5px", s: 10, bl: "none", bt: "none", br: L, bb: L, o: 1 }] : [];
+    const scr = s.screen, is = {};
+    ["briefing", "noticias", "temas", "fontes", "esportes", "partida", "times", "alertas", "modulos"].forEach(k => is[k] = scr === k);
+    const go = {}; ["briefing", "noticias", "temas", "fontes", "esportes", "partida", "times", "alertas", "modulos"].forEach(k => go[k] = () => this.go(k));
+    const tabDefs = [["briefing", "☀", "Briefing", ["briefing"]], ["noticias", "📰", "Notícias", ["noticias", "temas", "fontes"]], ["esportes", "⚽", "Futebol", ["esportes", "partida", "times", "alertas"]], ["modulos", "⋯", "Mais", ["modulos"]]];
+    const tabs = tabDefs.map(d => ({ icon: d[1], label: d[2], go: () => this.go(d[0]), cur: d[3].includes(scr) ? "page" : "false", col: d[3].includes(scr) ? c.accentText : c.dim }));
+
+    // live match
+    const baseEvents = [{ min: "12'", icon: "⚽", t: "Gol · Tucuju FC · J. Silva", var: true }, { min: "38'", icon: "🟥", t: "Cartão vermelho · Marco Zero EC · A. Lima" }, { min: "45'", icon: "‖", t: "Intervalo" }];
+    const evs = baseEvents.concat(s.varFix ? [{ min: "58'", icon: "📺", t: "VAR anulou o gol de J. Silva (12')" }] : []).concat(s.extraEvents);
+    const liveNow = s.status === "live" && !s.stale;
+    const live = {
+      h: s.score.h, a: s.score.a, isLive: liveNow,
+      status: s.stale ? "Dados de 21:18" : s.status === "fim" ? "Encerrado" : "Ao vivo · " + s.minute + "'",
+      statusShort: s.stale ? "desatualizado" : s.status === "fim" ? "encerrado" : "ao vivo " + s.minute + "'",
+      statusCol: s.stale ? c.warn : s.status === "fim" ? c.dim : c.err,
+      sub: s.stale ? "Última atualização às 21:18. Não foi possível atualizar agora." : s.status === "fim" ? "Resultado final · fica aqui até 12 h depois do fim." : "Série Exemplo · " + (s.varFix ? "gol anulado pelo VAR" : "1 cartão vermelho"),
+      subCol: s.stale ? c.warn : c.dim, stale: s.stale, hasFix: s.varFix,
+      events: evs.map((e, i) => ({ ...e, sep: i === 0 ? "none" : "1px solid " + c.bord, deco: e.var && s.varFix ? "line-through" : "none", col: e.var && s.varFix ? c.dim : c.text }))
+    };
+    const matches = [
+      { group: "AO VIVO", home: "Tucuju FC", away: "Marco Zero EC", hs: s.score.h, as: s.score.a, st: live.status, stCol: live.statusCol, open: () => this.go("partida") },
+      { group: "HOJE", home: "Norte Azul", away: "Tucuju FC", hs: "–", as: "–", st: "Adiado · nova data a confirmar", stCol: c.warn, open: () => this.note("Partida adiada: estado próprio, sem horário inventado.") },
+      { group: "RESULTADO RECENTE", home: "Marco Zero EC", away: "Oiapoque SC", hs: "1 (4)", as: "1 (3)", st: "Encerrado · prorrogação e pênaltis · ontem", stCol: c.dim, open: () => this.note("Prorrogação e pênaltis distintos. Agregado só aparece se o provedor enviar.") },
+      { group: "PRÓXIMOS", home: "Tucuju FC", away: "Laranjal EC", hs: "", as: "", st: "Dom, 5 out · 16:00 no seu horário", stCol: c.dim, open: () => {} }
+    ];
+    const table = [["1", "Marco Zero EC", 41, 20], ["2", "Tucuju FC", 38, 20], ["3", "Oiapoque SC", 33, 20], ["4", "Norte Azul", 30, 19], ["5", "Laranjal EC", 27, 20]].map(r => ({ p: r[0], n: r[1], pts: r[2], j: r[3], w: s.favs.tuc && r[1] === "Tucuju FC" || s.favs.mze && r[1] === "Marco Zero EC" ? 700 : 400 }));
+    const allTeams = [["tuc", "TUC", "Tucuju FC", "Macapá · Série Exemplo"], ["mze", "MZE", "Marco Zero EC", "Macapá · Série Exemplo"], ["atl1", "ATN", "Atlético Nortista", "Belém · Série Exemplo B"], ["atl2", "ATP", "Atlético Planalto", "Brasília · Copa Exemplo"], ["atl3", "ATL", "Atlético Litoral", "Santos · Estadual Exemplo"]];
+    const tq = (s.teamQ || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const teams = allTeams.filter(x => !tq || x[2].toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(tq) || s.favs[x[0]]).map((x, i) => ({ abbr: x[1], name: x[2], sub: x[3], fav: !!s.favs[x[0]], star: s.favs[x[0]] ? "★" : "☆", starCol: s.favs[x[0]] ? c.warn : c.dim, sep: i === 0 ? "none" : "1px solid " + c.bord, toggle: () => this.setState(st => ({ favs: { ...st.favs, [x[0]]: !st.favs[x[0]] } })) }));
+    const nAtl = allTeams.filter(x => x[2].startsWith("Atlético")).length;
+
+    // news
+    const topicOn = {}; s.topics.forEach(p => { if (p.kids.length) p.kids.forEach(k => { if (k.on) topicOn[k.id] = k.prio ? "prio" : "on"; }); else if (p.on) topicOn[p.id] = "on"; });
+    const anyTopic = Object.keys(topicOn).length > 0;
+    let list = s.newsEmpty || !s.newsActive ? [] : this.news().filter(n => topicOn[n.topic] && !s.hiddenNews[n.id]);
+    if (s.refreshed) list = list.filter(n => !s.seen[n.id]);
+    const mkNews = (n, i) => ({ t: n.t, src: n.src, time: n.time, lang: n.lang || "", hasLang: !!n.lang, prio: topicOn[n.topic] === "prio", bullets: n.bullets, hasBullets: n.bullets.length > 0, noBullets: !n.bullets.length, also: n.also, hasAlso: !!n.also,
+      meta: n.src.toUpperCase() + " · " + n.time + (n.also ? " · +fontes" : ""), sep: i === 0 ? "none" : "1px solid " + c.bord,
+      open: () => { this.setState(st => ({ seen: { ...st.seen, [n.id]: true } })); this.toast(s.online ? "Abrindo o site original no navegador (simulado)." : "Sem conexão: o site original abre quando a internet voltar."); this.note("Link externo para o artigo original; o Ritmo não mostra o texto integral. Matéria aberta não volta como novidade."); },
+      hide: () => { this.setState(st => ({ hiddenNews: { ...st.hiddenNews, [n.id]: true } })); this.toast("Vamos mostrar menos coisas assim.", "Desfazer", () => this.setState(st => { const h = { ...st.hiddenNews }; delete h[n.id]; return { hiddenNews: h }; })); this.note("“Não me interessa” ajusta a seleção de forma limitada; dá para zerar em Temas."); } });
+    const newsList = list.map(mkNews);
+
+    const topics = s.topics.map(p => {
+      const hasKids = p.kids.length > 0, nOn = p.kids.filter(k => k.on).length;
+      const state = hasKids ? (nOn === 0 ? "none" : nOn === p.kids.length ? "all" : "some") : (p.on ? "all" : "none");
+      return { name: p.name, hasKids, open: !!p.open && hasKids, chev: p.open ? "▾" : "▸", aria: state === "all" ? "true" : state === "some" ? "mixed" : "false",
+        mark: state === "all" ? "✓" : state === "some" ? "–" : "", border: state === "none" ? "1.5px solid " + t.bordStrong : "none", bg: state === "none" ? "transparent" : c.accent,
+        toggle: () => this.setState(st => ({ topics: st.topics.map(x => x.id !== p.id ? x : hasKids ? { ...x, kids: x.kids.map(k => ({ ...k, on: state !== "all", prio: state !== "all" ? k.prio : false })) } : { ...x, on: !x.on }) })),
+        expand: () => this.setState(st => ({ topics: st.topics.map(x => x.id === p.id ? { ...x, open: !x.open } : x) })),
+        kids: p.kids.map(k => ({ name: k.name, on: k.on, prio: k.prio, mark: k.on ? "✓" : "", border: k.on ? "none" : "1.5px solid " + t.bordStrong, bg: k.on ? c.accent : "transparent", starIcon: k.prio ? "★" : "☆", starCol: k.prio ? c.warn : c.dim,
+          toggle: () => this.setState(st => ({ topics: st.topics.map(x => x.id !== p.id ? x : { ...x, kids: x.kids.map(y => y.id === k.id ? { ...y, on: !y.on, prio: y.on ? false : y.prio } : y) }) })),
+          star: () => this.setState(st => ({ topics: st.topics.map(x => x.id !== p.id ? x : { ...x, kids: x.kids.map(y => y.id === k.id ? { ...y, prio: !y.prio } : y) }) })) }))
+      };
+    });
+
+    const srcStatus = { ok: ["ativa", c.dim], inativa: ["sem novidades há 14+ dias", c.warn], pausada: ["pausada", c.dim], revalidar: ["pausada · segurança", c.warn] };
+    const sources = s.sources.map((x, i) => ({ name: x.name, st: srcStatus[x.status][0], stCol: srcStatus[x.status][1], meta: x.domain + " · última coleta " + x.last + " · " + x.vol + " em 7 dias · " + x.origin,
+      hasWhy: x.status === "inativa" || x.status === "revalidar", why: x.status === "inativa" ? "Fonte sinalizada, não excluída. Você decide se mantém." : "Não passou na nova verificação de segurança; pausada até corrigir.",
+      sep: i === 0 ? "none" : "1px solid " + c.bord, pauseLabel: x.status === "pausada" ? "Retomar" : "Pausar",
+      pause: () => this.setState(st => ({ sources: st.sources.map(y => y.id === x.id ? { ...y, status: y.status === "pausada" ? "ok" : "pausada" } : y) })),
+      recheck: () => { this.toast("Verificando " + x.name + "…"); this.later(() => this.setState(st => ({ sources: st.sources.map(y => y.id === x.id ? { ...y, status: y.status === "inativa" ? "inativa" : "ok", last: "agora" } : y) })), 900); },
+      remove: () => { this.setState(st => ({ sources: st.sources.filter(y => y.id !== x.id) })); this.toast("Fonte removida.", "Desfazer", () => this.setState(st => ({ sources: st.sources.concat([x]) }))); } }));
+    const a = s.add, pv = a.stage === "previa";
+    const add = { url: a.url, onUrl: ev => this.setState({ add: { url: ev.target.value, stage: "idle", err: null } }), inv: a.stage === "erro" ? "true" : "false", border: a.stage === "erro" ? (a.kind === "transitoria" ? c.warn : c.err) : t.bordStrong,
+      samples: this.samples().map(u => ({ label: u.replace("https://", "").replace("http://", "http://"), pick: () => this.setState({ add: { url: u, stage: "idle", err: null } }) })),
+      hasErr: a.stage === "erro" || (pv && !!a.soft), err: a.stage === "erro" ? a.err : a.soft, errCol: a.kind === "insegura" || a.kind === "invalida" ? c.err : c.warn,
+      checking: a.stage === "verificando", showVerify: a.stage === "idle" || (a.stage === "erro" && a.kind === "transitoria"), verifyLabel: a.stage === "erro" ? "Tentar de novo" : "Verificar", verify: () => this.verify(),
+      preview: pv, pName: a.similar ? "Diario Exemp1o" : "Novo Exemplo", pMeta: (a.host || "") + " · português · feed encontrado",
+      pTitles: ["Título recente de exemplo 1", "Título recente de exemplo 2", "Título recente de exemplo 3"], similar: !!a.similar, simOk: !!a.simOk, onSim: ev => this.setState({ add: { ...a, simOk: ev.target.checked } }),
+      confirmDisabled: !!a.similar && !a.simOk, confirmOp: a.similar && !a.simOk ? 0.45 : 1, confirm: () => this.confirmSource() };
+
+    // briefing
+    const cardNames = { med: "Sugestão de agenda", sport: "Futebol", news: "Notícias", hab: "Hábitos" };
+    const showMed = !s.medDismissed;
+    const briefCards = s.order.filter(k => !s.hidden[k] && (k !== "med" || showMed) && (k !== "news" || s.newsActive)).map(k => ({ isMed: k === "med", isSport: k === "sport", isNews: k === "news", isHab: k === "hab" }));
+    const briefNews = list.slice(0, 3).map(mkNews);
+    const hiddenN = Object.values(s.hidden).filter(Boolean).length;
+    const orderRows = s.order.map((k, i) => ({ name: cardNames[k], hidden: !!s.hidden[k], hideLabel: s.hidden[k] ? "Mostrar" : "Ocultar", col: s.hidden[k] ? c.dim : c.text, sep: i === 0 ? "none" : "1px solid " + c.bord,
+      hide: () => this.setState(st => ({ hidden: { ...st.hidden, [k]: !st.hidden[k] } })),
+      up: () => this.setState(st => { const o = st.order.slice(); if (i > 0) { o[i] = o[i - 1]; o[i - 1] = k; } return { order: o }; }),
+      down: () => this.setState(st => { const o = st.order.slice(); if (i < o.length - 1) { o[i] = o[i + 1]; o[i + 1] = k; } return { order: o }; }) }));
+
+    const alertDefs = [["inicio", "Início do jogo"], ["gol", "Gol"], ["vermelho", "Cartão vermelho"], ["intervalo", "Intervalo"], ["fim", "Fim de jogo"], ["escalacao", "Escalação"], ["lembrete", "Lembrete 1 h antes"]];
+    const alertRows = alertDefs.map((d, i) => ({ k: d[1], on: s.alerts[d[0]], sep: i === 0 ? "none" : "1px solid " + c.bord, swBg: s.alerts[d[0]] ? c.accent : t.track, knob: s.alerts[d[0]] ? 23 : 3, knobBg: s.alerts[d[0]] ? c.onAccent : (dark ? "#DCEAF0" : "#FFFFFF"), flip: () => this.setState(st => ({ alerts: { ...st.alerts, [d[0]]: !st.alerts[d[0]] } })) }));
+
+    const tg = (label, on, flip, a1, a2) => ({ label, on, flip, state: on ? (a1 || "LIGADO") : (a2 || "DESLIGADO"), bg: on ? "#1A1A18" : "#E4E2DC", fg: on ? "#FFFFFF" : "#57544E" });
+    const toggles = [
+      tg("Conexão", s.online, () => this.setState({ online: !s.online }), "ONLINE", "OFFLINE"),
+      tg("Provedor de futebol desatualizado", s.stale, () => this.setState({ stale: !s.stale })),
+      tg("Fonte “Diário Exemplo” fora do ar", s.sourceDown, () => this.setState({ sourceDown: !s.sourceDown })),
+      tg("Sem novidade nos temas", s.newsEmpty, () => this.setState({ newsEmpty: !s.newsEmpty })),
+      tg("Push recusado no aparelho", s.pushDenied, () => this.setState({ pushDenied: !s.pushDenied }))
+    ];
+    const actions = [
+      { label: "⚽ Gol", run: () => this.goal() }, { label: "📺 VAR anula gol", run: () => this.applyVar() }, { label: "■ Fim de jogo", run: () => this.finish() },
+      { label: "Fonte falha na reverificação", run: () => { this.setState(st => ({ sources: st.sources.map(y => y.id === "s4" ? { ...y, status: "revalidar" } : y) })); this.note("Revisão de segurança falhou: fonte pausada com motivo."); } },
+      { label: "Voltar ao app após 3 dias fora", run: () => { this.setState({ refreshed: false, seen: {} }); this.note("Após três dias ausente, Notícias mostra só as últimas 24 h, sem acumular atraso."); } }
+    ];
+    const vb = (label, on, run) => ({ label, on, run, bg: on ? "#1A1A18" : "#FAF9F6", fg: on ? "#FFFFFF" : "#1A1A18", border: on ? "#1A1A18" : "#D3D0C8" });
+    const visualBtns = [vb("Cockpit", s.skin === "cockpit", () => this.saveVisual({ skin: "cockpit" })), vb("Neo-tokyo", s.skin === "neo", () => this.saveVisual({ skin: "neo" })), vb("Holograma", s.skin === "holo", () => this.saveVisual({ skin: "holo" })), vb("Escuro", dark, () => this.saveVisual({ mode: "dark" })), vb("Claro", !dark, () => this.saveVisual({ mode: "light" })), vb("Texto 100%", s.scale === 1, () => this.setState({ scale: 1 })), vb("Texto 200%", s.scale === 2, () => this.setState({ scale: 2 })), vb("Reduzir movimento", s.reduce, () => this.setState({ reduce: !s.reduce }))];
+
+    return {
+      t, corners, is, go, tabs, skinName: S.name, modeName: dark ? "escuro" : "claro", scaleLabel: s.scale === 2 ? "200%" : "100%",
+      clockTime: "20:47", netLabel: s.online ? "5G" : "Sem rede", netColor: s.online ? c.text : c.warn, offline: !s.online, greeting: "Boa noite, Pedro",
+      briefCards, openOrder: () => this.setState({ sheet: "order" }), orderRows, hiddenCount: hiddenN > 0, hiddenLabel: hiddenN + (hiddenN === 1 ? " card oculto" : " cards ocultos") + " · Organizar para mostrar",
+      medSee: () => this.toast("Abre a Agenda no dia de hoje (Fase 1)."), medDismiss: () => { this.setState({ medDismissed: true }); this.note("Sugestão dispensada. No máximo um aviso de mediação por dia, sempre sem reagendar sozinho."); },
+      live, liveAnim: s.reduce ? "none" : "rt-live 1.4s ease-in-out infinite", openMatch: () => this.go("partida"),
+      watching: s.watching, toggleWatch: () => { this.setState({ watching: !s.watching }); this.note(!s.watching ? "“Estou assistindo”: sem alertas de gol desta partida; o resumo final continua." : "Alertas de gol desta partida voltaram."); },
+      watchLabel: s.watching ? "✓ Estou assistindo" : "Estou assistindo", watchBg: s.watching ? c.accent : "transparent", watchFg: s.watching ? c.onAccent : c.text, watchBorder: s.watching ? "none" : "1.5px solid " + t.bordStrong,
+      matches, table, teams, teamQ: s.teamQ, onTeamQ: ev => this.setState({ teamQ: ev.target.value }), hasTeamResults: tq.startsWith("atl"), teamResultsNote: nAtl + " times com esse nome. Confira cidade e competição.",
+      alertRows, pushDenied: s.pushDenied, pushOp: s.pushDenied ? 0.45 : 1,
+      newsActive: s.newsActive, newsInactive: !s.newsActive, newsEmpty: s.newsActive && !list.length, sourceDown: s.sourceDown, newsList, briefNews,
+      newsStamp: s.online ? "atualizado às 20:30" : "cache de 07:40",
+      refreshLabel: s.refreshed ? "Atualizado agora · a ordem só muda quando você atualiza" : "Atualizar",
+      refreshNews: () => { this.setState({ refreshed: true }); this.note(s.online ? "Atualização deliberada: matérias abertas saem; a ordem não muda sozinha." : "Offline: sem atualizar, o cache continua."); },
+      topics, noTopic: !anyTopic, topicOp: anyTopic ? 1 : 0.45, activateLabel: s.newsActive ? "Salvar temas" : "Ativar Notícias",
+      activateNews: () => { if (!anyTopic) return; this.setState({ newsActive: true, screen: "noticias" }); this.note("Notícias ativada com " + Object.keys(topicOn).length + " subtemas. O card aparece no Briefing."); },
+      sources, srcCount: s.sources.length, add,
+      modules: [["📰", "Notícias", s.newsActive ? "Ativo" : "Inativo · configurar", () => this.go(s.newsActive ? "noticias" : "temas")], ["⚽", "Futebol", "Ativo · " + Object.values(s.favs).filter(Boolean).length + " times", () => this.go("esportes")], ["🧭", "Sugestões de agenda", "Depende da Agenda estável · critérios a definir", () => this.note("Mediação condicionada: sem limiar de sobrecarga nem provedor de trajeto definidos.")]].map((m, i) => ({ icon: m[0], name: m[1], sub: m[2], go: m[3], sep: i === 0 ? "none" : "1px solid " + c.bord })),
+      hasToast: !!s.toast, toastText: s.toast ? s.toast.text : "", hasToastAction: !!(s.toast && s.toast.label), toastActionLabel: s.toast ? s.toast.label : "", toastAction: () => { const x = s.toast; this.setState({ toast: null }); if (x && x.action) x.action(); },
+      hasPush: !!s.push, push: s.push || { title: "", body: "" },
+      hasSheet: s.sheet === "order", closeSheet: () => this.setState({ sheet: null }),
+      note: s.note, journeys: this.journeys(), toggles, actions, visualBtns
+    };
+  }
+}
+</script>
+</body>
+</html>

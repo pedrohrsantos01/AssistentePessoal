@@ -43,3 +43,7 @@ Thumbs.db
 *.dump.sha256
 *.dump.partial.*
 *.dump.sha256.partial.*
+
+# Capturas e estado transitório da revisão de navegador
+.playwright-cli/
+output/playwright/

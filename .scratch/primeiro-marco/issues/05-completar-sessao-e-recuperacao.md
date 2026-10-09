@@ -278,3 +278,5 @@ Três recortes de exceções concluídos localmente; pacote 4B verificado no esc
 
 
 08/10/2026 — [Exceções e isolamento Android](../../aceite-android-excecoes/spec.md) concluídos no escopo técnico: cinco casos nativos novos aprovados, inclusive falhas de cofre/open/PRAGMA, rollback pelo migrator Expo/Drizzle, colisões de operação/sequência e logout offline → B → reentrada online A. App 121/typecheck/lint, API 87 Java sem ignorados e 13 operacionais; cenário Android original também passou. Emulador/painel próprios encerrados. [Relatório e limites](../../../docs/analises/2026-10-08-excecoes-e-isolamento-android.md). Concluída: não — UI/Q28, domínio/links/Q54, iOS Q55=B e operação externa continuam nos gates existentes.
+
+09/10/2026 — referência Claude Design recebida e consolidada em spec/11; [revisão](../../../docs/analises/2026-10-09-revisao-do-prototipo.md) e [recortes de UI](../../interface-m1/spec.md). A disponibilidade do protótipo deixou de bloquear; telas, aceite visual/nativo, domínio/links, iOS e operação externa continuam pendentes. Concluída: não.

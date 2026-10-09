@@ -1,82 +1,101 @@
 # spec/11 — Design system
 
-**Status: ABERTO — protótipo em elaboração pelo Pedro.** Em R6-Q28, Pedro pediu manter a direção visual aberta até concluir o protótipo. A proposta de liberar o Briefing mínimo com visual provisório não foi aceita. Este estado não bloqueia a documentação de domínio, dados, sincronização ou critérios de aceite.
+**Status: FECHADO para direção visual e implementação do M1 — 09/10/2026.** Pedro entregou o pacote do Claude Design para orientar a implementação. R6-Q28 foi atendida quanto à disponibilidade da referência. Este fechamento não comprova telas implementadas, acessibilidade nativa ou aceite do marco.
 
----
+Referências: [M1](<../Protótipos de assistente pessoal/Ritmo-M1.dc.html>), [Fase 1](<../Protótipos de assistente pessoal/Ritmo-Fase1.dc.html>), [revisão do pacote](../docs/analises/2026-10-09-revisao-do-prototipo.md), [valores e catálogo](../docs/design/tokens-prototipo-m1.json), [auditoria](../docs/design/auditoria-visual-2026-10-09.json), [identificação das fontes](../docs/design/fontes-prototipo-2026-10-09.json).
 
-## 1. Regra enquanto este spec estiver aberto
+## 1. Autoridade e escopo
 
-**REQ-DS-000 — Nenhum agente inventa estilo próprio.** Sem tokens fechados, cada sessão de implementação escolhe seu próprio espaçamento, tipografia, raio de borda e paleta — e em cinco fatias o app tem cinco visuais diferentes. Isso não é problema de gosto, é dívida de retrabalho.
+**REQ-DS-000 — Nenhum agente inventa estilo próprio.** Usar a referência entregue e as correções de acessibilidade deste spec. Centralizar cor, espaço, fonte, dimensões, raio e movimento em `app/src/theme/tokens.ts`, criado junto da primeira fatia de interface. O JSON extraído é referência, não runtime: traduzir CSS/nomes em tokens tipados nativos. Componentes não leem HTML, cores literais ou índices de paleta.
 
-Enquanto este arquivo estiver marcado como ABERTO:
+PRD/specs/ADRs/decisões de Pedro determinam comportamento. Este spec consolida o visual; M1 é a referência do recorte atual, Fase 1 das expansões. Etiquetas “aprovado/decidido” do handoff não aprovam regras novas de produto. `Ritmo-Briefing.dc.html` contém explorações anteriores; `Ritmo-M1-Prototipo.dc.html` tem apenas um contêiner vazio.
 
-1. A apresentação visual do **Briefing, inclusive o primeiro marco mínimo**, aguarda o protótipo e o fechamento desta direção. A numeração histórica das fatias não determina mais a ordem de execução. A permissão anterior para componentes funcionais nas telas preliminares não autoriza liberar o Briefing com tokens neutros contra R6-Q28
-2. Todo componente consome **exclusivamente** os tokens de `src/theme/tokens.ts`. Nenhum valor literal de cor, espaçamento, fonte ou raio dentro de componente. Nunca `#3B82F6`, nunca `padding: 14`
-3. A centralização reduz retrabalho; não garante que o protótipo alterará apenas tokens. Estrutura, componentes e estados também precisam ser confrontados com o design concluído
+Não portar `support.js`, DCLogic, `sc-if`, `sc-for`, React de CDN, localStorage, contas, relógios e temporizadores simulados. O app usa sessão, SQLite, sync e domínio reais. Toda escrita de domínio passa pela camada local.
 
-## 2. Base proposta de tokens (a validar com o protótipo)
+## 2. Direção visual
 
-Na implementação, centralizar tokens desde os primeiros componentes permitidos. Ainda não existe esse arquivo de código no projeto. A estrutura abaixo é uma base de trabalho; valores e eventuais ajustes de estrutura serão definidos com o protótipo, sem liberar antecipadamente o visual do Briefing.
-
-```ts
-export const tokens = {
-  color: {
-    bg: { base, raised, sunken },
-    fg: { primary, secondary, muted, inverse },
-    accent: { default, hover, subtle, onAccent },
-    state: { success, warning, danger, info },
-    border: { subtle, default, strong },
-  },
-  space: [0, 4, 8, 12, 16, 24, 32, 48, 64],   // escala fechada, sem valor fora dela
-  radius: { sm, md, lg, full },
-  font: {
-    family: { display, body, mono },
-    size: [12, 14, 16, 20, 24, 32, 40],
-    weight: { regular, medium, bold },
-    lineHeight: { tight, normal, relaxed },
-  },
-  shadow: { sm, md, lg },
-  motion: {
-    duration: { fast: 120, base: 200, slow: 320 },
-    easing: { standard, enter, exit },
-  },
-} as const;
-```
-
-**REQ-DS-001** — Tema claro e escuro desde o início, por troca de valores dos mesmos tokens. Nunca dois conjuntos de componentes.
-
-**REQ-DS-002** — Todo token de cor de texto precisa atender contraste WCAG AA (4,5:1) contra o `bg` em que é usado, nos dois temas. Teste automatizado de contraste sobre os pares válidos.
-
-## 3. O que a direção visual precisa responder
-
-Quando as referências chegarem, o spec fecha decidindo:
-
-| Decisão | Por que importa |
+| Decisão | Referência consolidada |
 |---|---|
-| Tipografia | É o que mais define personalidade. Fonte de sistema é rápida e invisível; fonte própria custa peso de bundle |
-| Densidade | O Briefing tem 5+ cards. Denso mostra mais e cansa; arejado mostra menos e respira |
-| Cor de destaque | Uma só, usada com parcimônia, ou paleta por módulo (hábitos, tarefas, notícias, esportes)? |
-| Peso do card | Sombra, borda, ou nenhum dos dois (separação por espaço) |
-| Celebração | Como o subir de nível e a ofensiva aparecem sem virar confete de cassino (REQ-GAM-008 limita a 1,5 s) |
-| Ilustração | Estados vazios com ilustração própria, ícone, ou só texto |
+| Aparências | Holograma padrão, Cockpit e Neo-tokyo selecionáveis; cada uma com claro/escuro; primeira abertura segue o modo do sistema |
+| Tipografia | Chakra Petch para corpo/títulos de Holograma/Cockpit; Space Grotesk para Neo; JetBrains Mono para números, horários, XP e estados |
+| Densidade | Média; linha de hábito mínimo 60 unidades lógicas; check 28 dentro de alvo mínimo 44 × 44; crescer com texto ampliado |
+| Destaque | Um por aparência; âmbar para avisos e vermelho para erro/não salvo; ícone/forma/texto acompanham cor |
+| Cards | Fundo elevado e borda 1; marcas de canto Cockpit, quatro colchetes/scanline Holograma, brilho discreto Neo |
+| Vazios | Emoji decorativo, texto factual e ação útil; sem ilustração própria |
+| M1 | Briefing, Hábitos, Ajustes; saudação, hábitos diários, XP básico; sem controles de capacidades posteriores |
+| Expansão | Referência Fase 1 para Tarefas, Agenda, assistente e gamificação ampliada; ativar em seus incrementos |
 
-## 4. Componentes base (a construir na Fatia 3)
+Fontes ficam no bundle para uso offline; verificar arquivos/licenças/pesos no build nativo. Public Sans pertence ao painel/documentação. Download de fonte não pode ser pré-requisito para consultar dados locais.
 
-`Card`, `ListItem`, `Checkbox`, `Button` (primário/secundário/fantasma), `Chip`, `Input`, `Sheet`, `Skeleton`, `EmptyState`, `ErrorState`, `Toast`, `ProgressBar`, `StreakBadge`.
+## 3. Cor
 
-**REQ-DS-003** — Todo componente nasce com os quatro estados: normal, pressionado, desabilitado, carregando. Componente sem estado de carregamento gera tela branca depois.
+Valores completos das seis combinações estão em [tokens-prototipo-m1.json](../docs/design/tokens-prototipo-m1.json). Mapeamento semântico:
 
-**REQ-DS-004** — `EmptyState` e `ErrorState` são componentes de primeira classe, não improviso por tela. É a regra que impede o "tela em branco quando não tem dado".
+| Campo da referência | Token nativo |
+|---|---|
+| bg / surf | bg.base / bg.elevated |
+| bord | border.decorative |
+| text / dim | text.primary / text.secondary |
+| accent / accentText / onAccent | accent.fill / accent.text / text.onAccent |
+| warn / err / link | status.warning / status.error / text.link |
 
-## 5. Movimento
+Holograma escuro: base `#04090F`, elevado `#08141D`, texto `#D7ECF5`, destaque `#63F5D8`. Claro: base `#EDF4F4`, elevado `#FFFFFF`, texto `#0B1B20`, destaque `#0B7A68`. Cockpit usa ciano e Neo-tokyo rosa; consultar o catálogo completo para texto de destaque/link, que diferem do preenchimento nos modos claros.
 
-**REQ-DS-005** — Animação serve para explicar transição de estado, nunca para decorar. Duração máxima de 320 ms em qualquer transição de interface.
+**REQ-DS-001** — Aparência/modo trocam valores e decoração dos mesmos componentes; sem árvores duplicadas de telas. Escolha de aparência e de modo são independentes; “seguir sistema” é o estado inicial do modo.
 
-**REQ-DS-006** — `prefers-reduced-motion` respeitado: toda animação vira transição instantânea, inclusive as celebrações de gamificação.
+**REQ-DS-002** — Texto mínimo 4,5:1 sobre o fundo efetivo nos seis conjuntos. Testar pares semânticos permitidos, campos, toasts, avisos e composição alpha. Os 78 pares base passaram, mínimo 5,25:1; isso não prova toda combinação possível.
 
-## 6. Como fechar este spec
+Derivados do JSON: destaque suave alpha 0,13 e linha 0,45; aviso suave 0,12 escuro/0,10 claro; erro suave 0,12 escuro/0,07 claro. Campos: branco alpha 0,03 no escuro, `#F7F9FA` no claro. Track: branco 0,08/preto 0,07. Toast inverte superfície e possui texto/link próprios, inclusive Neo. Scanline/brilho são decoração sutil sem capturar toque ou leitor de tela.
 
-1. Pedro conclui o protótipo que está desenvolvendo; referências adicionais podem complementá-lo
-2. Extrair do protótipo: tipografia, densidade, tratamento de card, uso de cor e estados necessários
-3. Preencher os valores dos tokens da §2 e as decisões da §3
-4. Registrar as decisões visuais resolvidas, trocar o status para **FECHADO** e liberar a implementação visual do Briefing. A existência de um protótipo em elaboração não equivale a essa conclusão
+Correções à referência:
+
+- Borda forte original (texto alpha 0,32 escuro/0,34 claro) resulta em 2,13–2,61:1. Não pode ser a única pista de check vazio, campo ou foco. `border.interactive` usa texto alpha **0,48**, composto sobre a superfície: 12 pares base conferidos, mínimo 3,11:1. Revalidar sobre inputBg e estados. Bordas só decorativas conservam o original. Indicadores necessários à operação/estado atendem 3:1 contra a cor adjacente ([WCAG 1.4.11](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html)).
+- Texto secundário sobre destaque suave em base clara fica em 4,43:1 Cockpit e 4,46:1 Holograma. Esse par é proibido; usar texto primário ou texto de destaque. Não alterar toda a paleta por uma combinação inválida.
+
+## 4. Geometria e tipografia
+
+Espaço principal: `0/4/8/12/16/24/32/48/64`. O HTML também usa `2/6/10/14/18/20`; centralizar esses valores em métricas nomeadas de componentes. A escala antiga era proposta; não arredondar silenciosamente o design nem espalhar literais.
+
+Tamanhos encontrados no corpo do M1 (base 16): **11/12/13/14/15/16/17/18/20/22/24/28/32/36/40**. Definir papéis nomeados por componente. Corpo/títulos: pesos 400/500/600/700; mono: 400/500/700. Entrelinhas observadas: 1,00/1,05/1,15/1,20/1,30/1,35/1,40/1,45/1,50. Respeitar escala do sistema, inclusive 200%.
+
+| Raio | Cockpit | Neo | Holograma |
+|---|---|---|---|
+| Card | 10 | 20 | 4 |
+| Botão | 8 | 999 | 4 |
+| Interno | 6 | 12 | 4 |
+| Check | 5 | 9 | 4 |
+| Tile | 6 | 11 | 4 |
+
+Comuns: alvo 44 × 44; input mínimo 48; botão primário mínimo 52; check visual 28; tile 36; gutter formulário 24/Briefing 18; borda card 1/controle 1,5. Alturas são mínimas; podem crescer com texto ampliado.
+
+390 × 844, raio 50, status bar 47, relógio 08:12 e barra inferior são moldura demonstrativa. Usar safe areas/dimensões reais, sem segundo status bar. As três abas M1 ficaram legíveis no ensaio web. As cinco abas Fase 1 cortam “Ajustes” a 200%; adaptar e validar em seu incremento.
+
+## 5. Catálogo de hábitos
+
+Referência: Meditação 🧘, Leitura 📖, Água 💧, Corrida 🏃, Caminhada 🚶, Alongamento 🤸, Música 🎸, Escrita ✍️, Planta 🌱, Alvo 🎯. O JSON fornece chaves semânticas de implementação para o campo existente `iconKey`; não são novas entidades. Não usar índice como identidade. Emoji é decoração; rótulo acessível é textual. Conferir diferenças de glyph/alinhamento entre iOS/Android.
+
+Cores: `accent`, `blue`, `amber`, `violet`, `green`. Destaque/âmbar vêm do tema; azul escuro/claro `#79B8FF/#1F5FA8`, violeta `#B69CFF/#5B3FC4`, verde `#7CE38B/#2B6E37`. `colorToken` guarda a chave, não o hexadecimal. Conferir defaults/chaves existentes antes de migrar; renderização não reescreve metadado desconhecido.
+
+## 6. Componentes
+
+Construir conforme a fatia precisar: Card, HabitRow, Checkbox, Button, Input, SyncPill, Banner, Sheet, Skeleton, EmptyState, ErrorState, Toast, ProgressBar. StreakBadge, heatmap, assistant sheet e celebração de nível pertencem aos incrementos posteriores.
+
+**REQ-DS-003** — Controles têm normal, pressionado, desabilitado e carregando; superfícies informativas têm estados aplicáveis. Erro não apaga conteúdo; Sheet administra foco/fechamento conforme o contrato. Estado não depende só de cor.
+
+**REQ-DS-004** — Vazio/carregamento/erro são explícitos. “Não salvo” é distinto de salvo local sem confirmação. Rejeição comprovada, identidade incerta, cofre indisponível e banco inacessível não compartilham ação genérica de descarte/retry. [Matriz de telas/estados](../docs/design/implementacao-interface-m1.md).
+
+Link de privacidade dentro do cadastro mede altura 16 a 100%/37 a 200% no HTML. Converter em ação com alvo mínimo 44; não copiar essa falha.
+
+## 7. Movimento
+
+**REQ-DS-005** — Transições até 320 ms: pressionar 120, estado/cor 200, lenta até 320. Não portar a animação CSS inteira de 1,4 s. Selo de XP pode permanecer 1.400 ms; permanência não estende cada transição. Celebração de nível posterior segue REQ-GAM-008: até 1,5 s, dispensável, não bloqueia.
+
+**REQ-DS-006** — Redução de movimento do sistema torna transições instantâneas e feedback estático, incluindo skeleton/spinner/celebrações. Botão do simulador não substitui configuração nativa.
+
+Feedback deriva da concessão/decisão real, inclusive limite sem XP e restauração original. Retry/pull/refresh não celebram novo prêmio. Referência tem som opcional desligado; asset, custódia da preferência e áudio precisam de recorte definido antes de instalar dependência. M1 não contém celebração de nível, háptico ou confete.
+
+## 8. Implementação e aceite
+
+[Plano M1](../.scratch/interface-m1/spec.md) decompõe a tarefa visual existente. Direção consolidada libera a primeira fatia. Tokens nativos, fontes embarcadas e telas **ainda não existem** após esta incorporação documental.
+
+Aceite exige Android visível nos ensaios e iPhone 16e: temas/modos, texto 100%/200%, teclado/conteúdo longo, rótulos/foco e redução de movimento. Chromium diagnostica o protótipo, não prova VoiceOver/TalkBack, persistência, API ou desempenho. Q55=B mantém iOS adiado e M1 aberto.

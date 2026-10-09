@@ -8,7 +8,7 @@ Origem: [primeiro marco](../../primeiro-marco/spec.md), [spec/13 §9](../../../s
 ## Critérios de aceite
 
 - Retomar explicitamente rota iOS, definir identificadores/conta/assinatura/associação compatíveis e instalar build próprio no iPhone 16e.
-- Integrar interface aprovada, estados vazios/carregamento/erro/recuperação e acessibilidade; manter Q28 e tarefa visual existentes.
+- Integrar interface aprovada, estados vazios/carregamento/erro/recuperação e acessibilidade; seguir spec/11 consolidado e a tarefa visual existente; referência recebida não equivale a aceite nativo.
 - Registrar evidência M1-01 a M1-20, separando provas automáticas de domínio/API e verificações nos aparelhos. Exercitar onboarding retomável/pular hábito, offline/reinício, logout A/B/A, falhas/retry, mesma conta e XP único entre iPhone e Android.
 - Exercitar recuperação por mensagem/link nos builds corretos, inclusive Universal Links no iPhone; desktop não substitui aparelhos.
 - Referenciar gates operacionais 4D existentes, com limitações/janela real. Não repetir instalação em tarefa paralela.
