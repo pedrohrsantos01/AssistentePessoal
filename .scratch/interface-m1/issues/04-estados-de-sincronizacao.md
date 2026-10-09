@@ -1,7 +1,7 @@
 # 04 — Resultados de sync, identidade e compatibilidade
 
 Status: ready-for-agent
-Blocked by: 01-conta-onboarding-briefing.md; 03-sessao-e-recuperacao-local.md
+Blocked by: 03-sessao-e-recuperacao-local.md
 
 ## Resultado esperado
 

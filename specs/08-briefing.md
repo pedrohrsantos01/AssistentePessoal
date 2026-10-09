@@ -40,7 +40,7 @@ O Briefing **não conhece nenhum módulo**. Adicionar Notícias ou Esportes na F
 
 **Recorte aprovado para o primeiro marco (R6-Q27):** saudação, hábitos binários diários acionáveis e XP básico. Ofensivas, níveis, proteções, conquistas, Agenda, tarefas e fechamento do dia chegam nos incrementos correspondentes da Fase 1; não exibir controles de capacidades indisponíveis. O estado vazio oferece uma ação útil de criação de hábito.
 
-**Direção visual consolidada em 09/10/2026:** Pedro entregou o protótipo; [spec/11](11-design-system.md) define a referência e correções de acessibilidade. A apresentação do Briefing mínimo pode ser implementada pelos [recortes M1](../.scratch/interface-m1/spec.md); telas e aceite visual/nativo ainda pendentes. Não usar domínio testado como substituto da interface.
+**Direção visual consolidada em 09/10/2026:** Pedro entregou o protótipo; [spec/11](11-design-system.md) define a referência e correções de acessibilidade. O [recorte 01](../docs/analises/2026-10-09-interface-primeira-jornada.md) implementa saudação, data/dia lógico, hábitos e XP com providers locais independentes, vazio útil e subscrições da projeção real. Os [recortes M1](../.scratch/interface-m1/spec.md) seguintes e o aceite integral nos aparelhos permanecem pendentes.
 
 A tabela abaixo descreve o Briefing da Fase 1 completa.
 

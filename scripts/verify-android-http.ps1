@@ -12,11 +12,13 @@ function Invoke-Checked {
 }
 if((& $taskAdb -s $Serial shell getprop ro.kernel.qemu).Trim() -ne '1') {throw 'An already running Android emulator is required; physical devices are not supported by this test.'}
 $taskPrevious=@{}
-foreach($taskName in @('NODE_ENV','EXPO_PUBLIC_RITMO_HTTP_HARNESS','RITMO_ANDROID_SERIAL','RITMO_ANDROID_APK','RITMO_ADB')) {
+foreach($taskName in @('NODE_ENV','EXPO_PUBLIC_RITMO_HTTP_HARNESS','EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS','EXPO_PUBLIC_RITMO_JOURNEY_TEST','RITMO_ANDROID_SERIAL','RITMO_ANDROID_APK','RITMO_ADB')) {
     $taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')
 }
 try {
-    $env:NODE_ENV='production'
+    $env:NODE_ENV='test'
+    $env:EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS=$null
+    $env:EXPO_PUBLIC_RITMO_JOURNEY_TEST=$null
     $env:EXPO_PUBLIC_RITMO_HTTP_HARNESS='1'
     $env:RITMO_ANDROID_SERIAL=$Serial
     $env:RITMO_ADB=$taskAdb
@@ -25,6 +27,7 @@ try {
         Invoke-Checked 'pnpm.cmd' @('typecheck')
         Invoke-Checked 'pnpm.cmd' @('lint')
         Invoke-Checked 'pnpm.cmd' @('test')
+        $env:NODE_ENV='production'
         Invoke-Checked 'pnpm.cmd' @('exec','expo','prebuild','--platform','android','--no-install')
         Invoke-Checked '.\android\gradlew.bat' @('-p','android',':app:assembleRelease','-PreactNativeArchitectures=x86_64','--max-workers=2','--no-daemon')
     } finally {Pop-Location}

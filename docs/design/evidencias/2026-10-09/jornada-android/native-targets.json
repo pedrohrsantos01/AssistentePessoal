@@ -1,0 +1,77 @@
+{
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "measurements": [
+    {
+      "label": "Criar conta",
+      "widthPixels": 954,
+      "heightPixels": 137,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Política de privacidade",
+      "widthPixels": 954,
+      "heightPixels": 115,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Pular por agora",
+      "widthPixels": 954,
+      "heightPixels": 137,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Leitura offline, feito",
+      "widthPixels": 896,
+      "heightPixels": 180,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Ajustes",
+      "widthPixels": 346,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Hábitos",
+      "widthPixels": 346,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Briefing",
+      "widthPixels": 346,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Ajustes",
+      "widthPixels": 346,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Hábitos",
+      "widthPixels": 346,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Briefing",
+      "widthPixels": 346,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "200%"
+    }
+  ],
+  "passed": true
+}

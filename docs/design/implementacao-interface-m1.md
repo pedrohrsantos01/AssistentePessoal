@@ -55,6 +55,6 @@ O handoff omite exclusão no M1; spec/13 §3 inclui habit.delete/M1-13. Usar a S
 - Preservar entradas dos harnesses ao introduzir a entrada do produto; não renomear um harness como aplicação final.
 - Preferências de aparência/áudio e compatibilidade de metadados antigos serão especificadas antes de persistir/migrar; nenhuma tabela/campo novo implícito nesta revisão.
 
-## Aceite pendente
+## Implementação e aceite pendente
 
-Componentes/rotas reais, persistência/sync pela UI, acessibilidade nativa, iPhone adiado, domínio/e-mail/links e operação externa continuam pendentes. Chromium não substitui o [aceite dos aparelhos](../../.scratch/aceite-m1/spec.md).
+O [recorte 01](../analises/2026-10-09-interface-primeira-jornada.md) implementa entrada, onboarding, primeiro hábito/pular, criação posterior, Briefing/XP e ajustes mínimos com persistência/sync reais. Bloqueios mínimos protegem a abertura; o detalhe das ações desta matriz permanece nos recortes 03/04. Gestão completa, preferências persistidas, recuperação por link, acessibilidade integral, iPhone adiado, domínio/e-mail/links e operação externa continuam pendentes. Chromium não substitui o [aceite dos aparelhos](../../.scratch/aceite-m1/spec.md).

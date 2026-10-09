@@ -1,7 +1,7 @@
 # 02 — Gestão e exclusão ligadas ao Briefing
 
 Status: ready-for-agent
-Blocked by: 01-conta-onboarding-briefing.md
+Blocked by: none
 
 ## Resultado esperado
 

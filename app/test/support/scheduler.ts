@@ -48,7 +48,7 @@ export function fixture(source?:(compatibility:Compatibility)=>IdentityTransport
   let sequence=100,client:ClientVersion=CLIENT;
   const create=()=>new Session(control,vault,source??identity,(account,guard)=>Promise.resolve(openTestStore(join(directory,account+'.db'),account,id(2),guard)),()=>id(++sequence),client);
   let session=create();
-  return {get session(){return session;},identity,revoked,vault,
+  return {accountPath:(account:string)=>join(directory,account+'.db'),get session(){return session;},identity,revoked,vault,
     async restart(nextClient=client){session.close();client=nextClient;session=create();await session.restore();},
     close(){session.close();sqlite.close();rmSync(directory,{recursive:true,force:true});}};
 }

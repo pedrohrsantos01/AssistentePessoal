@@ -56,6 +56,7 @@ export class Session {
   private serial:Promise<unknown>=Promise.resolve();
   private compatibility:Compatibility;
   private identity:IdentityTransport;
+  localState() {return this.control.state().session_state;}
   access() {return this.compatibility.status();}
   constructor(private control:InstallationStore,private vault:SecureVault,identity:IdentitySource,
     private open:OpenAccount,private nextId:()=>string,client:ClientVersion=CLIENT) {
@@ -79,7 +80,7 @@ export class Session {
       if(write) this.compatibility.assertWritable();
     };
     let opened:AccountStore|undefined;
-    try {opened=await this.open(account,guard);guard();this.store=opened;this.databaseFailure=null;this.notify();}
+    try {opened=await this.open(account,guard);guard();this.store=opened;if(this.credentials?.profile.plan==='free') opened.seedProfile({...this.credentials.profile,plan:this.credentials.profile.plan});this.databaseFailure=null;this.notify();}
     catch(error) {
       opened?.close();guard();
       this.databaseFailure=error instanceof LocalRecoveryRequired?error:new LocalRecoveryRequired('account-'+account+'.db','local_initialization_failed',error,'initialize');

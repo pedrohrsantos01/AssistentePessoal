@@ -96,6 +96,6 @@ Feedback deriva da concessão/decisão real, inclusive limite sem XP e restaura�
 
 ## 8. Implementação e aceite
 
-[Plano M1](../.scratch/interface-m1/spec.md) decompõe a tarefa visual existente. Direção consolidada libera a primeira fatia. Tokens nativos, fontes embarcadas e telas **ainda não existem** após esta incorporação documental.
+[Plano M1](../.scratch/interface-m1/spec.md) decompõe a tarefa visual existente. O [recorte 01](../docs/analises/2026-10-09-interface-primeira-jornada.md) implementa tokens tipados, onze pesos locais com OFL, controles e a primeira jornada nativa. Holograma segue o sistema; seleção/persistência e decoração dos demais estilos ficam no recorte 06. O relatório distingue checks, ensaios Android e o aceite integral pendente.
 
 Aceite exige Android visível nos ensaios e iPhone 16e: temas/modos, texto 100%/200%, teclado/conteúdo longo, rótulos/foco e redução de movimento. Chromium diagnostica o protótipo, não prova VoiceOver/TalkBack, persistência, API ou desempenho. Q55=B mantém iOS adiado e M1 aberto.

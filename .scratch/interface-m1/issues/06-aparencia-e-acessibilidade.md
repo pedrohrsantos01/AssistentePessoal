@@ -1,7 +1,7 @@
 # 06 — Preferências e acabamento acessível
 
 Status: needs-info
-Blocked by: 01-conta-onboarding-briefing.md; 02-gestao-de-habitos.md; 03-sessao-e-recuperacao-local.md; 04-estados-de-sincronizacao.md
+Blocked by: 02-gestao-de-habitos.md; 03-sessao-e-recuperacao-local.md; 04-estados-de-sincronizacao.md
 
 ## Resultado esperado
 

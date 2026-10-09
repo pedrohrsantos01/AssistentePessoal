@@ -9,3 +9,6 @@
 
 # Exportacoes de design recebidas: preservar bytes e whitespace original.
 "Protótipos de assistente pessoal/**" -text whitespace=-blank-at-eol
+
+# Licencas upstream: preservar bytes auditados no bundle.
+app/assets/licenses/*.txt -text whitespace=-blank-at-eol

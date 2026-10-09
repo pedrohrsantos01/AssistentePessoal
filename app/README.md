@@ -1,4 +1,4 @@
-# App — núcleo local e harness técnico
+# App Ritmo — primeira jornada e núcleo local
 
 Expo 57.0.25, React Native 0.86.3, React 19.2.3, TypeScript 6.0.3, expo-sqlite 57.0.3 e Drizzle 0.45.3.
 
@@ -17,13 +17,43 @@ A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `
 
 `synchronize` recebe um transporte vinculado à mesma conta, valida respostas geradas do OpenAPI, recupera snapshot quando necessário e troca lotes de até 50 operações. Erros preservam o banco. O uso autenticado passa por `Session.synchronize`, que verifica a geração da sessão e renova acesso quando necessário. O scheduler automático e o backoff estão descritos abaixo; o aceite visual e a execução em iPhone permanecem pendentes. O cenário HTTP nativo Android está descrito abaixo.
 
+## Interface do recorte 01
+
+`index.js` inicia Expo Router/`src/app`. `Journey` traduz apenas comandos/estados públicos de Session/AccountStore; componentes não chamam HTTP. O SQLite preserva o passo do onboarding, perfil público, intenções, IDs e projeções. `AccountStore.subscribe` publica após a transação externa confirmar; rollback não publica sucesso. Dados de domínio não são duplicados no Zustand, usado somente para navegação e rascunho de sugestão.
+
+Entrada, cadastro/login, confirmação de fuso/início do dia, primeiro hábito ou pular, Briefing, criação posterior, lista básica de hábitos e ajustes mínimos estão nesta jornada. Gestão avançada, avisos detalhados, recuperação por link e preferências persistidas continuam nos recortes seguintes. O aviso de privacidade para testes identifica a política pública ainda pendente; não foi inventado um contrato legal final.
+
+Holograma acompanha o tema do sistema. Os mesmos tokens suportam Cockpit/Neo em claro/escuro; seleção/persistência de aparência fica no recorte 06. Onze pesos locais de Chakra Petch, Space Grotesk e JetBrains Mono entram no bundle; licenças SIL OFL em `assets/licenses/`, incluídas também nos assets do APK pelo plugin de build. Não há download de fontes, telemetria, áudio ou permissões futuras neste recorte.
+
+O Briefing registra providers locais independentes de hábitos/XP com fronteira de erro por card. Uma assinatura acompanha commits/pull e a geração da sessão. Um timer calcula a próxima virada lógica IANA, incluindo DST, e é refeito ao retornar ao foreground; não há polling de minuto nem timer que confirme sync. Marca/desfaz usa o dia no momento do toque e todos os desfazeres conhecidos.
+
+`pnpm test` roda a suíte Node/SQLite e os componentes com React Native Testing Library/Jest Expo. A animação de botão usa Reanimated, com duração por token e redução de movimento do sistema. Componentes verificam comportamento/acessibilidade; renderização e I/O nativos são exercitados pelo driver Android abaixo.
+
+## Testar a jornada visivelmente no Android
+
+Na raiz do projeto, com Java 21, Android SDK, Docker e o AVD indicado disponível:
+
+```powershell
+$env:JAVA_HOME='C:\Program Files\Android\Android Studio\jbr'
+$env:ANDROID_HOME='H:\Android\Sdk'
+.\scripts\verify-android-journey.ps1 -Avd Pixel_9 -Serial emulator-5560
+```
+
+O script verifica app, compila/valida `dev.ritmo.journeytest`, abre emulador/painel visíveis e instala somente essa variante. O método JUnit prepara API/Postgres/SMTP descartáveis em loopback. O driver opera os controles nativos por rótulo, interrompe/retoma onboarding, pula e cria um hábito, desliga conexão, mata/reabre processo, desfaz/remarca, reconecta e confirma 10 XP por um cliente independente. Também verifica modos Holograma claro/escuro, teclado, alvos nativos mínimos de 44, texto 200% e ações com escalas de animação zeradas. Rádios, modo, escalas de fonte/animação são restaurados; somente encaminhamento e processos criados pelo teste são encerrados em `finally`. Não limpa bancos nem desinstala os harnesses anteriores. `-SkipBuild` reutiliza um APK já compilado e verificado pelo pacote, para diagnóstico local; não substitui os checks.
+
+A variante libera HTTP somente para `127.0.0.1` e porta reversa reservada `18766`, sem logs de credenciais. `RITMO_ANDROID_JOURNEY_SERIAL` é separado do opt-in dos harnesses, para não confundir interfaces com testes técnicos. Screenshots contêm somente fixtures sintéticas. API/check normal deixa esse teste opt-in ignorado.
+
+O produto normal é `dev.ritmo.app`, exige `EXPO_PUBLIC_RITMO_API_ORIGIN` com origem HTTPS no build e mantém HTTP bloqueado. As flags `EXPO_PUBLIC_RITMO_HTTP_HARNESS=1` e `EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS=1` conservam os pacotes/entradas técnicos; nunca usar a variante de teste para contas reais. Configuração de domínio/provedor e aceite no iPhone seguem pendentes.
+
+[Resultado, evidências e limites do recorte 01](../docs/analises/2026-10-09-interface-primeira-jornada.md).
+
 ## Sincronização automática
 
-`openExpoRuntime(origin)` compõe identidade HTTP, sessão, SQLite/SecureStore e scheduler. A futura entrada do app deve manter uma instância e chamar `close()` no encerramento. `runtime.sync.status()` expõe o estado de sync e revogações; `runtime.sync.retry()` retoma falhas transitórias esgotadas preservando os IDs. A variante HTTP do harness usa essa fábrica; o harness básico de armazenamento mantém seu transporte fictício.
+`openExpoRuntime(origin)` compõe identidade HTTP, sessão, SQLite/SecureStore e scheduler. A entrada do produto mantém uma instância por processo, encerrada com o dono da jornada. `runtime.sync.status()` expõe o estado de sync e revogações; `runtime.sync.retry()` retoma falhas transitórias esgotadas preservando os IDs. A variante HTTP do harness usa essa fábrica; o harness básico de armazenamento mantém seu transporte fictício.
 
 O adapter combina AppState com expo-network 57.0.2. Abertura, login, retorno ao primeiro plano, reconexão e o período de cinco minutos acionam a sincronização com rede. Enquanto o app estiver inativo ou sem conectividade, nenhum novo envio automático começa; uma resposta já em trânsito pode ser reconciliada. `close()` remove listeners e timers.
 
-Falhas transitórias esperam 1s, 2s, 4s até cinco minutos; um `Retry-After` válido pode exigir mais tempo. Após dez falhas, o núcleo expõe `failed`. Para push, tentativas, prazo e esgotamento ficam no SQLite e sobrevivem ao reinício. Pull sem push e revogações mantêm contadores de retry somente nesta execução; as intenções e capacidades de revogação continuam duráveis. Reautenticação e atualização de protocolo têm estados próprios, sem retry automático infinito. A UI de aviso/ação ainda depende do protótipo.
+Falhas transitórias esperam 1s, 2s, 4s até cinco minutos; um `Retry-After` válido pode exigir mais tempo. Após dez falhas, o núcleo expõe `failed`. Para push, tentativas, prazo e esgotamento ficam no SQLite e sobrevivem ao reinício. Pull sem push e revogações mantêm contadores de retry somente nesta execução; as intenções e capacidades de revogação continuam duráveis. Reautenticação e atualização de protocolo têm estados próprios, sem retry automático infinito. Avisos mínimos existem no recorte 01; ações detalhadas seguem os recortes 03/04.
 
 [Evidências, reprodução e limites deste incremento](../docs/analises/2026-09-28-sincronizacao-automatica.md).
 
@@ -43,7 +73,7 @@ A UI futura acessa a conta pela sessão e usa três operações do repositório:
 
 Rejeição retira a intenção e suas filhas bloqueadas da projeção aplicada. O envio reavalia a fila entre lotes. Pending, retry esgotado e resultado incerto não são correção: exigem reconciliação/retry com o mesmo ID. Colisões de identidade (operação/sequência) exigem prova antes de correção/descarte; rejeição persistida por ID de hábito reutilizado, com hash correspondente, segue a recuperação explícita. Não confundir uma resposta em conflito com prova de que a intenção original nunca foi aceita.
 
-O limite de 4096 referências bloqueia o envio sem cortar contexto. Corrigir não permite remover referências de desfazer para contornar esse limite; o conteúdo continua recuperável até tratamento técnico explícito ou descarte escolhido. A UI de aviso/seleção ainda depende do protótipo. [Evidências e limites](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md).
+O limite de 4096 referências bloqueia o envio sem cortar contexto. Corrigir não permite remover referências de desfazer para contornar esse limite; o conteúdo continua recuperável até tratamento técnico explícito ou descarte escolhido. A seleção detalhada de recuperação está no recorte 04 de interface. [Evidências e limites](../docs/analises/2026-09-28-recuperacao-de-rejeicoes.md).
 
 ## Recuperação de snapshot
 
@@ -73,6 +103,7 @@ Não há reconstrução ou limpeza automática: arquivos das contas, intenções
 `harness/index.ts` é somente um teste nativo sem interface visual. Usa SQLite e SecureStore reais com um transporte de identidade fictício, troca entre A/B e escreve somente o resultado não sensível em `RITMO_HARNESS`. A segunda execução verifica pendências e sessão protegida após reiniciar o processo. A variante básica usa o pacote `dev.ritmo.foundationharness`. A variante HTTP abaixo usa outro pacote. Nenhuma delas é o Briefing ou define a identidade visual.
 
 ```powershell
+$env:EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS='1'
 pnpm exec expo prebuild --platform android --no-install
 # Com JAVA_HOME (Java 21) e ANDROID_HOME configurados:
 cd android
@@ -83,7 +114,7 @@ O template do Expo usa seu próprio Gradle 9.3.1; o wrapper 8.14.4 pertence some
 
 A configuração `node-linker=hoisted` encurta caminhos para CMake/Ninja no Windows; a instalação isolada anterior excedeu o limite de caminhos nativos. O lockfile conserva as versões.
 
-iPhone: nenhum build instalado ou teste físico realizado; a rota a partir do Windows ainda depende de Apple Developer ativo ou de alternativa com Mac. Protótipo visual permanece aberto.
+iPhone: nenhum build instalado ou teste físico realizado; a rota a partir do Windows ainda depende de Apple Developer ativo ou de alternativa com Mac. Protótipo recebido em 09/10/2026; Q55=B mantém a rota iOS adiada.
 
 ## Harness Android com HTTP real
 
@@ -119,7 +150,7 @@ A proteção por geração também é verificada em referências antigas de `Acc
 
 O teste integrado recebe uma mensagem no SMTP local e prova que um refresh recusado após reset não apaga a pendência: ela sobrevive ao reinício e sincroniza após login com a nova senha. O link não deve causar logout automático, pois pode se referir a outra conta; a API não retorna identidade nem sessão na confirmação.
 
-Associação de domínio, recebimento do link pelo sistema operacional e tela de recuperação permanecem pendentes do host/build e do protótipo. Evidências: [incremento de recuperação](../docs/analises/2026-09-27-recuperacao-de-senha.md).
+Associação de domínio, recebimento do link pelo sistema operacional e tela de recuperação permanecem pendentes do host/build e do recorte 05 de interface. Evidências: [incremento de recuperação](../docs/analises/2026-09-27-recuperacao-de-senha.md).
 
 
 ## Atualização obrigatória e leitura local

@@ -38,3 +38,13 @@ export function getDayKey(date:Date,timezone:string,dayStartHour:number):string 
   if(date.getTime()<boundaryAt(civil,dayStartHour,formatter)) civil.setUTCDate(civil.getUTCDate()-1);
   return civil.toISOString().slice(0,10);
 }
+
+// Schedule exactly the next IANA logical-day boundary, including DST gaps/repeats.
+export function nextLogicalDayAt(date:Date,timezone:string,dayStartHour:number):number {
+  const current=new Date(getDayKey(date,timezone,dayStartHour)+'T00:00:00Z');
+  current.setUTCDate(current.getUTCDate()+1);
+  const formatter=new Intl.DateTimeFormat('en-US-u-ca-iso8601-nu-latn',{
+    timeZone:timezone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23',
+  });
+  return boundaryAt(current,dayStartHour,formatter);
+}

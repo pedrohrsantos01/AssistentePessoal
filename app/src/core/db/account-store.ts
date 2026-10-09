@@ -32,6 +32,75 @@ export class AccountStore {
       this.rebuild(tx);
     });
   }
+  private listeners=new Set<()=>void>();
+  private activeTransaction:LocalDatabase|null=null;
+  subscribe(listener:()=>void) {this.guard();this.listeners.add(listener);return ()=>{this.listeners.delete(listener);};}
+  private transaction<T>(work:(tx:LocalDatabase)=>T):T {
+    // Internal commands join the outer transaction. Expo must never start a second BEGIN.
+    if(this.activeTransaction) return work(this.activeTransaction);
+    let committed=false;
+    try {const result=this.db.transaction(tx=>{this.activeTransaction=tx;return work(tx);});committed=true;return result;}
+    finally {this.activeTransaction=null;if(committed) for(const listener of this.listeners) {
+      // Presentation failures cannot turn a committed intent into an apparent storage failure.
+      try {listener();} catch { /* The failing presentation owns its error boundary. */ }
+    }}
+  }
+  seedProfile(profile:Extract<Entity,{kind:'profile'}>['value']) {
+    this.guard();if(profile.accountId!==this.accountId) throw new Error('account_store_mismatch');
+    this.transaction(tx=>this.incorporate(tx,{kind:'profile',value:profile}));
+  }
+  profile() {
+    this.guard();
+    const canonical=this.base().find(entity=>entity.kind==='profile');
+    if(canonical?.kind!=='profile') throw new Error('profile_not_available');
+    let profile=canonical.value;
+    for(const operation of this.pending()) if(operation.command.type==='profile.setOnboarding') {
+      const command=operation.command;
+      profile={...profile,timeContext:command.timeContext,onboardedAt:command.completed?(profile.onboardedAt??operation.occurredAt):profile.onboardedAt};
+    }
+    return profile;
+  }
+  onboardingStep():'time_context'|'first_habit'|'complete' {
+    this.guard();
+    if(this.profile().onboardedAt) return 'complete';
+    return this.db.get<{onboarding_step:'time_context'|'first_habit'|'complete'}>(sql`select onboarding_step from sync_state where account_id=${this.accountId}`)!.onboarding_step;
+  }
+  saveTimeContext(timeContext:import('../sync/protocol.ts').TimeContext,id:string,at:string) {
+    this.guard(true);
+    this.transaction(tx=>{
+      this.enqueue({type:'profile.setOnboarding',timeContext,completed:false,analyticsConsent:false},id,at);
+      tx.run(sql`update sync_state set onboarding_step='first_habit' where account_id=${this.accountId}`);
+    });
+  }
+  finishOnboarding(habit:import('../sync/protocol.ts').CreateHabit|null,habitOperationId:string,profileOperationId:string,at:string) {
+    this.guard(true);
+    this.transaction(tx=>{
+      if(habit) this.enqueue(habit,habitOperationId,at);
+      this.enqueue({type:'profile.setOnboarding',timeContext:this.profile().timeContext,completed:true,analyticsConsent:false},profileOperationId,at);
+      tx.run(sql`update sync_state set onboarding_step='complete' where account_id=${this.accountId}`);
+    });
+  }
+  observedUndoIds(habitId:string,dayKey:string) {
+    this.guard();
+    const canonical=this.base().find(entity=>entity.kind==='habitDay'&&entity.value.habitId===habitId&&entity.value.dayKey===dayKey);
+    const ids=canonical?.kind==='habitDay'?canonical.value.knownUndoIds:[];
+    return [...new Set([...ids,...this.pending().filter(op=>op.command.type==='habit.unmark'&&op.command.habitId===habitId&&op.command.dayKey===dayKey).map(op=>op.operationId)])];
+  }
+  presentation(day:string) {
+    this.guard();const base=this.base(),pending=this.pending(),view=this.view(day);
+    const metadata=new Map(base.flatMap(entity=>entity.kind==='habit'?[[entity.value.habitId,{iconKey:entity.value.iconKey,colorToken:entity.value.colorToken}] as const]:[]));
+    for(const {command} of pending) {
+      if(command.type==='habit.create') metadata.set(command.habitId,{iconKey:command.iconKey,colorToken:command.colorToken});
+      if(command.type==='habit.patchMetadata') metadata.set(command.habitId,{iconKey:null,colorToken:null,...metadata.get(command.habitId),...command.patch});
+    }
+    const today=base.filter(entity=>!['habitDay','xpGrant','xpDecision'].includes(entity.kind)||
+      (entity.kind==='habitDay'||entity.kind==='xpGrant')&&entity.value.dayKey===day||
+      entity.kind==='xpDecision'&&base.some(dayEntity=>dayEntity.kind==='habitDay'&&dayEntity.value.habitDayId===entity.value.habitDayId&&dayEntity.value.dayKey===day));
+    const todayPending=pending.filter(op=>!('dayKey' in op.command)||op.command.dayKey===day);
+    return {...view,profile:this.profile(),step:this.onboardingStep(),todayXp:project(today,todayPending,day).totalXp,
+      habits:view.habits.map(habit=>({...habit,...metadata.get(habit.habitId),limitReached:base.some(entity=>entity.kind==='xpDecision'&&entity.value.outcome==='limit_reached'&&base.some(d=>d.kind==='habitDay'&&d.value.habitDayId===entity.value.habitDayId&&d.value.habitId===habit.habitId&&d.value.dayKey===day))})),
+      blockedCount:this.recovery().filter(item=>!item.resolution).length};
+  }
   private base(db=this.db):Entity[] {
     return db.all<Payload>(sql`select payload from canonical_entities where account_id=${this.accountId}`).map(r=>JSON.parse(r.payload) as Entity);
   }
@@ -53,7 +122,7 @@ export class AccountStore {
   }
   enqueue(command:Command,operationId:string,occurredAt:string):Operation {
     this.guard(true);
-    return this.db.transaction(tx=>{
+    return this.transaction(tx=>{
       const state=tx.get<{next_sequence:number}>(sql`select next_sequence from sync_state where account_id=${this.accountId}`);
       if(!state||state.next_sequence>=Number.MAX_SAFE_INTEGER) throw new Error('sequence_exhausted');
       const previous=this.unconfirmed(tx);
@@ -117,7 +186,7 @@ export class AccountStore {
   }
   discard(operationIds:string[]) {
     this.guard(true);
-    this.db.transaction(tx=>{
+    this.transaction(tx=>{
       const items=new Map(this.recovery().map(item=>[item.operation.operationId,item]));
       for(const id of operationIds) {
         const item=items.get(id);
@@ -130,7 +199,7 @@ export class AccountStore {
   }
   correct(corrections:Correction[]):Operation[] {
     this.guard(true);
-    return this.db.transaction(tx=>{
+    return this.transaction(tx=>{
       const history=this.recovery(),byId=new Map(history.map(item=>[item.operation.operationId,item]));
       const selected=new Map(corrections.map(item=>[item.operationId,item]));
       if(selected.size!==corrections.length||new Set(corrections.map(item=>item.replacementId)).size!==corrections.length) throw new Error('duplicate_correction');
@@ -225,7 +294,7 @@ export class AccountStore {
   }
   beginAttempt(batch:Operation[],now:number) {
     this.guard(true);
-    this.db.transaction(tx=>{for(const op of batch) {
+    this.transaction(tx=>{for(const op of batch) {
       const attempts=(tx.get<{attempts:number}>(sql`select attempts from sync_mutations where account_id=${this.accountId} and operation_id=${op.operationId}`)?.attempts??0)+1;
       const next=new Date(now+retryDelay(attempts,null,now)).toISOString();
       tx.run(sql`update sync_mutations set status='in_flight',attempts=${attempts},next_attempt_at=${next}
@@ -234,12 +303,12 @@ export class AccountStore {
   }
   cancelAttempt(batch:Operation[]) {
     this.guard();
-    this.db.transaction(tx=>{for(const op of batch) tx.run(sql`update sync_mutations set status='pending',attempts=max(0,attempts-1),next_attempt_at=null
+    this.transaction(tx=>{for(const op of batch) tx.run(sql`update sync_mutations set status='pending',attempts=max(0,attempts-1),next_attempt_at=null
       where account_id=${this.accountId} and operation_id=${op.operationId} and status='in_flight'`);});
   }
   retryLater(batch:Operation[],error:unknown,now:number) {
     this.guard();
-    this.db.transaction(tx=>{for(const op of batch) {
+    this.transaction(tx=>{for(const op of batch) {
       const attempts=tx.get<{attempts:number}>(sql`select attempts from sync_mutations where account_id=${this.accountId} and operation_id=${op.operationId}`)?.attempts??1;
       const next=new Date(now+retryDelay(attempts,error,now)).toISOString();
       const status=attempts>=10?'blocked_local':'retry_wait',reason=attempts>=10?JSON.stringify({code:'retry_exhausted'}):null;
@@ -311,7 +380,7 @@ export class AccountStore {
   }
   applyAck(results:PushResult[],now:number=Date.now()) {
     this.guard(true);
-    this.db.transaction(tx=>{
+    this.transaction(tx=>{
       for(const result of results) {
         if('receipt' in result) {
           this.recognize(tx,result.receipt);
@@ -329,7 +398,7 @@ export class AccountStore {
   }
   applyPull(page:Pull) {
     this.guard(true);
-    this.db.transaction(tx=>{
+    this.transaction(tx=>{
       for(const change of page.changes) {
         for(const receipt of change.operationResults) this.recognize(tx,receipt);
         for(const entity of change.entities) this.incorporate(tx,entity);
@@ -340,14 +409,14 @@ export class AccountStore {
   }
   beginSnapshot(snapshotId:string,revision:string,cursor:string,expiresAt:string) {
     this.guard(true);
-    this.db.transaction(tx=>{
+    this.transaction(tx=>{
       tx.run(sql`delete from snapshot_staging where account_id=${this.accountId}`);
       tx.run(sql`update sync_state set snapshot_id=${snapshotId},snapshot_revision=${revision},snapshot_cursor=${cursor},snapshot_expires_at=${expiresAt} where account_id=${this.accountId}`);
     });
   }
   stageSnapshotPage(snapshotId:string,cursor:string,entities:Entity[],nextCursor:string|null) {
     this.guard(true);
-    this.db.transaction(tx=>{
+    this.transaction(tx=>{
       const state=tx.get<{snapshot_id:string|null;snapshot_cursor:string|null}>(sql`select snapshot_id,snapshot_cursor from sync_state where account_id=${this.accountId}`);
       if(state?.snapshot_id!==snapshotId||state.snapshot_cursor!==cursor) throw new Error('snapshot_mismatch');
       for(const entity of entities) tx.run(sql`insert into snapshot_staging(account_id,snapshot_id,kind,entity_key,revision,payload)
@@ -357,7 +426,7 @@ export class AccountStore {
   }
   installSnapshot(snapshotId:string,entityCount:number,receipts:Receipt[],cursor:string) {
     this.guard(true);
-    this.db.transaction(tx=>{
+    this.transaction(tx=>{
       const state=tx.get<{snapshot_id:string|null;snapshot_cursor:string|null}>(sql`select snapshot_id,snapshot_cursor from sync_state where account_id=${this.accountId}`);
       const rows=tx.all<Payload>(sql`select payload from snapshot_staging where account_id=${this.accountId} and snapshot_id=${snapshotId}`);
       if(state?.snapshot_id!==snapshotId||state.snapshot_cursor!==null||rows.length!==entityCount) throw new Error('incomplete_snapshot');

@@ -9,6 +9,11 @@ type Lane={state:SyncState;running:boolean;epoch:number;cancel:(()=>void)|null};
 const idle=():SyncState=>({phase:'idle',failures:0,nextAttemptAt:null});
 const lane=():Lane=>({state:idle(),running:false,epoch:0,cancel:null});
 export class SyncScheduler {
+  private listeners=new Set<()=>void>();
+  subscribe(listener:()=>void) {this.listeners.add(listener);return ()=>{this.listeners.delete(listener);};}
+  private notify() {for(const listener of this.listeners) listener();}
+  requestSync() {if(this.lanes.sync.running) return;this.lanes.sync.cancel?.();this.lanes.sync.cancel=null;this.kick('sync');}
+  connectivity() {return {...this.environment};}
   private environment:SyncEnvironment={active:false,online:false};
   private stopped=false;
   private lanes={sync:lane(),revocations:lane()};
@@ -39,7 +44,7 @@ export class SyncScheduler {
         if(lane.state.phase==='update_required') continue;
         lane.epoch++;lane.cancel?.();lane.cancel=null;lane.state={phase:'update_required',failures:0,nextAttemptAt:null};
       }
-      this.kick('sync');this.kick('revocations');
+      this.notify();this.kick('sync');this.kick('revocations');
     });
   }
   private resumeAfterVault(previous:SyncState|undefined,current:SyncState):SyncState {
@@ -59,7 +64,7 @@ export class SyncScheduler {
   }
   private ready() {return !this.stopped&&this.environment.active&&this.environment.online;}
   update(environment:SyncEnvironment) {
-    const wasReady=this.ready();this.environment=environment;
+    const wasReady=this.ready();this.environment=environment;this.notify();
     if(!this.ready()) for(const lane of Object.values(this.lanes)) {lane.cancel?.();lane.cancel=null;}
     else if(!wasReady) {this.kick('sync');this.kick('revocations');}
   }
@@ -87,6 +92,7 @@ export class SyncScheduler {
     }
     const epoch=lane.epoch,key=network.key;
     lane.running=true;lane.state={...lane.state,phase:'running',nextAttemptAt:null};
+    this.notify();
     let delay:number|null=name==='sync'?300000:null;
     try {
       if(name==='sync') {
@@ -111,7 +117,7 @@ export class SyncScheduler {
         lane.state={phase:'retry_wait',failures,nextAttemptAt:this.clock.now()+delay};
       } else lane.state={phase:kind==='retry'?'failed':kind,failures:kind==='paused'?lane.state.failures:failures,nextAttemptAt:null};
     } finally {
-      lane.running=false;
+      lane.running=false;this.notify();
       if(this.ready()) {
         if(epoch!==lane.epoch) this.kick(name);
         else if(delay!==null&&['idle','retry_wait'].includes(lane.state.phase))
