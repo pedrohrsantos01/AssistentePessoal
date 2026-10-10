@@ -36,3 +36,5 @@ Concluída: não.
 10/10/2026: [fidelidade visual das telas existentes](../../../docs/analises/2026-10-10-fidelidade-visual-m1.md) refinada e aprovada por três críticos em cada grupo; Android visível final,156 testes, contraste e alvos verificados. Concluídos recortes01/02 no escopo local. Tarefa permanece aberta para03–06, matriz integral, iPhone e aceites externos; não houve aceite automático do marco pelo protótipo.
 
 10/10/2026: [sessão/cofre/abertura — recorte 03](../../../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md) concluído localmente com 164 testes do app, API check e Android visível. Pendências e isolamento A/B/A preservados. Esta tarefa continua aberta para 04–06, matriz integral/iPhone e gates externos.
+
+10/10/2026: [resultados de sincronização — recorte 04](../../../docs/analises/2026-10-10-interface-resultados-de-sincronizacao.md) concluído localmente com 171 testes do app, API check e Android visível final. Recusa e identidade incerta têm ações distintas, snapshot inicial conserva o gate e compatibilidade bloqueia escrita. Esta tarefa continua aberta para 05/06, matriz integral/iPhone e gates externos.

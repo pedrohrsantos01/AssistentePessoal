@@ -204,3 +204,36 @@ test('a late authentication failure from A cannot publish an error into B',async
   assert.equal(journey.state().local?.profile.accountId,id(99));assert.equal(journey.state().error,null);
  } finally {resume();resumeB();journey.dispose();s.close();}
 });
+
+import {operationHash} from '../src/core/sync/operation-hash.ts';
+test('journey distinguishes sending, proven rejection and uncertain identity, and resolves only selected intentions',async()=>{
+ const s=setup(),j=s.make();try {
+  await s.f.session.login('a','password');j.skip();j.create('Recusado','reading','blue',false);
+  const store=s.f.session.account(),parent=store.operations().find(op=>op.command.type==='habit.create')!;
+  store.beginAttempt([parent],s.clock.now());
+  assert.equal(j.state().operations.find(item=>item.operation.operationId===parent.operationId)?.status,'in_flight');
+  const child=store.enqueue({type:'habit.mark',habitId:parent.command.type==='habit.create'?parent.command.habitId:'',dayKey:j.state().day!,timeContext:store.profile().timeContext,observedUndoIds:[]},id(401),new Date(s.clock.now()).toISOString());
+  store.applyAck([{receipt:{operationId:parent.operationId,operationHash:operationHash(parent),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]);
+  assert.equal(j.state().recoveries.find(item=>item.operation.operationId===parent.operationId)?.source,'server');
+  assert.equal(j.correct(parent.operationId,{...parent.command,title:'Corrigido'} as typeof parent.command,[child.operationId]),true);
+  assert.equal(j.state().local?.habits[0]?.title,'Corrigido');assert.equal(j.state().local?.totalXp,10);
+  const replacement=store.operations().find(op=>op.supersedesOperationId===parent.operationId)!;
+  store.applyAck([{receipt:{operationId:replacement.operationId,status:'accepted',acceptedRevision:'1'},replayed:false}]);
+  assert.ok(j.state().recoveries.some(item=>item.error.identity));
+  assert.equal(j.discard(replacement.operationId),false);assert.equal(j.correct(replacement.operationId,replacement.command,[]),false);
+  assert.equal(j.create('Independente','water','green',false),true);
+ } finally {j.dispose();s.close();}
+});
+
+import {SyncHttpError} from '../src/core/sync/synchronize.ts';
+for(const status of [429,503]) test('journey exposes '+status+' waiting without manual retry shortening the server deadline',async t=>{
+ const s=setup(),j=s.make();let requests=0;
+ t.mock.method(globalThis,'fetch',async()=>{requests++;throw new SyncHttpError(status,'temporarily_unavailable','60');});
+ try {
+  await s.f.session.login('a','password');j.skip();s.scheduler.update({active:true,online:true});await settle();
+  assert.equal(j.state().sync.lastFailure,status===429?'rate_limit':'unavailable');assert.equal(j.state().canRetry,false);
+  const deadline=j.state().sync.nextAttemptAt;await j.retry();assert.equal(j.state().sync.nextAttemptAt,deadline);assert.equal(requests,1);
+  j.create('Local durante espera','water','green',false);assert.equal(j.state().local?.habits[0]?.title,'Local durante espera');await settle();assert.equal(requests,1);
+  await s.clock.advance(59000);assert.equal(requests,1);await s.clock.advance(1000);assert.equal(requests,2);
+ } finally {j.dispose();s.close();}
+});

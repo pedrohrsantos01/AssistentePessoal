@@ -61,6 +61,18 @@ O ensaio específico usa os controles da aplicação:
 
 `harness/journey-runtime.ts` só é selecionado com `EXPO_PUBLIC_RITMO_JOURNEY_TEST=1`; sua própria fábrica também exige essa flag. Intents de teste injetam falhas de leitura/remoção do cofre e abertura de conta/instalação nas fronteiras externas, mantendo os algoritmos e a UI do produto. Ausência de credencial exercita autenticação necessária; expiração real/refresh recusado são verificados nos componentes com Session real. Nunca usar essa variante para contas reais. `-FreshTestInstall` remove somente a variante descartável validada, antes da jornada; o ensaio verifica persistência e isolamento sem apagar dados entre suas etapas. [Relatório e limites](../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md).
 
+## Resultados de sincronização na interface
+
+A pílula e a entrada em Ajustes abrem o painel inferior da referência M1. Contagens e estados por hábito vêm de `AccountStore.operationStates`; o histórico conserva originais, resoluções e substitutas. A revisão usa `recovery`, `correct` e `discard`: somente dependentes selecionadas são corrigidas junto, e descarte exige confirmação por item. Q53 oferece diagnóstico e preserva a cadeia, sem correção/descarte/reenvio automático.
+
+`SyncScheduler` fornece fase, espera mínima e causa transitória; retry manual não encurta `Retry-After`. Compatibilidade mantém formulários em leitura. Cópia inicial de conta já configurada usa snapshot atômico: a tela mostra contagem real da área separada e indicador indeterminado, mantendo o bloqueio até a cópia completa. Interfaces novas não alteram schema ou endpoint.
+
+```powershell
+.\scripts\verify-android-journey.ps1 -Suite sync -FreshTestInstall -EvidenceDirectory docs/design/evidencias/2026-10-10/sync-android
+```
+
+O roteiro usa controles do produto, SQLite/SecureStore/HTTP reais e uma API descartável. A fábrica da variante de teste injeta respostas 429/503/426, interrupção de página e colisão no limite HTTP; a própria API calcula a prova da colisão. Esses modos não são controles do produto nem devem ser usados com contas reais. O lançador fecha o emulador/painel que abriu, inclusive em falha, e preserva processos preexistentes.
+
 ## Sincronização automática
 
 `openExpoRuntime(origin)` compõe identidade HTTP, sessão, SQLite/SecureStore e scheduler. A entrada do produto mantém uma instância por processo, encerrada com o dono da jornada. `runtime.sync.status()` expõe o estado de sync e revogações; `runtime.sync.retry()` retoma falhas transitórias esgotadas preservando os IDs. A variante HTTP do harness usa essa fábrica; o harness básico de armazenamento mantém seu transporte fictício.
@@ -209,3 +221,5 @@ Não executar o driver isoladamente contra API compartilhada: o Gradle fornece S
 `scripts/watch-android-tests.ps1 -GradleLog <log-absoluto-da-execução> -CompletionPath <json-absoluto-de-conclusão>` permite abrir um console visível de acompanhamento. O runner deve redirecionar o Gradle para esse log e escrever `{"exitCode":0}` ou o código de falha no JSON ao terminar, inclusive em erro. O painel só mostra fases observadas em logs atuais e fecha cinco segundos após a conclusão; não é uma UI de produto. Emulador e painel iniciados para o teste devem ser encerrados ao terminar, preservando processos preexistentes.
 
 [Evidências, falha inicial do comparador e limites](../docs/analises/2026-10-08-excecoes-e-isolamento-android.md). Falhas controladas não comprovam defeito físico de keystore/disco. UI, iPhone, links HTTPS reais e aceite operacional externo permanecem nos gates existentes.
+
+Verificação da interface de resultados em 10/10/2026: [relatório, evidências e limites](../docs/analises/2026-10-10-interface-resultados-de-sincronizacao.md). Recuperação por link, aparência persistida e aceite integral M1 continuam pendentes.

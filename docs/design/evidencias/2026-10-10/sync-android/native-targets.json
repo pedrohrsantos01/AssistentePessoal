@@ -1,0 +1,52 @@
+{
+  "density": 2.625,
+  "targets": [
+    {
+      "label": "Ver sincronização",
+      "widthPixels": 985,
+      "heightPixels": 115,
+      "scale": "100%"
+    },
+    {
+      "label": "Salvar correção no aparelho",
+      "widthPixels": 975,
+      "heightPixels": 137,
+      "scale": "100%"
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "widthPixels": 975,
+      "heightPixels": 136,
+      "scale": "100%"
+    },
+    {
+      "label": "Fechar",
+      "widthPixels": 975,
+      "heightPixels": 137,
+      "scale": "100%"
+    },
+    {
+      "label": "Fechar",
+      "widthPixels": 975,
+      "heightPixels": 165,
+      "scale": "200%"
+    },
+    {
+      "label": "Tentar novamente",
+      "widthPixels": 975,
+      "heightPixels": 136,
+      "scale": "100%"
+    },
+    {
+      "label": "Novo hábito",
+      "widthPixels": 309,
+      "heightPixels": 134,
+      "scale": "200%"
+    }
+  ],
+  "scales": [
+    "100%",
+    "200%"
+  ],
+  "passed": true
+}

@@ -184,3 +184,25 @@ test('a failed snapshot swap rolls back canonical data, confirmations and cursor
     assert.equal(store.view(day).pendingCount,0);assert.equal(store.cursor(),'snapshot-pull-cursor');assert.deepEqual(store.recovery(),history);
   } finally {fault.close();store.close();rmSync(directory,{recursive:true,force:true});}
 });
+
+test('an onboarded account without a local copy starts an atomic snapshot and never exposes partial habits after failure',async t=>{
+ const directory=mkdtempSync(join(tmpdir(),'ritmo-initial-copy-')),path=join(directory,'account.db');let store=openTestStore(path,id(1),id(2)),failed=false;
+ const profile:Entity={kind:'profile',value:{accountId:id(1),displayName:'Pessoa',timeContext:command.timeContext,plan:'free',onboardedAt:at,analyticsConsentAt:null,revision:'1'}};
+ store.seedProfile(profile.value);
+ let snapshots=0;
+ t.mock.method(globalThis,'fetch',async(input:string)=>{
+  if(input.endsWith('/snapshots')) {snapshots++;return Response.json(manifest(id(20),2));}
+  if(input.includes('/snapshots/')) {
+   if(input.endsWith('first-page-cursor')) return Response.json({...page(id(20),[habit('Cópia completa')]),complete:false,nextPageCursor:'second-page-cursor',pullCursor:null});
+   assert.equal(store.snapshotProgress()?.staged,1);assert.equal(store.view(day).habits.length,0);
+   if(!failed) {failed=true;throw new TypeError('interrupted');}
+   return Response.json(page(id(20),[profile]));
+  }
+  assert.ok(snapshots>0,'initial copy must precede incremental pull');return idle();
+ });
+ try {
+  await assert.rejects(synchronize(store,api()),/interrupted/);assert.equal(store.cursor(),null);assert.equal(store.view(day).habits.length,0);
+  store.close();store=openTestStore(path,id(1),id(2));assert.equal(store.snapshotProgress()?.staged,1);
+  await synchronize(store,api());assert.equal(store.view(day).habits[0]?.title,'Cópia completa');assert.equal(store.snapshotProgress(),null);
+ } finally {store.close();rmSync(directory,{recursive:true,force:true});}
+});

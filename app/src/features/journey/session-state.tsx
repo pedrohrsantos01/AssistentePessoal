@@ -1,12 +1,12 @@
 import {useState} from 'react';
+import {SyncNotice} from './sync-state.tsx';
 import {pt} from '../../i18n/pt-BR.ts';
 import {Banner,Button,Card,Page,Type} from '../../ui/primitives.tsx';
 import {useNavigation} from './navigation.ts';
 import type {Journey,JourneyState} from './journey.ts';
 export function SessionNotice({journey,state,showAuthentication=true}:{journey:Journey;state:JourneyState;showAuthentication?:boolean}) {
  const nav=useNavigation();
- if(!state.vaultUnavailable) return state.authenticationRequired&&showAuthentication?<Card decorated={false}><Type size="context" semibold header>{pt.remoteLoginTitle}</Type><Type size="label" tone="secondary">{pt.remoteLogin}</Type><Button compact secondary label={pt.reauth} onPress={()=>{journey.clearError();nav.go('reauth');}}/></Card>:null;
- return <Card decorated={false}><Type size="context" semibold header>{pt.vaultTitle}</Type><Type size="label" tone="secondary">{state.local?pt.vault:pt.vaultLocked}</Type><Button compact secondary label={pt.retryVault} busy={state.busy} onPress={()=>{void journey.retry();}}/></Card>;
+ return <><SyncNotice state={state}/ >{state.vaultUnavailable?<Card decorated={false}><Type size="context" semibold header>{pt.vaultTitle}</Type><Type size="label" tone="secondary">{state.local?pt.vault:pt.vaultLocked}</Type><Button compact secondary label={pt.retryVault} busy={state.busy} onPress={()=>{void journey.retry();}}/></Card>:state.authenticationRequired&&showAuthentication?<Card decorated={false}><Type size="context" semibold header>{pt.remoteLoginTitle}</Type><Type size="label" tone="secondary">{pt.remoteLogin}</Type><Button compact secondary label={pt.reauth} onPress={()=>{journey.clearError();nav.go('reauth');}}/></Card>:null}</>;
 }
 export function OpeningFailure({journey,state}:{journey:Journey;state:JourneyState}) {
  const [details,setDetails]=useState(false),recovery=state.recovery!;

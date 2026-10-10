@@ -22,7 +22,7 @@ function nodes() {
 async function find(label:string,scroll=false,minPixels=0) {
  const deadline=Date.now()+45000;let swipes=0;
  while(Date.now()<deadline) {
-  const list=nodes(),node=list.find(n=>n.package===pkg&&n['content-desc']===label)??list.find(n=>n.package===pkg&&n.text===label);
+  const list=nodes(),node=list.find(n=>n.package===pkg&&(n['content-desc']===label||n['content-desc']===pt.syncPillLabel(label)||label===pt.syncDetails&&n['content-desc']?.endsWith('. '+pt.syncDetails)))??list.find(n=>n.package===pkg&&n.text===label);
   if(node) {const box=node.bounds?.match(/-?\d+/g)?.map(Number);if(box&&box[2]!>box[0]!&&box[3]!>box[1]!&&box[2]!-box[0]!>=minPixels&&box[3]!-box[1]!>=minPixels) return node;}
   if(scroll&&swipes++<8) {const viewport=list.find(n=>n.package===pkg&&n.bounds)?.bounds?.match(/\d+/g)?.map(Number);if(viewport) adb('shell','input','swipe',String(Math.floor(viewport[2]!/2)),String(Math.floor(viewport[3]!*0.8)),String(Math.floor(viewport[2]!/2)),String(Math.floor(viewport[3]!*0.35)),'400');}
   await pause(300);

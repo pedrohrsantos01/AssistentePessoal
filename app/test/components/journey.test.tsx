@@ -205,3 +205,54 @@ test('a vault write failure during new login cannot activate an account and retr
   await fireEvent.press(screen.getByRole('button',{name:pt.login}));await waitFor(()=>expect(screen.getByLabelText(pt.onboarding)).toBeOnTheScreen());
  } finally {f.close();}
 });
+
+import {operationHash} from '../../src/core/sync/operation-hash.ts';
+test('sync review corrects a proven rejection and never offers discard for uncertain identity',async()=>{
+ const f=openingFixture();const x=await f;try {
+  await act(async()=>{await x.owner.session.login('a@example.test','password');x.journey.skip();x.journey.create('Recusado','reading','blue',false);});
+  const store=x.owner.session.account(),parent=store.operations().find(op=>op.command.type==='habit.create')!;
+  await act(async()=>{store.applyAck([{receipt:{operationId:parent.operationId,operationHash:operationHash(parent),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]);});
+  await mount(x);await fireEvent.press(screen.getByRole('button',{name:/^Sincronização: /}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewChanges}));
+  await fireEvent.press(screen.getByRole('button',{name:pt.reviewOperation('Criar hábito · Recusado')}));
+  expect(screen.getByText(pt.rejectionReasons.title_unavailable)).toBeOnTheScreen();
+  await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Corrigido');
+  await fireEvent.press(screen.getByRole('button',{name:pt.correctOperation}));
+  expect(x.journey.state().local?.habits[0]?.title).toBe('Corrigido');
+  const replacement=store.operations().find(op=>op.supersedesOperationId===parent.operationId)!;
+  await act(async()=>{store.applyAck([{receipt:{operationId:replacement.operationId,status:'accepted',acceptedRevision:'1'},replayed:false}]);});
+  await fireEvent.press(screen.getByRole('button',{name:pt.reviewOperation('Criar hábito · Corrigido')}));
+  expect(screen.getByText(pt.uncertainBody)).toBeOnTheScreen();
+  expect(screen.queryByRole('button',{name:pt.discardOperation})).toBeNull();expect(screen.queryByRole('button',{name:pt.correctOperation})).toBeNull();
+ } finally {x.close();}
+});
+
+test('discard confirms only the selected rejection, preserves its child, and read-only update disables correction fields',async()=>{
+ const f=fixture();try {
+  await act(async()=>{await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Pai','reading','blue',false);});
+  const store=f.session.account(),parent=store.operations().find(op=>op.command.type==='habit.create')!;
+  const child=store.enqueue({type:'habit.delete',habitId:parent.command.type==='habit.create'?parent.command.habitId:' '},'01996300-0000-7000-8000-000000001500','2026-10-09T13:00:00Z');
+  await act(async()=>{store.applyAck([{receipt:{operationId:parent.operationId,operationHash:operationHash(parent),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]);});
+  await mount(f);await fireEvent.press(screen.getByRole('button',{name:/^Sincronização: /}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewChanges}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewOperation('Criar hábito · Pai')}));
+  await fireEvent.press(screen.getByRole('button',{name:pt.discardOperation}));expect(store.recovery().find(r=>r.operation.operationId===parent.operationId)?.resolution).toBeNull();
+  await fireEvent.press(screen.getByRole('button',{name:pt.discardConfirm}));
+  expect(store.recovery().find(r=>r.operation.operationId===parent.operationId)?.resolution?.kind).toBe('discarded');expect(store.recovery().find(r=>r.operation.operationId===child.operationId)?.resolution).toBeNull();
+  await fireEvent.press(screen.getByRole('button',{name:pt.back}));await act(async()=>{f.requireUpdate();});await fireEvent.press(screen.getByRole('button',{name:/^Sincronização: /}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewChanges}));
+  expect(screen.getByText(pt.update)).toBeOnTheScreen();await fireEvent.press(screen.getByRole('button',{name:pt.reviewOperation('Excluir hábito')}));
+  expect(screen.getByRole('button',{name:pt.correctOperation})).toBeDisabled();expect(screen.getByRole('button',{name:pt.discardOperation})).toBeDisabled();
+ } finally {f.close();}
+});
+
+import {AccessibilityInfo} from 'react-native';
+test('a failed correction preserves typed fields and unresolved intent; repeated refresh announces no new result',async()=>{
+ const f=fixture();let db:SQLite.Database|undefined;try {
+  await act(async()=>{await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Recusado','reading','blue',false);});
+  const store=f.session.account(),parent=store.operations().find(op=>op.command.type==='habit.create')!;
+  await act(async()=>{store.applyAck([{receipt:{operationId:parent.operationId,operationHash:operationHash(parent),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]);});
+  const announce=jest.spyOn(AccessibilityInfo,'announceForAccessibility');await mount(f);
+  await fireEvent.press(screen.getByRole('button',{name:/^Sincronização: /}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewChanges}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewOperation('Criar hábito · Recusado')}));
+  await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Campos preservados');db=new SQLite(f.path());db.exec("create trigger fail_correction before insert on sync_mutations begin select raise(abort,'controlled_storage_failure'); end");
+  await fireEvent.press(screen.getByRole('button',{name:pt.correctOperation}));expect(screen.getByLabelText(pt.habitName)).toHaveDisplayValue('Campos preservados');expect(screen.getByText(pt.localFailure)).toBeOnTheScreen();expect(store.recovery()[0]?.resolution).toBeNull();
+  const count=announce.mock.calls.length;await act(async()=>{f.journey.refresh();f.journey.refresh();});expect(announce.mock.calls.length).toBe(count);
+  db.exec('drop trigger fail_correction');await fireEvent.press(screen.getByRole('button',{name:pt.correctOperation}));expect(f.journey.state().local?.habits[0]?.title).toBe('Campos preservados');announce.mockRestore();
+ } finally {db?.close();f.close();}
+});

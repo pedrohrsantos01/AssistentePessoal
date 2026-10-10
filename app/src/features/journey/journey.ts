@@ -1,11 +1,11 @@
 import type {Session} from '../../core/identity/session.ts';
-import type {AccountStore} from '../../core/db/account-store.ts';
+import type {AccountStore,RecoveryItem} from '../../core/db/account-store.ts';
 import type {DatabaseRecovery} from '../../core/db/local-migrations.ts';
-import type {SyncScheduler,SyncClock} from '../../core/sync/scheduler.ts';
+import type {SyncScheduler,SyncClock,SyncState} from '../../core/sync/scheduler.ts';
 import {systemClock} from '../../core/sync/scheduler.ts';
 import {IdentityHttpError} from '../../core/identity/http-identity.ts';
 import {getDayKey,nextLogicalDayAt} from '../gamification/domain/day-key.ts';
-import type {TimeContext,CreateHabit} from '../../core/sync/protocol.ts';
+import type {TimeContext,CreateHabit,Command} from '../../core/sync/protocol.ts';
 import {pt} from '../../i18n/pt-BR.ts';
 import {titleKey} from '../habits/domain/title.ts';
 import {habitIcons} from '../habits/catalog.ts';
@@ -13,7 +13,7 @@ import type {HabitColor} from '../../theme/tokens.ts';
 export type HabitDraft={title:string;iconKey:string|null;colorToken:string|null};
 export type Runtime={readonly session:Session;readonly sync:SyncScheduler;recovery:()=>DatabaseRecovery|null;retryDatabase:()=>Promise<void>;close:()=>void};
 export type JourneyState={gate:'entry'|'database'|'logout'|'initial'|'account';key:string|null;busy:boolean;error:string|null;
-  local:ReturnType<AccountStore['presentation']>|null;day:string|null;instant:number;online:boolean;remote:string;writable:boolean;vaultUnavailable:boolean;authenticationRequired:boolean;recovery:DatabaseRecovery|null};
+  local:ReturnType<AccountStore['presentation']>|null;day:string|null;instant:number;online:boolean;remote:string;writable:boolean;vaultUnavailable:boolean;authenticationRequired:boolean;recovery:DatabaseRecovery|null;operations:ReturnType<AccountStore['operationStates']>;recoveries:RecoveryItem[];sync:SyncState;snapshot:{staged:number}|null;canRetry:boolean};
 export class Journey {
  private listeners=new Set<()=>void>();
  private store:AccountStore|null=null;
@@ -36,7 +36,7 @@ export class Journey {
  state=()=>this.snapshot;
  refresh=()=>{
   if(this.stopped) return;
-  const state:JourneyState={gate:'entry',key:null,busy:this.busy,error:this.error,local:null,day:null,instant:this.clock.now(),online:false,remote:pt.saved,writable:false,vaultUnavailable:false,authenticationRequired:false,recovery:this.runtime.recovery()};
+  const state:JourneyState={gate:'entry',key:null,busy:this.busy,error:this.error,local:null,day:null,instant:this.clock.now(),online:false,remote:pt.saved,writable:false,vaultUnavailable:false,authenticationRequired:false,recovery:this.runtime.recovery(),operations:[],recoveries:[],sync:{phase:'idle',failures:0,nextAttemptAt:null},snapshot:null,canRetry:false};
   if(state.recovery) state.gate='database';
   else {
    const session=this.runtime.session,network=session.networkState(),scheduler=this.runtime.sync;
@@ -47,9 +47,11 @@ export class Journey {
     if(store!==this.store) {this.detachStore?.();this.store=store;this.detachStore=store.subscribe(this.refresh);}
     const profile=store.profile(),day=getDayKey(new Date(state.instant),profile.timeContext.timezone,profile.timeContext.dayStartHour);
     state.local=store.presentation(day);state.day=day;
-    state.gate=profile.onboardedAt&&store.cursor()===null&&store.operations().length===0?'initial':'account';
-    const phase=scheduler.status().sync.phase;state.authenticationRequired=phase==='authentication_required';
-    state.remote=network.updateRequired?pt.update:network.vaultUnavailable?pt.vault:
+    state.gate=store.initialCopyRequired()?'initial':'account';
+    state.operations=store.operationStates();state.recoveries=store.recovery();state.snapshot=store.snapshotProgress();state.sync=scheduler.status().sync;
+    state.canRetry=state.online&&!state.busy&&['idle','failed'].includes(state.sync.phase);
+    const phase=state.sync.phase;state.authenticationRequired=phase==='authentication_required';
+    state.remote=!state.writable?pt.update:network.vaultUnavailable?pt.vault:
      phase==='authentication_required'?pt.remoteLogin:state.local.blockedCount?pt.attention:
      !state.online?pt.offline:phase==='running'?pt.syncing:['retry_wait','failed','paused','blocked'].includes(phase)?pt.serviceUnavailable:state.local.pendingCount?pt.saved:pt.synced;
    }
@@ -174,6 +176,25 @@ export class Journey {
   } else if(this.runtime.session.vaultRecovery().unavailable||this.runtime.session.localState()==='logging_out') await this.runtime.session.retryVault();
   else this.runtime.sync.retry();
  },this.snapshot.gate==='account'&&this.runtime.session.vaultRecovery().unavailable);}
+ correct(operationId:string,command:Command,dependentIds:string[]) {
+  if('title' in command) {
+   const title=command.title.normalize('NFC').trim();
+   if(!title||Array.from(title).length>120||Array.from(title).some(c=>/^[\uD800-\uDFFF]$/.test(c))) {this.error=pt.invalidHabit;this.refresh();return false;}
+   command={...command,title};
+  }
+  if(command.type==='habit.patchMetadata'&&command.patch.title!==undefined) {
+   const title=command.patch.title.normalize('NFC').trim();
+   if(!title||Array.from(title).length>120||Array.from(title).some(c=>/^[\uD800-\uDFFF]$/.test(c))) {this.error=pt.invalidHabit;this.refresh();return false;}
+   command={...command,patch:{...command.patch,title}};
+  }
+  return this.local(store=>{
+   const item=store.recovery().find(item=>item.operation.operationId===operationId&&!item.resolution);
+   if(!item||item.error.identity||item.error.code==='identity_dependency_unresolved') throw new Error('operation_not_recoverable');
+   if(command.type==='habit.create'&&item.error.code==='id_content_conflict'&&!item.error.identity) command={...command,habitId:this.nextId()};
+   store.correct([{operationId,replacementId:this.nextId(),command},...dependentIds.map(operationId=>({operationId,replacementId:this.nextId()}))]);
+  });
+ }
+ discard(operationId:string) {return this.local(store=>store.discard([operationId]));}
  clearError() {this.error=null;this.refresh();}
  dispose() {this.stopped=true;this.cancelClock?.();this.detachStore?.();this.detach.forEach(unsubscribe=>unsubscribe());this.listeners.clear();this.runtime.close();}
 }

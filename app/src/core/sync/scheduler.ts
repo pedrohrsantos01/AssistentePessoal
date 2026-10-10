@@ -1,7 +1,7 @@
 import type {Session} from '../identity/session.ts';
 import {failureKind,retryDelay} from './retry.ts';
 
-export type SyncState={phase:'idle'|'running'|'retry_wait'|'failed'|'authentication_required'|'update_required'|'blocked'|'paused';failures:number;nextAttemptAt:number|null};
+export type SyncState={phase:'idle'|'running'|'retry_wait'|'failed'|'authentication_required'|'update_required'|'blocked'|'paused';failures:number;nextAttemptAt:number|null;lastFailure?:'rate_limit'|'unavailable'|'connection'};
 export type SyncClock={now:()=>number;schedule:(delay:number,run:()=>void)=>()=>void};
 export type SyncEnvironment={active:boolean;online:boolean};
 export const systemClock:SyncClock={now:Date.now,schedule(delay,run){const timer=setTimeout(run,delay);return ()=>clearTimeout(timer);}};
@@ -114,7 +114,7 @@ export class SyncScheduler {
       const failures=Math.max(lane.state.failures+1,pending?.failures??0);
       if(kind==='retry'&&failures<10) {
         delay=Math.max(retryDelay(failures,error,this.clock.now()),(pending?.nextAttemptAt??0)-this.clock.now());
-        lane.state={phase:'retry_wait',failures,nextAttemptAt:this.clock.now()+delay};
+        lane.state={phase:'retry_wait',failures,nextAttemptAt:this.clock.now()+delay,lastFailure:error instanceof Error&&'status' in error&&error.status===429?'rate_limit':error instanceof Error&&'status' in error&&typeof error.status==='number'&&error.status>=500?'unavailable':'connection'};
       } else lane.state={phase:kind==='retry'?'failed':kind,failures:kind==='paused'?lane.state.failures:failures,nextAttemptAt:null};
     } finally {
       lane.running=false;this.notify();

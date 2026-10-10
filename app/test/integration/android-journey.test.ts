@@ -22,7 +22,7 @@ function nodes() {
 async function find(label:string,scroll=false,minPixels=0) {
  const deadline=Date.now()+45000;let swipes=0;
  while(Date.now()<deadline) {
-  const list=nodes(),node=list.find(n=>n.package===pkg&&n['content-desc']===label)??list.find(n=>n.package===pkg&&n.text===label);
+  const list=nodes(),node=list.find(n=>n.package===pkg&&(n['content-desc']===label||n['content-desc']===pt.syncPillLabel(label)||label===pt.syncDetails&&n['content-desc']?.endsWith('. '+pt.syncDetails)))??list.find(n=>n.package===pkg&&n.text===label);
   if(node) {const box=node.bounds?.match(/-?\d+/g)?.map(Number);if(box&&box[2]!>box[0]!&&box[3]!>box[1]!&&box[2]!-box[0]!>=minPixels&&box[3]!-box[1]!>=minPixels) return node;}
   if(scroll&&swipes++<8) {const viewport=list.find(n=>n.package===pkg&&n.bounds)?.bounds?.match(/\d+/g)?.map(Number);if(viewport) adb('shell','input','swipe',String(Math.floor(viewport[2]!/2)),String(Math.floor(viewport[3]!*0.8)),String(Math.floor(viewport[2]!/2)),String(Math.floor(viewport[3]!*0.35)),'400');}
   await pause(300);
@@ -65,7 +65,7 @@ test('visible Android product journey: registration, interrupted onboarding, emp
  try {
   adb('wait-for-device');adb('shell','settings','put','system','font_scale','1.0');adb('shell','cmd','uimode','night','no');connect();launch();
   // Previous synthetic runs may retain a session; leave it through the same public UI.
-  let initial=nodes();const entryDeadline=Date.now()+45000;while(!initial.some(n=>n.package===pkg&&[pt.settings,pt.register,pt.onboarding,pt.firstHabit].some(label=>n['content-desc']===label||n.text===label))&&Date.now()<entryDeadline) {await pause(300);initial=nodes();}
+  let initial=nodes();const entryDeadline=Date.now()+45000;while(!initial.some(n=>n.package===pkg&&[pt.settings,pt.register,pt.onboarding,pt.firstHabit].some(label=>(n['content-desc']===label||n['content-desc']===pt.syncPillLabel(label)||label===pt.syncDetails&&n['content-desc']?.endsWith('. '+pt.syncDetails))||n.text===label))&&Date.now()<entryDeadline) {await pause(300);initial=nodes();}
   if(initial.some(n=>n.text===pt.onboarding||n.text===pt.firstHabit)) {await tap(pt.logout,true);await tap(pt.logout);await find(pt.register);}
   else if(initial.some(n=>n['content-desc']===pt.settings)) {
    await tap(pt.settings);await tap(pt.logout,true);await tap(pt.logout);await find(pt.register);

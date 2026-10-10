@@ -1,5 +1,5 @@
 param(
- [ValidateSet('journey','session')][string]$Suite='journey',
+ [ValidateSet('journey','session','sync')][string]$Suite='journey',
  [ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',
  [string]$Avd='Pixel_9',
  [string]$EvidenceDirectory='docs/design/evidencias/2026-10-09/gestao-android',
@@ -67,7 +67,7 @@ try {
  $taskPanel=Start-Process -FilePath 'pwsh.exe' -ArgumentList @('-NoProfile','-File',('"'+$taskWatcher+'"'),'-Suite',$Suite,'-Log',('"'+$taskNativeLog+'"'),'-CompletionPath',('"'+$taskCompletion+'"')) -WindowStyle Normal -PassThru
  Push-Location (Join-Path $taskRoot 'api')
  try {
-  $taskMethod=if($Suite -eq 'session') {'dev.ritmo.RuntimeTests.androidProductSessionRecoveryPreservesAccountIsolation'} else {'dev.ritmo.RuntimeTests.androidProductJourneyWorksOfflineAndSynchronizesAfterRestart'}
+  $taskMethod=if($Suite -eq 'sync') {'dev.ritmo.RuntimeTests.androidProductSynchronizationShowsRecoverableAndUncertainIntent'} elseif($Suite -eq 'session') {'dev.ritmo.RuntimeTests.androidProductSessionRecoveryPreservesAccountIsolation'} else {'dev.ritmo.RuntimeTests.androidProductJourneyWorksOfflineAndSynchronizesAfterRestart'}
   & '.\gradlew.bat' test --tests $taskMethod --no-daemon *> $taskTestLog
   $taskResult=$LASTEXITCODE
   Get-Content -LiteralPath $taskNativeLog

@@ -6,6 +6,7 @@ import {useTheme} from '../../theme/theme.tsx';
 import type {HabitColor} from '../../theme/tokens.ts';
 import {Banner,Button,Card,Sheet,Touch,Type} from '../../ui/primitives.tsx';
 import type {Journey,JourneyState} from '../journey/journey.ts';
+import {itemStatus} from '../journey/sync-state.tsx';
 import {habitGlyph} from './catalog.ts';
 type ManagedHabit=NonNullable<JourneyState['local']>['managementHabits'][number];
 export function DeleteConfirmation({journey,state,habit,close,deleted}:{journey:Journey;state:JourneyState;habit:{habitId:string;title:string};close:()=>void;deleted:()=>void}) {
@@ -22,7 +23,7 @@ export function HabitManagement({journey,state,footer,notice,create,edit}:{journ
  const render=({item:habit,index}:{item:ManagedHabit;index:number})=>{
   const color=habit.colorToken&&Object.hasOwn(t.habitColors,habit.colorToken)?t.habitColors[habit.colorToken as HabitColor]:t.accent.text;
   return <View style={{minHeight:t.metrics.habitRow,flexDirection:reflow?'column':'row',alignItems:reflow?'stretch':'center',gap:t.space.small,borderTopWidth:index?t.metrics.border:t.space.none,borderTopColor:t.border.decorative}}><Touch accessibilityRole="button" accessibilityLabel={pt.editLabel(habit.title)} accessibilityHint={pt.position(index,habits.length)} onPress={()=>edit(habit.habitId)} disabled={!state.writable} accessibilityState={{disabled:!state.writable}} style={{flex:reflow?undefined:1,minHeight:t.metrics.managementRow,flexDirection:'row',alignItems:'center',gap:t.space.medium,paddingVertical:t.space.compact,paddingHorizontal:t.space.micro}}>
-    <View style={{width:t.metrics.habitTile,height:t.metrics.habitTile,borderRadius:t.radius.tile,backgroundColor:t.habitSoft(color),alignItems:'center',justifyContent:'center'}}><Type size="tile">{habitGlyph(habit.iconKey)}</Type></View><View style={{flex:1,gap:t.space.tiny}}><Type style={{lineHeight:t.typeSize.body*t.line.row}}>{habit.title}</Type><Type size="caption" mono tone="secondary">{pt.daily}</Type></View><Type tone="secondary">{pt.symbols.chevron}</Type>
+    <View style={{width:t.metrics.habitTile,height:t.metrics.habitTile,borderRadius:t.radius.tile,backgroundColor:t.habitSoft(color),alignItems:'center',justifyContent:'center'}}><Type size="tile">{habitGlyph(habit.iconKey)}</Type></View><View style={{flex:1,gap:t.space.tiny}}><Type style={{lineHeight:t.typeSize.body*t.line.row}}>{habit.title}</Type><Type size="caption" mono tone="secondary">{pt.daily}</Type><Type size="caption" mono tone="secondary">{itemStatus(state,habit.habitId)}</Type></View><Type tone="secondary">{pt.symbols.chevron}</Type>
    </Touch><View style={{flexDirection:'row',alignItems:'center',gap:t.space.small,alignSelf:reflow?'flex-end':undefined,paddingBottom:reflow?t.space.compact:t.space.none}}>
     <Button compact secondary displayLabel={pt.up} label={pt.moveLabel(habit.title,-1)} disabled={!state.writable||index===0} onPress={()=>journey.move(habit.habitId,-1)} style={{width:t.metrics.touch,paddingHorizontal:t.space.none,borderWidth:t.metrics.border}}/>
     <Button compact secondary displayLabel={pt.down} label={pt.moveLabel(habit.title,1)} disabled={!state.writable||index===habits.length-1} onPress={()=>journey.move(habit.habitId,1)} style={{width:t.metrics.touch,paddingHorizontal:t.space.none,borderWidth:t.metrics.border}}/>

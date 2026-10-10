@@ -115,7 +115,7 @@ export async function synchronize(store:AccountStore,api:HttpSync,now:()=>number
   if(running.has(store)) return;
   running.add(store);
   try {
-    if(store.recovery().some(item=>item.error.identity?.reason==='missing_proof')) await recover(store,api);
+    if(store.initialCopyRequired()||store.recovery().some(item=>item.error.identity?.reason==='missing_proof')) await recover(store,api);
     await pullWithRecovery(store,api);
     const pending=new Set(store.readyOperations(now()).map(operation=>operation.operationId));
     while(pending.size) {

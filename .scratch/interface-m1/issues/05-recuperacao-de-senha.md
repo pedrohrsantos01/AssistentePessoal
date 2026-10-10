@@ -1,7 +1,7 @@
 # 05 — Recuperação de senha na interface nativa
 
 Status: ready-for-agent
-Blocked by: 03-sessao-e-recuperacao-local.md
+Blocked by: none
 
 ## Resultado esperado
 
@@ -26,3 +26,5 @@ Concluída: não.
 ## Comments
 
 09/10/2026: criado após incorporar o protótipo; execução/aceite nativo pendentes.
+
+10/10/2026: sessão (03) e resultados de sync (04) concluídos localmente. Dependência removida; próximo recorte recomendado. O ensaio SMTP/API/Android local pode avançar enquanto domínio e associações públicas permanecem no aceite externo.

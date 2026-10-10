@@ -287,6 +287,18 @@ export class AccountStore {
     const rejected=this.db.get<{count:number}>(sql`select count(*) as count from sync_mutations where account_id=${this.accountId} and status='rejected' and json_extract(error,'$.resolution') is null`)?.count??0;
     return {...project(this.base(),pending,day),pendingCount:pending.length,rejectedCount:rejected};
   }
+  operationStates():{operation:Operation;status:'pending'|'in_flight'|'retry_wait'|'deferred'|'acknowledged'|'rejected'|'blocked_local';resolution:RecoveryResolution|null}[] {
+    this.guard();return this.db.all<{envelope:string;status:'pending'|'in_flight'|'retry_wait'|'deferred'|'acknowledged'|'rejected'|'blocked_local';error:string|null}>(sql`select envelope,status,error from sync_mutations where account_id=${this.accountId} order by client_sequence`)
+      .map(row=>({operation:JSON.parse(row.envelope) as Operation,status:row.status,resolution:(JSON.parse(row.error??'{}') as RecoveryError).resolution??null}));
+  }
+  initialCopyRequired() {
+    this.guard();return this.cursor()===null&&(this.snapshotProgress()!==null||this.base().some(entity=>entity.kind==='profile'&&entity.value.onboardedAt!==null)&&this.operationStates().length===0);
+  }
+  snapshotProgress():{staged:number}|null {
+    this.guard();const state=this.db.get<{snapshot_id:string|null}>(sql`select snapshot_id from sync_state where account_id=${this.accountId}`);
+    if(!state?.snapshot_id) return null;
+    return {staged:this.db.get<{count:number}>(sql`select count(*) as count from snapshot_staging where account_id=${this.accountId} and snapshot_id=${state.snapshot_id}`)?.count??0};
+  }
   operations():Operation[] {this.guard();return this.pending();}
   readyOperations(now:number):Operation[] {
     this.guard();

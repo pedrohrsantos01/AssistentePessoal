@@ -1,0 +1,145 @@
+{
+  "date": "2026-10-10",
+  "scope": "interface M1 recorte 04 — resultados de sincronização",
+  "app": {
+    "nodeSqlite": 150,
+    "components": 21,
+    "typecheck": true,
+    "lint": true,
+    "passed": true
+  },
+  "apiCheck": {
+    "tests": 90,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 5,
+    "passed": true,
+    "operationalPython": 13,
+    "firstAttempt": {
+      "passed": 84,
+      "failures": 1,
+      "skipped": 5,
+      "failedCase": "PrimaryTelemetryTests.primaryStorageRetentionAndAvailabilityAreObservedPrivately",
+      "cause": "probe_process_failed; causa não comprovada",
+      "finalAttemptPassedWithoutCollectorChanges": true
+    },
+    "secondAttempt": {
+      "passed": 84,
+      "failures": 1,
+      "skipped": 5,
+      "failedCase": "WalRecoveryTests.independentPhysicalBaseAndPartialWalRestorePostBaseConfirmationsAfterPrimaryLoss",
+      "cause": "fixture recreated the WAL barrier on every poll",
+      "probeSamples": 20,
+      "freshNotDurable": 14,
+      "fixedDurable": 20,
+      "fixtureFixedWithoutIncreasingTimeout": true
+    }
+  },
+  "android": {
+    "suite": "sync",
+    "visible": true,
+    "package": "dev.ritmo.journeytest",
+    "driverTests": 1,
+    "driverDurationMs": 390976.3749,
+    "junit": {
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "395.159"
+    },
+    "phases": [
+      {
+        "phase": "proven_rejection_corrected_with_selected_dependent",
+        "passed": true
+      },
+      {
+        "phase": "uncertain_identity_survives_restart_and_independent_work",
+        "passed": true
+      },
+      {
+        "phase": "rate_limit_and_unavailable_preserve_local_work",
+        "passed": true
+      },
+      {
+        "phase": "initial_snapshot_interrupted_and_resumed_without_partial_account",
+        "passed": true
+      },
+      {
+        "phase": "update_gate_persists_without_manual_bypass",
+        "passed": true
+      }
+    ],
+    "targetCount": 7,
+    "scales": [
+      "100%",
+      "200%"
+    ],
+    "captures": 12,
+    "apkSha256": "7b9a53ba526d22fc601b18686f22ed819b4865a987e800a333bf6b648ceae432",
+    "fontsAndLicensesPassed": true,
+    "ownedEmulatorClosed": true,
+    "ownedWatcherClosed": true,
+    "adbEmptyAfterTest": true,
+    "faultsControlledAtHttpBoundary": true,
+    "passed": true
+  },
+  "evidence": [
+    {
+      "path": "01-recusa-comprovada.png",
+      "sha256": "3e6d80f03a37492ed2a7a323bee201cda854376c886d1a62ebeeb9e739e3ca1c"
+    },
+    {
+      "path": "02-correcao-confirmada.png",
+      "sha256": "b8acb8cdb28de9d614d2a641728a17b2c1e2f2178c2ab32f795dcc35c636aa21"
+    },
+    {
+      "path": "03-identidade-incerta.png",
+      "sha256": "3b92759ddac3d4fc12ea329cc1ca6298df44ebbb57f885f2e0e704781446fb61"
+    },
+    {
+      "path": "04-diagnostico-preservado.png",
+      "sha256": "97974d80a39ce35b8917423af3b40f60ae851350a20b2e54894f7150d816589f"
+    },
+    {
+      "path": "05-identidade-200.png",
+      "sha256": "4f43e0710dd92957373cc26f56b0b67de713ccf65f4a7316bbd13dc0e370c15b"
+    },
+    {
+      "path": "06-limite-servidor.png",
+      "sha256": "0f8816e08cbe1377a6d8e7567c03efaf179ab3f1af2f6fecdd31fb98cd6e6ee7"
+    },
+    {
+      "path": "07-servico-indisponivel.png",
+      "sha256": "fc5dd9bff2eaecfa3247c40239ccbd941539c891eace476b6ead45fd39a0cf7d"
+    },
+    {
+      "path": "08-copia-inicial.png",
+      "sha256": "366de4d5c70072aadd8b9580dd3328bc25894c0fd9435affe4c4036ac3d5ffa5"
+    },
+    {
+      "path": "09-copia-interrompida-200.png",
+      "sha256": "e0d415e209fdd75a53a652a4668878e4eb2073014ef2c3f39f9fe7f7172a2f7e"
+    },
+    {
+      "path": "10-copia-completa-isolada.png",
+      "sha256": "9842e5ce150863ce910586ff653f4c6fa9c8b8555f93dfd4f5d383ead7b5dbac"
+    },
+    {
+      "path": "11-atualizacao-somente-leitura.png",
+      "sha256": "dc1f8a95ad5009fe2a338bea24cec838e92297bbc299fe624ae6bc82f19e1a13"
+    },
+    {
+      "path": "12-bloqueio-apos-reabertura.png",
+      "sha256": "3f6c5fdd0529876a2b961e20a1642be8fe755a65e184664506db7645dc6d5be0"
+    }
+  ],
+  "limitations": [
+    "novo build offline coberto pelo núcleo; ensaio nativo de compatibilidade cobre o mesmo build rejeitado",
+    "texto 200% observado nas superfícies descritas; matriz integral de acessibilidade não concluída",
+    "falhas HTTP controladas; não é prova de incidente operacional externo",
+    "iPhone adiado por Q55=B e M1 continua aberto"
+  ],
+  "next": "05 — recuperação de senha local; 06 depende de definição das preferências",
+  "passed": true
+}
