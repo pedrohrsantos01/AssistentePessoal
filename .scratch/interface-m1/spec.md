@@ -1,6 +1,6 @@
 # Interface nativa do primeiro marco — plano
 
-Estado em 10/10/2026: referência consolidada em [spec/11](../../specs/11-design-system.md); primeira jornada nativa (recorte 01) implementada e verificada no Android com API real. [Relatório](../../docs/analises/2026-10-09-interface-primeira-jornada.md). Gestão nativa (recorte 02) também concluída localmente: [relatório](../../docs/analises/2026-10-09-interface-gestao-de-habitos.md). [Fidelidade das telas atuais](../../docs/analises/2026-10-10-fidelidade-visual-m1.md) refinada e aprovada em10/10/2026, com ensaio Android visível. Recortes 03–06 permanecem abertos. Decomposição da [tarefa visual 03](../primeiro-marco/issues/03-integrar-prototipo.md), sem segundo marco ou aceite por revisão de HTML.
+Estado em 10/10/2026: referência consolidada em [spec/11](../../specs/11-design-system.md); primeira jornada nativa (recorte 01) implementada e verificada no Android com API real. [Relatório](../../docs/analises/2026-10-09-interface-primeira-jornada.md). Gestão nativa (recorte 02) também concluída localmente: [relatório](../../docs/analises/2026-10-09-interface-gestao-de-habitos.md). [Fidelidade das telas atuais](../../docs/analises/2026-10-10-fidelidade-visual-m1.md) refinada e aprovada em 10/10/2026, com ensaio Android visível. [Sessão/cofre/abertura — recorte 03](../../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md) concluído localmente. Recortes 04–06 permanecem abertos. Decomposição da [tarefa visual 03](../primeiro-marco/issues/03-integrar-prototipo.md), sem segundo marco ou aceite por revisão de HTML.
 
 ## Resultado esperado
 
@@ -12,8 +12,8 @@ Contratos: [PRD](../../PRD.md), [spec/13](../../specs/13-contrato-primeiro-marco
 
 1. [Conta → onboarding → primeiro hábito/Briefing](issues/01-conta-onboarding-briefing.md), com fontes/tokens/primitives que a jornada utiliza. Concluído localmente: primeiro valor real, marcar/desfazer offline, reabrir e sincronizar no Android.
 2. [Gestão e exclusão](issues/02-gestao-de-habitos.md), ligada à mesma home/fila. Concluído localmente: editar/reordenar/excluir offline, reabrir e convergir no Android; início futuro permanece gerenciável sem cumprimento antecipado.
-3. [Sessão, cofre e abertura](issues/03-sessao-e-recuperacao-local.md), com isolamento pela navegação. Próximo recomendado.
-4. [Sync, identidade e compatibilidade](issues/04-estados-de-sincronizacao.md), com ações distintas por resultado.
+3. [Sessão, cofre e abertura](issues/03-sessao-e-recuperacao-local.md), com isolamento pela navegação. Concluído localmente: falhas de cofre/abertura, logout e reentrada A/B/A pela UI Android, sem perda/duplicação.
+4. [Sync, identidade e compatibilidade](issues/04-estados-de-sincronizacao.md), com ações distintas por resultado. Próximo recomendado.
 5. [Recuperação de senha](issues/05-recuperacao-de-senha.md), teste local enquanto domínio/associações reais aguardam execução externa.
 6. [Aparência/acessibilidade](issues/06-aparencia-e-acessibilidade.md), especificando a custódia das preferências antes de persistir.
 
@@ -31,4 +31,4 @@ Tarefas, Agenda, voz, notificações, níveis/ofensivas/conquistas e 2A seguem s
 
 ## Resultado
 
-Concluída: não. Incorporação documental e recortes 01/02 concluídos localmente; estados detalhados, recuperação de senha e preferências (03–06), além da matriz integral nos aparelhos, permanecem pendentes.
+Concluída: não. Incorporação documental e recortes 01/02/03 concluídos localmente; estados detalhados de sync, recuperação de senha e preferências (04–06), além da matriz integral nos aparelhos, permanecem pendentes.

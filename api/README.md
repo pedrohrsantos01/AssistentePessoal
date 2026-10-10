@@ -21,6 +21,8 @@ O comando `scripts/verify-android-http.ps1 -Serial <emulator-serial>`, executado
 
 Sem `RITMO_ANDROID_SERIAL`, o caso nativo é ignorado explicitamente; as demais suítes continuam independentes de Android. Com essa variável, Gradle sempre executa os testes; `RITMO_ANDROID_APK` também registra o APK como entrada. O caminho completo pelo script evita testar acidentalmente um APK antigo. Resultado nativo em `build/android-http-integration.log`; [relatório e limites](../docs/analises/2026-09-30-http-nativo-android.md).
 
+A UI do produto usa opt-in separado: `scripts/verify-android-journey.ps1 -Suite journey` para a jornada/gestão e `-Suite session` para sessão/cofre/abertura. Ambos validam o pacote descartável e usam `RITMO_ANDROID_JOURNEY_SERIAL`; não rodar o cliente contra serviço compartilhado. O método `androidProductSessionRecoveryPreservesAccountIsolation` prepara API/Postgres/SMTP reais e fornece o loopback ao driver. [Relatório](../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md).
+
 ## Conexões e permissões
 
 Antes de aplicar Flyway num banco novo, um administrador executa [bootstrap-roles.sql](ops/bootstrap-roles.sql). Provisiona separadamente um login membro de `ritmo_domain`, outro de `ritmo_identity` e o dono das migrations. Nenhum login de aplicação recebe `SUPERUSER`, `BYPASSRLS`, propriedade de tabelas ou as duas memberships.

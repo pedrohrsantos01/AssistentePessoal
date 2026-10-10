@@ -13,7 +13,7 @@ import type {HabitColor} from '../../theme/tokens.ts';
 export type HabitDraft={title:string;iconKey:string|null;colorToken:string|null};
 export type Runtime={readonly session:Session;readonly sync:SyncScheduler;recovery:()=>DatabaseRecovery|null;retryDatabase:()=>Promise<void>;close:()=>void};
 export type JourneyState={gate:'entry'|'database'|'logout'|'initial'|'account';key:string|null;busy:boolean;error:string|null;
-  local:ReturnType<AccountStore['presentation']>|null;day:string|null;instant:number;online:boolean;remote:string;writable:boolean};
+  local:ReturnType<AccountStore['presentation']>|null;day:string|null;instant:number;online:boolean;remote:string;writable:boolean;vaultUnavailable:boolean;authenticationRequired:boolean;recovery:DatabaseRecovery|null};
 export class Journey {
  private listeners=new Set<()=>void>();
  private store:AccountStore|null=null;
@@ -22,6 +22,8 @@ export class Journey {
  private cancelClock:(()=>void)|null=null;
  private stopped=false;
  private busy=false;
+ private attempt=0;
+ private localWhileBusy=false;
  private error:string|null=null;
  private snapshot!:JourneyState;
  constructor(private runtime:Runtime,private nextId:()=>string,private clock:SyncClock=systemClock) {
@@ -34,11 +36,11 @@ export class Journey {
  state=()=>this.snapshot;
  refresh=()=>{
   if(this.stopped) return;
-  const state:JourneyState={gate:'entry',key:null,busy:this.busy,error:this.error,local:null,day:null,instant:this.clock.now(),online:false,remote:pt.saved,writable:false};
-  if(this.runtime.recovery()) state.gate='database';
+  const state:JourneyState={gate:'entry',key:null,busy:this.busy,error:this.error,local:null,day:null,instant:this.clock.now(),online:false,remote:pt.saved,writable:false,vaultUnavailable:false,authenticationRequired:false,recovery:this.runtime.recovery()};
+  if(state.recovery) state.gate='database';
   else {
    const session=this.runtime.session,network=session.networkState(),scheduler=this.runtime.sync;
-   state.key=network.key;state.online=scheduler.connectivity().online;state.writable=session.access().mode==='read_write';
+   state.key=network.key;state.vaultUnavailable=network.vaultUnavailable;state.online=scheduler.connectivity().online;state.writable=session.access().mode==='read_write';
    if(session.localState()==='logging_out') state.gate='logout';
    else if(network.key) {
     const store=session.account();
@@ -46,7 +48,7 @@ export class Journey {
     const profile=store.profile(),day=getDayKey(new Date(state.instant),profile.timeContext.timezone,profile.timeContext.dayStartHour);
     state.local=store.presentation(day);state.day=day;
     state.gate=profile.onboardedAt&&store.cursor()===null&&store.operations().length===0?'initial':'account';
-    const phase=scheduler.status().sync.phase;
+    const phase=scheduler.status().sync.phase;state.authenticationRequired=phase==='authentication_required';
     state.remote=network.updateRequired?pt.update:network.vaultUnavailable?pt.vault:
      phase==='authentication_required'?pt.remoteLogin:state.local.blockedCount?pt.attention:
      !state.online?pt.offline:phase==='running'?pt.syncing:['retry_wait','failed','paused','blocked'].includes(phase)?pt.serviceUnavailable:state.local.pendingCount?pt.saved:pt.synced;
@@ -58,6 +60,7 @@ export class Journey {
    const {timezone,dayStartHour}=state.local.profile.timeContext;
    this.cancelClock=this.clock.schedule(nextLogicalDayAt(new Date(state.instant),timezone,dayStartHour)-state.instant,this.refresh);
   }
+  if(this.snapshot&&state.key!==this.snapshot.key) {this.error=null;state.error=null;}
   this.snapshot=state;for(const listener of this.listeners) listener();
  };
  private message(error:unknown,local=false) {
@@ -67,16 +70,18 @@ export class Journey {
    if(error.code==='invalid_credentials'||error.status===401) return pt.credentialsError;
    if(error.code==='email_already_exists'||error.status===409) return pt.emailConflict;
   }
+  if(error instanceof Error&&error.message==='logout_required') return pt.sameAccountRequired;
   if(error instanceof Error&&error.message==='duplicate_habit') return pt.duplicateHabit;
   if(error instanceof Error&&error.message==='habit_unavailable') return pt.habitUnavailable;
-  if(error instanceof Error&&error.message==='vault_unavailable') return pt.vault;
+  if(error instanceof Error&&error.message==='vault_unavailable') return this.snapshot.gate==='logout'?pt.logoutVault:this.snapshot.local?pt.vault:pt.vaultLocked;
   return local?pt.localFailure:pt.genericError;
  }
- private async perform(work:()=>Promise<void>) {
+ private async perform(work:()=>Promise<void>,allowLocal=false) {
   if(this.busy||this.stopped) return;
-  this.busy=true;this.error=null;this.refresh();
-  try {await work();} catch(error) {this.error=this.message(error);}
-  finally {this.busy=false;this.refresh();}
+  const key=this.snapshot.key,attempt=++this.attempt;
+  this.busy=true;this.localWhileBusy=allowLocal;this.error=null;this.refresh();
+  try {await work();} catch(error) {if(!this.stopped&&attempt===this.attempt&&this.snapshot.key===key) this.error=this.message(error);}
+  finally {if(attempt===this.attempt) {this.busy=false;this.localWhileBusy=false;this.refresh();}}
  }
  authenticate(kind:'login'|'register',email:string,password:string,name:string) {
   const normalizedName=name.normalize('NFC').trim(),passwordCharacters=Array.from(password);
@@ -87,7 +92,7 @@ export class Journey {
   return this.perform(()=>kind==='login'?this.runtime.session.login(email.trim(),password):this.runtime.session.register(email.trim(),password,normalizedName));
  }
  private local(work:(store:AccountStore)=>void) {
-  if(this.busy||this.stopped) return false;
+  if((this.busy&&!this.localWhileBusy)||this.stopped) return false;
   this.error=null;
   try {work(this.runtime.session.account());this.refresh();this.runtime.sync.requestSync();return true;}
   catch(error) {this.error=this.message(error,true);this.refresh();return false;}
@@ -157,14 +162,18 @@ export class Journey {
    store.enqueue({type:'habit.delete',habitId},this.nextId(),new Date(this.clock.now()).toISOString());
   });
  }
- logout() {return this.perform(()=>this.runtime.session.logout());}
+ logout() {
+  // Logout fences immediately even if an older remote action is still waiting.
+  if(this.snapshot.gate==='logout'&&this.busy) return Promise.resolve();
+  this.busy=false;return this.perform(()=>this.runtime.session.logout());
+ }
  retry() {return this.perform(async()=>{
   if(this.runtime.recovery()) {
    await this.runtime.retryDatabase();
    if(!this.runtime.recovery()&&!this.detach.length) this.detach.push(this.runtime.session.subscribe(this.refresh),this.runtime.sync.subscribe(this.refresh));
   } else if(this.runtime.session.vaultRecovery().unavailable||this.runtime.session.localState()==='logging_out') await this.runtime.session.retryVault();
   else this.runtime.sync.retry();
- });}
+ },this.snapshot.gate==='account'&&this.runtime.session.vaultRecovery().unavailable);}
  clearError() {this.error=null;this.refresh();}
  dispose() {this.stopped=true;this.cancelClock?.();this.detachStore?.();this.detach.forEach(unsubscribe=>unsubscribe());this.listeners.clear();this.runtime.close();}
 }

@@ -15,7 +15,9 @@ export default function App() {
   if(!fonts&&!fontError) return;
   let cancelled=false,owner:Journey|undefined;
   if(!origin||(!/^https:\/\//.test(origin)&&process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST!=='1')) {setFailed(true);return;}
-  void openExpoRuntime(origin).then(runtime=>{
+  const opening=process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST==='1'
+   ?import('../../harness/journey-runtime.ts').then(module=>module.openJourneyTestRuntime(origin)):openExpoRuntime(origin);
+  void opening.then(runtime=>{
    if(cancelled) {runtime.close();return;}
    owner=new Journey(runtime,nativeId);setJourney(owner);
   }).catch(()=>{if(!cancelled) setFailed(true);});

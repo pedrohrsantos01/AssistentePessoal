@@ -173,3 +173,34 @@ test('management includes a not-started habit; Briefing and marking remain limit
   assert.equal(journey.delete(id(301)),true);assert.equal(journey.state().local?.managementHabits.length,0);
  } finally {journey.dispose();s.close();}
 });
+
+
+test('local writes continue while vault recovery is pending and keep the same queue',async()=>{
+ const s=setup(),journey=s.make();let resume=()=>{};try {
+  await s.f.session.login('a','password');journey.skip();
+  const read=s.f.vault.get;s.f.vault.get=async()=>{throw new Error('private_platform_message');};await s.f.session.retryVault();
+  assert.equal(s.f.session.vaultRecovery().unavailable,true);
+  let entered=()=>{};const started=new Promise<void>(resolve=>{entered=resolve;});const wait=new Promise<void>(resolve=>{resume=resolve;});
+  s.f.vault.get=async key=>{entered();await wait;return read(key);};const retry=journey.retry();await started;
+  assert.equal(journey.create('Durante retomada','reading','blue',false),true);
+  const queue=s.f.session.account().operations();assert.ok(queue.some(op=>op.command.type==='habit.create'&&op.command.title==='Durante retomada'));
+  resume();await retry;assert.equal(s.f.session.vaultRecovery().unavailable,false);assert.deepEqual(s.f.session.account().operations(),queue);
+ } finally {resume();journey.dispose();s.close();}
+});
+
+
+test('a late authentication failure from A cannot publish an error into B',async()=>{
+ const s=setup(),journey=s.make();let resume=()=>{},resumeB=()=>{};try {
+  await s.f.session.login('a','password');journey.skip();
+  s.scheduler.update({active:false,online:true});
+  const login=s.f.identity.login;let entered=()=>{};const started=new Promise<void>(resolve=>{entered=resolve;});const wait=new Promise<void>(resolve=>{resume=resolve;});
+  s.f.identity.login=async()=>{entered();await wait;throw new Error('private_result_for_A');};
+  const pending=journey.authenticate('login','a@example.test','password','');await started;
+  await journey.logout();assert.equal(journey.state().local,null,'logout must fence an outstanding authentication');
+  let enteredB=()=>{};const startedB=new Promise<void>(resolve=>{enteredB=resolve;});const waitB=new Promise<void>(resolve=>{resumeB=resolve;});
+  s.f.identity.login=async(...args)=>{enteredB();await waitB;return login(...args);};const pendingB=journey.authenticate('login','b@example.test','password','');await startedB;
+  resume();await pending;assert.equal(journey.state().busy,true,'the old action cannot unlock the new login');assert.equal(journey.state().error,null);
+  resumeB();await pendingB;assert.ok(journey.state().key?.startsWith(id(99)+':'));
+  assert.equal(journey.state().local?.profile.accountId,id(99));assert.equal(journey.state().error,null);
+ } finally {resume();resumeB();journey.dispose();s.close();}
+});

@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-10",
+  "scope": "Interface M1, recorte03: sessao, cofre e abertura local",
+  "app": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "nodeTests": 146,
+    "componentTests": 18,
+    "total": 164
+  },
+  "apiCheck": {
+    "tests": 89,
+    "skipped": 4,
+    "failures": 0,
+    "errors": 0,
+    "passed": 85
+  },
+  "pythonOperationsTests": 13,
+  "android": {
+    "package": "dev.ritmo.journeytest",
+    "visible": true,
+    "testPassed": true,
+    "elapsedSeconds": 431.66,
+    "phases": [
+      {
+        "phase": "vault_retry_keeps_local_writes",
+        "passed": true
+      },
+      {
+        "phase": "offline_logout_fences_routes",
+        "passed": true
+      },
+      {
+        "phase": "account_B_isolated",
+        "passed": true
+      },
+      {
+        "phase": "account_A_reentry_converges_once",
+        "passed": true
+      },
+      {
+        "phase": "account_opening_retry_preserves_queue",
+        "passed": true
+      },
+      {
+        "phase": "installation_opening_retry_keeps_owner",
+        "passed": true
+      },
+      {
+        "phase": "reauthentication_only_same_account",
+        "passed": true
+      },
+      {
+        "phase": "session_interface_verified",
+        "passed": true
+      }
+    ],
+    "touchTargets": 7,
+    "scales": [
+      "100%",
+      "200%"
+    ],
+    "controlledFaults": [
+      "vault read",
+      "vault remove",
+      "account open",
+      "installation open",
+      "missing credential"
+    ],
+    "realHealthyAdapters": [
+      "Expo SQLite/Drizzle",
+      "Expo SecureStore",
+      "Session/SessionOpening",
+      "HTTP/PostgreSQL"
+    ],
+    "closedOwnedProcesses": true
+  },
+  "limitations": [
+    "Controlled faults do not prove physical corruption or real keystore failure.",
+    "Android missing-credential case verifies auth-required UI; expiry/refresh rejection are also covered with real Session in component tests.",
+    "Full device/accessibility matrix, iOS Q55=B and external operational gates remain open."
+  ],
+  "next": "Recorte04: resultados de sync, identidade e compatibilidade"
+}

@@ -22,8 +22,12 @@ ADR-016; REQ-CTA-004/004b/004c; REQ-SYN-008; spec/13 §22/Q51/Q52; relatório de
 
 ## Resultado
 
-Concluída: não.
+Concluída: sim, no escopo local. Sessão/cofre/abertura ligados à UI, com pendências preservadas e isolamento A/B/A verificados. [Relatório](../../../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md). Aceite integral nos aparelhos permanece separado.
 
 ## Comments
 
 09/10/2026: criado após incorporar o protótipo; execução/aceite nativo pendentes.
+
+10/10/2026: execução autorizada do recorte 03. Fronteiras de teste já previstas no aceite: JourneyView por ações/estados acessíveis; Journey/Session/SessionOpening por suas interfaces públicas; SQLite/HTTP reais na integração Android visível. Falhas controladas somente nas fronteiras externas de cofre/abertura/HTTP; não recriar algoritmos de recuperação nem inspecionar estado privado.
+
+10/10/2026: 164 testes do app, typecheck/lint, API check integral e Android visível aprovados. Falhas nas fronteiras externas, dados/adapters reais nos caminhos saudáveis. A saída preempta autenticação pendente e o resultado antigo não muda erro/loading da nova ação. Emulador/painel encerrados. Próximo recomendado: recorte 04.

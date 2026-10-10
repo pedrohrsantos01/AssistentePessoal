@@ -17,11 +17,11 @@ A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `
 
 `synchronize` recebe um transporte vinculado à mesma conta, valida respostas geradas do OpenAPI, recupera snapshot quando necessário e troca lotes de até 50 operações. Erros preservam o banco. O uso autenticado passa por `Session.synchronize`, que verifica a geração da sessão e renova acesso quando necessário. O scheduler automático e o backoff estão descritos abaixo; o aceite visual e a execução em iPhone permanecem pendentes. O cenário HTTP nativo Android está descrito abaixo.
 
-## Interface dos recortes 01 e 02
+## Interface dos recortes 01 a 03
 
 `index.js` inicia Expo Router/`src/app`. `Journey` traduz apenas comandos/estados públicos de Session/AccountStore; componentes não chamam HTTP. O SQLite preserva o passo do onboarding, perfil público, intenções, IDs e projeções. `AccountStore.subscribe` publica após a transação externa confirmar; rollback não publica sucesso. Dados de domínio não são duplicados no Zustand, usado somente para navegação e rascunho de sugestão.
 
-Entrada, cadastro/login, confirmação de fuso/início do dia, primeiro hábito ou pular, Briefing, criação posterior e ajustes mínimos estão nesta jornada. A gestão inclui todos os ativos, inclusive antes do início; o Briefing lista apenas os devidos. A gestão usa lista virtualizada, edição de título/ícone/cor com prévia, ordenação e exclusão confirmada. Avisos detalhados, recuperação por link e preferências persistidas continuam nos recortes seguintes. O aviso de privacidade para testes identifica a política pública ainda pendente; não foi inventado um contrato legal final.
+Entrada, cadastro/login, confirmação de fuso/início do dia, primeiro hábito ou pular, Briefing, criação posterior e ajustes mínimos estão nesta jornada. A gestão inclui todos os ativos, inclusive antes do início; o Briefing lista apenas os devidos. A gestão usa lista virtualizada, edição de título/ícone/cor com prévia, ordenação e exclusão confirmada. Sessão, cofre e abertura têm avisos e ações distintos. Resultados detalhados de sync, recuperação por link e preferências persistidas continuam nos recortes seguintes. O aviso de privacidade para testes identifica a política pública ainda pendente; não foi inventado um contrato legal final.
 
 Holograma acompanha o tema do sistema. Os mesmos tokens suportam Cockpit/Neo em claro/escuro; seleção/persistência de aparência fica no recorte 06. Onze pesos locais de Chakra Petch, Space Grotesk e JetBrains Mono entram no bundle; licenças SIL OFL em `assets/licenses/`, incluídas também nos assets do APK pelo plugin de build. Não há download de fontes, telemetria, áudio ou permissões futuras neste recorte.
 
@@ -48,6 +48,18 @@ A variante libera HTTP somente para `127.0.0.1` e porta reversa reservada `18766
 O produto normal é `dev.ritmo.app`, exige `EXPO_PUBLIC_RITMO_API_ORIGIN` com origem HTTPS no build e mantém HTTP bloqueado. As flags `EXPO_PUBLIC_RITMO_HTTP_HARNESS=1` e `EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS=1` conservam os pacotes/entradas técnicos; nunca usar a variante de teste para contas reais. Configuração de domínio/provedor e aceite no iPhone seguem pendentes.
 
 [Resultado, evidências e limites do recorte 01](../docs/analises/2026-10-09-interface-primeira-jornada.md).
+
+## Sessão e recuperação pela interface — recorte 03
+
+`SessionNotice` acompanha o estado público da jornada nas telas locais e permite retomar o cofre ou autenticar a mesma conta online. Leitura/escrita locais continuam durante uma nova tentativa do cofre, quando a sessão e as bases estão saudáveis. `OpeningFailure` distingue conta e instalação; diagnóstico exibe somente escopo, etapa e código reconhecido, sem caminhos, mensagens SQL ou credenciais. Retry conserva o owner/arquivos. Logout incompleto oferece Terminar saída e bloqueia rotas/painéis; navegação vincula chave de geração e estado de abertura. Resultados assíncronos antigos não publicam erros na nova conta.
+
+O ensaio específico usa os controles da aplicação:
+
+```powershell
+.\scripts\verify-android-journey.ps1 -Suite session -FreshTestInstall -EvidenceDirectory docs/design/evidencias/2026-10-10/sessao-android
+```
+
+`harness/journey-runtime.ts` só é selecionado com `EXPO_PUBLIC_RITMO_JOURNEY_TEST=1`; sua própria fábrica também exige essa flag. Intents de teste injetam falhas de leitura/remoção do cofre e abertura de conta/instalação nas fronteiras externas, mantendo os algoritmos e a UI do produto. Ausência de credencial exercita autenticação necessária; expiração real/refresh recusado são verificados nos componentes com Session real. Nunca usar essa variante para contas reais. `-FreshTestInstall` remove somente a variante descartável validada, antes da jornada; o ensaio verifica persistência e isolamento sem apagar dados entre suas etapas. [Relatório e limites](../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md).
 
 ## Sincronização automática
 
@@ -175,7 +187,7 @@ AccountStore compara operationHash/JCS antes de reconhecer ack/pull/snapshot; au
 
 `openExpoRuntime(origin)` e `openExpoSession(identity)` conservam um owner quando a instalação não abre. Consulte `recovery()` antes de obter `session`: o diagnóstico informa base lógica/escopo/etapa/classificação e não inclui causas SQL ou segredos. Com controle bloqueado, `session` lança `installation_locked`; no runtime, identidade/scheduler também aguardam abertura saudável. `retryDatabase()` repete a abertura após corrigir a causa/atualizar; `close()` encerra o owner e invalida tentativas atrasadas.
 
-Com controle saudável e falha na conta, a sessão existe, mas `account()` permanece bloqueado; `session.databaseRecovery()` expõe o problema e `session.retryDatabase()` só tenta a conta selecionada na geração atual. Logout e troca de conta mantêm isolamento. O scheduler de domínio fica `paused` até a abertura bem-sucedida. Arquivos e pendências são preservados; nenhum retry reconstrói/restaura/substitui banco. Reparo e apresentação visual permanecem separados. [Contrato, testes e limites](../docs/analises/2026-10-08-recuperacao-da-abertura-local.md).
+Com controle saudável e falha na conta, a sessão existe, mas `account()` permanece bloqueado; `session.databaseRecovery()` expõe o problema e `session.retryDatabase()` só tenta a conta selecionada na geração atual. Logout e troca de conta mantêm isolamento. O scheduler de domínio fica `paused` até a abertura bem-sucedida. Arquivos e pendências são preservados; nenhum retry reconstrói/restaura/substitui banco. Reparo continua em recorte próprio. A interface do recorte 03 distingue conta/instalação, exibe diagnóstico limitado e oferece nova tentativa sem substituir arquivos. [Contrato, testes e limites](../docs/analises/2026-10-08-recuperacao-da-abertura-local.md).
 
 
 ## Exceções e isolamento nativos — 08/10/2026

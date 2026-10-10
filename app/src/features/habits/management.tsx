@@ -17,7 +17,7 @@ export function DeleteConfirmation({journey,state,habit,close,deleted}:{journey:
   <Button label={pt.deleteHabit} disabled={!state.writable||!available} onPress={()=>{if(journey.delete(habit.habitId)) deleted();}}/><Button label={pt.cancel} secondary onPress={cancel}/>
  </Sheet>;
 }
-export function HabitManagement({journey,state,footer,create,edit}:{journey:Journey;state:JourneyState;footer:ReactNode;create:()=>void;edit:(id:string)=>void}) {
+export function HabitManagement({journey,state,footer,notice,create,edit}:{journey:Journey;state:JourneyState;footer:ReactNode;notice?:ReactNode;create:()=>void;edit:(id:string)=>void}) {
  const t=useTheme(),habits=state.local!.managementHabits,{fontScale}=useWindowDimensions(),reflow=fontScale>t.metrics.reflowScale;
  const render=({item:habit,index}:{item:ManagedHabit;index:number})=>{
   const color=habit.colorToken&&Object.hasOwn(t.habitColors,habit.colorToken)?t.habitColors[habit.colorToken as HabitColor]:t.accent.text;
@@ -28,7 +28,7 @@ export function HabitManagement({journey,state,footer,create,edit}:{journey:Jour
     <Button compact secondary displayLabel={pt.down} label={pt.moveLabel(habit.title,1)} disabled={!state.writable||index===habits.length-1} onPress={()=>journey.move(habit.habitId,1)} style={{width:t.metrics.touch,paddingHorizontal:t.space.none,borderWidth:t.metrics.border}}/>
    </View></View>;
  };
- return <SafeAreaView style={{flex:1,backgroundColor:t.bg.base}}><View style={{flex:1,paddingHorizontal:t.space.briefing,paddingTop:t.space.controlGap,paddingBottom:t.space.form,gap:t.space.inputInset}}><View style={{flexDirection:'row',alignItems:'center',gap:t.space.controlGap,paddingTop:t.space.micro,paddingHorizontal:t.space.tiny}}><Type size="title" semibold header style={{flex:1}}>{pt.habits}</Type><Button compact textSize="context" label={pt.newHabit} displayLabel={pt.newShort} disabled={!state.writable} onPress={create} style={{paddingHorizontal:t.space.large}}/></View>
+ return <SafeAreaView style={{flex:1,backgroundColor:t.bg.base}}><View style={{flex:1,paddingHorizontal:t.space.briefing,paddingTop:t.space.controlGap,paddingBottom:t.space.form,gap:t.space.inputInset}}>{notice}<View style={{flexDirection:'row',alignItems:'center',gap:t.space.controlGap,paddingTop:t.space.micro,paddingHorizontal:t.space.tiny}}><Type size="title" semibold header style={{flex:1}}>{pt.habits}</Type><Button compact textSize="context" label={pt.newHabit} displayLabel={pt.newShort} disabled={!state.writable} onPress={create} style={{paddingHorizontal:t.space.large}}/></View>
   {state.error&&<Banner message={state.error} error/>}
   {habits.length?<Card style={{flexShrink:1,paddingVertical:t.space.micro,paddingHorizontal:t.space.small,gap:t.space.none}}><FlatList data={habits} keyExtractor={habit=>habit.habitId} renderItem={render} extraData={state} style={{flexGrow:0}} contentContainerStyle={{flexGrow:0}}/></Card>:<View style={{paddingVertical:t.space.form,paddingHorizontal:t.space.micro,gap:t.space.controlGap}}><Type size="tile" semibold header>{pt.emptyManagement}</Type><Type size="context" tone="secondary">{pt.managementHelp}</Type></View>}
  </View>{footer}</SafeAreaView>;

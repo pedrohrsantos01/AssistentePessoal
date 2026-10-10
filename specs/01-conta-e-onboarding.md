@@ -22,6 +22,8 @@
 
 **[DESENHO TÉCNICO — sessão após logout]** O contrato em [spec/13 §2](13-contrato-primeiro-marco.md#2-conta-e-sessão) preserva o banco isolado e usa credencial limitada de revogação no SecureStore, sem manter refresh utilizável após logout. A implementação e as evidências de recuperação entre SecureStore/SQLite estão no [relatório de sessão](../docs/analises/2026-09-26-sessao-e-isolamento.md). O aceite físico em iPhone continua pendente; reentrada online e retenção permanecem aprovadas.
 
+A interface de sessão foi ligada ao núcleo no [recorte03](../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md): logout offline/incompleto, reentrada A/B/A, falhas de cofre/abertura e reautenticação da mesma conta foram verificados no Android visível. Esta evidência não encerra iPhone nem o M1 integral.
+
 **REQ-CTA-004a — Claims do token.** O JWT carrega `sub` (user_id), `plan` (`free`\|`pro`) e `tz`. O `plan` existe desde a Fase 1 sempre como `free`, para que billing futuro não exija mudança de contrato (ADR-006).
 
 **REQ-CTA-005** — Múltiplos dispositivos na mesma conta são suportados desde o v1 (regras em `specs/06-sincronizacao.md`).

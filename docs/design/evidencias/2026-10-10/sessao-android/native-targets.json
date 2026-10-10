@@ -1,0 +1,56 @@
+{
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "measurements": [
+    {
+      "label": "Retomar acesso remoto",
+      "widthPixels": 896,
+      "heightPixels": 115,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Retomar acesso remoto",
+      "widthPixels": 896,
+      "heightPixels": 238,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Terminar saída",
+      "widthPixels": 954,
+      "heightPixels": 136,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Tentar abrir novamente",
+      "widthPixels": 954,
+      "heightPixels": 136,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Tentar abrir novamente",
+      "widthPixels": 954,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Ocultar diagnóstico",
+      "widthPixels": 954,
+      "heightPixels": 144,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Autenticar novamente",
+      "widthPixels": 896,
+      "heightPixels": 115,
+      "density": 2.625,
+      "scale": "100%"
+    }
+  ],
+  "passed": true
+}

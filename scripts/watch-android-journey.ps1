@@ -1,9 +1,14 @@
-param([Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
+param([ValidateSet('journey','session')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
 $Host.UI.RawUI.WindowTitle='Ritmo — jornada visível no Android'
 $taskDeadline=(Get-Date).AddMinutes(15)
 $taskPosition=0
-Write-Host 'RITMO | JORNADA E GESTAO NO ANDROID' -ForegroundColor Cyan
-Write-Host 'Cadastro → onboarding → Briefing → offline → reabertura → sincronização → editar/ordenar → excluir'
+if($Suite -eq 'session') {
+ Write-Host 'RITMO | SESSAO E RECUPERACAO NO ANDROID' -ForegroundColor Cyan
+ Write-Host 'Cofre → saída offline → B isolada → reentrada A → abertura bloqueada → autenticação'
+} else {
+ Write-Host 'RITMO | JORNADA E GESTAO NO ANDROID' -ForegroundColor Cyan
+ Write-Host 'Cadastro → onboarding → Briefing → offline → reabertura → sincronização → editar/ordenar → excluir'
+}
 while ((Get-Date) -lt $taskDeadline -and -not (Test-Path -LiteralPath $CompletionPath)) {
  if (Test-Path -LiteralPath $Log) {
   $taskLines=@(Get-Content -LiteralPath $Log -ErrorAction SilentlyContinue)

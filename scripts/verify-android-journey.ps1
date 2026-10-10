@@ -1,4 +1,5 @@
 param(
+ [ValidateSet('journey','session')][string]$Suite='journey',
  [ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',
  [string]$Avd='Pixel_9',
  [string]$EvidenceDirectory='docs/design/evidencias/2026-10-09/gestao-android',
@@ -63,10 +64,11 @@ try {
  if(Test-Path -LiteralPath $taskCompletion) {Remove-Item -LiteralPath $taskCompletion}
  [IO.File]::WriteAllText($taskNativeLog,'')
  $taskWatcher=Join-Path $PSScriptRoot 'watch-android-journey.ps1'
- $taskPanel=Start-Process -FilePath 'pwsh.exe' -ArgumentList @('-NoProfile','-File',('"'+$taskWatcher+'"'),'-Log',('"'+$taskNativeLog+'"'),'-CompletionPath',('"'+$taskCompletion+'"')) -WindowStyle Normal -PassThru
+ $taskPanel=Start-Process -FilePath 'pwsh.exe' -ArgumentList @('-NoProfile','-File',('"'+$taskWatcher+'"'),'-Suite',$Suite,'-Log',('"'+$taskNativeLog+'"'),'-CompletionPath',('"'+$taskCompletion+'"')) -WindowStyle Normal -PassThru
  Push-Location (Join-Path $taskRoot 'api')
  try {
-  & '.\gradlew.bat' test --tests 'dev.ritmo.RuntimeTests.androidProductJourneyWorksOfflineAndSynchronizesAfterRestart' --no-daemon *> $taskTestLog
+  $taskMethod=if($Suite -eq 'session') {'dev.ritmo.RuntimeTests.androidProductSessionRecoveryPreservesAccountIsolation'} else {'dev.ritmo.RuntimeTests.androidProductJourneyWorksOfflineAndSynchronizesAfterRestart'}
+  & '.\gradlew.bat' test --tests $taskMethod --no-daemon *> $taskTestLog
   $taskResult=$LASTEXITCODE
   Get-Content -LiteralPath $taskNativeLog
   if($taskResult -ne 0) {Get-Content -LiteralPath $taskTestLog -Tail 30;throw 'Jornada nativa falhou.'}

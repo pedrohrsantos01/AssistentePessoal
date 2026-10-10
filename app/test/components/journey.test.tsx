@@ -8,9 +8,11 @@ import {Type} from '../../src/ui/primitives.tsx';
 import {JourneyView} from '../../src/features/journey/screens.tsx';
 import {useNavigation} from '../../src/features/journey/navigation.ts';
 import {pt} from '../../src/i18n/pt-BR.ts';
-import {fixture} from './fixture.ts';
-const mount=(f:ReturnType<typeof fixture>)=>render(<SafeAreaProvider initialMetrics={{frame:{x:0,y:0,width:390,height:844},insets:{top:0,left:0,right:0,bottom:0}}}><ThemeProvider value={tokens('dark')}><JourneyView journey={f.journey}/></ThemeProvider></SafeAreaProvider>);
-beforeEach(()=>{useNavigation.setState({key:null,surface:'welcome',privacy:false,logout:false,draft:'',editingId:null,formFrom:'briefing'});});
+import {fixture,openingFixture} from './fixture.ts';
+import type {Journey} from '../../src/features/journey/journey.ts';
+const mount=(f:{journey:Journey})=>render(<SafeAreaProvider initialMetrics={{frame:{x:0,y:0,width:390,height:844},insets:{top:0,left:0,right:0,bottom:0}}}><ThemeProvider value={tokens('dark')}><JourneyView journey={f.journey}/></ThemeProvider></SafeAreaProvider>);
+beforeEach(()=>{jest.useFakeTimers();useNavigation.setState({key:null,gate:null,surface:'welcome',privacy:false,logout:false,draft:'',editingId:null,formFrom:'briefing'});});
+afterEach(()=>{jest.useRealTimers();});
 test('offline login preserves typed values and exposes a useful connection error',async()=>{
  const f=fixture();try {
   await mount(f);await fireEvent.press(screen.getByRole('button',{name:pt.hasAccount}));
@@ -127,5 +129,79 @@ test('Briefing distinguishes no due habits from no habits; management can edit a
   await fireEvent.press(screen.getByRole('tab',{name:pt.habits}));await fireEvent.press(screen.getByRole('button',{name:pt.editLabel('Amanhã')}));
   expect(screen.getByLabelText(pt.habitName)).toHaveDisplayValue('Amanhã');await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Próximo dia');await fireEvent.press(screen.getByRole('button',{name:pt.saveHabit}));
   expect(screen.getByRole('button',{name:pt.editLabel('Próximo dia')})).toBeOnTheScreen();expect(f.journey.state().local?.habits).toHaveLength(0);
+ } finally {f.close();}
+});
+
+
+test('vault pause is actionable in management and creation while local writing continues',async()=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Local preservado','reading','blue',false);
+  const read=f.vault.get;f.vault.get=async()=>{throw new Error('private_keychain_error');};await f.session.retryVault();await mount(f);
+  await fireEvent.press(screen.getByRole('tab',{name:pt.habits}));expect(screen.getByRole('button',{name:'Retomar acesso remoto'})).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button',{name:pt.newHabit}));expect(screen.getByRole('button',{name:'Retomar acesso remoto'})).toBeOnTheScreen();
+  await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Criado sem cofre');await fireEvent.press(screen.getByRole('button',{name:pt.createHabit}));
+  expect(screen.getByRole('button',{name:pt.editLabel('Criado sem cofre')})).toBeOnTheScreen();f.vault.get=read;
+  await fireEvent.press(screen.getByRole('button',{name:'Retomar acesso remoto'}));await waitFor(()=>expect(screen.queryByRole('button',{name:'Retomar acesso remoto'})).toBeNull());
+  expect(screen.getByRole('button',{name:pt.editLabel('Local preservado')})).toBeOnTheScreen();expect(f.session.account().operations().some(op=>op.command.type==='habit.create'&&op.command.title==='Criado sem cofre')).toBe(true);
+ } finally {f.close();}
+});
+
+
+test('account opening failure shows a safe diagnosis and retry preserves pending work',async()=>{
+ const f=await openingFixture();try {
+  await f.owner.session.login('a@example.test','password');f.journey.skip();f.journey.create('Preservado','reading','blue',false);f.journey.toggle(f.journey.state().local!.habits[0]!.habitId,false);
+  const queue=f.owner.session.account().operations();f.fault('account');f.owner.session.close();await f.owner.session.restore();await mount(f);
+  expect(screen.getByRole('header',{name:'Não foi possível abrir os dados desta conta.'})).toBeOnTheScreen();expect(screen.queryByText('Preservado')).toBeNull();
+  await fireEvent.press(screen.getByRole('button',{name:'Ver diagnóstico'}));expect(screen.getByText('Código: local_open_failed')).toBeOnTheScreen();expect(screen.queryByText(/private_path_and_credential/)).toBeNull();
+  await fireEvent.press(screen.getByRole('button',{name:'Tentar abrir novamente'}));expect(screen.queryByText('Preservado')).toBeNull();
+  f.fault(null);await fireEvent.press(screen.getByRole('button',{name:'Tentar abrir novamente'}));await waitFor(()=>expect(screen.getByRole('checkbox',{name:pt.habitLabel('Preservado',true)})).toBeOnTheScreen());
+  expect(f.owner.session.account().operations()).toEqual(queue);expect(f.journey.state().local?.totalXp).toBe(10);
+ } finally {f.close();}
+});
+
+
+test('incomplete logout fences old routes and sheets until credential cleanup succeeds',async()=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Somente A','reading','blue',false);const queue=f.session.account().operations();await mount(f);
+  const remove=f.vault.remove;f.vault.remove=async()=>{throw new Error('private_remove_failure');};
+  await fireEvent.press(screen.getByRole('tab',{name:pt.settings}));await fireEvent.press(screen.getByRole('button',{name:pt.logout}));await fireEvent.press(screen.getByRole('button',{name:pt.logout}));
+  expect(screen.getByRole('header',{name:pt.logoutIncomplete})).toBeOnTheScreen();expect(screen.queryByText('Somente A')).toBeNull();
+  await act(()=>{useNavigation.getState().go('edit');useNavigation.getState().setPrivacy(true);});
+  expect(screen.queryByRole('header',{name:pt.privacyTitle})).toBeNull();expect(screen.queryByRole('button',{name:pt.register})).toBeNull();
+  f.vault.remove=remove;await fireEvent.press(screen.getByRole('button',{name:pt.finishLogout}));await waitFor(()=>expect(screen.getByRole('button',{name:pt.register})).toBeOnTheScreen());
+  await act(()=>f.session.login('b@example.test','password'));await act(()=>f.journey.skip());expect(screen.queryByText('Somente A')).toBeNull();
+  await act(()=>f.session.logout());await act(()=>f.session.login('a@example.test','password'));expect(f.session.account().operations()).toEqual(queue);expect(screen.getByRole('checkbox',{name:pt.habitLabel('Somente A',false)})).toBeOnTheScreen();
+ } finally {f.close();}
+});
+
+
+test('installation failure prevents login and retry opens only after control becomes healthy',async()=>{
+ const f=await openingFixture('installation');try {
+  await mount(f);expect(screen.getByRole('header',{name:pt.databaseInstallationTitle})).toBeOnTheScreen();expect(screen.queryByRole('button',{name:pt.register})).toBeNull();
+  await fireEvent.press(screen.getByRole('button',{name:pt.retryDatabase}));expect(screen.getByRole('header',{name:pt.databaseInstallationTitle})).toBeOnTheScreen();
+  f.fault(null);await fireEvent.press(screen.getByRole('button',{name:pt.retryDatabase}));await waitFor(()=>expect(screen.getByRole('button',{name:pt.register})).toBeOnTheScreen());expect(f.journey.state().local).toBeNull();
+ } finally {f.close();}
+});
+
+test('expired remote authentication remains local and only the same online account can reauthenticate',async()=>{
+ const f=await openingFixture();try {
+  const login=f.identity.login;f.identity.login=async(...args)=>({...await login(...args),accessExpiresAt:'2000-01-01T00:00:00Z'});
+  await f.owner.session.login('a@example.test','password');f.journey.skip();f.journey.create('Ainda local','reading','blue',false);await mount(f);
+  await act(async()=>{f.scheduler.update({active:true,online:true});});await waitFor(()=>expect(f.journey.state().remote).toBe(pt.remoteLogin));
+  await fireEvent.press(screen.getByRole('tab',{name:pt.habits}));await fireEvent.press(screen.getByRole('button',{name:pt.reauth}));expect(screen.getByRole('header',{name:pt.reauth})).toBeOnTheScreen();
+  await fireEvent.changeText(screen.getByLabelText(pt.email),'a@example.test');await fireEvent.changeText(screen.getByLabelText(pt.password),'password');await act(()=>f.scheduler.update({active:false,online:false}));
+  await fireEvent.press(screen.getByRole('button',{name:pt.login}));expect(screen.getByLabelText(pt.email)).toHaveDisplayValue('a@example.test');expect(screen.getByLabelText(pt.password)).toHaveDisplayValue('password');
+  f.identity.login=login;await act(()=>f.scheduler.update({active:false,online:true}));await fireEvent.changeText(screen.getByLabelText(pt.email),'b@example.test');await fireEvent.press(screen.getByRole('button',{name:pt.login}));expect(screen.getByText('Entre na mesma conta para recuperar a conexão. Para usar outra conta, saia primeiro.')).toBeOnTheScreen();
+  await fireEvent.changeText(screen.getByLabelText(pt.email),'a@example.test');await fireEvent.press(screen.getByRole('button',{name:pt.login}));await waitFor(()=>expect(screen.getByRole('checkbox',{name:pt.habitLabel('Ainda local',false)})).toBeOnTheScreen());expect(f.owner.session.account().operations().some(op=>op.command.type==='habit.create'&&op.command.title==='Ainda local')).toBe(true);
+ } finally {f.close();}
+});
+
+test('a vault write failure during new login cannot activate an account and retry keeps typed fields',async()=>{
+ const f=fixture();try {
+  f.scheduler.update({active:false,online:true});const write=f.vault.set;f.vault.set=async()=>{throw new Error('private_vault_write_failure');};await mount(f);
+  await fireEvent.press(screen.getByRole('button',{name:pt.hasAccount}));await fireEvent.changeText(screen.getByLabelText(pt.email),'a@example.test');await fireEvent.changeText(screen.getByLabelText(pt.password),'password');
+  await fireEvent.press(screen.getByRole('button',{name:pt.login}));expect(f.journey.state().local).toBeNull();expect(screen.queryByRole('tab',{name:pt.habits})).toBeNull();expect(screen.getAllByText(pt.vaultLocked).length).toBeGreaterThan(0);expect(screen.getByLabelText(pt.email)).toHaveDisplayValue('a@example.test');
+  f.vault.set=write;await fireEvent.press(screen.getByRole('button',{name:pt.retryVault}));expect(screen.getByLabelText(pt.password)).toHaveDisplayValue('password');expect(f.journey.state().local).toBeNull();
+  await fireEvent.press(screen.getByRole('button',{name:pt.login}));await waitFor(()=>expect(screen.getByLabelText(pt.onboarding)).toBeOnTheScreen());
  } finally {f.close();}
 });

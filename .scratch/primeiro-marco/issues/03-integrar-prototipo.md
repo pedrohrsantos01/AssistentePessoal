@@ -34,3 +34,5 @@ Concluída: não.
 09/10/2026: gestão de hábitos (recorte 02) implementada e verificada offline, com reinícios e API real no Android visível. [Relatório](../../../docs/analises/2026-10-09-interface-gestao-de-habitos.md), confirmações de exclusão/Q30 e alvos de toque a 100%/200%. Permanecem recortes 03–06, acessibilidade integral e iPhone; esta tarefa continua aberta.
 
 10/10/2026: [fidelidade visual das telas existentes](../../../docs/analises/2026-10-10-fidelidade-visual-m1.md) refinada e aprovada por três críticos em cada grupo; Android visível final,156 testes, contraste e alvos verificados. Concluídos recortes01/02 no escopo local. Tarefa permanece aberta para03–06, matriz integral, iPhone e aceites externos; não houve aceite automático do marco pelo protótipo.
+
+10/10/2026: [sessão/cofre/abertura — recorte 03](../../../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md) concluído localmente com 164 testes do app, API check e Android visível. Pendências e isolamento A/B/A preservados. Esta tarefa continua aberta para 04–06, matriz integral/iPhone e gates externos.

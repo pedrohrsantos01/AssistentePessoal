@@ -1,7 +1,7 @@
 # 04 — Resultados de sync, identidade e compatibilidade
 
 Status: ready-for-agent
-Blocked by: 03-sessao-e-recuperacao-local.md
+Blocked by: none
 
 ## Resultado esperado
 
@@ -29,3 +29,5 @@ Concluída: não.
 ## Comments
 
 09/10/2026: criado após incorporar o protótipo; execução/aceite nativo pendentes.
+
+10/10/2026: recorte 03 concluído e verificado; dependência removida. Este é o próximo recorte recomendado.
