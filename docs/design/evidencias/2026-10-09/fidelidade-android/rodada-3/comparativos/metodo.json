@@ -1,0 +1,169 @@
+{
+  "referenceSha256": "00759a9701e734c11744b37b72339fd19751b4574ccb5b8ad8f2f4404d980226",
+  "referenceSource": "Protótipos de assistente pessoal/Ritmo-M1.dc.html",
+  "nativeApkSha256": "9753ee1c91ace45df65ef31285577d2d176687c16fa265cf110a8111b8f93cd6",
+  "nativeSize": [
+    1080,
+    2424
+  ],
+  "density": 2.625,
+  "nativeCrop": [
+    0,
+    137,
+    1080,
+    2361
+  ],
+  "nativeNormalized": [
+    411,
+    847
+  ],
+  "referenceExternalFrameLogical": [
+    411.4286,
+    928.4286
+  ],
+  "referenceCrop": [
+    0,
+    47,
+    411,
+    894
+  ],
+  "boardSize": [
+    842,
+    847
+  ],
+  "gapPixels": 20,
+  "resample": "LANCZOS",
+  "notes": [
+    "Only the external reference device frame and its capture transition were adjusted; original product styles were preserved.",
+    "Boards are unlabelled for independent visual review.",
+    "200% compares native readability/reflow/reachability, not geometric equivalence with fixed web labels."
+  ],
+  "pairs": [
+    {
+      "board": "A01.png",
+      "native": "../01-entrada.png",
+      "reference": "../../../fidelidade-referencia/viewport-entrada-claro.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "A02.png",
+      "native": "../01-login.png",
+      "reference": "../../../fidelidade-referencia/viewport-login-claro.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "A03.png",
+      "native": "../02-cadastro-vazio.png",
+      "reference": "../../../fidelidade-referencia/viewport-cadastro-claro.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "A04.png",
+      "native": "../02-fuso.png",
+      "reference": "../../../fidelidade-referencia/viewport-onboarding-claro.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "A05.png",
+      "native": "../03-primeiro-habito.png",
+      "reference": "../../../fidelidade-referencia/viewport-primeiro-habito-claro.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "A06.png",
+      "native": "../03-primeiro-habito-200-topo.png",
+      "reference": "../../../fidelidade-referencia/viewport-primeiro-habito-200-topo.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "A07.png",
+      "native": "../03-primeiro-habito-200.png",
+      "reference": "../../../fidelidade-referencia/viewport-primeiro-habito-200-rodape.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "B01.png",
+      "native": "../04-briefing-vazio.png",
+      "reference": "../../../fidelidade-referencia/viewport-briefing-vazio-claro.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "B02.png",
+      "native": "../06-briefing-sincronizado.png",
+      "reference": "../../../fidelidade-referencia/viewport-briefing-claro.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "B03.png",
+      "native": "../07-briefing-escuro.png",
+      "reference": "../../../fidelidade-referencia/viewport-briefing-escuro.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "B04.png",
+      "native": "../08-texto-200.png",
+      "reference": "../../../fidelidade-referencia/viewport-briefing-200.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "C01.png",
+      "native": "../10-ajustes-claro.png",
+      "reference": "../../../fidelidade-referencia/viewport-ajustes-claro.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "C02.png",
+      "native": "../10-saida-claro.png",
+      "reference": "../../../fidelidade-referencia/viewport-saida-claro.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "C03.png",
+      "native": "../09-ajustes-texto-200.png",
+      "reference": "../../../fidelidade-referencia/viewport-ajustes-200.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "C04.png",
+      "native": "../09-privacidade-texto-200.png",
+      "reference": "../../../fidelidade-referencia/viewport-privacidade-200.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "C05.png",
+      "native": "../11-gestao-offline.png",
+      "reference": "../../../fidelidade-referencia/viewport-gestao-dupla-claro.png",
+      "left": "reference",
+      "right": "native"
+    },
+    {
+      "board": "C06.png",
+      "native": "../13-preview-edicao.png",
+      "reference": "../../../fidelidade-referencia/viewport-preview-edicao-claro.png",
+      "left": "native",
+      "right": "reference"
+    },
+    {
+      "board": "C07.png",
+      "native": "../16-gestao-texto-200.png",
+      "reference": "../../../fidelidade-referencia/viewport-gestao-200.png",
+      "left": "reference",
+      "right": "native"
+    }
+  ]
+}

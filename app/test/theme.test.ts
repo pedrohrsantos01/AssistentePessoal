@@ -9,7 +9,12 @@ for(const skin of ['holo','cockpit','neo'] as Skin[]) for(const mode of ['dark',
  for(const background of [t.bg.accentSoft,t.bg.warning,t.bg.error]) assert.ok(contrast(t.text.primary,background)>=4.5);
  for(const color of Object.values(t.habitColors)) {assert.ok(contrast(t.text.onAccent,color)>=4.5);assert.ok(contrast(color,t.bg.elevated)>=3);}
  assert.ok(contrast(t.text.onAccent,t.accent.fill)>=4.5);assert.ok(contrast(t.toast.text,t.toast.bg)>=4.5);assert.ok(contrast(t.toast.link,t.toast.bg)>=4.5);
- assert.ok(contrast(t.border.input,t.bg.input)>=3);assert.ok(contrast(t.border.interactive,t.bg.elevated)>=3);assert.ok(contrast(t.accent.fill,t.bg.elevated)>=3);
+ // Fields and transparent controls must contrast with both adjacent surfaces.
+ for(const background of [t.bg.base,t.bg.elevated,t.bg.input,t.bg.inputElevated]) {
+  for(const foreground of [t.text.primary,t.text.secondary,t.text.link]) assert.ok(contrast(foreground,background)>=4.5);
+  for(const border of [t.border.interactive,t.border.input,t.border.inputElevated]) assert.ok(contrast(border,background)>=3,border+' boundary on '+background);
+ }
+ assert.ok(contrast(t.accent.fill,t.bg.elevated)>=3);
  assert.equal(t.metrics.touch,44);assert.ok(t.metrics.button>=44);
  // Dim text on an accent surface is deliberately excluded from the allowed pairs.
  assert.ok(contrast(t.text.primary,blend(t.accent.fill,t.bg.base,0.13))>=4.5);

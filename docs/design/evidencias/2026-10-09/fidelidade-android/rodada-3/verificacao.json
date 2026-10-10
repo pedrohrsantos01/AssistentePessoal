@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-10",
+  "package": "dev.ritmo.journeytest",
+  "serial": "emulator-5560",
+  "avd": "Pixel_9",
+  "visible": true,
+  "passed": true,
+  "apkSha256": "9753ee1c91ace45df65ef31285577d2d176687c16fa265cf110a8111b8f93cd6",
+  "junitTest": "androidProductJourneyWorksOfflineAndSynchronizesAfterRestart()",
+  "junitTimestampUtc": "2026-10-10T13:00:20.259Z",
+  "junitTimeSeconds": 540.865,
+  "nodeDurationMs": 537043.3249,
+  "nodeTotalDurationMs": 539252.6513,
+  "gradleDuration": "9m29s",
+  "phases": [
+    {
+      "phase": "onboarding_resumed",
+      "passed": true
+    },
+    {
+      "phase": "empty_briefing",
+      "passed": true
+    },
+    {
+      "phase": "offline_product",
+      "passed": true
+    },
+    {
+      "phase": "product_reopened",
+      "passed": true
+    },
+    {
+      "phase": "undo_remark",
+      "passed": true
+    },
+    {
+      "phase": "product_converged",
+      "passed": true
+    },
+    {
+      "phase": "system_dark",
+      "passed": true
+    },
+    {
+      "phase": "font_200",
+      "passed": true
+    },
+    {
+      "phase": "reduced_motion_action",
+      "passed": true
+    },
+    {
+      "phase": "system_light",
+      "passed": true
+    },
+    {
+      "phase": "product_verified",
+      "passed": true
+    },
+    {
+      "phase": "management_offline",
+      "passed": true
+    },
+    {
+      "phase": "management_reopened",
+      "passed": true
+    },
+    {
+      "phase": "independent_metadata_merged",
+      "passed": true
+    },
+    {
+      "phase": "deletion_cancelled",
+      "passed": true
+    },
+    {
+      "phase": "deletion_reopened_offline",
+      "passed": true
+    },
+    {
+      "phase": "deletion_converged",
+      "passed": true
+    },
+    {
+      "phase": "management_200_and_delete_targets",
+      "passed": true
+    },
+    {
+      "phase": "future_start_managed_without_early_completion",
+      "passed": true
+    },
+    {
+      "phase": "management_verified",
+      "passed": true
+    }
+  ],
+  "targets": {
+    "count": 28,
+    "minimumLogicalUnits": 44,
+    "density": 2.625,
+    "physicalLowerRoundingBound": 115,
+    "pixelRounding": "floor",
+    "passed": true
+  },
+  "cleanup": {
+    "ownedEmulatorClosed": true,
+    "ownedWatcherClosed": true,
+    "verifiedAfterRun": true
+  },
+  "notes": [
+    "Final frozen APK; no source changes after build.",
+    "Settings/network/reverse restoration and owned process cleanup run in finally.",
+    "Evidence directory retains the cycle start date 2026-10-09; this final run occurred on 2026-10-10.",
+    "Existing M1 screens verified; full M1/iPhone/accessibility matrix remains pending."
+  ]
+}

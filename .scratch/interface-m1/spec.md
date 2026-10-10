@@ -1,6 +1,6 @@
 # Interface nativa do primeiro marco — plano
 
-Estado em 09/10/2026: referência consolidada em [spec/11](../../specs/11-design-system.md); primeira jornada nativa (recorte 01) implementada e verificada no Android com API real. [Relatório](../../docs/analises/2026-10-09-interface-primeira-jornada.md). Gestão nativa (recorte 02) também concluída localmente: [relatório](../../docs/analises/2026-10-09-interface-gestao-de-habitos.md). Recortes 03–06 permanecem abertos. Decomposição da [tarefa visual 03](../primeiro-marco/issues/03-integrar-prototipo.md), sem segundo marco ou aceite por revisão de HTML.
+Estado em 10/10/2026: referência consolidada em [spec/11](../../specs/11-design-system.md); primeira jornada nativa (recorte 01) implementada e verificada no Android com API real. [Relatório](../../docs/analises/2026-10-09-interface-primeira-jornada.md). Gestão nativa (recorte 02) também concluída localmente: [relatório](../../docs/analises/2026-10-09-interface-gestao-de-habitos.md). [Fidelidade das telas atuais](../../docs/analises/2026-10-10-fidelidade-visual-m1.md) refinada e aprovada em10/10/2026, com ensaio Android visível. Recortes 03–06 permanecem abertos. Decomposição da [tarefa visual 03](../primeiro-marco/issues/03-integrar-prototipo.md), sem segundo marco ou aceite por revisão de HTML.
 
 ## Resultado esperado
 

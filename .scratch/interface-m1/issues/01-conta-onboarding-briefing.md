@@ -33,3 +33,5 @@ Concluída: sim, no escopo local deste recorte. [Relatório e evidências](../..
 09/10/2026: criado após incorporar o protótipo; execução/aceite nativo pendentes.
 
 09/10/2026: implementação nativa e aceite Android do recorte 01 concluídos. Fontes/licenças embarcadas, tokens tipados, dados reais e isolamento de conta; próximo recorte recomendado: gestão de hábitos (02).
+
+10/10/2026: [fidelidade das telas implementadas](../../../docs/analises/2026-10-10-fidelidade-visual-m1.md) refinada; entrada/formulários/onboarding/Briefing/XP aprovados pelos três críticos nos respectivos grupos.156 testes e ensaio Android visível final passaram. Bordas/cadastro/textura corrigidos sem mudar domínio; aceite integral do M1 continua separado.

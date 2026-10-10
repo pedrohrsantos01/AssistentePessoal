@@ -29,3 +29,5 @@ Concluída: sim, no escopo local deste recorte. Edição/ordem/exclusão ligadas
 09/10/2026: criado após incorporar o protótipo; execução/aceite nativo pendentes.
 
 09/10/2026: entregue lista completa de hábitos ativos (inclusive antes do início), patches somente dos campos alterados, validação Unicode canônica, ordenação atômica local e confirmação da exclusão com Q30. App 156 testes, API check e ensaio Android visível aprovados. Próximo recomendado: recorte 03; arquivamento/tipos/agendas não foram antecipados.
+
+10/10/2026: [refinamento visual](../../../docs/analises/2026-10-10-fidelidade-visual-m1.md) entrega superfície compartilhada, pista de edição, prévia e painéis inferiores. Cancelar preserva rascunho e não escreve; fundo fica oculto da acessibilidade. Três críticos aprovaram; ensaio Android real confirmou gestão/exclusão/XP/200%. Próximo recorte permanece03.

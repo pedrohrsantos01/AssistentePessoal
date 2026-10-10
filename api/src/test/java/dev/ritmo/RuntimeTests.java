@@ -884,7 +884,7 @@ class RuntimeTests {
             .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
         builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
         var process=builder.start();
-        boolean ended=process.waitFor(630,java.util.concurrent.TimeUnit.SECONDS);
+        boolean ended=process.waitFor(930,java.util.concurrent.TimeUnit.SECONDS);
         if(!ended) process.destroyForcibly();
         String output=java.nio.file.Files.readString(log);
         if(output.length()>16000) output=output.substring(output.length()-16000);

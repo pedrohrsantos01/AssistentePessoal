@@ -19,11 +19,11 @@ function nodes() {
  adb('shell','uiautomator','dump','/sdcard/ritmo-journey.xml');
  return [...adb('shell','cat','/sdcard/ritmo-journey.xml').matchAll(/<node\s+([^>]+)>?/g)].map(match=>Object.fromEntries([...match[1]!.matchAll(/([\w-]+)="([^"]*)"/g)].map(pair=>[pair[1]!,decode(pair[2]!)])));
 }
-async function find(label:string,scroll=false) {
+async function find(label:string,scroll=false,minPixels=0) {
  const deadline=Date.now()+45000;let swipes=0;
  while(Date.now()<deadline) {
   const list=nodes(),node=list.find(n=>n.package===pkg&&n['content-desc']===label)??list.find(n=>n.package===pkg&&n.text===label);
-  if(node) return node;
+  if(node) {const box=node.bounds?.match(/-?\d+/g)?.map(Number);if(box&&box[2]!>box[0]!&&box[3]!>box[1]!&&box[2]!-box[0]!>=minPixels&&box[3]!-box[1]!>=minPixels) return node;}
   if(scroll&&swipes++<8) {const viewport=list.find(n=>n.package===pkg&&n.bounds)?.bounds?.match(/\d+/g)?.map(Number);if(viewport) adb('shell','input','swipe',String(Math.floor(viewport[2]!/2)),String(Math.floor(viewport[3]!*0.8)),String(Math.floor(viewport[2]!/2)),String(Math.floor(viewport[3]!*0.35)),'400');}
   await pause(300);
  }
@@ -48,13 +48,13 @@ function capture(name:string) {
  writeFileSync(join(folder,name+'.png'),execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'exec-out','screencap','-p'],{windowsHide:true,timeout:30000}));
 }
 test('visible Android product journey: registration, interrupted onboarding, empty Briefing, offline habit/XP, restart, undo/remark and HTTP convergence',
- {skip:!serial,timeout:600000},async()=>{
+ {skip:!serial,timeout:900000},async()=>{
  assert.ok(origin&&/^http:\/\/127[.]0[.]0[.]1:[0-9]+$/.test(origin));assert.match(serial!,/^emulator-[0-9]+$/);assert.equal(adb('shell','getprop','ro.kernel.qemu'),'1');
  assert.equal(adb('reverse','--list').includes(devicePort),false,'reserved test port already owned');
  const density=Number(adb('shell','wm','density').match(/(?:Override|Physical) density: ([0-9]+)/g)!.at(-1)!.split(':').pop()!.trim())/160;
  const targets:{label:string;widthPixels:number;heightPixels:number;density:number;scale:string}[]=[];let targetScale='100%';
  // Android exposes integer pixel rectangles; floor is the native lower rounding bound.
- const assertTarget=async(label:string,scroll=false)=>{const bounds=(await find(label,scroll)).bounds!.match(/\d+/g)!.map(Number),width=bounds[2]!-bounds[0]!,height=bounds[3]!-bounds[1]!;targets.push({label,widthPixels:width,heightPixels:height,density,scale:targetScale});assert.ok(width>=Math.floor(44*density)&&height>=Math.floor(44*density),'native_target_smaller_than_44_'+label+' '+width+'x'+height+' density='+density);};
+ const assertTarget=async(label:string,scroll=false)=>{const bounds=(await find(label,scroll,Math.floor(44*density))).bounds!.match(/-?\d+/g)!.map(Number),width=bounds[2]!-bounds[0]!,height=bounds[3]!-bounds[1]!;targets.push({label,widthPixels:width,heightPixels:height,density,scale:targetScale});assert.ok(width>=Math.floor(44*density)&&height>=Math.floor(44*density),'native_target_smaller_than_44_'+label+' '+width+'x'+height+' density='+density);};
  const wifi=adb('shell','settings','get','global','wifi_on'),data=adb('shell','settings','get','global','mobile_data'),font=adb('shell','settings','get','system','font_scale');
  const night=adb('shell','cmd','uimode','night').split(':').pop()!.trim(),animations=['animator_duration_scale','transition_animation_scale','window_animation_scale'].map(key=>[key,adb('shell','settings','get','global',key)] as const);
  assert.equal(wifi,'1');const run=randomUUID(),email=run+'@example.test',password='journey-fixture-password';
@@ -63,16 +63,18 @@ test('visible Android product journey: registration, interrupted onboarding, emp
  const disconnect=()=>{if(reversed){adb('reverse','--remove',devicePort);reversed=false;}};
  const restore=()=>{adb('shell','svc','wifi',wifi==='1'?'enable':'disable');adb('shell','svc','data',data==='1'?'enable':'disable');};
  try {
-  adb('wait-for-device');connect();launch();
+  adb('wait-for-device');adb('shell','settings','put','system','font_scale','1.0');adb('shell','cmd','uimode','night','no');connect();launch();
   // Previous synthetic runs may retain a session; leave it through the same public UI.
   let initial=nodes();const entryDeadline=Date.now()+45000;while(!initial.some(n=>n.package===pkg&&[pt.settings,pt.register,pt.onboarding,pt.firstHabit].some(label=>n['content-desc']===label||n.text===label))&&Date.now()<entryDeadline) {await pause(300);initial=nodes();}
   if(initial.some(n=>n.text===pt.onboarding||n.text===pt.firstHabit)) {await tap(pt.logout,true);await tap(pt.logout);await find(pt.register);}
   else if(initial.some(n=>n['content-desc']===pt.settings)) {
    await tap(pt.settings);await tap(pt.logout,true);await tap(pt.logout);await find(pt.register);
   }
-  await find(pt.register);await assertTarget(pt.register);await assertTarget(pt.privacy);capture('01-entrada');await tap(pt.register);await fill(pt.name,'Pessoa Journey');await fill(pt.email,email);await fill(pt.password,password);await tap(pt.password);capture('02-cadastro-teclado');adb('shell','input','keyevent','KEYCODE_BACK');await tap(pt.register,true);
-  await find(pt.onboarding);capture('02-fuso');await fill(pt.timezone,'UTC');await tap(pt.continue,true);await find(pt.firstHabit);
-  launch();await find(pt.firstHabit);report('onboarding_resumed');capture('03-primeiro-habito');await assertTarget(pt.skip,true);await tap(pt.skip,true);await find(pt.emptyTitle);await find(pt.synced);capture('04-briefing-vazio');report('empty_briefing');
+  await find(pt.register);await assertTarget(pt.register);await assertTarget(pt.privacy);capture('01-entrada');await tap(pt.privacy);await find(pt.privacyTitle);await assertTarget(pt.close);capture('01-privacidade');await tap(pt.close);await tap(pt.hasAccount);await find(pt.login);capture('01-login');await tap(pt.back);await tap(pt.register);capture('02-cadastro-vazio');await assertTarget(pt.registrationNoticeLabel,true);await tap(pt.registrationNoticeLabel,true);await find(pt.privacyTitle);await tap(pt.close,true);
+  adb('shell','settings','put','system','font_scale','2.0');targetScale='200%';launch();await find(pt.register);await tap(pt.register);await find(pt.name);capture('02-cadastro-200-topo');await assertTarget(pt.registrationNoticeLabel,true);capture('02-cadastro-200-rodape');await tap(pt.registrationNoticeLabel,true);await find(pt.privacyTitle);await assertTarget(pt.close,true);await tap(pt.close,true);
+  adb('shell','settings','put','system','font_scale','1.0');targetScale='100%';launch();await find(pt.register);await tap(pt.register);await find(pt.name);await fill(pt.name,'Pedro');await fill(pt.email,email);await fill(pt.password,password);await tap(pt.password);capture('02-cadastro-teclado');adb('shell','input','keyevent','KEYCODE_BACK');await tap(pt.register,true);
+  await find(pt.onboarding);capture('02-fuso');await tap(pt.changeTimezone);await fill(pt.timezone,'UTC');capture('02-fuso-editavel');await tap(pt.continue,true);await find(pt.firstHabit);
+  launch();await find(pt.firstHabit);report('onboarding_resumed');capture('03-primeiro-habito');adb('shell','settings','put','system','font_scale','2.0');targetScale='200%';launch();await find(pt.firstHabit);capture('03-primeiro-habito-200-topo');await assertTarget(pt.skip,true);capture('03-primeiro-habito-200');adb('shell','settings','put','system','font_scale','1.0');targetScale='100%';launch();await find(pt.firstHabit);await assertTarget(pt.skip,true);await assertTarget(pt.icons.meditation,true);await assertTarget(pt.colors.accent,true);await tap(pt.skip,true);await find(pt.emptyTitle);await find(pt.synced);capture('04-briefing-vazio');report('empty_briefing');
   const credentials=await new HttpIdentity(origin!).login(email,password,uuid());
   const day=getDayKey(new Date(),credentials.profile.timeContext.timezone,credentials.profile.timeContext.dayStartHour);
   other=openTestStore(':memory:',credentials.accountId,uuid());
@@ -92,9 +94,9 @@ test('visible Android product journey: registration, interrupted onboarding, emp
   for(const [key] of animations) adb('shell','settings','put','global',key,'0');
   adb('shell','settings','put','system','font_scale','2.0');targetScale='200%';launch();await find(pt.habitLabel('Leitura offline',true));await find('10',true);capture('08-texto-200');
   const privacy=await find(pt.settings);const bounds=privacy.bounds!.match(/\d+/g)!.map(Number);assert.ok(bounds[3]!>bounds[1]!);await assertTarget(pt.settings);await assertTarget(pt.habits);await assertTarget(pt.briefing);report('font_200');
-  await tap(pt.settings);await find(pt.logout,true);capture('09-ajustes-texto-200');await tap(pt.briefing);await find(pt.habitLabel('Leitura offline',true));
+  await tap(pt.settings);await find(pt.logout,true);capture('09-ajustes-texto-200');await tap(pt.privacy,true);await find(pt.privacyTitle);await assertTarget(pt.close,true);capture('09-privacidade-texto-200');await tap(pt.close,true);await tap(pt.briefing);await find(pt.habitLabel('Leitura offline',true));
   await tap(pt.habitLabel('Leitura offline',true));await find(pt.habitLabel('Leitura offline',false));await tap(pt.habitLabel('Leitura offline',false));await find(pt.habitLabel('Leitura offline',true));report('reduced_motion_action');
-  adb('shell','settings','put','system','font_scale',font);launch();await find(pt.habitLabel('Leitura offline',true));adb('shell','cmd','uimode','night','no');adb('wait-for-device');launch();await find(pt.habitLabel('Leitura offline',true));capture('10-briefing-claro');report('system_light');report('product_verified');
+  adb('shell','settings','put','system','font_scale','1.0');targetScale='100%';launch();await find(pt.habitLabel('Leitura offline',true));adb('shell','cmd','uimode','night','no');adb('wait-for-device');launch();await find(pt.habitLabel('Leitura offline',true));capture('10-briefing-claro');report('system_light');await tap(pt.settings);await find(pt.logout,true);capture('10-ajustes-claro');await tap(pt.logout,true);await find(pt.logoutTitle);await assertTarget(pt.cancel,true);capture('10-saida-claro');await tap(pt.cancel,true);await tap(pt.briefing);report('product_verified');
   const firstId=other.view(day).habits[0]!.habitId;
   disconnect();adb('shell','svc','wifi','disable');adb('shell','svc','data','disable');await find(pt.offline);
   await tap(pt.habits);await tap(pt.editLabel('Leitura offline'),true);await fill(pt.habitName,'Leitura revisada');await tap(pt.saveHabit,true);
@@ -102,8 +104,8 @@ test('visible Android product journey: registration, interrupted onboarding, emp
   await tap(pt.moveLabel('Caminhada',-1),true);const order=nodes().filter(n=>[pt.editLabel('Caminhada'),pt.editLabel('Leitura revisada')].includes(n['content-desc']??'')).map(n=>n['content-desc']);assert.deepEqual(order,[pt.editLabel('Caminhada'),pt.editLabel('Leitura revisada')]);capture('11-gestao-offline');report('management_offline');
   launch();await find(pt.habitLabel('Leitura revisada',true));await tap(pt.habits);await find(pt.editLabel('Caminhada'));report('management_reopened');
   other.enqueue({type:'habit.patchMetadata',habitId:firstId,patch:{iconKey:'writing',colorToken:'amber'}},uuid(),new Date().toISOString());await syncOther();
-  connect();restore();await find(pt.synced);await syncOther();assert.deepEqual(other.view(day).habits.map(h=>h.title),['Caminhada','Leitura revisada']);assert.equal(other.presentation(day).habits[1]!.iconKey,'writing');assert.equal(other.presentation(day).habits[1]!.colorToken,'amber');assert.equal(other.view(day).totalXp,10);report('independent_metadata_merged');capture('12-gestao-sincronizada');
-  disconnect();adb('shell','svc','wifi','disable');adb('shell','svc','data','disable');await find(pt.offline);await tap(pt.editLabel('Leitura revisada'),true);await tap(pt.icons.plant,true);await tap(pt.colors.violet,true);capture('13-preview-edicao');await tap(pt.saveHabit,true);
+  connect();restore();await tap(pt.briefing);await find(pt.synced);await syncOther();assert.deepEqual(other.view(day).habits.map(h=>h.title),['Caminhada','Leitura revisada']);assert.equal(other.presentation(day).habits[1]!.iconKey,'writing');assert.equal(other.presentation(day).habits[1]!.colorToken,'amber');assert.equal(other.view(day).totalXp,10);report('independent_metadata_merged');await tap(pt.habits);capture('12-gestao-sincronizada');
+  disconnect();adb('shell','svc','wifi','disable');adb('shell','svc','data','disable');await tap(pt.briefing);await find(pt.offline);await tap(pt.habits);await tap(pt.editLabel('Leitura revisada'),true);await tap(pt.icons.plant,true);await tap(pt.colors.violet,true);capture('13-preview-edicao');await assertTarget(pt.icons.plant,true);await assertTarget(pt.colors.violet,true);await tap(pt.saveHabit,true);
   launch();await find(pt.habitLabel('Leitura revisada',true));await tap(pt.habits);await tap(pt.editLabel('Leitura revisada'),true);assert.equal((await find(pt.icons.plant,true)).checked,'true');assert.equal((await find(pt.colors.violet,true)).checked,'true');await tap(pt.deleteHabit,true);await find(pt.deleteBody);await tap(pt.cancel,true);await find(pt.habitName);await tap(pt.deleteHabit,true);await find(pt.deleteTitle);await assertTarget(pt.deleteHabit,true);await assertTarget(pt.cancel,true);capture('14-confirmacao-exclusao');report('deletion_cancelled');await tap(pt.deleteHabit,true);await find(pt.editLabel('Caminhada'));launch();await find(pt.habitLabel('Caminhada',false));await find('0',true);assert.ok(!nodes().some(n=>n['content-desc']===pt.habitLabel('Leitura revisada',true)));report('deletion_reopened_offline');
   connect();restore();await find(pt.synced);await syncOther();assert.deepEqual(other.view(day).habits.map(h=>h.title),['Caminhada']);assert.equal(other.view(day).totalXp,0);capture('15-exclusao-sincronizada');report('deletion_converged');
   adb('shell','settings','put','system','font_scale','2.0');targetScale='200%';launch();await find(pt.habitLabel('Caminhada',false));await tap(pt.habits);await assertTarget(pt.editLabel('Caminhada'),true);await assertTarget(pt.moveLabel('Caminhada',-1),true);await assertTarget(pt.moveLabel('Caminhada',1),true);capture('16-gestao-texto-200');await tap(pt.editLabel('Caminhada'),true);await tap(pt.deleteHabit,true);await find(pt.deleteBody,true);await assertTarget(pt.deleteHabit,true);await assertTarget(pt.cancel,true);capture('17-exclusao-texto-200');await tap(pt.cancel,true);report('management_200_and_delete_targets');

@@ -1,0 +1,182 @@
+{
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "measurements": [
+    {
+      "label": "Criar conta",
+      "widthPixels": 954,
+      "heightPixels": 137,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Política de privacidade",
+      "widthPixels": 954,
+      "heightPixels": 115,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Fechar",
+      "widthPixels": 975,
+      "heightPixels": 136,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Pular por agora",
+      "widthPixels": 954,
+      "heightPixels": 165,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Pular por agora",
+      "widthPixels": 954,
+      "heightPixels": 136,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Meditação",
+      "widthPixels": 174,
+      "heightPixels": 126,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Destaque",
+      "widthPixels": 126,
+      "heightPixels": 126,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Leitura offline, feito",
+      "widthPixels": 896,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Ajustes",
+      "widthPixels": 339,
+      "heightPixels": 115,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Hábitos",
+      "widthPixels": 339,
+      "heightPixels": 115,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Briefing",
+      "widthPixels": 339,
+      "heightPixels": 115,
+      "density": 2.625,
+      "scale": "100%"
+    },
+    {
+      "label": "Ajustes",
+      "widthPixels": 339,
+      "heightPixels": 140,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Hábitos",
+      "widthPixels": 339,
+      "heightPixels": 140,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Briefing",
+      "widthPixels": 339,
+      "heightPixels": 140,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Fechar",
+      "widthPixels": 975,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Cancelar",
+      "widthPixels": 975,
+      "heightPixels": 136,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Planta",
+      "widthPixels": 174,
+      "heightPixels": 126,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Violeta",
+      "widthPixels": 126,
+      "heightPixels": 126,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Excluir hábito",
+      "widthPixels": 975,
+      "heightPixels": 136,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Cancelar",
+      "widthPixels": 975,
+      "heightPixels": 136,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Editar Caminhada",
+      "widthPixels": 938,
+      "heightPixels": 205,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Mover Caminhada para cima",
+      "widthPixels": 116,
+      "heightPixels": 142,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Mover Caminhada para baixo",
+      "widthPixels": 115,
+      "heightPixels": 142,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Excluir hábito",
+      "widthPixels": 975,
+      "heightPixels": 157,
+      "density": 2.625,
+      "scale": "200%"
+    },
+    {
+      "label": "Cancelar",
+      "widthPixels": 975,
+      "heightPixels": 165,
+      "density": 2.625,
+      "scale": "200%"
+    }
+  ],
+  "passed": true
+}

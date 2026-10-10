@@ -1,0 +1,553 @@
+{
+  "method": "WCAG sRGB relative luminance, full coverage pixels, no rounding before assertion",
+  "minimum": 3.1023390847896497,
+  "pairs": 72,
+  "modes": [
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "boundaries": [
+        {
+          "role": "interactive",
+          "border": "#6b7c85",
+          "surface": "base",
+          "bg": "#04090F",
+          "contrast": 4.611121222046466
+        },
+        {
+          "role": "interactive",
+          "border": "#6b7c85",
+          "surface": "elevated",
+          "bg": "#08141D",
+          "contrast": 4.296416851935053
+        },
+        {
+          "role": "interactive",
+          "border": "#6b7c85",
+          "surface": "input",
+          "bg": "#0c1016",
+          "contrast": 4.4009444972101495
+        },
+        {
+          "role": "interactive",
+          "border": "#6b7c85",
+          "surface": "inputElevated",
+          "bg": "#0f1b24",
+          "contrast": 4.0304953984677905
+        },
+        {
+          "role": "input",
+          "border": "#6b7c85",
+          "surface": "base",
+          "bg": "#04090F",
+          "contrast": 4.611121222046466
+        },
+        {
+          "role": "input",
+          "border": "#6b7c85",
+          "surface": "elevated",
+          "bg": "#08141D",
+          "contrast": 4.296416851935053
+        },
+        {
+          "role": "input",
+          "border": "#6b7c85",
+          "surface": "input",
+          "bg": "#0c1016",
+          "contrast": 4.4009444972101495
+        },
+        {
+          "role": "input",
+          "border": "#6b7c85",
+          "surface": "inputElevated",
+          "bg": "#0f1b24",
+          "contrast": 4.0304953984677905
+        },
+        {
+          "role": "inputElevated",
+          "border": "#6b7c85",
+          "surface": "base",
+          "bg": "#04090F",
+          "contrast": 4.611121222046466
+        },
+        {
+          "role": "inputElevated",
+          "border": "#6b7c85",
+          "surface": "elevated",
+          "bg": "#08141D",
+          "contrast": 4.296416851935053
+        },
+        {
+          "role": "inputElevated",
+          "border": "#6b7c85",
+          "surface": "input",
+          "bg": "#0c1016",
+          "contrast": 4.4009444972101495
+        },
+        {
+          "role": "inputElevated",
+          "border": "#6b7c85",
+          "surface": "inputElevated",
+          "bg": "#0f1b24",
+          "contrast": 4.0304953984677905
+        }
+      ],
+      "minimum": 4.0304953984677905
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "boundaries": [
+        {
+          "role": "interactive",
+          "border": "#818c8e",
+          "surface": "base",
+          "bg": "#EDF4F4",
+          "contrast": 3.1023390847896497
+        },
+        {
+          "role": "interactive",
+          "border": "#818c8e",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.456643540845023
+        },
+        {
+          "role": "interactive",
+          "border": "#818c8e",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.2731994011946335
+        },
+        {
+          "role": "interactive",
+          "border": "#818c8e",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.2731994011946335
+        },
+        {
+          "role": "input",
+          "border": "#818c8e",
+          "surface": "base",
+          "bg": "#EDF4F4",
+          "contrast": 3.1023390847896497
+        },
+        {
+          "role": "input",
+          "border": "#818c8e",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.456643540845023
+        },
+        {
+          "role": "input",
+          "border": "#818c8e",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.2731994011946335
+        },
+        {
+          "role": "input",
+          "border": "#818c8e",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.2731994011946335
+        },
+        {
+          "role": "inputElevated",
+          "border": "#818c8e",
+          "surface": "base",
+          "bg": "#EDF4F4",
+          "contrast": 3.1023390847896497
+        },
+        {
+          "role": "inputElevated",
+          "border": "#818c8e",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.456643540845023
+        },
+        {
+          "role": "inputElevated",
+          "border": "#818c8e",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.2731994011946335
+        },
+        {
+          "role": "inputElevated",
+          "border": "#818c8e",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.2731994011946335
+        }
+      ],
+      "minimum": 3.1023390847896497
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "boundaries": [
+        {
+          "role": "interactive",
+          "border": "#707b81",
+          "surface": "base",
+          "bg": "#06080B",
+          "contrast": 4.6205345919378304
+        },
+        {
+          "role": "interactive",
+          "border": "#707b81",
+          "surface": "elevated",
+          "bg": "#0D141A",
+          "contrast": 4.274502010857087
+        },
+        {
+          "role": "interactive",
+          "border": "#707b81",
+          "surface": "input",
+          "bg": "#0d0f12",
+          "contrast": 4.4226186462403225
+        },
+        {
+          "role": "interactive",
+          "border": "#707b81",
+          "surface": "inputElevated",
+          "bg": "#141b21",
+          "contrast": 4.004313878176483
+        },
+        {
+          "role": "input",
+          "border": "#707b81",
+          "surface": "base",
+          "bg": "#06080B",
+          "contrast": 4.6205345919378304
+        },
+        {
+          "role": "input",
+          "border": "#707b81",
+          "surface": "elevated",
+          "bg": "#0D141A",
+          "contrast": 4.274502010857087
+        },
+        {
+          "role": "input",
+          "border": "#707b81",
+          "surface": "input",
+          "bg": "#0d0f12",
+          "contrast": 4.4226186462403225
+        },
+        {
+          "role": "input",
+          "border": "#707b81",
+          "surface": "inputElevated",
+          "bg": "#141b21",
+          "contrast": 4.004313878176483
+        },
+        {
+          "role": "inputElevated",
+          "border": "#707b81",
+          "surface": "base",
+          "bg": "#06080B",
+          "contrast": 4.6205345919378304
+        },
+        {
+          "role": "inputElevated",
+          "border": "#707b81",
+          "surface": "elevated",
+          "bg": "#0D141A",
+          "contrast": 4.274502010857087
+        },
+        {
+          "role": "inputElevated",
+          "border": "#707b81",
+          "surface": "input",
+          "bg": "#0d0f12",
+          "contrast": 4.4226186462403225
+        },
+        {
+          "role": "inputElevated",
+          "border": "#707b81",
+          "surface": "inputElevated",
+          "bg": "#141b21",
+          "contrast": 4.004313878176483
+        }
+      ],
+      "minimum": 4.004313878176483
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "boundaries": [
+        {
+          "role": "interactive",
+          "border": "#828b8f",
+          "surface": "base",
+          "bg": "#EEF3F5",
+          "contrast": 3.108901475220347
+        },
+        {
+          "role": "interactive",
+          "border": "#828b8f",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.4774851145953134
+        },
+        {
+          "role": "interactive",
+          "border": "#828b8f",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.2929349122223996
+        },
+        {
+          "role": "interactive",
+          "border": "#828b8f",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.2929349122223996
+        },
+        {
+          "role": "input",
+          "border": "#828b8f",
+          "surface": "base",
+          "bg": "#EEF3F5",
+          "contrast": 3.108901475220347
+        },
+        {
+          "role": "input",
+          "border": "#828b8f",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.4774851145953134
+        },
+        {
+          "role": "input",
+          "border": "#828b8f",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.2929349122223996
+        },
+        {
+          "role": "input",
+          "border": "#828b8f",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.2929349122223996
+        },
+        {
+          "role": "inputElevated",
+          "border": "#828b8f",
+          "surface": "base",
+          "bg": "#EEF3F5",
+          "contrast": 3.108901475220347
+        },
+        {
+          "role": "inputElevated",
+          "border": "#828b8f",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.4774851145953134
+        },
+        {
+          "role": "inputElevated",
+          "border": "#828b8f",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.2929349122223996
+        },
+        {
+          "role": "inputElevated",
+          "border": "#828b8f",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.2929349122223996
+        }
+      ],
+      "minimum": 3.108901475220347
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "boundaries": [
+        {
+          "role": "interactive",
+          "border": "#7f7888",
+          "surface": "base",
+          "bg": "#0D0A12",
+          "contrast": 4.624216010508098
+        },
+        {
+          "role": "interactive",
+          "border": "#7f7888",
+          "surface": "elevated",
+          "bg": "#171022",
+          "contrast": 4.361595266707228
+        },
+        {
+          "role": "interactive",
+          "border": "#7f7888",
+          "surface": "input",
+          "bg": "#141119",
+          "contrast": 4.399179572315069
+        },
+        {
+          "role": "interactive",
+          "border": "#7f7888",
+          "surface": "inputElevated",
+          "bg": "#1e1729",
+          "contrast": 4.087108773724249
+        },
+        {
+          "role": "input",
+          "border": "#7f7888",
+          "surface": "base",
+          "bg": "#0D0A12",
+          "contrast": 4.624216010508098
+        },
+        {
+          "role": "input",
+          "border": "#7f7888",
+          "surface": "elevated",
+          "bg": "#171022",
+          "contrast": 4.361595266707228
+        },
+        {
+          "role": "input",
+          "border": "#7f7888",
+          "surface": "input",
+          "bg": "#141119",
+          "contrast": 4.399179572315069
+        },
+        {
+          "role": "input",
+          "border": "#7f7888",
+          "surface": "inputElevated",
+          "bg": "#1e1729",
+          "contrast": 4.087108773724249
+        },
+        {
+          "role": "inputElevated",
+          "border": "#7f7888",
+          "surface": "base",
+          "bg": "#0D0A12",
+          "contrast": 4.624216010508098
+        },
+        {
+          "role": "inputElevated",
+          "border": "#7f7888",
+          "surface": "elevated",
+          "bg": "#171022",
+          "contrast": 4.361595266707228
+        },
+        {
+          "role": "inputElevated",
+          "border": "#7f7888",
+          "surface": "input",
+          "bg": "#141119",
+          "contrast": 4.399179572315069
+        },
+        {
+          "role": "inputElevated",
+          "border": "#7f7888",
+          "surface": "inputElevated",
+          "bg": "#1e1729",
+          "contrast": 4.087108773724249
+        }
+      ],
+      "minimum": 4.087108773724249
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "boundaries": [
+        {
+          "role": "interactive",
+          "border": "#8e8792",
+          "surface": "base",
+          "bg": "#F6F1F7",
+          "contrast": 3.124582567694367
+        },
+        {
+          "role": "interactive",
+          "border": "#8e8792",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.482119113595816
+        },
+        {
+          "role": "interactive",
+          "border": "#8e8792",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.297322984806208
+        },
+        {
+          "role": "interactive",
+          "border": "#8e8792",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.297322984806208
+        },
+        {
+          "role": "input",
+          "border": "#8e8792",
+          "surface": "base",
+          "bg": "#F6F1F7",
+          "contrast": 3.124582567694367
+        },
+        {
+          "role": "input",
+          "border": "#8e8792",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.482119113595816
+        },
+        {
+          "role": "input",
+          "border": "#8e8792",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.297322984806208
+        },
+        {
+          "role": "input",
+          "border": "#8e8792",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.297322984806208
+        },
+        {
+          "role": "inputElevated",
+          "border": "#8e8792",
+          "surface": "base",
+          "bg": "#F6F1F7",
+          "contrast": 3.124582567694367
+        },
+        {
+          "role": "inputElevated",
+          "border": "#8e8792",
+          "surface": "elevated",
+          "bg": "#FFFFFF",
+          "contrast": 3.482119113595816
+        },
+        {
+          "role": "inputElevated",
+          "border": "#8e8792",
+          "surface": "input",
+          "bg": "#F7F9FA",
+          "contrast": 3.297322984806208
+        },
+        {
+          "role": "inputElevated",
+          "border": "#8e8792",
+          "surface": "inputElevated",
+          "bg": "#F7F9FA",
+          "contrast": 3.297322984806208
+        }
+      ],
+      "minimum": 3.124582567694367
+    }
+  ]
+}

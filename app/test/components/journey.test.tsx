@@ -55,7 +55,7 @@ test('logout fences the rendered account immediately; login B never renders A da
 test('privacy is a full accessible action before registration and its sheet closes',async()=>{
  const f=fixture();try {
   await mount(f);await fireEvent.press(screen.getByRole('button',{name:pt.register}));
-  await fireEvent.press(screen.getByRole('button',{name:pt.privacy}));expect(screen.getByRole('header',{name:pt.privacyTitle})).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button',{name:pt.registrationNoticeLabel}));expect(screen.getByRole('header',{name:pt.privacyTitle})).toBeOnTheScreen();
   await fireEvent.press(screen.getByRole('button',{name:pt.close}));expect(screen.queryByRole('header',{name:pt.privacyTitle})).toBeNull();expect(screen.getByLabelText(pt.name)).toBeOnTheScreen();
  } finally {f.close();}
 });
@@ -91,7 +91,7 @@ test('management edits only changed fields; failed save preserves the draft and 
   fault=new SQLite(f.path());fault.exec("CREATE TRIGGER fail_edit BEFORE INSERT ON projected_views BEGIN SELECT RAISE(ABORT,'fixture'); END");
   await fireEvent.press(screen.getByRole('button',{name:pt.saveHabit}));expect(screen.getByLabelText(pt.habitName)).toHaveDisplayValue('Ler mais');expect(screen.getByText(pt.localFailure)).toBeOnTheScreen();expect(f.journey.state().local?.habits[0]?.title).toBe('Ler');
   fault.exec('DROP TRIGGER fail_edit');await fireEvent.press(screen.getByRole('button',{name:pt.saveHabit}));expect(screen.getByRole('button',{name:pt.editLabel('Ler mais')})).toBeOnTheScreen();expect(f.session.account().operations().at(-1)?.command).toMatchObject({type:'habit.patchMetadata',patch:{title:'Ler mais'}});
-  await fireEvent.press(screen.getByRole('button',{name:pt.editLabel('Ler mais')}));await fireEvent.press(screen.getByRole('button',{name:pt.deleteHabit}));expect(screen.getByText(pt.deleteBody)).toBeOnTheScreen();const before=f.session.account().operations();await fireEvent.press(screen.getByRole('button',{name:pt.cancel}));expect(f.session.account().operations()).toEqual(before);expect(f.journey.state().local?.totalXp).toBe(10);
+  await fireEvent.press(screen.getByRole('button',{name:pt.editLabel('Ler mais')}));await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Ler depois');await fireEvent.press(screen.getByRole('button',{name:pt.deleteHabit}));expect(screen.getByText(pt.deleteBody)).toBeOnTheScreen();expect(screen.queryByLabelText(pt.habitName)).toBeNull();const before=f.session.account().operations();await fireEvent.press(screen.getByRole('button',{name:pt.cancel}));expect(screen.getByLabelText(pt.habitName)).toHaveDisplayValue('Ler depois');expect(f.session.account().operations()).toEqual(before);expect(f.journey.state().local?.totalXp).toBe(10);
  } finally {fault?.close();f.close();}
 });
 test('delete failure retains confirmation and data; retry deletes durably and returns useful management empty state',async()=>{
