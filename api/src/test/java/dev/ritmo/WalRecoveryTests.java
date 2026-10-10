@@ -97,9 +97,14 @@ class WalRecoveryTests {
         sql(db,"SELECT pg_reload_conf()");
     }
     private void awaitFlush(PostgreSQLContainer db,GenericContainer<?> receiver) throws Exception {
-        try {Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(db,"SELECT public.ritmo_wal_status(null)->>'durable'").equals("true"));}
+        awaitFlush(db,db.getUsername(),db.getPassword(),receiver);
+    }
+    private void awaitFlush(GenericContainer<?> db,String owner,String password,GenericContainer<?> receiver) throws Exception {
+        // Keep one barrier as the API does; a fresh marker on every poll races the receiver.
+        String position=sql(db,owner,password,"SELECT public.ritmo_wal_status(null)->>'position'");
+        try {Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(db,owner,password,"SELECT public.ritmo_wal_status('"+position+"'::pg_lsn)->>'durable'").equals("true"));}
         catch(org.awaitility.core.ConditionTimeoutException e) {
-            throw new AssertionError(receiver.execInContainer("cat","/tmp/receiver.log").getStdout()+sql(db,"SELECT json_build_object('setting',current_setting('synchronous_standby_names'),'status',public.ritmo_wal_status(null),'receivers',(select json_agg(json_build_object('user',usename,'name',application_name,'flush',flush_lsn,'state',sync_state)) from pg_stat_replication))"),e);
+            throw new AssertionError(receiver.execInContainer("cat","/tmp/receiver.log").getStdout()+sql(db,owner,password,"SELECT json_build_object('setting',current_setting('synchronous_standby_names'),'status',public.ritmo_wal_status('"+position+"'::pg_lsn),'receivers',(select json_agg(json_build_object('user',usename,'name',application_name,'flush',flush_lsn,'state',sync_state)) from pg_stat_replication))"),e);
         }
     }
     private JsonNode operation(String device,int sequence,JsonNode command) {
@@ -280,7 +285,7 @@ class WalRecoveryTests {
                     "RITMO_RECOVERY_QUARANTINE=true","RITMO_RECOVERY_VERIFIED=true","sh","/tmp/prepare-recovery.sh");
                 sql(restored,owner,password,"SELECT pg_create_physical_replication_slot('ritmo_wal',true)");startReceiver(receiver);
                 sql(restored,owner,password,"ALTER SYSTEM SET synchronous_standby_names='FIRST 1 (ritmo_wal)'");sql(restored,owner,password,"SELECT pg_reload_conf()");
-                Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(restored,owner,password,"SELECT public.ritmo_wal_status(null)->>'durable'").equals("true"));
+                awaitFlush(restored,owner,password,receiver);
                 String secondTarget;String secondDevice=Json.id();JsonNode secondOp;
                 String url="jdbc:postgresql://"+restored.getHost()+":"+restored.getMappedPort(5432)+"/test";
                 try(var api=startApi(url,owner,password,Map.of("ritmo.operations.wal-wait-ms","2000","ritmo.signing-key",Base64.getEncoder().encodeToString("wal-recovery-key-32-bytes-exactly!".getBytes(java.nio.charset.StandardCharsets.UTF_8))))) {
@@ -302,7 +307,7 @@ class WalRecoveryTests {
                     assertThat(entities.valueStream().filter(e->e.path("kind").asString().equals("xpBudget")).mapToInt(e->e.at("/value/consumed").asInt()).sum()).isEqualTo(20);
                     secondOp=operation(secondDevice,1,onboarding());push(api,token,secondOp);
                     secondTarget=sql(restored,owner,password,"SELECT pg_create_restore_point('fixture_second_timeline')");
-                    Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(restored,owner,password,"SELECT public.ritmo_wal_status(null)->>'durable'").equals("true"));
+                    awaitFlush(restored,owner,password,receiver);
                     succeed(receiver,"test","-f","/tmp/archive/wal/00000002.history");
                 }
                 // Second loss, original base: recovery must traverse the timeline-1 -> timeline-2 fork.
@@ -324,7 +329,7 @@ class WalRecoveryTests {
                         "RITMO_RECOVERY_QUARANTINE=true","RITMO_RECOVERY_VERIFIED=true","sh","/tmp/prepare-recovery.sh");
                     sql(second,owner,password,"SELECT pg_create_physical_replication_slot('ritmo_wal',true)");startReceiver(receiver);
                     sql(second,owner,password,"ALTER SYSTEM SET synchronous_standby_names='FIRST 1 (ritmo_wal)'");sql(second,owner,password,"SELECT pg_reload_conf()");
-                    Awaitility.await().atMost(Duration.ofSeconds(15)).until(()->sql(second,owner,password,"SELECT public.ritmo_wal_status(null)->>'durable'").equals("true"));
+                    awaitFlush(second,owner,password,receiver);
                     var key=new byte[32];Arrays.fill(key,(byte)3);
                     try(var api=startApi("jdbc:postgresql://"+second.getHost()+":"+second.getMappedPort(5432)+"/test",owner,password,Map.of("ritmo.operations.wal-wait-ms","2000","ritmo.signing-key",Base64.getEncoder().encodeToString(key)))) {
                         var login=post(api,"auth/login",null,Json.object().put("email","wal-a@example.test").put("password","fixture-new-password").put("deviceId",secondDevice),200);
