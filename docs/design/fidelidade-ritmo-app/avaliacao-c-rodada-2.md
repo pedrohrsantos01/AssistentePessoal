@@ -1,0 +1,9 @@
+# Pareceres — grupo C, rodada 2
+
+Renderizações atuais de criação/edição, gestão, Ajustes, sessão e sincronização. Modelos e contextos novos: Briefing GPT-6.1 Sol, Sistema GPT-6 Luna, Visual GPT-6 Astra. Sem leitura de implementação pelos críticos.
+
+- Briefing: **APROVADO** para a cobertura visível. Campos/ações, gestão/ordenação, consequências/cancelamento, privacidade, cofre/abertura/mesma conta, recusa/correção, identidade incerta, cópia inicial e somente leitura presentes. Fotografias não comprovam regras de negócio ou persistência. Não há captura dedicada do formulário inteiro de edição 200%; identidade 200% mostra o topo, sem provar rolagem até ações.
+- Sistema: **REPROVADO**. [Cofre 200%](../evidencias/2026-10-11/ritmo-app-android/sessao-final/02-cofre-200.png) repete a descrição longa numa pílula com borda excessivamente arredondada, que cruza linhas do texto. A lacuna foi confirmada na imagem original. Demais painéis têm composição consistente, inclusive ações acima do IME. Perfil e ações reais explicam a diferença autorizada de conteúdo em Ajustes.
+- Visual: **APROVADO**. Nos pares C01/C02/C03/C05 escolheu esquerda; C02 corresponde à referência, cuja leitura é mais limpa sem os controles de ordem autorizados. Maior diferença residual é peso dos contornos funcionais, admitido pelo contraste. Complemento de exclusão/privacidade/abertura e sync: overlay, handle, margens, tipografia e ações coerentes; salvar/descartar/fechar expostos acima do teclado. Estado 200% de identidade só comprova o topo. O complemento do Visual não incluiu a captura 02-cofre-200 que motivou a reprovação de Sistema.
+
+Jornada APK 3 e sessão/sync APK 4 passaram funcionalmente; isso não aprova o defeito visual. Grupo C permanece aberto para C3, corrigindo exclusivamente a pílula longa. Limite 3 sem aprovação por maioria.

@@ -1,5 +1,6 @@
 import {act,fireEvent,render,screen,waitFor} from '@testing-library/react-native';
 import SQLite from 'better-sqlite3';
+import {Dimensions,StyleSheet} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ThemeProvider} from '../../src/theme/theme.tsx';
 import {tokens} from '../../src/theme/tokens.ts';
@@ -27,22 +28,22 @@ test('the native components go through onboarding, skip, create and mark/undo us
   await act(async()=>{await f.session.login('a@example.test','password');});await mount(f);
   await fireEvent.press(screen.getByRole('button',{name:pt.continue}));
   expect(screen.getByRole('header',{name:pt.firstHabit})).toBeOnTheScreen();await fireEvent.press(screen.getByRole('button',{name:pt.skip}));
-  expect(screen.getByRole('header',{name:pt.emptyTitle})).toBeOnTheScreen();await fireEvent.press(screen.getByRole('button',{name:pt.createHabit}));
+  expect(screen.getByRole('header',{name:pt.emptyTitle})).toBeOnTheScreen();await fireEvent.press(screen.getByRole('button',{name:pt.firstHabitCreate}));
   await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Ler um capítulo');await fireEvent.press(screen.getByRole('radio',{name:pt.icons.reading}));await fireEvent.press(screen.getByRole('radio',{name:pt.colors.blue}));await fireEvent.press(screen.getByRole('button',{name:pt.createHabit}));
   await fireEvent.press(screen.getByRole('checkbox',{name:pt.habitLabel('Ler um capítulo',false)}));
   expect(screen.getByRole('checkbox',{checked:true})).toBeOnTheScreen();expect(f.journey.state().local?.totalXp).toBe(10);
   await fireEvent.press(screen.getByRole('checkbox',{checked:true}));expect(f.journey.state().local?.totalXp).toBe(0);
   await fireEvent.press(screen.getByRole('checkbox',{checked:false}));expect(f.journey.state().local?.totalXp).toBe(10);
-  expect(screen.getByText('10')).toBeOnTheScreen();const creations=f.session.account().operations().filter(op=>op.command.type==='habit.create');expect(creations).toHaveLength(1);expect(creations[0]?.command).toMatchObject({iconKey:'reading',colorToken:'blue'});
+  expect(screen.getByText(pt.totalXp(10))).toBeOnTheScreen();const creations=f.session.account().operations().filter(op=>op.command.type==='habit.create');expect(creations).toHaveLength(1);expect(creations[0]?.command).toMatchObject({iconKey:'reading',colorToken:'blue'});
  } finally {f.close();}
 });
 test('a durable write failure keeps the form and step and never renders a successful habit',async()=>{
  const f=fixture();let fault:SQLite.Database|undefined;try {
   await f.session.login('a@example.test','password');f.journey.confirmTime({timezone:'UTC',dayStartHour:4});await mount(f);
   fault=new SQLite(f.path());fault.exec("CREATE TRIGGER fail_component BEFORE INSERT ON projected_views BEGIN SELECT RAISE(ABORT,'fixture'); END");
-  await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Meditar');await fireEvent.press(screen.getByRole('button',{name:pt.createHabit}));
+  await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Meditar');await fireEvent.press(screen.getByRole('button',{name:pt.firstHabitAction}));
   expect(screen.getByLabelText(pt.habitName)).toHaveDisplayValue('Meditar');expect(screen.getByText(pt.localFailure)).toBeOnTheScreen();expect(f.journey.state().local?.step).toBe('first_habit');expect(f.journey.state().local?.habits).toHaveLength(0);
-  fault.exec('DROP TRIGGER fail_component');await fireEvent.press(screen.getByRole('button',{name:pt.createHabit}));expect(screen.getByRole('checkbox',{checked:false})).toBeOnTheScreen();
+  fault.exec('DROP TRIGGER fail_component');await fireEvent.press(screen.getByRole('button',{name:pt.firstHabitAction}));expect(screen.getByRole('checkbox',{checked:false})).toBeOnTheScreen();
  } finally {fault?.close();f.close();}
 });
 test('logout fences the rendered account immediately; login B never renders A data',async()=>{
@@ -133,6 +134,43 @@ test('Briefing distinguishes no due habits from no habits; management can edit a
 });
 
 
+test('Briefing at 200% summarizes the update requirement while preserving the read-only gate and local work',async()=>{
+ const readDimensions=Dimensions.get.bind(Dimensions),dimensions=jest.spyOn(Dimensions,'get').mockImplementation(kind=>({...readDimensions(kind),width:390,height:844,fontScale:2})),f=fixture();
+ try {
+  await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Consulta preservada','reading','blue',false);const id=f.journey.state().local!.habits[0]!.habitId;f.journey.toggle(id,false);
+  const queue=f.session.account().operations(),metadata=f.journey.state().local!.managementHabits;
+  const expectReadable=(text:string)=>{let node:ReturnType<typeof screen.getByText>|null=screen.getByText(text);let opacity=1;while(node){opacity*=StyleSheet.flatten(node.props.style)?.opacity??1;node=node.parent;}expect(opacity).toBe(1);};
+  f.requireUpdate();await mount(f);
+  expect(f.journey.state()).toMatchObject({remote:pt.update,writable:false});expect(screen.getAllByText(pt.update)).toHaveLength(1);expect(screen.getByText(pt.updateCompact)).toBeOnTheScreen();
+  const habit=screen.getByRole('checkbox',{name:pt.habitLabel('Consulta preservada',true)});expect(habit).toBeDisabled();expect(habit.props.accessibilityState).toMatchObject({disabled:true,checked:true});
+  expectReadable('Consulta preservada');expectReadable('📖');expectReadable(pt.operationStates.pending);
+  expect(habit.queryAll(node=>StyleSheet.flatten(node.props.style)?.opacity===tokens('dark').metrics.disabledOpacity).length).toBeGreaterThan(0);await fireEvent.press(habit);
+  await fireEvent.press(screen.getByRole('button',{name:pt.syncPillLabel(pt.update)}));expect(screen.getByRole('header',{name:pt.syncTitle})).toBeOnTheScreen();expect(screen.getByText(pt.update)).toBeOnTheScreen();await fireEvent.press(screen.getByRole('button',{name:pt.close}));
+  await fireEvent.press(screen.getByRole('tab',{name:pt.habits}));expect(screen.getByRole('button',{name:pt.newHabit})).toBeDisabled();const edit=screen.getByRole('button',{name:pt.editLabel('Consulta preservada')});expect(edit).toBeDisabled();expect(edit.props.accessibilityState).toMatchObject({disabled:true});
+  expectReadable('Consulta preservada');expectReadable('📖');expectReadable(pt.managementHabitCaption);expectReadable(pt.operationStates.pending);
+  expect(screen.getByText(pt.symbols.chevron)).toHaveStyle({opacity:tokens('dark').metrics.disabledOpacity});
+  await fireEvent.press(edit);await fireEvent.press(screen.getByRole('button',{name:pt.newHabit}));
+  for(const direction of [-1,1] as const){const move=screen.getByRole('button',{name:pt.moveLabel('Consulta preservada',direction)});expect(move).toBeDisabled();await fireEvent.press(move);}
+  expect(screen.queryByLabelText(pt.habitName)).toBeNull();
+  await act(()=>{expect(f.journey.create('Bloqueado','reading','blue',false)).toBe(false);});
+  expect(f.journey.state()).toMatchObject({remote:pt.update,writable:false});expect(f.session.account().operations()).toEqual(queue);expect(f.journey.state().local?.totalXp).toBe(10);expect(f.journey.state().local?.managementHabits).toEqual(metadata);
+ } finally {dimensions.mockRestore();f.close();}
+});
+
+test('Briefing at 200% keeps the full vault notice and actionable sync summary without changing local work',async()=>{
+ const readDimensions=Dimensions.get.bind(Dimensions),dimensions=jest.spyOn(Dimensions,'get').mockImplementation(kind=>({...readDimensions(kind),width:390,height:844,fontScale:2})),f=fixture();
+ try {
+  await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Local preservado','reading','blue',false);f.journey.toggle(f.journey.state().local!.habits[0]!.habitId,false);
+  const queue=f.session.account().operations(),read=f.vault.get;f.vault.get=async()=>{throw new Error('private_keychain_error');};await f.session.retryVault();await mount(f);
+  expect(f.journey.state()).toMatchObject({remote:pt.vault,vaultUnavailable:true,writable:true});
+  expect(screen.getAllByText(pt.vault)).toHaveLength(1);expect(screen.getByText(pt.vaultCompact)).toBeOnTheScreen();expect(screen.getByRole('button',{name:pt.retryVault})).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button',{name:pt.syncPillLabel(pt.vault)}));expect(screen.getByRole('header',{name:pt.syncTitle})).toBeOnTheScreen();expect(screen.getByText(pt.vault)).toBeOnTheScreen();
+  expect(f.session.account().operations()).toEqual(queue);expect(f.journey.state().local?.totalXp).toBe(10);
+  await fireEvent.press(screen.getByRole('button',{name:pt.close}));f.vault.get=read;await fireEvent.press(screen.getByRole('button',{name:pt.retryVault}));
+  await waitFor(()=>expect(screen.queryByText(pt.vaultCompact)).toBeNull());expect(f.journey.state().vaultUnavailable).toBe(false);expect(f.session.account().operations()).toEqual(queue);expect(f.journey.state().local?.totalXp).toBe(10);
+ } finally {dimensions.mockRestore();f.close();}
+});
+
 test('vault pause is actionable in management and creation while local writing continues',async()=>{
  const f=fixture();try {
   await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Local preservado','reading','blue',false);
@@ -184,16 +222,17 @@ test('installation failure prevents login and retry opens only after control bec
 });
 
 test('expired remote authentication remains local and only the same online account can reauthenticate',async()=>{
- const f=await openingFixture();try {
+ const readDimensions=Dimensions.get.bind(Dimensions),dimensions=jest.spyOn(Dimensions,'get').mockImplementation(kind=>({...readDimensions(kind),width:390,height:844,fontScale:2})),f=await openingFixture();try {
   const login=f.identity.login;f.identity.login=async(...args)=>({...await login(...args),accessExpiresAt:'2000-01-01T00:00:00Z'});
   await f.owner.session.login('a@example.test','password');f.journey.skip();f.journey.create('Ainda local','reading','blue',false);await mount(f);
   await act(async()=>{f.scheduler.update({active:true,online:true});});await waitFor(()=>expect(f.journey.state().remote).toBe(pt.remoteLogin));
+  expect(screen.getByText(pt.remoteLoginCompact)).toBeOnTheScreen();expect(screen.getAllByText(pt.remoteLogin)).toHaveLength(1);expect(screen.getByRole('button',{name:pt.syncPillLabel(pt.remoteLogin)})).toBeOnTheScreen();expect(f.journey.state()).toMatchObject({authenticationRequired:true,writable:true});
   await fireEvent.press(screen.getByRole('tab',{name:pt.habits}));await fireEvent.press(screen.getByRole('button',{name:pt.reauth}));expect(screen.getByRole('header',{name:pt.reauth})).toBeOnTheScreen();
   await fireEvent.changeText(screen.getByLabelText(pt.email),'a@example.test');await fireEvent.changeText(screen.getByLabelText(pt.password),'password');await act(()=>f.scheduler.update({active:false,online:false}));
   await fireEvent.press(screen.getByRole('button',{name:pt.login}));expect(screen.getByLabelText(pt.email)).toHaveDisplayValue('a@example.test');expect(screen.getByLabelText(pt.password)).toHaveDisplayValue('password');
   f.identity.login=login;await act(()=>f.scheduler.update({active:false,online:true}));await fireEvent.changeText(screen.getByLabelText(pt.email),'b@example.test');await fireEvent.press(screen.getByRole('button',{name:pt.login}));expect(screen.getByText('Entre na mesma conta para recuperar a conexão. Para usar outra conta, saia primeiro.')).toBeOnTheScreen();
   await fireEvent.changeText(screen.getByLabelText(pt.email),'a@example.test');await fireEvent.press(screen.getByRole('button',{name:pt.login}));await waitFor(()=>expect(screen.getByRole('checkbox',{name:pt.habitLabel('Ainda local',false)})).toBeOnTheScreen());expect(f.owner.session.account().operations().some(op=>op.command.type==='habit.create'&&op.command.title==='Ainda local')).toBe(true);
- } finally {f.close();}
+ } finally {dimensions.mockRestore();f.close();}
 });
 
 test('a vault write failure during new login cannot activate an account and retry keeps typed fields',async()=>{
@@ -255,4 +294,43 @@ test('a failed correction preserves typed fields and unresolved intent; repeated
   const count=announce.mock.calls.length;await act(async()=>{f.journey.refresh();f.journey.refresh();});expect(announce.mock.calls.length).toBe(count);
   db.exec('drop trigger fail_correction');await fireEvent.press(screen.getByRole('button',{name:pt.correctOperation}));expect(f.journey.state().local?.habits[0]?.title).toBe('Campos preservados');announce.mockRestore();
  } finally {db?.close();f.close();}
+});
+
+
+test('first habit suggestions stay simple, retain a draft when revisiting time, and keep all day-start hours available',async()=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');await mount(f);
+  await fireEvent.press(screen.getByRole('button',{name:pt.otherHours}));await fireEvent.press(screen.getByRole('radio',{name:pt.hour(23)}));await fireEvent.changeText(screen.getByLabelText(pt.timezone),'America/Sao_Paulo');await fireEvent.press(screen.getByRole('button',{name:pt.continue}));
+  expect(screen.queryByRole('radio')).toBeNull();expect(screen.queryByText(pt.icon)).toBeNull();
+  await fireEvent.press(screen.getByRole('button',{name:pt.suggestionLabel('Ler 20 páginas','📖')}));await fireEvent.press(screen.getByRole('button',{name:pt.back}));
+  expect(screen.getByLabelText(pt.timezone)).toHaveDisplayValue('America/Sao_Paulo');expect(screen.getByRole('radio',{name:pt.hour(23),checked:true})).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button',{name:pt.continue}));expect(screen.getByLabelText(pt.habitName)).toHaveDisplayValue('Ler 20 páginas');
+  const longTitle='L'.repeat(120);await fireEvent.changeText(screen.getByLabelText(pt.habitName),longTitle);await fireEvent.press(screen.getByRole('button',{name:pt.firstHabitAction}));
+  expect(f.journey.state().local?.habits[0]).toMatchObject({title:longTitle,iconKey:'reading',colorToken:'accent'});
+ } finally {f.close();}
+});
+test('the current catalogue creates source metadata while title-only editing preserves legacy icon and color',async()=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Legado','walking','green',false);await mount(f);await fireEvent.press(screen.getByRole('tab',{name:pt.habits}));
+  await fireEvent.press(screen.getByRole('button',{name:pt.editLabel('Legado')}));expect(screen.getByRole('radio',{name:pt.icons.walking,checked:true})).toBeOnTheScreen();expect(screen.getByRole('radio',{name:pt.colors.green,checked:true})).toBeOnTheScreen();
+  await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Legado preservado');await fireEvent.press(screen.getByRole('button',{name:pt.saveHabit}));expect(f.journey.state().local?.managementHabits[0]).toMatchObject({iconKey:'walking',colorToken:'green'});
+  await fireEvent.press(screen.getByRole('button',{name:pt.editLabel('Legado preservado')}));await fireEvent.press(screen.getByRole('radio',{name:pt.icons.noPhone}));await fireEvent.press(screen.getByRole('radio',{name:pt.colors.magenta}));await fireEvent.press(screen.getByRole('button',{name:pt.saveHabit}));expect(f.journey.state().local?.managementHabits[0]).toMatchObject({iconKey:'noPhone',colorToken:'magenta'});
+  await act(async()=>{f.session.close();await f.session.restore();});await waitFor(()=>expect(screen.getByRole('button',{name:pt.editLabel('Legado preservado')})).toBeOnTheScreen());expect(f.journey.state().local?.managementHabits[0]).toMatchObject({iconKey:'noPhone',colorToken:'magenta'});
+  await fireEvent.press(screen.getByRole('button',{name:pt.newHabit}));expect(screen.queryByRole('radio',{name:pt.icons.walking})).toBeNull();expect(screen.queryByRole('radio',{name:pt.colors.green})).toBeNull();
+  await fireEvent.changeText(screen.getByLabelText(pt.habitName),'Sem celular');await fireEvent.press(screen.getByRole('radio',{name:pt.icons.noPhone}));await fireEvent.press(screen.getByRole('radio',{name:pt.colors.magenta}));await fireEvent.press(screen.getByRole('button',{name:pt.createHabit}));expect(f.journey.state().local?.managementHabits[1]).toMatchObject({iconKey:'noPhone',colorToken:'magenta'});
+ } finally {f.close();}
+});
+
+
+test('management keeps confirmed rows compact while pending and refused intentions remain explicit',async()=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');f.journey.skip();const store=f.session.account();
+  store.applyPull({changes:[{revision:'1',operationResults:[],entities:[{kind:'habit',value:{habitId:'01996300-0000-7000-8000-000000000301',title:'Confirmado',habitType:'binary',scheduleKind:'daily',startDayKey:'2026-10-09',creationTimeContext:{timezone:'UTC',dayStartHour:4},iconKey:'reading',colorToken:'blue',sortOrder:0,createdAt:'2026-10-09T13:00:00Z',updatedAt:'2026-10-09T13:00:00Z',deletedAt:null,revision:'1'}}]}],nextCursor:'cursor',hasMore:false,highWaterRevision:'1',serverTime:'2026-10-09T13:00:00Z'});
+  f.journey.create('Pendente','meditation','accent',false);await mount(f);await fireEvent.press(screen.getByRole('tab',{name:pt.habits}));
+  expect(screen.getByRole('button',{name:pt.editLabel('Confirmado')})).toBeOnTheScreen();expect(screen.queryByText(pt.operationStates.acknowledged)).toBeNull();expect(screen.getByText(pt.operationStates.pending)).toBeOnTheScreen();
+  await act(()=>f.journey.edit('01996300-0000-7000-8000-000000000301',{title:'Confirmado',iconKey:'reading',colorToken:'blue'},{title:'Alteração recusada',iconKey:'reading',colorToken:'blue'}));
+  const operation=store.operations().find(op=>op.command.type==='habit.patchMetadata')!;
+  await act(()=>store.applyAck([{receipt:{operationId:operation.operationId,operationHash:operationHash(operation),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]));
+  expect(screen.getByText(pt.operationStates.rejected)).toBeOnTheScreen();expect(screen.getByRole('button',{name:pt.editLabel('Confirmado')})).toBeOnTheScreen();expect(screen.queryByText(pt.operationStates.acknowledged)).toBeNull();
+ } finally {f.close();}
 });

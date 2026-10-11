@@ -1,0 +1,12 @@
+{
+  "variant": "dev.ritmo.journeytest",
+  "architecture": "x86_64",
+  "sha256": "26e50927d3a4a5cabbb81d5c55f860adf4db22e03753f326ad305b48ff33cdce",
+  "sizeBytes": 44504802,
+  "differenceFromJourneyApk3": "Final Sheet geometry: max88%, padding10/20/40, gap14, top border, handle40x5 radius3.",
+  "verificationSuites": [
+    "session",
+    "sync"
+  ],
+  "journeyWasRunOn": "APK3"
+}

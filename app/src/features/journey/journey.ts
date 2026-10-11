@@ -9,7 +9,7 @@ import type {TimeContext,CreateHabit,Command} from '../../core/sync/protocol.ts'
 import {pt} from '../../i18n/pt-BR.ts';
 import {titleKey} from '../habits/domain/title.ts';
 import {habitIcons} from '../habits/catalog.ts';
-import type {HabitColor} from '../../theme/tokens.ts';
+import {habitPickerColors} from '../../theme/tokens.ts';
 export type HabitDraft={title:string;iconKey:string|null;colorToken:string|null};
 export type Runtime={readonly session:Session;readonly sync:SyncScheduler;recovery:()=>DatabaseRecovery|null;retryDatabase:()=>Promise<void>;close:()=>void};
 export type JourneyState={gate:'entry'|'database'|'logout'|'initial'|'account';key:string|null;busy:boolean;error:string|null;
@@ -140,8 +140,8 @@ export class Journey {
     patch.iconKey=draft.iconKey;
    }
    if(draft.colorToken!==baseline.colorToken) {
-    const colors:readonly HabitColor[]=['accent','blue','amber','violet','green'];
-    if(draft.colorToken!==null&&!colors.includes(draft.colorToken as HabitColor)) throw new Error('invalid_metadata');
+    const colors:readonly string[]=[...Object.keys(habitPickerColors),'green'];
+    if(draft.colorToken!==null&&!colors.includes(draft.colorToken)) throw new Error('invalid_metadata');
     patch.colorToken=draft.colorToken;
    }
    if(Object.keys(patch).length) store.enqueue({type:'habit.patchMetadata',habitId,patch},this.nextId(),new Date(this.clock.now()).toISOString());

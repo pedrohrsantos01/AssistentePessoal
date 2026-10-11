@@ -1,0 +1,58 @@
+{
+  "suite": "session",
+  "apk": "APK5",
+  "apkSha256": "2cc3fe6223e12afc52420efe5aaf92c992e93d4e36406477256cafe1ccfaf33d",
+  "result": "passed",
+  "phases": [
+    {
+      "phase": "vault_retry_keeps_local_writes",
+      "passed": true
+    },
+    {
+      "phase": "offline_logout_fences_routes",
+      "passed": true
+    },
+    {
+      "phase": "account_B_isolated",
+      "passed": true
+    },
+    {
+      "phase": "account_A_reentry_converges_once",
+      "passed": true
+    },
+    {
+      "phase": "account_opening_retry_preserves_queue",
+      "passed": true
+    },
+    {
+      "phase": "installation_opening_retry_keeps_owner",
+      "passed": true
+    },
+    {
+      "phase": "reauthentication_only_same_account",
+      "passed": true
+    },
+    {
+      "phase": "session_interface_verified",
+      "passed": true
+    }
+  ],
+  "targetCount": 9,
+  "nativeTargets": "native-targets.json",
+  "screenshots": [
+    "01-cofre-pausado.png",
+    "02-cofre-200.png",
+    "03-saida-incompleta.png",
+    "04-conta-b-isolada.png",
+    "05-exclusao-cancelada.png",
+    "05-privacidade.png",
+    "05-retorno-a.png",
+    "06-base-conta-bloqueada.png",
+    "07-instalacao-200-diagnostico.png",
+    "07-instalacao-200-topo.png",
+    "08-autenticacao-remota.png",
+    "09-mesma-conta.png"
+  ],
+  "source": "Protótipos de assistente pessoal/Ritmo-App.dc.html",
+  "scope": "Visible emulator, disposable dev.ritmo.journeytest, real SQLite and local HTTP API."
+}

@@ -19,8 +19,10 @@ export function itemStatus(state:JourneyState,habitId:string,day?:string) {
  const row=rows.find(r=>['rejected','blocked_local'].includes(r.status))??rows.find(r=>r.status==='in_flight')??rows.find(r=>r.status!=='acknowledged');
  return pt.operationStates[row?.status??'acknowledged'];
 }
-export function SyncPill({state}:{state:JourneyState}) {
- const t=useTheme(),nav=useNavigation();return <Touch accessibilityRole="button" accessibilityLabel={pt.syncPillLabel(state.remote)} onPress={()=>nav.go('sync')} style={{alignSelf:'flex-start',minHeight:t.metrics.touch,justifyContent:'center',borderWidth:t.metrics.border,borderColor:t.border.interactive,paddingHorizontal:t.space.inputInset,borderRadius:t.metrics.pillRadius}}><Type size="status" mono tone="secondary">{state.remote===pt.synced?pt.symbols.check+' ':''}{state.remote}</Type></Touch>;
+const compactRemoteLabels=new Map([[pt.vault,pt.vaultCompact],[pt.remoteLogin,pt.remoteLoginCompact],[pt.update,pt.updateCompact],[pt.attention,pt.attentionCompact],[pt.serviceUnavailable,pt.serviceUnavailableCompact]]);
+export function SyncPill({state,compact=false}:{state:JourneyState;compact?:boolean}) {
+ const t=useTheme(),nav=useNavigation(),summary=compact?compactRemoteLabels.get(state.remote):undefined;
+ return <Touch accessibilityRole="button" accessibilityLabel={pt.syncPillLabel(state.remote)} onPress={()=>nav.go('sync')} style={{alignSelf:'flex-start',minHeight:t.metrics.touch,minWidth:t.metrics.touch,maxWidth:summary?t.metrics.full:undefined,justifyContent:'center'}}><View style={{borderWidth:t.metrics.border,borderColor:t.border.interactive,paddingHorizontal:compact?t.space.controlGap:t.space.inputInset,paddingVertical:compact?t.metrics.xpInset:t.space.controlGap,borderRadius:summary?t.radius.inner:t.metrics.pillRadius}}><Type size={compact?'caption':'status'} mono tone="secondary">{state.remote===pt.synced?pt.symbols.check+' ':''}{summary??state.remote}</Type></View></Touch>;
 }
 export function SyncNotice({state}:{state:JourneyState}) {
  const message=!state.writable&&state.local?pt.update:state.sync.lastFailure==='rate_limit'?pt.syncRateLimited:state.sync.lastFailure==='unavailable'?pt.syncUnavailable:state.sync.phase==='failed'?pt.syncFailed:state.sync.phase==='blocked'?pt.syncBlocked:null;

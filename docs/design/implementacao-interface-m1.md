@@ -1,19 +1,21 @@
 # Interface M1 — aplicação da referência entregue
 
+**Correção de 11/10/2026:** Pedro escolheu `Ritmo-App.dc.html` como padrão visual. As implementações/ensaios anteriores usaram Ritmo-M1; aprovação visual anterior não vale para a fonte correta. Ver [spec/11](../../specs/11-design-system.md) e critérios/progresso em `docs/design/fidelidade-ritmo-app/`. Requisitos funcionais e recortes 05/06 permanecem como registrados. A correção das telas existentes foi verificada e aprovada no [ciclo Ritmo-App de 11/10](../analises/2026-10-11-correcao-visual-ritmo-app.md), sem concluir o M1 integral.
+
 Data: 09/10/2026. Fonte visual: [spec/11](../../specs/11-design-system.md); comportamento: [spec/13](../../specs/13-contrato-primeiro-marco.md) e seus specs. [Revisão do pacote](../analises/2026-10-09-revisao-do-prototipo.md).
 
 ## Telas e núcleo real
 
 | Superfície | Referência | Integração/aceite |
 |---|---|---|
-| Entrada/cadastro/login | M1 / D01 e D08 | Identidade real; persistir credenciais antes de ativar; online/offline e campos preservados; sem convidado/social |
-| Fuso/início do dia | M1 / D02 | Onboarding por comando local; IANA/dia lógico reais; retomada após reinício |
-| Primeiro hábito/pular | M1 / D01–D03 | Binário diário e conclusão locais; pular abre Briefing útil; falha não conclui etapa |
-| Briefing | M1 / D03–D06 | View local/AccountStore, provider, data/saudação/hábitos/XP; marcar/desfazer no card, persistir antes de anunciar sucesso |
-| Gestão | M1 / lista/formulário | Criar/patch de título/ícone/cor/ordem; patch só dos campos alterados; exclusão já contratada com confirmação |
-| Ajustes | M1 / D08/D10 | Perfil/sync reais, aparência/privacidade/logout; respeitar bloqueios da Session |
-| Recuperação | M1 / D09 | Pedido uniforme; abrir link não consome; salvar online; inválido/usado/expirado; volta ao login sem autenticar automaticamente |
-| Aparelho novo | M1 / D11 | Snapshot retomável/atômico; retry sem conta vazia; progresso mensurável ou indeterminado |
+| Entrada/cadastro/login | Ritmo-App / D01 e D08 | Identidade real; persistir credenciais antes de ativar; online/offline e campos preservados; sem convidado/social |
+| Fuso/início do dia | Ritmo-App / D02 | Onboarding por comando local; IANA/dia lógico reais; retomada após reinício |
+| Primeiro hábito/pular | Ritmo-App / D01–D03 | Binário diário e conclusão locais; pular abre Briefing útil; falha não conclui etapa |
+| Briefing | Ritmo-App / D03–D06 | View local/AccountStore, provider, data/saudação/hábitos/XP; marcar/desfazer no card, persistir antes de anunciar sucesso |
+| Gestão | Ritmo-App / lista/formulário | Criar/patch de título/ícone/cor/ordem; patch só dos campos alterados; exclusão já contratada com confirmação |
+| Ajustes | Ritmo-App / D08/D10 | Perfil/sync reais, aparência/privacidade/logout; respeitar bloqueios da Session |
+| Recuperação | Ritmo-App / D09 | Pedido uniforme; abrir link não consome; salvar online; inválido/usado/expirado; volta ao login sem autenticar automaticamente |
+| Aparelho novo | Ritmo-App / D11 | Snapshot retomável/atômico; retry sem conta vazia; progresso mensurável ou indeterminado |
 
 Nome 1–80, e-mail até 254 e senha 8–128 sem trim conforme contrato; título de hábito até 120 com normalização canônica. O input HTML de nome permite 120 mas validação/handoff dizem 80: usar o contrato. Relógio, saldo 1.240, contas e Belém são fixtures, não dados iniciais.
 

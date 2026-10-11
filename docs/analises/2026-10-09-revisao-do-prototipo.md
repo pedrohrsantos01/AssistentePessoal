@@ -1,5 +1,7 @@
 # Revisão do protótipo Claude Design — 09/10/2026
 
+**Referência corrigida em11/10/2026:** este documento é histórico da seleção incorreta de Ritmo-M1. A fonte atual aprovada por Pedro é Ritmo-App; os pareceres visuais anteriores não a aceitam. Ver [correção e evidências](../design/fidelidade-ritmo-app/progresso.md) e spec/11.
+
 O pacote entrega uma referência utilizável para iniciar a interface do M1: identidade consistente, três aparências, claro/escuro, componentes reconhecíveis e várias situações de erro/offline. A disponibilidade do protótipo deixou de bloquear o projeto. **Ele ainda precisa de correções de acessibilidade e de ligação aos contratos reais; não representa interface implementada nem Fase 1 aceita.**
 
 [Spec visual consolidado](../../specs/11-design-system.md), [tokens/catálogo](../design/tokens-prototipo-m1.json), [matriz de implementação](../design/implementacao-interface-m1.md), [plano com seis recortes](../../.scratch/interface-m1/spec.md).

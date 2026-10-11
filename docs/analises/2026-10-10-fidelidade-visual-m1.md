@@ -1,5 +1,7 @@
 # Fidelidade visual das telas M1 implementadas
 
+**Referência corrigida por Pedro em11/10/2026:** este relatório comparou Ritmo-M1, seleção incorreta. Os resultados funcionais são histórico; o parecer visual não aceita Ritmo-App. A correção tem [critérios e progresso novos](../design/fidelidade-ritmo-app/progresso.md).
+
 Data: 10/10/2026. Resultado: refinamento das telas dos recortes 01/02 concluído, com aprovação dos três críticos nos grupos de entrada/conta/onboarding, Briefing/XP e gestão/ajustes/painéis. O ensaio final no Android visível passou com API e SQLite reais. O marco M1 completo permanece aberto.
 
 ## Escopo e referência

@@ -1,0 +1,46 @@
+{
+  "suite": "sync",
+  "apk": "APK4",
+  "result": "passed",
+  "phases": [
+    {
+      "phase": "proven_rejection_corrected_with_selected_dependent",
+      "passed": true
+    },
+    {
+      "phase": "uncertain_identity_survives_restart_and_independent_work",
+      "passed": true
+    },
+    {
+      "phase": "rate_limit_and_unavailable_preserve_local_work",
+      "passed": true
+    },
+    {
+      "phase": "initial_snapshot_interrupted_and_resumed_without_partial_account",
+      "passed": true
+    },
+    {
+      "phase": "update_gate_persists_without_manual_bypass",
+      "passed": true
+    }
+  ],
+  "targetCount": 9,
+  "nativeTargets": "native-targets.json",
+  "screenshots": [
+    "01-correcao-teclado-rodape.png",
+    "01-recusa-comprovada.png",
+    "02-correcao-confirmada.png",
+    "03-identidade-incerta.png",
+    "04-diagnostico-preservado.png",
+    "05-identidade-200.png",
+    "06-limite-servidor.png",
+    "07-servico-indisponivel.png",
+    "08-copia-inicial.png",
+    "09-copia-interrompida-200.png",
+    "10-copia-completa-isolada.png",
+    "11-atualizacao-somente-leitura.png",
+    "12-bloqueio-apos-reabertura.png"
+  ],
+  "source": "Protótipos de assistente pessoal/Ritmo-App.dc.html",
+  "scope": "Visible emulator, real SQLite and local HTTP API; keyboard correction target physically above IME."
+}

@@ -1,5 +1,7 @@
 # Critérios de fidelidade — M1 Holograma
 
+**Referência corrigida em11/10/2026:** este documento é histórico da seleção incorreta de Ritmo-M1. A fonte atual aprovada por Pedro é Ritmo-App; os pareceres visuais anteriores não a aceitam. Ver [correção e evidências](../fidelidade-ritmo-app/progresso.md) e spec/11.
+
 Referência: `Protótipos de assistente pessoal/Ritmo-M1.dc.html`, texto 100%, Holograma claro/escuro. Comparar a área útil em unidades lógicas, descontando as barras reais do sistema. Dados, quantidade de hábitos e estado devem coincidir na comparação. O quadro web 390 × 844 não é uma dimensão fixa do app.
 
 1. **Hierarquia tipográfica:** Chakra Petch 600 nos títulos de tela (28; entrelinha 1,15 no Briefing/1,20 nos formulários), 600 nos títulos dos cards (16), 400 no corpo (16), JetBrains Mono 400 nos estados (12/13) e 700 no saldo de XP (36; entrelinha 1). Marca na entrada: Chakra 700, 40/1,05. Não usar peso 700 ou tamanho 22 para todos os cabeçalhos.

@@ -1,0 +1,120 @@
+{
+  "density": 2.625,
+  "targets": [
+    {
+      "label": "Ver sincronização",
+      "widthPixels": 974,
+      "heightPixels": 124,
+      "scale": "100%",
+      "boundsPixels": [
+        52,
+        451,
+        1026,
+        575
+      ]
+    },
+    {
+      "label": "Salvar correção no aparelho",
+      "widthPixels": 975,
+      "heightPixels": 137,
+      "scale": "100%",
+      "boundsPixels": [
+        53,
+        968,
+        1028,
+        1105
+      ],
+      "visibleBottomPixels": 1541
+    },
+    {
+      "label": "Salvar correção no aparelho",
+      "widthPixels": 975,
+      "heightPixels": 137,
+      "scale": "100%",
+      "boundsPixels": [
+        53,
+        968,
+        1028,
+        1105
+      ],
+      "visibleBottomPixels": 1541
+    },
+    {
+      "label": "Salvar correção no aparelho",
+      "widthPixels": 975,
+      "heightPixels": 137,
+      "scale": "100%",
+      "boundsPixels": [
+        53,
+        1837,
+        1028,
+        1974
+      ]
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "widthPixels": 975,
+      "heightPixels": 137,
+      "scale": "100%",
+      "boundsPixels": [
+        53,
+        2009,
+        1028,
+        2146
+      ]
+    },
+    {
+      "label": "Fechar",
+      "widthPixels": 975,
+      "heightPixels": 136,
+      "scale": "100%",
+      "boundsPixels": [
+        53,
+        2183,
+        1028,
+        2319
+      ]
+    },
+    {
+      "label": "Fechar",
+      "widthPixels": 975,
+      "heightPixels": 164,
+      "scale": "200%",
+      "boundsPixels": [
+        53,
+        2155,
+        1028,
+        2319
+      ]
+    },
+    {
+      "label": "Tentar novamente",
+      "widthPixels": 975,
+      "heightPixels": 137,
+      "scale": "100%",
+      "boundsPixels": [
+        53,
+        1032,
+        1028,
+        1169
+      ]
+    },
+    {
+      "label": "Novo hábito",
+      "widthPixels": 292,
+      "heightPixels": 132,
+      "scale": "200%",
+      "boundsPixels": [
+        736,
+        671,
+        1028,
+        803
+      ]
+    }
+  ],
+  "scales": [
+    "100%",
+    "200%"
+  ],
+  "passed": true
+}

@@ -1,0 +1,18 @@
+{
+  "variant": "dev.ritmo.journeytest",
+  "architecture": "x86_64",
+  "sha256": "1273519ccb1a09dc84ed8047a2a86fd9036c2f2df3250da8eb308b70edfe46a5",
+  "sizeBytes": 44505470,
+  "candidate": "APK6",
+  "differenceFromApk5": "Read-only habit rows retain normal informational content opacity; only disabled check and chevron controls are dimmed. Interaction, Journey/SQLite/sync/XP gates unchanged.",
+  "differenceFromJourneyApk3": "Final Sheet geometry, compact descriptive sync labels, and read-only row legibility. Normal screens and keyboard viewport unchanged.",
+  "verificationSuites": [
+    "sync"
+  ],
+  "sessionWasRunOn": "APK5",
+  "journeyWasRunOn": "APK3",
+  "status": "sync passed; session APK5 and journey APK3 retained as prior coverage",
+  "evidenceDirectories": [
+    "../sync-rodada-4"
+  ]
+}

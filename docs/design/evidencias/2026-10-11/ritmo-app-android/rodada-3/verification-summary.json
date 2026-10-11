@@ -1,0 +1,128 @@
+{
+  "suite": "journey",
+  "apk": "APK3",
+  "result": "passed",
+  "phases": [
+    {
+      "phase": "onboarding_resumed",
+      "passed": true
+    },
+    {
+      "phase": "empty_briefing",
+      "passed": true
+    },
+    {
+      "phase": "offline_product",
+      "passed": true
+    },
+    {
+      "phase": "product_reopened",
+      "passed": true
+    },
+    {
+      "phase": "undo_remark",
+      "passed": true
+    },
+    {
+      "phase": "product_converged",
+      "passed": true
+    },
+    {
+      "phase": "system_dark",
+      "passed": true
+    },
+    {
+      "phase": "font_200",
+      "passed": true
+    },
+    {
+      "phase": "reduced_motion_action",
+      "passed": true
+    },
+    {
+      "phase": "system_light",
+      "passed": true
+    },
+    {
+      "phase": "product_verified",
+      "passed": true
+    },
+    {
+      "phase": "management_offline",
+      "passed": true
+    },
+    {
+      "phase": "management_reopened",
+      "passed": true
+    },
+    {
+      "phase": "independent_metadata_merged",
+      "passed": true
+    },
+    {
+      "phase": "deletion_cancelled",
+      "passed": true
+    },
+    {
+      "phase": "deletion_reopened_offline",
+      "passed": true
+    },
+    {
+      "phase": "deletion_converged",
+      "passed": true
+    },
+    {
+      "phase": "management_200_and_delete_targets",
+      "passed": true
+    },
+    {
+      "phase": "future_start_managed_without_early_completion",
+      "passed": true
+    },
+    {
+      "phase": "management_verified",
+      "passed": true
+    }
+  ],
+  "targetCount": 30,
+  "nativeTargets": "native-targets.json",
+  "screenshots": [
+    "01-entrada.png",
+    "01-login.png",
+    "01-privacidade.png",
+    "02-cadastro-200-rodape.png",
+    "02-cadastro-200-topo.png",
+    "02-cadastro-teclado-200-rodape.png",
+    "02-cadastro-teclado-rodape.png",
+    "02-cadastro-teclado.png",
+    "02-cadastro-vazio.png",
+    "02-fuso-editavel.png",
+    "02-fuso.png",
+    "03-primeiro-habito-200-topo.png",
+    "03-primeiro-habito-200.png",
+    "03-primeiro-habito.png",
+    "04-briefing-vazio.png",
+    "05-briefing-offline.png",
+    "06-briefing-sincronizado.png",
+    "07-briefing-escuro.png",
+    "08-texto-200.png",
+    "09-ajustes-texto-200.png",
+    "09-privacidade-texto-200.png",
+    "10-ajustes-claro.png",
+    "10-briefing-claro.png",
+    "10-saida-claro.png",
+    "11-gestao-offline.png",
+    "11-novo-habito.png",
+    "12-gestao-sincronizada.png",
+    "13-preview-edicao.png",
+    "14-confirmacao-exclusao.png",
+    "15-exclusao-sincronizada.png",
+    "16-gestao-texto-200.png",
+    "17-exclusao-texto-200.png",
+    "18-gestao-inicio-futuro.png",
+    "19-briefing-sem-devidos.png"
+  ],
+  "excludedEvidence": [],
+  "source": "Protótipos de assistente pessoal/Ritmo-App.dc.html",
+  "scope": "Visible emulator, disposable dev.ritmo.journeytest, real SQLite and local HTTP API."
+}

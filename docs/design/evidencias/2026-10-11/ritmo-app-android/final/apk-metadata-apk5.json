@@ -1,0 +1,18 @@
+{
+  "variant": "dev.ritmo.journeytest",
+  "architecture": "x86_64",
+  "sha256": "2cc3fe6223e12afc52420efe5aaf92c992e93d4e36406477256cafe1ccfaf33d",
+  "sizeBytes": 44505362,
+  "candidate": "APK5",
+  "differenceFromJourneyApk3": "Final Sheet geometry (max88%, padding10/20/40, gap14, top border, handle40x5 radius3) and compact labels for vault, authentication, update, attention and unavailable states. Full explanations and accessible labels preserved.",
+  "verificationSuites": [
+    "session",
+    "sync"
+  ],
+  "journeyWasRunOn": "APK3",
+  "status": "session and sync passed",
+  "evidenceDirectories": [
+    "../sessao-rodada-3",
+    "../sync-rodada-3"
+  ]
+}

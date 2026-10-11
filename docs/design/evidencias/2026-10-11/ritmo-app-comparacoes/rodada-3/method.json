@@ -1,0 +1,111 @@
+{
+  "nativeCropPixels": [
+    0,
+    137,
+    1080,
+    2361
+  ],
+  "referenceCropPixels": [
+    1,
+    47,
+    412,
+    894
+  ],
+  "normalizedLogicalSize": [
+    411,
+    847
+  ],
+  "comparison": "content only; preserve proportions, alternate side order; no image content retouching",
+  "pairs": [
+    {
+      "pair": "A01",
+      "reference": "boasvindas-light.png",
+      "native": "01-entrada.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "A02",
+      "reference": "entrar-light.png",
+      "native": "01-login.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "A03",
+      "reference": "cadastro-light.png",
+      "native": "02-cadastro-vazio.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "A04",
+      "reference": "onbfuso-light.png",
+      "native": "02-fuso.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "A05",
+      "reference": "onbhabito-light.png",
+      "native": "03-primeiro-habito.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "A06",
+      "reference": "onbhabito-200-top.png",
+      "native": "03-primeiro-habito-200-topo.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "A07",
+      "reference": "onbhabito-200-bottom.png",
+      "native": "03-primeiro-habito-200.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "B01",
+      "reference": "briefing-vazio-light.png",
+      "native": "04-briefing-vazio.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "B02",
+      "reference": "briefing-feito-light.png",
+      "native": "06-briefing-sincronizado.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "B03",
+      "reference": "briefing-feito-dark.png",
+      "native": "07-briefing-escuro.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "B04",
+      "reference": "briefing-feito-200.png",
+      "native": "08-texto-200.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "C01",
+      "reference": "novo-light.png",
+      "native": "11-novo-habito.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "C02",
+      "reference": "gestao-duas-light.png",
+      "native": "12-gestao-sincronizada.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "C03",
+      "reference": "ajustes-light.png",
+      "native": "10-ajustes-claro.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "C05",
+      "reference": "ajustes-200-dark-bottom.png",
+      "native": "09-ajustes-texto-200.png",
+      "nativeSide": "left"
+    }
+  ]
+}

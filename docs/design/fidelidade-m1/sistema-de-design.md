@@ -1,5 +1,7 @@
 # Sistema de design para a revisão do M1
 
+**Referência corrigida em11/10/2026:** este documento é histórico da seleção incorreta de Ritmo-M1. A fonte atual aprovada por Pedro é Ritmo-App; os pareceres visuais anteriores não a aceitam. Ver [correção e evidências](../fidelidade-ritmo-app/progresso.md) e spec/11.
+
 O sistema canônico é [spec/11](../../../specs/11-design-system.md). Este resumo delimita a revisão das telas já implementadas, sem habilitar os recortes futuros.
 
 - Holograma segue o modo nativo. Paletas, fontes locais, pesos, raios, dimensões e movimento vêm do catálogo e dos tokens tipados.

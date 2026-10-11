@@ -1,0 +1,39 @@
+{
+  "nativeCropPixels": [
+    0,
+    137,
+    1080,
+    2361
+  ],
+  "referenceCropPixels": [
+    1,
+    47,
+    412,
+    894
+  ],
+  "normalizedLogicalSize": [
+    411,
+    847
+  ],
+  "comparison": "content only; preserve proportions, alternate side order; no image content retouching",
+  "pairs": [
+    {
+      "pair": "A01",
+      "reference": "boasvindas-light.png",
+      "native": "01-entrada.png",
+      "nativeSide": "right"
+    },
+    {
+      "pair": "A02",
+      "reference": "entrar-light.png",
+      "native": "01-login.png",
+      "nativeSide": "left"
+    },
+    {
+      "pair": "A03",
+      "reference": "cadastro-light.png",
+      "native": "02-cadastro-vazio.png",
+      "nativeSide": "right"
+    }
+  ]
+}

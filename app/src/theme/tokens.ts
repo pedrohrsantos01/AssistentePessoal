@@ -1,4 +1,4 @@
-// Values transcribed from spec/11 and the received M1. Components use semantic roles.
+// Values transcribed from spec/11 and the Ritmo-App. Components use semantic roles.
 export type Skin='holo'|'cockpit'|'neo';
 export type ColorMode='dark'|'light';
 const palettes={
@@ -88,7 +88,8 @@ const palettes={
   }
 } as const;
 export const space={none:0,tiny:2,micro:4,compact:6,small:8,controlGap:10,medium:12,inputInset:14,large:16,briefing:18,buttonInset:20,form:24,section:32,hero:40,wide:48,logo:64} as const;
-export const metrics={reflowScale:1.4,sheetRadius:22,sheetHandleWidth:40,sheetHandleHeight:5,sheetMaxHeight:'82%',pillRadius:999,tabIcon:22,tabGap:3,tabHeight:49,stepTrack:4,stepLetter:0.96,sectionLetter:1.44,brandLetter:-0.4,iconColumns:5,iconBorder:2,swatchBorder:3,swatchRadius:24,previewTile:32,habitTile:34,managementRow:56,profileLabel:110,profileRow:52,sheetOverlayOpacity:0.56,welcomeMin:360,passwordToggle:76,touch:44,input:48,button:52,habitRow:60,check:28,tile:36,border:1,controlBorder:1.5,bracket:10,bracketOffset:5,pressedOpacity:0.82,disabledOpacity:0.55,scanPeriod:4,scanLine:1,skeleton:160,track:8,swatch:48,full:'100%',half:'48%'} as const;
+export const metrics={reflowScale:1.4,sheetRadius:22,sheetHandleWidth:40,sheetHandleHeight:5,sheetHandleRadius:3,sheetMaxHeight:'88%',pillRadius:999,tabIcon:18,backIcon:22,tabGap:2,tabHeight:49,stepTrack:4,stepLetter:0.96,sectionLetter:1.44,provisionalLetter:1.1,brandLetter:0,brandMark:68,logoGlow:28,xpInset:5,hourColumns:4,iconColumns:5,iconBorder:1.5,swatchBorder:1.5,swatchRadius:11,colorDot:22,colorChoice:64,previewTile:32,habitTile:34,managementRow:64,profileLabel:110,profileRow:52,sheetOverlayOpacity:0.56,welcomeMin:360,passwordToggle:84,touch:44,input:48,button:52,habitRow:60,check:28,tile:36,border:1,controlBorder:1.5,bracket:10,bracketOffset:5,pressedOpacity:0.82,disabledOpacity:0.55,scanPeriod:4,scanLine:1,skeleton:160,track:8,swatch:48,full:'100%',half:'48%'} as const;
+export const habitPickerColors={accent:'#2EC4B6',magenta:'#E8508E',amber:'#F0A93B',blue:'#4C8DF6',violet:'#9B7BF2'} as const;
 export const motion={press:120,state:200,max:320,feedback:1400,pressedScale:0.98} as const;
 export const typeSize={tab:11,caption:12,status:13,label:14,context:15,body:16,tile:17,lead:18,control:20,section:22,mark:24,title:28,hour:32,number:36,brand:40} as const;
 export const line={body:1.45,title:1.2,briefing:1.15,row:1.3,context:1.4,onboarding:1.5,hint:1.35,brand:1.05,number:1} as const;

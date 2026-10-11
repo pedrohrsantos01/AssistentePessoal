@@ -1,5 +1,7 @@
 # Ciclo de fidelidade M1
 
+**Referência corrigida em11/10/2026:** este documento é histórico da seleção incorreta de Ritmo-M1. A fonte atual aprovada por Pedro é Ritmo-App; os pareceres visuais anteriores não a aceitam. Ver [correção e evidências](../fidelidade-ritmo-app/progresso.md) e spec/11.
+
 Objetivo aprovado: corrigir todas as telas já implementadas contra `Ritmo-M1.dc.html`, Holograma. Modelos: GPT-6.1 Sol construtor/briefing; GPT-6 Luna sistema; GPT-6 Astra visual. Limite: três rodadas por grupo.
 
 Pré-verificação: original e support.js disponíveis; referência renderizada por interceptação local no Chromium visível, sem servidor persistente; capturas nativas anteriores disponíveis; Android visível será aberto somente no ensaio. Spec/11, fontes locais e catálogo disponíveis. Nenhum crítico depende apenas do código.

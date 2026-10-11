@@ -1,0 +1,72 @@
+{
+  "unicodeLicense": "assets/unicode-3.0.txt",
+  "unicodeLicenseSha256": "e7a93b009565cfce55919a381437ac4db883e9da2126fa28b91d12732bc53d96",
+  "apkSha256": "0c98038c8ad5d70c0eb6fe06f496de3cea55b31ba3e92a26ad4edd0613999fef",
+  "selectedWeights": [
+    {
+      "source": "ChakraPetch_400Regular.ttf",
+      "asset": "res/nv.ttf",
+      "sha256": "75a36533799a5354f59fe4263fdb5c4077d80c0284d9c68ca9d518a6a4cf0333"
+    },
+    {
+      "source": "ChakraPetch_500Medium.ttf",
+      "asset": "res/eL.ttf",
+      "sha256": "24b98ee7edea6184310c7c04226ae927c3ebb37a27124507b5dfff6ef41ff180"
+    },
+    {
+      "source": "ChakraPetch_600SemiBold.ttf",
+      "asset": "res/Tq.ttf",
+      "sha256": "e0e258884d8693693c1476e2457c558117658b4b0ee606268724f91aa3b8e113"
+    },
+    {
+      "source": "ChakraPetch_700Bold.ttf",
+      "asset": "res/V_.ttf",
+      "sha256": "fb428d38d46b0a9ccb72165157d320c784d9c2e3e84148a06fd5eee325ba1798"
+    },
+    {
+      "source": "SpaceGrotesk_400Regular.ttf",
+      "asset": "res/If.ttf",
+      "sha256": "637578d47b0e70e02b3eb5056847dd9add17bd683234d28f5d11a6cf66ff2725"
+    },
+    {
+      "source": "SpaceGrotesk_500Medium.ttf",
+      "asset": "res/m8.ttf",
+      "sha256": "d8135bce6603398f3d0cdb478a018d7fa869b0168d037a9408cad23e030bfa7a"
+    },
+    {
+      "source": "SpaceGrotesk_600SemiBold.ttf",
+      "asset": "res/7-.ttf",
+      "sha256": "279a5d22b8ab377f41706af566610667db3941b069b50187b98af09ca3b08f91"
+    },
+    {
+      "source": "SpaceGrotesk_700Bold.ttf",
+      "asset": "res/BU.ttf",
+      "sha256": "8fb63865c6afd083723dc1775548306b7751f20397bebcb79646032c598c81b9"
+    },
+    {
+      "source": "JetBrainsMono_400Regular.ttf",
+      "asset": "res/Hv.ttf",
+      "sha256": "b6b1ff4ddefe36d7f2a6174e1d001cab374e594519ee9049af028d577b64c5f5"
+    },
+    {
+      "source": "JetBrainsMono_500Medium.ttf",
+      "asset": "res/7a.ttf",
+      "sha256": "23d57b8a635d023c3717a9c7ac1721199d0f8c6fe4b06d4d5ba3af2170fcbaa2"
+    },
+    {
+      "source": "JetBrainsMono_700Bold.ttf",
+      "asset": "res/Cx.ttf",
+      "sha256": "a2349098b9e45419e7bf0e2958d6c4937a049dded37387b08be725be4c7615f3"
+    }
+  ],
+  "totalTtfFiles": 12,
+  "additionalFontFamilies": [
+    "Material Symbols"
+  ],
+  "oflFiles": [
+    "assets/chakra-petch-OFL.txt",
+    "assets/jetbrains-mono-OFL.txt",
+    "assets/space-grotesk-OFL.txt"
+  ],
+  "passed": true
+}
