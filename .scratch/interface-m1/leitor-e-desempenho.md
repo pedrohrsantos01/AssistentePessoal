@@ -2,19 +2,19 @@
 
 Preferências já implementadas; recorte 06 permanece em andamento. [Resultado atual](../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Não confundir fixture com comportamento do produto nem marcação comum com ativação do leitor.
 
-## Leitor — pré-condição ainda não satisfeita
+## Leitor — ponte e primeiro roteiro aprovados
 
-O Pixel_9 usa Android 35/Google APIs Play Store e não oferece a entrada de depuração exigida por `sendevent`. `adb input` foi rejeitado como prova: alterou o hábito antes da ativação do TalkBack. Não desativar SELinux, trocar a imagem do AVD existente ou apagar seus dados para contornar isso.
+A ponte sendTouch/JWT e o observador FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES funcionam no Pixel_9 Google Play existente, sem root, alteração de SELinux ou troca/descarte de imagem. [Resultado e reprodução](../../docs/analises/2026-10-12-talkback-e-continuidade-do-briefing.md). O falso positivo adb input e as tentativas anteriores continuam rejeitados/preservados.
 
-Recomendação: preparar uma ponte pela API de toque oficialmente exposta pelo SDK (`emulator/lib/emulator_controller.proto`, sendTouch/TouchEvent), limitada ao emulador próprio em loopback e com autenticação local sem registrar tokens. O primeiro teste da ponte deve marcar/desfazer sem leitor; com TalkBack, explorar não pode mudar o checkbox, e ativar deve mudar uma vez. Só aceitar após inspeção do foco nas capturas e estado real. Investigar suporte/runtime e validar a ponte antes de instalar dependências de automação. Isso não muda o app nem seus contratos.
+Rodada7 aprovou preflight físico, exploração sem ativar, cumprimento/desfazer real com foco retido após atualização, Ajustes, seleção de aparência inicialmente diferente e foco linear. Os providers locais agora renderizam a projeção confirmada sem trocar controles por carregamento. Texto100% no leitor;12 paletas100%/200% e36 alvos medidos no APK assinado11cee24a. Rodada8 confere o hash instalado após reinício, mas reprova a navegação; rodada10 aprova o roteiro corrigido completo no mesmo APK, com restauração documentada. O roteiro básico não aceita toda a leitura falada ou a matriz inteira.
 
-Alternativas concretas: aceite manual assistido no Pixel_9 visível, ou AVD depurável separado com fixtures próprias. Preservar o AVD atual e abrir somente durante testes. O driver preparado exige imagem/processo próprios e opt-in `-EnableDebugInput`; não está aprovado em outro AVD ainda.
+Próximo recorte: ampliar o leitor para texto200%/conteúdo longo, formulários e teclado, entrada/saída de sheets, validação/erros e estados de sessão/sync já aprovados. Registrar nó/estado/foco/ordem reais sem suspender o serviço e sem reenviar ativação ambígua. Preservar pendências/contas e restaurar configurações/recursos próprios. AVD só visível durante testes; origem das paletas e hash devem corresponder ao APK realmente instalado.
 
-Depois do primeiro controle: rádio de aparência com escolha inicialmente diferente; navegação linear, saída/entrada de sheet, erros e campos com teclado;100%/200% e conteúdo longo. Registrar rótulos/estado lidos, foco, ordem e resultado persistido, sem aceitar apenas serviço instalado/Bound ou XML. Permissões e configurações anteriores devem voltar ao final. VoiceOver/iPhone segue Q55=B.
+VoiceOver/iPhone continua Q55=B. Não voltar a pedir root na imagem atual nem usar serviço Bound/foco de janela como prova suficiente.
 
 ## Medidas — sem ambiguidade de intervalo
 
-Specs07 §6 e08 §6: abertura≤ 2 s, resposta visual ao marcar≤ 100 ms e cards locais≤ 300 ms após cold start. As medidas por ADB/UIAutomator atuais incluem inspeção/esperas e não aceitam nem reprovam essas metas.
+Specs07 §1 e08 §6: abertura≤ 2 s, resposta visual ao marcar≤ 100 ms e cards locais≤ 300 ms após cold start. As medidas por ADB/UIAutomator atuais incluem inspeção/esperas e não aceitam nem reprovam essas metas.
 
 Instrumentar marcos reais de abertura, projeção/cards e feedback persistido em build verificável, sem temporizador que simule sucesso. Definir amostra/repetições e aparelho/AVD, registrar distribuição e separar tempos de comunicação do driver. Otimizar somente após medir o gargalo; conferir redução de movimento real. Esse trabalho não deve alterar os estados contratados de erro/sync.
 

@@ -1,0 +1,352 @@
+{
+  "apkSha256": "11cee24a408bb8d265c41bf4387a21076cebfb681c6e2b20e8fa544a92d7263f",
+  "service": "com.google.android.marvin.talkback/.TalkBackService",
+  "version": "15.0.0.639625893",
+  "touchExplorationEnabled": true,
+  "bound": true,
+  "focusWindow": true,
+  "physicalInput": "grpc.sendTouch",
+  "sdkProtoSha256": "dcf136e573f846cde7625d0e9ce8b175c7eaaad9355bf6962093cbb23e828357",
+  "authentication": "ES256",
+  "unauthenticatedRejected": true,
+  "unauthenticatedCode": 16,
+  "wrongAudienceCode": 7,
+  "wrongIssuerCode": 7,
+  "focusDidNotActivateHabit": true,
+  "habitActivatedAndRestored": true,
+  "focusRetainedAfterMark": true,
+  "appearanceSelected": "cockpit",
+  "nativeTargets": [
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 156,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 156,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 221,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 221,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 153,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 153,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 341,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    }
+  ],
+  "paletteProof": "current_execution",
+  "linearGestureExecuted": true,
+  "linearFocusBefore": "Cockpit",
+  "linearFocusAfter": "Neo-tokyo",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "scope": "Briefing checkbox and appearance settings, text100%; no VoiceOver or complete all-state spoken-reading acceptance",
+  "passed": true
+}

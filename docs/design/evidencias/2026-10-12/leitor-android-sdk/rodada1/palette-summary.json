@@ -1,0 +1,27 @@
+{
+  "apkSha256": "3d5e7460d0b6ce89715962e365682017db7376c9a2d6b7a6467493c47cdfc414",
+  "passed": true,
+  "palettes": 6,
+  "fontScales": [
+    1,
+    2
+  ],
+  "captures": [
+    "final-holo-light-100.png",
+    "final-holo-light-200.png",
+    "final-holo-dark-100.png",
+    "final-holo-dark-200.png",
+    "final-cockpit-light-100.png",
+    "final-cockpit-light-200.png",
+    "final-cockpit-dark-100.png",
+    "final-cockpit-dark-200.png",
+    "final-neo-light-100.png",
+    "final-neo-light-200.png",
+    "final-neo-dark-100.png",
+    "final-neo-dark-200.png"
+  ],
+  "targetAssertions": 36,
+  "targetMinimum": "floor(44 * nativeDensity) pixels per axis; full node dimensions not persisted in this attempt",
+  "readerAcceptance": false,
+  "origin": "final-r3: final_apk_twelve_palettes_and_native_targets phase passed before TalkBack diagnostic format assertion failed"
+}

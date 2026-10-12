@@ -1,0 +1,1 @@
+{"passed":false,"reason":"Cache trimming preserved the databases but did not free enough storage for the streamed APK update; no gestures on this APK."}

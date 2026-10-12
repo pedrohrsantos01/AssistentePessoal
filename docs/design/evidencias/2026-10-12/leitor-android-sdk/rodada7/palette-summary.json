@@ -1,0 +1,351 @@
+{
+  "apkSha256": "11cee24a408bb8d265c41bf4387a21076cebfb681c6e2b20e8fa544a92d7263f",
+  "passed": true,
+  "palettes": 6,
+  "fontScales": [
+    1,
+    2
+  ],
+  "captures": [
+    "final-holo-light-100.png",
+    "final-holo-light-200.png",
+    "final-holo-dark-100.png",
+    "final-holo-dark-200.png",
+    "final-cockpit-light-100.png",
+    "final-cockpit-light-200.png",
+    "final-cockpit-dark-100.png",
+    "final-cockpit-dark-200.png",
+    "final-neo-light-100.png",
+    "final-neo-light-200.png",
+    "final-neo-dark-100.png",
+    "final-neo-dark-200.png"
+  ],
+  "targetAssertions": 36,
+  "nativeTargets": [
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 156,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 156,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "1.0",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 221,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Holograma",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 221,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "holo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 153,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 153,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "cockpit",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "light",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 341,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "skin": "neo",
+      "mode": "dark",
+      "fontScale": "2.0",
+      "widthPixels": 906,
+      "heightPixels": 384,
+      "density": 2.625
+    }
+  ],
+  "readerAcceptance": false
+}

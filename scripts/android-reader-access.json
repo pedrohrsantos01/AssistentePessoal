@@ -1,0 +1,10 @@
+{
+  "unprotected": [],
+  "allowlist": [
+    {
+      "iss": "ritmo-reader-test",
+      "allowed": [],
+      "protected": ["^/android\\.emulation\\.control\\.EmulatorController/sendTouch$"]
+    }
+  ]
+}

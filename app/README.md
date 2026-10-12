@@ -240,21 +240,41 @@ Executar da raiz, com JAVA_HOME e ANDROID_HOME como nos demais ensaios. O lança
 
 ## Aparência e leitor de tela — recorte06
 
-Contrato Q56–Q58 em `.scratch/interface-m1/preferencias.md`; resultado/limites em `docs/analises/2026-10-12-interface-aparencia-e-preferencias.md`.
+Contrato Q56–Q58 em [.scratch/interface-m1/preferencias.md](../.scratch/interface-m1/preferencias.md). Preferências: [resultado anterior](../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Toque/leitor e continuidade do Briefing: [incremento atual](../docs/analises/2026-10-12-talkback-e-continuidade-do-briefing.md).
 
-Na raiz do checkout, com ANDROID_HOME configurado:
+Da raiz, com Node24, dependências do lockfile, JAVA_HOME apontando para Java21 e ANDROID_HOME configurado:
 
 ```powershell
-.\scripts\verify-android-journey.ps1 -Suite appearance -Avd Pixel_9 -Serial emulator-5560 -EvidenceDirectory docs/design/evidencias/2026-10-12/aparencia-android/repeticao
-.\scripts\verify-android-accessibility.ps1 -Avd 'NOME_DO_AVD_DEPURAVEL' -Serial emulator-5560 -EnableDebugInput -EvidenceDirectory docs/design/evidencias/2026-10-12/aparencia-android/repeticao-talkback
+.\scripts\build-reader-observer.ps1
+.\scripts\verify-android-accessibility.ps1 -Avd Pixel_9 -Serial emulator-5560 -EvidenceDirectory docs/design/evidencias/2026-10-12/leitor-android-sdk/repeticao
 ```
 
-A suite appearance prepara API/Postgres e duas contas sintéticas, usa preferências/SQLite reais e testa paletas, persistência, A/B/A, falhas externas de leitura/escrita e reinstalação somente de `dev.ritmo.journeytest`. A suite de leitor usa o APK de jornada previamente compilado e o hábito local preparado pela primeira; não inicia API. Inspeciona6 paletas100%/200% e prepara foco, marcar/desfazer e seleção de aparência com TalkBack real, usando entrada física. A execução no Pixel_9 atual ficou bloqueada; o falso positivo de adb input foi descartado. Escolher/preparar o AVD depurável e suas fixtures antes desse segundo comando; o placeholder não é um AVD existente. UIAutomator só consulta a árvore com o leitor pausado; serviço vinculado é conferido durante os gestos. Serviços/fonte/modo anteriores são restaurados. Não constitui aceite integral de leitura falada ou VoiceOver.
+O APK de jornada deve ter sido compilado com EXPO_PUBLIC_RITMO_JOURNEY_TEST=1 e o hábito sintético preparado pela suite appearance. O leitor não inicia API nem recria contas. Atualiza somente dev.ritmo.journeytest com install -r, preservando os dados. A compilação do pequeno observador usa SDK build-tools36/plataforma35, sem AndroidX ou Gradle adicional, com assinatura convencional de debug. Ele é testOnly, não tem activity/permissões de rede e só consulta a janela de dev.ritmo.journeytest.
 
-Ambos abrem emulador/painel visíveis e encerram somente os recursos próprios, inclusive em falha. `-InspectOnly` no script de acessibilidade mostra armazenamento/pacotes e encerra o emulador próprio. `-RemoveOldHttpHarness` é opt-in de limpeza: remove exclusivamente `dev.ritmo.httpharness` se estiver instalado; exige autorização específica, concedida por Pedro na Q59 para o ensaio de12/10. Não limpa a jornada atual nem o produto.
+O lançador inicia um emulador próprio e visível, verifica serial/AVD/PID e listener em loopback e exige JWT. A política exclusiva em scripts/android-reader-access.json permite apenas sendTouch, protegido pelo audience do token. A ponte carrega o proto do SDK instalado, assina tokens ES256 de60s em memória e registra somente a chave pública temporária. Chamadas sem credencial, com emissor diferente ou audience errado precisam ser recusadas; o mesmo payload autenticado deve funcionar. Nenhum token é colocado em ambiente, linha de comando, log ou evidência.
 
-`-SkipInstall` no ensaio de leitor reutiliza somente um APK instalado cujo SHA-256 coincide com o build local, verificado no emulador; útil ao repetir mudanças exclusivas do driver. Não dispensa build/checks.
+Preflight físico: marcar/desfazer sem leitor. Com TalkBack ativo continuamente: explorar não pode marcar nem selecionar; ativação altera o estado real; o observador FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES confere o nó exato com foco e estado. Verifica também a aba Ajustes, escolha de aparência inicialmente diferente e mudança de foco com gesto linear. Consultas não usam uiautomator dump nem pausam o leitor. O cumprimento confirmado deve manter o foco no hábito após a atualização do Briefing.
 
-`-ReaderOnly` repete somente gestos do TalkBack quando `palette-summary.json` da pasta de evidências já comprova12 capturas/36 verificações de alvos e o mesmo hash do APK. A execução normal grava esse resumo após concluir as paletas, antes de testar o leitor.
+A execução normal refaz6 paletas a100%/200% e mede36 alvos antes do leitor a100%. O limite de44 unidades é convertido com arredondamento nativo conforme a densidade. Isso não aceita toda a leitura falada, teclado/sheets/erros a200% ou VoiceOver.
 
-A entrada física exige `-EnableDebugInput`, que só ativa adb root temporariamente em imagem depurável/processo próprio, restaurando com unroot; nenhum setenforce ou mudança de permissão de host. O Pixel_9 Google Play atual é preservado e recusado por esse guard. O teste/ponte de leitor preparado continua sem aceite nativo; ver `.scratch/interface-m1/leitor-e-desempenho.md`.
+```powershell
+.\scripts\verify-android-accessibility.ps1 -SkipInstall -ReaderOnly -PaletteEvidenceDirectory docs/design/evidencias/2026-10-12/leitor-android-sdk/rodada7 -EvidenceDirectory docs/design/evidencias/2026-10-12/leitor-android-sdk/repeticao-leitor
+```
+
+O hash instalado é conferido em toda execução e salvo em installed-apk.json. SkipInstall exige hash do APK instalado igual ao build local. ReaderOnly exige12 capturas/36 alvos no palette-summary.json da pasta indicada, todas presentes e com o mesmo hash; não aceita paletas de APK anterior. O resumo registra a origem dessa prova. A opção não dispensa checks/build.
+
+O emulador Pixel_9 Google Play funciona pela ponte sem root, alteração de SELinux, troca de imagem ou descarte de dados. Processo/endpoint preexistente não é assumido pelo teste. Emulador/painel visíveis, pacote temporário do observador, chave pública e configurações de acessibilidade/fonte/modo/permissão são encerrados/removidos/restaurados somente quando pertencem ao ensaio, inclusive em falha. O driver registra os valores originais em reader-environment.json e o resultado da restauração em reader-cleanup.json; desconexão não equivale a recuperação confirmada. A instalação da jornada é preservada. Não remover pacotes preexistentes do observador.
+
+Se a instalação convencional falhar por espaço, TrimCaches solicita apenas liberação de caches ao Android, preservando bases e pacotes. Neste AVD isso liberou pouco. A instalação incremental com assinatura v4 resolveu a atualização sem desinstalar a jornada; o SDK36 aceita true, mas não o valor only da documentação mais recente. Gere a assinatura de debug antes do ensaio, registre o novo hash e valide-o no dispositivo:
+
+```powershell
+& "$env:JAVA_HOME/bin/java.exe" --enable-native-access=ALL-UNNAMED -jar "$env:ANDROID_HOME/build-tools/36.0.0/lib/apksigner.jar" sign --ks app/android/app/debug.keystore --ks-pass pass:android --key-pass pass:android --v4-signing-enabled true app/android/app/build/outputs/apk/release/app-release.apk
+```
+
+Esses valores são exclusivos da chave pública de teste padrão Android. A assinatura pode alterar o hash do APK; o driver usa o artefato final, não reutiliza paletas anteriores e confirma todos os bytes instalados. Não adaptar esse comando para assinatura de produção.
+
+InspectOnly mostra armazenamento/pacotes e fecha somente o emulador próprio. RemoveOldHttpHarness permanece opt-in histórico de limpeza exclusivamente de dev.ritmo.httpharness; Q59 autorizou a remoção específica já feita em12/10, não uma limpeza geral.
+
+Briefing local: providers sem loader renderizam a projeção já confirmada da sessão. A atualização não substitui os controles por carregamento, evitando perda do foco. Providers com carregamento assíncrono e falhas continuam isolados por card. Não há marcação antecipada à escrita local nem consulta nova de banco na renderização.
+
+Desempenho instrumentado, matriz integral de leitor e iPhone/VoiceOver continuam no recorte06/aceite existente.

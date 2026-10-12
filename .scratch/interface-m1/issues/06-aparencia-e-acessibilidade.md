@@ -9,7 +9,7 @@ Direção define Holograma padrão, três aparências, claro/escuro, fontes/geom
 
 ## Definições antes da persistência
 
-Q56–Q58=A fecharam custódia por instalação e armazenamento visual isolado/versionado, com preservação e nova tentativa nas falhas. [Contrato](../preferencias.md). Áudio fica em incremento próprio; não há seletor inoperante. Implementação funcional e rodada Android3 verificadas; matriz final de contraste/paletas passou; TalkBack bloqueado, sem aceite fictício.
+Q56–Q58=A fecharam custódia por instalação e armazenamento visual isolado/versionado, com preservação e nova tentativa nas falhas. [Contrato](../preferencias.md). Áudio fica em incremento próprio; não há seletor inoperante. Implementação funcional e rodada Android3 verificadas; matriz final de contraste/paletas passou; Roteiro básico TalkBack a100% aprovado pela ponte física; matriz completa/medidas permanecem abertas.
 
 ## Aceite
 
@@ -22,11 +22,11 @@ Q56–Q58=A fecharam custódia por instalação e armazenamento visual isolado/v
 
 ## Referências
 
-REQ-DS-001/002/003/005/006; spec/07 §6; spec/08 §6; tarefa visual 03/aceite dos aparelhos.
+REQ-DS-001/002/003/005/006; spec/07 §1; spec/08 §6; tarefa visual 03/aceite dos aparelhos.
 
 ## Resultado
 
-Concluída: não. Preferências implementadas; [relatório e evidências](../../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Restam desempenho instrumentado e matriz integral de acessibilidade/estados; iPhone/VoiceOver segue adiado e não é dispensado. A matriz final passou; TalkBack foi rejeitado/bloqueado pela entrada física do emulador atual. [Próximo recorte](../leitor-e-desempenho.md).
+Concluída: não. Preferências implementadas; [relatório e evidências](../../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Restam desempenho instrumentado e matriz integral de acessibilidade/estados; iPhone/VoiceOver segue adiado e não é dispensado. A matriz final passou; a entrada física e o roteiro básico TalkBack passaram no [incremento de continuidade](../../../docs/analises/2026-10-12-talkback-e-continuidade-do-briefing.md). A atualização do cumprimento preserva o foco; leitura a200%/forms/sheets/erros e medidas ainda não aceitas. [Próximo recorte](../leitor-e-desempenho.md).
 
 ## Comments
 
@@ -37,3 +37,5 @@ Concluída: não. Preferências implementadas; [relatório e evidências](../../
 10/10/2026: dependências 03/04 removidas após entregas verificadas. Status needs-info mantido: custódia/representação das preferências e som ainda exigem definição antes de persistir. Leitores de tela, temas/modos, matriz integral e desempenho continuam pendentes.
 
 12/10/2026: Q56/Q57/Q58=A fecharam o [contrato de preferências](../preferencias.md). Implementação iniciada, áudio em recorte próprio; matriz Android e medidas ainda não aceitas.
+
+12/10/2026: ponte SDK/JWT e observador sem supressão aprovados; providers locais preservam identidade/foco. Rodada7:12 paletas/36 alvos e roteiro básico no APK assinado, mantendo dados; rodada10 repete o roteiro após cold boot com foco retido e restauração registrada; instrumento/roteiro completo e gates externos continuam abertos.

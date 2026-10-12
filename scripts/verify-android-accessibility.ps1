@@ -1,4 +1,4 @@
-param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$ReaderOnly,[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[switch]$EnableDebugInput)
+param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[string]$PaletteEvidenceDirectory='',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$TrimCaches,[switch]$ReaderOnly,[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[ValidateRange(1024,65535)][int]$GrpcPort=8590)
 $ErrorActionPreference='Stop'
 $taskRoot=Split-Path $PSScriptRoot -Parent
 if(-not $env:ANDROID_HOME) {throw 'Configure ANDROID_HOME.'}
@@ -6,14 +6,16 @@ $taskAdb=Join-Path $env:ANDROID_HOME 'platform-tools/adb.exe'
 $taskRuntime=Join-Path $taskRoot '.scratch/runtime/interface'
 $taskLog=Join-Path $taskRuntime 'android-accessibility.log'
 $taskCompletion=Join-Path $taskRuntime 'android-accessibility-complete'
-$taskOwnEmulator=$false;$taskOwnDebugRoot=$false;$taskEmulatorProcess=$null;$taskPanel=$null
-$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
+$taskOwnObserver=$false;$taskOwnEmulator=$false;$taskEmulatorProcess=$null;$taskPanel=$null
+$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY','RITMO_EMULATOR_DISCOVERY','RITMO_EMULATOR_GRPC_PORT','RITMO_PALETTE_EVIDENCE')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
+New-Item -ItemType Directory -Force -Path $taskRuntime | Out-Null
 try {
  $taskDevices=& $taskAdb devices
  if(-not ($taskDevices -match ('^'+[regex]::Escape($Serial)+'\s+device'))) {
+  if(Get-NetTCPConnection -LocalPort $GrpcPort -ErrorAction SilentlyContinue) {throw 'Porta gRPC ocupada; não reutilizar endpoint alheio.'}
   $taskEmulator=Join-Path $env:ANDROID_HOME 'emulator/emulator.exe'
   if((& $taskEmulator -list-avds) -notcontains $Avd) {throw 'AVD não encontrado.'}
-  $taskEmulatorProcess=Start-Process -FilePath $taskEmulator -ArgumentList @('-avd',$Avd,'-port',($Serial -replace '^emulator-',''),'-no-snapshot','-no-boot-anim','-gpu','swiftshader','-memory',[string]$MemoryMegabytes) -WindowStyle Normal -PassThru -RedirectStandardOutput (Join-Path $taskRuntime 'reader-emulator-out.log') -RedirectStandardError (Join-Path $taskRuntime 'reader-emulator-err.log')
+  $taskEmulatorProcess=Start-Process -FilePath $taskEmulator -ArgumentList @('-avd',$Avd,'-port',($Serial -replace '^emulator-',''),'-no-snapshot','-no-boot-anim','-gpu','swiftshader','-memory',[string]$MemoryMegabytes,'-grpc',[string]$GrpcPort,'-grpc-use-jwt','-grpc-allowlist',(Join-Path $PSScriptRoot 'android-reader-access.json')) -WindowStyle Normal -PassThru -RedirectStandardOutput (Join-Path $taskRuntime 'reader-emulator-out.log') -RedirectStandardError (Join-Path $taskRuntime 'reader-emulator-err.log')
   $taskOwnEmulator=$true;$taskDeadline=(Get-Date).AddMinutes(3)
   do {Start-Sleep -Seconds 2;$taskBoot=& $taskAdb -s $Serial shell getprop sys.boot_completed 2>$null} while($taskBoot -ne '1' -and (Get-Date) -lt $taskDeadline)
   if($taskBoot -ne '1') {throw 'Emulador não iniciou.'}
@@ -34,14 +36,43 @@ try {
  $taskApk=Join-Path $taskRoot 'app/android/app/build/outputs/apk/release/app-release.apk'
  $taskAapt=Get-ChildItem (Join-Path $env:ANDROID_HOME 'build-tools') -Directory | Sort-Object Name -Descending | ForEach-Object {Join-Path $_.FullName 'aapt2.exe'} | Where-Object {Test-Path -LiteralPath $_} | Select-Object -First 1
  if(-not $taskAapt -or -not ((& $taskAapt dump badging $taskApk) -match "package: name='dev[.]ritmo[.]journeytest'")) {throw 'Somente APK descartável dev.ritmo.journeytest.'}
- if($EnableDebugInput -and ((& $taskAdb -s $Serial shell id -u).Trim() -ne '0')) {
-  if(-not $taskOwnEmulator -or ((& $taskAdb -s $Serial shell getprop ro.debuggable).Trim() -ne '1')) {throw 'Entrada física exige emulador próprio e imagem depurável; não alterar aparelho/processo preexistente.'}
-  $taskOwnDebugRoot=$true
-  & $taskAdb -s $Serial root
-  $taskRootDeadline=(Get-Date).AddSeconds(45)
-  do {Start-Sleep -Seconds 1;$taskDeviceUid=& $taskAdb -s $Serial shell id -u 2>$null} while($taskDeviceUid -ne '0' -and (Get-Date) -lt $taskRootDeadline)
-  if($taskDeviceUid -ne '0') {throw 'Imagem não oferece entrada física depurável.'}
+ if(-not $taskOwnEmulator) {throw 'Ensaio de toque exige emulador iniciado por este lançador; processo preexistente foi preservado.'}
+ $taskDiscoveryDirectory=Join-Path $env:LOCALAPPDATA 'Temp/avd/running'
+ $taskDiscoveryDeadline=(Get-Date).AddSeconds(30);$taskDiscovery=$null
+ do {
+  $taskPids=@($taskEmulatorProcess.Id)+@(Get-CimInstance Win32_Process -Filter ('ParentProcessId='+$taskEmulatorProcess.Id) | Where-Object {$_.Name -like 'qemu-system-*'} | Select-Object -ExpandProperty ProcessId)
+  foreach($taskPid in $taskPids) {
+   foreach($taskFileName in @(('pid_'+$taskPid+'.ini'),('pid_'+$taskPid+'_info.ini'))) {
+    $taskCandidate=Join-Path $taskDiscoveryDirectory $taskFileName
+    if(Test-Path -LiteralPath $taskCandidate) {$taskDiscovery=$taskCandidate;break}
+   }
+   if($taskDiscovery) {break}
+  }
+  if(-not $taskDiscovery) {Start-Sleep -Milliseconds 300}
+ } while(-not $taskDiscovery -and (Get-Date) -lt $taskDiscoveryDeadline)
+ if(-not $taskDiscovery) {throw 'Discovery do emulador próprio não encontrado.'}
+ $taskFields=@{};foreach($taskLine in [IO.File]::ReadAllLines($taskDiscovery)) {
+  if($taskLine -match '^([^=]+)=(.*)$') {$taskFields[$Matches[1].Trim()]=$Matches[2].Trim()}
  }
+ if($taskFields['port.serial'] -ne ($Serial -replace '^emulator-','') -or $taskFields['avd.id'] -ne $Avd) {throw 'Discovery diverge do AVD/serial iniciado.'}
+ if($taskFields['grpc.port'] -ne [string]$GrpcPort -or -not $taskFields['grpc.jwks'] -or -not $taskFields['grpc.jwk_active']) {throw 'Endpoint JWT não confirmado.'}
+ if([IO.Path]::GetFullPath($taskFields['grpc.allowlist']) -ne [IO.Path]::GetFullPath((Join-Path $PSScriptRoot 'android-reader-access.json'))) {throw 'Política de acesso isolada não confirmada.'}
+ $taskListeners=@(Get-NetTCPConnection -LocalPort $GrpcPort -State Listen -ErrorAction Stop)
+ if($taskListeners.Count -eq 0 -or @($taskListeners | Where-Object {$_.LocalAddress -notin @('127.0.0.1','::1') -or $_.OwningProcess -notin $taskPids}).Count -gt 0) {throw 'Endpoint deve pertencer ao emulador próprio e escutar somente em loopback.'}
+ $env:RITMO_EMULATOR_DISCOVERY=$taskDiscovery;$env:RITMO_EMULATOR_GRPC_PORT=[string]$GrpcPort
+ Write-Output 'sendTouch: endpoint próprio em loopback, autenticação JWT obrigatória.'
+ if($TrimCaches) {
+  Write-Output 'Preparação: pedindo ao Android liberação de caches até 1 GB livre; bancos e pacotes preservados.'
+  & $taskAdb -s $Serial shell pm trim-caches 1000000000 internal
+  if($LASTEXITCODE -ne 0) {throw 'O Android não conseguiu liberar caches.'}
+  & $taskAdb -s $Serial shell df -h /data
+ }
+ $taskObserverApk=Join-Path $taskRuntime 'reader-observer/observer.apk'
+ if(-not (Test-Path -LiteralPath $taskObserverApk)) {throw 'Compile antes scripts/build-reader-observer.ps1.'}
+ if((& $taskAdb -s $Serial shell pm path dev.ritmo.readerobserver) -match '^package:') {throw 'Observador preexistente preservado; este ensaio exige instalar seu próprio pacote temporário.'}
+ & $taskAdb -s $Serial install -t $taskObserverApk
+ if($LASTEXITCODE -ne 0) {throw 'Instalação do observador de teste falhou.'}
+ $taskOwnObserver=$true
  if($RemoveOldHttpHarness) {
   # Explicit opt-in: remove only the historical synthetic-fixture package, never the product or current test journey.
   $taskOldPackage='dev.ritmo.httpharness'
@@ -52,19 +83,19 @@ try {
   }
  }
  & $taskAdb -s $Serial shell df -h /data
- if($SkipInstall) {
-  $taskInstalledPath=((& $taskAdb -s $Serial shell pm path dev.ritmo.journeytest) | Select-Object -First 1) -replace '^package:',''
-  if($taskInstalledPath -notmatch '^/data/app/[A-Za-z0-9._~+/=-]+/base[.]apk$') {throw 'Caminho do APK instalado não confirmado.'}
-  $taskInstalledHash=((& $taskAdb -s $Serial shell sha256sum $taskInstalledPath) -split '\s+')[0]
-  if($taskInstalledHash -ne (Get-FileHash -LiteralPath $taskApk -Algorithm SHA256).Hash) {throw 'APK instalado diverge do build final.'}
- } else {
- & $taskAdb -s $Serial install -r $taskApk
- if($LASTEXITCODE -ne 0) {
-  Start-Sleep -Seconds 2
-  & $taskAdb -s $Serial install --no-streaming -r $taskApk
+ if(-not $SkipInstall) {
+  & $taskAdb -s $Serial install -r $taskApk
+  if($LASTEXITCODE -ne 0) {
+   Start-Sleep -Seconds 2
+   & $taskAdb -s $Serial install --no-streaming -r $taskApk
+  }
+  if($LASTEXITCODE -ne 0) {throw 'Instalação da revisão final falhou.'}
  }
- if($LASTEXITCODE -ne 0) {throw 'Instalação da revisão final falhou.'}
- }
+ $taskInstalledPath=((& $taskAdb -s $Serial shell pm path dev.ritmo.journeytest) | Select-Object -First 1) -replace '^package:',''
+ if($taskInstalledPath -notmatch '^/data/app/[A-Za-z0-9._~+/=-]+/base[.]apk$') {throw 'Caminho do APK instalado não confirmado.'}
+ $taskInstalledHash=((& $taskAdb -s $Serial shell sha256sum $taskInstalledPath) -split '\s+')[0]
+ $taskLocalHash=(Get-FileHash -LiteralPath $taskApk -Algorithm SHA256).Hash.ToLowerInvariant()
+ if($taskInstalledHash -ne $taskLocalHash) {throw 'APK instalado diverge do build final.'}
  # A package update can reconnect ADB. Require a stable ready transport before screen inspection.
  $taskReadyDeadline=(Get-Date).AddSeconds(45);$taskStable=0
  do {
@@ -76,7 +107,12 @@ try {
  $env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb;$env:RITMO_JOURNEY_EVIDENCE=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
  if(-not $env:RITMO_JOURNEY_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidências fora do workspace.'}
  New-Item -ItemType Directory -Force -Path $env:RITMO_JOURNEY_EVIDENCE | Out-Null
+ [IO.File]::WriteAllText((Join-Path $env:RITMO_JOURNEY_EVIDENCE 'installed-apk.json'),(@{passed=$true;package='dev.ritmo.journeytest';serial=$Serial;avd=$Avd;apkSha256=$taskLocalHash;installedSha256=$taskInstalledHash} | ConvertTo-Json)+"
+")
+
  $env:RITMO_ANDROID_READER_ONLY=if($ReaderOnly){'1'}else{$null}
+ $env:RITMO_PALETTE_EVIDENCE=if($PaletteEvidenceDirectory){[IO.Path]::GetFullPath((Join-Path $taskRoot $PaletteEvidenceDirectory))}else{$env:RITMO_JOURNEY_EVIDENCE}
+ if(-not $env:RITMO_PALETTE_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Origem das paletas fora do workspace.'}
  if(Test-Path -LiteralPath $taskCompletion) {Remove-Item -LiteralPath $taskCompletion}
  [IO.File]::WriteAllText($taskLog,'')
  $taskWatcher=Join-Path $PSScriptRoot 'watch-android-journey.ps1'
@@ -86,7 +122,7 @@ try {
 } finally {
  [IO.File]::WriteAllText($taskCompletion,'done')
  if($taskPanel -and -not $taskPanel.HasExited) {Stop-Process -Id $taskPanel.Id -ErrorAction SilentlyContinue}
- if($taskOwnDebugRoot) {& $taskAdb -s $Serial unroot | Out-Null;Start-Sleep -Seconds 2}
+ if($taskOwnObserver) {& $taskAdb -s $Serial uninstall dev.ritmo.readerobserver | Out-Null}
  if($taskOwnEmulator) {
   & $taskAdb -s $Serial emu kill | Out-Null
   if($taskEmulatorProcess) {Get-CimInstance Win32_Process -Filter ('ParentProcessId='+$taskEmulatorProcess.Id) | Where-Object {$_.Name -like 'qemu-system-*'} | ForEach-Object {Stop-Process -Id $_.ProcessId -ErrorAction SilentlyContinue};if(-not $taskEmulatorProcess.HasExited) {Stop-Process -Id $taskEmulatorProcess.Id -ErrorAction SilentlyContinue}}
