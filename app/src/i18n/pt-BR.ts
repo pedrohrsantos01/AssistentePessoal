@@ -51,4 +51,9 @@ export const pt={
  habitLabel:(title:string,done:boolean)=>`${title}, ${done?'feito':'não feito'}`,
  icons:{noPhone:'Sem celular',strength:'Força',gaming:'Jogos',movies:'Filmes',meditation:'Meditação',reading:'Leitura',water:'Água',running:'Corrida',walking:'Caminhada',stretching:'Alongamento',music:'Música',writing:'Escrita',plant:'Crescimento',target:'Alvo'},
  colors:{magenta:'Magenta',accent:'Turquesa',blue:'Azul',amber:'Âmbar',violet:'Violeta',green:'Verde'},
+ appearance:'APARÊNCIA',appearanceNames:{holo:'Holograma',cockpit:'Cockpit',neo:'Neo-tokyo'},appearanceDefault:'Padrão',appearanceActive:'✓ Ativo',
+ followSystem:'Seguir sistema',followSystemHelp:'Acompanhar o modo claro ou escuro do aparelho.',darkMode:'Modo escuro',darkModeHelp:'Escolher aqui passa para o modo manual.',
+ preferenceReadFailure:'Não foi possível ler a aparência salva. Usando Holograma e o modo do sistema; suas preferências foram preservadas.',
+ preferenceWriteFailure:'A aparência não foi salva. A última escolha salva continua ativa.',retryAppearance:'Tentar salvar aparência novamente',retryAppearanceRead:'Tentar ler aparência novamente',
+
 };

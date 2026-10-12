@@ -1,6 +1,6 @@
 # 06 — Preferências e acabamento acessível
 
-Status: needs-info
+Status: in-progress
 Blocked by: none
 
 ## Resultado esperado
@@ -9,7 +9,7 @@ Direção define Holograma padrão, três aparências, claro/escuro, fontes/geom
 
 ## Definições antes da persistência
 
-Protótipo guarda aparência em localStorage da instalação; modelo canônico ainda não define custódia/representação dessa preferência e da opção sonora. Especificar escopo, reinício/troca de conta/reinstalação e versão antes de adicionar campo/tabela/dependência. Som opcional desligado tem referência visual; asset/comportamento de áudio precisam ser definidos. Essas lacunas não bloqueiam a jornada 01 com o padrão visual definido.
+Q56–Q58=A fecharam custódia por instalação e armazenamento visual isolado/versionado, com preservação e nova tentativa nas falhas. [Contrato](../preferencias.md). Áudio fica em incremento próprio; não há seletor inoperante. Implementação funcional e rodada Android3 verificadas; matriz final de contraste/paletas passou; TalkBack bloqueado, sem aceite fictício.
 
 ## Aceite
 
@@ -26,7 +26,7 @@ REQ-DS-001/002/003/005/006; spec/07 §6; spec/08 §6; tarefa visual 03/aceite do
 
 ## Resultado
 
-Concluída: não.
+Concluída: não. Preferências implementadas; [relatório e evidências](../../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Restam desempenho instrumentado e matriz integral de acessibilidade/estados; iPhone/VoiceOver segue adiado e não é dispensado. A matriz final passou; TalkBack foi rejeitado/bloqueado pela entrada física do emulador atual. [Próximo recorte](../leitor-e-desempenho.md).
 
 ## Comments
 
@@ -35,3 +35,5 @@ Concluída: não.
 09/10/2026: dependência 02 removida após entrega de gestão. Preferências, leitores de tela, conteúdo longo, matriz completa e medidas de desempenho continuam neste recorte/aceite dos aparelhos; o ensaio de gestão a 200% não os substitui.
 
 10/10/2026: dependências 03/04 removidas após entregas verificadas. Status needs-info mantido: custódia/representação das preferências e som ainda exigem definição antes de persistir. Leitores de tela, temas/modos, matriz integral e desempenho continuam pendentes.
+
+12/10/2026: Q56/Q57/Q58=A fecharam o [contrato de preferências](../preferencias.md). Implementação iniciada, áudio em recorte próprio; matriz Android e medidas ainda não aceitas.

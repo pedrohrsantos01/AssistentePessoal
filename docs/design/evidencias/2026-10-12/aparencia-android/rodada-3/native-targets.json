@@ -1,0 +1,230 @@
+{
+  "minimumLogicalUnits": 44,
+  "measurements": [
+    {
+      "label": "Holograma",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 157,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 159,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "100%",
+      "widthPixels": 906,
+      "heightPixels": 207,
+      "density": 2.625
+    },
+    {
+      "label": "Holograma",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 222,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 362,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 362,
+      "density": 2.625
+    },
+    {
+      "label": "Cockpit",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 362,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 362,
+      "density": 2.625
+    },
+    {
+      "label": "Neo-tokyo",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 152,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 362,
+      "density": 2.625
+    },
+    {
+      "label": "Modo escuro",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 304,
+      "density": 2.625
+    },
+    {
+      "label": "Seguir sistema",
+      "scale": "200%",
+      "widthPixels": 906,
+      "heightPixels": 362,
+      "density": 2.625
+    },
+    {
+      "label": "Tentar ler aparência novamente",
+      "scale": "100%",
+      "widthPixels": 986,
+      "heightPixels": 115,
+      "density": 2.625
+    },
+    {
+      "label": "Tentar salvar aparência novamente",
+      "scale": "100%",
+      "widthPixels": 986,
+      "heightPixels": 116,
+      "density": 2.625
+    }
+  ],
+  "passed": true
+}

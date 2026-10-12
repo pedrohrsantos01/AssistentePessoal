@@ -1,0 +1,275 @@
+{
+  "pairs": [
+    {
+      "skin": "holo",
+      "mode": "light",
+      "label": "boundary/track",
+      "front": "#778386",
+      "back": "#ededed",
+      "ratio": 3.337107340919108,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "label": "boundary/surface",
+      "front": "#778386",
+      "back": "#FFFFFF",
+      "ratio": 3.906865078430596,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "label": "off-knob/track",
+      "front": "#4B6972",
+      "back": "#ededed",
+      "ratio": 5.034678892799145,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "label": "on-knob/accent",
+      "front": "#FFFFFF",
+      "back": "#0B7A68",
+      "ratio": 5.252707549062497,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "light",
+      "label": "secondary/surface",
+      "front": "#4B6972",
+      "back": "#FFFFFF",
+      "ratio": 5.894269838491658,
+      "minimum": 4.5
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "label": "boundary/track",
+      "front": "#74848d",
+      "back": "#1c272f",
+      "ratio": 3.9313383156780013,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "label": "boundary/surface",
+      "front": "#74848d",
+      "back": "#08141D",
+      "ratio": 4.811262559592335,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "label": "off-knob/track",
+      "front": "#DCEAF0",
+      "back": "#1c272f",
+      "ratio": 12.364289785278912,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "label": "on-knob/accent",
+      "front": "#031511",
+      "back": "#63F5D8",
+      "ratio": 13.922997791289013,
+      "minimum": 3
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "label": "secondary/surface",
+      "front": "#88AEBF",
+      "back": "#08141D",
+      "ratio": 7.848027919240587,
+      "minimum": 4.5
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "label": "boundary/track",
+      "front": "#798286",
+      "back": "#ededed",
+      "ratio": 3.35261642859745,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "label": "boundary/surface",
+      "front": "#798286",
+      "back": "#FFFFFF",
+      "ratio": 3.925022094929844,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "label": "off-knob/track",
+      "front": "#4F6873",
+      "back": "#ededed",
+      "ratio": 5.038415961219912,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "label": "on-knob/accent",
+      "front": "#FFFFFF",
+      "back": "#07758C",
+      "ratio": 5.34046748061544,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "label": "secondary/surface",
+      "front": "#4F6873",
+      "back": "#FFFFFF",
+      "ratio": 5.898644951611267,
+      "minimum": 4.5
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "label": "boundary/track",
+      "front": "#798389",
+      "back": "#20272c",
+      "ratio": 3.905451485145355,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "label": "boundary/surface",
+      "front": "#798389",
+      "back": "#0D141A",
+      "ratio": 4.788249867020048,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "label": "off-knob/track",
+      "front": "#DCEAF0",
+      "back": "#20272c",
+      "ratio": 12.29870364448823,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "label": "on-knob/accent",
+      "front": "#04161C",
+      "back": "#3EE0FF",
+      "ratio": 11.710351085475569,
+      "minimum": 3
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "label": "secondary/surface",
+      "front": "#93A8B2",
+      "back": "#0D141A",
+      "ratio": 7.494562486116199,
+      "minimum": 4.5
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "label": "boundary/track",
+      "front": "#867e89",
+      "back": "#ededed",
+      "ratio": 3.34701846063068,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "label": "boundary/surface",
+      "front": "#867e89",
+      "back": "#FFFFFF",
+      "ratio": 3.9184683634117197,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "label": "off-knob/track",
+      "front": "#665770",
+      "back": "#ededed",
+      "ratio": 5.672455558146746,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "label": "on-knob/accent",
+      "front": "#FFFFFF",
+      "back": "#C2296D",
+      "ratio": 5.480356654909668,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "label": "secondary/surface",
+      "front": "#665770",
+      "back": "#FFFFFF",
+      "ratio": 6.640936675105367,
+      "minimum": 4.5
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "label": "boundary/track",
+      "front": "#878190",
+      "back": "#2a2334",
+      "ratio": 4.013839502750003,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "label": "boundary/surface",
+      "front": "#878190",
+      "back": "#171022",
+      "ratio": 4.915998299615286,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "label": "off-knob/track",
+      "front": "#DCEAF0",
+      "back": "#2a2334",
+      "ratio": 12.294674702948793,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "label": "on-knob/accent",
+      "front": "#12060C",
+      "back": "#FF5FA2",
+      "ratio": 7.0104643857078255,
+      "minimum": 3
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "label": "secondary/surface",
+      "front": "#AEA2C0",
+      "back": "#171022",
+      "ratio": 7.699947700511827,
+      "minimum": 4.5
+    }
+  ],
+  "passed": true
+}

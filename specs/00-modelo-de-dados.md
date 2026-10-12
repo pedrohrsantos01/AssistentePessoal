@@ -370,3 +370,12 @@ Agenda diária por conta e limites: [runbook](../api/ops/sync-retention.md). Fal
 ### Correspondência e diagnóstico de identidade — 07/10/2026
 
 `sync_operation_receipts.payload_hash` existente fornece `operationHash` em respostas, inclusive registros antigos. `sync_mutations.error` guarda diagnóstico limitado com hashes/tipo e até um recibo original/um efêmero; `result` conserva o recibo conhecido sem substituí-lo por tentativa divergente. Dependentes incertas usam `identity_dependency_unresolved`. [Formatos/regras](13-contrato-primeiro-marco.md#concretização-da-correspondência--recorte-1-07102026). Nenhuma coluna nova ou migration; V1–V5 imutáveis.
+
+
+## Preferência visual da instalação — Q56/Q58, 12/10/2026
+
+Contrato local de REQ-DS-001, confirmado por Pedro: banco separado `ritmo-preferences.db`, sem identidade de conta ou segredo. Usar `SQLiteStorage` de `expo-sqlite/kv-store` já instalado, como exceção delimitada à persistência Drizzle para esta configuração key/value; domínio e controle de sessão conservam Drizzle. Tabela interna da biblioteca: `storage(key TEXT PRIMARY KEY NOT NULL,value TEXT)`. Uma chave `appearance` guarda JSON `{version:1,skin:"holo"|"cockpit"|"neo",mode:"system"|"light"|"dark"}`; validar tipos, versão e somente esses campos. Versão do envelope é distinta do `PRAGMA user_version` da biblioteca.
+
+Ausência da chave usa Holograma/seguir sistema sem gravar implicitamente. Preferência pertence ao aparelho: reinício, logout e troca de conta preservam; outro aparelho é independente. Reinstalação usa padrão, mantendo bancos SQLite fora de backup/transferência nas regras Android atuais. Auditar as regras empacotadas; iOS tem aceite posterior próprio.
+
+Leitura indisponível/ilegível/versão desconhecida preserva valor/arquivo, aplica padrão em memória e oferece aviso/nova tentativa explícita; edição da preferência fica bloqueada até leitura válida. Não apagar/resetar nem sobrescrever valor desconhecido. Falha de gravação mantém escolha confirmada; mudança só é aplicada após sucesso da gravação, e nova tentativa explícita preserva a intenção. Nenhum erro desse armazenamento muda sessão, hábitos, XP, filas ou compatibilidade. Sem migração Flyway ou campo de perfil/feed: representação exclusivamente local gerenciada pela biblioteca. [Contrato e testes previstos](../.scratch/interface-m1/preferencias.md).

@@ -21,7 +21,7 @@ A suíte usa arquivos SQLite reais através de better-sqlite3/Drizzle. O mesmo `
 
 `index.js` inicia Expo Router/`src/app`. `Journey` traduz apenas comandos/estados públicos de Session/AccountStore; componentes não chamam HTTP. O SQLite preserva o passo do onboarding, perfil público, intenções, IDs e projeções. `AccountStore.subscribe` publica após a transação externa confirmar; rollback não publica sucesso. Dados de domínio não são duplicados no Zustand, usado somente para navegação e rascunho de sugestão.
 
-Entrada, cadastro/login, confirmação de fuso/início do dia, primeiro hábito ou pular, Briefing, criação posterior e ajustes mínimos estão nesta jornada. A gestão inclui todos os ativos, inclusive antes do início; o Briefing lista apenas os devidos. A gestão usa lista virtualizada, edição de título/ícone/cor com prévia, ordenação e exclusão confirmada. Sessão, cofre e abertura têm avisos e ações distintos. Resultados detalhados de sync, recuperação por link e preferências persistidas continuam nos recortes seguintes. O aviso de privacidade para testes identifica a política pública ainda pendente; não foi inventado um contrato legal final.
+Entrada, cadastro/login, confirmação de fuso/início do dia, primeiro hábito ou pular, Briefing, criação posterior e ajustes mínimos estão nesta jornada. A gestão inclui todos os ativos, inclusive antes do início; o Briefing lista apenas os devidos. A gestão usa lista virtualizada, edição de título/ícone/cor com prévia, ordenação e exclusão confirmada. Sessão, cofre e abertura têm avisos e ações distintos. Resultados detalhados de sync, recuperação por link e preferências persistidas foram implementados nos recortes04–06, com os limites dos relatórios; desempenho e matriz integral ainda pendentes. O aviso de privacidade para testes identifica a política pública ainda pendente; não foi inventado um contrato legal final.
 
 Holograma acompanha o tema do sistema. Os mesmos tokens suportam Cockpit/Neo em claro/escuro; seleção/persistência de aparência fica no recorte 06. Onze pesos locais de Chakra Petch, Space Grotesk e JetBrains Mono entram no bundle; licenças SIL OFL em `assets/licenses/`, incluídas também nos assets do APK pelo plugin de build. Não há download de fontes, telemetria, áudio ou permissões futuras neste recorte.
 
@@ -236,3 +236,25 @@ Ensaio local visível:
 ```
 
 Executar da raiz, com JAVA_HOME e ANDROID_HOME como nos demais ensaios. O lançador valida pacote descartável/emulador, abre acompanhamento e encerra recursos próprios. O método JUnit prepara API/Postgres/SMTP e mailbox/relógio de ensaio em loopback; o driver não usa Resend. A entrada por intent explícito verifica tratamento no app; associações públicas de domínio e iOS permanecem no aceite externo. [Relatório e estado da validação](../docs/analises/2026-10-12-interface-recuperacao-de-senha.md).
+
+
+## Aparência e leitor de tela — recorte06
+
+Contrato Q56–Q58 em `.scratch/interface-m1/preferencias.md`; resultado/limites em `docs/analises/2026-10-12-interface-aparencia-e-preferencias.md`.
+
+Na raiz do checkout, com ANDROID_HOME configurado:
+
+```powershell
+.\scripts\verify-android-journey.ps1 -Suite appearance -Avd Pixel_9 -Serial emulator-5560 -EvidenceDirectory docs/design/evidencias/2026-10-12/aparencia-android/repeticao
+.\scripts\verify-android-accessibility.ps1 -Avd 'NOME_DO_AVD_DEPURAVEL' -Serial emulator-5560 -EnableDebugInput -EvidenceDirectory docs/design/evidencias/2026-10-12/aparencia-android/repeticao-talkback
+```
+
+A suite appearance prepara API/Postgres e duas contas sintéticas, usa preferências/SQLite reais e testa paletas, persistência, A/B/A, falhas externas de leitura/escrita e reinstalação somente de `dev.ritmo.journeytest`. A suite de leitor usa o APK de jornada previamente compilado e o hábito local preparado pela primeira; não inicia API. Inspeciona6 paletas100%/200% e prepara foco, marcar/desfazer e seleção de aparência com TalkBack real, usando entrada física. A execução no Pixel_9 atual ficou bloqueada; o falso positivo de adb input foi descartado. Escolher/preparar o AVD depurável e suas fixtures antes desse segundo comando; o placeholder não é um AVD existente. UIAutomator só consulta a árvore com o leitor pausado; serviço vinculado é conferido durante os gestos. Serviços/fonte/modo anteriores são restaurados. Não constitui aceite integral de leitura falada ou VoiceOver.
+
+Ambos abrem emulador/painel visíveis e encerram somente os recursos próprios, inclusive em falha. `-InspectOnly` no script de acessibilidade mostra armazenamento/pacotes e encerra o emulador próprio. `-RemoveOldHttpHarness` é opt-in de limpeza: remove exclusivamente `dev.ritmo.httpharness` se estiver instalado; exige autorização específica, concedida por Pedro na Q59 para o ensaio de12/10. Não limpa a jornada atual nem o produto.
+
+`-SkipInstall` no ensaio de leitor reutiliza somente um APK instalado cujo SHA-256 coincide com o build local, verificado no emulador; útil ao repetir mudanças exclusivas do driver. Não dispensa build/checks.
+
+`-ReaderOnly` repete somente gestos do TalkBack quando `palette-summary.json` da pasta de evidências já comprova12 capturas/36 verificações de alvos e o mesmo hash do APK. A execução normal grava esse resumo após concluir as paletas, antes de testar o leitor.
+
+A entrada física exige `-EnableDebugInput`, que só ativa adb root temporariamente em imagem depurável/processo próprio, restaurando com unroot; nenhum setenforce ou mudança de permissão de host. O Pixel_9 Google Play atual é preservado e recusado por esse guard. O teste/ponte de leitor preparado continua sem aceite nativo; ver `.scratch/interface-m1/leitor-e-desempenho.md`.

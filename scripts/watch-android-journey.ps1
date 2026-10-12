@@ -1,8 +1,14 @@
-param([ValidateSet('journey','session','sync','recovery')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
+param([ValidateSet('journey','session','sync','recovery','appearance','accessibility')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
 $Host.UI.RawUI.WindowTitle='Ritmo — jornada visível no Android'
 $taskDeadline=(Get-Date).AddMinutes(15)
 $taskPosition=0
-if($Suite -eq 'sync') {
+if($Suite -eq 'accessibility') {
+ Write-Host 'RITMO | REVISAO FINAL E TALKBACK NO ANDROID' -ForegroundColor Cyan
+ Write-Host 'Seis paletas 100%/200% → foco com TalkBack → marcar/desfazer hábito → selecionar aparência'
+} elseif($Suite -eq 'appearance') {
+ Write-Host 'RITMO | APARENCIA E PREFERENCIAS NO ANDROID' -ForegroundColor Cyan
+ Write-Host 'Seis paletas → texto 200% → modo do sistema → logout/troca de conta → falhas preservadas'
+} elseif($Suite -eq 'sync') {
  Write-Host 'RITMO | RESULTADOS DE SINCRONIZACAO NO ANDROID' -ForegroundColor Cyan
  Write-Host 'Recusa → correção → identidade incerta → independentes → 429/503 → snapshot → atualização'
 } elseif($Suite -eq 'session') {

@@ -1,0 +1,20 @@
+{
+  "measurements": [
+    {
+      "metric": "cold_start_to_observed_habit",
+      "elapsedMilliseconds": 4623.966500000097,
+      "meaning": "Upper bound includes am -W and UIAutomator inspection; does not prove the 2s target."
+    },
+    {
+      "metric": "tap_to_observed_checkbox",
+      "elapsedMilliseconds": 5110.513399999938,
+      "meaning": "Upper bound includes ADB/UIAutomator and settling; does not prove the 100ms target."
+    }
+  ],
+  "screenReaderPackages": [
+    "package:com.google.android.marvin.talkbackoverlay",
+    "package:com.google.android.marvin.talkback"
+  ],
+  "talkBackAcceptance": false,
+  "performanceAcceptance": false
+}

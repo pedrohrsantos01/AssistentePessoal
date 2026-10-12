@@ -96,3 +96,25 @@ O recorte 2 acrescenta barreira de publicação opt-in com `RITMO_REQUIRE_WAL=tr
 ## Retenção física do feed
 
 [Runbook e configuração](ops/sync-retention.md), [modelo V5](../specs/00-modelo-de-dados.md#1211-retenção-física-do-feed--04102026) e [prova local](../docs/analises/2026-10-04-retencao-fisica-do-feed.md). Worker diário por conta remove prefixo de envelopes com mais de 90 × 24 horas e snapshots expirados em lotes; progresso e limite são persistidos. Cursor abaixo do limite removido exige ressincronização, mantendo o protocolo m1.1. Quarentena pausa o job. Recibos, hashes, IDs excluídos e dados técnicos de domínio permanecem. Instalação e aceite externo continuam abertos.
+
+
+## Aparência e leitor de tela — recorte06
+
+Contrato Q56–Q58 em `.scratch/interface-m1/preferencias.md`; resultado/limites em `docs/analises/2026-10-12-interface-aparencia-e-preferencias.md`.
+
+Na raiz do checkout, com ANDROID_HOME configurado:
+
+```powershell
+.\scripts\verify-android-journey.ps1 -Suite appearance -Avd Pixel_9 -Serial emulator-5560 -EvidenceDirectory docs/design/evidencias/2026-10-12/aparencia-android/repeticao
+.\scripts\verify-android-accessibility.ps1 -Avd 'NOME_DO_AVD_DEPURAVEL' -Serial emulator-5560 -EnableDebugInput -EvidenceDirectory docs/design/evidencias/2026-10-12/aparencia-android/repeticao-talkback
+```
+
+A suite appearance prepara API/Postgres e duas contas sintéticas, usa preferências/SQLite reais e testa paletas, persistência, A/B/A, falhas externas de leitura/escrita e reinstalação somente de `dev.ritmo.journeytest`. A suite de leitor usa o APK de jornada previamente compilado e o hábito local preparado pela primeira; não inicia API. Inspeciona6 paletas100%/200% e prepara foco, marcar/desfazer e seleção de aparência com TalkBack real, usando entrada física. A execução no Pixel_9 atual ficou bloqueada; o falso positivo de adb input foi descartado. Escolher/preparar o AVD depurável e suas fixtures antes desse segundo comando; o placeholder não é um AVD existente. UIAutomator só consulta a árvore com o leitor pausado; serviço vinculado é conferido durante os gestos. Serviços/fonte/modo anteriores são restaurados. Não constitui aceite integral de leitura falada ou VoiceOver.
+
+Ambos abrem emulador/painel visíveis e encerram somente os recursos próprios, inclusive em falha. `-InspectOnly` no script de acessibilidade mostra armazenamento/pacotes e encerra o emulador próprio. `-RemoveOldHttpHarness` é opt-in de limpeza: remove exclusivamente `dev.ritmo.httpharness` se estiver instalado; exige autorização específica, concedida por Pedro na Q59 para o ensaio de12/10. Não limpa a jornada atual nem o produto.
+
+`-SkipInstall` no ensaio de leitor reutiliza somente um APK instalado cujo SHA-256 coincide com o build local, verificado no emulador; útil ao repetir mudanças exclusivas do driver. Não dispensa build/checks.
+
+`-ReaderOnly` repete somente gestos do TalkBack quando `palette-summary.json` da pasta de evidências já comprova12 capturas/36 verificações de alvos e o mesmo hash do APK. A execução normal grava esse resumo após concluir as paletas, antes de testar o leitor.
+
+A entrada física exige `-EnableDebugInput`, que só ativa adb root temporariamente em imagem depurável/processo próprio, restaurando com unroot; nenhum setenforce ou mudança de permissão de host. O Pixel_9 Google Play atual é preservado e recusado por esse guard. O teste/ponte de leitor preparado continua sem aceite nativo; ver `.scratch/interface-m1/leitor-e-desempenho.md`.

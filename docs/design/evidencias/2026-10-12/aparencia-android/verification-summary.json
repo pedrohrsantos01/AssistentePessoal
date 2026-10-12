@@ -1,0 +1,178 @@
+{
+  "app": {
+    "typecheck": true,
+    "lint": true,
+    "domainTests": 164,
+    "componentTests": 38,
+    "totalTests": 202,
+    "testLog": ".scratch/runtime/recorte06-app-test-latest.log"
+  },
+  "appearanceFunctionalAndroid": {
+    "passed": true,
+    "apkSha256": "713bfddc03875ad424592fa2d06b7eecd6bb947777a3c4fbbe575ed2e9afc3ed",
+    "phases": 6,
+    "captures": 36,
+    "targetsMeasured": 32
+  },
+  "finalPalettes": {
+    "apkSha256": "3d5e7460d0b6ce89715962e365682017db7376c9a2d6b7a6467493c47cdfc414",
+    "passed": true,
+    "palettes": 6,
+    "fontScales": [
+      1,
+      2
+    ],
+    "captures": [
+      "final-holo-light-100.png",
+      "final-holo-light-200.png",
+      "final-holo-dark-100.png",
+      "final-holo-dark-200.png",
+      "final-cockpit-light-100.png",
+      "final-cockpit-light-200.png",
+      "final-cockpit-dark-100.png",
+      "final-cockpit-dark-200.png",
+      "final-neo-light-100.png",
+      "final-neo-light-200.png",
+      "final-neo-dark-100.png",
+      "final-neo-dark-200.png"
+    ],
+    "targetAssertions": 36,
+    "targetMinimum": "floor(44 * nativeDensity) pixels per axis; full node dimensions not persisted in this attempt",
+    "readerAcceptance": false,
+    "origin": "final-r3: final_apk_twelve_palettes_and_native_targets phase passed before TalkBack diagnostic format assertion failed"
+  },
+  "reader": {
+    "apkSha256": "3d5e7460d0b6ce89715962e365682017db7376c9a2d6b7a6467493c47cdfc414",
+    "passed": false,
+    "status": "blocked_by_current_emulator_input_capability",
+    "appFunctionalAppearanceAcceptance": true,
+    "palettesAccepted": true,
+    "talkBackAcceptance": false,
+    "falsePositiveRejected": true,
+    "reason": "ADB input changed the checkbox before accessibility activation, with TalkBack focus still on the heading. Console events failed the physical preflight; direct kernel sendevent was denied. The launch guard refused debug escalation for the current Google Play image. No OS security policy was disabled.",
+    "next": "Use a verified physical-input bridge or a dedicated debuggable AVD, or perform witnessed manual TalkBack validation.",
+    "scope": "No accepted real-reader activation or all-state spoken-reading evidence.",
+    "avd": {
+      "name": "Pixel_9",
+      "api": 35,
+      "image": "google_apis_playstore/x86_64",
+      "playStoreEnabled": true,
+      "baseMemoryMB": 2048,
+      "temporaryMemoryMB": 4096,
+      "cores": 4
+    }
+  },
+  "performanceAcceptance": false,
+  "iPhoneAcceptance": false,
+  "ownedNativeResourcesClosed": true,
+  "apiCheck": {
+    "passed": true,
+    "tests": 92,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 7,
+    "executed": 85,
+    "buildDuration": "21m38s",
+    "operationsPythonTests": 13,
+    "classes": [
+      {
+        "class": "dev.ritmo.ContainerPackagingTests",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.ModularityTests",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.OperationalSchedulingTests",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.PrimaryTelemetryTests",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.ProbeTransportTests",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.ProxyTlsTests",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.RateLimitTests",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.ReceiverSupervisionTests",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.RestoreTests",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.RetentionLifecycleTests",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.RuntimeTests",
+        "tests": 45,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 7
+      },
+      {
+        "class": "dev.ritmo.SyncRetentionTests",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.TrustedProxyTests",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.ritmo.WalRecoveryTests",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ]
+  }
+}

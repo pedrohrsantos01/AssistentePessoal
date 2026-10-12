@@ -56,7 +56,7 @@ O handoff omite exclusão no M1; spec/13 §3 inclui habit.delete/M1-13. Usar a S
 - Reusar Session, AccountStore, scheduler, relógio e recuperação. Ligação da UI às mudanças locais/pull precisa ser explícita; timers não são essa ligação.
 - UI strings em app/src/i18n/pt-BR.ts e tokens em app/src/theme/tokens.ts. Resolver dependências compatíveis com Expo 57 nas fontes oficiais, na fatia que as usar.
 - Preservar entradas dos harnesses ao introduzir a entrada do produto; não renomear um harness como aplicação final.
-- Preferências de aparência/áudio e compatibilidade de metadados antigos serão especificadas antes de persistir/migrar; nenhuma tabela/campo novo implícito nesta revisão.
+- Preferências visuais têm contrato Q56–Q58 em `.scratch/interface-m1/preferencias.md`; representação local isolada está em spec/00. Áudio tem incremento próprio. Mudanças de metadados/compatibilidade continuam exigindo especificação antes de migrar.
 
 ## Implementação e aceite pendente
 
@@ -68,4 +68,4 @@ Em10/10/2026, [refinamento de fidelidade dos recortes01/02](../analises/2026-10-
 
 [Resultados de sync — recorte 04](../analises/2026-10-10-interface-resultados-de-sincronizacao.md) concluído localmente em 10/10/2026: pílula/painéis e estado por item, recusa corrigível com cadeia explícita, Q53 preservado, espera 429/503 e snapshot/compatibilidade reais. 171 testes do app, API check e Android visível final passaram; texto 200% e sete alvos observados no escopo registrado. Próximo recomendado: 05 — recuperação de senha. Aparência, leitores de tela, iPhone e operação externa continuam pendentes.
 
-[Recorte05 — recuperação,12/10/2026](../analises/2026-10-12-interface-recuperacao-de-senha.md) concluído localmente. Entrada por intent explícito/SMTP/API não substitui a associação pública de links nem o aceite iOS. Recorte06 permanece needs-info.
+[Recorte05 — recuperação,12/10/2026](../analises/2026-10-12-interface-recuperacao-de-senha.md) concluído localmente. Entrada por intent explícito/SMTP/API não substitui a associação pública de links nem o aceite iOS. Recorte06 em andamento com contrato confirmado. [Aparência e preferências,12/10](../analises/2026-10-12-interface-aparencia-e-preferencias.md): implementação funcional e rodada Android3 verificadas; desempenho, matriz integral e iPhone/VoiceOver ainda não aceitos.

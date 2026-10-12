@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "tests": 92,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 7,
+  "executed": 85,
+  "buildDuration": "21m38s",
+  "operationsPythonTests": 13,
+  "classes": [
+    {
+      "class": "dev.ritmo.ContainerPackagingTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.ModularityTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.OperationalSchedulingTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.PrimaryTelemetryTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.ProbeTransportTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.ProxyTlsTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.RateLimitTests",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.ReceiverSupervisionTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.RestoreTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.RetentionLifecycleTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.RuntimeTests",
+      "tests": 45,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 7
+    },
+    {
+      "class": "dev.ritmo.SyncRetentionTests",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.TrustedProxyTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.ritmo.WalRecoveryTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

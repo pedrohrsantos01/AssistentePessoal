@@ -1,0 +1,21 @@
+{
+  "apkSha256": "3d5e7460d0b6ce89715962e365682017db7376c9a2d6b7a6467493c47cdfc414",
+  "passed": false,
+  "status": "blocked_by_current_emulator_input_capability",
+  "appFunctionalAppearanceAcceptance": true,
+  "palettesAccepted": true,
+  "talkBackAcceptance": false,
+  "falsePositiveRejected": true,
+  "reason": "ADB input changed the checkbox before accessibility activation, with TalkBack focus still on the heading. Console events failed the physical preflight; direct kernel sendevent was denied. The launch guard refused debug escalation for the current Google Play image. No OS security policy was disabled.",
+  "next": "Use a verified physical-input bridge or a dedicated debuggable AVD, or perform witnessed manual TalkBack validation.",
+  "scope": "No accepted real-reader activation or all-state spoken-reading evidence.",
+  "avd": {
+    "name": "Pixel_9",
+    "api": 35,
+    "image": "google_apis_playstore/x86_64",
+    "playStoreEnabled": true,
+    "baseMemoryMB": 2048,
+    "temporaryMemoryMB": 4096,
+    "cores": 4
+  }
+}

@@ -478,3 +478,10 @@ Respostas incorporadas aos specs 01/06/13 e README dos contratos. [Diagnóstico 
 - **Q55 — Rota iOS:** Pedro escolheu **B — adiar a rota iOS** e continuar o preparo Android. M1 permanece aberto até validar o iPhone 16e; não houve dispensa do aparelho nem dos Universal Links, contratação Apple ou autorização para uma alternativa sem esses requisitos.
 
 [Plano de aceite e dependências](../aceite-m1/spec.md). Integração visual continua aguardando Q28; contratação/orçamento permanecem adiados por Q47. Renovar o teste Android existente é trabalho já autorizado; novos parâmetros/integrações de link serão fechados após a configuração manual.
+
+
+## Aparência e acessibilidade — Q56–Q58, 12/10/2026
+
+Pedro escolheu A nas três perguntas e confirmou o contrato preparado: Q56 preferência por instalação (reinício/logout/troca de conta preservam, aparelhos independentes, reinstalação Holograma/seguir sistema); Q57 áudio em recorte próprio, sem controle inoperante; Q58 armazenamento visual separado/versionado, falha de leitura preserva e usa padrão com aviso/retry, edição pausada até leitura válida, falha de gravação mantém escolha salva. Nenhum bloqueio de sessão/domínio causado pela preferência. [Contrato aprovado](../interface-m1/preferencias.md), representação no spec/00 e comportamento no spec/11. Confirmado iniciar implementação; aceite depende dos testes, não destas respostas.
+
+Q59=A,12/10/2026: Pedro autorizou remover somente `dev.ritmo.httpharness` e suas fixtures antigas para liberar o emulador para a revisão final/TalkBack. Não amplia a limpeza para o produto ou `dev.ritmo.journeytest`. Executado: remoção retornou Success e permitiu instalar a revisão final; jornada atual preservada. Evidência em `.scratch/interface-m1/espaco-emulador.md`.

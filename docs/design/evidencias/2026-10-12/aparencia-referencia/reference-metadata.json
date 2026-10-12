@@ -1,0 +1,418 @@
+{
+  "source": "Protótipos de assistente pessoal/Ritmo-App.dc.html",
+  "sha256": "a37d1a92cac66cc302cdb0603f5636e079b66369d9feacf13f264964ba0c0557",
+  "phase": "m1",
+  "screen": "ajustes",
+  "viewportLogicalUnits": [
+    411.4286,
+    928.4286
+  ],
+  "fonts": "11 faces das famílias originais carregadas a partir dos mesmos TTF locais empacotados; FontFace.status=loaded e document.fonts.check verificados nas seis capturas; não depender de document.fonts.ready sozinho",
+  "method": "arquivo original servido por route fulfill, localStorage seleciona somente skin/mode; frame sem raio para comparar; nenhum código do runtime portado; apenas transporte das fontes substituído por TTF locais, sem mudar famílias/pesos/estilos do produto",
+  "screens": [
+    "cockpit-dark-100.png",
+    "cockpit-light-100.png",
+    "holo-dark-100.png",
+    "holo-light-100.png",
+    "neo-dark-100.png",
+    "neo-light-100.png"
+  ],
+  "fontVerification": [
+    {
+      "skin": "holo",
+      "mode": "light",
+      "fonts": {
+        "faces": [
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "chakra": true,
+        "space": true,
+        "mono": true
+      }
+    },
+    {
+      "skin": "holo",
+      "mode": "dark",
+      "fonts": {
+        "faces": [
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "chakra": true,
+        "space": true,
+        "mono": true
+      }
+    },
+    {
+      "skin": "cockpit",
+      "mode": "light",
+      "fonts": {
+        "faces": [
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "chakra": true,
+        "space": true,
+        "mono": true
+      }
+    },
+    {
+      "skin": "cockpit",
+      "mode": "dark",
+      "fonts": {
+        "faces": [
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "chakra": true,
+        "space": true,
+        "mono": true
+      }
+    },
+    {
+      "skin": "neo",
+      "mode": "light",
+      "fonts": {
+        "faces": [
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "chakra": true,
+        "space": true,
+        "mono": true
+      }
+    },
+    {
+      "skin": "neo",
+      "mode": "dark",
+      "fonts": {
+        "faces": [
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Chakra Petch\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "600",
+            "status": "loaded"
+          },
+          {
+            "family": "\"Space Grotesk\"",
+            "weight": "700",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "400",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "500",
+            "status": "loaded"
+          },
+          {
+            "family": "\"JetBrains Mono\"",
+            "weight": "700",
+            "status": "loaded"
+          }
+        ],
+        "chakra": true,
+        "space": true,
+        "mono": true
+      }
+    }
+  ]
+}

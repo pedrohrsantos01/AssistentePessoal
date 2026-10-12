@@ -98,7 +98,7 @@ Feedback deriva da concessão/decisão real, inclusive limite sem XP e restaura�
 
 ## 8. Implementação e aceite
 
-[Plano M1](../.scratch/interface-m1/spec.md) decompõe a tarefa visual existente. O [recorte 01](../docs/analises/2026-10-09-interface-primeira-jornada.md) implementa tokens tipados, onze pesos locais com OFL, controles e a primeira jornada nativa. Holograma segue o sistema; seleção/persistência e decoração dos demais estilos ficam no recorte 06. O [recorte 02](../docs/analises/2026-10-09-interface-gestao-de-habitos.md) acrescenta lista de gestão, prévia/edição, ordem acessível e confirmação de exclusão; mesma fonte de dados do Briefing. Os relatórios distinguem checks, ensaios Android e o aceite integral pendente.
+[Plano M1](../.scratch/interface-m1/spec.md) decompõe a tarefa visual existente. O [recorte 01](../docs/analises/2026-10-09-interface-primeira-jornada.md) implementa tokens tipados, onze pesos locais com OFL, controles e a primeira jornada nativa. Seleção/persistência e decoração dos demais estilos foram implementadas no recorte06, conforme [relatório de12/10](../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md); medidas e matriz integral continuam pendentes. O [recorte 02](../docs/analises/2026-10-09-interface-gestao-de-habitos.md) acrescenta lista de gestão, prévia/edição, ordem acessível e confirmação de exclusão; mesma fonte de dados do Briefing. Os relatórios distinguem checks, ensaios Android e o aceite integral pendente.
 
 Aceite exige Android visível nos ensaios e iPhone 16e: temas/modos, texto 100%/200%, teclado/conteúdo longo, rótulos/foco e redução de movimento. Chromium diagnostica o protótipo, não prova VoiceOver/TalkBack, persistência, API ou desempenho. Q55=B mantém iOS adiado e M1 aberto.
 
@@ -109,3 +109,14 @@ Refinamento das telas atuais em 10/10/2026: [fidelidade visual M1](../docs/anali
 [Recorte03 — sessão/cofre/abertura](../docs/analises/2026-10-10-interface-sessao-e-recuperacao-local.md) entregue em 10/10/2026 sobre os mesmos tokens/primitives: bloqueios e ações próprios, diagnóstico limitado e nova tentativa, preempção de logout e reautenticação online da mesma conta. 164 testes do app e Android visível aprovados; controles do cofre/instalação observados com texto 200%. Recortes 04–06 e aceite integral/iOS permanecem abertos.
 
 [Recorte 04 — resultados de sincronização](../docs/analises/2026-10-10-interface-resultados-de-sincronizacao.md) entregue localmente em 10/10/2026: pílula acionável, estado por hábito e painéis sobre a jornada real, com revisão de recusa, diagnóstico Q53, cópia inicial e somente leitura. 171 testes do app, API check e Android visível final aprovados; sete alvos medidos e texto 200% observado nas superfícies descritas. Recuperação por link, preferências, leitores de tela completos e aceite integral/iPhone continuam abertos.
+
+
+### Preferências locais — contrato confirmado em 12/10/2026
+
+Q56=A/Q57=A/Q58=A: aparência e modo persistem por instalação, independentes da conta, conforme [modelo local](00-modelo-de-dados.md) e [contrato](../.scratch/interface-m1/preferencias.md). Ajustes oferece as três aparências, Modo escuro e Seguir sistema; mudar Modo escuro estabelece modo manual, desligar Seguir sistema fixa o modo efetivo atual, religar acompanha o aparelho. Mudança aplica após gravação confirmada. Status bar usa o modo efetivo, inclusive quando diverge do sistema. Falhas preservam valores e isolam somente as preferências, com aviso e tentativa explícita.
+
+Som fica em recorte próprio (Q57=A), sem interruptor inoperante no M1. Tamanho de texto e redução de movimento continuam vindo do sistema, sem preferências locais adicionais. Primeira abertura lê preferências antes de apresentar a jornada; padrão aparece com aviso se a leitura falhar. Não confundir contrato aprovado com evidência de implementação/aceite.
+
+Correção de contraste no interruptor de aparência: o track cinza do modo claro reduz o contraste da borda interativa geral para menos de3:1. Usar o token específico `border.switchTrack`, texto composto com alpha0,52 sobre base clara/superfície escura, validado contra track e superfície nos seis conjuntos; controles anteriores mantêm alpha0,48. Indicador ativo/knob e texto secundário também entram nessa verificação.
+
+Knob desligado: conservar o branco `#DCEAF0` da referência nos modos escuros; nos claros, usar texto secundário para atingir3:1 sobre o track, corrigindo o branco original de contraste insuficiente. Valor em `switchOffKnob`, com geometria original48×28/knob22.

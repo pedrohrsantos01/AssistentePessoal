@@ -17,7 +17,7 @@ Contratos: [PRD](../../PRD.md), [spec/13](../../specs/13-contrato-primeiro-marco
 3. [Sessão, cofre e abertura](issues/03-sessao-e-recuperacao-local.md), com isolamento pela navegação. Concluído localmente: falhas de cofre/abertura, logout e reentrada A/B/A pela UI Android, sem perda/duplicação.
 4. [Sync, identidade e compatibilidade](issues/04-estados-de-sincronizacao.md), com ações distintas por resultado. Concluído localmente: recusa corrigida/cadeia explícita, Q53 preservado, espera/remoto e cópia inicial/compatibilidade no Android.
 5. [Recuperação de senha](issues/05-recuperacao-de-senha.md), concluído localmente: solicitação/SMTP, entrada nativa e nova senha preservando pendências; domínio/associações reais aguardam aceite externo.
-6. [Aparência/acessibilidade](issues/06-aparencia-e-acessibilidade.md), especificando a custódia das preferências antes de persistir.
+6. [Aparência/acessibilidade](issues/06-aparencia-e-acessibilidade.md), com contrato Q56–Q58 confirmado e preferências implementadas; desempenho e matriz integral em andamento.
 
 Tokens não são entrega de produto isolada. Cada fatia cria somente primitives necessários e testa comportamento público, evitando biblioteca genérica ou todas as telas da Fase 1 antes do primeiro valor.
 
@@ -33,6 +33,6 @@ Tarefas, Agenda, voz, notificações, níveis/ofensivas/conquistas e 2A seguem s
 
 ## Resultado
 
-Concluída: não. Incorporação documental e recortes 01/02/03/04/05 concluídos localmente; preferências (06), além da matriz integral nos aparelhos, permanecem pendentes.
+Concluída: não. Incorporação documental e recortes 01/02/03/04/05 concluídos localmente; seleção/persistência de preferências (06) implementada e testada, com acabamento/medidas e matriz integral nos aparelhos ainda pendentes.
 
-Entrega local 05: [recuperação de senha,12/10](../../docs/analises/2026-10-12-interface-recuperacao-de-senha.md). Próximo recomendado:06, definir custódia/representação antes de persistir preferências.
+Entrega local 05: [recuperação de senha,12/10](../../docs/analises/2026-10-12-interface-recuperacao-de-senha.md). Entrega funcional06: [aparência e preferências](../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Próximo recomendado dentro de06: medidas instrumentadas e ampliação do roteiro de leitor de tela.

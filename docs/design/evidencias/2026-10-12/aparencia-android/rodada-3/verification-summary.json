@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "apkSha256": "713bfddc03875ad424592fa2d06b7eecd6bb947777a3c4fbbe575ed2e9afc3ed",
+  "phases": 6,
+  "captures": 36,
+  "caseMilliseconds": 782821.6018,
+  "totalMilliseconds": 783733.744,
+  "scope": "persistência/falhas/domínio real e seis paletas100/200 antes do ajuste isolado de borda do switch; reinstalação usou o mesmo APK preservado",
+  "readerAcceptance": false,
+  "performanceAcceptance": false,
+  "finalApkSha256": "3d5e7460d0b6ce89715962e365682017db7376c9a2d6b7a6467493c47cdfc414"
+}

@@ -1,0 +1,9 @@
+{
+  "source": "check isolado; única falha em igualdade de WAL no PrimaryTelemetryTests; Retention/WalRecovery passaram",
+  "totals": {
+    "tests": 92,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 7
+  }
+}
