@@ -1,0 +1,84 @@
+{
+  "density": 2.625,
+  "targets": [
+    {
+      "label": "Esqueci a senha",
+      "widthPixels": 954,
+      "heightPixels": 115,
+      "scale": "100%",
+      "boundsPixels": [
+        63,
+        1046,
+        1017,
+        1161
+      ]
+    },
+    {
+      "label": "Salvar nova senha",
+      "widthPixels": 954,
+      "heightPixels": 157,
+      "scale": "200%",
+      "boundsPixels": [
+        63,
+        1190,
+        1017,
+        1347
+      ],
+      "visibleBottomPixels": 1452
+    },
+    {
+      "label": "Salvar nova senha",
+      "widthPixels": 954,
+      "heightPixels": 157,
+      "scale": "200%",
+      "boundsPixels": [
+        63,
+        1190,
+        1017,
+        1347
+      ],
+      "visibleBottomPixels": 1452
+    },
+    {
+      "label": "Salvar nova senha",
+      "widthPixels": 954,
+      "heightPixels": 157,
+      "scale": "200%",
+      "boundsPixels": [
+        63,
+        1227,
+        1017,
+        1384
+      ]
+    },
+    {
+      "label": "Voltar para Entrar",
+      "widthPixels": 954,
+      "heightPixels": 157,
+      "scale": "200%",
+      "boundsPixels": [
+        63,
+        1036,
+        1017,
+        1193
+      ]
+    },
+    {
+      "label": "Pedir outro link",
+      "widthPixels": 954,
+      "heightPixels": 137,
+      "scale": "100%",
+      "boundsPixels": [
+        63,
+        653,
+        1017,
+        790
+      ]
+    }
+  ],
+  "scales": [
+    "100%",
+    "200%"
+  ],
+  "passed": true
+}

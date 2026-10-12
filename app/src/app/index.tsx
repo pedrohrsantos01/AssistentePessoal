@@ -1,3 +1,4 @@
+import {consumePasswordResetIntent,subscribePasswordResetIntent} from '../core/identity/password-reset-intent.ts';
 import {useEffect,useState} from 'react';
 import {AppState} from 'react-native';
 import {useFonts} from 'expo-font';
@@ -23,6 +24,7 @@ export default function App() {
   }).catch(()=>{if(!cancelled) setFailed(true);});
   return ()=>{cancelled=true;owner?.dispose();};
  },[fonts,fontError,attempt]);
+ useEffect(()=>{if(!journey)return;const receive=()=>{const intent=consumePasswordResetIntent();if(intent)journey.passwordRecovery.open(intent);};const unsubscribe=subscribePasswordResetIntent(receive);receive();return unsubscribe;},[journey]);
  useEffect(()=>{const subscription=AppState.addEventListener('change',state=>{if(state==='active') journey?.refresh();});return ()=>subscription.remove();},[journey]);
  if(failed||fontError) return <Page><Type size="title" header>{pt.startFailure}</Type><Banner message={pt.genericError} error/><Button label={pt.retry} onPress={()=>{setFailed(false);setAttempt(attempt+1);}}/></Page>;
  if(!journey) return <Loading message={pt.loading}/>;

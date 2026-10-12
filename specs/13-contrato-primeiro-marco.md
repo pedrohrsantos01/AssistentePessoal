@@ -427,3 +427,8 @@ SQLite/Drizzle/SecureStore/HTTP são reais nos caminhos saudáveis; indisponibil
 ### Interface de resultados — recorte 04, 10/10/2026
 
 [Entrega e evidências](../docs/analises/2026-10-10-interface-resultados-de-sincronizacao.md): Journey expõe operações/recuperações/progresso real e encaminha correção/descarte para AccountStore. Recusa comprovada admite somente dependentes selecionadas; Q53 conserva intenção/cadeia e oferece diagnóstico sem descarte/novo ID. Snapshot inicial é exigido para conta integrada sem cópia local; falha/reinício mantém gate e staging, instalando a base completa atomicamente. UI respeita scheduler/Retry-After e compatibilidade. Nenhum DDL/campo de transporte/endpoint novo. 171 testes do app, API check e Android visível aprovados; 05/06 e gates existentes mantêm M1 aberto.
+
+
+### Interface de recuperação — recorte05,12/10/2026
+
+[Entrega e limites](../docs/analises/2026-10-12-interface-recuperacao-de-senha.md): solicitação uniforme e nova senha pelo transporte existente, sem ativação automática de sessão nem perda de pendências. Native intent sanitiza navegação e mantém segredo somente como referência transitória; abrir não confirma. Invalidado/usado/expirado oferece novo pedido; offline/429/falhas preservam campos e contexto para ação deliberada. Fluxos de banco/logout mantêm seus bloqueios; recuperar identidade não libera domínio/cópia parcial. Reautenticar respeita a conta ativa. 192 testes app,85 Java/13 operacionais e cinco fases Android locais aprovados. Associações públicas, iOS Q55=B, recorte06 e aceite integral continuam abertos; nenhuma mudança no contrato HTTP/DDL.

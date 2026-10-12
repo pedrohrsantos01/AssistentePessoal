@@ -16,3 +16,10 @@ export interface IdentityTransport {
   refresh(refreshToken:string):Promise<RenewedCredentials>;
   revoke(revokeToken:string):Promise<void>;
 }
+
+export interface PasswordResetTransport {
+ requestPasswordReset(email:string):Promise<void>;
+ confirmPasswordReset(resetToken:string,newPassword:string):Promise<void>;
+}
+
+export type ResetIntent={kind:'valid';token:string}|{kind:'invalid'};

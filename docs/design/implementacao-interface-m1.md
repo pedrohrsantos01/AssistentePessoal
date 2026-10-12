@@ -35,6 +35,7 @@ Nome 1–80, e-mail até 254 e senha 8–128 sem trim conforme contrato; título
 | Sessão remota expirada/recusada | Aviso + autenticar | Uso local quando autorizado; login online, sem apagar pendências |
 | Logout incompleto | Bloqueio + terminar saída | Sem voltar à conta por rota/gesto; limpeza/revogação pelo núcleo |
 | B / reentrada A | Somente dados da conta ativa | Invalidar leituras/subscrições da geração anterior; resultado de A não atualiza B |
+| Recuperação de senha | Pedido/confirmação/resultado próprios | Link em memória, sem consumo ao abrir; confirmar online, sem login automático ou perda de pendências |
 | Atualização/build não verificado | Somente leitura | Escrita só após verificação permitida; sair conforme contrato |
 | Snapshot em andamento | Progresso/erro reais | Sem dashboard vazio ou ativação de conta parcial |
 | 429/Retry-After | Remoto pausado/mensagem discreta | Preservar local e backoff; retry manual não burla janela |
@@ -66,3 +67,5 @@ Em10/10/2026, [refinamento de fidelidade dos recortes01/02](../analises/2026-10-
 [Sessão/cofre/abertura — recorte 03](../analises/2026-10-10-interface-sessao-e-recuperacao-local.md) concluído localmente em 10/10/2026: estados distintos/diagnóstico limitado, retomada sem perder fila, isolamento A/B/A e autenticação da mesma conta. 164 testes do app, API check e Android visível passaram. Próximo recomendado: recorte 04, resultados de sync/identidade/compatibilidade. Links, aparência, matriz integral de acessibilidade/iPhone e gates externos continuam abertos.
 
 [Resultados de sync — recorte 04](../analises/2026-10-10-interface-resultados-de-sincronizacao.md) concluído localmente em 10/10/2026: pílula/painéis e estado por item, recusa corrigível com cadeia explícita, Q53 preservado, espera 429/503 e snapshot/compatibilidade reais. 171 testes do app, API check e Android visível final passaram; texto 200% e sete alvos observados no escopo registrado. Próximo recomendado: 05 — recuperação de senha. Aparência, leitores de tela, iPhone e operação externa continuam pendentes.
+
+[Recorte05 — recuperação,12/10/2026](../analises/2026-10-12-interface-recuperacao-de-senha.md) concluído localmente. Entrada por intent explícito/SMTP/API não substitui a associação pública de links nem o aceite iOS. Recorte06 permanece needs-info.

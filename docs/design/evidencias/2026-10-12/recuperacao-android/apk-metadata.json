@@ -1,0 +1,15 @@
+{
+  "variant": "dev.ritmo.journeytest",
+  "architecture": "x86_64",
+  "sha256": "c6316d26f433e9c7ce76417d2d527e020681191b1e1c5d506fb01d01aa5663c6",
+  "sizeBytes": 44520430,
+  "suite": "recovery",
+  "status": "passed",
+  "testOnlyConditions": [
+    "sync route outage",
+    "expired access metadata read; real refresh revocation",
+    "server reset clock expiry"
+  ],
+  "publicAssociationsVerified": false,
+  "nativeEvidence": "rodada-3/verification-summary.json"
+}

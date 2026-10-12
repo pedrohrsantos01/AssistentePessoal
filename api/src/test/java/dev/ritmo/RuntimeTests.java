@@ -927,4 +927,46 @@ class RuntimeTests {
         System.out.println(output);
     }
 
+
+    @Test
+    @org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable(named="RITMO_ANDROID_JOURNEY_SERIAL",matches="emulator-[0-9]+")
+    void androidProductPasswordRecoveryPreservesPendingWork() throws Exception {
+        // SMTP mailbox and clock control are loopback-only test ports, absent from the API artifact.
+        var bridge=com.sun.net.httpserver.HttpServer.create(new java.net.InetSocketAddress("127.0.0.1",0),0);
+        bridge.createContext("/",exchange->{
+            byte[] response;int status=200;
+            try {
+                var query=new java.util.HashMap<String,String>();
+                String raw=exchange.getRequestURI().getRawQuery();
+                if(raw!=null) for(String pair:raw.split("&")) {
+                    String[] parts=pair.split("=",2);
+                    query.put(java.net.URLDecoder.decode(parts[0],java.nio.charset.StandardCharsets.UTF_8),parts.length==2?java.net.URLDecoder.decode(parts[1],java.nio.charset.StandardCharsets.UTF_8):"");
+                }
+                String action=exchange.getRequestURI().getPath();
+                String email=query.getOrDefault("email","");
+                var data=dev.ritmo.shared.Json.object();
+                if(action.equals("/advance")&&exchange.getRequestMethod().equals("POST")) {
+                    long seconds=Long.parseLong(query.getOrDefault("seconds","0"));
+                    if(seconds<1||seconds>3600)throw new IllegalArgumentException();RESET_CLOCK.advance(seconds);data.put("advanced",true);
+                } else if((action.equals("/link")||action.equals("/count"))&&email.endsWith("@example.test")) {
+                    if(action.equals("/count"))data.put("count",MAIL.getReceivedMessagesForDomain(email).length);
+                    else {int index=Integer.parseInt(query.getOrDefault("index","0"));if(index<0||index>2)throw new IllegalArgumentException();data.put("link",resetLink(email,index));}
+                } else throw new IllegalArgumentException();
+                response=data.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            } catch(Exception ignored) {status=500;response="{}".getBytes(java.nio.charset.StandardCharsets.UTF_8);}
+            exchange.getResponseHeaders().set("Content-Type","application/json");exchange.getResponseHeaders().set("Cache-Control","no-store");
+            exchange.sendResponseHeaders(status,response.length);try(var output=exchange.getResponseBody()){output.write(response);}finally{exchange.close();}
+        });
+        bridge.start();
+        try {
+            var log=java.nio.file.Path.of("build/android-journey-integration.log");
+            var builder=new ProcessBuilder("node","--import","tsx","--test","test/integration/android-password-recovery.test.ts")
+                .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
+            builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+            builder.environment().put("RITMO_RESET_MAILBOX","http://127.0.0.1:"+bridge.getAddress().getPort());
+            var process=builder.start();boolean ended=process.waitFor(930,java.util.concurrent.TimeUnit.SECONDS);if(!ended)process.destroyForcibly();
+            String output=java.nio.file.Files.readString(log);if(output.length()>16000)output=output.substring(output.length()-16000);
+            assertThat(ended).as(output).isTrue();assertThat(process.exitValue()).as(output).isZero();System.out.println(output);
+        } finally {bridge.stop(0);}
+    }
 }

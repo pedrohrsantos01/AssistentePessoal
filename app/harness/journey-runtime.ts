@@ -12,11 +12,12 @@ import {startExpoSync} from '../src/core/sync/start-expo-sync.ts';
 // All recovery, isolation, persistence and UI remain the product implementation.
 export async function openJourneyTestRuntime(origin:string) {
  if(process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST!=='1') throw new Error('test_variant_required');
- const url=await Linking.getInitialURL(),fault=url?.match(/[?&]ritmoTestFault=([a-z0-9-]+)(?:[&#]|$)/)?.[1];
+ const url=await Linking.getInitialURL(),fault=url?.match(/[?&]ritmoTestFault=([a-z0-9-]+)(?:[&#]|$)/)?.[1]??(url?.startsWith('https://api.example.test/password-reset#token=')?'recovery-isolation':undefined);
  const originalFetch=globalThis.fetch;let intercepted=false;
- if(['sync-429','sync-503','sync-update','sync-identity','sync-snapshot'].includes(fault??'')) globalThis.fetch=async(input,init)=>{
+ if(['sync-429','sync-503','sync-update','sync-identity','sync-snapshot','recovery-isolation'].includes(fault??'')) globalThis.fetch=async(input,init)=>{
   const path=typeof input==='string'?input:'';
   if(!path.startsWith(origin+'/api/v1/sync/')) return originalFetch(input,init);
+  if(fault==='recovery-isolation') throw new TypeError('synthetic_sync_network_interruption');
   if(fault==='sync-429'||fault==='sync-503') return new Response(JSON.stringify({error:{code:'temporarily_unavailable'}}),{status:fault==='sync-429'?429:503,headers:{'Content-Type':'application/json','Retry-After':'60'}});
   if(fault==='sync-update') return new Response(JSON.stringify({error:{code:'update_required'}}),{status:426,headers:{'Content-Type':'application/json'}});
   if(fault==='sync-snapshot'&&path.includes('/snapshots/')) {await new Promise<void>(resolve=>setTimeout(resolve,4000));throw new TypeError('synthetic_snapshot_interruption');}
@@ -42,6 +43,9 @@ export async function openJourneyTestRuntime(origin:string) {
   return expoStorage.open(name,kind);
  }};
  const vault={...secureVault,async get(key:string) {
+  if(fault==='access-expired'&&key.startsWith('ritmo.credentials.')) {
+   const value=await secureVault.get(key);return value?JSON.stringify({...JSON.parse(value) as Record<string,unknown>,accessExpiresAt:'2000-01-01T00:00:00Z'}):value;
+  }
   if(key.startsWith('ritmo.credentials.')&&reads++===0) {
    if(fault==='vault-read') throw new Error('synthetic_vault_read_failure');
    if(fault==='vault-absent') return null;

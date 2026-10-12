@@ -1,4 +1,4 @@
-param([ValidateSet('journey','session','sync')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
+param([ValidateSet('journey','session','sync','recovery')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
 $Host.UI.RawUI.WindowTitle='Ritmo — jornada visível no Android'
 $taskDeadline=(Get-Date).AddMinutes(15)
 $taskPosition=0

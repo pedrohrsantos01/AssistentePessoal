@@ -1,0 +1,24 @@
+{
+  "left": "native recovery round3",
+  "right": "original Ritmo-App recovery",
+  "nativeCrop": [
+    0,
+    137,
+    1080,
+    2361
+  ],
+  "nativeDensity": 2.625,
+  "referenceCrop": [
+    1,
+    47,
+    412,
+    894
+  ],
+  "normalized": [
+    411,
+    847
+  ],
+  "gap": 20,
+  "contentRetouch": false,
+  "copyDifference": "Request instruction asks for a link rather than declaring a past delivery; no prototype behavior copied."
+}

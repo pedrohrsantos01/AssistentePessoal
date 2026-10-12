@@ -1,3 +1,5 @@
+import {PasswordRecovery} from './password-recovery.ts';
+import type {PasswordResetTransport} from '../../core/identity/types.ts';
 import type {Session} from '../../core/identity/session.ts';
 import type {AccountStore,RecoveryItem} from '../../core/db/account-store.ts';
 import type {DatabaseRecovery} from '../../core/db/local-migrations.ts';
@@ -11,10 +13,11 @@ import {titleKey} from '../habits/domain/title.ts';
 import {habitIcons} from '../habits/catalog.ts';
 import {habitPickerColors} from '../../theme/tokens.ts';
 export type HabitDraft={title:string;iconKey:string|null;colorToken:string|null};
-export type Runtime={readonly session:Session;readonly sync:SyncScheduler;recovery:()=>DatabaseRecovery|null;retryDatabase:()=>Promise<void>;close:()=>void};
+export type Runtime={readonly session:Session;readonly sync:SyncScheduler;readonly identity?:PasswordResetTransport;recovery:()=>DatabaseRecovery|null;retryDatabase:()=>Promise<void>;close:()=>void};
 export type JourneyState={gate:'entry'|'database'|'logout'|'initial'|'account';key:string|null;busy:boolean;error:string|null;
   local:ReturnType<AccountStore['presentation']>|null;day:string|null;instant:number;online:boolean;remote:string;writable:boolean;vaultUnavailable:boolean;authenticationRequired:boolean;recovery:DatabaseRecovery|null;operations:ReturnType<AccountStore['operationStates']>;recoveries:RecoveryItem[];sync:SyncState;snapshot:{staged:number}|null;canRetry:boolean};
 export class Journey {
+ readonly passwordRecovery:PasswordRecovery;
  private listeners=new Set<()=>void>();
  private store:AccountStore|null=null;
  private detachStore:(()=>void)|null=null;
@@ -27,6 +30,7 @@ export class Journey {
  private error:string|null=null;
  private snapshot!:JourneyState;
  constructor(private runtime:Runtime,private nextId:()=>string,private clock:SyncClock=systemClock) {
+  this.passwordRecovery=new PasswordRecovery(()=>runtime.identity,()=>this.snapshot?.online??false,clock);
   if(!runtime.recovery()||runtime.recovery()?.scope==='account') {
    this.detach.push(runtime.session.subscribe(()=>this.refresh()),runtime.sync.subscribe(()=>this.refresh()));
   }
@@ -62,7 +66,7 @@ export class Journey {
    const {timezone,dayStartHour}=state.local.profile.timeContext;
    this.cancelClock=this.clock.schedule(nextLogicalDayAt(new Date(state.instant),timezone,dayStartHour)-state.instant,this.refresh);
   }
-  if(this.snapshot&&state.key!==this.snapshot.key) {this.error=null;state.error=null;}
+  if(this.snapshot&&state.key!==this.snapshot.key) {this.error=null;state.error=null;this.passwordRecovery.close();}
   this.snapshot=state;for(const listener of this.listeners) listener();
  };
  private message(error:unknown,local=false) {
@@ -196,5 +200,5 @@ export class Journey {
  }
  discard(operationId:string) {return this.local(store=>store.discard([operationId]));}
  clearError() {this.error=null;this.refresh();}
- dispose() {this.stopped=true;this.cancelClock?.();this.detachStore?.();this.detach.forEach(unsubscribe=>unsubscribe());this.listeners.clear();this.runtime.close();}
+ dispose() {this.passwordRecovery.dispose();this.stopped=true;this.cancelClock?.();this.detachStore?.();this.detach.forEach(unsubscribe=>unsubscribe());this.listeners.clear();this.runtime.close();}
 }

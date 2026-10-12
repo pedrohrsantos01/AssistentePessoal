@@ -1,3 +1,4 @@
+import {PasswordRecoveryScreen} from './password-recovery-screen.tsx';
 import {useEffect,useState,useSyncExternalStore} from 'react';
 import {AccessibilityInfo,BackHandler,Image,useWindowDimensions,View} from 'react-native';
 import {pt} from '../../i18n/pt-BR.ts';
@@ -24,6 +25,7 @@ function AccountForm({journey,kind,reauth=false}:{journey:Journey;kind:'login'|'
   {kind==='register'&&<Touch accessibilityRole="button" accessibilityLabel={pt.registrationNoticeLabel} onPress={()=>nav.setPrivacy(true)} style={{minHeight:t.metrics.touch,justifyContent:'center'}}><Type size="label" tone="secondary">{pt.registrationNotice.before}<Type size="label" style={{color:t.text.link,textDecorationLine:'underline'}}>{pt.registrationNotice.link}</Type>{pt.registrationNotice.after}</Type></Touch>}
   {state.error&&<Banner message={state.error} error/>}{!state.online&&<Banner message={pt.offlineAuth}/>}
   <Button label={state.busy?(kind==='register'?pt.creating:pt.loggingIn):(kind==='register'?pt.register:pt.login)} onPress={submit} busy={state.busy}/>
+  {kind==='login'&&<Link center label={pt.forgotPassword} disabled={state.busy} onPress={()=>{journey.clearError();journey.passwordRecovery.request();}}/>}
   {!reauth&&<Link center label={kind==='register'?pt.hasAccount:pt.register} onPress={()=>{journey.clearError();nav.go(kind==='register'?'login':'register');}}/>}
  </Page>;
 }
@@ -108,17 +110,19 @@ function Sheets({journey}:{journey:Journey}) {
 }
 
 export function JourneyView({journey}:{journey:Journey}) {
- const state=useSyncExternalStore(journey.subscribe,journey.state),nav=useNavigation(),t=useTheme(),[timeBack,setTimeBack]=useState<string|null>(null),[firstDraft,setFirstDraft]=useState<{key:string|null;draft:HabitDraft}|null>(null);
+ const state=useSyncExternalStore(journey.subscribe,journey.state),reset=useSyncExternalStore(journey.passwordRecovery.subscribe,journey.passwordRecovery.state),nav=useNavigation(),t=useTheme(),[timeBack,setTimeBack]=useState<string|null>(null),[firstDraft,setFirstDraft]=useState<{key:string|null;draft:HabitDraft}|null>(null);
  useEffect(()=>{if(state.gate==='account'||state.gate==='initial') AccessibilityInfo.announceForAccessibility(state.remote);},[state.remote,state.key,state.gate]);
  useEffect(()=>nav.bind(state.key,state.gate),[state.key,state.gate,nav.bind]);
  const surface=nav.key===state.key&&nav.gate===state.gate?nav.surface:state.key?'briefing':'welcome';
  useEffect(()=>{const subscription=BackHandler.addEventListener('hardwareBackPress',()=>{
+  if(reset.view){journey.passwordRecovery.close();return true;}
   if(['register','login','create','reauth','edit','sync'].includes(surface)) {journey.clearError();nav.go(state.key?(surface==='edit'?'habits':surface==='create'?nav.formFrom:'briefing'):'welcome');return true;}return false;
- });return ()=>subscription.remove();},[surface,state.key,journey,nav.go]);
+ });return ()=>subscription.remove();},[surface,state.key,journey,nav.go,reset.view]);
  let content;
  if(state.gate==='database') content=<OpeningFailure key={state.recovery!.scope} journey={journey} state={state}/>;
  else if(state.gate==='logout') content=<Page><Type size="title" semibold header>{state.busy?pt.loggingOut:pt.logoutIncomplete}</Type><Type tone="secondary">{pt.logoutLocked}</Type>{state.error&&<Banner message={state.error} error/>}<Button label={pt.finishLogout} busy={state.busy} onPress={()=>{void journey.retry();}}/></Page>;
- else if(state.gate==='initial'&&surface!=='reauth') content=<InitialCopy journey={journey} state={state}/ >;
+ else if(state.gate==='initial'&&surface!=='reauth'&&!reset.view) content=<InitialCopy journey={journey} state={state}/ >;
+ else if(reset.view) content=<PasswordRecoveryScreen key={reset.view} journey={journey} state={state} login={()=>{nav.setPrivacy(false);nav.setLogout(false);nav.go(state.key?'reauth':'login');}}/>;
  else if(surface==='register'||surface==='login'||surface==='reauth') content=<AccountForm key={state.key} journey={journey} kind={surface==='register'?'register':'login'} reauth={surface==='reauth'}/>;
  else if(state.gate==='entry') content=<Page variant="welcome"><SessionNotice state={state} journey={journey}/><View style={{flex:1,minHeight:t.metrics.welcomeMin,justifyContent:'center',gap:t.space.large}}><View style={{width:t.metrics.brandMark,height:t.metrics.brandMark,borderRadius:t.radius.card,backgroundColor:t.bg.transparent,borderWidth:t.metrics.controlBorder,borderColor:t.accent.fill,boxShadow:[{offsetX:t.space.none,offsetY:t.space.none,blurRadius:t.metrics.logoGlow,color:t.accent.line}],alignItems:'center',justifyContent:'center'}}><Decoration corners={false}/><Type size="title" mono bold tone="accent">{pt.symbols.logo}</Type></View><Type size="brand" bold header style={{letterSpacing:t.metrics.brandLetter}}>{pt.brand}</Type><Type size="tile" tone="secondary" style={{lineHeight:t.typeSize.tile*t.line.onboarding}}>{pt.welcome}</Type><Type size="tab" mono tone="secondary" style={{letterSpacing:t.metrics.provisionalLetter}}>{pt.provisionalName}</Type></View><View style={{gap:t.space.medium}}><Button label={pt.register} onPress={()=>nav.go('register')}/><Button label={pt.hasAccount} secondary onPress={()=>nav.go('login')}/></View></Page>;
  else if((state.local?.step==='time_context'||(state.local?.step==='first_habit'&&timeBack===state.key))) content=<TimeForm key={state.key} journey={journey} state={state} onConfirmed={()=>setTimeBack(null)}/>;
@@ -128,6 +132,6 @@ export function JourneyView({journey}:{journey:Journey}) {
  else if(state.local&&surface==='habits') content=<HabitManagement key={state.key} journey={journey} state={state} footer={<Footer surface={surface} go={nav.go}/>} notice={<SessionNotice state={state} journey={journey}/>} create={()=>{journey.clearError();nav.create();}} edit={id=>{journey.clearError();nav.edit(id);}}/>;
  else if(state.local) content=<Dashboard key={state.key} state={state} journey={journey} surface={surface}/>;
  else content=<Loading message={pt.loading}/>;
- const sheetsAllowed=nav.key===state.key&&nav.gate===state.gate&&(state.gate==='entry'||state.gate==='account'),syncAllowed=sheetsAllowed&&state.gate==='account'&&surface==='sync',backgroundHidden=sheetsAllowed&&(nav.privacy||nav.logout||syncAllowed);
+ const sheetsAllowed=!reset.view&&nav.key===state.key&&nav.gate===state.gate&&(state.gate==='entry'||state.gate==='account'),syncAllowed=sheetsAllowed&&state.gate==='account'&&surface==='sync',backgroundHidden=sheetsAllowed&&(nav.privacy||nav.logout||syncAllowed);
  return <><View style={{flex:1}} accessibilityElementsHidden={backgroundHidden} importantForAccessibility={backgroundHidden?'no-hide-descendants':'auto'}>{content}</View>{sheetsAllowed&&<Sheets journey={journey}/>}{syncAllowed&&<SyncPanel key={state.key} journey={journey} state={state}/ >}</>;
 }

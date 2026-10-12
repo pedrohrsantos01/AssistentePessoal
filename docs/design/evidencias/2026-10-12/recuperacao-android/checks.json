@@ -1,0 +1,126 @@
+{
+  "app": {
+    "domainTests": 157,
+    "componentTests": 35,
+    "failed": 0,
+    "snapshots": 0,
+    "typecheck": "passed",
+    "lint": "passed"
+  },
+  "apiCheck": {
+    "java": {
+      "tests": 91,
+      "skipped": 6,
+      "failures": 0,
+      "errors": 0
+    },
+    "passedJavaTests": 85,
+    "operationalPythonTests": 13,
+    "result": "passed",
+    "suites": [
+      {
+        "suite": "dev.ritmo.ContainerPackagingTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.ModularityTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.OperationalSchedulingTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.PrimaryTelemetryTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.ProbeTransportTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.ProxyTlsTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.RateLimitTests",
+        "tests": 11,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.ReceiverSupervisionTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.RestoreTests",
+        "tests": 5,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.RetentionLifecycleTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.RuntimeTests",
+        "tests": 44,
+        "skipped": 6,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.SyncRetentionTests",
+        "tests": 11,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.TrustedProxyTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      {
+        "suite": "dev.ritmo.WalRecoveryTests",
+        "tests": 5,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      }
+    ]
+  },
+  "native": {
+    "result": "passed",
+    "phases": 5,
+    "targetCount": 6
+  }
+}

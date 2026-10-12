@@ -1,0 +1,58 @@
+{
+  "suite": "recovery",
+  "apkSha256": "c6316d26f433e9c7ce76417d2d527e020681191b1e1c5d506fb01d01aa5663c6",
+  "result": "passed",
+  "phases": [
+    {
+      "phase": "request_ui_receives_real_smtp_without_authenticating",
+      "passed": true
+    },
+    {
+      "phase": "warm_and_cold_links_confirm_online_without_consumption_on_open",
+      "passed": true
+    },
+    {
+      "phase": "pending_work_survives_restart_reauthentication_and_converges_once",
+      "passed": true
+    },
+    {
+      "phase": "foreign_origin_and_used_link_are_unavailable_without_new_session",
+      "passed": true
+    },
+    {
+      "phase": "expired_link_can_request_another_and_unknown_email_is_uniform",
+      "passed": true
+    }
+  ],
+  "targetCount": 6,
+  "screenshots": [
+    "01-solicitar-link.png",
+    "02-email-invalido.png",
+    "03-pedido-offline-preservado.png",
+    "04-resposta-uniforme.png",
+    "05-link-aberto-offline.png",
+    "06-nova-senha-teclado-200.png",
+    "07-senha-alterada-sem-login-200.png",
+    "08-pendencia-apos-reabrir.png",
+    "09-nova-sessao-sincronizada.png",
+    "10-origem-invalida.png",
+    "11-link-usado.png",
+    "12-link-expirado.png",
+    "13-endereco-desconhecido-uniforme.png"
+  ],
+  "durationMs": 263269.6618,
+  "nativeTargets": "native-targets.json",
+  "realPorts": [
+    "SQLite",
+    "SecureStore",
+    "HTTP API",
+    "PostgreSQL",
+    "GreenMail SMTP"
+  ],
+  "controlledPorts": [
+    "sync outage",
+    "expired access metadata read",
+    "reset clock"
+  ],
+  "entry": "Explicit Android activity intent; warm/cold native handler tested; public App Links not certified"
+}

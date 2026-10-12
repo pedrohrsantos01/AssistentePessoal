@@ -223,3 +223,16 @@ Não executar o driver isoladamente contra API compartilhada: o Gradle fornece S
 [Evidências, falha inicial do comparador e limites](../docs/analises/2026-10-08-excecoes-e-isolamento-android.md). Falhas controladas não comprovam defeito físico de keystore/disco. UI, iPhone, links HTTPS reais e aceite operacional externo permanecem nos gates existentes.
 
 Verificação da interface de resultados em 10/10/2026: [relatório, evidências e limites](../docs/analises/2026-10-10-interface-resultados-de-sincronizacao.md). Recuperação por link, aparência persistida e aceite integral M1 continuam pendentes.
+
+
+## Recuperação de senha — interface 05, 12/10/2026
+
+A tela usa PasswordRecovery/Journey e o transporte público de identidade. O +native-intent valida a origem HTTPS/caminho/fragmento antes da navegação e devolve /; somente a intenção transitória é entregue ao controlador. Token não é persistido ou exibido. Solicitação/confirmação não criam uma sessão; a reentrada preserva o banco e as pendências da conta de origem.
+
+Ensaio local visível:
+
+```powershell
+.\scripts\verify-android-journey.ps1 -Suite recovery -FreshTestInstall
+```
+
+Executar da raiz, com JAVA_HOME e ANDROID_HOME como nos demais ensaios. O lançador valida pacote descartável/emulador, abre acompanhamento e encerra recursos próprios. O método JUnit prepara API/Postgres/SMTP e mailbox/relógio de ensaio em loopback; o driver não usa Resend. A entrada por intent explícito verifica tratamento no app; associações públicas de domínio e iOS permanecem no aceite externo. [Relatório e estado da validação](../docs/analises/2026-10-12-interface-recuperacao-de-senha.md).

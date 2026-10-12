@@ -1,0 +1,8 @@
+{
+  "variant": "dev.ritmo.journeytest",
+  "architecture": "x86_64",
+  "sha256": "8cb89d81e8e2357ef5b7a46298d8aac254b49ecf57252c7654aa983f68065293",
+  "sizeBytes": 44520070,
+  "suite": "recovery",
+  "status": "first native attempt stopped during Node observer fixture initialization (resync_required); product UI not exercised; fixture corrected"
+}

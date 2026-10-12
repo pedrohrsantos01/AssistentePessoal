@@ -1,5 +1,5 @@
 param(
- [ValidateSet('journey','session','sync')][string]$Suite='journey',
+ [ValidateSet('journey','session','sync','recovery')][string]$Suite='journey',
  [ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',
  [string]$Avd='Pixel_9',
  [string]$EvidenceDirectory='docs/design/evidencias/2026-10-09/gestao-android',
@@ -58,7 +58,12 @@ try {
   $taskInstalled=& $taskAdb -s $Serial shell pm path dev.ritmo.journeytest
   if($taskInstalled -match '^package:') {Invoke-Checked $taskAdb @('-s',$Serial,'uninstall','dev.ritmo.journeytest')}
  }
- Invoke-Checked $taskAdb @('-s',$Serial,'install','-r',$taskApk)
+ & $taskAdb -s $Serial install -r $taskApk
+ if($LASTEXITCODE -ne 0) {
+  # The streamed installer can fail just after a fresh boot/uninstall; use the same validated APK via push.
+  Start-Sleep -Seconds 2
+  Invoke-Checked $taskAdb @('-s',$Serial,'install','--no-streaming','-r',$taskApk)
+ }
  $env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb;$env:RITMO_JOURNEY_EVIDENCE=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
  if(-not $env:RITMO_JOURNEY_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidencias devem ficar dentro do workspace.'}
  if(Test-Path -LiteralPath $taskCompletion) {Remove-Item -LiteralPath $taskCompletion}
@@ -67,7 +72,7 @@ try {
  $taskPanel=Start-Process -FilePath 'pwsh.exe' -ArgumentList @('-NoProfile','-File',('"'+$taskWatcher+'"'),'-Suite',$Suite,'-Log',('"'+$taskNativeLog+'"'),'-CompletionPath',('"'+$taskCompletion+'"')) -WindowStyle Normal -PassThru
  Push-Location (Join-Path $taskRoot 'api')
  try {
-  $taskMethod=if($Suite -eq 'sync') {'dev.ritmo.RuntimeTests.androidProductSynchronizationShowsRecoverableAndUncertainIntent'} elseif($Suite -eq 'session') {'dev.ritmo.RuntimeTests.androidProductSessionRecoveryPreservesAccountIsolation'} else {'dev.ritmo.RuntimeTests.androidProductJourneyWorksOfflineAndSynchronizesAfterRestart'}
+  $taskMethod=if($Suite -eq 'recovery') {'dev.ritmo.RuntimeTests.androidProductPasswordRecoveryPreservesPendingWork'} elseif($Suite -eq 'sync') {'dev.ritmo.RuntimeTests.androidProductSynchronizationShowsRecoverableAndUncertainIntent'} elseif($Suite -eq 'session') {'dev.ritmo.RuntimeTests.androidProductSessionRecoveryPreservesAccountIsolation'} else {'dev.ritmo.RuntimeTests.androidProductJourneyWorksOfflineAndSynchronizesAfterRestart'}
   & '.\gradlew.bat' test --tests $taskMethod --no-daemon *> $taskTestLog
   $taskResult=$LASTEXITCODE
   Get-Content -LiteralPath $taskNativeLog

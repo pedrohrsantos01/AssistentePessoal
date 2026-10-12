@@ -1,0 +1,17 @@
+{
+  "source": "Protótipos de assistente pessoal/Ritmo-App.dc.html",
+  "sha256": "a37d1a92cac66cc302cdb0603f5636e079b66369d9feacf13f264964ba0c0557",
+  "phase": "m1",
+  "skin": "holo",
+  "mode": "light",
+  "cssViewportApp": [
+    411.4286,
+    928.4286
+  ],
+  "scales": [
+    "100%",
+    "200%"
+  ],
+  "capture": "Headed Chromium, original HTML and support.js; viewport/frame normalized only; prototype behavior simulated, not proof of API/SMTP.",
+  "copies": "Native request instruction explains future mail instead of claiming delivery before submission; accepted response keeps conditional wording."
+}
