@@ -180,7 +180,12 @@ class PrimaryTests(unittest.TestCase):
             self.sql("SELECT pg_logical_emit_message(false,'fixture',repeat('x',8388608),true)")
             after=fetch(self.root/"primary-client.json")
             self.assertGreaterEqual(after["slot"]["retainedBytes"]-before["slot"]["retainedBytes"],8388608)
-            self.assertEqual(fetch(self.root/"primary-client.json")["slot"]["retainedBytes"],after["slot"]["retainedBytes"])
+            self.sql("SELECT pg_logical_emit_message(false,'fixture',repeat('y',1024),true)")
+            # Retention is live: force new WAL and bound the next observation by PostgreSQL.
+            observed=fetch(self.root/"primary-client.json")["slot"]["retainedBytes"]
+            later=int(self.sql("SELECT pg_wal_lsn_diff(pg_current_wal_lsn(),restart_lsn) FROM pg_replication_slots WHERE slot_name='ritmo_wal'").strip())
+            self.assertGreaterEqual(observed,after["slot"]["retainedBytes"]+1024)
+            self.assertLessEqual(observed,later)
             for query in ("ALTER SYSTEM SET max_slot_wal_keep_size='0'","ALTER SYSTEM SET min_wal_size='16MB'",
                           "ALTER SYSTEM SET max_wal_size='32MB'","SELECT pg_reload_conf()"):
                 self.sql(query)
