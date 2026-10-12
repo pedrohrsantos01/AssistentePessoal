@@ -23,7 +23,7 @@ type BriefingCardProvider = {
   id: string;                 // 'habits.today', 'sports.next_match'
   module: ModuleId;
   priority: (ctx: BriefingContext) => number | null;  // null = não exibir agora
-  load: (ctx: BriefingContext) => Promise<CardData>;
+  load?: (ctx: BriefingContext) => Promise<CardData>;
   render: (data: CardData) => ReactNode;
 };
 ```
@@ -33,6 +33,8 @@ O Briefing **não conhece nenhum módulo**. Adicionar Notícias ou Esportes na F
 **REQ-BRF-002** — Um card que falha ao carregar **não derruba a tela**: ele some ou mostra estado de erro contido. Error boundary por card, obrigatório.
 
 **REQ-BRF-003** — Cards carregam de forma independente e progressiva. A tela nunca espera o mais lento. Cards locais (hábitos, tarefas) aparecem instantaneamente; cards de rede (notícias, jogos) chegam depois com skeleton.
+
+No M1, a sessão já entrega a projeção local confirmada. Esses providers renderizam o contexto diretamente, sem loader assíncrono que substitua controles por carregamento a cada atualização. Providers que precisam carregar dados conservam o loader opcional e o isolamento próprio de falha. A atualização de um cumprimento preserva a identidade do controle e o foco acessível; não expõe sucesso antes da gravação local.
 
 **REQ-BRF-004** — O usuário pode ocultar e reordenar cards nas configurações. Ordem manual vence a automática.
 

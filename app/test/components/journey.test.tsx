@@ -1,3 +1,4 @@
+import {useEffect} from 'react';
 import {act,fireEvent,render,screen,waitFor} from '@testing-library/react-native';
 import SQLite from 'better-sqlite3';
 import {Dimensions,StyleSheet} from 'react-native';
@@ -5,7 +6,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ThemeProvider} from '../../src/theme/theme.tsx';
 import {tokens} from '../../src/theme/tokens.ts';
 import {BriefingCards,type BriefingCardProvider} from '../../src/features/briefing/providers.tsx';
-import {Type} from '../../src/ui/primitives.tsx';
+import {Type,Touch} from '../../src/ui/primitives.tsx';
 import {JourneyView} from '../../src/features/journey/screens.tsx';
 import {useNavigation} from '../../src/features/journey/navigation.ts';
 import {pt} from '../../src/i18n/pt-BR.ts';
@@ -75,15 +76,32 @@ test('a confirmed daily XP limit keeps the checkbox done and shows no partial pr
  } finally {f.close();}
 });
 
-test('one failing Briefing provider cannot prevent another card from loading',async()=>{
- const f=fixture();try {
+test('a committed local projection updates controls without a loading swap or lost native identity',async()=>{
+ const f=fixture();let unmounts=0;try {
+  function Control({writable}:{writable:boolean}) {
+   useEffect(()=>()=>{unmounts++;},[]);
+   return <Touch style={{minHeight:tokens('dark').metrics.touch}} accessibilityRole="checkbox" accessibilityLabel={pt.habitName} accessibilityState={{disabled:!writable,checked:false}} disabled={!writable}><Type>{pt.habitName}</Type></Touch>;
+  }
+  const provider:BriefingCardProvider={id:'local',module:'habits',priority:()=>100,render:ctx=><Control writable={ctx.state.writable}/>};
+  const context={state:{...f.journey.state(),writable:true},create:()=>{},toggle:()=>{}};
+  const view=(state:typeof context.state)=><ThemeProvider value={tokens('dark')}><BriefingCards providers={[provider]} context={{...context,state}}/></ThemeProvider>;
+  const result=await render(view(context.state));
+  expect(screen.getByRole('checkbox')).not.toBeDisabled();
+  await result.rerender(view({...context.state,writable:false,instant:context.state.instant+1}));
+  expect(screen.getByRole('checkbox')).toBeDisabled();expect(screen.queryByText(pt.loading)).toBeNull();expect(unmounts).toBe(0);
+ } finally {f.close();}
+});
+
+test('failing local rendering and async loading stay inside their own Briefing cards',async()=>{
+ const f=fixture(),expectedError=jest.spyOn(console,'error').mockImplementation(()=>{});try {
   const providers:BriefingCardProvider[]=[
    {id:'broken',module:'habits',priority:()=>100,load:async()=>{throw new Error('fixture_provider_failure');},render:()=>null},
-   {id:'xp',module:'gamification',priority:()=>50,load:async ctx=>ctx,render:()=> <Type>{pt.xp}</Type>},
+   {id:'broken-local',module:'habits',priority:()=>75,render:()=>{throw new Error('fixture_render_failure');}},
+   {id:'xp',module:'gamification',priority:()=>50,render:()=> <Type>{pt.xp}</Type>},
   ];
   await render(<ThemeProvider value={tokens('dark')}><BriefingCards providers={providers} context={{state:f.journey.state(),create:()=>{},toggle:()=>{}}}/></ThemeProvider>);
-  expect(await screen.findByText(pt.xp)).toBeOnTheScreen();expect(await screen.findByText(pt.genericError)).toBeOnTheScreen();
- } finally {f.close();}
+  expect(await screen.findByText(pt.xp)).toBeOnTheScreen();expect(screen.getAllByText(pt.genericError)).toHaveLength(2);
+ } finally {expectedError.mockRestore();f.close();}
 });
 
 test('management edits only changed fields; failed save preserves the draft and delete cancellation never writes',async()=>{
