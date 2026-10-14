@@ -46,3 +46,8 @@ Rodada13 em observação: cadastro/HTTP, validações preservadas, fuso inválid
 Dezoito fases funcionais passaram;35 medições de controle e9 de campo/IME. Cadastro/onboarding em HTTP real, hábito longo marcado/desfeito com foco, cancelamentos, histórico, disponibilidade local após falha de cofre, diagnóstico de conta, bloqueio de instalação e conferência independente de hábito/desfazer/XP0 no servidor. Cinco retornos observados aos acionadores. Configurações restauradas (`reader-cleanup.restored=true`), recursos próprios fechados e instalação da jornada preservada.
 
 `functionalPassed=true`, `focusObservationOnly=true`, `passed=false`: a política Q60 ainda aguarda Pedro. O título inicial estrito não pode ser aceito antes dessa definição. [Resumo nativo](../../docs/design/evidencias/2026-10-13/leitor-matriz/rodada14-observacao/matrix-summary.json). APK11cee24a é o mesmo das12 paletas/36 alvos anteriores; o roteiro ampliado observou a configuração atual, sem repetir todas as paletas.
+
+
+## Q60=A — implementação local em14/10/2026
+
+Pedro confirmou título ao abrir e retorno protegido ao acionador. A implementação central em Sheet controla o ciclo da janela, revalida o contexto atual e não mantém callbacks válidos após saída/troca de conta/recuperação. Revisão aninhada usa a identidade do controle no painel retomado. Typecheck/lint e218 testes passaram; [relatório](../../docs/analises/2026-10-14-foco-protegido-dos-dialogos.md). Nenhum novo ensaio nativo ou APK neste incremento: aguardar o aviso de memória liberada de Pedro antes de abrir o emulador. Repetir com observação desligada e hash novo; rodada14 histórica mantém passed=false.

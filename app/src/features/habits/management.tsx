@@ -1,5 +1,5 @@
-import {useEffect,type ReactNode} from 'react';
-import {AccessibilityInfo,FlatList,useWindowDimensions,View} from 'react-native';
+import {type ReactNode} from 'react';
+import {FlatList,useWindowDimensions,View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {pt} from '../../i18n/pt-BR.ts';
 import {useTheme} from '../../theme/theme.tsx';
@@ -10,9 +10,8 @@ import {habitGlyph} from './catalog.ts';
 type ManagedHabit=NonNullable<JourneyState['local']>['managementHabits'][number];
 export function DeleteConfirmation({journey,state,habit,close,deleted}:{journey:Journey;state:JourneyState;habit:{habitId:string;title:string};close:()=>void;deleted:()=>void}) {
  const available=state.local?.managementHabits.some(item=>item.habitId===habit.habitId)??false;
- useEffect(()=>{AccessibilityInfo.announceForAccessibility(pt.deleteTitle);},[]);
  const cancel=()=>{journey.clearError();close();};
- return <Sheet onClose={cancel} label={pt.deleteTitle}><Type size="section" semibold header>{pt.deleteTitle}</Type><Type size="body" semibold>{habit.title}</Type><Type tone="secondary">{pt.deleteBody}</Type>
+ return <Sheet onClose={cancel} label={pt.deleteTitle}><Type size="body" semibold>{habit.title}</Type><Type tone="secondary">{pt.deleteBody}</Type>
   {!available&&<Banner message={pt.habitUnavailable} error/>}{state.error&&<Banner message={state.error} error/>}
   <Button label={pt.deleteHabit} disabled={!state.writable||!available} onPress={()=>{if(journey.delete(habit.habitId)) deleted();}}/><Button label={pt.cancel} secondary onPress={cancel}/>
  </Sheet>;

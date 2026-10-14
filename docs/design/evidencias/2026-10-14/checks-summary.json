@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-14",
+  "requirement": "REQ-DS-003",
+  "decision": "Q60=A",
+  "app": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "domainAndController": 175,
+    "components": 43,
+    "total": 218,
+    "failed": 0,
+    "logSha256": "5883d3a742b8e24d6e70d738f4c0ea867d85c4f93ccfa683c4a032b5dfde23eb"
+  },
+  "apiCheck": {
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 8,
+    "executed": 85,
+    "exitCode": 0,
+    "duration": "12m18s",
+    "operationsTask": "executed",
+    "logSha256": "30b071cada108755792bdc83bd434da65be6258c28d93994374e7d832be2da26",
+    "operationalChecks": 13
+  },
+  "native": {
+    "run": false,
+    "newApk": false,
+    "accepted": false,
+    "reason": "Waiting for Pedro to notify that memory is available; component tests do not prove TalkBack."
+  }
+}

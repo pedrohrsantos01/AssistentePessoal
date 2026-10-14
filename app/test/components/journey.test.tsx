@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {act,fireEvent,render,screen,waitFor} from '@testing-library/react-native';
 import SQLite from 'better-sqlite3';
-import {Dimensions,StyleSheet} from 'react-native';
+import {AccessibilityInfo,Dimensions,StyleSheet} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ThemeProvider} from '../../src/theme/theme.tsx';
 import {tokens} from '../../src/theme/tokens.ts';
@@ -57,11 +57,11 @@ test('logout fences the rendered account immediately; login B never renders A da
  } finally {f.close();}
 });
 test('privacy is a full accessible action before registration and its sheet closes',async()=>{
- const f=fixture();try {
+ const announcement=jest.spyOn(AccessibilityInfo,'announceForAccessibility'),f=fixture();try {
   await mount(f);await fireEvent.press(screen.getByRole('button',{name:pt.register}));
-  await fireEvent.press(screen.getByRole('button',{name:pt.registrationNoticeLabel}));expect(screen.getByRole('header',{name:pt.privacyTitle})).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button',{name:pt.registrationNoticeLabel}));expect(screen.getAllByRole('header',{name:pt.privacyTitle})).toHaveLength(1);expect(announcement).not.toHaveBeenCalledWith(pt.privacyTitle);
   await fireEvent.press(screen.getByRole('button',{name:pt.close}));expect(screen.queryByRole('header',{name:pt.privacyTitle})).toBeNull();expect(screen.getByLabelText(pt.name)).toBeOnTheScreen();
- } finally {f.close();}
+ } finally {announcement.mockRestore();f.close();}
 });
 
 test('a confirmed daily XP limit keeps the checkbox done and shows no partial prize',async()=>{
@@ -299,7 +299,6 @@ test('discard confirms only the selected rejection, preserves its child, and rea
  } finally {f.close();}
 });
 
-import {AccessibilityInfo} from 'react-native';
 test('a failed correction preserves typed fields and unresolved intent; repeated refresh announces no new result',async()=>{
  const f=fixture();let db:SQLite.Database|undefined;try {
   await act(async()=>{await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Recusado','reading','blue',false);});
