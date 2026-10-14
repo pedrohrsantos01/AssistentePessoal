@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-13",
+  "app": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "domain": 164,
+    "components": 39,
+    "failed": 0
+  },
+  "reader": {
+    "functionalPassed": true,
+    "accepted": false,
+    "focusPolicyPending": "Q60",
+    "phases": 18,
+    "controls": 35,
+    "fieldIme": 9,
+    "gradleExitCode": 0,
+    "duration": "6m15s",
+    "settingsRestored": true,
+    "ownedEmulator5560Closed": true,
+    "preexistingEmulator5554Preserved": true
+  },
+  "transportIsolated": {
+    "tests": 10,
+    "failed": 0,
+    "durationSeconds": 20.119
+  },
+  "logSha256": {
+    "app": "5c77836b751e854dbf47f391548b07dc1af40f56038e03cd8303d3d1f8a0b940",
+    "readerFixture": "b1fab41816d922f3ffc70da0d2daa8e9971d7fbcfe2c739216dfb8e18ce59672",
+    "transportIsolated": "21054440acc79267577db1ab5fc71e1f3987a21feaf67581b61264b55dc311f0"
+  },
+  "apiCheck": {
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 8,
+    "executed": 85,
+    "operationalChecks": 13,
+    "exitCode": 0,
+    "duration": "11m36s",
+    "logSha256": "f46685edb0457f14ac43eb9f15a7e0442a1069b6add7ab1850841c2cae6be59e"
+  }
+}

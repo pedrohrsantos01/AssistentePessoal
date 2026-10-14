@@ -8,7 +8,9 @@ A ponte sendTouch/JWT e o observador FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES f
 
 Rodada7 aprovou preflight físico, exploração sem ativar, cumprimento/desfazer real com foco retido após atualização, Ajustes, seleção de aparência inicialmente diferente e foco linear. Os providers locais agora renderizam a projeção confirmada sem trocar controles por carregamento. Texto100% no leitor;12 paletas100%/200% e36 alvos medidos no APK assinado11cee24a. Rodada8 confere o hash instalado após reinício, mas reprova a navegação; rodada10 aprova o roteiro corrigido completo no mesmo APK, com restauração documentada. O roteiro básico não aceita toda a leitura falada ou a matriz inteira.
 
-Próximo recorte: ampliar o leitor para texto200%/conteúdo longo, formulários e teclado, entrada/saída de sheets, validação/erros e estados de sessão/sync já aprovados. Registrar nó/estado/foco/ordem reais sem suspender o serviço e sem reenviar ativação ambígua. Preservar pendências/contas e restaurar configurações/recursos próprios. AVD só visível durante testes; origem das paletas e hash devem corresponder ao APK realmente instalado.
+Ampliação funcional coletada em13/10:18 fases a200%, formulários/IME, hábito longo, cancelamentos, histórico e falhas locais, com conferência independente no servidor. [Resultado](../../docs/analises/2026-10-13-talkback-formularios-dialogos-e-erros.md). A rodada14 usa observação de foco e mantém aprovação integral falsa.
+
+Próximo passo: fechar [Q60](foco-dialogos.md), aplicar a política escolhida se exigir mudança e repetir a matriz sem observação. Ainda falta cobertura integral de recuperação/rejeições/identidade incerta e navegação/leitura entre janelas; a consulta somente da janela superior não a substitui. Depois, medir abertura/cards/feedback no produto. Registrar nó/estado/foco reais sem suspender o serviço nem reenviar ativação ambígua; preservar pendências/contas e restaurar configurações/recursos próprios. AVD apenas visível durante os testes; paletas e hash devem corresponder ao APK instalado.
 
 VoiceOver/iPhone continua Q55=B. Não voltar a pedir root na imagem atual nem usar serviço Bound/foco de janela como prova suficiente.
 
@@ -19,3 +21,5 @@ Specs07 §1 e08 §6: abertura≤ 2 s, resposta visual ao marcar≤ 100 ms e card
 Instrumentar marcos reais de abertura, projeção/cards e feedback persistido em build verificável, sem temporizador que simule sucesso. Definir amostra/repetições e aparelho/AVD, registrar distribuição e separar tempos de comunicação do driver. Otimizar somente após medir o gargalo; conferir redução de movimento real. Esse trabalho não deve alterar os estados contratados de erro/sync.
 
 Critério de fechamento de06: roteiro de leitor e matriz de estados aprovados no escopo Android e medidas verificáveis; aceite integral do M1 continua sujeito a iPhone e gates externos existentes. Não abrir fase futura a partir dessas verificações locais.
+
+13/10/2026: [matriz ampliada TalkBack](../../docs/analises/2026-10-13-talkback-formularios-dialogos-e-erros.md) completou18 fases funcionais a200%, com35 medições de controles/9 de campo-IME e conferência independente na API; modo de observação mantém aprovação integral falsa. Q60 aguarda definição do destino de foco dos diálogos; não aceitar a proposta por silêncio. Desempenho, cobertura integral de estados/leitura e iPhone continuam abertos.

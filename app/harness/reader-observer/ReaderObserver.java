@@ -2,6 +2,8 @@ package dev.ritmo.readerobserver;
 
 import android.app.Instrumentation;
 import android.app.UiAutomation;
+import android.accessibilityservice.AccessibilityServiceInfo;
+import android.view.accessibility.AccessibilityWindowInfo;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.accessibility.AccessibilityNodeInfo;
@@ -18,14 +20,30 @@ public final class ReaderObserver extends Instrumentation {
         UiAutomation automation = null;
         try {
             automation = getUiAutomation(UiAutomation.FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES);
-            AccessibilityNodeInfo root = automation.getRootInActiveWindow();
-            if (root == null || !"dev.ritmo.journeytest".contentEquals(root.getPackageName())) {
-                throw new IllegalStateException("synthetic_journey_not_foreground");
+            AccessibilityServiceInfo info = automation.getServiceInfo();
+            info.flags |= AccessibilityServiceInfo.FLAG_RETRIEVE_INTERACTIVE_WINDOWS;
+            automation.setServiceInfo(info);
+            AccessibilityNodeInfo root = null;
+            Rect imeBounds = new Rect();
+            boolean imeVisible = false;
+            // Windows are ordered by descending layer: a modal replaces the background.
+            // Inspect only window geometry for the IME, never its text or keys.
+            for (AccessibilityWindowInfo window : automation.getWindows()) {
+                if (window.getType() == AccessibilityWindowInfo.TYPE_INPUT_METHOD) {
+                    imeVisible = true; window.getBoundsInScreen(imeBounds);
+                } else if (root == null && window.getType() == AccessibilityWindowInfo.TYPE_APPLICATION) {
+                    AccessibilityNodeInfo candidate = window.getRoot();
+                    if (candidate == null || !"dev.ritmo.journeytest".contentEquals(candidate.getPackageName())) throw new IllegalStateException("synthetic_journey_not_foreground");
+                    root = candidate;
+                }
             }
+            if (root == null) throw new IllegalStateException("synthetic_journey_not_foreground");
             StringWriter writer = new StringWriter();
             XmlSerializer xml = Xml.newSerializer();
             xml.setOutput(writer);
             xml.startTag(null, "hierarchy");
+            xml.attribute(null, "ime-visible", Boolean.toString(imeVisible));
+            xml.attribute(null, "ime-bounds", "["+imeBounds.left+","+imeBounds.top+"]["+imeBounds.right+","+imeBounds.bottom+"]");
             ArrayDeque<AccessibilityNodeInfo> pending = new ArrayDeque<>();
             pending.add(root);
             int count = 0;
@@ -37,9 +55,12 @@ public final class ReaderObserver extends Instrumentation {
                 xml.startTag(null, "node");
                 xml.attribute(null, "package", text(node.getPackageName()));
                 xml.attribute(null, "class", text(node.getClassName()));
-                xml.attribute(null, "text", text(node.getText()));
+                xml.attribute(null, "text", node.isPassword() ? "" : text(node.getText()));
                 xml.attribute(null, "content-desc", text(node.getContentDescription()));
                 xml.attribute(null, "bounds", "["+bounds.left+","+bounds.top+"]["+bounds.right+","+bounds.bottom+"]");
+                xml.attribute(null, "focused", Boolean.toString(node.isFocused()));
+                xml.attribute(null, "password", Boolean.toString(node.isPassword()));
+                xml.attribute(null, "visible-to-user", Boolean.toString(node.isVisibleToUser()));
                 xml.attribute(null, "checked", Boolean.toString(node.isChecked()));
                 xml.attribute(null, "checkable", Boolean.toString(node.isCheckable()));
                 xml.attribute(null, "clickable", Boolean.toString(node.isClickable()));

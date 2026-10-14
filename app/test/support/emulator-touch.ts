@@ -35,7 +35,7 @@ export async function openEmulatorTouch() {
   const client = new Client('127.0.0.1:' + port, credentials.createInsecure(), {'grpc.enable_retries': 0});
   const {privateKey, publicKey} = generateKeyPairSync('ec', {namedCurve: 'prime256v1'});
   const kid = randomUUID(), keyFile = join(jwks, 'ritmo-test-' + kid + '.jwk');
-  let registered = false, contact: Point = [0, 0];
+  let registered = false, contact: readonly Point[] = [[0, 0]];
   const metadata = (audience=touchPath,issuer='ritmo-reader-test') => {
     const iat = Math.floor(Date.now() / 1000);
     const header = Buffer.from(JSON.stringify({alg: 'ES256', kid})).toString('base64url');
@@ -46,16 +46,17 @@ export async function openEmulatorTouch() {
     value.set('authorization', 'Bearer ' + payload + '.' + signature);
     return value;
   };
-  const call = (point: Point, pressure: number, auth = metadata()) => new Promise<void>((resolve, reject) => {
-    if (!point.every(value => Number.isInteger(value) && value >= 0)) {reject(new Error('invalid_physical_coordinate')); return;}
+  const call = (point: Point, pressure: number, auth = metadata()) => callMany([point], pressure, auth);
+  const callMany = (points: readonly Point[], pressure: number, auth = metadata()) => new Promise<void>((resolve, reject) => {
+    if (!points.length || !points.every(point => point.every(value => Number.isInteger(value) && value >= 0))) {reject(new Error('invalid_physical_coordinate')); return;}
     client.makeUnaryRequest(method.path, method.requestSerialize, method.responseDeserialize,
-      {touches: [{x: point[0], y: point[1], identifier: 0, pressure}]}, auth, {deadline: Date.now() + 3000}, error => {
+      {touches: points.map((point,identifier)=>({x:point[0],y:point[1],identifier,pressure}))}, auth, {deadline: Date.now() + 3000}, error => {
         // Do not expose JWTs, transport metadata or server-provided diagnostic strings.
         if (error) reject(new Error('emulator_touch_rpc_' + error.code)); else resolve();
       });
   });
   const close = async () => {
-    try {if (registered) await call(contact, 0);} finally {
+    try {if (registered) await callMany(contact, 0);} finally {
       client.close();
       unlinkSync(keyFile);
       registered = false;
@@ -92,9 +93,17 @@ export async function openEmulatorTouch() {
     return {
       unauthenticatedCode,wrongAudienceCode,wrongIssuerCode,
       protoSha256: createHash('sha256').update(readFileSync(proto)).digest('hex'),
-      down: async (point: Point) => {contact = point; await call(point, 1024);},
-      move: async (point: Point) => {contact = point; await call(point, 1024);},
-      up: () => call(contact, 0),
+      down: async (point: Point) => {contact = [point]; await callMany(contact, 1024);},
+      move: async (point: Point) => {contact = [point]; await callMany(contact, 1024);},
+      up: () => callMany(contact, 0),
+      scroll: async (from: Point,to: Point) => {
+        // Two simultaneous contacts are TalkBack's physical scrolling gesture.
+        for(let frame=0;frame<=6;frame++){
+          const x=Math.round(from[0]+(to[0]-from[0])*frame/6),y=Math.round(from[1]+(to[1]-from[1])*frame/6);
+          contact=[[x,y],[x+80,y]];await callMany(contact,1024);await pause(35);
+        }
+        await callMany(contact,0);await pause(500);
+      },
       close,
     };
   } catch (error) {

@@ -1,0 +1,36 @@
+{
+  "passed": false,
+  "apkSha256": "11cee24a408bb8d265c41bf4387a21076cebfb681c6e2b20e8fa544a92d7263f",
+  "fontScale": 2,
+  "pixelRounding": "floor",
+  "minimumLogicalUnits": 44,
+  "phases": [],
+  "targets": [
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1892,
+        1017,
+        2049
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1765,
+        1017,
+        1922
+      ],
+      "density": 2.625
+    }
+  ],
+  "physicalInput": "grpc.sendTouch",
+  "scroll": "two_contacts",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "hardware_key_events_not_spoken_character_editing",
+  "scope": "registration/onboarding/habits/sheets/sync/local failures; no VoiceOver/performance or complete password recovery",
+  "restored": true
+}

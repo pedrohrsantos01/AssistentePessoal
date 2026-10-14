@@ -42,6 +42,8 @@ tasks.named('test') {
     inputs.files(fileTree('src/test/fixtures/receiver'), fileTree('src/test/fixtures/schedule'), fileTree('src/test/fixtures/transport'), fileTree('src/test/fixtures/proxy'), fileTree('deploy/proxy'), 'Dockerfile', '../.dockerignore', 'gradlew', 'gradle.lockfile', fileTree('gradle/wrapper'))
     inputs.property('androidJourneySerial', providers.environmentVariable('RITMO_ANDROID_JOURNEY_SERIAL').orElse(''))
     if (providers.environmentVariable('RITMO_ANDROID_JOURNEY_SERIAL').isPresent()) outputs.upToDateWhen { false }
+    inputs.property('androidReaderMatrix', providers.environmentVariable('RITMO_ANDROID_READER_MATRIX').orElse(''))
+    if (providers.environmentVariable('RITMO_ANDROID_READER_MATRIX').isPresent()) outputs.upToDateWhen { false }
     inputs.property('androidSerial', providers.environmentVariable('RITMO_ANDROID_SERIAL').orElse(''))
     if (providers.environmentVariable('RITMO_ANDROID_SERIAL').isPresent()) outputs.upToDateWhen { false }
     def androidApk = providers.environmentVariable('RITMO_ANDROID_APK')

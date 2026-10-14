@@ -122,3 +122,5 @@ Correção de contraste no interruptor de aparência: o track cinza do modo clar
 Knob desligado: conservar o branco `#DCEAF0` da referência nos modos escuros; nos claros, usar texto secundário para atingir3:1 sobre o track, corrigindo o branco original de contraste insuficiente. Valor em `switchOffKnob`, com geometria original48×28/knob22.
 
 Incremento de acessibilidade de12/10: [TalkBack e continuidade do Briefing](../docs/analises/2026-10-12-talkback-e-continuidade-do-briefing.md). O roteiro básico Android usa toque físico e consulta sem suspender o leitor; a atualização local confirmada mantém o controle/foco, sem card intermediário de carregamento. Matriz de leitor a200%/forms/sheets/erros, desempenho instrumentado e iPhone continuam pendentes.
+
+Coleta de13/10: [formulários, diálogos e erros com TalkBack](../docs/analises/2026-10-13-talkback-formularios-dialogos-e-erros.md) completou18 fases funcionais a200% no mesmo APK, com35 medições de controle/9 de campo-IME. Q60 propõe definir destino inicial/retorno dos diálogos; ainda não altera este contrato. Aprovação integral permanece falsa; recorte06/M1 abertos.

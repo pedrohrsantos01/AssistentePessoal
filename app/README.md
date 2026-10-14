@@ -277,4 +277,19 @@ InspectOnly mostra armazenamento/pacotes e fecha somente o emulador próprio. Re
 
 Briefing local: providers sem loader renderizam a projeção já confirmada da sessão. A atualização não substitui os controles por carregamento, evitando perda do foco. Providers com carregamento assíncrono e falhas continuam isolados por card. Não há marcação antecipada à escrita local nem consulta nova de banco na renderização.
 
-Desempenho instrumentado, matriz integral de leitor e iPhone/VoiceOver continuam no recorte06/aceite existente.
+### Matriz do leitor com texto ampliado
+
+O roteiro opt-in `android-reader-matrix.test.ts` exercita cadastro/onboarding reais, teclado com texto200%, hábito longo, diálogos e falhas locais preservadas. Inicie pela raiz:
+
+```powershell
+$env:RITMO_READER_OBSERVE_FOCUS='1' # observacao: nao aceita a proposta Q60
+.\scripts\verify-android-accessibility.ps1 -Matrix -SkipInstall -GpuMode host -MemoryMegabytes 4096 -EvidenceDirectory docs/design/evidencias/2026-10-13/leitor-matriz/repeticao
+```
+
+`Matrix` prepara a API/PostgreSQL descartáveis antes de abrir o emulador. A fixture Java confirma o servidor pronto, o lançador verifica a propriedade do emulador e publica seu discovery em uma pasta temporária exclusiva; só então começa o Node. O cancelamento libera a fixture. O painel mostra as fases concluídas; logs completos ficam em `.scratch/runtime/interface/reader-matrix-gradle.log` e `api/build/android-reader-integration.log`. Não é um servidor de desenvolvimento persistente.
+
+O observador opta por janelas interativas em ordem de camada. Consulta somente a janela de aplicação da jornada, inclusive o diálogo, e apenas a geometria do teclado; campos de senha têm texto suprimido. A inserção sintética por teclas de hardware não aceita edição falada, cursor ou seleção. A rolagem física com TalkBack usa dois contatos simultâneos. O driver verifica foco, campos acima do IME, entrada/retorno dos diálogos, alvos mínimos e restauração; não repete ativações após resultado de transporte desconhecido.
+
+`GpuMode` conserva swiftshader como padrão e permite host para diagnóstico; `MemoryMegabytes` não altera o arquivo do AVD. A instalação do pequeno observador usa `--no-incremental`; a jornada mantém seus dados e o hash obrigatório. `matrix-summary.json` registra o resultado integral, as fases efetivas, alvos e hash. Enquanto Q60 aguarda definição, `RITMO_READER_OBSERVE_FOCUS=1` registra entrada/retorno sem exigir a proposta de título inicial; esse modo sempre mantém `passed=false` e separa `functionalPassed`, sem aceitar o contrato por silêncio. Resumo parcial ou configuração do leitor ativa não significa aprovação. Preserve as tentativas reprovadas.
+
+Desempenho instrumentado, recuperação de senha/rejeições/identidade incerta integralmente com leitor, edição falada e iPhone/VoiceOver continuam no recorte06/aceite existente. Veja a [matriz](../.scratch/interface-m1/matriz-leitor.md) para separar roteiro previsto de resultado verificado.

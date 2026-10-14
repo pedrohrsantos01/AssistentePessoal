@@ -1,8 +1,11 @@
-param([ValidateSet('journey','session','sync','recovery','appearance','accessibility')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
+param([ValidateSet('journey','session','sync','recovery','appearance','accessibility','reader-matrix')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
 $Host.UI.RawUI.WindowTitle='Ritmo — jornada visível no Android'
-$taskDeadline=(Get-Date).AddMinutes(15)
+$taskDeadline=(Get-Date).AddMinutes($(if($Suite -eq 'reader-matrix'){30}else{15}))
 $taskPosition=0
-if($Suite -eq 'accessibility') {
+if($Suite -eq 'reader-matrix') {
+ Write-Host 'RITMO | TALKBACK 200%: FORMULARIOS, TECLADO, SHEETS E ERROS' -ForegroundColor Cyan
+ Write-Host 'Cadastro e onboarding reais → hábitos → foco de sheets → sincronização → falhas preservadas'
+} elseif($Suite -eq 'accessibility') {
  Write-Host 'RITMO | REVISAO FINAL E TALKBACK NO ANDROID' -ForegroundColor Cyan
  Write-Host 'Seis paletas 100%/200% → foco com TalkBack → marcar/desfazer hábito → selecionar aparência'
 } elseif($Suite -eq 'appearance') {
@@ -23,7 +26,7 @@ while ((Get-Date) -lt $taskDeadline -and -not (Test-Path -LiteralPath $Completio
   $taskLines=@(Get-Content -LiteralPath $Log -ErrorAction SilentlyContinue)
   while($taskPosition -lt $taskLines.Count) {
    $taskLine=$taskLines[$taskPosition];$taskPosition++
-   if($taskLine -match 'phase|passed|fail|tests |BUILD |FAILED|PASSED') {Write-Host $taskLine -ForegroundColor Cyan}
+   if($taskLine -match 'phase|passed|fail|tests |BUILD |FAILED|PASSED|Preparando') {Write-Host $taskLine -ForegroundColor Cyan}
   }
  }
  Start-Sleep -Milliseconds 400

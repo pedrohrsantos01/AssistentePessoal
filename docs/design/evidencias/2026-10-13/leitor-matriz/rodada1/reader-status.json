@@ -1,0 +1,9 @@
+{
+  "passed": false,
+  "nativeScriptStarted": false,
+  "reason": "PostgreSQL fixture did not report readiness within the existing timeout. No interface acceptance.",
+  "isolatedApiProbePassed": true,
+  "isolatedApiDuration": "47s",
+  "causeNotEstablished": true,
+  "ownedEmulatorAndPanelClosed": true
+}

@@ -1,0 +1,11 @@
+{
+  "exitCode": 1,
+  "tests": 93,
+  "skipped": 8,
+  "failures": 1,
+  "errors": 0,
+  "failedSuite": "dev.ritmo.ProbeTransportTests",
+  "cause": "fixture timer could replace aged/missing primary collection",
+  "logSha256": "c58bacfb5c9df4ba3ff2bd633db58f083ab19dac8bf129d9ee362d3d3ac44365",
+  "duration": "15m52s"
+}
