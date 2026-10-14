@@ -103,6 +103,10 @@ class TransportTests(unittest.TestCase):
         run("systemctl","start","ritmo-monitor.timer")
 
     def test_missing_primary_collection_prevents_a_healthy_detector_cycle(self):
+        # Freeze this fixture's producer before simulating an aged/missing collection.
+        # Otherwise the native calendar/boot timer can overwrite the evidence during SSH.
+        run("systemctl", "stop", "ritmo-monitor.timer", "ritmo-monitor.service")
+        self.addCleanup(run, "systemctl", "start", "ritmo-monitor.timer")
         path=Path("/srv/ritmo-monitor/primary-state.json")
         write_json(path,{"version":1,"checked":(datetime.now(timezone.utc)-timedelta(seconds=180)).isoformat(),
             "reported":{},"consecutive":{}},replace=True)
