@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-15",
+  "sourceCommit": "a0e6168",
+  "app": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "domainAndController": 175,
+    "components": 43,
+    "total": 218,
+    "failed": 0,
+    "componentDurationSeconds": 44.229,
+    "logSha256": "0e8aff274c4bc0e6aaafbbaad38ee7d2384bb6a4e52eb09b0f96270f5cb4877d"
+  },
+  "apiCheck": {
+    "run": false,
+    "reason": "Docker engine unavailable. Pedro chose to restart Docker Desktop and notify; awaiting notice.",
+    "lastVerifiedReport": "docs/design/evidencias/2026-10-14/checks-summary.json"
+  },
+  "native": {
+    "run": false,
+    "accepted": false,
+    "emulatorLaunched": false,
+    "preexistingProcessesStopped": false
+  }
+}

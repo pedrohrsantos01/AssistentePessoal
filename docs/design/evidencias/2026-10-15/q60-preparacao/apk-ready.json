@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-15",
+  "sourceCommit": "a0e6168",
+  "package": "dev.ritmo.journeytest",
+  "abi": "x86_64",
+  "buildExitCode": 0,
+  "buildDuration": "2m57s",
+  "apkSha256": "efc6633690a86301ebd80badd4b2326e22b06977f0ed14e6fc913064948d30c4",
+  "apkBytes": 44653517,
+  "signatureVerification": {
+    "v2": true,
+    "v3": true,
+    "v4SidecarExists": true,
+    "v4VerifiedByVerifyCommand": false
+  },
+  "buildLogSha256": "f278a3719100cd58b15eb415b13e05ddae95f95750c01363778ed92ce0a7b015",
+  "installed": false,
+  "nativeRun": false,
+  "nativeAccepted": false,
+  "pending": "Pedro will restart Docker Desktop and notify when ready; no emulator launched."
+}
