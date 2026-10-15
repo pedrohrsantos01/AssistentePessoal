@@ -49,3 +49,6 @@ Concluída: não. Preferências implementadas; [relatório e evidências](../../
 
 
 15/10/2026, continuação: Docker voltou após ação de Pedro. Matriz estrita encontrou e corrigiu seleção do corpo no lugar do título; versão final sem logs passou18 fases/cinco diálogos, com35 alvos/9 campos-IME e restauração. [Relatório](../../../docs/analises/2026-10-15-talkback-foco-dos-dialogos.md). Recorte permanece in-progress pelos cenários restantes, medidas e aceite integral.
+
+
+15/10/2026, revisões de sincronização: [matriz ampliada](../../../docs/analises/2026-10-15-talkback-revisoes-de-sincronizacao.md) aprovada a200% no APK7430a6f8:24 fases/nove registros de foco,75 controles/13 campos-IME. Corrigida a revelação do acionador fora do viewport; cancelamento aninhado, correção com dependente, fallback no título, diagnóstico incerto e persistência após reinício verificados. Cliente independente confirma10 XP e trabalho independente; configurações restauradas e recursos próprios fechados. App:225 testes/tipos/lint; API check:85 executados/oito nativos opt-in ignorados,13 verificações operacionais e modularidade aprovados. Recuperação de senha/preempção, demais estados, travessia entre janelas, edição falada, desempenho, novas paletas e iPhone mantêm06/M1 abertos.

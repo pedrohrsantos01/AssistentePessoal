@@ -15,13 +15,15 @@ Escopo de execução em13/10/2026. Requisitos: spec/11 REQ-DS-003/004 e texto200
 | Sincronização | Sheet e histórico acessíveis, sem acesso ao fundo; fechamento devolve foco ao acionador. |
 | Cofre | Aviso legível, hábito local preservado e controle disponível conforme Q52=A. |
 | Banco da conta/instalação | Diagnóstico da conta acessível; controle ilegível bloqueia a jornada; nenhum descarte. |
+| Revisão de recusa | Título inicial; cancelar devolve foco ao botão no painel anterior; corrigir com dependente remove acionador antigo e foca o título do painel; servidor confirma10 XP. |
+| Identidade incerta | Diagnóstico e fechamento acessíveis; mesmas intenção/evidências após reinício; dependentes bloqueadas, trabalho independente e nenhum XP extra. |
 | Persistência | Cliente independente consulta o servidor e comprova hábito preservado, cumprimento desfeito e XP0. |
 
 A consulta usa janela de aplicação própria e geometria do IME, sem texto do teclado ou valor de campos marcados como senha. Gestos de exploração/duplo toque/rolagem são sendTouch com autenticação do SDK; a rolagem usa dois contatos. Texto sintético é inserido por eventos de teclado de hardware: não aceita edição falada por caractere, cursor ou seleção. Não repetir automaticamente ativações após resultado de transporte ambíguo.
 
 ## Limites
 
-A matriz não aceita VoiceOver/iPhone (Q55=B), desempenho ou toda leitura falada. Recuperação de senha completa e fluxos de revisão de rejeições/identidade incerta pelo leitor permanecem para extensão própria se não forem cobertos pelo roteiro. Paletas anteriores só pertencem ao APK cujo hash registram. Não fechar recorte06/M1 por sucesso parcial ou por timers do driver.
+A matriz não aceita VoiceOver/iPhone (Q55=B), desempenho ou toda leitura falada. Recuperação de senha completa, descarte e demais estados de sincronização, preempção e navegação completa entre janelas permanecem para extensão própria. As revisões de correção/identidade incerta têm critérios no [recorte delimitado](leitor-revisoes.md); consultar o relatório para o resultado efetivamente verificado. Paletas anteriores só pertencem ao APK cujo hash registram. Não fechar recorte06/M1 por sucesso parcial ou por timers do driver.
 
 ## Preparação observada
 
@@ -54,3 +56,6 @@ Pedro confirmou título ao abrir e retorno protegido ao acionador. A implementa�
 
 
 15/10/2026 — matriz final Q60:18 fases/cinco diálogos passaram sem observação, com35 medições de controles/9 de campo-IME. APKb4996e90, fonte200%, Pixel_9/API35/2GB/GPU host. Regra de foco corrigida no adaptador Android após reprovação real; versões e tentativas preservadas no [relatório](../../docs/analises/2026-10-15-talkback-foco-dos-dialogos.md). Restauração confirmada e recursos próprios fechados. Não aceita integralmente revisões aninhadas/preempção, leitura entre todas as janelas, edição falada, desempenho, novas paletas ou iPhone.
+
+
+15/10/2026, revisões de sincronização: [matriz ampliada](../../docs/analises/2026-10-15-talkback-revisoes-de-sincronizacao.md) aprovada a200% no APK7430a6f8:24 fases/nove registros de foco,75 controles/13 campos-IME. Corrigida a revelação do acionador fora do viewport; cancelamento aninhado, correção com dependente, fallback no título, diagnóstico incerto e persistência após reinício verificados. Cliente independente confirma10 XP e trabalho independente; configurações restauradas e recursos próprios fechados. App:225 testes/tipos/lint; API check:85 executados/oito nativos opt-in ignorados,13 verificações operacionais e modularidade aprovados. Recuperação de senha/preempção, demais estados, travessia entre janelas, edição falada, desempenho, novas paletas e iPhone mantêm06/M1 abertos.

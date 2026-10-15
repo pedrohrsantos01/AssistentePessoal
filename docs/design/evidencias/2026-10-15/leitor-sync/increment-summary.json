@@ -1,0 +1,176 @@
+{
+  "baselineCommit": "e070ec7",
+  "productChanged": true,
+  "harnessChanged": false,
+  "report": "docs/analises/2026-10-15-talkback-revisoes-de-sincronizacao.md",
+  "files": {
+    "app/src/ui/dialog-focus.tsx": "6069bb9c69f74b8f6af0d561b5c625925d415c2678b4cf49d92d28662b739ff3",
+    "app/src/ui/dialog-focus-controller.ts": "1e60d32b84c0f8edd06043155444afb945fed36f36ca1672b4b0bf3a7007f02d",
+    "app/src/ui/dialog-focus-viewport.ts": "845fefd450a8bd9e935182748e13190471391daac2f7d71027bca9b232580350",
+    "app/src/ui/primitives.tsx": "cb1f2c6c06717e2f24e0640e403b3189946badc1fd44f352693eee97c87b1ced",
+    "app/src/features/journey/sync-state.tsx": "407e0bfc21d418d8328db5a61da34450ad5c9d7b0d8008651dd92d758fb26043",
+    "app/harness/journey-runtime.ts": "7fb8e3549e9be471cb4c9c5a6cd78bd5e0a4b61b930cdf2da8e4d978af185881",
+    "app/test/integration/android-reader-matrix.test.ts": "dac6a0a751631e1324b3d633084dcbe32f6d64d8b11d07bdedf1426a91e0401e",
+    "app/test/support/reader-hierarchy.ts": "67bf5f70c0c31ed8f16b9b6ea688ce5f5021717913a81101de196799cff6bcff",
+    "app/test/dialog-focus-viewport.test.ts": "67f58d2bb6cc220ae3c556cee6506f0413c9dd48c8d71f0e6290a5e5c432d90e",
+    "app/test/reader-hierarchy.test.ts": "9ce619a309121276de242f4888f2f29cbf5659adee5c03b79e07f6ab2b9ae875",
+    "scripts/verify-android-accessibility.ps1": "8fd76a8055389220c766e1eba8ae51e35c660fd4be4b45352c69ba2f65b4cb7b",
+    "app/android/app/build/outputs/apk/release/app-release.apk": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102"
+  },
+  "checks": {
+    "typecheck": {
+      "exitCode": 0,
+      "logSha256": "601ad322edb34d0d6807d958fb3a4c3fcf0faf3b3d68044dc4bbc354a0abd1dd"
+    },
+    "lint": {
+      "exitCode": 0,
+      "logSha256": "7bcc823fd0a8a7e710524c698a43532141dd8d61ccfd099c6c961998612023ca"
+    },
+    "appTests": {
+      "exitCode": 0,
+      "domain": 182,
+      "components": 43,
+      "logSha256": "a96827061278121c0a8f7f8a3219951314c88875aa25a5fadc18547fc8159705"
+    },
+    "androidBuild": {
+      "exitCode": 0,
+      "logSha256": "fe31166f04bc91a14f33f6341441b1d1b93675b2f688c0cbb5b4a0598dfedc4f"
+    }
+  },
+  "nativeAcceptance": {
+    "passed": true,
+    "path": "rodada3-final/matrix-summary.json",
+    "phases": 24,
+    "focusRecords": 9,
+    "controls": 75,
+    "fieldsIme": 13,
+    "restored": true
+  },
+  "apiCheck": {
+    "exitCode": 0,
+    "tests": 93,
+    "skipped": 8,
+    "failures": 0,
+    "errors": 0,
+    "executed": 85,
+    "duration": "10m4s",
+    "logSha256": "d4f55724265ee488a33394fc6ef740276ff5a6f192ba58e03c6f2b10429feaff",
+    "suites": [
+      {
+        "suite": "dev.ritmo.ContainerPackagingTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "38711bb8e20ba174e34f64fcc0e4de96637b9cc5d199e51242bfd808474f8f90"
+      },
+      {
+        "suite": "dev.ritmo.ModularityTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "60eca9f113083f653ebf3443f3c426812fd5ed04ea25c53467449f514ee370ea"
+      },
+      {
+        "suite": "dev.ritmo.OperationalSchedulingTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "c1c9b5d4abb09408c678c173885aaccad59f302f8ee16b5ebedd1966104a7c82"
+      },
+      {
+        "suite": "dev.ritmo.PrimaryTelemetryTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "24d2fcc77ebfa7a97f43b56a60a87312204f8912ac8275ab8d405fd59488b209"
+      },
+      {
+        "suite": "dev.ritmo.ProbeTransportTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "55de625bae50b9884f71cbc2111fe0a2f1ff7fc7e54016b0368a7a3cf439e218"
+      },
+      {
+        "suite": "dev.ritmo.ProxyTlsTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "624aa261490b4885998d7233b6cffe1fba45d5c8220d3fa5f87216e3be2d120a"
+      },
+      {
+        "suite": "dev.ritmo.RateLimitTests",
+        "tests": 11,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "96ff8d7986a242ec24884d3b55c53a54bcf6854fe03c13d7ea4406e148541cda"
+      },
+      {
+        "suite": "dev.ritmo.ReceiverSupervisionTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "98cf5866c8225ee3ff248184ea4525e4c0bb21457d38f85bfb7059811412a85b"
+      },
+      {
+        "suite": "dev.ritmo.RestoreTests",
+        "tests": 5,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "3f96b23137757dbe3338312633b4e598690ed709733739a91cf279b8497ae403"
+      },
+      {
+        "suite": "dev.ritmo.RetentionLifecycleTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "178b80f125f1c9ae0021a7e63066c620f66dd7bf4de8cf7c5869d4f096890325"
+      },
+      {
+        "suite": "dev.ritmo.RuntimeTests",
+        "tests": 46,
+        "skipped": 8,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "91c739e00489ac7637801c0fcec4279d4bf5bfd580fb3cce951f45463feea627"
+      },
+      {
+        "suite": "dev.ritmo.SyncRetentionTests",
+        "tests": 11,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "0edbba0f606e8e37ae587dfa4a2da6f9021e0880a4ca83794f964af4831f4e0b"
+      },
+      {
+        "suite": "dev.ritmo.TrustedProxyTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "9499cfca92fb35de291dccb728669b059a578dd5f48f27aaf95bf648b065749e"
+      },
+      {
+        "suite": "dev.ritmo.WalRecoveryTests",
+        "tests": 5,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "51178f40dfd0dbe3b690603911c476f21cabc3e211b4aae7968df6fcd537360f"
+      }
+    ],
+    "operationsTests": 13
+  },
+  "recorte06Complete": false,
+  "m1Complete": false
+}

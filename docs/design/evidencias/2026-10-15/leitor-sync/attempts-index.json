@@ -1,0 +1,36 @@
+{
+  "attempts": [
+    {
+      "path": "rodada1",
+      "passed": false,
+      "reason": "nested return selected attention text; offscreen opener on resumed panel"
+    },
+    {
+      "path": "probe-baseline",
+      "passed": false,
+      "reason": "saved rejection without API reproduced wrong focus twice"
+    },
+    {
+      "path": "probe-visibility",
+      "passed": false,
+      "reason": "before driver search, opener was invisible at top2918 beyond viewport bottom2424 in both repetitions"
+    },
+    {
+      "path": "probe-fixed",
+      "passed": true,
+      "scope": "saved rejection nested return only; both repetitions select opener before driver search; not full API matrix"
+    },
+    {
+      "path": "rodada2",
+      "passed": false,
+      "reason": "correction and focus passed, then driver failed to parse single-quoted XML JSON attribute"
+    },
+    {
+      "path": "rodada3-final",
+      "passed": true,
+      "scope": "registration/onboarding/habits/sheets/local failures and nested rejection/uncertain sync; no VoiceOver/performance, preemption or complete password recovery"
+    }
+  ],
+  "finalApkSha256": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102",
+  "diagnosticProbes": "ignored .scratch/runtime/interface/nested-focus-probe*; full repeatable suite is app/test/integration/android-reader-matrix.test.ts"
+}

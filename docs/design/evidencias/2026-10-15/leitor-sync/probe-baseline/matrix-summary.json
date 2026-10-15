@@ -1,0 +1,140 @@
+{
+  "passed": false,
+  "functionalPassed": false,
+  "focusObservationOnly": false,
+  "dialogFocus": [
+    {
+      "index": 0,
+      "opener": "Revisar Criar hábito · Recusado leitor",
+      "returned": "O resultado remoto precisa de revisão técnica. Seus dados estão preservados."
+    },
+    {
+      "index": 1,
+      "opener": "Revisar Criar hábito · Recusado leitor",
+      "returned": "Criar hábito · Recusado leitor"
+    }
+  ],
+  "apkSha256": "b4996e90b71b3cdaf233ca678ebf319c0b8fa726ca02a1ac676c5bf0026c04e7",
+  "fontScale": 2,
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "pixelRounding": "floor",
+  "minimumLogicalUnits": 44,
+  "phases": [
+    "saved_rejection_ready_before_reader",
+    "reader_ready"
+  ],
+  "targets": [
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        283,
+        995,
+        871,
+        1110
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar alterações",
+      "bounds": [
+        53,
+        1665,
+        1028,
+        1822
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar Criar hábito · Recusado leitor",
+      "bounds": [
+        98,
+        2213,
+        984,
+        2424
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        283,
+        995,
+        871,
+        1110
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar alterações",
+      "bounds": [
+        53,
+        1665,
+        1028,
+        1822
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar Criar hábito · Recusado leitor",
+      "bounds": [
+        98,
+        2213,
+        984,
+        2424
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2175,
+        1028,
+        2340
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    }
+  ],
+  "physicalInput": "grpc.sendTouch",
+  "scroll": "two_contacts",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "saved rejection nested return only; no API, mutation or complete journey",
+  "restored": true
+}

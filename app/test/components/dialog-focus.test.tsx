@@ -1,6 +1,5 @@
-import {useCallback,useState} from 'react';
+import {useCallback,useState,type ComponentProps} from 'react';
 import {act,fireEvent,render,screen} from '@testing-library/react-native';
-import {AccessibilityInfo} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {ThemeProvider} from '../../src/theme/theme.tsx';
 import {tokens} from '../../src/theme/tokens.ts';
@@ -8,7 +7,7 @@ import {Button,Input,Sheet,Type} from '../../src/ui/primitives.tsx';
 import {DialogFocusScope} from '../../src/ui/dialog-focus.tsx';
 import type {DialogFocusDriver} from '../../src/ui/dialog-focus-controller.ts';
 import {pt} from '../../src/i18n/pt-BR.ts';
-type Host=Parameters<typeof AccessibilityInfo.sendAccessibilityEvent>[0];
+type Host=Parameters<NonNullable<ComponentProps<typeof DialogFocusScope>['driver']>['focus']>[0];
 const identity={};
 function adapter(){
  const frames:(()=>void)[]=[],acknowledgements:(()=>void)[]=[],focused:Host[]=[];
