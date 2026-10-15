@@ -26,7 +26,7 @@ REQ-DS-001/002/003/005/006; spec/07 §1; spec/08 §6; tarefa visual 03/aceite do
 
 ## Resultado
 
-Concluída: não. Preferências implementadas; [relatório e evidências](../../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Restam desempenho instrumentado e matriz integral de acessibilidade/estados; iPhone/VoiceOver segue adiado e não é dispensado. A matriz final passou; a entrada física e o roteiro básico TalkBack passaram no [incremento de continuidade](../../../docs/analises/2026-10-12-talkback-e-continuidade-do-briefing.md). A atualização do cumprimento preserva o foco; leitura a200%/forms/sheets/erros e medidas ainda não aceitas. [Próximo recorte](../leitor-e-desempenho.md).
+Concluída: não. Preferências implementadas; [relatório e evidências](../../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Restam desempenho instrumentado e matriz integral de acessibilidade/estados; iPhone/VoiceOver segue adiado e não é dispensado. A matriz final passou; a entrada física e o roteiro básico TalkBack passaram no [incremento de continuidade](../../../docs/analises/2026-10-12-talkback-e-continuidade-do-briefing.md). A atualização do cumprimento preserva o foco. O roteiro a200% de formulários/diálogos/falhas locais passou em15/10, com foco obrigatório nos cinco diálogos observados; cobertura integral dos estados e medidas permanecem abertas. [Próximo recorte](../leitor-e-desempenho.md).
 
 ## Comments
 
@@ -46,3 +46,6 @@ Concluída: não. Preferências implementadas; [relatório e evidências](../../
 
 
 15/10/2026: [APK Q60 preparado e218 testes repetidos](../../../docs/analises/2026-10-15-preparacao-do-ensaio-q60.md). Motor Docker indisponível; Pedro escolheu reiniciar e avisar. API/nativo não iniciados, nenhum emulador aberto ou processo preexistente encerrado; aguardar seu aviso. Recorte permanece in-progress.
+
+
+15/10/2026, continuação: Docker voltou após ação de Pedro. Matriz estrita encontrou e corrigiu seleção do corpo no lugar do título; versão final sem logs passou18 fases/cinco diálogos, com35 alvos/9 campos-IME e restauração. [Relatório](../../../docs/analises/2026-10-15-talkback-foco-dos-dialogos.md). Recorte permanece in-progress pelos cenários restantes, medidas e aceite integral.

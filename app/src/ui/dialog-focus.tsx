@@ -1,14 +1,15 @@
 import {createContext, useCallback, useContext, useLayoutEffect, useMemo, type ReactNode} from 'react';
-import {AccessibilityInfo, type View} from 'react-native';
+import {AccessibilityInfo, Platform, type View} from 'react-native';
 import {DialogFocusController, type DialogControl, type DialogFocusDriver, type DialogWindow} from './dialog-focus-controller.ts';
 
 type Host = Parameters<typeof AccessibilityInfo.sendAccessibilityEvent>[0];
 const nativeDriver: DialogFocusDriver<Host> = {
   afterCommit: work => {requestAnimationFrame(work);},
   focus: (host, eligible) => {
-    // Native layout acknowledgement; recheck identity after the asynchronous callback.
+    // Android's focus event reports input focus; hover enter selects the node for TalkBack.
+    // Recheck the current identity after the asynchronous native layout acknowledgement.
     host.measure((_x, _y, width, height) => {
-      if (width > 0 && height > 0 && eligible()) AccessibilityInfo.sendAccessibilityEvent(host, 'focus');
+      if (width > 0 && height > 0 && eligible()) AccessibilityInfo.sendAccessibilityEvent(host, Platform.OS === 'android' ? 'viewHoverEnter' : 'focus');
     });
   },
 };

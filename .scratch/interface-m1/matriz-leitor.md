@@ -51,3 +51,6 @@ Dezoito fases funcionais passaram;35 medições de controle e9 de campo/IME. Cad
 ## Q60=A — implementação local em14/10/2026
 
 Pedro confirmou título ao abrir e retorno protegido ao acionador. A implementação central em Sheet controla o ciclo da janela, revalida o contexto atual e não mantém callbacks válidos após saída/troca de conta/recuperação. Revisão aninhada usa a identidade do controle no painel retomado. Typecheck/lint e218 testes passaram; [relatório](../../docs/analises/2026-10-14-foco-protegido-dos-dialogos.md). Nenhum novo ensaio nativo ou APK neste incremento: aguardar o aviso de memória liberada de Pedro antes de abrir o emulador. Repetir com observação desligada e hash novo; rodada14 histórica mantém passed=false.
+
+
+15/10/2026 — matriz final Q60:18 fases/cinco diálogos passaram sem observação, com35 medições de controles/9 de campo-IME. APKb4996e90, fonte200%, Pixel_9/API35/2GB/GPU host. Regra de foco corrigida no adaptador Android após reprovação real; versões e tentativas preservadas no [relatório](../../docs/analises/2026-10-15-talkback-foco-dos-dialogos.md). Restauração confirmada e recursos próprios fechados. Não aceita integralmente revisões aninhadas/preempção, leitura entre todas as janelas, edição falada, desempenho, novas paletas ou iPhone.

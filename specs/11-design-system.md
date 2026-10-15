@@ -129,3 +129,6 @@ Coleta de13/10: [formulários, diálogos e erros com TalkBack](../docs/analises/
 
 
 Q60=A implementada em14/10: [foco protegido dos diálogos](../docs/analises/2026-10-14-foco-protegido-dos-dialogos.md), com218 testes locais e API check aprovados. Título único centralizado em Sheet e retorno invalidado por contexto/acionador indisponível. A repetição TalkBack aguarda o aviso de memória liberada de Pedro; nenhuma aprovação nativa nova ou encerramento de06/M1.
+
+
+15/10/2026: a validação nativa de Q60 identificou que o envio de foco não selecionava o título no TalkBack. O adaptador Android foi corrigido; [matriz final](../docs/analises/2026-10-15-talkback-foco-dos-dialogos.md) passou18 fases/cinco diálogos a200%, com35 controles/9 campos-IME, no APKb4996e90 sem logs. As proteções de contexto permanecem; cobertura integral/medidas/paletas do novo APK/iPhone mantêm06/M1 abertos.

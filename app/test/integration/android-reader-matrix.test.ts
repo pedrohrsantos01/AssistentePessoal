@@ -39,7 +39,7 @@ test('TalkBack at200%: real account/onboarding, forms/IME, sheets, validation an
  const observingFocus=process.env.RITMO_READER_OBSERVE_FOCUS==='1';
  const phases:string[]=[],targets:Record<string,unknown>[]=[],dialogFocus:Record<string,unknown>[]=[];
  if(observingFocus){const line=JSON.stringify({phase:'focus_observation_only',fullAcceptance:false});console.log(line);if(process.env.RITMO_READER_PROGRESS)appendFileSync(process.env.RITMO_READER_PROGRESS,line+'\n');}
- const report=(phase:string)=>{phases.push(phase);const line=JSON.stringify({phase,passed:true,fontScale:2});console.log(line);if(process.env.RITMO_READER_PROGRESS)appendFileSync(process.env.RITMO_READER_PROGRESS,line+'\n');};
+ const report=(phase:string,fontScale=2)=>{phases.push(phase);const line=JSON.stringify({phase,passed:true,fontScale});console.log(line);if(process.env.RITMO_READER_PROGRESS)appendFileSync(process.env.RITMO_READER_PROGRESS,line+'\n');};
  const read=()=>{
   const result=adb('shell','am','instrument','-w','dev.ritmo.readerobserver/.ReaderObserver'),xml=result.match(/^INSTRUMENTATION_RESULT: hierarchy=(.*)$/m)?.[1];
   if(!xml)return {nodes:[] as Node[],meta:{} as Node};
@@ -105,7 +105,7 @@ test('TalkBack at200%: real account/onboarding, forms/IME, sheets, validation an
   adb('reverse',devicePort,'tcp:'+new URL(origin).port);reversed=true;adb('shell','settings','put','system','font_scale','1.0');launch();
   const deadline=Date.now()+45000;let initial=read().nodes;
   while(!initial.some(n=>matches(n,pt.settings)||matches(n,pt.register))&&Date.now()<deadline){await pause(300);initial=read().nodes;}
-  if(initial.some(n=>matches(n,pt.settings))){await press(pt.settings);await press(pt.logout);await find(pt.logoutTitle);await press(pt.logout);}
+  if(initial.some(n=>matches(n,pt.settings))){await press(pt.settings);await find(pt.profile,false);report('existing_session_settings_ready',1);await press(pt.logout);await find(pt.logoutTitle);await press(pt.logout);}
   await find(pt.register);adb('shell','settings','put','system','font_scale','2.0');launch();await find(pt.register);
   // Prove physical input before enabling touch exploration, then enter the unique form.
   const preflight=point(await find(pt.register));await touch.down(preflight);await pause(60);await touch.up();await find(pt.name);report('physical_input_enters_registration_before_reader');

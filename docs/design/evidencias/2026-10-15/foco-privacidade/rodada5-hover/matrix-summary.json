@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "functionalPassed": true,
+  "focusObservationOnly": false,
+  "dialogFocus": [
+    {
+      "name": "privacy-focus",
+      "opener": "O Ritmo é para maiores de 18 anos. Consulte a política de privacidade antes de criar sua conta.",
+      "title": "Privacidade nesta versão para testes",
+      "entry": "Privacidade nesta versão para testes",
+      "returned": "O Ritmo é para maiores de 18 anos. Consulte a política de privacidade antes de criar sua conta."
+    }
+  ],
+  "apkSha256": "815ea34761d8c4e4ea49299b7db8657a07ce95409902586b76d9d9f87830d400",
+  "fontScale": 2,
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "pixelRounding": "floor",
+  "minimumLogicalUnits": 44,
+  "phases": [
+    "registration_ready_before_reader",
+    "reader_ready",
+    "privacy-focus"
+  ],
+  "targets": [
+    {
+      "label": "O Ritmo é para maiores de 18 anos. Consulte a política de privacidade antes de criar sua conta.",
+      "bounds": [
+        63,
+        1363,
+        1017,
+        1723
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2163,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    }
+  ],
+  "physicalInput": "grpc.sendTouch",
+  "scroll": "two_contacts",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "privacy entry and return only; no API or complete journey",
+  "restored": true
+}

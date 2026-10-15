@@ -1,0 +1,8 @@
+{
+  "installedSha256": "815ea34761d8c4e4ea49299b7db8657a07ce95409902586b76d9d9f87830d400",
+  "apkSha256": "815ea34761d8c4e4ea49299b7db8657a07ce95409902586b76d9d9f87830d400",
+  "avd": "Pixel_9",
+  "package": "dev.ritmo.journeytest",
+  "passed": true,
+  "serial": "emulator-5560"
+}

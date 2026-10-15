@@ -1,0 +1,102 @@
+{
+  "date": "2026-10-15",
+  "acceptedFinalMatrix": "leitor-matriz/rodada3-final/matrix-summary.json",
+  "scope": "Android observed flow only; diagnostics and prior APKs are not full acceptance",
+  "attempts": [
+    {
+      "path": "foco-privacidade/rodada2/matrix-summary.json",
+      "kind": "diagnostic-minimal",
+      "passed": false,
+      "focusObservationOnly": false,
+      "phases": 2,
+      "dialogs": 0,
+      "apkSha256": "efc6633690a86301ebd80badd4b2326e22b06977f0ed14e6fc913064948d30c4",
+      "settingsRestored": true
+    },
+    {
+      "path": "foco-privacidade/rodada3-debug/matrix-summary.json",
+      "kind": "diagnostic-minimal",
+      "passed": false,
+      "focusObservationOnly": false,
+      "phases": 2,
+      "dialogs": 0,
+      "apkSha256": "3a9db6b150cfaa5ad18e126ae0102c0bea3530dc5081fe812e820f8e6bcf7d9f",
+      "settingsRestored": true
+    },
+    {
+      "path": "foco-privacidade/rodada4-frame/matrix-summary.json",
+      "kind": "diagnostic-minimal",
+      "passed": false,
+      "focusObservationOnly": false,
+      "phases": 2,
+      "dialogs": 0,
+      "apkSha256": "9c80a39decff32ba5e6ad541ac84bb80d7bc5d8f3ce59847526005d451db6685",
+      "settingsRestored": true
+    },
+    {
+      "path": "foco-privacidade/rodada5-hover/matrix-summary.json",
+      "kind": "diagnostic-minimal",
+      "passed": true,
+      "focusObservationOnly": false,
+      "phases": 3,
+      "dialogs": 1,
+      "apkSha256": "815ea34761d8c4e4ea49299b7db8657a07ce95409902586b76d9d9f87830d400",
+      "settingsRestored": true
+    },
+    {
+      "path": "leitor-matriz/rodada1/matrix-summary.json",
+      "kind": "full-matrix",
+      "passed": false,
+      "focusObservationOnly": false,
+      "phases": 0,
+      "dialogs": 0,
+      "apkSha256": "efc6633690a86301ebd80badd4b2326e22b06977f0ed14e6fc913064948d30c4",
+      "settingsRestored": true
+    },
+    {
+      "path": "leitor-matriz/rodada2/matrix-summary.json",
+      "kind": "full-matrix",
+      "passed": false,
+      "focusObservationOnly": false,
+      "phases": 4,
+      "dialogs": 0,
+      "apkSha256": "efc6633690a86301ebd80badd4b2326e22b06977f0ed14e6fc913064948d30c4",
+      "settingsRestored": true
+    },
+    {
+      "path": "leitor-matriz/rodada3-final/matrix-summary.json",
+      "kind": "full-matrix",
+      "passed": true,
+      "focusObservationOnly": false,
+      "phases": 18,
+      "dialogs": 5,
+      "apkSha256": "b4996e90b71b3cdaf233ca678ebf319c0b8fa726ca02a1ac676c5bf0026c04e7",
+      "settingsRestored": true
+    }
+  ],
+  "passwordFieldsRedactedInXml": true,
+  "testedSourcesStillMatch": true,
+  "navigationProbes": [
+    {
+      "path": "q60-navegacao-probe/rodada2/summary.json",
+      "passed": false,
+      "apiRunning": false,
+      "memoryMegabytes": 2048,
+      "screenReaderEnabledByProbe": false
+    },
+    {
+      "path": "q60-navegacao-probe/rodada3/summary.json",
+      "passed": true,
+      "apiRunning": false,
+      "memoryMegabytes": 2048,
+      "screenReaderEnabledByProbe": false
+    },
+    {
+      "path": "q60-navegacao-probe/summary.json",
+      "passed": false,
+      "apiRunning": false,
+      "memoryMegabytes": 2048,
+      "screenReaderEnabledByProbe": false
+    }
+  ]
+}

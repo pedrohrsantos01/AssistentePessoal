@@ -1,0 +1,10 @@
+{
+  "androidApi": "35",
+  "gpuMode": "host",
+  "screenReader": "TalkBack",
+  "focusObservationOnly": false,
+  "avd": "Pixel_9",
+  "serial": "emulator-5560",
+  "emulatorMemoryMegabytes": 2048,
+  "androidRelease": "15"
+}

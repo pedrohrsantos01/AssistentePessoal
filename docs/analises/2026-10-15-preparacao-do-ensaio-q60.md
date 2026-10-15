@@ -11,3 +11,6 @@ A leitura inicial encontrou8,9GB livres e nenhum emulador ativo. Docker Desktop 
 API check não foi executado nesta etapa: depende do Docker indisponível. O check de14/10 permanece a última prova da API, explicitamente histórica. Nenhuma fixture, emulador ou painel de acompanhamento foi iniciado, nenhum APK foi instalado e nenhum processo preexistente foi encerrado. A ferramenta ai-memory não estava disponível nesta sessão; continuidade conferida nos contratos, relatórios e código do checkout, sem atualização remota da memória.
 
 Após o aviso: confirmar Docker, preparar API/PostgreSQL descartáveis e executar a matriz visível com observação de foco desligada, instalação preservada e conferência do hash novo. Registrar restauração e encerramento dos recursos próprios. As paletas do APK anterior não pertencem a este build. Recorte06/M1 continuam abertos, incluindo cobertura integral do leitor, desempenho e iPhone/VoiceOver adiado.
+
+
+Continuação posterior no mesmo dia: Pedro avisou que ajustou o Docker. O ensaio foi executado, revelou e corrigiu falha real de foco e passou na versão final; [resultado e pendências](2026-10-15-talkback-foco-dos-dialogos.md). Este documento e seus JSONs preservam a fotografia anterior de preparação, não o estado atual da entrega.

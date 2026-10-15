@@ -15,3 +15,6 @@ A transferência não ativa controles, não modifica formulário/dados e respeit
 Manter a seleção inicial nativa do leitor, desde que o foco pertença ao diálogo e o título seja navegável, com o mesmo retorno ao acionador e proteção de conta. Na rodada12, o foco entrou no texto de privacidade e o fundo ficou fora da janela interativa; isso, sozinho, não é reprovação de um requisito existente.
 
 A decisão não altera schema, autenticação, sincronização ou direção visual. A coleta de13/10 permanece em observação; a implementação e a repetição da matriz com título inicial/retorno protegidos têm evidências próprias. Pedro informou em14/10 que liberará memória e avisará quando estiver pronto: aguardar esse aviso antes de abrir o novo ensaio no emulador, preservando processos preexistentes.
+
+
+Continuação em15/10: Pedro avisou que ajustou o Docker e autorizou continuar. A matriz estrita encontrou e corrigiu uma falha real de seleção do título no TalkBack; [resultado final](../../docs/analises/2026-10-15-talkback-foco-dos-dialogos.md),18 fases/cinco diálogos no APKb4996e90, sem observação. O aviso anterior não é mais bloqueio; demais cenários do contrato e aceite M1 continuam conforme a cobertura documentada.

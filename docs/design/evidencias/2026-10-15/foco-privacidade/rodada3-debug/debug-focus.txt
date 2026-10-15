@@ -1,0 +1,4 @@
+10-15 12:16:50.204  2799  2884 I ReactNativeJS: '[DEBUG-q60] present', true, true, false, true
+10-15 12:16:50.207  2799  2884 I ReactNativeJS: '[DEBUG-q60] measure-request', true
+10-15 12:16:50.210  2799  2884 I ReactNativeJS: '[DEBUG-q60] measured', 371.4285888671875, 80, true
+10-15 12:16:50.210  2799  2884 I ReactNativeJS: [DEBUG-q60] dispatch

@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-15",
+  "decision": "Q60=A",
+  "requirement": "REQ-DS-003",
+  "app": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "domainAndController": 175,
+    "components": 43,
+    "total": 218,
+    "failed": 0
+  },
+  "apiCheck": {
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 8,
+    "executed": 85,
+    "operationalChecks": 13,
+    "exitCode": 0,
+    "duration": "9m30s",
+    "logSha256": "aed75ad37044a1f4425fd84ecfb2346afab0d46fccec2eae1e44c9ea8285dbcf"
+  },
+  "native": {
+    "passed": true,
+    "functionalPassed": true,
+    "focusObservationOnly": false,
+    "phases": 18,
+    "dialogs": 5,
+    "controls": 35,
+    "fieldIme": 9,
+    "apkSha256": "b4996e90b71b3cdaf233ca678ebf319c0b8fa726ca02a1ac676c5bf0026c04e7",
+    "settingsRestored": true,
+    "gradleExitCode": 0,
+    "gradleDuration": "6m25s",
+    "gradleLogSha256": "49414a605b8ec364df85ffdd1df5d52e8e0579751439205387924225be156223",
+    "nodeLogSha256": "f7f8f7206df458ba9a695e15edcd26ce9c91c5a4bb63239edaf77b33d9598413"
+  },
+  "scope": "Android observed flow; remaining reader states, performance, new APK palettes, and iPhone/VoiceOver remain pending."
+}

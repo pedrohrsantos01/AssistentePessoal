@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-15",
+  "baselineCommit": "3ff2ed0",
+  "apkSha256": "b4996e90b71b3cdaf233ca678ebf319c0b8fa726ca02a1ac676c5bf0026c04e7",
+  "package": "dev.ritmo.journeytest",
+  "abi": "x86_64",
+  "temporaryDebugMarkerAbsent": true,
+  "sourceSha256": {
+    "app/src/ui/dialog-focus.tsx": "0e58a21d2169a9f326ca5ed65672f0a87fe1bf2bc023c5731171af2472dbd52f",
+    "app/test/integration/android-reader-matrix.test.ts": "c05a0a2ba574e2d6693d8d13de1015bad092dde5a82595ad3e0b150d17ed778e"
+  },
+  "app": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "tests": 218,
+    "domainAndController": 175,
+    "components": 43,
+    "failed": 0,
+    "logSha256": "91ec2093068a9fc647120af1b40ceba16c53084f38d36f28f9456d67451f89fd"
+  },
+  "buildDuration": "1m29s",
+  "buildLogSha256": "37014549231cc33dba4fdc446fedf67c84e4885bc18114add3490351e4c828fa"
+}

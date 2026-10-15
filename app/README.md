@@ -279,11 +279,11 @@ Briefing local: providers sem loader renderizam a projeção já confirmada da s
 
 ### Matriz do leitor com texto ampliado
 
-O roteiro opt-in `android-reader-matrix.test.ts` exercita cadastro/onboarding reais, teclado com texto200%, hábito longo, diálogos e falhas locais preservadas. Q60 está implementada e os testes locais passaram; TalkBack ainda não foi repetido nesta versão. Pedro informou que liberará memória e avisará quando estiver pronto: aguardar esse aviso, preparar um APK novo com a variante journeytest e só então executar pela raiz:
+O roteiro opt-in `android-reader-matrix.test.ts` exercita cadastro/onboarding reais, teclado com texto200%, hábito longo, diálogos e falhas locais preservadas. Q60=A foi corrigida e validada no Android em15/10:18 fases e cinco diálogos passaram, com título inicial/retorno realmente focados, conforme [relatório](../docs/analises/2026-10-15-talkback-foco-dos-dialogos.md). Preparar o APK journeytest correspondente e executar pela raiz:
 
 ```powershell
 $env:RITMO_READER_OBSERVE_FOCUS=$null # Q60=A: exigir titulo inicial e retorno
-.\scripts\verify-android-accessibility.ps1 -Matrix -GpuMode host -MemoryMegabytes 4096 -EvidenceDirectory docs/design/evidencias/2026-10-14/leitor-matriz/repeticao
+.\scripts\verify-android-accessibility.ps1 -Matrix -GpuMode host -MemoryMegabytes 2048 -EvidenceDirectory docs/design/evidencias/2026-10-15/leitor-matriz/repeticao
 ```
 
 `Matrix` prepara a API/PostgreSQL descartáveis antes de abrir o emulador. A fixture Java confirma o servidor pronto, o lançador verifica a propriedade do emulador e publica seu discovery em uma pasta temporária exclusiva; só então começa o Node. O cancelamento libera a fixture. O painel mostra as fases concluídas; logs completos ficam em `.scratch/runtime/interface/reader-matrix-gradle.log` e `api/build/android-reader-integration.log`. Não é um servidor de desenvolvimento persistente.

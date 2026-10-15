@@ -1,0 +1,3 @@
+INSTRUMENTATION_RESULT: observer_error=IllegalStateException
+
+INSTRUMENTATION_CODE: 1
