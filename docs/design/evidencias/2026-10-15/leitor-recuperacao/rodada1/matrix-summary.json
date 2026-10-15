@@ -1,0 +1,641 @@
+{
+  "passed": true,
+  "focusObservationOnly": false,
+  "apkSha256": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102",
+  "fontScale": 2,
+  "phases": [
+    "previous_session_preserved_and_deliberately_closed",
+    "physical_input_enters_login",
+    "reader_ready_at200",
+    "request_validation_keeps_accessible_form",
+    "offline_request_preserves_email_without_smtp",
+    "uniform_request_received_through_real_smtp",
+    "privacy_preemption_and_offline_confirmation_preserve_work",
+    "warm_cold_link_not_consumed_until_online_confirmation",
+    "reset_does_not_authenticate_or_restore_old_dialog",
+    "pending_habit_and10xp_converge_once_and_other_account_is_empty",
+    "logout_preempted_and_foreign_or_used_links_are_unavailable",
+    "expired_link_and_unknown_email_preserve_uniform_response_and_close_old_logout"
+  ],
+  "dialogFocus": [
+    {
+      "name": "04-privacy-preempted",
+      "interrupted": "Privacidade nesta versão para testes",
+      "entry": "Voltar"
+    },
+    {
+      "name": "10-logout-preempted",
+      "interrupted": "Sair da conta?",
+      "entry": "Voltar"
+    }
+  ],
+  "targets": [
+    {
+      "label": "Esqueci a senha",
+      "bounds": [
+        63,
+        1188,
+        1017,
+        1332
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Enviar link",
+      "bounds": [
+        63,
+        942,
+        1017,
+        1099
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Enviar link",
+      "bounds": [
+        63,
+        1747,
+        1017,
+        1904
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Enviar link",
+      "bounds": [
+        63,
+        1438,
+        1017,
+        1595
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Voltar para Entrar",
+      "bounds": [
+        63,
+        1202,
+        1017,
+        1359
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Entrar",
+      "bounds": [
+        63,
+        989,
+        1017,
+        1146
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Hábitos",
+      "bounds": [
+        371,
+        2202,
+        710,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Novo hábito",
+      "bounds": [
+        736,
+        179,
+        1028,
+        311
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar hábito",
+      "bounds": [
+        53,
+        1990,
+        1028,
+        2147
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Briefing",
+      "bounds": [
+        32,
+        2202,
+        371,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Antes de recuperar com leitor, não feito",
+      "bounds": [
+        92,
+        1179,
+        988,
+        1554
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ajustes",
+      "bounds": [
+        710,
+        2202,
+        1049,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Política de privacidade",
+      "bounds": [
+        92,
+        1743,
+        988,
+        1911
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "bounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "inputBounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Salvar nova senha",
+      "bounds": [
+        63,
+        1724,
+        1017,
+        1881
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "bounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "inputBounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Salvar nova senha",
+      "bounds": [
+        63,
+        2033,
+        1017,
+        2190
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "bounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "inputBounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Mostrar",
+      "bounds": [
+        683,
+        940,
+        1017,
+        1086
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar",
+      "bounds": [
+        697,
+        940,
+        1017,
+        1086
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Salvar nova senha",
+      "bounds": [
+        63,
+        1227,
+        1017,
+        1384
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Voltar para Entrar",
+      "bounds": [
+        63,
+        1036,
+        1017,
+        1193
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Autenticar novamente",
+      "bounds": [
+        92,
+        569,
+        988,
+        713
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        1033,
+        1017,
+        1180
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        1033,
+        1017,
+        1180
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        1313,
+        662,
+        1460
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        1305,
+        662,
+        1452
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Entrar",
+      "bounds": [
+        63,
+        1500,
+        1017,
+        1657
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ajustes",
+      "bounds": [
+        710,
+        2202,
+        1049,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        47,
+        1956,
+        1033,
+        2121
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "bounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "inputBounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Salvar nova senha",
+      "bounds": [
+        63,
+        1227,
+        1017,
+        1384
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Pedir outro link",
+      "bounds": [
+        63,
+        927,
+        1017,
+        1084
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Enviar link",
+      "bounds": [
+        63,
+        942,
+        1017,
+        1099
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "bounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nova senha",
+      "inputBounds": [
+        63,
+        940,
+        662,
+        1087
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Salvar nova senha",
+      "bounds": [
+        63,
+        1227,
+        1017,
+        1384
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Pedir outro link",
+      "bounds": [
+        63,
+        927,
+        1017,
+        1084
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        754,
+        1017,
+        901
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Enviar link",
+      "bounds": [
+        63,
+        942,
+        1017,
+        1099
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Voltar para Entrar",
+      "bounds": [
+        63,
+        1295,
+        1017,
+        1452
+      ],
+      "density": 2.625
+    }
+  ],
+  "restored": true,
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "scope": "password recovery UI/SMTP, privacy/logout preemption, reauthentication and preserved sync; no public links/VoiceOver/performance or complete inter-window/spoken editing",
+  "physicalInput": "grpc.sendTouch",
+  "scroll": "two_contacts",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing"
+}

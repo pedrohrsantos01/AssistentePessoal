@@ -296,3 +296,14 @@ Desempenho instrumentado, recuperação de senha/rejeições/identidade incerta 
 
 
 15/10/2026 — extensão das revisões: a matriz estrita passou24 fases/nove registros de foco a200%,75 controles/13 campos-IME, no APK7430a6f8. [Resultado](../docs/analises/2026-10-15-talkback-revisoes-de-sincronizacao.md). Agora inclui recusa real por nome, correção com dependente, retorno ao acionador sem rolagem do driver, foco no título após remoção do acionador, diagnóstico de identidade incerta e persistência/trabalho independente com conferência HTTP. A camada de foco mede/revela o destino no viewport antes de selecioná-lo. O parser do observador aceita ambos os delimitadores de atributos XML. Diagnóstico expandido é capturado e recolhido antes do fechamento; não equivale à travessia falada integral do JSON. Paletas de APK anterior não aceitam esse build; demais estados/recuperação/preempção/desempenho/iOS continuam no plano.
+
+
+### Recuperação de senha com TalkBack
+
+```powershell
+.\scripts\verify-android-accessibility.ps1 -Recovery -SkipInstall -GpuMode host -MemoryMegabytes 2048 -EvidenceDirectory docs/design/evidencias/2026-10-15/leitor-recuperacao/repeticao
+```
+
+`Recovery` seleciona a matriz com API/PostgreSQL/SMTP e controle de relógio em loopback, preparado antes do emulador; a variante anterior de recuperação e a matriz geral continuam disponíveis. Mesmo APK/instalação preservados; `SkipInstall` exige hash igual. A fixture não usa Resend e suas quotas elevadas não aceitam rate limiting. A execução de15/10 passou12 fases a200%, com duas interrupções de diálogo,44 medições de controles/14 campos-IME. Inclui pedido/offline, entrada quente/fria, confirmações/links inválidos, preempção, reautenticação/sync e isolamento. [Relatório e limites](../docs/analises/2026-10-15-talkback-recuperacao-de-senha.md).
+
+XML persistido redige valores de senha/tokens da fixture; capturas ocorrem com senha oculta. O roteiro registra a seleção inicial da página, sem criar regra de título para páginas a partir de Q60. Intent explícito não aceita associações públicas de domínio; janela superior/teclado sintético não comprovam navegação completa entre janelas/edição falada. Configurações restauradas e recursos próprios fechados inclusive em falha.

@@ -47,3 +47,15 @@ test('an incoming link cannot bypass installation recovery and resumes only afte
   const confirm=jest.spyOn(f.identity,'confirmPasswordReset');f.journey.passwordRecovery.open({kind:'valid',token});await mount(f.journey);expect(screen.getByRole('header',{name:pt.databaseInstallationTitle})).toBeOnTheScreen();expect(screen.queryByLabelText(pt.newPassword)).toBeNull();expect(confirm).not.toHaveBeenCalled();f.fault(null);await fireEvent.press(screen.getByRole('button',{name:pt.retryDatabase}));expect(screen.getByLabelText(pt.newPassword)).toBeOnTheScreen();expect(confirm).not.toHaveBeenCalled();
  }finally{f.close();}
 });
+
+
+test('a warm recovery preempts logout and its explicit return keeps that dialog closed and local work intact',async()=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Mantido na recuperação','reading','blue',false);f.journey.toggle(f.journey.state().local!.habits[0]!.habitId,false);
+  const queue=f.session.account().operations(),key=f.journey.state().key;f.scheduler.update({active:false,online:true});await mount(f.journey);
+  await fireEvent.press(screen.getByRole('tab',{name:pt.settings}));await fireEvent.press(screen.getByRole('button',{name:pt.logout}));expect(screen.getByRole('header',{name:pt.logoutTitle})).toBeOnTheScreen();
+  await act(()=>f.journey.passwordRecovery.open({kind:'valid',token}));expect(screen.queryByRole('header',{name:pt.logoutTitle})).toBeNull();
+  await fireEvent.changeText(screen.getByLabelText(pt.newPassword),'new-fixture-password');await fireEvent.press(screen.getByRole('button',{name:pt.saveNewPassword}));expect(screen.getByRole('header',{name:pt.resetCompleteTitle})).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button',{name:pt.backToLogin}));expect(screen.getByRole('header',{name:pt.reauth})).toBeOnTheScreen();expect(screen.queryByRole('header',{name:pt.logoutTitle})).toBeNull();expect(f.journey.state().key).toBe(key);expect(f.journey.state().local?.totalXp).toBe(10);expect(f.session.account().operations()).toEqual(queue);
+ }finally{f.close();}
+});

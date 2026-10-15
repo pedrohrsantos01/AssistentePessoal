@@ -1,0 +1,185 @@
+{
+  "baselineCommit": "b089c19",
+  "report": "docs/analises/2026-10-15-talkback-recuperacao-de-senha.md",
+  "productChanged": false,
+  "files": {
+    "app/test/integration/android-reader-recovery.test.ts": "f9527a9e5df30cbc8e243e98722b3142392427ab7e596eb122b42d48cba5e0c5",
+    "app/test/components/password-recovery.test.tsx": "67cdec127b924d9bff52a344c830cf5540d9fc00846844aee48c3972a78ba6fd",
+    "api/src/test/java/dev/ritmo/RuntimeTests.java": "adf456c46877c5e6d59d0c9fe216ba1da410ce7b58275a7ef28a7327be7c60c7",
+    "scripts/verify-android-accessibility.ps1": "aed8786fc0663885f27457dcd2a5165b8575b88fd0996e775bba3b7bcba1ebf4",
+    "app/src/ui/dialog-focus.tsx": "6069bb9c69f74b8f6af0d561b5c625925d415c2678b4cf49d92d28662b739ff3",
+    "app/src/ui/dialog-focus-viewport.ts": "845fefd450a8bd9e935182748e13190471391daac2f7d71027bca9b232580350",
+    "app/src/features/journey/password-recovery-screen.tsx": "015a32d04359538565618d66db0860b0be553164f97ae88d055bd6e5f9cd4147",
+    "app/harness/journey-runtime.ts": "7fb8e3549e9be471cb4c9c5a6cd78bd5e0a4b61b930cdf2da8e4d978af185881",
+    "app/android/app/build/outputs/apk/release/app-release.apk": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102"
+  },
+  "checks": {
+    "typecheck": {
+      "exitCode": 0,
+      "logSha256": "601ad322edb34d0d6807d958fb3a4c3fcf0faf3b3d68044dc4bbc354a0abd1dd"
+    },
+    "lint": {
+      "exitCode": 0,
+      "logSha256": "7bcc823fd0a8a7e710524c698a43532141dd8d61ccfd099c6c961998612023ca"
+    },
+    "appTests": {
+      "exitCode": 0,
+      "core": 182,
+      "components": 44,
+      "total": 226,
+      "logSha256": "e3ef6f17149f75b9c3be83e0a867e10f02d2d3e31d8884c3d36569f4f39d744a"
+    }
+  },
+  "native": {
+    "passed": true,
+    "source": "rodada1/matrix-summary.json",
+    "phases": 12,
+    "preemptions": [
+      {
+        "name": "04-privacy-preempted",
+        "interrupted": "Privacidade nesta versão para testes",
+        "entry": "Voltar"
+      },
+      {
+        "name": "10-logout-preempted",
+        "interrupted": "Sair da conta?",
+        "entry": "Voltar"
+      }
+    ],
+    "controlMeasurements": 44,
+    "fieldsIme": 14,
+    "restored": true,
+    "logSha256": "a4b7769faf9c732ac085f40748889cb5fc8f8ba14b3f224043eff4fb80783b20"
+  },
+  "artifactsValidated": true,
+  "fixtureSecretsRedacted": true,
+  "apiCheck": {
+    "exitCode": 0,
+    "tests": 93,
+    "skipped": 8,
+    "failures": 0,
+    "errors": 0,
+    "executed": 85,
+    "operationsTests": 13,
+    "duration": "9m48s",
+    "logSha256": "712baae96233901f4402fe009718b0cfc244505f0ab61948b6695d0835839ab5",
+    "suites": [
+      {
+        "suite": "dev.ritmo.ContainerPackagingTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "b0eb5879f4ca410438e0364567adabd333bbc77cc645482ea68ad778a7701214"
+      },
+      {
+        "suite": "dev.ritmo.ModularityTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "f59a668481a149e0f02bd8f3fd6421900c849cca2e1d4615f7723e188bddf153"
+      },
+      {
+        "suite": "dev.ritmo.OperationalSchedulingTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "ec03192f703a6dea2acde79c69020fa2a5c7f596bc7b9904117e1eada627c098"
+      },
+      {
+        "suite": "dev.ritmo.PrimaryTelemetryTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "14330b58c89553a523ec24e00ed21fe663e48e252a5918c123d5d3fa7f2f4e07"
+      },
+      {
+        "suite": "dev.ritmo.ProbeTransportTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "a43dbc031b014e75715b8356a76a3c68b1ec00bf35df8a5a54cf5c47f85d08ce"
+      },
+      {
+        "suite": "dev.ritmo.ProxyTlsTests",
+        "tests": 1,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "e642497a9bcd1f8d41e961613975212212784edd9273f2e9b0ea2de04849702e"
+      },
+      {
+        "suite": "dev.ritmo.RateLimitTests",
+        "tests": 11,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "f70f985e3c6b3b975edcea0d38373b933d17af839379dabf72d1e4e97b49715c"
+      },
+      {
+        "suite": "dev.ritmo.ReceiverSupervisionTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "8820d2219a65ca4ede89f2e10eb56f3e900e6d92bc75cbc8f980d3390fbbb507"
+      },
+      {
+        "suite": "dev.ritmo.RestoreTests",
+        "tests": 5,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "f7ead0d3a9e4fcb13faa4d9f10c4cdf659bd1db02095d74d3393a2537345053d"
+      },
+      {
+        "suite": "dev.ritmo.RetentionLifecycleTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "08632ec1ea3af88b546e54a52058a31228a186bf2c9ceaf244475f9d5aea9a86"
+      },
+      {
+        "suite": "dev.ritmo.RuntimeTests",
+        "tests": 46,
+        "skipped": 8,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "60152fd2d465fa20a26ca66df83d3216ff79d6a9297734c8c46df2c8c63d838f"
+      },
+      {
+        "suite": "dev.ritmo.SyncRetentionTests",
+        "tests": 11,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "79bd88e7ed54d44bf2b08c538ed5068e841aa2c2af2cc6e63983ac0ff13fa1ec"
+      },
+      {
+        "suite": "dev.ritmo.TrustedProxyTests",
+        "tests": 3,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "b77c8cd207a6a70c9a207d76df85fdf4db4c644a3434e9f1aec9ec9872bc4c19"
+      },
+      {
+        "suite": "dev.ritmo.WalRecoveryTests",
+        "tests": 5,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0,
+        "xmlSha256": "b9e3be87642b3ccb73624304f9aedd3a68c2d87d416483f96dc22e7df344b7e0"
+      }
+    ]
+  },
+  "recorte06Complete": false,
+  "m1Complete": false,
+  "appHarnessChanged": false,
+  "testInfrastructureChanged": true
+}
