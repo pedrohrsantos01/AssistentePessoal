@@ -35,13 +35,15 @@ test('TalkBack at200%: real account/forms, nested rejection/uncertainty sheets a
  assert.equal(adb('shell','getprop','ro.kernel.qemu'),'1');assert.equal(adb('reverse','--list').includes(devicePort),false);
  const folder=resolve(process.env.RITMO_JOURNEY_EVIDENCE!);mkdirSync(folder,{recursive:true});
  const capture=(name:string)=>writeFileSync(join(folder,name+'.png'),execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'exec-out','screencap','-p'],{windowsHide:true,timeout:30000}));
- const observingFocus=process.env.RITMO_READER_OBSERVE_FOCUS==='1';
+ const observingFocus=process.env.RITMO_READER_OBSERVE_FOCUS==='1',traversal=process.env.RITMO_READER_TRAVERSAL==='1';
+ assert.ok(!traversal||!observingFocus,'traversal_requires_strict_focus');
+ const traversals:Record<string,unknown>[]=[];
  const phases:string[]=[],targets:Record<string,unknown>[]=[],dialogFocus:Record<string,unknown>[]=[];
  if(observingFocus){const line=JSON.stringify({phase:'focus_observation_only',fullAcceptance:false});console.log(line);if(process.env.RITMO_READER_PROGRESS)appendFileSync(process.env.RITMO_READER_PROGRESS,line+'\n');}
  const report=(phase:string,fontScale=2)=>{phases.push(phase);const line=JSON.stringify({phase,passed:true,fontScale});console.log(line);if(process.env.RITMO_READER_PROGRESS)appendFileSync(process.env.RITMO_READER_PROGRESS,line+'\n');};
  const read=()=>{
   const result=adb('shell','am','instrument','-w','dev.ritmo.readerobserver/.ReaderObserver'),xml=result.match(/^INSTRUMENTATION_RESULT: hierarchy=(.*)$/m)?.[1];
-  if(!xml)return {nodes:[] as Node[],meta:{} as Node};
+  if(!xml)return {nodes:[] as Node[],allNodes:[] as Node[],windows:[] as Node[],meta:{} as Node};
   writeFileSync(join(folder,'latest-hierarchy.xml'),xml+'\n');
   return parseReaderHierarchy(xml);
  };
@@ -69,8 +71,8 @@ test('TalkBack at200%: real account/forms, nested rejection/uncertainty sheets a
    if(allowScroll&&swipes++<14)await scroll(swipes<7);else await pause(300);
   }capture('failure-missing-target');throw new Error('reader_target_missing_'+label);
  };
- const focus=async(label:string):Promise<Node>=>{
-  const n=await find(label,true,Math.floor(44*density)),p=point(n);assertReader();
+ const focus=async(label:string,minimumHeight=Math.floor(44*density)):Promise<Node>=>{
+  const n=await find(label,true,minimumHeight),p=point(n);assertReader();
   for(let i=0;i<3;i++){await touch.down(p);await pause(650);await touch.up();await pause(500);const focused=read().nodes.find(n=>matches(n,label)&&n['accessibility-focused']==='true');if(focused){assertReader();return focused;}}
   throw new Error('reader_focus_missing_'+label);
  };
@@ -93,9 +95,62 @@ test('TalkBack at200%: real account/forms, nested rejection/uncertainty sheets a
   adb('shell','input','text',value.replace(/ /g,'%s'));adb('shell','input','keyevent','KEYCODE_BACK');await pause(500);
   if(field.password!=='true')assert.equal((await find(label)).text,value);
  };
+ // Physical linear gestures only. Inspect all returned own interactive windows after
+ // every step; never substitute ACTION_ACCESSIBILITY_FOCUS or a delay for the result.
+ const traverse=async(heading:string,last:string,landmarks:readonly string[],name:string)=>{
+  if(!traversal)return;
+  const steps:Record<string,unknown>[]=[],forward:string[]=[],backward:string[]=[];
+  let windowId:string|undefined;
+  const inspect=(direction:string)=>{
+   const tree=read(),topWindow=tree.windows.find(w=>w.topmost==='true');
+   const focused=tree.allNodes.filter(n=>n['accessibility-focused']==='true');
+   const record={direction,windows:tree.windows,focusedWindow:tree.meta['focused-window-id'],focused:focused.map(n=>({label:n['content-desc']||n.text||'',windowId:n['window-id'],bounds:n.bounds}))};
+   steps.push(record);writeFileSync(join(folder,name+'-linear.json'),JSON.stringify({name,heading,last,steps},null,2)+'\n');
+   assert.ok(topWindow,'observer_requires_window_metadata');windowId??=topWindow.id;
+   assert.equal(topWindow.id,windowId,'dialog_changed_during_navigation_'+name);
+   assert.equal(tree.meta['focused-window-id'],windowId,'focus_escaped_to_other_window_'+name);
+   assert.equal(topWindow['accessibility-focused'],'true','top_window_lost_focus_'+name);
+   assert.equal(focused.length,1,'focus_not_unique_across_own_windows_'+name);
+   assert.equal(focused[0]!['window-id'],windowId,'node_focused_in_background_'+name);
+   assert.equal(focused[0]!['visible-to-user'],'true','focused_node_not_visible_'+name);
+   for(const background of tree.allNodes.filter(n=>n['topmost-window']==='false'))assert.notEqual(background['accessibility-focused'],'true','background_focused_'+name);
+   return focused[0]!;
+  };
+  const swipe=async(next:boolean,direction:string)=>{
+   const before=inspect(direction+'-before'),b=rect(before),width=Number(adb('shell','wm','size').match(/(?:Override|Physical) size: ([0-9]+)x/)![1]);
+   const y=Math.max(150,Math.min(point(before)[1],rect((read().nodes.find(n=>n.scrollable==='true')??before))[3]!-100));
+   const left=Math.floor(width*0.25),right=Math.floor(width*0.75),start=next?left:right,end=next?right:left;
+   assert.ok(b[2]!>b[0]!);assertReader();
+   await touch.down([start,y]);await pause(20);await touch.move([Math.floor((start+end)/2),y]);await pause(20);await touch.move([end,y]);await pause(20);await touch.up();await pause(700);assertReader();
+   return inspect(direction);
+  };
+  const entry=inspect('entry');assert.equal(entry['content-desc']||entry.text,heading,'linear_entry_not_title_'+name);
+  snapshot(name+'-linear-entry');
+  // Probe the leading edge before walking every intervening node toward the final action.
+  await swipe(false,'leading-edge-1');await swipe(false,'leading-edge-2');await top();await focus(heading,1);
+  forward.push(heading);let reached=false;
+  for(let i=0;i<80;i++){
+   const n=await swipe(true,'forward'),label=n['content-desc']||n.text||'';forward.push(label);
+   if(matches(n,last)){reached=true;break;}
+  }
+  assert.ok(reached,'linear_final_control_unreachable_'+name);
+  for(const label of landmarks)assert.ok(forward.includes(label),'linear_landmark_skipped_'+name+'_'+label);
+  snapshot(name+'-linear-last');await swipe(true,'trailing-edge-1');await swipe(true,'trailing-edge-2');
+  await focus(last);backward.push(last);reached=false;
+  for(let i=0;i<80;i++){
+   const n=await swipe(false,'backward'),label=n['content-desc']||n.text||'';backward.push(label);
+   if(matches(n,heading)){reached=true;break;}
+  }
+  assert.ok(reached,'linear_title_unreachable_in_reverse_'+name);
+  for(const label of landmarks)assert.ok(backward.includes(label),'reverse_landmark_skipped_'+name+'_'+label);
+  await swipe(false,'leading-edge-return');snapshot(name+'-linear-return');
+  traversals.push({name,heading,last,forward,backward,steps:steps.length,windowId,passed:true});
+  report('linear_dialog_confined_'+name);
+ };
  const focusedLabel=()=>{const n=read().nodes.find(n=>n['accessibility-focused']==='true');return n?.['content-desc']||n?.text;};
  const sheet=async(opener:string,title:string,close:string,name:string)=>{
   await press(opener);await find(title,false);assertReader();const entry=focusedLabel();assert.ok(entry,'sheet_has_no_reader_focus');if(!observingFocus)assert.equal(entry,title,'sheet_entry_focus_'+name);capture(name+'-entry');
+  await traverse(title,close,title===pt.privacyTitle?[pt.privacyBody]:title===pt.deleteTitle?[pt.deleteBody,pt.deleteHabit]:[pt.logoutBody,pt.logout],name);
   assert.equal(read().nodes.some(n=>matches(n,pt.settings)),false,'sheet_background_exposed');
   await press(close);await find(opener);const returned=focusedLabel();dialogFocus.push({name,opener,title,entry,returned:returned??null});if(!observingFocus)assert.equal(returned,opener,'sheet_return_focus_'+name);capture(name+'-return');report(name);
  };
@@ -108,6 +163,7 @@ test('TalkBack at200%: real account/forms, nested rejection/uncertainty sheets a
  const enterReview=async(label:string,title:string,name:string)=>{
   await press(pt.syncDetails);await find(pt.syncTitle,false);assert.equal(focusedLabel(),pt.syncTitle,'sync_entry_'+name);
   await press(pt.reviewChanges);await press(label);await find(title,false);assert.equal(focusedLabel(),title,'nested_entry_'+name);snapshot(name+'-entry');
+  if(name!=='17-uncertain-restart')await traverse(title,pt.close,[pt.intentDetails,title===pt.rejectedTitle?pt.correctOperation:pt.uncertainBody],name);
  };
  const leaveReview=async(label:string,name:string)=>{
   await press(pt.close);await find(label,false);const returned=focusedLabel();assert.equal(returned,label,'nested_return_'+name);
@@ -149,7 +205,7 @@ test('TalkBack at200%: real account/forms, nested rejection/uncertainty sheets a
   await sheet(pt.deleteHabit,pt.deleteTitle,pt.cancel,'07-delete-cancel');await press(pt.back);await find(pt.editLabel(title));report('edit_and_delete_cancel_preserve_habit');
   await press(pt.settings);await sheet(pt.privacy,pt.privacyTitle,pt.close,'08-settings-privacy');
   await sheet(pt.logout,pt.logoutTitle,pt.cancel,'09-logout-cancel');await press(pt.syncDetails);await find(pt.syncTitle,false);capture('10-sync-panel');
-  const syncEntry=focusedLabel();if(!observingFocus)assert.equal(syncEntry,pt.syncTitle,'sync_entry_focus');await press(pt.syncHistory);await find(pt.intentDetails);await press(pt.close);await find(pt.syncDetails);dialogFocus.push({name:'sync',entry:syncEntry??null,returned:focusedLabel()??null});if(!observingFocus)assert.ok(matches({'content-desc':focusedLabel()??''},pt.syncDetails),'sync_return_focus');report('sync_history_and_return');
+  const syncEntry=focusedLabel();if(!observingFocus)assert.equal(syncEntry,pt.syncTitle,'sync_entry_focus');await traverse(pt.syncTitle,pt.close,[pt.syncGroups.confirmed,pt.syncGroups.local,pt.syncGroups.blocked,pt.syncHistory],'10-sync-overview');await press(pt.syncHistory);await find(pt.intentDetails);await press(pt.close);await find(pt.syncDetails);dialogFocus.push({name:'sync',entry:syncEntry??null,returned:focusedLabel()??null});if(!observingFocus)assert.ok(matches({'content-desc':focusedLabel()??''},pt.syncDetails),'sync_return_focus');report('sync_history_and_return');
   launch('vault-read');await find(pt.vaultTitle);await press(pt.briefing);await find(pt.habitLabel(title,false));assert.equal((await find(pt.habitLabel(title,false))).enabled,'true');capture('11-vault-preserved');report('vault_notice_and_local_control');
   launch('account-open');await find(pt.databaseAccountTitle);await press(pt.showDiagnosis);await find(pt.hideDiagnosis);capture('12-account-database-error');report('account_database_preserved_diagnosis');
   launch('installation-open');await find(pt.databaseInstallationTitle);capture('13-installation-error');assert.equal(read().nodes.some(n=>matches(n,pt.settings)),false);report('installation_blocks_journey');
@@ -188,7 +244,7 @@ test('TalkBack at200%: real account/forms, nested rejection/uncertainty sheets a
   for(const step of work)try{await step.run();}catch{failedSteps.push(step.name);}
   writeFileSync(join(folder,'reader-cleanup.json'),JSON.stringify({restored:!failedSteps.length,failedSteps},null,2)+'\n');
   const apkSha256=createHash('sha256').update(readFileSync(resolve(import.meta.dirname,'../../android/app/build/outputs/apk/release/app-release.apk'))).digest('hex');
-  writeFileSync(join(folder,'matrix-summary.json'),JSON.stringify({passed:success&&!failedSteps.length&&!observingFocus,functionalPassed:success&&!failedSteps.length,focusObservationOnly:observingFocus,dialogFocus,apkSha256,fontScale:2,authentication:{touch:[touch.unauthenticatedCode,touch.wrongAudienceCode,touch.wrongIssuerCode]},pixelRounding:'floor',minimumLogicalUnits:44,phases,targets,physicalInput:'grpc.sendTouch',scroll:'two_contacts',observer:'FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES',fixtureText:'adb.hardware_keys_not_spoken_character_editing',scope:'registration/onboarding/habits/sheets/local failures and nested rejection/uncertain sync; no VoiceOver/performance, preemption or complete password recovery',restored:!failedSteps.length},null,2)+'\n');
+  writeFileSync(join(folder,'matrix-summary.json'),JSON.stringify({passed:success&&!failedSteps.length&&!observingFocus,functionalPassed:success&&!failedSteps.length,focusObservationOnly:observingFocus,traversalRequested:traversal,traversals,dialogFocus,apkSha256,fontScale:2,authentication:{touch:[touch.unauthenticatedCode,touch.wrongAudienceCode,touch.wrongIssuerCode]},pixelRounding:'floor',minimumLogicalUnits:44,phases,targets,physicalInput:'grpc.sendTouch',scroll:'two_contacts',observer:'FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES',fixtureText:'adb.hardware_keys_not_spoken_character_editing',scope:'registration/onboarding/habits/sheets/local failures and nested rejection/uncertain sync; no VoiceOver/performance, preemption or complete password recovery',restored:!failedSteps.length},null,2)+'\n');
   if(failedSteps.length&&success)throw new Error('reader_cleanup_incomplete');
  }
 });

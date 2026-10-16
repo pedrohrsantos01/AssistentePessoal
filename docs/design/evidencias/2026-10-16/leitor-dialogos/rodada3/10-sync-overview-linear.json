@@ -1,0 +1,1582 @@
+{
+  "name": "10-sync-overview",
+  "heading": "Sincronização",
+  "last": "Fechar",
+  "steps": [
+    {
+      "direction": "entry",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Sincronização",
+          "windowId": "418",
+          "bounds": "[52,539][1027,644]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Sincronização",
+          "windowId": "418",
+          "bounds": "[52,539][1027,644]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "418",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "418",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Ver histórico de intenções",
+          "windowId": "418",
+          "bounds": "[53,1859][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Sincronização",
+          "windowId": "418",
+          "bounds": "[52,539][1027,644]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tudo sincronizado",
+          "windowId": "418",
+          "bounds": "[52,680][1027,774]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tudo sincronizado",
+          "windowId": "418",
+          "bounds": "[52,680][1027,774]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tentar novamente",
+          "windowId": "418",
+          "bounds": "[53,812][1028,969]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tentar novamente",
+          "windowId": "418",
+          "bounds": "[53,812][1028,969]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Confirmadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1026][954,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Confirmadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1026][954,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "5",
+          "windowId": "418",
+          "bounds": "[985,1026][1028,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "5",
+          "windowId": "418",
+          "bounds": "[985,1026][1028,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Salvas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1162][954,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Salvas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1162][954,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1162][1028,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1162][1028,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Enviando",
+          "windowId": "418",
+          "bounds": "[53,1299][954,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Enviando",
+          "windowId": "418",
+          "bounds": "[53,1299][954,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1299][1028,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1299][1028,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Recusadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1435][954,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Recusadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1435][954,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1435][1028,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1435][1028,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Identidade incerta",
+          "windowId": "418",
+          "bounds": "[53,1572][954,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Identidade incerta",
+          "windowId": "418",
+          "bounds": "[53,1572][954,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1572][1028,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1572][1028,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Bloqueadas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1709][954,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Bloqueadas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1709][954,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1709][1028,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1709][1028,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Ver histórico de intenções",
+          "windowId": "418",
+          "bounds": "[53,1859][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Ver histórico de intenções",
+          "windowId": "418",
+          "bounds": "[53,1859][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "418",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "418",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "418",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "418",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Sincronização",
+          "windowId": "418",
+          "bounds": "[52,539][1027,644]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "418",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Ver histórico de intenções",
+          "windowId": "418",
+          "bounds": "[53,1859][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Ver histórico de intenções",
+          "windowId": "418",
+          "bounds": "[53,1859][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1709][1028,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1709][1028,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Bloqueadas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1709][954,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Bloqueadas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1709][954,1801]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1572][1028,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1572][1028,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Identidade incerta",
+          "windowId": "418",
+          "bounds": "[53,1572][954,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Identidade incerta",
+          "windowId": "418",
+          "bounds": "[53,1572][954,1664]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1435][1028,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1435][1028,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Recusadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1435][954,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Recusadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1435][954,1527]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1299][1028,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1299][1028,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Enviando",
+          "windowId": "418",
+          "bounds": "[53,1299][954,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Enviando",
+          "windowId": "418",
+          "bounds": "[53,1299][954,1391]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1162][1028,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "0",
+          "windowId": "418",
+          "bounds": "[985,1162][1028,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Salvas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1162][954,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Salvas no aparelho",
+          "windowId": "418",
+          "bounds": "[53,1162][954,1254]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "5",
+          "windowId": "418",
+          "bounds": "[985,1026][1028,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "5",
+          "windowId": "418",
+          "bounds": "[985,1026][1028,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Confirmadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1026][954,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Confirmadas pelo servidor",
+          "windowId": "418",
+          "bounds": "[53,1026][954,1118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tentar novamente",
+          "windowId": "418",
+          "bounds": "[53,812][1028,969]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tentar novamente",
+          "windowId": "418",
+          "bounds": "[53,812][1028,969]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tudo sincronizado",
+          "windowId": "418",
+          "bounds": "[52,680][1027,774]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Tudo sincronizado",
+          "windowId": "418",
+          "bounds": "[52,680][1027,774]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Sincronização",
+          "windowId": "418",
+          "bounds": "[52,539][1027,644]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return-before",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Sincronização",
+          "windowId": "418",
+          "bounds": "[52,539][1027,644]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return",
+      "windows": [
+        {
+          "id": "418",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "418",
+      "focused": [
+        {
+          "label": "Sincronização",
+          "windowId": "418",
+          "bounds": "[52,539][1027,644]"
+        }
+      ]
+    }
+  ]
+}

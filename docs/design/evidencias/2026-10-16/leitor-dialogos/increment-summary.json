@@ -1,0 +1,160 @@
+{
+  "nativePassed": true,
+  "acceptedRun": "rodada3",
+  "previousAttemptsAccepted": false,
+  "apkSha256": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102",
+  "fontScale": 2,
+  "phases": 31,
+  "traversals": 7,
+  "dialogFocusRecords": 9,
+  "linearGestures": 145,
+  "focusObservations": 297,
+  "controlMeasurements": 75,
+  "fieldImeMeasurements": 13,
+  "xmlValidated": 42,
+  "jsonValidatedBeforeIndex": 23,
+  "passwordTextSuppressed": true,
+  "fixtureSecretScanPassed": true,
+  "settingsRestored": true,
+  "productChanges": false,
+  "checks": {
+    "app": {
+      "passed": true,
+      "typecheck": true,
+      "lint": true,
+      "coreTests": 183,
+      "componentTests": 44
+    },
+    "api": {
+      "passed": true,
+      "status": "completed",
+      "total": 93,
+      "skipped": 8,
+      "failures": 0,
+      "errors": 0,
+      "operationalChecks": 13,
+      "modularityPassed": true,
+      "durationSeconds": 640,
+      "classes": [
+        {
+          "name": "dev.ritmo.ContainerPackagingTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ModularityTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.OperationalSchedulingTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.PrimaryTelemetryTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ProbeTransportTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ProxyTlsTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RateLimitTests",
+          "tests": 11,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ReceiverSupervisionTests",
+          "tests": 3,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RestoreTests",
+          "tests": 5,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RetentionLifecycleTests",
+          "tests": 3,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RuntimeTests",
+          "tests": 46,
+          "skipped": 8,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.SyncRetentionTests",
+          "tests": 11,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.TrustedProxyTests",
+          "tests": 3,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.WalRecoveryTests",
+          "tests": 5,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        }
+      ],
+      "executed": 85
+    },
+    "logSha256": {
+      "app": "54b261e432735498e51a6f8d884198507bc45c35a9cd25f02d8c92da29d36d93",
+      "api": "d75eb620dc85c4bdf141bf4cff38a6d0bbd98fb2d34707fd68b13b1581dc96de",
+      "native": "2036f275ae5a8948c5ad18f5d9349136e52f69731b4d046f89bd01be4af0c0ff"
+    }
+  },
+  "limits": [
+    "all own interactive windows returned by Android; hidden modal-blocked windows may be omitted",
+    "no VoiceOver/iPhone",
+    "no spoken character/cursor editing",
+    "no complete sync/discard-state coverage",
+    "no app performance acceptance",
+    "no new palette acceptance"
+  ],
+  "pngValidated": 69,
+  "hostCleanupVerified": true,
+  "observerBytecodeUnchangedByFormatting": true,
+  "incrementComplete": true,
+  "fullM1Acceptance": false,
+  "evidenceTextLineEndings": "LF (repository normalization; semantic content unchanged)"
+}

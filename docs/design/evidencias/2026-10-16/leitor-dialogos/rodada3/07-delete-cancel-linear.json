@@ -1,0 +1,574 @@
+{
+  "name": "07-delete-cancel",
+  "heading": "Excluir este hábito?",
+  "last": "Cancelar",
+  "steps": [
+    {
+      "direction": "entry",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "414",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "414",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "414",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "414",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir hábito",
+          "windowId": "414",
+          "bounds": "[53,1960][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "414",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Leitura de um capitulo com conteudo longo para testar o foco e a quebra de linha",
+          "windowId": "414",
+          "bounds": "[52,1040][1027,1322]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Leitura de um capitulo com conteudo longo para testar o foco e a quebra de linha",
+          "windowId": "414",
+          "bounds": "[52,1040][1027,1322]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "O hábito e seu histórico serão perdidos. O XP concedido será revertido, sem devolver o orçamento já consumido. Esta exclusão é definitiva.",
+          "windowId": "414",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "O hábito e seu histórico serão perdidos. O XP concedido será revertido, sem devolver o orçamento já consumido. Esta exclusão é definitiva.",
+          "windowId": "414",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir hábito",
+          "windowId": "414",
+          "bounds": "[53,1960][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir hábito",
+          "windowId": "414",
+          "bounds": "[53,1960][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "414",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "414",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "414",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "414",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "414",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "414",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir hábito",
+          "windowId": "414",
+          "bounds": "[53,1960][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir hábito",
+          "windowId": "414",
+          "bounds": "[53,1960][1028,2117]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "O hábito e seu histórico serão perdidos. O XP concedido será revertido, sem devolver o orçamento já consumido. Esta exclusão é definitiva.",
+          "windowId": "414",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "O hábito e seu histórico serão perdidos. O XP concedido será revertido, sem devolver o orçamento já consumido. Esta exclusão é definitiva.",
+          "windowId": "414",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Leitura de um capitulo com conteudo longo para testar o foco e a quebra de linha",
+          "windowId": "414",
+          "bounds": "[52,1040][1027,1322]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Leitura de um capitulo com conteudo longo para testar o foco e a quebra de linha",
+          "windowId": "414",
+          "bounds": "[52,1040][1027,1322]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "414",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return-before",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "414",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return",
+      "windows": [
+        {
+          "id": "414",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "414",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "414",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    }
+  ]
+}

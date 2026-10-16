@@ -1,0 +1,27 @@
+{
+  "passed": false,
+  "functionalPassed": false,
+  "focusObservationOnly": false,
+  "traversalRequested": true,
+  "traversals": [],
+  "dialogFocus": [],
+  "apkSha256": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102",
+  "fontScale": 2,
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "pixelRounding": "floor",
+  "minimumLogicalUnits": 44,
+  "phases": [],
+  "targets": [],
+  "physicalInput": "grpc.sendTouch",
+  "scroll": "two_contacts",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "registration/onboarding/habits/sheets/local failures and nested rejection/uncertain sync; no VoiceOver/performance, preemption or complete password recovery",
+  "restored": true
+}

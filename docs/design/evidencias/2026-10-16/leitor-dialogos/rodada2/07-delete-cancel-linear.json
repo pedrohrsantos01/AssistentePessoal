@@ -1,0 +1,133 @@
+{
+  "name": "07-delete-cancel",
+  "heading": "Excluir este hábito?",
+  "last": "Cancelar",
+  "steps": [
+    {
+      "direction": "entry",
+      "windows": [
+        {
+          "id": "275",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "275",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "275",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "entry-label",
+      "windows": [
+        {
+          "id": "275",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "275",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "275",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1-before",
+      "windows": [
+        {
+          "id": "275",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "275",
+      "focused": [
+        {
+          "label": "Excluir este hábito?",
+          "windowId": "275",
+          "bounds": "[52,899][1027,1004]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1",
+      "windows": [
+        {
+          "id": "275",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "275",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "275",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2-before",
+      "windows": [
+        {
+          "id": "275",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "275",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "275",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2",
+      "windows": [
+        {
+          "id": "275",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "275",
+      "focused": [
+        {
+          "label": "Excluir hábito",
+          "windowId": "275",
+          "bounds": "[53,1960][1028,2117]"
+        }
+      ]
+    }
+  ]
+}

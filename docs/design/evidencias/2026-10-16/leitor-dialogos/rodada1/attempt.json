@@ -1,0 +1,1 @@
+{"accepted":false,"classification":"driver_setup","reason":"read changed transient no-hierarchy retry to fail-fast before TalkBack enablement; restore original bounded polling for target lookup","productChanged":false,"traversalsStarted":0,"cleanupRestored":true}

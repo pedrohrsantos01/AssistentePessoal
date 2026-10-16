@@ -1,0 +1,910 @@
+{
+  "name": "16-uncertain",
+  "heading": "Identidade ainda sem confirmação",
+  "last": "Fechar",
+  "steps": [
+    {
+      "direction": "entry",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Identidade ainda sem confirmação",
+          "windowId": "436",
+          "bounds": "[52,370][1027,580]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Identidade ainda sem confirmação",
+          "windowId": "436",
+          "bounds": "[52,370][1027,580]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Marcar hábito · Intenção original do ensaio · 2026-10-15",
+          "windowId": "436",
+          "bounds": "[52,2276][1027,2424]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Marcar hábito · Intenção original do ensaio · 2026-10-15",
+          "windowId": "436",
+          "bounds": "[52,2276][1027,2424]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Estas intenções também estão preservadas e bloqueadas. Aguarde a resolução da identidade para retomá-las.",
+          "windowId": "436",
+          "bounds": "[52,1879][1027,2239]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Identidade ainda sem confirmação",
+          "windowId": "436",
+          "bounds": "[52,370][1027,580]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Criar hábito · Incerto leitor",
+          "windowId": "436",
+          "bounds": "[52,616][1027,710]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Criar hábito · Incerto leitor",
+          "windowId": "436",
+          "bounds": "[52,616][1027,710]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Não foi possível provar qual intenção foi processada. Esta alteração e suas dependentes estão preservadas e bloqueadas para intervenção técnica. Você pode continuar com alterações independentes.",
+          "windowId": "436",
+          "bounds": "[52,747][1027,1499]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Não foi possível provar qual intenção foi processada. Esta alteração e suas dependentes estão preservadas e bloqueadas para intervenção técnica. Você pode continuar com alterações independentes.",
+          "windowId": "436",
+          "bounds": "[52,747][1027,1499]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Colisão da identidade da operação",
+          "windowId": "436",
+          "bounds": "[52,1536][1027,1716]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Colisão da identidade da operação",
+          "windowId": "436",
+          "bounds": "[52,1536][1027,1716]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "436",
+          "bounds": "[52,1753][1027,1843]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "436",
+          "bounds": "[52,1753][1027,1843]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Estas intenções também estão preservadas e bloqueadas. Aguarde a resolução da identidade para retomá-las.",
+          "windowId": "436",
+          "bounds": "[52,1879][1027,2239]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Estas intenções também estão preservadas e bloqueadas. Aguarde a resolução da identidade para retomá-las.",
+          "windowId": "436",
+          "bounds": "[52,1879][1027,2239]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Marcar hábito · Intenção original do ensaio · 2026-10-15",
+          "windowId": "436",
+          "bounds": "[52,2244][1027,2424]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Marcar hábito · Intenção original do ensaio · 2026-10-15",
+          "windowId": "436",
+          "bounds": "[52,2244][1027,2424]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "436",
+          "bounds": "[53,1859][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "436",
+          "bounds": "[53,1859][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "436",
+          "bounds": "[53,2155][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "436",
+          "bounds": "[53,2155][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "436",
+          "bounds": "[53,2155][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "436",
+          "bounds": "[53,2155][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Não foi possível provar qual intenção foi processada. Esta alteração e suas dependentes estão preservadas e bloqueadas para intervenção técnica. Você pode continuar com alterações independentes.",
+          "windowId": "436",
+          "bounds": "[52,294][1027,865]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "436",
+          "bounds": "[53,2155][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "436",
+          "bounds": "[53,1859][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "436",
+          "bounds": "[53,1859][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Marcar hábito · Intenção original do ensaio · 2026-10-15",
+          "windowId": "436",
+          "bounds": "[52,1642][1027,1822]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Marcar hábito · Intenção original do ensaio · 2026-10-15",
+          "windowId": "436",
+          "bounds": "[52,1642][1027,1822]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Estas intenções também estão preservadas e bloqueadas. Aguarde a resolução da identidade para retomá-las.",
+          "windowId": "436",
+          "bounds": "[52,1245][1027,1605]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Estas intenções também estão preservadas e bloqueadas. Aguarde a resolução da identidade para retomá-las.",
+          "windowId": "436",
+          "bounds": "[52,1245][1027,1605]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "436",
+          "bounds": "[52,1119][1027,1209]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "436",
+          "bounds": "[52,1119][1027,1209]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Colisão da identidade da operação",
+          "windowId": "436",
+          "bounds": "[52,902][1027,1082]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Colisão da identidade da operação",
+          "windowId": "436",
+          "bounds": "[52,902][1027,1082]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Não foi possível provar qual intenção foi processada. Esta alteração e suas dependentes estão preservadas e bloqueadas para intervenção técnica. Você pode continuar com alterações independentes.",
+          "windowId": "436",
+          "bounds": "[52,294][1027,1046]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Não foi possível provar qual intenção foi processada. Esta alteração e suas dependentes estão preservadas e bloqueadas para intervenção técnica. Você pode continuar com alterações independentes.",
+          "windowId": "436",
+          "bounds": "[52,294][1027,1046]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Criar hábito · Incerto leitor",
+          "windowId": "436",
+          "bounds": "[52,616][1027,710]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Criar hábito · Incerto leitor",
+          "windowId": "436",
+          "bounds": "[52,616][1027,710]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Identidade ainda sem confirmação",
+          "windowId": "436",
+          "bounds": "[52,370][1027,580]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return-before",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Identidade ainda sem confirmação",
+          "windowId": "436",
+          "bounds": "[52,370][1027,580]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return",
+      "windows": [
+        {
+          "id": "436",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "436",
+      "focused": [
+        {
+          "label": "Identidade ainda sem confirmação",
+          "windowId": "436",
+          "bounds": "[52,370][1027,580]"
+        }
+      ]
+    }
+  ]
+}

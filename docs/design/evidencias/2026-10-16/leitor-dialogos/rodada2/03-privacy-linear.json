@@ -1,0 +1,427 @@
+{
+  "name": "03-privacy",
+  "heading": "Privacidade nesta versão para testes",
+  "last": "Fechar",
+  "steps": [
+    {
+      "direction": "entry",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "entry-label",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "274",
+          "bounds": "[53,2163][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Esta versão usa e-mail e senha para a conta e salva hábitos, perfil e registros no aparelho e no servidor configurado. Credenciais ficam no cofre do dispositivo. Não há coleta de analytics, IA ou gravação de áudio neste recorte. A política final, com responsável, contato e fornecedores, será concluída antes do uso público.",
+          "windowId": "274",
+          "bounds": "[52,903][1027,2125]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Esta versão usa e-mail e senha para a conta e salva hábitos, perfil e registros no aparelho e no servidor configurado. Credenciais ficam no cofre do dispositivo. Não há coleta de analytics, IA ou gravação de áudio neste recorte. A política final, com responsável, contato e fornecedores, será concluída antes do uso público.",
+          "windowId": "274",
+          "bounds": "[52,903][1027,2125]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "274",
+          "bounds": "[53,2163][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "274",
+          "bounds": "[53,2163][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "274",
+          "bounds": "[53,2163][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "274",
+          "bounds": "[53,2163][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "274",
+          "bounds": "[53,2163][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Esta versão usa e-mail e senha para a conta e salva hábitos, perfil e registros no aparelho e no servidor configurado. Credenciais ficam no cofre do dispositivo. Não há coleta de analytics, IA ou gravação de áudio neste recorte. A política final, com responsável, contato e fornecedores, será concluída antes do uso público.",
+          "windowId": "274",
+          "bounds": "[52,903][1027,2125]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Esta versão usa e-mail e senha para a conta e salva hábitos, perfil e registros no aparelho e no servidor configurado. Credenciais ficam no cofre do dispositivo. Não há coleta de analytics, IA ou gravação de áudio neste recorte. A política final, com responsável, contato e fornecedores, será concluída antes do uso público.",
+          "windowId": "274",
+          "bounds": "[52,903][1027,2125]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return-before",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return",
+      "windows": [
+        {
+          "id": "274",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "274",
+      "focused": [
+        {
+          "label": "Privacidade nesta versão para testes",
+          "windowId": "274",
+          "bounds": "[52,657][1027,867]"
+        }
+      ]
+    }
+  ]
+}

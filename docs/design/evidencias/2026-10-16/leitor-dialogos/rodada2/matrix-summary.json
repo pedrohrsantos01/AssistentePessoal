@@ -1,0 +1,396 @@
+{
+  "passed": false,
+  "functionalPassed": false,
+  "focusObservationOnly": false,
+  "traversalRequested": true,
+  "traversals": [
+    {
+      "name": "03-privacy",
+      "heading": "Privacidade nesta versão para testes",
+      "last": "Fechar",
+      "forward": [
+        "Privacidade nesta versão para testes",
+        "Esta versão usa e-mail e senha para a conta e salva hábitos, perfil e registros no aparelho e no servidor configurado. Credenciais ficam no cofre do dispositivo. Não há coleta de analytics, IA ou gravação de áudio neste recorte. A política final, com responsável, contato e fornecedores, será concluída antes do uso público.",
+        "Fechar"
+      ],
+      "backward": [
+        "Fechar",
+        "Esta versão usa e-mail e senha para a conta e salva hábitos, perfil e registros no aparelho e no servidor configurado. Credenciais ficam no cofre do dispositivo. Não há coleta de analytics, IA ou gravação de áudio neste recorte. A política final, com responsável, contato e fornecedores, será concluída antes do uso público.",
+        "Privacidade nesta versão para testes"
+      ],
+      "steps": 20,
+      "windowId": "274",
+      "passed": true
+    }
+  ],
+  "dialogFocus": [
+    {
+      "name": "03-privacy",
+      "opener": "O Ritmo é para maiores de 18 anos. Consulte a política de privacidade antes de criar sua conta.",
+      "title": "Privacidade nesta versão para testes",
+      "entry": "Privacidade nesta versão para testes",
+      "returned": "O Ritmo é para maiores de 18 anos. Consulte a política de privacidade antes de criar sua conta."
+    }
+  ],
+  "apkSha256": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102",
+  "fontScale": 2,
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "pixelRounding": "floor",
+  "minimumLogicalUnits": 44,
+  "phases": [
+    "existing_session_settings_ready",
+    "physical_input_enters_registration_before_reader",
+    "reader_service_and_touch_exploration_ready",
+    "registration_validation_preserves_form",
+    "linear_dialog_confined_03-privacy",
+    "03-privacy",
+    "registration_invalid_email_preserves_fields",
+    "registered_through_real_http",
+    "onboarding_invalid_timezone",
+    "onboarding_and_first_habit",
+    "large_habit_focus_and_undo"
+  ],
+  "targets": [
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1765,
+        1017,
+        1922
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        2073,
+        1017,
+        2230
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "O Ritmo é para maiores de 18 anos. Consulte a política de privacidade antes de criar sua conta.",
+      "bounds": [
+        63,
+        1363,
+        1017,
+        1723
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2163,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        2073,
+        1017,
+        2230
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        2073,
+        1017,
+        2230
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1936,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1936,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        63,
+        1974,
+        1017,
+        2120
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        63,
+        1395,
+        1017,
+        1541
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar e ir para o Briefing",
+      "bounds": [
+        63,
+        1635,
+        1017,
+        1792
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Leitura de um capitulo com conteudo longo para testar o foco e a quebra de linha, não feito",
+      "bounds": [
+        92,
+        935,
+        988,
+        1505
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Leitura de um capitulo com conteudo longo para testar o foco e a quebra de linha, feito",
+      "bounds": [
+        92,
+        935,
+        988,
+        1505
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Hábitos",
+      "bounds": [
+        371,
+        2202,
+        710,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Editar Leitura de um capitulo com conteudo longo para testar o foco e a quebra de linha",
+      "bounds": [
+        76,
+        356,
+        1004,
+        943
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Excluir hábito",
+      "bounds": [
+        53,
+        1914,
+        1028,
+        2079
+      ],
+      "density": 2.625
+    }
+  ],
+  "physicalInput": "grpc.sendTouch",
+  "scroll": "two_contacts",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "registration/onboarding/habits/sheets/local failures and nested rejection/uncertain sync; no VoiceOver/performance, preemption or complete password recovery",
+  "restored": true
+}

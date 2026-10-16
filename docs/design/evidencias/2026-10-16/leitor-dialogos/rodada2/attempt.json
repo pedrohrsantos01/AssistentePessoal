@@ -1,0 +1,1 @@
+{"accepted":false,"classification":"driver_text_target","reason":"visible delete heading is 105px high; exploration reused control-only 115px threshold at density2.625; use visibility for informational text, keep44dp assertion for actions","productChanged":false,"completedTraversals":["03-privacy"],"cleanupRestored":true}

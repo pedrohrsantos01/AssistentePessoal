@@ -1,0 +1,490 @@
+{
+  "name": "09-logout-cancel",
+  "heading": "Sair da conta?",
+  "last": "Cancelar",
+  "steps": [
+    {
+      "direction": "entry",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair da conta?",
+          "windowId": "417",
+          "bounds": "[52,1218][1027,1323]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair da conta?",
+          "windowId": "417",
+          "bounds": "[52,1218][1027,1323]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "417",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "417",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair desta conta",
+          "windowId": "417",
+          "bounds": "[53,1961][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair da conta?",
+          "windowId": "417",
+          "bounds": "[52,1218][1027,1323]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Você pode sair mesmo offline. Alterações pendentes ficam no aparelho, isoladas. Para recuperá-las, entre online na mesma conta.",
+          "windowId": "417",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Você pode sair mesmo offline. Alterações pendentes ficam no aparelho, isoladas. Para recuperá-las, entre online na mesma conta.",
+          "windowId": "417",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair desta conta",
+          "windowId": "417",
+          "bounds": "[53,1961][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair desta conta",
+          "windowId": "417",
+          "bounds": "[53,1961][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "417",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "417",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "417",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "417",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair da conta?",
+          "windowId": "417",
+          "bounds": "[52,1218][1027,1323]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Cancelar",
+          "windowId": "417",
+          "bounds": "[53,2154][1028,2319]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair desta conta",
+          "windowId": "417",
+          "bounds": "[53,1961][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair desta conta",
+          "windowId": "417",
+          "bounds": "[53,1961][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Você pode sair mesmo offline. Alterações pendentes ficam no aparelho, isoladas. Para recuperá-las, entre online na mesma conta.",
+          "windowId": "417",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Você pode sair mesmo offline. Alterações pendentes ficam no aparelho, isoladas. Para recuperá-las, entre online na mesma conta.",
+          "windowId": "417",
+          "bounds": "[52,1359][1027,1923]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair da conta?",
+          "windowId": "417",
+          "bounds": "[52,1218][1027,1323]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return-before",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair da conta?",
+          "windowId": "417",
+          "bounds": "[52,1218][1027,1323]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return",
+      "windows": [
+        {
+          "id": "417",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "417",
+      "focused": [
+        {
+          "label": "Sair da conta?",
+          "windowId": "417",
+          "bounds": "[52,1218][1027,1323]"
+        }
+      ]
+    }
+  ]
+}

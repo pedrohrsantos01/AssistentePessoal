@@ -1,0 +1,1918 @@
+{
+  "name": "14-rejected-cancel",
+  "heading": "Alteração recusada",
+  "last": "Fechar",
+  "steps": [
+    {
+      "direction": "entry",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Alteração recusada",
+          "windowId": "429",
+          "bounds": "[52,370][1027,475]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Alteração recusada",
+          "windowId": "429",
+          "bounds": "[52,370][1027,475]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-1",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2273][1028,2420]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2273][1028,2420]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-2",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2181][443,2257]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Alteração recusada",
+          "windowId": "429",
+          "bounds": "[52,370][1027,475]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Criar hábito · Recusado leitor",
+          "windowId": "429",
+          "bounds": "[52,511][1027,699]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Criar hábito · Recusado leitor",
+          "windowId": "429",
+          "bounds": "[52,511][1027,699]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Este nome já está em uso. Revise o título.",
+          "windowId": "429",
+          "bounds": "[52,736][1027,924]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Este nome já está em uso. Revise o título.",
+          "windowId": "429",
+          "bounds": "[52,736][1027,924]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "A correção cria uma intenção substituta. A original e seu resultado continuam preservados.",
+          "windowId": "429",
+          "bounds": "[52,961][1027,1321]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "A correção cria uma intenção substituta. A original e seu resultado continuam preservados.",
+          "windowId": "429",
+          "bounds": "[52,961][1027,1321]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1358][564,1434]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1358][564,1434]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1450][1028,1597]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1450][1028,1597]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1633][771,1709]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1633][771,1709]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1725][1028,1872]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1725][1028,1872]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1907][460,1983]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1907][460,1983]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1999][1028,2146]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1999][1028,2146]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2181][443,2257]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2181][443,2257]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2273][1028,2420]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2273][1028,2420]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,326][590,402]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,326][590,402]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,418][1028,565]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,418][1028,565]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "429",
+          "bounds": "[52,600][1027,690]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "429",
+          "bounds": "[52,600][1027,690]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Selecione explicitamente as intenções que deseja recuperar junto. As demais continuam preservadas para revisão.",
+          "windowId": "429",
+          "bounds": "[52,726][1027,1176]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Selecione explicitamente as intenções que deseja recuperar junto. As demais continuam preservadas para revisão.",
+          "windowId": "429",
+          "bounds": "[52,726][1027,1176]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Recuperar também: Marcar hábito · 2026-10-15",
+          "windowId": "429",
+          "bounds": "[53,1213][1028,1350]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Recuperar também: Marcar hábito · 2026-10-15",
+          "windowId": "429",
+          "bounds": "[53,1213][1028,1350]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "429",
+          "bounds": "[53,1388][1028,1647]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "429",
+          "bounds": "[53,1388][1028,1647]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Salvar correção no aparelho",
+          "windowId": "429",
+          "bounds": "[53,1683][1028,1934]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Salvar correção no aparelho",
+          "windowId": "429",
+          "bounds": "[53,1683][1028,1934]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Descartar esta intenção",
+          "windowId": "429",
+          "bounds": "[53,1971][1028,2136]"
+        }
+      ]
+    },
+    {
+      "direction": "forward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Descartar esta intenção",
+          "windowId": "429",
+          "bounds": "[53,1971][1028,2136]"
+        }
+      ]
+    },
+    {
+      "direction": "forward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "429",
+          "bounds": "[53,2173][1028,2338]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "429",
+          "bounds": "[53,2173][1028,2338]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-1",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "429",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "429",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "trailing-edge-2",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,308][590,384]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fechar",
+          "windowId": "429",
+          "bounds": "[53,2155][1028,2320]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Descartar esta intenção",
+          "windowId": "429",
+          "bounds": "[53,1953][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Descartar esta intenção",
+          "windowId": "429",
+          "bounds": "[53,1953][1028,2118]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Salvar correção no aparelho",
+          "windowId": "429",
+          "bounds": "[53,1665][1028,1916]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Salvar correção no aparelho",
+          "windowId": "429",
+          "bounds": "[53,1665][1028,1916]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "429",
+          "bounds": "[53,1370][1028,1629]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ver intenção e diagnóstico",
+          "windowId": "429",
+          "bounds": "[53,1370][1028,1629]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Recuperar também: Marcar hábito · 2026-10-15",
+          "windowId": "429",
+          "bounds": "[53,1195][1028,1332]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Recuperar também: Marcar hábito · 2026-10-15",
+          "windowId": "429",
+          "bounds": "[53,1195][1028,1332]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Selecione explicitamente as intenções que deseja recuperar junto. As demais continuam preservadas para revisão.",
+          "windowId": "429",
+          "bounds": "[52,708][1027,1158]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Selecione explicitamente as intenções que deseja recuperar junto. As demais continuam preservadas para revisão.",
+          "windowId": "429",
+          "bounds": "[52,708][1027,1158]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "429",
+          "bounds": "[52,582][1027,672]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Intenções dependentes",
+          "windowId": "429",
+          "bounds": "[52,582][1027,672]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,400][1028,547]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,400][1028,547]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,308][590,384]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Ordem do hábito",
+          "windowId": "429",
+          "bounds": "[53,308][590,384]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2255][1028,2402]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2255][1028,2402]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2163][443,2239]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Início do dia",
+          "windowId": "429",
+          "bounds": "[53,2163][443,2239]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1981][1028,2128]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1981][1028,2128]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1889][460,1965]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Fuso horário",
+          "windowId": "429",
+          "bounds": "[53,1889][460,1965]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1707][1028,1854]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1707][1028,1854]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1615][771,1691]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Dia de início do hábito",
+          "windowId": "429",
+          "bounds": "[53,1615][771,1691]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1432][1028,1579]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1432][1028,1579]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1340][564,1416]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Nome do hábito",
+          "windowId": "429",
+          "bounds": "[53,1340][564,1416]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "A correção cria uma intenção substituta. A original e seu resultado continuam preservados.",
+          "windowId": "429",
+          "bounds": "[52,943][1027,1303]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "A correção cria uma intenção substituta. A original e seu resultado continuam preservados.",
+          "windowId": "429",
+          "bounds": "[52,943][1027,1303]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Este nome já está em uso. Revise o título.",
+          "windowId": "429",
+          "bounds": "[52,718][1027,906]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Este nome já está em uso. Revise o título.",
+          "windowId": "429",
+          "bounds": "[52,718][1027,906]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Criar hábito · Recusado leitor",
+          "windowId": "429",
+          "bounds": "[52,493][1027,681]"
+        }
+      ]
+    },
+    {
+      "direction": "backward-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Criar hábito · Recusado leitor",
+          "windowId": "429",
+          "bounds": "[52,493][1027,681]"
+        }
+      ]
+    },
+    {
+      "direction": "backward",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Alteração recusada",
+          "windowId": "429",
+          "bounds": "[52,352][1027,457]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return-before",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Alteração recusada",
+          "windowId": "429",
+          "bounds": "[52,352][1027,457]"
+        }
+      ]
+    },
+    {
+      "direction": "leading-edge-return",
+      "windows": [
+        {
+          "id": "429",
+          "layer": "0",
+          "topmost": "true",
+          "active": "true",
+          "focused": "true",
+          "accessibility-focused": "true"
+        }
+      ],
+      "focusedWindow": "429",
+      "focused": [
+        {
+          "label": "Alteração recusada",
+          "windowId": "429",
+          "bounds": "[52,370][1027,475]"
+        }
+      ]
+    }
+  ]
+}

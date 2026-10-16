@@ -1,0 +1,11 @@
+{
+  "sha256": {
+    "app/harness/reader-observer/ReaderObserver.java": "2883308814631eed43f2e15daacf4a345bf38d47a7826a067df24dd8cf9055c4",
+    "app/test/integration/android-reader-matrix.test.ts": "8fcd94bd0397dfe52809fa55e93733d1a3ead5390ed8a921ee58a5bb1767e4e4",
+    "app/test/support/reader-hierarchy.ts": "e9b473e12bb0ddeebfac19e5f18232e47263e498619e788ffcbfd3c8d2ceb547",
+    "app/test/reader-hierarchy.test.ts": "64938430d7ddb969896c0977b206a0d54972fda2978e7af21625c351427d9297",
+    "scripts/verify-android-accessibility.ps1": "dcf7171e77569522461e7b8e6e4f2f409e68d996b1d292aa94e09ebb6b002d3e"
+  },
+  "observerApkSha256": "110c620c2f30b0e5f2038878336f1954ee19d77bd918bb2a63101c32b5b47d52",
+  "observerClassSha256": "12de601cf8a50d466fbae81902499443be4857161c4be6e42edb8664eb3bbe78"
+}
