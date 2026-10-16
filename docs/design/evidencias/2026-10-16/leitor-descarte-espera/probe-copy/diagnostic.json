@@ -1,0 +1,12 @@
+{
+  "scenarioPassed": true,
+  "fullAcceptance": false,
+  "fullScopeSkipped": [
+    "per-item-discard",
+    "429-push",
+    "503-push"
+  ],
+  "driverSha256AtLaunch": "5cfac4de3dbad1e5197c88477159579311ebb0f02b256d6147420b0eda332016",
+  "exploration": "refind current native bounds for each non-activating retry",
+  "cleanupRestored": true
+}

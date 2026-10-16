@@ -1,0 +1,24 @@
+{
+  "sources": {
+    "app/harness/journey-runtime.ts": "62b9cbd0450d78c1f5305d63a880e56ad0040dfaf6256df7922063c29ac5e848",
+    "app/test/integration/android-reader-sync-states.test.ts": "f2101b343dc542d3e0c0582a25fe2aeaaa74910b9bb939313e1c0ed8239b1f89",
+    "app/test/components/journey.test.tsx": "bc29ee0b9ecc6c29f346bf2a37dcc52ef62e0871de93fe318739217825ce4ae8",
+    "app/test/support/reader-hierarchy.ts": "e9b473e12bb0ddeebfac19e5f18232e47263e498619e788ffcbfd3c8d2ceb547",
+    "app/test/support/emulator-touch.ts": "9bef0c9bff4ca1e4dc2cc5994dc707de74550216aa8f26ba97e77b46f34a296c",
+    "api/src/test/java/dev/ritmo/RuntimeTests.java": "d0fe0e7e33c774900ab85aa93158381b6e7fbf24064f72eadbb36963a5e44138",
+    "scripts/verify-android-accessibility.ps1": "4db28f935530cc2140025871c53d13a1f381472caa3cb636ff286d30c19f0819",
+    "scripts/build-reader-observer.ps1": "98e18705dabf40394310436e72a16ccc2e74f83bc6848ef5a4f9084b2caf3dee",
+    "app/android/app/build/outputs/apk/release/app-release.apk": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+    ".scratch/runtime/interface/reader-observer/observer.apk": "110c620c2f30b0e5f2038878336f1954ee19d77bd918bb2a63101c32b5b47d52"
+  },
+  "productSourcesUnchanged": true,
+  "apkRebuiltForPushSpecificFixtures": true,
+  "postVerificationWhitespaceOnlyChanges": [
+    {
+      "path": "app/test/integration/android-reader-sync-states.test.ts",
+      "sha256AtVerification": "5916883fba8900e4f1f4b00bb1f08bf3511a53d8715d402319c103b400eb127e",
+      "sha256Current": "f2101b343dc542d3e0c0582a25fe2aeaaa74910b9bb939313e1c0ed8239b1f89",
+      "change": "removed one trailing space from an otherwise blank line; newline count and executable text unchanged"
+    }
+  ]
+}

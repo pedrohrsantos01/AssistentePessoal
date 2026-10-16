@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "validatedBeforeManifest": {
+    "xml": 51,
+    "json": 29,
+    "png": 47,
+    "passwordNodesPersisted": 0
+  },
+  "fixtureSecretScanPassed": true,
+  "pngValidation": "47 unchanged PNGs previously validated: signature, all chunk CRCs, IEND and no trailing bytes",
+  "textLineEndings": "LF"
+}

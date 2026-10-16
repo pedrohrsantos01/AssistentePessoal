@@ -1,0 +1,7 @@
+{
+  "accepted": false,
+  "classification": "fixture_refused_initial_pull_instead_of_push",
+  "completedPhases": 5,
+  "cleanupRestored": true,
+  "reason": "synchronize pulls before starting the persisted push attempt; pull-only retry counters are intentionally per execution; use push-specific fault to exercise durable Retry-After"
+}

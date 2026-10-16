@@ -1,0 +1,350 @@
+{
+  "passed": false,
+  "scenarioPassed": true,
+  "initialCopyDiagnosticOnly": true,
+  "apkSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "fontScale": 2,
+  "dialogFocus": [],
+  "waits": [],
+  "phases": [
+    "reader_200_and_physical_input_ready",
+    "real_account_onboarding_and_base_habit",
+    "initial_copy_failure_and_restart_never_expose_partial_account",
+    "complete_copy_is_atomic_and_accounts_remain_isolated"
+  ],
+  "targets": [
+    {
+      "label": "Nome",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1765,
+        1017,
+        1922
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1936,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        63,
+        1974,
+        1017,
+        2120
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        63,
+        1395,
+        1017,
+        1541
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar e ir para o Briefing",
+      "bounds": [
+        63,
+        1635,
+        1017,
+        1792
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ajustes",
+      "bounds": [
+        710,
+        2202,
+        1049,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        47,
+        1956,
+        1033,
+        2121
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        53,
+        1961,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Já tenho conta",
+      "bounds": [
+        63,
+        2081,
+        1017,
+        2246
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Entrar",
+      "bounds": [
+        63,
+        989,
+        1017,
+        1146
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ajustes",
+      "bounds": [
+        710,
+        2202,
+        1049,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        47,
+        1956,
+        1033,
+        2121
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        53,
+        1961,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Já tenho conta",
+      "bounds": [
+        63,
+        2081,
+        1017,
+        2246
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Entrar",
+      "bounds": [
+        63,
+        989,
+        1017,
+        1146
+      ],
+      "density": 2.625
+    }
+  ],
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "per-item discard and originals/dependents; 429/503 durable Retry-After; interrupted initial copy and account isolation; no native update-required gate, exhausted retry, VoiceOver, spoken character editing or app performance acceptance",
+  "restored": true
+}

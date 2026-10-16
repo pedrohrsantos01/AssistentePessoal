@@ -165,3 +165,8 @@ REQ-SYN-017/M1-16/18 exigem correspondência comprovada entre recibo e intençã
 ## Interface de resultados — 10/10/2026
 
 [Recorte 04](../docs/analises/2026-10-10-interface-resultados-de-sincronizacao.md) concretiza REQ-SYN-017/Q53 pela jornada nativa: estado real por item, painéis/cadeia/intenção original, correção/descarte comprovados e diagnóstico sem nova identidade para incerteza. Retry-After/503 preservam fila. Conta integrada sem cópia local inicia snapshot atômico; staging não libera conta parcial e a UI usa contagem recebida/estado indeterminado. Reutiliza núcleo/schema atuais, com App/API e Android visível aprovados. Recuperação por link, aparência, iPhone e aceite externo continuam abertos.
+
+
+## Verificação de descarte, espera e cópia inicial com leitor — 16/10/2026
+
+[Ensaio Android com TalkBack](../docs/analises/2026-10-16-talkback-descarte-e-espera.md): nove fases aprovadas a 200%, descarte explícito por item/originais/dependentes após reinício e estado canônico remoto preservados. Fixtures 429/503 específicas de push deixam o pull real passar; conservam espera e retry indisponível após reabrir, com resultado posterior sem duplicação. Cópia inicial interrompida antes da primeira página conserva gate, depois libera a conta completa sem cruzar dados. Não altera a persistência/contagem de tentativas definida em §3.1. Produto/schema/contratos inalterados. Testes locais do app aprovados; check completo da API aprovado em 10m43s: 85 executados/oito nativos opt-in ignorados, zero falhas/erros, 13 verificações operacionais e modularidade. Atualização obrigatória com leitor, retry esgotado, interrupção com staging não zero e demais gates continuam pendentes; não encerra 06/M1 nem aceite entre iPhone/Android.

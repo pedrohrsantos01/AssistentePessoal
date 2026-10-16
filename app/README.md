@@ -315,3 +315,13 @@ Roteiro Q60/REQ-DS-003: `.\scripts\verify-android-accessibility.ps1 -Traversal -
 Além da jornada real da matriz, percorre privacidade, exclusão, saída, painel e revisões aninhadas nos dois sentidos e nas bordas. Cada passo confere janela/nó nativos em todas as janelas interativas próprias retornadas, sem suspender o TalkBack ou coletar conteúdo de outros apps/IME. O driver comum continua consultando somente os nós da janela superior. Títulos informativos não recebem a restrição de tamanho dos controles; ações continuam exigindo44 unidades. [Contrato de teste e limites](../.scratch/interface-m1/leitor-dialogos.md).
 
 Resultado de16/10: [matriz de31 fases e sete percursos aprovada](../docs/analises/2026-10-16-talkback-navegacao-dos-dialogos.md), com restauração/fechamento dos recursos,227 testes/tipos/lint do app e API check completo.06/M1 continuam abertos pelos limites registrados.
+
+## Descarte e esperas remotas com TalkBack
+
+Da raiz: `.\scripts\verify-android-accessibility.ps1 -SyncStates -GpuMode host -MemoryMegabytes 2048 -EvidenceDirectory '.scratch/runtime/interface/leitor-sync-estados-reexecucao'`, com Java21/SDK/Docker preparados. Exige APK journeytest com as fixtures `sync-push-429`/`sync-push-503`; `-SkipInstall` só vale quando o hash instalado é igual ao local. O lançador preserva a instalação ao atualizar e fecha somente recursos próprios.
+
+Roteiro delimitado: cancelar/confirmar descarte por item, originais/dependentes após reinício, histórico, estado canônico independente, espera mínima de push após429/503, interrupção/retomada da cópia inicial e isolamento de contas. Falhas push deixam o pull real passar; contadores de pull sem push são por execução e não demonstram a espera durável da fila. Prazos exibidos têm precisão de segundos; o núcleo tem testes do prazo persistido exato. Texto200%, exploração/ativação físicas e observação nativa sem suspender o leitor.
+
+`-SyncStates` implica `-Matrix` e não combina com Recovery/Traversal/modo de observação. Atualização obrigatória, retry esgotado, cópia com staging não zero interrompida, edição falada por caractere/cursor, desempenho e VoiceOver não recebem aceite novo por esse roteiro. [Plano e estado da verificação](../.scratch/interface-m1/leitor-descarte-e-espera.md).
+
+Resultado nativo de 16/10: [nove fases aprovadas](../docs/analises/2026-10-16-talkback-descarte-e-espera.md), 79 medições de controles/12 campos-IME a 200%, com restauração e fechamento dos recursos. Check completo da API aprovado em 10m43s: 85 executados/oito nativos opt-in ignorados, zero falhas/erros, 13 verificações operacionais e modularidade; 06/M1 permanecem abertos.

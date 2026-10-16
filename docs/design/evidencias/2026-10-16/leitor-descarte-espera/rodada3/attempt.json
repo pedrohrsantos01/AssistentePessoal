@@ -1,0 +1,13 @@
+{
+  "accepted": false,
+  "completedPhases": 7,
+  "cleanupRestored": true,
+  "classification": "reader_focus_during_initial_copy_retry",
+  "observed": "wanted unavailable banner; focus remained on received-items text",
+  "hypotheses": [
+    "old gesture point after layout/status change",
+    "desired text replaced during automatic retry",
+    "banner accessibility defect"
+  ],
+  "nextProbe": "refind current bounds per exploration; isolate initial-copy scenario without accepting the full matrix"
+}

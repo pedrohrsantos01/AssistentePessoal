@@ -1,0 +1,22 @@
+{
+  "passed": false,
+  "apkSha256": "7430a6f8db0daf5cfb2e12e4fd1257f7b6557953bdddcf32d4618004fdbaa102",
+  "fontScale": 2,
+  "dialogFocus": [],
+  "phases": [],
+  "targets": [],
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "per-item discard and originals/dependents; 429/503 durable Retry-After; interrupted initial copy and account isolation; no native update-required gate, exhausted retry, VoiceOver, spoken character editing or app performance acceptance",
+  "restored": false
+}

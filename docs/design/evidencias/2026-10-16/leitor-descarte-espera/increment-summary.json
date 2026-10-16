@@ -1,0 +1,190 @@
+{
+  "incrementComplete": true,
+  "fullM1Acceptance": false,
+  "nativePassed": true,
+  "acceptedRun": "rodada4",
+  "previousAttemptsAccepted": false,
+  "diagnosticOnlyRunAccepted": false,
+  "apkSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "fontScale": 2,
+  "phases": 9,
+  "controlMeasurements": 79,
+  "fieldImeMeasurements": 12,
+  "waitCases": [
+    {
+      "fault": "sync-push-429",
+      "before": "Nova tentativa a partir de 16/10/2026, 22:19:56. O prazo do servidor será respeitado.",
+      "reopened": "Nova tentativa a partir de 16/10/2026, 22:19:56. O prazo do servidor será respeitado.",
+      "displayPrecisionToleranceMs": 1000,
+      "retryDisabled": true
+    },
+    {
+      "fault": "sync-push-503",
+      "before": "Nova tentativa a partir de 16/10/2026, 22:21:31. O prazo do servidor será respeitado.",
+      "reopened": "Nova tentativa a partir de 16/10/2026, 22:21:31. O prazo do servidor será respeitado.",
+      "displayPrecisionToleranceMs": 1000,
+      "retryDisabled": true
+    }
+  ],
+  "displayedDeadlinesActuallyIdentical": true,
+  "dependentHasProvenRejection": "dependency_rejected",
+  "initialSnapshotInterruptionReceivedItems": 0,
+  "initialSnapshotPages": 1,
+  "nativeTestDurationMs": 724778.6167,
+  "targetedGradleDurationSeconds": 745,
+  "notProductPerformanceMeasurement": true,
+  "productSourcesChanged": false,
+  "schemaChanged": false,
+  "harnessChanged": true,
+  "settingsRestored": true,
+  "hostCleanupVerified": true,
+  "apiFixtureContainersRemaining": 0,
+  "preexistingDockerServicesPreserved": true,
+  "checks": {
+    "app": {
+      "passed": true,
+      "typecheck": true,
+      "lint": true,
+      "coreTests": 183,
+      "componentTests": 45,
+      "totalTests": 228
+    },
+    "api": {
+      "tests": 93,
+      "skipped": 8,
+      "failures": 0,
+      "errors": 0,
+      "passed": true,
+      "executed": 85,
+      "operationalChecks": 13,
+      "modularityPassed": true,
+      "durationSeconds": 643,
+      "classes": [
+        {
+          "name": "dev.ritmo.ContainerPackagingTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ModularityTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.OperationalSchedulingTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.PrimaryTelemetryTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ProbeTransportTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ProxyTlsTests",
+          "tests": 1,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RateLimitTests",
+          "tests": 11,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.ReceiverSupervisionTests",
+          "tests": 3,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RestoreTests",
+          "tests": 5,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RetentionLifecycleTests",
+          "tests": 3,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.RuntimeTests",
+          "tests": 46,
+          "skipped": 8,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.SyncRetentionTests",
+          "tests": 11,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.TrustedProxyTests",
+          "tests": 3,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        },
+        {
+          "name": "dev.ritmo.WalRecoveryTests",
+          "tests": 5,
+          "skipped": 0,
+          "failures": 0,
+          "errors": 0
+        }
+      ]
+    },
+    "launcher": {
+      "syntaxPassed": true,
+      "incompatibleModesRejectedBeforeResources": true
+    },
+    "logSha256": {
+      "app": "4e55090d6c1c14b855fb0654a95cf4836b537a43c0c8f138e1cfd4985a3164f8",
+      "api": "293cf186fb5d363f844686a0afb718d6cf5869d266e313fa6c8afc4af9be9ad5",
+      "native": "a86538239ee93f5296ba4ee81991ffbf0414a8bd7598e3f7cb3f2c528d5301fd",
+      "targetedGradle": "6d87da8337f53456a42c4d5d9d18af8d568aaaa50035a52cbe7640cd5fb846dc"
+    }
+  },
+  "evidence": {
+    "xml": 51,
+    "png": 47,
+    "passwordNodesPersisted": 0,
+    "fixtureSecretScanPassed": true,
+    "textLineEndings": "LF"
+  },
+  "limits": [
+    "all own interactive windows returned by Android; modal-blocked backgrounds may be omitted",
+    "result convergence without duplicate habit/XP, not absence of all repeated HTTP requests",
+    "push-specific refusal, not production quotas or physical service outage",
+    "one-page copy interrupted before first page; no interrupted nonzero staging acceptance",
+    "proven rejected dependent; not every locally blocked chain state",
+    "no new native update-required/read-only or exhausted-retry acceptance",
+    "no spoken character/cursor editing, app performance, new palettes or VoiceOver/iPhone acceptance"
+  ]
+}

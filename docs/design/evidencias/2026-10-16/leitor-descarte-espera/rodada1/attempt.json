@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "classification": "adb_transport_during_setup",
+  "readerEnabled": false,
+  "completedPhases": 0,
+  "initialCleanupRestored": false,
+  "subsequentBaselineRecovery": "../preparation-recovery.json",
+  "mainInstallationPreserved": true
+}

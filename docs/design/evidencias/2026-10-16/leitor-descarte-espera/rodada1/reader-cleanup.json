@@ -1,0 +1,12 @@
+{
+  "restored": false,
+  "failedSteps": [
+    "enabled_accessibility_services",
+    "accessibility_enabled",
+    "touch_exploration_enabled",
+    "network",
+    "font",
+    "stop_fixture",
+    "reverse"
+  ]
+}

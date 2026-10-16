@@ -1,0 +1,883 @@
+{
+  "passed": false,
+  "apkSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "fontScale": 2,
+  "dialogFocus": [
+    {
+      "name": "parent_discard",
+      "returned": "Sincronização",
+      "expected": "Sincronização"
+    }
+  ],
+  "waits": [
+    {
+      "fault": "sync-push-429",
+      "before": "Nova tentativa a partir de 16/10/2026, 21:57:58. O prazo do servidor será respeitado.",
+      "reopened": "Nova tentativa a partir de 16/10/2026, 21:57:58. O prazo do servidor será respeitado.",
+      "displayPrecisionToleranceMs": 1000,
+      "retryDisabled": true
+    },
+    {
+      "fault": "sync-push-503",
+      "before": "Nova tentativa a partir de 16/10/2026, 21:59:29. O prazo do servidor será respeitado.",
+      "reopened": "Nova tentativa a partir de 16/10/2026, 21:59:29. O prazo do servidor será respeitado.",
+      "displayPrecisionToleranceMs": 1000,
+      "retryDisabled": true
+    }
+  ],
+  "phases": [
+    "reader_200_and_physical_input_ready",
+    "real_account_onboarding_and_base_habit",
+    "discard_cancel_and_restart_preserve_original",
+    "parent_discard_preserves_dependent_and_its_identity_after_restart",
+    "explicit_child_discard_keeps_history_and_does_not_undo_server_work",
+    "09-rate-limit_preserves_work_deadline_and_exactly_once_resume",
+    "10-unavailable_preserves_work_deadline_and_exactly_once_resume"
+  ],
+  "targets": [
+    {
+      "label": "Nome",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1765,
+        1017,
+        1922
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1936,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        63,
+        1974,
+        1017,
+        2120
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        63,
+        1395,
+        1017,
+        1541
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar e ir para o Briefing",
+      "bounds": [
+        63,
+        1635,
+        1017,
+        1792
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Hábitos",
+      "bounds": [
+        371,
+        2202,
+        710,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Novo hábito",
+      "bounds": [
+        736,
+        179,
+        1028,
+        311
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar hábito",
+      "bounds": [
+        53,
+        1990,
+        1028,
+        2147
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Briefing",
+      "bounds": [
+        32,
+        2202,
+        371,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Descartar pai, não feito",
+      "bounds": [
+        92,
+        1385,
+        988,
+        1671
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        283,
+        509,
+        871,
+        624
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar alterações",
+      "bounds": [
+        53,
+        1878,
+        1028,
+        2035
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar Criar hábito · Descartar pai",
+      "bounds": [
+        98,
+        1836,
+        984,
+        2074
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        53,
+        1630,
+        1028,
+        1889
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        53,
+        1630,
+        1028,
+        1889
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Descartar esta intenção",
+      "bounds": [
+        53,
+        2214,
+        1028,
+        2379
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2231,
+        1028,
+        2396
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2154,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        283,
+        509,
+        871,
+        624
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar alterações",
+      "bounds": [
+        53,
+        1878,
+        1028,
+        2035
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar Criar hábito · Descartar pai",
+      "bounds": [
+        98,
+        1836,
+        984,
+        2074
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        53,
+        1474,
+        1028,
+        1733
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        53,
+        1474,
+        1028,
+        1733
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Descartar esta intenção",
+      "bounds": [
+        53,
+        2058,
+        1028,
+        2223
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Confirmar descarte desta intenção",
+      "bounds": [
+        53,
+        1867,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar Marcar hábito · 2026-10-16",
+      "bounds": [
+        98,
+        1836,
+        984,
+        2074
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        53,
+        2087,
+        1028,
+        2346
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        53,
+        2087,
+        1028,
+        2346
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2175,
+        1028,
+        2340
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        283,
+        509,
+        871,
+        624
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar alterações",
+      "bounds": [
+        53,
+        1878,
+        1028,
+        2035
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Revisar Marcar hábito · 2026-10-16",
+      "bounds": [
+        98,
+        1836,
+        984,
+        2074
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        53,
+        2087,
+        1028,
+        2346
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        53,
+        2087,
+        1028,
+        2346
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Descartar esta intenção",
+      "bounds": [
+        53,
+        1974,
+        1028,
+        2139
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Confirmar descarte desta intenção",
+      "bounds": [
+        53,
+        1866,
+        1028,
+        2117
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        640,
+        842,
+        756
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1859,
+        1028,
+        2117
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1375,
+        984,
+        1613
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        2113,
+        984,
+        2351
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Hábitos",
+      "bounds": [
+        371,
+        2202,
+        710,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Novo hábito",
+      "bounds": [
+        736,
+        179,
+        1028,
+        311
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar hábito",
+      "bounds": [
+        53,
+        1990,
+        1028,
+        2147
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Briefing",
+      "bounds": [
+        32,
+        2202,
+        371,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1126,
+        865,
+        1241
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Tentar novamente",
+      "bounds": [
+        53,
+        1629,
+        1028,
+        1786
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        640,
+        865,
+        756
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Hábitos",
+      "bounds": [
+        371,
+        2202,
+        710,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Novo hábito",
+      "bounds": [
+        736,
+        179,
+        1028,
+        311
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar hábito",
+      "bounds": [
+        53,
+        1990,
+        1028,
+        2147
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Briefing",
+      "bounds": [
+        32,
+        2202,
+        371,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1314,
+        865,
+        1429
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Tentar novamente",
+      "bounds": [
+        53,
+        1817,
+        1028,
+        1974
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        636,
+        865,
+        752
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ajustes",
+      "bounds": [
+        710,
+        2202,
+        1049,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        47,
+        1956,
+        1033,
+        2121
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        53,
+        1961,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Já tenho conta",
+      "bounds": [
+        63,
+        2081,
+        1017,
+        2246
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "imeTop": 1452,
+      "focused": true
+    },
+    {
+      "label": "Entrar",
+      "bounds": [
+        63,
+        989,
+        1017,
+        1146
+      ],
+      "density": 2.625
+    }
+  ],
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "per-item discard and originals/dependents; 429/503 durable Retry-After; interrupted initial copy and account isolation; no native update-required gate, exhausted retry, VoiceOver, spoken character editing or app performance acceptance",
+  "restored": true
+}

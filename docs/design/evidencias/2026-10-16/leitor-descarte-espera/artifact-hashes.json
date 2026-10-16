@@ -1,0 +1,514 @@
+{
+  "artifact-validation.json": {
+    "bytes": 313,
+    "sha256": "fa5cbc7b7955f99db9946e2aa9f803a180f5fa6b2890e8450f9ffc593f886f3f"
+  },
+  "host-cleanup.json": {
+    "bytes": 201,
+    "sha256": "a9ebd268066c51ffa40b7bd4fda2831b6dd11966561ce75d7ca221334fda48e3"
+  },
+  "increment-summary.json": {
+    "bytes": 5577,
+    "sha256": "5fbc6473bd03375cff41473c4ab4834bc4f23ae4efd08edad62bb536637f2889"
+  },
+  "preparation-recovery.json": {
+    "bytes": 206,
+    "sha256": "9639bc52d9649667e3a4531429bd2fa294f1b79924e26474019817f58b2532ff"
+  },
+  "probe-copy/11-initial-copy-gated.png": {
+    "bytes": 106507,
+    "sha256": "400f59945e73a579c0dbb7018e39333c4b9a59022a1f56cf04278701feb68951"
+  },
+  "probe-copy/11-initial-copy-gated.xml": {
+    "bytes": 8183,
+    "sha256": "7352d32170b79c4d18a6994d0dac35d0a316a9211e7e95063f1bb3a6f5549cad"
+  },
+  "probe-copy/12-initial-copy-interrupted.png": {
+    "bytes": 105773,
+    "sha256": "f0dba2af412fd60bd12d23ea0cf2f8f538e5cca9bbeeb9f51ab8df0896adf654"
+  },
+  "probe-copy/12-initial-copy-interrupted.xml": {
+    "bytes": 8184,
+    "sha256": "00a9cf545a1c457ec555bc2090998462cf8a043ce45f7ed54a67cae5e44aa032"
+  },
+  "probe-copy/13-initial-copy-after-restart.png": {
+    "bytes": 105894,
+    "sha256": "7173fcac91b0a75ef835e5bd13769092c692582f8cee9cd6a84570cdeb4bcfd3"
+  },
+  "probe-copy/13-initial-copy-after-restart.xml": {
+    "bytes": 8184,
+    "sha256": "8fbba25884cb1f379940bb8520cc431f61b3d2d387c2e6b08b3e8770da819833"
+  },
+  "probe-copy/14-complete-copy-isolated.png": {
+    "bytes": 131911,
+    "sha256": "afe40bf3836de483cd23a68eafeaa35ca839bc25bbb6f3dc8cfeaf49ba9a08d0"
+  },
+  "probe-copy/14-complete-copy-isolated.xml": {
+    "bytes": 14555,
+    "sha256": "0ef3da276dd3102461d3590863cbc2772c732ba0ddf636b99577ada808eb78db"
+  },
+  "probe-copy/15-origin-account-restored.png": {
+    "bytes": 144119,
+    "sha256": "bd73274a7893a1669e424e58ad3cc2b25e20fa6ab9ae6e113af4be8af23992bf"
+  },
+  "probe-copy/15-origin-account-restored.xml": {
+    "bytes": 14558,
+    "sha256": "6eb0e49d517d40a7682ad7d5cf18f475af78a341eace89305c08f83f39b50d9a"
+  },
+  "probe-copy/diagnostic.json": {
+    "bytes": 340,
+    "sha256": "c4bc83057fe6cc085f11eee7b0a75f538311318a0e6ea27202b9fd4513450d7c"
+  },
+  "probe-copy/installed-apk.json": {
+    "bytes": 280,
+    "sha256": "4a63b2eb744705c2dac209a3339e684c876daa36ee0e479d13fe072c6c1518f5"
+  },
+  "probe-copy/latest-hierarchy.xml": {
+    "bytes": 14558,
+    "sha256": "6eb0e49d517d40a7682ad7d5cf18f475af78a341eace89305c08f83f39b50d9a"
+  },
+  "probe-copy/matrix-summary.json": {
+    "bytes": 5724,
+    "sha256": "aaf765d78283c1ba4dfdfd630ab3898272cc4ee871482335224cf77e33a04c7f"
+  },
+  "probe-copy/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "probe-copy/reader-environment.json": {
+    "bytes": 328,
+    "sha256": "a7b855d04c114a9c196c4bf8d23010c4fa85c7a3d051315e4c44f6e776d48979"
+  },
+  "README.md": {
+    "bytes": 2589,
+    "sha256": "674a0c398ba995cb6a95e440f947ddbb5399e78762b5f9328d9f57a59c3edc20"
+  },
+  "rodada1/attempt.json": {
+    "bytes": 260,
+    "sha256": "909d12bc824adf5662be440f2b1099de5b6febbc5dc6d591b321e8f89ee58523"
+  },
+  "rodada1/installed-apk.json": {
+    "bytes": 280,
+    "sha256": "d8a44397239ca96e4e4f4e4532142995d0344989630253ec5a17d84309d6e2f7"
+  },
+  "rodada1/latest-hierarchy.xml": {
+    "bytes": 2228,
+    "sha256": "aa3fec7e976ab1336e3f1827a67d56ab3d6bd122afe9b02d91ee8b26ae29aadb"
+  },
+  "rodada1/matrix-summary.json": {
+    "bytes": 742,
+    "sha256": "45936d32069fba317ce44fa8fad6862ab8b432860400d0d8409d5694b51227bb"
+  },
+  "rodada1/reader-cleanup.json": {
+    "bytes": 209,
+    "sha256": "2e47e39c22a180e6b12936c6970395700f532bffa8e4479325a70e8ebe18ff65"
+  },
+  "rodada1/reader-environment.json": {
+    "bytes": 328,
+    "sha256": "a7b855d04c114a9c196c4bf8d23010c4fa85c7a3d051315e4c44f6e776d48979"
+  },
+  "rodada2/01-parent-original.png": {
+    "bytes": 194025,
+    "sha256": "5f693d8497187415d0c80b903c1337b73144c6bfc4837050d6a81823f4b14141"
+  },
+  "rodada2/01-parent-original.xml": {
+    "bytes": 15479,
+    "sha256": "11067066cca8207021768e80a3ef5cb29bff96fed9f0fce952f33fc8df86cc5a"
+  },
+  "rodada2/02-discard-proposed-not-confirmed.png": {
+    "bytes": 163602,
+    "sha256": "19c0afe1714244f10797c54e6b9be5bff6bfe3c2879dd84a7f8d275d248ca7aa"
+  },
+  "rodada2/02-discard-proposed-not-confirmed.xml": {
+    "bytes": 14406,
+    "sha256": "224a2c10ea6f8231669cf7156516a93a59bb43e71185f4287e150a2ce6b2dd8d"
+  },
+  "rodada2/03-discard-cancel-return.png": {
+    "bytes": 173920,
+    "sha256": "b964bda5813bb4ca07458ac1a9efb1d8c89d31d8431ca287ca696fa55b16caa1"
+  },
+  "rodada2/03-discard-cancel-return.xml": {
+    "bytes": 10704,
+    "sha256": "9cc892a698c77184928062965683dcfe3c212f847460262300a94adc517816ff"
+  },
+  "rodada2/04-parent-after-cancel-restart.png": {
+    "bytes": 207597,
+    "sha256": "19d357d56d33ad8c8131276a7691d58a8ba41b6a74146a4a140ab325bd339e60"
+  },
+  "rodada2/04-parent-after-cancel-restart.xml": {
+    "bytes": 15483,
+    "sha256": "076d311cb0b970ad3ff998cfa72f4f854735752933904e18609d8fa592ab76d4"
+  },
+  "rodada2/05-parent-discard-child-preserved.png": {
+    "bytes": 149883,
+    "sha256": "7bce4707feeb690672d2b4f8a2254936339034dcf51f3b5fb5cfb8c0afdefa92"
+  },
+  "rodada2/05-parent-discard-child-preserved.xml": {
+    "bytes": 8879,
+    "sha256": "dcf2f40653fab196e3a44d2e8b1a506ad60e16fcd2d09b5bbd47a4edc883fc04"
+  },
+  "rodada2/06-child-original.png": {
+    "bytes": 157809,
+    "sha256": "bbf60f7a73c32de350baef2a289ba31ddafcb383c72096f54d56bfcdffb648f0"
+  },
+  "rodada2/06-child-original.xml": {
+    "bytes": 12772,
+    "sha256": "2e755b80248ebe0f45f30d7f8e52d1d196d86f8ec3053863ef34103a38fdc490"
+  },
+  "rodada2/07-child-after-restart.png": {
+    "bytes": 157809,
+    "sha256": "bbf60f7a73c32de350baef2a289ba31ddafcb383c72096f54d56bfcdffb648f0"
+  },
+  "rodada2/07-child-after-restart.xml": {
+    "bytes": 12772,
+    "sha256": "94b44d752fd1cee87f233eb0fefce2f321b1a04369f597bb0c48ce79fe388a73"
+  },
+  "rodada2/08-history-preserves-both-originals.png": {
+    "bytes": 275967,
+    "sha256": "54c08d61efec4b35c11e0cdd0d1ddf8f2ff161414724d4f3daada299cb43ad05"
+  },
+  "rodada2/08-history-preserves-both-originals.xml": {
+    "bytes": 17471,
+    "sha256": "1d707fac963545784de19907313953f442540e059127917acc9428e657a44728"
+  },
+  "rodada2/09-rate-limit-wait.png": {
+    "bytes": 180656,
+    "sha256": "d2366c6cae509927355dd2481f3dfe9de73ddb5039b9bd67b356fd7313cf7579"
+  },
+  "rodada2/09-rate-limit-wait.xml": {
+    "bytes": 14478,
+    "sha256": "8d1aedf70bb0094c3b42f69ce39c42eeedcdc7596f2832cb95b9347f04f8cfec"
+  },
+  "rodada2/attempt.json": {
+    "bytes": 334,
+    "sha256": "d230932bbeb68a01d49c45c590be02d08d35c4f3320210847b42825a546eb833"
+  },
+  "rodada2/failure-missing-target.png": {
+    "bytes": 191440,
+    "sha256": "835f1a35f65f4ebf8d53824cbc1ed0a3aa61ab5c6c9bf598efc1b8e3391db8ee"
+  },
+  "rodada2/failure-reader-sync-states.png": {
+    "bytes": 191440,
+    "sha256": "835f1a35f65f4ebf8d53824cbc1ed0a3aa61ab5c6c9bf598efc1b8e3391db8ee"
+  },
+  "rodada2/failure-reader-sync-states.xml": {
+    "bytes": 18715,
+    "sha256": "347caa4e9fd625b8b3aee3fcaf4d75502e9765b2f02e05a92c6c2e88193c017f"
+  },
+  "rodada2/installed-apk.json": {
+    "bytes": 280,
+    "sha256": "6a7f767238d70a42bd8085c27a2401d04cecc6435380bb27197b169aeac5752f"
+  },
+  "rodada2/latest-hierarchy.xml": {
+    "bytes": 18715,
+    "sha256": "347caa4e9fd625b8b3aee3fcaf4d75502e9765b2f02e05a92c6c2e88193c017f"
+  },
+  "rodada2/matrix-summary.json": {
+    "bytes": 10662,
+    "sha256": "e595c41c150c8affadf423a69631b9e1523668cb45eb8f1ee46d3d155fe0110d"
+  },
+  "rodada2/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada2/reader-environment.json": {
+    "bytes": 328,
+    "sha256": "a7b855d04c114a9c196c4bf8d23010c4fa85c7a3d051315e4c44f6e776d48979"
+  },
+  "rodada3/01-parent-original.png": {
+    "bytes": 195015,
+    "sha256": "e5b130d5d5694706a5a97608c3ed94ae1928f090228dab91fd273a1ebda4965f"
+  },
+  "rodada3/01-parent-original.xml": {
+    "bytes": 15479,
+    "sha256": "6c861838ecb414d0c718b3b14a0c7e1be34747f34f6387cb5dccf827615a556f"
+  },
+  "rodada3/02-discard-proposed-not-confirmed.png": {
+    "bytes": 164342,
+    "sha256": "1945de72c7cb61a6c568373e61a10b3c980b2b175adcf69a9e5de901144fb822"
+  },
+  "rodada3/02-discard-proposed-not-confirmed.xml": {
+    "bytes": 14406,
+    "sha256": "e243a347d52779c5ee472d878669326b39c56424a66da7a10d6875ae70f7f50a"
+  },
+  "rodada3/03-discard-cancel-return.png": {
+    "bytes": 173873,
+    "sha256": "d3649b4b61d860ae9f08544d3ce0f6615c27907dc0ad024878f3cfa9eb03aa88"
+  },
+  "rodada3/03-discard-cancel-return.xml": {
+    "bytes": 10704,
+    "sha256": "569bc4989d2baaf9ba24bdd1b3774a551ae270b933782a8c8c3b3d8689916c10"
+  },
+  "rodada3/04-parent-after-cancel-restart.png": {
+    "bytes": 209777,
+    "sha256": "c40fd647db082ee21d6c2d45c2d5d44c4d72fd71e770bebf2c634cff052a21f3"
+  },
+  "rodada3/04-parent-after-cancel-restart.xml": {
+    "bytes": 15483,
+    "sha256": "244cd43d15253edc9f4f5b242479181c7eef37232a7e32a59d3ed553e802e732"
+  },
+  "rodada3/05-parent-discard-child-preserved.png": {
+    "bytes": 151005,
+    "sha256": "7466a06da2c2da7ca086be89f1e7d5e90d062e9c158a3b2212ddb56f59179695"
+  },
+  "rodada3/05-parent-discard-child-preserved.xml": {
+    "bytes": 8879,
+    "sha256": "b5151eba73a04f688cc28d086b9c7a391c3400331c7cef2bb212f3c9e1f3ce9b"
+  },
+  "rodada3/06-child-original.png": {
+    "bytes": 158996,
+    "sha256": "4c1f5fe171d06370f1c84ad6836547741ea57b0a8fb2a17e13c1608f160a2ffa"
+  },
+  "rodada3/06-child-original.xml": {
+    "bytes": 12772,
+    "sha256": "9242fc226d159942ce8c662d6e4118e50b339900fc12d89a501c7b8cccaf78fd"
+  },
+  "rodada3/07-child-after-restart.png": {
+    "bytes": 158261,
+    "sha256": "e4bfbf7885ab793c986c8fd94067233479073a788f1d90c4a57636d66f6862ea"
+  },
+  "rodada3/07-child-after-restart.xml": {
+    "bytes": 12772,
+    "sha256": "77cad4e8dc35fef321c8b377f4adb18b310f50c659d046e969ed0f7e995c8241"
+  },
+  "rodada3/08-history-preserves-both-originals.png": {
+    "bytes": 281613,
+    "sha256": "de82ee6bd63921a757ab431310d704e71e709053e44505267a038491dabac594"
+  },
+  "rodada3/08-history-preserves-both-originals.xml": {
+    "bytes": 17471,
+    "sha256": "178c7b0ba2bbaf5371c84b29faf6755470c1557c52d65d7c74d0d2ef7aafff42"
+  },
+  "rodada3/09-rate-limit-reopened.png": {
+    "bytes": 172449,
+    "sha256": "a32940c2bc622875d6882c5e2543ecd00d5be03b2dbe8919e65479586faa6879"
+  },
+  "rodada3/09-rate-limit-reopened.xml": {
+    "bytes": 13708,
+    "sha256": "e552a7067eb79db2e62a4a68c60332cf298dfd96d0de7b634d25af1083b67e19"
+  },
+  "rodada3/09-rate-limit-wait.png": {
+    "bytes": 173459,
+    "sha256": "c7c3d1210e6e6ce645f75762ad4e358191399c9bbac6c913ef6104188d6eb5e3"
+  },
+  "rodada3/09-rate-limit-wait.xml": {
+    "bytes": 14478,
+    "sha256": "3c5f40afd2d891232f4103226ebdac3407ff004ce607ee0edd1cbbb31baf08ad"
+  },
+  "rodada3/10-unavailable-reopened.png": {
+    "bytes": 173427,
+    "sha256": "cd1c92477990ed5a499da6a45a36ed667fc83469d696be3afc55c6d2d34d086c"
+  },
+  "rodada3/10-unavailable-reopened.xml": {
+    "bytes": 13708,
+    "sha256": "67fcbb4ea6d4c3c8f9eb5ba1170cb623ff57fdadd9e3ed1a0622c722fbcebdd8"
+  },
+  "rodada3/10-unavailable-wait.png": {
+    "bytes": 176645,
+    "sha256": "9d68ac835c0dca819070a86652392b76e92da21b4d89ecb918e2d9c44b76bae6"
+  },
+  "rodada3/10-unavailable-wait.xml": {
+    "bytes": 14531,
+    "sha256": "1697bf8e93450f472339af9ed78f2a96266aa978c5a05435c264bba4e28e56f8"
+  },
+  "rodada3/11-initial-copy-gated.png": {
+    "bytes": 105164,
+    "sha256": "b25327f25d2ecd1fa15263d3783680c0029ec773d770515dc7a0d6e13e96f6be"
+  },
+  "rodada3/11-initial-copy-gated.xml": {
+    "bytes": 8183,
+    "sha256": "bd077cb17ce077e482d9d7a354f258034702a4dd7f4896690a5345ee8d856b9d"
+  },
+  "rodada3/attempt.json": {
+    "bytes": 501,
+    "sha256": "610506e0ac6e783da4ed328c9c2a1e51c3abbd15e428196f02119bdd031ccbb2"
+  },
+  "rodada3/failure-reader-sync-states.png": {
+    "bytes": 143833,
+    "sha256": "5f339154e848b8b231ea4cad1e2d0e219116d1e3a6b828f64a15ed30e4a591d2"
+  },
+  "rodada3/failure-reader-sync-states.xml": {
+    "bytes": 8665,
+    "sha256": "bcc369f70f27e2c657d598ab4f20dd2bad366a1ac380a238ec942a0cf6b17523"
+  },
+  "rodada3/installed-apk.json": {
+    "bytes": 280,
+    "sha256": "6c74fbc031b5c8713c319abb12595c2ad615ee359560831ce430b9b6743ec6e4"
+  },
+  "rodada3/latest-hierarchy.xml": {
+    "bytes": 8665,
+    "sha256": "bcc369f70f27e2c657d598ab4f20dd2bad366a1ac380a238ec942a0cf6b17523"
+  },
+  "rodada3/matrix-summary.json": {
+    "bytes": 14607,
+    "sha256": "209f0914eb2530f48a3f96ef5b0974da33d38a26081b5be1a0bebc5fb1782a46"
+  },
+  "rodada3/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada3/reader-environment.json": {
+    "bytes": 328,
+    "sha256": "a7b855d04c114a9c196c4bf8d23010c4fa85c7a3d051315e4c44f6e776d48979"
+  },
+  "rodada4/01-parent-original.png": {
+    "bytes": 208216,
+    "sha256": "81241d6faf83e0cd2ddc1aaaa4295faaddf6f01ff82696a17e28040e483c0690"
+  },
+  "rodada4/01-parent-original.xml": {
+    "bytes": 15483,
+    "sha256": "f8737d9cd63df8b847851714830272fc1118e9b4b6d28100b8b4fc530fcc7d3d"
+  },
+  "rodada4/02-discard-proposed-not-confirmed.png": {
+    "bytes": 153180,
+    "sha256": "07d29e221af69c7bbba67b7e25a245eb4fe313dd9700241d0ff7d233ae977aa6"
+  },
+  "rodada4/02-discard-proposed-not-confirmed.xml": {
+    "bytes": 14406,
+    "sha256": "069c2138a63d3c9dfc92f29241a544056a04f95ca250438e17f70e78ada50fa1"
+  },
+  "rodada4/03-discard-cancel-return.png": {
+    "bytes": 173312,
+    "sha256": "5ded32c7e2a29608911cc55f55399fbe535e348f108e3b5f0ffb9941246eb48d"
+  },
+  "rodada4/03-discard-cancel-return.xml": {
+    "bytes": 10704,
+    "sha256": "2cbdb6b322b13ba9c0ce666f06351bf07dd475f85207926ca22d454704c251bf"
+  },
+  "rodada4/04-parent-after-cancel-restart.png": {
+    "bytes": 208312,
+    "sha256": "b5357a6ade738e64de0a26b796c5d292e5c24abb05e1c0756d824cdcff18f7f6"
+  },
+  "rodada4/04-parent-after-cancel-restart.xml": {
+    "bytes": 15483,
+    "sha256": "584f5434f2ab4c1914602ada0ba0af375a8accc16ce18c6f770a11d5ce351eea"
+  },
+  "rodada4/05-parent-discard-child-preserved.png": {
+    "bytes": 150395,
+    "sha256": "009bfd91bb876f4b3925ae73eb9be1166d58d41bb3645daca96bf47eefa5f921"
+  },
+  "rodada4/05-parent-discard-child-preserved.xml": {
+    "bytes": 8879,
+    "sha256": "bae2f6e3591b26c6cf3db9d017ce1594144bc5c68b159cd08c496502f8cc34da"
+  },
+  "rodada4/06-child-original.png": {
+    "bytes": 159761,
+    "sha256": "aa2e012812b5dbb7842aed99e2c5f2cca876bd7a31bc71d7c423833bc177c7bf"
+  },
+  "rodada4/06-child-original.xml": {
+    "bytes": 12772,
+    "sha256": "e6962fef937c98e231a83271c9bebbc165648cf3cec95fbe36294759c13e62a7"
+  },
+  "rodada4/07-child-after-restart.png": {
+    "bytes": 159093,
+    "sha256": "fa87d27fe4ed576a746ab8c2354e9450ed127a95787c84cd2b1986102b18b023"
+  },
+  "rodada4/07-child-after-restart.xml": {
+    "bytes": 12772,
+    "sha256": "5d72904b17196c1d02b197e5ab7c612972b4556a67be061908cc305c5a12962e"
+  },
+  "rodada4/08-history-preserves-both-originals.png": {
+    "bytes": 277289,
+    "sha256": "a4f9712d86e53bbdc4812b1e2881d0aaa80914feccfbaa2b2cd7ffefc3ae6230"
+  },
+  "rodada4/08-history-preserves-both-originals.xml": {
+    "bytes": 17471,
+    "sha256": "aa16080288aba96111c0be360526625f16d02cfe826c61fc96566beb922169d1"
+  },
+  "rodada4/09-rate-limit-reopened.png": {
+    "bytes": 170995,
+    "sha256": "306ce0b7d12bb407df59863c4c73a8daa8c367d698969455bd70d7a6709ca8ab"
+  },
+  "rodada4/09-rate-limit-reopened.xml": {
+    "bytes": 13708,
+    "sha256": "a35695759cbc1b42ff63f4835427f8bedb936f0398d6c4c57821bed97a2fc73e"
+  },
+  "rodada4/09-rate-limit-wait.png": {
+    "bytes": 171946,
+    "sha256": "51b6e154ec0a796f78ce86eb6483cdc79e2cb01cf1fe68fa06401a636a5417b4"
+  },
+  "rodada4/09-rate-limit-wait.xml": {
+    "bytes": 14478,
+    "sha256": "14cbbb01fc422cc86adfd253af012c72459c11f22b404f5cb1601d2c63f7b82d"
+  },
+  "rodada4/10-unavailable-reopened.png": {
+    "bytes": 169973,
+    "sha256": "d192b64743ff9d2f1096efa6eed6c53a9600b274865e42d61c9dd1a38f7ee8c8"
+  },
+  "rodada4/10-unavailable-reopened.xml": {
+    "bytes": 13708,
+    "sha256": "5b69896a60726d94ce218e3ba751189e1cdf417b83aa9cff730039270437a215"
+  },
+  "rodada4/10-unavailable-wait.png": {
+    "bytes": 173280,
+    "sha256": "18c52196064ac88034fcdc6c60ca7be2d022493c1b30fc28328830ec31318ff8"
+  },
+  "rodada4/10-unavailable-wait.xml": {
+    "bytes": 14531,
+    "sha256": "5f21ad2f99fc8467c2ff0807d5b05fd77e18878c380d435c6de4e2f88896c6c9"
+  },
+  "rodada4/11-initial-copy-gated.png": {
+    "bytes": 106210,
+    "sha256": "f033822f22ef2ff99e654011ac61aa6fba5707e6fc615f3a7266c49c27f976b8"
+  },
+  "rodada4/11-initial-copy-gated.xml": {
+    "bytes": 8183,
+    "sha256": "3b617e3d923d9a9d2493098e1f135c2cb9e864e54a25555f1766dd677d644d48"
+  },
+  "rodada4/12-initial-copy-interrupted.png": {
+    "bytes": 139043,
+    "sha256": "3dfe099cb2e69a4fc77bb1ee2c2ede124d9f4fcc7cc12f9e4e9b56f0abf80ee6"
+  },
+  "rodada4/12-initial-copy-interrupted.xml": {
+    "bytes": 8663,
+    "sha256": "35469a8b5ca51841564cee6e4863613b4f90908b922dfda108bd09487f37955b"
+  },
+  "rodada4/13-initial-copy-after-restart.png": {
+    "bytes": 106182,
+    "sha256": "a3745f99fff1a7dc55dafcd284536d3495c4e83a62bdc21ee32b8345e0eed7fd"
+  },
+  "rodada4/13-initial-copy-after-restart.xml": {
+    "bytes": 8184,
+    "sha256": "9e18dbf94a1c5cae428d51818e5c0c940b78c10b73a92522e16b9cccb17f6cf2"
+  },
+  "rodada4/14-complete-copy-isolated.png": {
+    "bytes": 132187,
+    "sha256": "e7dd79b04d227d1caca9b73fb9b100362d6f4320e0ba815ec427305fbdb3f293"
+  },
+  "rodada4/14-complete-copy-isolated.xml": {
+    "bytes": 14555,
+    "sha256": "6cdbb4c1456912f7d819f08839ac6d4aea88788f16e1b5d246c51a92cece1347"
+  },
+  "rodada4/15-origin-account-restored.png": {
+    "bytes": 218683,
+    "sha256": "be4ff136e354574ccabfa9bee6b23eedc7ac5351a04fa9803c4b1dc91d029969"
+  },
+  "rodada4/15-origin-account-restored.xml": {
+    "bytes": 20815,
+    "sha256": "7acf7259c136b617708945fb67667723d1355f7006a607b26cea5370dcdc2e0a"
+  },
+  "rodada4/installed-apk.json": {
+    "bytes": 280,
+    "sha256": "2e9a9fea0ed0f86d8851454b4acf2eb55e562bb03afe9220a49bd7dc69a3c80a"
+  },
+  "rodada4/latest-hierarchy.xml": {
+    "bytes": 20815,
+    "sha256": "7acf7259c136b617708945fb67667723d1355f7006a607b26cea5370dcdc2e0a"
+  },
+  "rodada4/matrix-summary.json": {
+    "bytes": 16074,
+    "sha256": "d249c9c2355a34eae2897864f34b7d1d6b5cd0bf92500e3cbf78cc32af50fa15"
+  },
+  "rodada4/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada4/reader-environment.json": {
+    "bytes": 328,
+    "sha256": "a7b855d04c114a9c196c4bf8d23010c4fa85c7a3d051315e4c44f6e776d48979"
+  },
+  "source-hashes.json": {
+    "bytes": 1726,
+    "sha256": "f1b5d89d65c16f0debe3101f73ac9b1ad235e208caf8f63f12366299bdbe7d3b"
+  }
+}

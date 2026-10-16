@@ -432,3 +432,8 @@ SQLite/Drizzle/SecureStore/HTTP são reais nos caminhos saudáveis; indisponibil
 ### Interface de recuperação — recorte05,12/10/2026
 
 [Entrega e limites](../docs/analises/2026-10-12-interface-recuperacao-de-senha.md): solicitação uniforme e nova senha pelo transporte existente, sem ativação automática de sessão nem perda de pendências. Native intent sanitiza navegação e mantém segredo somente como referência transitória; abrir não confirma. Invalidado/usado/expirado oferece novo pedido; offline/429/falhas preservam campos e contexto para ação deliberada. Fluxos de banco/logout mantêm seus bloqueios; recuperar identidade não libera domínio/cópia parcial. Reautenticar respeita a conta ativa. 192 testes app,85 Java/13 operacionais e cinco fases Android locais aprovados. Associações públicas, iOS Q55=B, recorte06 e aceite integral continuam abertos; nenhuma mudança no contrato HTTP/DDL.
+
+
+### Verificação nativa de descarte, espera e cópia — 16/10/2026
+
+[TalkBack a 200%, rodada4](../docs/analises/2026-10-16-talkback-descarte-e-espera.md): nove fases aprovadas, confirmação por item e originais/dependentes preservados; 429/503 no push respeitam espera após reinício, com resultado sem duplicação. Snapshot inicial falha antes da primeira página e mantém gate; conclusão e troca A/B/A conservam isolamento. Mesmo contrato/schema e fontes de produto; somente fixtures/testes/lançador/documentação ampliados. Tipos/lint e 228 testes do app passaram; check completo da API aprovado em 10m43s: 85 executados/oito nativos opt-in ignorados, zero falhas/erros, 13 verificações operacionais e modularidade. Não aceita interrupção com staging não zero, atualização obrigatória no leitor, retry esgotado, iPhone ou M1 integral.

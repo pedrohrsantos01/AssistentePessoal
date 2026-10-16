@@ -1,0 +1,8 @@
+{
+  "source": "rodada1/reader-environment.json",
+  "wiped": false,
+  "mainInstallationPreserved": true,
+  "readerNeverEnabledInFailedRun": true,
+  "restored": true,
+  "observerRemovalGuardedByHash": true
+}

@@ -283,6 +283,18 @@ test('sync review corrects a proven rejection and never offers discard for uncer
  } finally {x.close();}
 });
 
+test('canceling a proposed discard preserves the original and requires a fresh explicit confirmation',async()=>{
+ const f=fixture();try {
+  await act(async()=>{await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Cancelar descarte','reading','blue',false);});
+  const store=f.session.account(),parent=store.operations().find(op=>op.command.type==='habit.create')!;
+  await act(async()=>{store.applyAck([{receipt:{operationId:parent.operationId,operationHash:operationHash(parent),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]);});
+  await mount(f);await fireEvent.press(screen.getByRole('button',{name:/^Sincronização: /}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewChanges}));await fireEvent.press(screen.getByRole('button',{name:pt.reviewOperation('Criar hábito · Cancelar descarte')}));
+  await fireEvent.press(screen.getByRole('button',{name:pt.discardOperation}));expect(screen.getByText(pt.discardHelp)).toBeOnTheScreen();
+  await fireEvent.press(screen.getByRole('button',{name:pt.close}));expect(store.recovery()[0]?.resolution).toBeNull();expect(store.recovery()[0]?.operation).toEqual(parent);
+  await fireEvent.press(screen.getByRole('button',{name:pt.reviewOperation('Criar hábito · Cancelar descarte')}));expect(screen.queryByRole('button',{name:pt.discardConfirm})).toBeNull();expect(screen.getByRole('button',{name:pt.discardOperation})).toBeOnTheScreen();
+ } finally {f.close();}
+});
+
 test('discard confirms only the selected rejection, preserves its child, and read-only update disables correction fields',async()=>{
  const f=fixture();try {
   await act(async()=>{await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Pai','reading','blue',false);});
