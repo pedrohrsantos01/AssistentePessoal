@@ -71,11 +71,13 @@ export class Journey {
  };
  private message(error:unknown,local=false) {
   if(error instanceof IdentityHttpError) {
+   if(error.status===426) return pt.update;
    if(error.status===429) return pt.rateLimit;
    if(error.status>=500) return pt.serviceUnavailable;
    if(error.code==='invalid_credentials'||error.status===401) return pt.credentialsError;
    if(error.code==='email_already_exists'||error.status===409) return pt.emailConflict;
   }
+  if(error instanceof Error&&['update_required','unsupported_protocol'].includes(error.message)) return pt.update;
   if(error instanceof Error&&error.message==='logout_required') return pt.sameAccountRequired;
   if(error instanceof Error&&error.message==='duplicate_habit') return pt.duplicateHabit;
   if(error instanceof Error&&error.message==='habit_unavailable') return pt.habitUnavailable;

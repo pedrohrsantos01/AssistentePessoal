@@ -1,0 +1,19 @@
+{
+  "adbDevices": "List of devices attached\n",
+  "watcherCount": 0,
+  "qemuCount": 0,
+  "containers": [
+    "f882bd0241de supabase_db_care-platform",
+    "8ce1ea6d7cb9 supabase_pg_meta_care-platform",
+    "be317b65041e supabase_storage_care-platform",
+    "fab5b08db76e supabase_rest_care-platform",
+    "56be50f7c088 supabase_realtime_care-platform",
+    "a2720b018c6d supabase_inbucket_care-platform",
+    "bd51a691b5e0 supabase_auth_care-platform",
+    "fdecdd8e842d supabase_kong_care-platform",
+    "30500e5d65d3 ai-memory"
+  ],
+  "preexistingContainerNamesStillPresent": true,
+  "containerIdentityEqualityClaimed": false,
+  "note": "No pre-existing processes/containers were stopped by this increment. A baseline database container ID differs at final snapshot; equality of container IDs is not claimed."
+}

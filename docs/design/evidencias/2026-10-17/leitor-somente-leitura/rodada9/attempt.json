@@ -1,0 +1,16 @@
+{
+  "accepted": false,
+  "phasesPassed": 0,
+  "reason": "same initial invalid-target instrumentation probe timed out after30s; no app/reader/font preparation",
+  "readerSettingsChanged": false,
+  "causeDemonstrated": false,
+  "launchLogSha256": "1eda17d2540b801e61c227b64115db447a066f956b08a9c6b2e6ea3c3d2aa4f3",
+  "isolation": {
+    "temporaryAbsent": true,
+    "afterSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+    "temporaryPackage": "dev.ritmo.readonlytest",
+    "originalUnchanged": true,
+    "originalSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+    "originalPackage": "dev.ritmo.journeytest"
+  }
+}

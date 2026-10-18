@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "countsBeforeAuditAndManifest": {
+    "xml": 68,
+    "json": 90,
+    "png": 60,
+    "passwordNodes": 9
+  },
+  "pngCrcAndIendValidated": true,
+  "textParsed": true,
+  "passwordTextEmpty": true,
+  "noSecretPatternHits": true,
+  "sourceHashesAgree": true
+}

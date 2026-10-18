@@ -1,0 +1,22 @@
+{
+  "accepted": false,
+  "phasesPassed": 9,
+  "reason": "native version changed, but both APKs embedded the same JS bundle without the0.1.1 literal; fixture identity stayed0.1.0",
+  "restored": true,
+  "bundleInspection": [
+    {
+      "variant": "current",
+      "apkSha256": "5e201d36ad9e9f7838f08e32a2546467b4af64c95225d0f025b1e23935f94743",
+      "bundleSha256": "3bde000cd3930a76906bb9d1784356e64e1e2d036f3f560b80284ba2a931955c",
+      "updatedVersionLiteralPresent": false
+    },
+    {
+      "variant": "updated",
+      "apkSha256": "e512585eef636de4686b4ef5ce5d7ea9f72535b8c477d884435ce9830d273a50",
+      "bundleSha256": "3bde000cd3930a76906bb9d1784356e64e1e2d036f3f560b80284ba2a931955c",
+      "updatedVersionLiteralPresent": false
+    }
+  ],
+  "launchLogSha256": "ebd5a1309d451bb1d9c571377a0ad18908292ab50423d36350bd38a88722d5fd",
+  "change": "Unset CI for the Gradle bundling step so installed Expo CLI honors React Native reset-cache; verify extracted APK bundles differ and only updated includes version0.1.1 before native replay."
+}

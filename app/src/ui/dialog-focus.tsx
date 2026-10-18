@@ -1,5 +1,5 @@
 import {createContext, useCallback, useContext, useLayoutEffect, useMemo, type ReactNode} from 'react';
-import {AccessibilityInfo, Platform, type View, type ScrollView} from 'react-native';
+import {AccessibilityInfo, PixelRatio, Platform, type View, type ScrollView} from 'react-native';
 import {DialogFocusViewport} from './dialog-focus-viewport.ts';
 import {DialogFocusController, type DialogControl, type DialogFocusDriver, type DialogWindow} from './dialog-focus-controller.ts';
 
@@ -41,7 +41,7 @@ export function useDialogControl(key: string | undefined, enabled: boolean) {
 export function useDialogWindow(id: string, visible: boolean) {
   const controller = useContext(Scope);
   const window = useMemo<DialogWindow<Host>>(() => ({id, visible: false, shown: false, title: null, opener: null}), [id, controller]);
-  const viewport=useMemo(()=>new DialogFocusViewport(work=>requestAnimationFrame(work)),[window]);
+  const viewport=useMemo(()=>new DialogFocusViewport(work=>requestAnimationFrame(work),PixelRatio.get()),[window]);
   useLayoutEffect(() => {
     if (!visible) return;
     controller?.begin(window);

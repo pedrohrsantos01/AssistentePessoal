@@ -1,0 +1,2 @@
+INSTRUMENTATION_RESULT: observer_error=synthetic_target_required
+INSTRUMENTATION_CODE: 1

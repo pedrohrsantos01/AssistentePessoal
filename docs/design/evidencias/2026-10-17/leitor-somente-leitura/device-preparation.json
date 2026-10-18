@@ -1,0 +1,17 @@
+{
+  "partitionGiB": 8,
+  "freshData": true,
+  "wipeData": false,
+  "controlSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "spaceAfter": "Filesystem       1K-blocks   Used Available Use% Mounted on\n/dev/block/dm-46   8107484 926948   7033080  12% /data/user/0",
+  "userdataCopied": false,
+  "talkBackPresent": true,
+  "originalAvd": "Pixel_9",
+  "spaceBefore": "Filesystem       1K-blocks   Used Available Use% Mounted on\n/dev/block/dm-46   8107484 634728   7325300   8% /data/user/0",
+  "avd": "Ritmo_ReadOnly",
+  "updatedPreflightInstalled": true,
+  "source": "Pixel_9 hardware config only; new8GiB userdata created from installed API35 system image. No existing userdata copied or wiped.",
+  "control": "Fresh journeytest baseline on the separate AVD; not a copy of the original Pixel_9 account databases.",
+  "commandsLogSha256": "ae0823a563b7a5d16f57934558049939cad22d27a9580c240110a6cbffe03ef7",
+  "officialSource": "https://developer.android.com/studio/run/emulator-commandline"
+}

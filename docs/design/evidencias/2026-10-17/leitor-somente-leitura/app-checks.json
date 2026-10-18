@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "typecheck": true,
+  "lint": true,
+  "coreInfraTests": 184,
+  "componentTests": 47,
+  "totalTests": 231,
+  "productChecksDate": "2026-10-17",
+  "driverTypesLintDate": "2026-10-18",
+  "fullAppLogSha256": "7a9d2f8661850ac5d1e9c0a93ccee97be9caa0b4a54539b7497c1bea0b8958f6",
+  "finalDriverTypesLintLogSha256": "a44d8c3ff4df8426d77653d0fe601e3ffb88d7cf1beefe69562211dbf9ecb821",
+  "note": "Product sources unchanged after full app checks; later changes are test driver/fixture/docs. Native replay verifies final driver separately."
+}

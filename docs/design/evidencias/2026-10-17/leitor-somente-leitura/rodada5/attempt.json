@@ -1,0 +1,8 @@
+{
+  "accepted": false,
+  "phasesPassed": 3,
+  "reason": "driver did not reach footer Fechar with the last long original-JSON detail expanded; UI supports only one expanded detail at a time",
+  "restored": true,
+  "change": "Preserve exclusive expansion to distinguish repeated Details buttons; collapse the final detail before closing the panel. Product unchanged.",
+  "launchLogSha256": "9104ee970f4f3d4b425b1382597474df551e8c3041076870de44320269e365f9"
+}

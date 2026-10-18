@@ -1,0 +1,890 @@
+{
+  "api-check.json": {
+    "bytes": 3244,
+    "sha256": "8b88c3f12ba7cb112ce1f725aff5924b75838459f177eb94f01eac82f8f7bdfe"
+  },
+  "app-checks.json": {
+    "bytes": 551,
+    "sha256": "ff9626177767b836d54ac1fc4912cb73453078941a2eaca7dff62b00dec63ece"
+  },
+  "builds-before-cache-fix.json": {
+    "bytes": 1045,
+    "sha256": "c63c3424a4ba8cf5a97540b4fda9fffab6bd6f92e91a6a8c1a1e6dd5e4f8b8f3"
+  },
+  "builds-before-pixel.json": {
+    "bytes": 939,
+    "sha256": "754887725f148a86cb736abab8d65fbeae38ed01720c5fc3f84d690748108e0c"
+  },
+  "builds.json": {
+    "bytes": 1466,
+    "sha256": "30c0d72f20901a918906affee0dceb687e2e13758ef340930ef58c1cf9e359ae"
+  },
+  "device-preparation.json": {
+    "bytes": 1021,
+    "sha256": "6ef5cef8a10a11aad04eb48bcf49246dc3d3db2a161d3bea576edcb808c0f3d3"
+  },
+  "evidence-check.json": {
+    "bytes": 276,
+    "sha256": "8021044bcd8fba1a0fd8d44faf52f3a7b24f2e5e2a367d38e252bf3eec27ae3b"
+  },
+  "focus-regression.json": {
+    "bytes": 1603,
+    "sha256": "f060bf29f12f39ab688982db9f05928a1d3029b9ec9f12c289ff2ddce859e92b"
+  },
+  "host-cleanup.json": {
+    "bytes": 814,
+    "sha256": "b59a00368cd5bc7149c637b8acfb0482986fe91b1079d985a7365059d69f488a"
+  },
+  "increment-summary.json": {
+    "bytes": 1421,
+    "sha256": "6306a97b63d5ff62423b40be7d1b60200e6e1574d802eaecadd878ef13e311d1"
+  },
+  "observer-target-rejection.txt": {
+    "bytes": 89,
+    "sha256": "94e0424fd79e63bee81719f45a47d390a5a22d103827575b0c65cf732a3b6cec"
+  },
+  "observer-target-validation.json": {
+    "bytes": 669,
+    "sha256": "c8f0a7e5eee5427f27181c53745c5d1f70fb17e005d200a83d32c102b96f490d"
+  },
+  "original-avd-before-round5.json": {
+    "bytes": 444,
+    "sha256": "1067ec2417375208425ec387cdb453b9b8ccacdfec9f48ea9b1fc6ccd50bc39a"
+  },
+  "original-avd-comparison.json": {
+    "bytes": 611,
+    "sha256": "e8d09046e3b0b746020dac222b9ca474dd642f58bddd51d0d70f8b11097bfafa"
+  },
+  "preparation.json": {
+    "bytes": 1359,
+    "sha256": "177be2edc1de7adc30fda95c768970cd45d1e3a3f67e279eaff71034d16a6417"
+  },
+  "README.md": {
+    "bytes": 2598,
+    "sha256": "5c72508339a227e235748e949a2c20be6c5eac09a4f26cc2be1bea8affe07664"
+  },
+  "rodada1/attempt.json": {
+    "bytes": 684,
+    "sha256": "f793ab51ed1f8263d5c3d2f0facd6845d19e8aa2448f578c9770eb5f84bb04ba"
+  },
+  "rodada1/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "93a0229350b3a8ede948230fa11366e356b8a1ca9487a71a880b8b93ab0a93bf"
+  },
+  "rodada10/attempt.json": {
+    "bytes": 531,
+    "sha256": "04e4eb14dd83cb58576c60b1ca3d2edd7c16605a85ab7de62c01996b4e25c823"
+  },
+  "rodada10/failure-reader-readonly.xml": {
+    "bytes": 14141,
+    "sha256": "e2dcfd147a37609047bf75d05e604bedf23c5b48e6862af73ae018ed78235e06"
+  },
+  "rodada10/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "9279eef53f4a6ddc02d9462aefcfe6451940f3be5771d88307fdd7ac1cf31198"
+  },
+  "rodada10/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "0871c95c763d3e50f3b5edfe9cfb642bb2e4f8fe6405197841e1dfed48737c6d"
+  },
+  "rodada10/latest-hierarchy.xml": {
+    "bytes": 14141,
+    "sha256": "e2dcfd147a37609047bf75d05e604bedf23c5b48e6862af73ae018ed78235e06"
+  },
+  "rodada10/matrix-summary.json": {
+    "bytes": 2735,
+    "sha256": "1474566fc788fb61f9b22e36b44f72582d5acf8ca15321b7025640188885236d"
+  },
+  "rodada10/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada10/reader-environment.json": {
+    "bytes": 365,
+    "sha256": "bae109e40d8b37600988edb9726cacf89945c0c910fbdfc81278cec56cdaa318"
+  },
+  "rodada11/attempt.json": {
+    "bytes": 410,
+    "sha256": "4bda03354bd9eb475b46f7787ffd4a23a0321f52041a3a82f51d7c6f827d24d5"
+  },
+  "rodada11/failure-app-state.json": {
+    "bytes": 196,
+    "sha256": "3eb6e1bc40b855f45ada363cf955dc5bed3cfb41b3e68b09ad0d2513dbc1b8bf"
+  },
+  "rodada11/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "ff29c557747f77be9bec78ef902dcc64bbdb1c723f90a6f9f1c173a42f8785e9"
+  },
+  "rodada11/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "90939e15c448dabe18b847216e9e7a0b839c88e31b43775b8d77146b0de86582"
+  },
+  "rodada11/latest-hierarchy.xml": {
+    "bytes": 8820,
+    "sha256": "58c22f4a5dfc59185f46c2da67c6915770286f270b065a5df7cdc51a92cb3b19"
+  },
+  "rodada11/latest-observer-status.json": {
+    "bytes": 51,
+    "sha256": "d774c30cffe0f21a4c2854043f4d202dd07de7f49b42e14c02340e176388c92c"
+  },
+  "rodada11/matrix-summary.json": {
+    "bytes": 845,
+    "sha256": "d3cb1b1b5529a146bae5ee665fab413596ca4d4d68c5c94fa4d6c69ee8381e08"
+  },
+  "rodada11/post-failure-restoration.json": {
+    "bytes": 390,
+    "sha256": "e6fce98dd25687fd5083a5b401b1fdd9a77226478ab1775819bb4c08bb21f92e"
+  },
+  "rodada11/reader-cleanup.json": {
+    "bytes": 100,
+    "sha256": "a9d2021d4c2a66ac04c086b3586e2d62095c012a402e3f627ac8f65b5e86541a"
+  },
+  "rodada11/reader-environment.json": {
+    "bytes": 365,
+    "sha256": "bae109e40d8b37600988edb9726cacf89945c0c910fbdfc81278cec56cdaa318"
+  },
+  "rodada12/01-rejected-before-gate.png": {
+    "bytes": 145386,
+    "sha256": "93487eb68f7e8ff804023edd97a17106f99211034973cd4b14053a1b1ad040bd"
+  },
+  "rodada12/01-rejected-before-gate.xml": {
+    "bytes": 16205,
+    "sha256": "c199e74fb4537a215e8bc03626b8e406e302ea38e1c125e43bbf269704b7c430"
+  },
+  "rodada12/02-offline-mark-original.png": {
+    "bytes": 204203,
+    "sha256": "00c87aa13e2c0f08b9eb1e36fcee3fc8ad01c887be23c7738f3dc812a5df4778"
+  },
+  "rodada12/02-offline-mark-original.xml": {
+    "bytes": 22163,
+    "sha256": "06cf8c3325110e2343c3be515699cbd7518983bead21c7ed4edcff1e17741fae"
+  },
+  "rodada12/02-offline-original.png": {
+    "bytes": 287885,
+    "sha256": "8cbe675102be3d88f88563f127a582d15bfc72249d8a21bd47284c6664baafe7"
+  },
+  "rodada12/02-offline-original.xml": {
+    "bytes": 22289,
+    "sha256": "e46c6002247f0756ae8a8bd0f7f460cfed51ef7bc3d8bf9ba3d898f0d581da72"
+  },
+  "rodada12/03-required-update-readable.png": {
+    "bytes": 257069,
+    "sha256": "119f705348c2ab182888ce76c0cce70853b1f4ec78207f83e5545ac66dae1289"
+  },
+  "rodada12/03-required-update-readable.xml": {
+    "bytes": 22839,
+    "sha256": "ac3175bc46fbffa5346b5a7e86d063a6eeede713e3f0b7033da97d67b95183c0"
+  },
+  "rodada12/04-management-disabled-content-readable.png": {
+    "bytes": 156071,
+    "sha256": "e99328834875205e55ae236efcba8e85d134799e5b473e88aa27b021e6eaa875"
+  },
+  "rodada12/04-management-disabled-content-readable.xml": {
+    "bytes": 21772,
+    "sha256": "d4c62a76f395530447234a2aaa46cd7c11e06c571ced9ff4f01c667e2867dc40"
+  },
+  "rodada12/05-readonly-diagnosis-original.png": {
+    "bytes": 222283,
+    "sha256": "469b40dad653008537e8c65ce46732881cfc84168f9b9f59c29a9c773278c3f4"
+  },
+  "rodada12/05-readonly-diagnosis-original.xml": {
+    "bytes": 16224,
+    "sha256": "c7cfde7f9906dbd93242badb107f7d0b8982f0b519ef96e6a5a104b8c9f25940"
+  },
+  "rodada12/05-readonly-return-to-opener.png": {
+    "bytes": 180439,
+    "sha256": "3d37c536fbe77db02c04d317f20fe0fb25233111d07a81d2e04ea9422a66bcdf"
+  },
+  "rodada12/05-readonly-return-to-opener.xml": {
+    "bytes": 12015,
+    "sha256": "babf31e6236627c77cd2ba49b0dbaac7d1a5f66a67258ed0545115ada9d55c69"
+  },
+  "rodada12/06-same-build-without-fault-still-blocked.png": {
+    "bytes": 256969,
+    "sha256": "d4badfcbfe1854d6595d70baf5f24ce68067552950704bd4fb5ee674b1a38fc4"
+  },
+  "rodada12/06-same-build-without-fault-still-blocked.xml": {
+    "bytes": 22839,
+    "sha256": "e494546753338732ac0e848949c0f2e02b33777e3e7fc13889b174016d8e97c0"
+  },
+  "rodada12/07-offline-restart-still-blocked.png": {
+    "bytes": 255313,
+    "sha256": "ae1dc55188018c44d0621b9c9b91429a44ccfd0d8c6ec2647bb19399c5d98efa"
+  },
+  "rodada12/07-offline-restart-still-blocked.xml": {
+    "bytes": 22839,
+    "sha256": "46c0ff345563f90a3e3cd1b3c64f5c228eaaf1d2a07d3b6bc983122ac13ca92c"
+  },
+  "rodada12/08-logout-cancel-preserves-session.png": {
+    "bytes": 191617,
+    "sha256": "6030a1351ce3388871f3efbb4d369150e624c127d95d10b4ced08dd71f0e8c38"
+  },
+  "rodada12/08-logout-cancel-preserves-session.xml": {
+    "bytes": 26417,
+    "sha256": "fd36a7dc53728637093e38558f99c1dfc3dfc703eb26a51816c67746628fd71d"
+  },
+  "rodada12/09-logout-hides-local-account.png": {
+    "bytes": 101513,
+    "sha256": "2abc4a712756ae6f905e8e76bbd41b7645756e33e44648d9af2f1c5074dc706c"
+  },
+  "rodada12/09-logout-hides-local-account.xml": {
+    "bytes": 8841,
+    "sha256": "8c313e32f2dc9573ba53494e0b9f28245ee3894237605122d239d8cad1b05dcd"
+  },
+  "rodada12/10-old-build-login-cannot-bypass-gate.png": {
+    "bytes": 107594,
+    "sha256": "5cae882b02a8af085d3421b94f995f57cfac8baafe7932b7ee1f83fd1d0db817"
+  },
+  "rodada12/10-old-build-login-cannot-bypass-gate.xml": {
+    "bytes": 11052,
+    "sha256": "150cc6af33e32684e361f4b538c7764b64d6045b29e0727c5378031d33209dd2"
+  },
+  "rodada12/11-updated-build-offline-does-not-open-account.png": {
+    "bytes": 120008,
+    "sha256": "15dd2fb45ddc8df2027cb4cf5ab6232173dec1cb8a3badeca119a9598dec8e91"
+  },
+  "rodada12/11-updated-build-offline-does-not-open-account.xml": {
+    "bytes": 11778,
+    "sha256": "dd4bff98adeb095589e78f7190e964391dfb6724ab30a4431da91ebadb896474"
+  },
+  "rodada12/12-compatible-response-releases-without-duplicate-xp.png": {
+    "bytes": 210955,
+    "sha256": "7c1f7df78be6ff725723a9aeda11355a7f7ef3dd1f160b9a93dd4ba833931286"
+  },
+  "rodada12/12-compatible-response-releases-without-duplicate-xp.xml": {
+    "bytes": 21532,
+    "sha256": "f37a39a0ee6616b45b8b9b70b7e89b322d55f3f5dce195cc02f61330eaf43381"
+  },
+  "rodada12/13-mark-identity-survives-update.png": {
+    "bytes": 199047,
+    "sha256": "8139fc1ec3a5f5ade345e7f92f31983b403aa796c98e43055ba534c1d923233d"
+  },
+  "rodada12/13-mark-identity-survives-update.xml": {
+    "bytes": 22178,
+    "sha256": "17a842d65cf4ed152b79f7004ece82fd7f8854a7eac9e1c297a82c07be7d1a50"
+  },
+  "rodada12/13-original-identities-survive-update.png": {
+    "bytes": 241630,
+    "sha256": "d9f71a77a8bf6bad60325bbb57e1dc0b1d3a28c54fae8b4c7a2c6158a1d79e18"
+  },
+  "rodada12/13-original-identities-survive-update.xml": {
+    "bytes": 22310,
+    "sha256": "dc5064db883ac075c077f76975f9cef65652b9a925baf4f6f7a23e4ec22687f3"
+  },
+  "rodada12/14-rejection-preserved-after-update.png": {
+    "bytes": 145891,
+    "sha256": "e6787244aca4be29c8a8b9d0b0c38162289285387d9cd10cc387bc3fe27264f6"
+  },
+  "rodada12/14-rejection-preserved-after-update.xml": {
+    "bytes": 16205,
+    "sha256": "96961eed5e1c1ad0206cebb7c641095d36af92590a1d2213fed9e4cb82bb43f9"
+  },
+  "rodada12/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "bcd9c4a26dd0ead4c9b4e34921409547ef84162770cfbbffb8edce43836b2dda"
+  },
+  "rodada12/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "67f2b33001ce6fff1464c68cc178b6fb892bf8e3bdf9abd1a93cacd782555a87"
+  },
+  "rodada12/invocation.json": {
+    "bytes": 441,
+    "sha256": "a276a5af3b017126c0fb96a9f6a3d51f0befaa441cc80be4e5117a4882ef6b17"
+  },
+  "rodada12/latest-hierarchy.xml": {
+    "bytes": 21533,
+    "sha256": "58b14b325f0fc38c77ffd30c3ccb0bbee62ec576ddd32a2912a7211c2aff030a"
+  },
+  "rodada12/latest-observer-status.json": {
+    "bytes": 50,
+    "sha256": "b1ed5e8aa10745eb687577e5253487391ce81c35dfb1ed7241e588b4b1f42d63"
+  },
+  "rodada12/matrix-summary.json": {
+    "bytes": 16581,
+    "sha256": "88f101e0d661b84b4291fc0790e0759b6510e1ab36f9e31320b42f43ce49351f"
+  },
+  "rodada12/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada12/reader-environment.json": {
+    "bytes": 365,
+    "sha256": "bae109e40d8b37600988edb9726cacf89945c0c910fbdfc81278cec56cdaa318"
+  },
+  "rodada2/01-rejected-before-gate.png": {
+    "bytes": 144709,
+    "sha256": "4adada4a5d379bdf29e6aca90c27dcb41e45ac5aefcebafe4bda0b9a48663c8d"
+  },
+  "rodada2/01-rejected-before-gate.xml": {
+    "bytes": 16163,
+    "sha256": "083e818c8f69fc9d41d6f89362e2c1208190cfc9256f993eb9604cdb845acbb8"
+  },
+  "rodada2/02-offline-original.png": {
+    "bytes": 288295,
+    "sha256": "d51fb764f83010534813c0dfb47d5c80d416ee5475967bf254a38bcb4ccb07d3"
+  },
+  "rodada2/02-offline-original.xml": {
+    "bytes": 22230,
+    "sha256": "d894b137fa610c8ba59bebf96cfba6ea667724897970d4a38a01416faeaacb2d"
+  },
+  "rodada2/attempt.json": {
+    "bytes": 678,
+    "sha256": "f0445dfa9a382291532ce835cbf6808907e0e0236dda4034b820320274002690"
+  },
+  "rodada2/failure-missing-target.png": {
+    "bytes": 244406,
+    "sha256": "cb5121adb12a7be97dae5e894dac725784c04391a675adb1bed72081a1750a76"
+  },
+  "rodada2/failure-reader-readonly.png": {
+    "bytes": 244406,
+    "sha256": "cb5121adb12a7be97dae5e894dac725784c04391a675adb1bed72081a1750a76"
+  },
+  "rodada2/failure-reader-readonly.xml": {
+    "bytes": 21901,
+    "sha256": "d0647b4370822f51209991cee45acfa6802a402809e542079ef1d30794ba0ee3"
+  },
+  "rodada2/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "ef8a983d884a06b373efe9a71d8e1955c14fd9ce589e72fc3475b679158f9813"
+  },
+  "rodada2/installed-apk.json": {
+    "bytes": 281,
+    "sha256": "766dc1acbb5e9b281f2996b7ca73a6de9e2c96de722efbd20da3736807ca74ee"
+  },
+  "rodada2/latest-hierarchy.xml": {
+    "bytes": 21901,
+    "sha256": "d0647b4370822f51209991cee45acfa6802a402809e542079ef1d30794ba0ee3"
+  },
+  "rodada2/matrix-summary.json": {
+    "bytes": 7006,
+    "sha256": "1b9c518b96a67f69c4285ff40a6ea820a960508885d12d886f9deeafc464c51a"
+  },
+  "rodada2/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada2/reader-environment.json": {
+    "bytes": 329,
+    "sha256": "8084f0b8b481883206efd45d0a9b1ed516c4ab2428ad04f57fc2e5564c1374e6"
+  },
+  "rodada3/01-rejected-before-gate.png": {
+    "bytes": 146337,
+    "sha256": "226437d04d7c94dd30347d91d2c4f5338c18fa11fa45df4e3ef68d5e264ef355"
+  },
+  "rodada3/01-rejected-before-gate.xml": {
+    "bytes": 16205,
+    "sha256": "5591247806e845112f6a73dcd2b6e68581a3570cae97bc9ba20f813c867580a1"
+  },
+  "rodada3/02-offline-original.png": {
+    "bytes": 286061,
+    "sha256": "f17caa4d5b252ebb5d1e1433b00408c2b2a1724f776290dd0650957257a7319a"
+  },
+  "rodada3/02-offline-original.xml": {
+    "bytes": 22289,
+    "sha256": "5045a802f919c1b80199522a1fd12d7da8039ed0e80edaf6ecb21954fa3b44d3"
+  },
+  "rodada3/03-required-update-readable.png": {
+    "bytes": 257263,
+    "sha256": "69f136349eff515f9a619045fb21fd5986164e4656fa829e12c3e40f3ef41bfb"
+  },
+  "rodada3/03-required-update-readable.xml": {
+    "bytes": 22843,
+    "sha256": "4af0ea37d31bf931333507bfa0750580496a2914f8d1fcc5df2d2393538ca120"
+  },
+  "rodada3/04-management-disabled-content-readable.png": {
+    "bytes": 155866,
+    "sha256": "79c2ed391b34e8e6134a690075b786b115854454e3046337baf90c59bff40f45"
+  },
+  "rodada3/04-management-disabled-content-readable.xml": {
+    "bytes": 21772,
+    "sha256": "ca315be9b0e082fd41fe611c24d6e1870bc2f4fbb3c1ea28d4a93493d0198853"
+  },
+  "rodada3/05-readonly-diagnosis-original.png": {
+    "bytes": 223358,
+    "sha256": "42009ae5a5180a794edb3a9f7cd8c5354aa0229d7b99c8e4d43d5c0435bab3b7"
+  },
+  "rodada3/05-readonly-diagnosis-original.xml": {
+    "bytes": 16224,
+    "sha256": "ad5ccff0119e636e386460535dc9040e811d31ff1fe06d8d25b70d1cebb8ba5b"
+  },
+  "rodada3/attempt.json": {
+    "bytes": 532,
+    "sha256": "f7ad9c1af4e63365011e537d92294ec48c49766b1bae5429cf6dac5fa1fe001c"
+  },
+  "rodada3/failure-reader-readonly.png": {
+    "bytes": 178422,
+    "sha256": "484b5a57fcbc5d96138e51b0124ad64a2c10a05f237d0553650b4f304ada38df"
+  },
+  "rodada3/failure-reader-readonly.xml": {
+    "bytes": 12015,
+    "sha256": "3143561544026e0c77dd9540e2c1eab8aabf9ed2f1019c8530d366a5dfc23b8a"
+  },
+  "rodada3/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "c06f31b0a421467e4b960f452646eed3b95e13d0e48679ed89ac06751b4ba800"
+  },
+  "rodada3/installed-apk.json": {
+    "bytes": 281,
+    "sha256": "19f1d91bb8ec3b7331a381255834fe46ea618e989ca56aaf0d30fd314f2c23e9"
+  },
+  "rodada3/latest-hierarchy.xml": {
+    "bytes": 12015,
+    "sha256": "3143561544026e0c77dd9540e2c1eab8aabf9ed2f1019c8530d366a5dfc23b8a"
+  },
+  "rodada3/matrix-summary.json": {
+    "bytes": 10530,
+    "sha256": "7cc7bd2720bb8f69f0931ad4426ab984750620a4d8c7e7f97982c340c3ffa670"
+  },
+  "rodada3/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada3/reader-environment.json": {
+    "bytes": 329,
+    "sha256": "8084f0b8b481883206efd45d0a9b1ed516c4ab2428ad04f57fc2e5564c1374e6"
+  },
+  "rodada4/01-rejected-before-gate.png": {
+    "bytes": 144994,
+    "sha256": "b1aa13ff303c7454bb16b6281b018b84bc0dd022757f74002c15ea779c731d66"
+  },
+  "rodada4/01-rejected-before-gate.xml": {
+    "bytes": 16163,
+    "sha256": "d48a8a95efaca09298c09401336040e0ea182c4e6a5977320517582c42890fe1"
+  },
+  "rodada4/02-offline-original.png": {
+    "bytes": 288851,
+    "sha256": "3d7ef99e6ecb9d5437a09ada6bef740563099c97b9b24721b3aac22bd957b1f0"
+  },
+  "rodada4/02-offline-original.xml": {
+    "bytes": 22230,
+    "sha256": "50d45cc49fd1833334ed2423584277fa006531923066d35e7841611f40e50810"
+  },
+  "rodada4/03-required-update-readable.png": {
+    "bytes": 258685,
+    "sha256": "eaa5fb5a2de5eb402359700113680ebec3b3750a35faefa17b6d9aec6ce83576"
+  },
+  "rodada4/03-required-update-readable.xml": {
+    "bytes": 22779,
+    "sha256": "ed6996e68e3a11b11cf30d4d27fe17ce3a698b10464ace600907502f1501a92b"
+  },
+  "rodada4/04-management-disabled-content-readable.png": {
+    "bytes": 157191,
+    "sha256": "6738b18489c97d51d4bcb0962646f43622bbe9fc8d0349510cfc0e39407096ca"
+  },
+  "rodada4/04-management-disabled-content-readable.xml": {
+    "bytes": 21711,
+    "sha256": "1e666fae3f603db5df70302e165f463c570716a7d44bcf9db89c9ef0944b653c"
+  },
+  "rodada4/05-readonly-diagnosis-original.png": {
+    "bytes": 192224,
+    "sha256": "653d725386930ded3cbf4dc51e318ffe9f2f7144df417f404c0ae3d06db85522"
+  },
+  "rodada4/05-readonly-diagnosis-original.xml": {
+    "bytes": 16219,
+    "sha256": "87a8fed9286f743b3f65048a791e934a271d0f1374d6ef30c9481b414d925a62"
+  },
+  "rodada4/05-readonly-return-to-opener.png": {
+    "bytes": 180456,
+    "sha256": "05819132b15724393e8d80d779ce5d39f902bf5f216b7a7920d317ef9098c701"
+  },
+  "rodada4/05-readonly-return-to-opener.xml": {
+    "bytes": 12015,
+    "sha256": "639d4de7098c5e5cdde3ddd6bd3fa3d6568063007d9ef6573d629115cad892e2"
+  },
+  "rodada4/06-same-build-without-fault-still-blocked.png": {
+    "bytes": 259198,
+    "sha256": "7aefb82e01d987627b1de25052135362eb4cd7265c27d29e85338f938f8f5964"
+  },
+  "rodada4/06-same-build-without-fault-still-blocked.xml": {
+    "bytes": 22843,
+    "sha256": "8e7713473a0b0bc76695fb78ed265082569e085bb2653b2c0dbeca39c7e352ab"
+  },
+  "rodada4/07-offline-restart-still-blocked.png": {
+    "bytes": 257415,
+    "sha256": "2ca5d04da4e91d7869de90cf29d8ee80ba61f953ef5e59dee36e432a08555cbf"
+  },
+  "rodada4/07-offline-restart-still-blocked.xml": {
+    "bytes": 22843,
+    "sha256": "8eb2ae11e964ee9a1e1b1b94889704a506679310a04b4bf680e7fb4da1e7aea0"
+  },
+  "rodada4/08-logout-cancel-preserves-session.png": {
+    "bytes": 191881,
+    "sha256": "abe8bd1b5c7644382e9d0aff08daaeb10152f4d1863cb0548c9f9f9824abab7d"
+  },
+  "rodada4/08-logout-cancel-preserves-session.xml": {
+    "bytes": 26417,
+    "sha256": "67d76799c88efde7f1d48aeb1dad66bfa8ae6928df6124aeae5350adb8fc3184"
+  },
+  "rodada4/09-logout-hides-local-account.png": {
+    "bytes": 100733,
+    "sha256": "9cfc8aa259025124657547c95e25291e937f2019d80aca174387a9bda8d9e79e"
+  },
+  "rodada4/09-logout-hides-local-account.xml": {
+    "bytes": 8841,
+    "sha256": "8ba3b274a69e837516a48ec13ceca28dea10af00776edca8ea20a6917d5808b2"
+  },
+  "rodada4/10-old-build-login-cannot-bypass-gate.png": {
+    "bytes": 106222,
+    "sha256": "e96d3dbdc14dc36619fcc9d2cf67dbd1b1a33c1d4d52166246967a3c9502bae1"
+  },
+  "rodada4/10-old-build-login-cannot-bypass-gate.xml": {
+    "bytes": 11052,
+    "sha256": "a4d32a5cdef51a43676132a683b4d03040bb66f833dc23a87fe8c1c81ba94382"
+  },
+  "rodada4/attempt.json": {
+    "bytes": 421,
+    "sha256": "220e6ab2e9465de4a3eef832a9eb78e04669ac0e771dae80c3bb47ab7fda4c45"
+  },
+  "rodada4/failure-reader-readonly.xml": {
+    "bytes": 11052,
+    "sha256": "a4d32a5cdef51a43676132a683b4d03040bb66f833dc23a87fe8c1c81ba94382"
+  },
+  "rodada4/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "5cfc045be1de2af8738095fe70f582a9bb77b590c783eef1cb4dc723a201091f"
+  },
+  "rodada4/installed-apk.json": {
+    "bytes": 281,
+    "sha256": "dffdb755e2bdd2bfcb0ea9e28569423ead9f6c611b81b8db541dcc911047af12"
+  },
+  "rodada4/latest-hierarchy.xml": {
+    "bytes": 11052,
+    "sha256": "a4d32a5cdef51a43676132a683b4d03040bb66f833dc23a87fe8c1c81ba94382"
+  },
+  "rodada4/matrix-summary.json": {
+    "bytes": 12907,
+    "sha256": "dab3f30822ae66b22437e8d2b8156fd228740bd3d3dfae08a66600d0f8c8143a"
+  },
+  "rodada4/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada4/reader-environment.json": {
+    "bytes": 329,
+    "sha256": "8084f0b8b481883206efd45d0a9b1ed516c4ab2428ad04f57fc2e5564c1374e6"
+  },
+  "rodada5/01-rejected-before-gate.png": {
+    "bytes": 142293,
+    "sha256": "c37bd7092d6f0bc572a4ddcdba0c3d5eb8a45db0f84c1caa67f65067ac2c9f4e"
+  },
+  "rodada5/01-rejected-before-gate.xml": {
+    "bytes": 16163,
+    "sha256": "cb707893e50e242231e19d2e9331b79f0ae549bc107548420518ae710b33c6e8"
+  },
+  "rodada5/02-offline-original.png": {
+    "bytes": 282568,
+    "sha256": "8ca901b2e0a63fb4aa1861763d1e7b69542b989c3121b596ccaacb26ae6787d1"
+  },
+  "rodada5/02-offline-original.xml": {
+    "bytes": 22230,
+    "sha256": "abdb0aa2b46262111b34d5abb2cfdaa128f3ec144350d19e8fd5632e48822c97"
+  },
+  "rodada5/attempt.json": {
+    "bytes": 457,
+    "sha256": "611d49c33e69b100427517ad867dee1b2621c1841f08a670a2f100ac96a40d07"
+  },
+  "rodada5/failure-missing-target.png": {
+    "bytes": 196577,
+    "sha256": "032615324d6857efcc262886e9ed0019a831d6cfb527c010ef42f0b9e28fe4c6"
+  },
+  "rodada5/failure-reader-readonly.png": {
+    "bytes": 196577,
+    "sha256": "032615324d6857efcc262886e9ed0019a831d6cfb527c010ef42f0b9e28fe4c6"
+  },
+  "rodada5/failure-reader-readonly.xml": {
+    "bytes": 22213,
+    "sha256": "095c8422bd38275b857e8d66870cccc75543e22354f7551586f66b6e868d89bd"
+  },
+  "rodada5/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "5a576ddfaab4925567fa01e4d82ac74d84292212b360bfe9930b1e7a64b38f9b"
+  },
+  "rodada5/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "2e9553554067aec34ca939f75500344846ba9a8dd9b3f37b5d240dfbcc2156e8"
+  },
+  "rodada5/latest-hierarchy.xml": {
+    "bytes": 22213,
+    "sha256": "095c8422bd38275b857e8d66870cccc75543e22354f7551586f66b6e868d89bd"
+  },
+  "rodada5/matrix-summary.json": {
+    "bytes": 6865,
+    "sha256": "f4520d5622b5569e76d5ff6ef2ddfbacb742eacbd8fc152dd22b34f26fce8ed9"
+  },
+  "rodada5/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada5/reader-environment.json": {
+    "bytes": 365,
+    "sha256": "bae109e40d8b37600988edb9726cacf89945c0c910fbdfc81278cec56cdaa318"
+  },
+  "rodada6/01-rejected-before-gate.png": {
+    "bytes": 141755,
+    "sha256": "3a6c814079f7aace3a3afa88ae9799539aeaf0d5f98079da7740e11cebdad4c3"
+  },
+  "rodada6/01-rejected-before-gate.xml": {
+    "bytes": 16205,
+    "sha256": "f4e4ac55894974a052efb9089910c54c0214d9f7525942425521ca9b713fd040"
+  },
+  "rodada6/02-offline-mark-original.png": {
+    "bytes": 212391,
+    "sha256": "67a07f0fdcffddc65d7cfbf173c620d78db2d6af8bd343865f8efbf942c17519"
+  },
+  "rodada6/02-offline-mark-original.xml": {
+    "bytes": 22163,
+    "sha256": "467ecce5f7b3cbab976140f9dcba46fa5dde579c182ba7b88f38d5f4c632b522"
+  },
+  "rodada6/attempt.json": {
+    "bytes": 484,
+    "sha256": "7e052e3925ff180b550dc8dea27526402d32c508219d6e5f1da2c7b0b580a606"
+  },
+  "rodada6/failure-reader-readonly.png": {
+    "bytes": 213315,
+    "sha256": "fa7b71026850822716d78d27f57081114e14155355b21bce1e531b0f8c2db9a0"
+  },
+  "rodada6/failure-reader-readonly.xml": {
+    "bytes": 22163,
+    "sha256": "467ecce5f7b3cbab976140f9dcba46fa5dde579c182ba7b88f38d5f4c632b522"
+  },
+  "rodada6/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "16d6abdb5e7590a7a03fc1d2ef60f1d3922fe5b0e311a3bebd0dc31237e55301"
+  },
+  "rodada6/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "a7571631e02ef0cd82c2f10ffe60c594351fda338707b21520141efb95556dfa"
+  },
+  "rodada6/latest-hierarchy.xml": {
+    "bytes": 22163,
+    "sha256": "467ecce5f7b3cbab976140f9dcba46fa5dde579c182ba7b88f38d5f4c632b522"
+  },
+  "rodada6/matrix-summary.json": {
+    "bytes": 7032,
+    "sha256": "88824a75c67cccff5e64b0febbb844823bcb53fbde1e79939ccd9a553b30aac9"
+  },
+  "rodada6/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada6/reader-environment.json": {
+    "bytes": 365,
+    "sha256": "bae109e40d8b37600988edb9726cacf89945c0c910fbdfc81278cec56cdaa318"
+  },
+  "rodada7/01-rejected-before-gate.png": {
+    "bytes": 142092,
+    "sha256": "78a5fe55085925389147c557896ddbfeed003429c5019b5d1963c7673cc4b220"
+  },
+  "rodada7/01-rejected-before-gate.xml": {
+    "bytes": 16205,
+    "sha256": "817dae8e30c69bf0b689c99a7e62edaff3b7802754a02e63f6e656e852c5d08b"
+  },
+  "rodada7/02-offline-mark-original.png": {
+    "bytes": 208668,
+    "sha256": "5d2214f9089330c59f96c3b0a10da6b50248543717c79d686bcb17483da5ae28"
+  },
+  "rodada7/02-offline-mark-original.xml": {
+    "bytes": 22163,
+    "sha256": "84c1aab18c0b5e657d9eb8946eb8a104b01f96ce482b1f531d4320ba0a354810"
+  },
+  "rodada7/02-offline-original.png": {
+    "bytes": 280340,
+    "sha256": "6c113461147c0b202ef2aaa8753db2724655acfde9faf7a3d61dba022434996b"
+  },
+  "rodada7/02-offline-original.xml": {
+    "bytes": 22289,
+    "sha256": "f9e4e5e6a171f7a152f5d24d36b0eb40b989e4e7027622b1a0d6916311bf848f"
+  },
+  "rodada7/03-required-update-readable.png": {
+    "bytes": 253040,
+    "sha256": "89b1455eed5722d960cc05227264ac82fd1d387fb79c1d2bd80578dedbe8be44"
+  },
+  "rodada7/03-required-update-readable.xml": {
+    "bytes": 22843,
+    "sha256": "81f93370d714bb076f6e1ff6eb448dbbe4d811b287999bd44b327b8307504b35"
+  },
+  "rodada7/04-management-disabled-content-readable.png": {
+    "bytes": 152336,
+    "sha256": "9ee44ab8c30bbf18733039dc04b92fc0c8bb48c95093355c7080ef161c9b9099"
+  },
+  "rodada7/04-management-disabled-content-readable.xml": {
+    "bytes": 21772,
+    "sha256": "b2826f52349aeb716446b3f5ec2c54b475c697fd815801c6581e4a8039c08fce"
+  },
+  "rodada7/05-readonly-diagnosis-original.png": {
+    "bytes": 202340,
+    "sha256": "a09a3a1863ba869c8c6d346388c3e1dad9ac03017a4cc2f76f776de3bac61c1c"
+  },
+  "rodada7/05-readonly-diagnosis-original.xml": {
+    "bytes": 16222,
+    "sha256": "5c9533298d176882bdae167a4aa5209701d55c8ef7274c996635d60e254904de"
+  },
+  "rodada7/05-readonly-return-to-opener.png": {
+    "bytes": 177440,
+    "sha256": "055572da93ae0f7bfc9481a356f5b62ad126cdfcc49a9b6e46654e4865dbce91"
+  },
+  "rodada7/05-readonly-return-to-opener.xml": {
+    "bytes": 12015,
+    "sha256": "2b7749f0c214cb3f0f5da0e136df2b32747b448d273dca2db2da69a8d5999b0f"
+  },
+  "rodada7/06-same-build-without-fault-still-blocked.png": {
+    "bytes": 254086,
+    "sha256": "405b5860f0a36d9c2bf1daf5a914617534c5bbb278f7d20ab4f56b04cc823c83"
+  },
+  "rodada7/06-same-build-without-fault-still-blocked.xml": {
+    "bytes": 22843,
+    "sha256": "5d98d61ed5ecedb35ae44be8187bc6cad83e483110647ed75d80ecc6df6266cd"
+  },
+  "rodada7/07-offline-restart-still-blocked.png": {
+    "bytes": 252445,
+    "sha256": "f50f59235396fbca4f83c7b71a5ed8fa2d327e8608c05156191ce31ebfe309b3"
+  },
+  "rodada7/07-offline-restart-still-blocked.xml": {
+    "bytes": 22843,
+    "sha256": "a6b87481cf54463a4b6453a8c17ea18677907246dbe06d3bfe9494fd2ecfc060"
+  },
+  "rodada7/08-logout-cancel-preserves-session.png": {
+    "bytes": 189194,
+    "sha256": "cd141c6d49b40aed50f7e0949e4f5195494716fa92aa3e94f2413c8613b7c555"
+  },
+  "rodada7/08-logout-cancel-preserves-session.xml": {
+    "bytes": 26417,
+    "sha256": "b16a819a1086442cc0cef91cf4282085cb02954be7bad0ed6ca464cd30f55219"
+  },
+  "rodada7/09-logout-hides-local-account.png": {
+    "bytes": 98214,
+    "sha256": "1cca0a6b8c79d82f08cc8092e14de09bff7517fa8abf8b67856f2330d42ebdbd"
+  },
+  "rodada7/09-logout-hides-local-account.xml": {
+    "bytes": 8841,
+    "sha256": "a636cb896a8c7924bef150d0e9056732cb51a1b349717412c3b7478bf9004c5f"
+  },
+  "rodada7/10-old-build-login-cannot-bypass-gate.png": {
+    "bytes": 103162,
+    "sha256": "84b074965fdb0fe36bbd9eb69acd08d0b0eeebf2d0ada4ba7a1a5452c7550305"
+  },
+  "rodada7/10-old-build-login-cannot-bypass-gate.xml": {
+    "bytes": 11052,
+    "sha256": "3ef23d7469083621765b2a700161498ec4b1bd458c05ade238bd7925fcc57110"
+  },
+  "rodada7/11-updated-build-offline-does-not-open-account.png": {
+    "bytes": 115176,
+    "sha256": "7f6b928b843a4fc9eed5720fc9f37b220f314c23593efb62b01676da4b7aefda"
+  },
+  "rodada7/11-updated-build-offline-does-not-open-account.xml": {
+    "bytes": 11778,
+    "sha256": "149e55ff4cddc2306c42f10d5fbec7a6f13114bed66f099cdaf0e34a7d9a3dca"
+  },
+  "rodada7/attempt.json": {
+    "bytes": 1047,
+    "sha256": "b40154d9a354a5740a88230db4572be9dc2469aba01fbf5e6182e7733326c88a"
+  },
+  "rodada7/failure-missing-target.png": {
+    "bytes": 103558,
+    "sha256": "2d6122d0710be775b8faadfb9e3dbd341215bee5b53d25121ffcc773a79e11ea"
+  },
+  "rodada7/failure-reader-readonly.png": {
+    "bytes": 103558,
+    "sha256": "2d6122d0710be775b8faadfb9e3dbd341215bee5b53d25121ffcc773a79e11ea"
+  },
+  "rodada7/failure-reader-readonly.xml": {
+    "bytes": 11053,
+    "sha256": "b032e331853e2ca552b7af36d452a80b80a12d25d65382e9b16628da67a68105"
+  },
+  "rodada7/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "899b027288e921e9cf277609358db0f31cf230cc735f90edc4a45cf4c44972a5"
+  },
+  "rodada7/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "0ce13ada43f20b4b9ed01d3efae6009baeecf34d8418ff94dfa50b201a8cdcb7"
+  },
+  "rodada7/latest-hierarchy.xml": {
+    "bytes": 11053,
+    "sha256": "b032e331853e2ca552b7af36d452a80b80a12d25d65382e9b16628da67a68105"
+  },
+  "rodada7/matrix-summary.json": {
+    "bytes": 14387,
+    "sha256": "12847dd894a1fb50fbb045fe148614c1f1a51b640d2aa5964dcf0763a54722e8"
+  },
+  "rodada7/reader-cleanup.json": {
+    "bytes": 44,
+    "sha256": "9ff37c5880d4836673f2d607e80ad7596124473221d4c39fc6ade0a56e9a409c"
+  },
+  "rodada7/reader-environment.json": {
+    "bytes": 365,
+    "sha256": "bae109e40d8b37600988edb9726cacf89945c0c910fbdfc81278cec56cdaa318"
+  },
+  "rodada8/attempt.json": {
+    "bytes": 668,
+    "sha256": "1ecf45f7fd0b08c8020d6a1d80ec49bcd8bb6e0093c497dc0225fff97562915d"
+  },
+  "rodada8/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "c6d6fc4e6119087eb5a061e723b714cbb95c472ba8d41acb8e0d817be253da08"
+  },
+  "rodada8/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "1c66b0fecfffc767393c7a0e7be14d723ea4ea1c2498212298f1e3f30b6cd407"
+  },
+  "rodada9/attempt.json": {
+    "bytes": 670,
+    "sha256": "03b599da33aa7a29c5135259b8e0898261f0abaca4c9e1a555b39a99ed8c0b85"
+  },
+  "rodada9/installation-isolation.json": {
+    "bytes": 326,
+    "sha256": "40cbaa28c4d63cee6875b225c08df28c5ba82877abca0770e5a2736b21ec7cf8"
+  },
+  "rodada9/installed-apk.json": {
+    "bytes": 288,
+    "sha256": "5b81fd4c51bb6daa2c6e027cc7bb06fee35ecc26cce1cf7193886681f7f03021"
+  },
+  "source-hashes-round1.json": {
+    "bytes": 1112,
+    "sha256": "5076cb56050fb0ce4dc3c3d031b1d462406b6ed3e45b588be217234e19bd5652"
+  },
+  "source-hashes-round10.json": {
+    "bytes": 1434,
+    "sha256": "d96690f866f20eaff13c1749237ba0ddaad721812938b9337b415787275ed558"
+  },
+  "source-hashes-round11.json": {
+    "bytes": 1434,
+    "sha256": "910e6e8757611deb4b01989afff249c6d4a145da67f8a0c3293db2805959a3be"
+  },
+  "source-hashes-round12.json": {
+    "bytes": 1434,
+    "sha256": "910e6e8757611deb4b01989afff249c6d4a145da67f8a0c3293db2805959a3be"
+  },
+  "source-hashes-round2.json": {
+    "bytes": 1112,
+    "sha256": "89986b22036a3ccedb73ef1da343ddbb2142d84bc4a14caac46babe291f4bb46"
+  },
+  "source-hashes-round3.json": {
+    "bytes": 1112,
+    "sha256": "97d382f0ebb1900119e6047ab24de4ae65ca19070f39b5e02bfb79a7d0d54e7a"
+  },
+  "source-hashes-round4.json": {
+    "bytes": 1434,
+    "sha256": "6931277d319b204f99dd3292981450a95aa703d6c2b6956b22cecb1fd58fffcf"
+  },
+  "source-hashes-round5.json": {
+    "bytes": 1434,
+    "sha256": "6931277d319b204f99dd3292981450a95aa703d6c2b6956b22cecb1fd58fffcf"
+  },
+  "source-hashes-round6.json": {
+    "bytes": 1434,
+    "sha256": "20644f3c2f58ff33c1a79a03b57b032eb63fd8eb371e29376a3ff49716a3b0d3"
+  },
+  "source-hashes-round7.json": {
+    "bytes": 1434,
+    "sha256": "37916a73859a033f54cdc70ce69e3d4c1adb02919cfdbc5d3662b96ee3e22fa1"
+  },
+  "source-hashes-round8.json": {
+    "bytes": 1434,
+    "sha256": "8b0ced8a609897dfe5c145a7d03db6db97e6d0194a2245a2477cdffc903807e4"
+  },
+  "source-hashes-round9.json": {
+    "bytes": 1434,
+    "sha256": "8b0ced8a609897dfe5c145a7d03db6db97e6d0194a2245a2477cdffc903807e4"
+  }
+}

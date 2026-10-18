@@ -1,0 +1,24 @@
+{
+  "accepted": false,
+  "functionalPhases": 4,
+  "classification": "nested_focus_return_failed_in_readonly_parent",
+  "actualFocused": "mandatory upgrade notice",
+  "expectedFocused": "enabled existing review opener",
+  "openerBounds": [
+    98,
+    2187,
+    984,
+    2424
+  ],
+  "viewportBounds": [
+    0,
+    294,
+    1080,
+    2424
+  ],
+  "restored": true,
+  "originalApkUnchanged": true,
+  "temporaryPackageAbsentAfterCleanup": true,
+  "emulatorClosed": true,
+  "next": "pixel-boundary regression and rebuilt native matrix"
+}

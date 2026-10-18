@@ -1,0 +1,17 @@
+{
+  "serial": "emulator-5560",
+  "pkg": "dev.ritmo.readonlytest",
+  "secureSettings": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "touch_exploration_enabled": "0"
+  },
+  "fontScale": "1.0",
+  "wifi": "1",
+  "data": "1",
+  "notificationGranted": false,
+  "temporaryPermissionFlags": [
+    "user-set",
+    "user-fixed"
+  ]
+}

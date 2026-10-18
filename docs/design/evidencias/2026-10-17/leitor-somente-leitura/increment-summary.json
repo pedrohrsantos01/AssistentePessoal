@@ -1,0 +1,52 @@
+{
+  "boundedIncrementPassed": true,
+  "fullM1Acceptance": false,
+  "issue06Closed": false,
+  "acceptedRound": 12,
+  "nativePhases": 11,
+  "fontScale": 2,
+  "controlsMeasured": 76,
+  "fieldImeMeasurements": 11,
+  "readOnlyFields": 5,
+  "focusEvidence": [
+    {
+      "capture": "05-readonly-return-to-opener",
+      "label": "Revisar Criar hábito · Recusa conservada",
+      "bounds": "[98,2186][984,2424]",
+      "oneFocusedNode": true,
+      "windowAgrees": true
+    },
+    {
+      "capture": "08-logout-cancel-preserves-session",
+      "label": "Sair desta conta",
+      "bounds": "[47,1963][1033,2128]",
+      "oneFocusedNode": true,
+      "windowAgrees": true
+    }
+  ],
+  "app": {
+    "typecheck": true,
+    "lint": true,
+    "coreTests": 184,
+    "componentTests": 47,
+    "totalTests": 231
+  },
+  "api": {
+    "fullCheckPassed": true,
+    "executed": 85,
+    "skippedAndroidOptIn": 8,
+    "operationalPythonTests": 13,
+    "modularityPassed": true,
+    "duration": "13m21s"
+  },
+  "restored": true,
+  "temporaryPackageAbsent": true,
+  "baselineApkUnchanged": true,
+  "limits": [
+    "synthetic426, not real minimum-version configuration in native flow",
+    "account closed before upgrade; no active-account offline update",
+    "no spoken character or cursor editing",
+    "no exhausted retry or interrupted nonzero staging",
+    "no performance, complete palettes, iPhone/VoiceOver or fullM1 acceptance"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "accepted": false,
+  "functionalPhases": 0,
+  "classification": "preparation_install_storage_failure",
+  "bootstrapCanceledBeforeTest": true,
+  "initialFreeDataMegabytes": 412,
+  "observations": [
+    "incremental install lost ADB transport",
+    "fallback package install refused insufficient internal storage"
+  ],
+  "causeOfTransportLossProven": false,
+  "originalApkUnchanged": true,
+  "temporaryPackageAbsentAfterCleanup": true,
+  "emulatorClosed": true,
+  "next": "Android-managed cache trimming and non-incremental package installation; no database or preexisting package deletion",
+  "launchLogSha256": "9c09daafd0e2d2a5e49e9dcfe038a0098a0aad5a6da8dd64039d8f21a6cfb71e"
+}

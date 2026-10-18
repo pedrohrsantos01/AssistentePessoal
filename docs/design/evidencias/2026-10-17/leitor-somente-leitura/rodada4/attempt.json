@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "phasesPassed": 8,
+  "reason": "updated APK rejected by PackageInstaller: Requested internal only, but not enough space",
+  "focusRepairObserved": true,
+  "restored": true,
+  "launchLogSha256": "76b8784d8d164430f3d7fe7acaf5276e48cf7dcdc34e989e15d1af65cf6aba2a",
+  "nextPreparation": "Fresh separate AVD Ritmo_ReadOnly with8GiB data; Pixel_9 preserved. No original userdata copied and no wipe."
+}

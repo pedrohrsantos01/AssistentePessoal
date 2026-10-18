@@ -1,0 +1,152 @@
+{
+  "passed": false,
+  "apkSha256": "5e201d36ad9e9f7838f08e32a2546467b4af64c95225d0f025b1e23935f94743",
+  "fontScale": 2,
+  "dialogFocus": [],
+  "builds": [],
+  "readOnlyFields": [],
+  "phases": [
+    "reader_200_and_physical_input_ready"
+  ],
+  "targets": [
+    {
+      "label": "Nome",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1765,
+        1017,
+        1922
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1936,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        63,
+        1974,
+        1017,
+        2120
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        63,
+        1395,
+        1017,
+        1541
+      ],
+      "imeTop": 1541,
+      "focused": true
+    }
+  ],
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "durable read-only gate and preserved work, diagnostic reading, same-build restart/logout/login, synthetic compatible update after closed-account offline gate; no active-account offline update, exhausted retry, nonzero staging, VoiceOver, spoken character editing, performance or full M1 acceptance",
+  "restored": true
+}

@@ -1,0 +1,131 @@
+{
+  "passed": true,
+  "command": "api/gradlew.bat -p api check --no-daemon --max-workers=1",
+  "duration": "13m21s",
+  "executed": 85,
+  "skipped": 8,
+  "counts": {
+    "tests": 93,
+    "skipped": 8,
+    "failures": 0,
+    "errors": 0
+  },
+  "suites": [
+    {
+      "name": "dev.ritmo.ContainerPackagingTests",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:13:50.128Z"
+    },
+    {
+      "name": "dev.ritmo.ModularityTests",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:15:31.228Z"
+    },
+    {
+      "name": "dev.ritmo.OperationalSchedulingTests",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:15:34.600Z"
+    },
+    {
+      "name": "dev.ritmo.PrimaryTelemetryTests",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:15:59.494Z"
+    },
+    {
+      "name": "dev.ritmo.ProbeTransportTests",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:17:20.990Z"
+    },
+    {
+      "name": "dev.ritmo.ProxyTlsTests",
+      "tests": "1",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:17:46.826Z"
+    },
+    {
+      "name": "dev.ritmo.RateLimitTests",
+      "tests": "11",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:20:38.178Z"
+    },
+    {
+      "name": "dev.ritmo.ReceiverSupervisionTests",
+      "tests": "3",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:20:47.501Z"
+    },
+    {
+      "name": "dev.ritmo.RestoreTests",
+      "tests": "5",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:23:12.854Z"
+    },
+    {
+      "name": "dev.ritmo.RetentionLifecycleTests",
+      "tests": "3",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:23:43.221Z"
+    },
+    {
+      "name": "dev.ritmo.RuntimeTests",
+      "tests": "46",
+      "skipped": "8",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:12:47.842Z"
+    },
+    {
+      "name": "dev.ritmo.SyncRetentionTests",
+      "tests": "11",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:23:56.432Z"
+    },
+    {
+      "name": "dev.ritmo.TrustedProxyTests",
+      "tests": "3",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:24:11.661Z"
+    },
+    {
+      "name": "dev.ritmo.WalRecoveryTests",
+      "tests": "5",
+      "skipped": "0",
+      "failures": "0",
+      "errors": "0",
+      "timestamp": "2026-10-17T14:24:12.204Z"
+    }
+  ],
+  "logSha256": "464457af47bb72b2f6178c7573a9b598500f595480b846b0c2c046e8156b31bd",
+  "note": "Executed17/10; native replay18/10 is separate. Source unchanged. Runtime opt-in later overwrites JUnit output; this captures full check before replay.",
+  "operationalPythonTests": 13,
+  "modularityPassed": true
+}

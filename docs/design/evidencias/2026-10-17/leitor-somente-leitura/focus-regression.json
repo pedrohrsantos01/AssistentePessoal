@@ -1,0 +1,35 @@
+{
+  "capturedViewportPixels": [
+    0,
+    294,
+    1080,
+    2424
+  ],
+  "capturedOpenerPixels": [
+    98,
+    2187,
+    984,
+    2424
+  ],
+  "density": 2.625,
+  "redRegressionCases": 1,
+  "baselineCasesStillPassed": 5,
+  "greenViewportCases": 6,
+  "diagnosis": "captured pixel-boundary geometry reproduces a float-DIP residual in the real viewport module; scroll request rounded to unchanged native pixel",
+  "nativeFloatTelemetryCaptured": false,
+  "fix": "round desired scroll outward to device pixels, then require native measurement proving visibility; no success tolerance or longer retry loop",
+  "previousSources": {
+    "app/src/ui/dialog-focus.tsx": "6069bb9c69f74b8f6af0d561b5c625925d415c2678b4cf49d92d28662b739ff3",
+    "app/src/ui/dialog-focus-viewport.ts": "845fefd450a8bd9e935182748e13190471391daac2f7d71027bca9b232580350"
+  },
+  "currentSources": {
+    "app/src/ui/dialog-focus.tsx": "469730dc3437a53642c7221a6ded840ac2fdceded808261595d750a81a275235",
+    "app/src/ui/dialog-focus-viewport.ts": "1090a2db5c02b5a7cf319a0b2e5fb0f5360911dc44a6f5df9a3a15382b8a1046"
+  },
+  "logsSha256": {
+    ".scratch/runtime/interface/readonly-focus-red.log": "d07a1a55ab6e9d1c016ee4465c99dbd3f333b0069f7607d5b0c349a36cd9b068",
+    ".scratch/runtime/interface/readonly-focus-green.log": "c2a7f2b3567d6a5a2f418bc72c374f0554581a10386cacb90d388ec370c4730b"
+  },
+  "cleanBaselineReplayLogSha256": "c95e67dc26296f12924ec90929032d81321f7476859b78ef4798f604ccf60a8e",
+  "cleanBaselineReplay": "same regression against the untouched HEAD viewport module in a diagnostic folder: five pass, boundary case fails"
+}

@@ -1,0 +1,8 @@
+{
+  "package": "dev.ritmo.readonlytest",
+  "apkSha256": "ff66c81487d97c1e72297d96434d208e94d69b725389ec746d3ac5a843584038",
+  "passed": true,
+  "avd": "Pixel_9",
+  "installedSha256": "ff66c81487d97c1e72297d96434d208e94d69b725389ec746d3ac5a843584038",
+  "serial": "emulator-5560"
+}

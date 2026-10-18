@@ -1,0 +1,8 @@
+{
+  "afterSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "originalSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "originalUnchanged": true,
+  "temporaryPackage": "dev.ritmo.readonlytest",
+  "temporaryAbsent": true,
+  "originalPackage": "dev.ritmo.journeytest"
+}

@@ -1,0 +1,29 @@
+{
+  "syntheticPackage": "dev.ritmo.readonlytest",
+  "versions": [
+    "0.1.0",
+    "0.1.1"
+  ],
+  "protocol": "m1.1",
+  "androidVersionCode": 1,
+  "buildDurations": [
+    "4m 57s",
+    "4m 9s"
+  ],
+  "includesPixelBoundaryFix": true,
+  "originalApkRestored": true,
+  "artifacts": {
+    ".scratch/runtime/interface/readonly-journey/current.apk": "5e201d36ad9e9f7838f08e32a2546467b4af64c95225d0f025b1e23935f94743",
+    ".scratch/runtime/interface/readonly-journey/updated.apk": "e512585eef636de4686b4ef5ce5d7ea9f72535b8c477d884435ce9830d273a50",
+    "app/android/app/build/outputs/apk/release/app-release.apk": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+    ".scratch/runtime/interface/reader-observer/observer.apk": "74c29b956dd3f50849929ae4cee19a8d0ca8c5ee8a5b6b994c238ecdcb54b818"
+  },
+  "signingVerification": {
+    "v2": true,
+    "v3": true,
+    "sameSigner": true,
+    "certificateSha256": "fac61745dc0903786fb9ede62a962b399f7348f0bb6f899b8332667591033b9c",
+    "v4Claimed": false,
+    "localApksigner": true
+  }
+}

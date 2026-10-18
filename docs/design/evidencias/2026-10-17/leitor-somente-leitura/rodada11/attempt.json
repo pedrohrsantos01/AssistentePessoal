@@ -1,0 +1,13 @@
+{
+  "accepted": false,
+  "phasesPassed": 0,
+  "reason": "ADB transport became offline during initial app/observer preparation",
+  "readerCleanupReportedRestored": false,
+  "failedRestorationSteps": [
+    "enabled_accessibility_services",
+    "reverse"
+  ],
+  "causeProven": false,
+  "separateRestorationRequired": true,
+  "launchLogSha256": "733ff7495875b1e33e25aea058a18a92def1d8a5c45d16aed0e34d827b95dc11"
+}

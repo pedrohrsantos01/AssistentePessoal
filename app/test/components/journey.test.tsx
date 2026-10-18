@@ -1,3 +1,4 @@
+import {IdentityHttpError} from '../../src/core/identity/http-identity.ts';
 import {useEffect} from 'react';
 import {act,fireEvent,render,screen,waitFor} from '@testing-library/react-native';
 import SQLite from 'better-sqlite3';
@@ -24,6 +25,21 @@ test('offline login preserves typed values and exposes a useful connection error
   expect(screen.getAllByText(pt.offlineAuth).length).toBeGreaterThan(0);expect(f.journey.state().local).toBeNull();
  } finally {f.close();}
 });
+test.each(['persisted','http'] as const)('login explains the %s update requirement without exposing the closed account',async source=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Conta preservada','reading','blue',false);
+  if(source==='persisted') f.requireUpdate();
+  await f.session.logout();
+  if(source==='http') f.identity.login=async()=>{throw new IdentityHttpError(426,'unsupported_version');};
+  const login=jest.spyOn(f.identity,'login');
+  await act(()=>f.scheduler.update({active:true,online:true}));await mount(f);
+  await fireEvent.press(screen.getByRole('button',{name:pt.hasAccount}));await fireEvent.changeText(screen.getByLabelText(pt.email),'a@example.test');await fireEvent.changeText(screen.getByLabelText(pt.password),'password');await fireEvent.press(screen.getByRole('button',{name:pt.login}));
+  expect(screen.getByText(pt.update)).toBeOnTheScreen();expect(screen.queryByText('Conta preservada')).toBeNull();expect(f.journey.state().local).toBeNull();
+  expect(screen.getByLabelText(pt.email)).toHaveDisplayValue('a@example.test');expect(screen.getByLabelText(pt.password)).toHaveDisplayValue('password');
+  if(source==='persisted') expect(login).not.toHaveBeenCalled();else expect(login).toHaveBeenCalledTimes(1);
+ } finally {f.close();}
+});
+
 test('the native components go through onboarding, skip, create and mark/undo using SQLite',async()=>{
  const f=fixture();try {
   await act(async()=>{await f.session.login('a@example.test','password');});await mount(f);

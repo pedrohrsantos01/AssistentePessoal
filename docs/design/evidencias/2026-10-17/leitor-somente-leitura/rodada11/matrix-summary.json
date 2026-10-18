@@ -1,0 +1,24 @@
+{
+  "passed": false,
+  "apkSha256": "5e201d36ad9e9f7838f08e32a2546467b4af64c95225d0f025b1e23935f94743",
+  "fontScale": 2,
+  "dialogFocus": [],
+  "builds": [],
+  "readOnlyFields": [],
+  "phases": [],
+  "targets": [],
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "durable read-only gate and preserved work, diagnostic reading, same-build restart/logout/login, synthetic compatible update after closed-account offline gate; no active-account offline update, exhausted retry, nonzero staging, VoiceOver, spoken character editing, performance or full M1 acceptance",
+  "restored": false
+}

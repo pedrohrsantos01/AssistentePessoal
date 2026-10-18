@@ -1,0 +1,9 @@
+{
+  "accepted": false,
+  "phasesPassed": 1,
+  "reason": "first-habit input lookup failed; failure screencap exceeded default1MiB child-process buffer (ENOBUFS), masking original lookup error",
+  "rootLookupCauseProven": false,
+  "restored": true,
+  "xmlCaveat": "failure/latest XML can reflect last successful observation; the driver previously reused latest XML if observer returned no hierarchy. Do not infer current foreground from it.",
+  "launchLogSha256": "b948a65686a7d7712947c333db53578f0688af7f9129b2cae96bfb8f55531eed"
+}

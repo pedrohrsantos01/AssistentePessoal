@@ -1,0 +1,15 @@
+{
+  "app/app.config.ts": "baa78153c8727a3e0f6952bcc8408a8ef3bb49dd70352eb6e66963179f0304b8",
+  "app/harness/journey-runtime.ts": "30267f172d849a1b86d59770a94804037227909bdd1ecfb472b770922179cb7c",
+  "app/harness/reader-observer/ReaderObserver.java": "0fe99267be1b4b64730694b2b897f3b9ee09c264c096596a43579884163e7a40",
+  "app/src/features/journey/journey.ts": "8d82a6ed5a7a35bfe2e3f302e1ba80c177728dc2bde9ba4f6e189144519fcd42",
+  "app/test/components/journey.test.tsx": "d2f2a5e53801aab8bbead324d7eeda1a7b73c32446e63ebb4ce41951aa05ae25",
+  "app/test/integration/android-reader-readonly.test.ts": "d19bceaec51a0e5cd9843d46f3f34924a16b7c48719bda51c36106ebdd55afa3",
+  "api/src/test/java/dev/ritmo/RuntimeTests.java": "618d260240c9894582fba6100a09e7e5f1f33b57c74233e0828f762c2c98274a",
+  "scripts/build-android-readonly.ps1": "476ff9e98e440dea71978d96f4936037b12aee81c2530af60999e06d395e4af4",
+  "scripts/verify-android-accessibility.ps1": "669f1e82537b703ff2a04ff8f92bac58a671d7100266a01a9e232456e8862e43",
+  "scripts/build-reader-observer.ps1": "98e18705dabf40394310436e72a16ccc2e74f83bc6848ef5a4f9084b2caf3dee",
+  "app/src/ui/dialog-focus.tsx": "469730dc3437a53642c7221a6ded840ac2fdceded808261595d750a81a275235",
+  "app/src/ui/dialog-focus-viewport.ts": "1090a2db5c02b5a7cf319a0b2e5fb0f5360911dc44a6f5df9a3a15382b8a1046",
+  "app/test/dialog-focus-viewport.test.ts": "95b156db5a8dfe04df67ab21be6160d9a80be9328bf842962b3bc33f5d2cdddc"
+}

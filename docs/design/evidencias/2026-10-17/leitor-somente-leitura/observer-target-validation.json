@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "command": "adb -s emulator-5560 shell am instrument -e targetPackage dev.ritmo.app -w dev.ritmo.readerobserver/.ReaderObserver",
+  "durationSeconds": 2.2906735,
+  "apkSha256": "74c29b956dd3f50849929ae4cee19a8d0ca8c5ee8a5b6b994c238ecdcb54b818",
+  "observerUnchanged": true,
+  "separateFromFunctionalReplay": true,
+  "readOnlyTargetAllowlistUnchanged": true,
+  "initialFullFlowTimeoutCauseProven": false,
+  "diagnosticWrapperExit": 1,
+  "diagnosticWrapperNote": "After the successful probe, pidof returned no running observer; wrapper called Trim on null and unwound cleanup. No second target probe executed. Emulator closed; adb devices empty."
+}

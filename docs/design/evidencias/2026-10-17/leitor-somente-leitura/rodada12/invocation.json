@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-18",
+  "mode": "ReadOnly",
+  "avd": "Ritmo_ReadOnly",
+  "serial": "emulator-5560",
+  "gpu": "host",
+  "memoryMegabytes": 4096,
+  "clearData": false,
+  "wipeData": false,
+  "command": "scripts/verify-android-accessibility.ps1 -ReadOnly -Avd Ritmo_ReadOnly -GpuMode host -MemoryMegabytes 4096",
+  "previousRoundRestoration": "../rodada11/post-failure-restoration.json",
+  "sourceHashes": "../source-hashes-round12.json"
+}

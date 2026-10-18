@@ -15,7 +15,15 @@ import org.xmlpull.v1.XmlSerializer;
 
 /** Read-only observer of the synthetic journey; runs in its own package/process. */
 public final class ReaderObserver extends Instrumentation {
-    @Override public void onCreate(Bundle arguments) { super.onCreate(arguments); start(); }
+    private String targetPackage;
+    @Override public void onCreate(Bundle arguments) {
+        super.onCreate(arguments);
+        targetPackage = arguments == null ? "dev.ritmo.journeytest" : arguments.getString("targetPackage", "dev.ritmo.journeytest");
+        if (!"dev.ritmo.journeytest".equals(targetPackage) && !"dev.ritmo.readonlytest".equals(targetPackage)) {
+            Bundle result = new Bundle(); result.putString("observer_error", "synthetic_target_required"); finish(1, result); return;
+        }
+        start();
+    }
     @Override public void onStart() {
         Bundle result = new Bundle();
         UiAutomation automation = null;
@@ -38,7 +46,7 @@ public final class ReaderObserver extends Instrumentation {
                     imeVisible = true; window.getBoundsInScreen(imeBounds);
                 } else if (window.getType() == AccessibilityWindowInfo.TYPE_APPLICATION) {
                     AccessibilityNodeInfo candidate = window.getRoot();
-                    boolean own = candidate != null && "dev.ritmo.journeytest".contentEquals(candidate.getPackageName());
+                    boolean own = candidate != null && targetPackage.contentEquals(candidate.getPackageName());
                     if (firstApplication && !own) throw new IllegalStateException("synthetic_journey_not_foreground");
                     firstApplication = false;
                     if (own) {windows.add(window); roots.add(candidate);}
@@ -85,6 +93,7 @@ public final class ReaderObserver extends Instrumentation {
                     xml.attribute(null, "checkable", Boolean.toString(node.isCheckable()));
                     xml.attribute(null, "clickable", Boolean.toString(node.isClickable()));
                     xml.attribute(null, "enabled", Boolean.toString(node.isEnabled()));
+                    xml.attribute(null, "editable", Boolean.toString(node.isEditable()));
                     xml.attribute(null, "scrollable", Boolean.toString(node.isScrollable()));
                     xml.attribute(null, "accessibility-focused", Boolean.toString(node.isAccessibilityFocused()));
                     xml.endTag(null, "node");

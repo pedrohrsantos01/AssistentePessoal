@@ -1,0 +1,26 @@
+{
+  "fileMetadataEqual": true,
+  "after": {
+    "config.ini": {
+      "bytes": 1258,
+      "mtimeNs": 1769635162751516800
+    },
+    "encryptionkey.img": {
+      "bytes": 18874368,
+      "mtimeNs": 1769635125477144600
+    },
+    "encryptionkey.img.qcow2": {
+      "bytes": 4980736,
+      "mtimeNs": 1792243839920657200
+    },
+    "userdata-qemu.img": {
+      "bytes": 6356992,
+      "mtimeNs": 1769635183849756800
+    },
+    "userdata-qemu.img.qcow2": {
+      "bytes": 8824946688,
+      "mtimeNs": 1792244271013143600
+    }
+  },
+  "note": "Size/mtime metadata only; not a forensic hash of account databases."
+}

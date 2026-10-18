@@ -1,0 +1,18 @@
+{
+  "syntheticPackage": "dev.ritmo.readonlytest",
+  "currentVersion": "0.1.0",
+  "updatedVersion": "0.1.1",
+  "protocol": "m1.1",
+  "androidVersionCode": 1,
+  "sameSigningCertificateSha256": "fac61745dc0903786fb9ede62a962b399f7348f0bb6f899b8332667591033b9c",
+  "v2AndV3Verified": true,
+  "firstBuildDurationSeconds": 331,
+  "updatedBuildDurationSeconds": 268,
+  "originalApkRestored": true,
+  "artifacts": {
+    ".scratch/runtime/interface/readonly-journey/current.apk": "ff66c81487d97c1e72297d96434d208e94d69b725389ec746d3ac5a843584038",
+    ".scratch/runtime/interface/readonly-journey/updated.apk": "0c7c044835276439b1c297492e99deb2c6a335c69bf0e7e9775c8c8a7124d11e",
+    "app/android/app/build/outputs/apk/release/app-release.apk": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+    ".scratch/runtime/interface/reader-observer/observer.apk": "74c29b956dd3f50849929ae4cee19a8d0ca8c5ee8a5b6b994c238ecdcb54b818"
+  }
+}

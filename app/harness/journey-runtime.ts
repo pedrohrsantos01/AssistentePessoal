@@ -1,3 +1,4 @@
+import {CLIENT} from '../src/core/sync/client-version.ts';
 import {operationHash} from '../src/core/sync/operation-hash.ts';
 import type {Operation,PushResult} from '../src/core/sync/protocol.ts';
 import {Linking} from 'react-native';
@@ -12,6 +13,11 @@ import {startExpoSync} from '../src/core/sync/start-expo-sync.ts';
 // All recovery, isolation, persistence and UI remain the product implementation.
 export async function openJourneyTestRuntime(origin:string) {
  if(process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST!=='1') throw new Error('test_variant_required');
+ const originalVersion=CLIENT.appVersion;
+ if(process.env.EXPO_PUBLIC_RITMO_READONLY_UPDATED==='1') {
+  if(process.env.EXPO_PUBLIC_RITMO_READONLY_TEST!=='1') throw new Error('isolated_readonly_variant_required');
+  CLIENT.appVersion='0.1.1';
+ }
  const url=await Linking.getInitialURL(),fault=url?.match(/[?&]ritmoTestFault=([a-z0-9-]+)(?:[&#]|$)/)?.[1]??(url?.startsWith('https://api.example.test/password-reset#token=')?'recovery-isolation':undefined);
  const originalFetch=globalThis.fetch;let intercepted=false;
  if(['sync-429','sync-503','sync-push-429','sync-push-503','sync-update','sync-identity','sync-snapshot','recovery-isolation'].includes(fault??'')) globalThis.fetch=async(input,init)=>{
@@ -65,6 +71,6 @@ export async function openJourneyTestRuntime(origin:string) {
   get sync(){if(!sync) throw new Error('installation_locked');return sync.scheduler;},
   recovery:()=>owner.recovery(),
   async retryDatabase(){if(closed) throw new Error('session_locked');await owner.retryDatabase();if(!closed) start();},
-  close(){if(closed) return;closed=true;sync?.close();owner.close();globalThis.fetch=originalFetch;},
+  close(){if(closed) return;closed=true;sync?.close();owner.close();globalThis.fetch=originalFetch;CLIENT.appVersion=originalVersion;},
  };
 }

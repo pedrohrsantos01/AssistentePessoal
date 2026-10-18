@@ -1,0 +1,8 @@
+{
+  "accepted": false,
+  "phasesPassed": 3,
+  "reason": "collapsing first detail restored the repeated Details label; next press reopened the mark instead of the creation; expected creation title assertion caught it",
+  "restored": true,
+  "change": "Preserve exclusive expansion to select the next Details action, then collapse only the last detail before closing. No product or APK change.",
+  "launchLogSha256": "8a9c0c841b0e65f98b23392c282859194da4198a6f87a6506865bf0914f52578"
+}

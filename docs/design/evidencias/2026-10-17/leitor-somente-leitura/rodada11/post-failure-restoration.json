@@ -1,0 +1,16 @@
+{
+  "afterFailedRound": 11,
+  "secureSettings": {
+    "accessibility_enabled": "0",
+    "enabled_accessibility_services": "null",
+    "touch_exploration_enabled": "0"
+  },
+  "originalAvdTouched": false,
+  "verified": true,
+  "ownedReverseAbsent": true,
+  "fontScale": "1.0",
+  "memoryMegabytes": 4096,
+  "observerAbsent": true,
+  "avd": "Ritmo_ReadOnly",
+  "temporaryPackageAbsent": true
+}

@@ -5,7 +5,7 @@ type ScrollPort = Measurable & {scrollTo: (options:{y:number;animated:false})=>v
 export class DialogFocusViewport {
   private port: ScrollPort | null = null;
   private offset = 0;
-  constructor(private readonly afterCommit:(work:()=>void)=>void) {}
+  constructor(private readonly afterCommit:(work:()=>void)=>void,private readonly pixelRatio=1) {}
   attach = (port:ScrollPort|null) => {this.port=port;this.offset=0;};
   scrolled = (offset:number) => {this.offset=offset;};
   reveal(host:Measurable,eligible:()=>boolean,select:()=>void) {
@@ -21,7 +21,11 @@ export class DialogFocusViewport {
           const delta=childTop<top?childTop-top:bottom>top+height?bottom-top-height:0;
           if(delta===0){select();return;}
           if(remaining<=0)return;
-          port.scrollTo({y:Math.max(0,this.offset+delta),animated:false});
+          // Round outward: Android rounds the request to device pixels. A float DIP
+          // residual at the boundary must move a pixel rather than repeat the same offset.
+          const desired=Math.max(0,this.offset+delta)*this.pixelRatio;
+          const y=(delta>0?Math.ceil(desired):Math.floor(desired))/this.pixelRatio;
+          port.scrollTo({y,animated:false});
           this.afterCommit(()=>measure(remaining-1));
         });
       });

@@ -1,0 +1,4 @@
+{
+  "processQuery": "Command failed: H:\\Android\\Sdk\\platform-tools\\adb.exe -s emulator-5560 shell pidof dev.ritmo.readonlytest\nadb.exe: device offline\r\n",
+  "foregroundQueryFailed": true
+}

@@ -1,0 +1,25 @@
+{
+  "firstBuildPassed": false,
+  "failure": "CMake could not remove cached native libraries; restoration helper also needed to recreate output directory after native generation",
+  "exclusiveAccessProbeAfterFailure": true,
+  "sameCmakeTaskSubsequentlyPassed": true,
+  "probeSeconds": 34,
+  "causeOfOriginalLockProven": false,
+  "restorationHelperFixed": true,
+  "completeBuildRetryPassed": true,
+  "noEmulatorStartedDuringBuildAttempts": true,
+  "appRegression": {
+    "redCases": 2,
+    "greenCases": 2,
+    "expected": "existing mandatory upgrade notice",
+    "observedBeforeFix": "generic failure instead of mandatory upgrade explanation",
+    "typedFieldsAndClosedAccountIsolationPreserved": true
+  },
+  "logsSha256": {
+    ".scratch/runtime/interface/readonly-build-attempt1.log": "0557b30fe563dfb2b214741bdb39851620c6be11692f6187f98f00e46396d74b",
+    ".scratch/runtime/interface/readonly-cache-probe.log": "5e823e5c30a21d8e03e32f7596ccdc2e5aba71bd21cc218c4951fd2cc09dff74",
+    ".scratch/runtime/interface/readonly-build.log": "37dfe90d329cfb2ccc1eddca2e0b273c7804a65837a394247a874ae10dc845b2",
+    ".scratch/runtime/interface/readonly-login-red.log": "ee67dc81e2d3ab3943f4ccdb49c5973bb2afd904aa84529aebf787fda31f5221",
+    ".scratch/runtime/interface/readonly-login-green.log": "44c6d6b20626f3c5fc84fb872a2f73b1426916c207c947612aa7c65ec420431b"
+  }
+}

@@ -249,7 +249,7 @@ Da raiz, com Node24, dependências do lockfile, JAVA_HOME apontando para Java21 
 .\scripts\verify-android-accessibility.ps1 -Avd Pixel_9 -Serial emulator-5560 -EvidenceDirectory docs/design/evidencias/2026-10-12/leitor-android-sdk/repeticao
 ```
 
-O APK de jornada deve ter sido compilado com EXPO_PUBLIC_RITMO_JOURNEY_TEST=1 e o hábito sintético preparado pela suite appearance. O leitor não inicia API nem recria contas. Atualiza somente dev.ritmo.journeytest com install -r, preservando os dados. A compilação do pequeno observador usa SDK build-tools36/plataforma35, sem AndroidX ou Gradle adicional, com assinatura convencional de debug. Ele é testOnly, não tem activity/permissões de rede e só consulta a janela de dev.ritmo.journeytest.
+O APK de jornada deve ter sido compilado com EXPO_PUBLIC_RITMO_JOURNEY_TEST=1 e o hábito sintético preparado pela suite appearance. O leitor não inicia API nem recria contas. Atualiza somente dev.ritmo.journeytest com install -r, preservando os dados. A compilação do pequeno observador usa SDK build-tools36/plataforma35, sem AndroidX ou Gradle adicional, com assinatura convencional de debug. Ele é testOnly, não tem activity/permissões de rede e por padrão consulta apenas as janelas próprias de dev.ritmo.journeytest. O modo isolado ReadOnly seleciona dev.ritmo.readonlytest por argumento validado; a lista aceita somente esses dois pacotes sintéticos.
 
 O lançador inicia um emulador próprio e visível, verifica serial/AVD/PID e listener em loopback e exige JWT. A política exclusiva em scripts/android-reader-access.json permite apenas sendTouch, protegido pelo audience do token. A ponte carrega o proto do SDK instalado, assina tokens ES256 de60s em memória e registra somente a chave pública temporária. Chamadas sem credencial, com emissor diferente ou audience errado precisam ser recusadas; o mesmo payload autenticado deve funcionar. Nenhum token é colocado em ambiente, linha de comando, log ou evidência.
 
@@ -325,3 +325,30 @@ Roteiro delimitado: cancelar/confirmar descarte por item, originais/dependentes 
 `-SyncStates` implica `-Matrix` e não combina com Recovery/Traversal/modo de observação. Atualização obrigatória, retry esgotado, cópia com staging não zero interrompida, edição falada por caractere/cursor, desempenho e VoiceOver não recebem aceite novo por esse roteiro. [Plano e estado da verificação](../.scratch/interface-m1/leitor-descarte-e-espera.md).
 
 Resultado nativo de 16/10: [nove fases aprovadas](../docs/analises/2026-10-16-talkback-descarte-e-espera.md), 79 medições de controles/12 campos-IME a 200%, com restauração e fechamento dos recursos. Check completo da API aprovado em 10m43s: 85 executados/oito nativos opt-in ignorados, zero falhas/erros, 13 verificações operacionais e modularidade; 06/M1 permanecem abertos.
+
+
+## Atualização obrigatória com TalkBack em instalação isolada
+
+Da raiz, com APK/instalação da jornada já preparados, Java21, SDK Android e Docker:
+
+```powershell
+.\scripts\build-reader-observer.ps1
+.\scripts\build-android-readonly.ps1
+.\scripts\verify-android-accessibility.ps1 -ReadOnly -GpuMode host -MemoryMegabytes 4096 -EvidenceDirectory '.scratch/runtime/interface/leitor-readonly-reexecucao'
+```
+
+O builder conserva o APK normal, regenera Android para o pacote de ensaio e gera current.apk/updated.apk em .scratch/runtime/interface/readonly-journey, com identidades sintéticas 0.1.0/0.1.1 e protocolo m1.1. Regenera a configuração normal e restaura o APK ao encerrar, inclusive em falha. No passo de bundle, libera o reset de cache que a CLI Expo desativa sob CI; depois extrai e compara os bundles dos dois APKs e exige a identidade0.1.1 apenas no atualizado. Não publica versão nova. O lançador recusa pacote de ensaio preexistente, instala somente dev.ritmo.readonlytest e o remove ao terminar, conferindo o hash de dev.ritmo.journeytest antes/depois. Sem limpeza de bancos/guard durante o exercício ou wipe; a desinstalação final apaga somente os dados descartáveis da fixture, preservando a instalação original.
+
+O AVD precisa de espaço para manter o APK atual durante a instalação substituta. O Pixel_9 original chegou ao fluxo, mas recusou a atualização por espaço. O ensaio foi movido para um AVD separado `Ritmo_ReadOnly`, API35/perfil Pixel_9, com8GiB de dados novos e TalkBack da imagem instalada. O controle journeytest nesse AVD é uma instalação nova do APK preservado; os bancos da instalação anterior não foram copiados. Para usar esse ambiente local já preparado, da raiz:
+
+```powershell
+$env:ANDROID_AVD_HOME = Join-Path $PWD '.scratch/runtime/interface/readonly-avds'
+.\scripts\verify-android-accessibility.ps1 -ReadOnly -Avd Ritmo_ReadOnly -GpuMode host -MemoryMegabytes 4096 -EvidenceDirectory '.scratch/runtime/interface/leitor-readonly-reexecucao'
+```
+
+O diretório do AVD é local/ignorado; em outra máquina, crie um AVD de teste com espaço suficiente e prepare nele o APK normal da jornada antes do lançador. Não use wipe ou remova pacotes preexistentes para satisfazer o roteiro.
+
+`-ReadOnly` implica `-Matrix`, incompatível com Recovery/Traversal/SyncStates/SkipInstall. Testa leitura/pendências/recusa, controles e campos bloqueados, reinício, logout/login, diagnóstico e atualização compatível após conta encerrada. TalkBack a 200% usa toque físico; texto sintético entra por teclas de hardware. Não aceita edição falada por caractere/cursor, atualização offline com conta ativa, desempenho, paletas integrais, iPhone/VoiceOver ou M1 completo. [Plano e estado](../.scratch/interface-m1/leitor-somente-leitura.md), [relatório](../docs/analises/2026-10-17-talkback-somente-leitura.md).
+
+
+Resultado de 18/10: [rodada 12 aprovada](../docs/analises/2026-10-17-talkback-somente-leitura.md), 11 fases, 76 controles/11 campos-IME, atualizando sem reset e convergindo originais/diagnóstico/10 XP sem duplicação. Restauração/isolamento confirmados e recursos próprios fechados. Tipos/lint e 231 testes do app; API check completo aprovado. Recusa de alvo do observador verificada separadamente; as demais tentativas não recebem aceite integral. 06/M1 permanecem abertos pelos limites acima.

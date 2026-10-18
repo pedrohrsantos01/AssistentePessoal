@@ -1,0 +1,14 @@
+{
+  "accepted": false,
+  "functionalPhases": 3,
+  "classification": "driver_waited_for_lower_priority_offline_label_while_rejection_was_preserved",
+  "actualState": "attention status and offline-created marked habit preserved",
+  "expectedLabelWasNotContractedInThisCombinedState": true,
+  "fix": "wait for restored marked habit and assert radios off/reverse absent before reconnecting; preserve existing notice priority",
+  "productChangedForThisFailure": false,
+  "restored": true,
+  "originalApkUnchanged": true,
+  "temporaryPackageAbsentAfterCleanup": true,
+  "emulatorClosed": true,
+  "launchLogSha256": "fb11954554b260079a19fcdb1e771de95d46b3cf5f47e3c4f5b6a49e92a5c30c"
+}
