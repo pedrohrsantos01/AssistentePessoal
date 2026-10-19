@@ -1,0 +1,13 @@
+{
+  "a": {
+    "habitCount": 1,
+    "done": true,
+    "totalXp": 10
+  },
+  "b": {
+    "habitCount": 1,
+    "totalXp": 0
+  },
+  "accountsIsolated": true,
+  "sameOriginals": true
+}

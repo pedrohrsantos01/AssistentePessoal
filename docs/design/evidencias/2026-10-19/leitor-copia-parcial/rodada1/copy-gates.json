@@ -1,0 +1,19 @@
+[
+  {
+    "account": "A",
+    "staged": 500,
+    "reopenedOffline": true,
+    "oldBaseVisible": true,
+    "partialHabitHidden": true,
+    "sameOriginals": true,
+    "provisionalXp": 10
+  },
+  {
+    "account": "B",
+    "staged": 500,
+    "reopenedOffline": true,
+    "initialGate": true,
+    "partialHabitHidden": true,
+    "originAccountHidden": true
+  }
+]

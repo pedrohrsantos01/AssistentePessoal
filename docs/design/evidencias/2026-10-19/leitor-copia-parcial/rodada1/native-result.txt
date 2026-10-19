@@ -1,0 +1,15 @@
+{"phase":"reader_200_and_physical_input_ready","passed":true,"fontScale":2}
+{"phase":"original_dependency_and_xp_before_partial_copy","passed":true,"fontScale":2}
+{"phase":"nonzero_active_copy_and_restart_preserve_previous_base_and_intentions","passed":true,"fontScale":2}
+{"phase":"fresh_complete_snapshot_and_original_chain_converge_once","passed":true,"fontScale":2}
+{"phase":"initial_copy_with_real_first_page_stays_gated_after_offline_restart","passed":true,"fontScale":2}
+{"phase":"complete_install_and_account_roundtrip_preserve_isolation_and_xp","passed":true,"fontScale":2}
+✔ TalkBack at200%: nonempty interrupted snapshots preserve gates, previous base and dependent local work (534071.7143ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 622515.6075

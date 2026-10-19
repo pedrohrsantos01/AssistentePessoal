@@ -1,0 +1,23 @@
+{
+  "apks": {
+    "current": "a7f47a737703fe7d1bc69fcaaa417aa68e7a12f5a90d86a5f215b2af2138f20d",
+    "updated": "d5079db27dbe7ce1ce8f52f21d219f8d3ac824b78f6ce04269845fc645859920"
+  },
+  "bundles": {
+    "current": {
+      "sha256": "85420cac8e745c1dc2623c08df16efff23c1513fce2906b04624d1264aaf31be",
+      "updatedVersionLiteral": false
+    },
+    "updated": {
+      "sha256": "e5e51df24f42a4875d3938a06e5cd548120111a51fcda60d44f6bd4d9a03998b",
+      "updatedVersionLiteral": true
+    }
+  },
+  "originalSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "installedVersion": "current only; updated not installed in this increment",
+  "buildRetry": {
+    "first": "failed deleting three C++ .so cache files",
+    "second": "passed without manual cache removal",
+    "causeEstablished": false
+  }
+}

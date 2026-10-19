@@ -64,12 +64,13 @@ test('501 changes and 502 snapshot entities keep a stable cut; interrupted copy 
     await assert.rejects(otherApi.page(cut.snapshotId,cut.firstPageCursor),(error:unknown)=>error instanceof SyncHttpError&&error.status===404);
     await assert.rejects(otherApi.receipts(cut.snapshotId,[lost.operationId]),(error:unknown)=>error instanceof SyncHttpError&&error.status===404);
 
-    const fetchNetwork=globalThis.fetch,receiptSizes:number[]=[];let pages=0;const offlineId=id();
+    const fetchNetwork=globalThis.fetch,receiptSizes:number[]=[];let pages=0;const snapshotIds:string[]=[];const offlineId=id();
     t.mock.method(globalThis,'fetch',async(...args:Parameters<typeof fetch>)=>{
       const url=String(args[0]);
       if(url.endsWith('/receipts')) receiptSizes.push((JSON.parse(String(args[1]?.body)) as {operationIds:string[]}).operationIds.length);
       if(url.endsWith('/push')) assert.deepEqual(a.operations().map(op=>op.operationId),[offlineId]);
       const response=await fetchNetwork(...args);
+      if(url.endsWith('/sync/snapshots')) snapshotIds.push((await response.clone().json() as {snapshotId:string}).snapshotId);
       if(url.includes('/sync/snapshots/')) {
         pages++;
         if(pages===1) a.enqueue({...command,habitId:id(),title:'Offline durante cópia'},offlineId,at);
@@ -78,10 +79,11 @@ test('501 changes and 502 snapshot entities keep a stable cut; interrupted copy 
       return response;
     });
     await assert.rejects(synchronize(a,api),/response_lost_during_copy/);
-    const pending=a.operations(),previous=a.view(day);assert.equal(pending.length,54);assert.equal(a.cursor(),null);
+    const pending=a.operations(),previous=a.view(day);assert.equal(pending.length,54);assert.equal(a.cursor(),null);assert.equal(a.snapshotProgress()?.staged,500);
     a.close();a=openTestStore(path,session.accountId,deviceA);
-    assert.deepEqual(a.operations(),pending);assert.deepEqual(a.view(day),previous);assert.equal(a.cursor(),null);
+    assert.deepEqual(a.operations(),pending);assert.deepEqual(a.view(day),previous);assert.equal(a.cursor(),null);assert.equal(a.snapshotProgress()?.staged,500);
     await synchronize(a,api);
+    assert.equal(snapshotIds.length,2);assert.notEqual(snapshotIds[0],snapshotIds[1]);assert.equal(a.snapshotProgress(),null);
     assert.deepEqual(receiptSizes,[50,4]);assert.equal(a.view(day).pendingCount,0);
     assert.equal(a.view(day).habits.length,502);assert.equal(a.view(day).habits.find(h=>h.habitId===habits[0])?.title,'B posterior');
     // Stop fault interception before syncing the second real client.

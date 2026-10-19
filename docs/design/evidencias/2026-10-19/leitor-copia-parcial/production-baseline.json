@@ -1,0 +1,25 @@
+{
+  "previousCommit": "e0719eeb8f511e3ef6b591ba6c5babedd2eae272",
+  "files": {
+    "app/src/core/sync/synchronize.ts": {
+      "sha256": "e68602be793acea68e48b6a98c6218fb34902dad991597cb50c972912d92f880",
+      "matchesPreviousCommit": true
+    },
+    "app/src/core/db/account-store.ts": {
+      "sha256": "5d752cd4b1e4fd52012ed0b5619727c7de9b687a3ee4e7e9511eb6737a1193b2",
+      "matchesPreviousCommit": true
+    },
+    "app/src/core/sync/scheduler.ts": {
+      "sha256": "f56c4630fb2909f8ac38647a386c830c394ded3f5a40639c054d74fe0d9213ff",
+      "matchesPreviousCommit": true
+    },
+    "app/src/features/journey/journey.ts": {
+      "sha256": "04d9af7c2d143e22e182e10b8dc50e248de3b73a38418a7708b7b017e92fc36d",
+      "matchesPreviousCommit": true
+    },
+    "app/src/features/journey/sync-state.tsx": {
+      "sha256": "407e0bfc21d418d8328db5a61da34450ad5c9d7b0d8008651dd92d758fb26043",
+      "matchesPreviousCommit": true
+    }
+  }
+}

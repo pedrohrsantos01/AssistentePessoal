@@ -1,8 +1,8 @@
-param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[string]$PaletteEvidenceDirectory='',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$TrimCaches,[switch]$ReaderOnly,[switch]$Matrix,[switch]$Recovery,[switch]$Traversal,[switch]$SyncStates,[switch]$ReadOnly,[switch]$RetryExhausted,[ValidateSet('swiftshader','host')][string]$GpuMode='swiftshader',[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[ValidateRange(1024,65535)][int]$GrpcPort=8590)
+param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[string]$PaletteEvidenceDirectory='',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$TrimCaches,[switch]$ReaderOnly,[switch]$Matrix,[switch]$Recovery,[switch]$Traversal,[switch]$SyncStates,[switch]$ReadOnly,[switch]$RetryExhausted,[switch]$PartialCopy,[ValidateSet('swiftshader','host')][string]$GpuMode='swiftshader',[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[ValidateRange(1024,65535)][int]$GrpcPort=8590)
 $ErrorActionPreference='Stop'
-if(@($Recovery,$Traversal,$SyncStates,$ReadOnly,$RetryExhausted | Where-Object {$_}).Count -gt 1) {throw 'Escolha somente Recovery, Traversal, SyncStates, ReadOnly ou RetryExhausted.'}
-if($Recovery -or $Traversal -or $SyncStates -or $ReadOnly -or $RetryExhausted) {$Matrix=$true}
-$taskIsolated=$ReadOnly -or $RetryExhausted
+if(@($Recovery,$Traversal,$SyncStates,$ReadOnly,$RetryExhausted,$PartialCopy | Where-Object {$_}).Count -gt 1) {throw 'Escolha somente Recovery, Traversal, SyncStates, ReadOnly, RetryExhausted ou PartialCopy.'}
+if($Recovery -or $Traversal -or $SyncStates -or $ReadOnly -or $RetryExhausted -or $PartialCopy) {$Matrix=$true}
+$taskIsolated=$ReadOnly -or $RetryExhausted -or $PartialCopy
 if($taskIsolated -and $SkipInstall) {throw 'O modo isolado exige instalação nova do pacote de ensaio.'}
 $taskRoot=Split-Path $PSScriptRoot -Parent
 if(-not $env:ANDROID_HOME) {throw 'Configure ANDROID_HOME.'}
@@ -13,7 +13,7 @@ $taskCompletion=Join-Path $taskRuntime 'android-accessibility-complete'
 $taskApiProcess=$null;$taskBootstrap=$null;$taskOwnObserver=$false;$taskOwnEmulator=$false;$taskEmulatorProcess=$null;$taskPanel=$null
 $taskPackage=if($taskIsolated){'dev.ritmo.readonlytest'}else{'dev.ritmo.journeytest'}
 $taskIsolationFailed=$false;$taskOwnReadOnly=$false;$taskOriginalHash=$null;$taskOriginalPath=$null
-$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY','RITMO_EMULATOR_DISCOVERY','RITMO_EMULATOR_GRPC_PORT','RITMO_PALETTE_EVIDENCE','RITMO_ANDROID_READER_MATRIX','RITMO_READER_PROGRESS','RITMO_READER_BOOTSTRAP','RITMO_READER_RECOVERY','RITMO_READER_TRAVERSAL','RITMO_READER_SYNC_STATES','RITMO_READER_READONLY','RITMO_READER_RETRY_EXHAUSTED')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
+$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY','RITMO_EMULATOR_DISCOVERY','RITMO_EMULATOR_GRPC_PORT','RITMO_PALETTE_EVIDENCE','RITMO_ANDROID_READER_MATRIX','RITMO_READER_PROGRESS','RITMO_READER_BOOTSTRAP','RITMO_READER_RECOVERY','RITMO_READER_TRAVERSAL','RITMO_READER_SYNC_STATES','RITMO_READER_READONLY','RITMO_READER_RETRY_EXHAUSTED','RITMO_READER_PARTIAL_COPY')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
 New-Item -ItemType Directory -Force -Path $taskRuntime | Out-Null
 try {
  if($Matrix) {
@@ -25,6 +25,7 @@ try {
   $env:RITMO_READER_SYNC_STATES=if($SyncStates){'1'}else{$null}
   $env:RITMO_READER_READONLY=if($ReadOnly){'1'}else{$null}
   $env:RITMO_READER_RETRY_EXHAUSTED=if($RetryExhausted){'1'}else{$null}
+  $env:RITMO_READER_PARTIAL_COPY=if($PartialCopy){'1'}else{$null}
   $env:RITMO_READER_BOOTSTRAP=$taskBootstrap;$env:RITMO_ANDROID_READER_MATRIX='1';$env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb
   $env:RITMO_JOURNEY_EVIDENCE=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
   if(-not $env:RITMO_JOURNEY_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidências fora do workspace.'}

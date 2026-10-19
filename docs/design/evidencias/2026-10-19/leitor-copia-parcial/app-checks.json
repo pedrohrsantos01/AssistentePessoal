@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "commands": [
+    "pnpm typecheck",
+    "pnpm lint",
+    "pnpm test"
+  ],
+  "core": 187,
+  "components": 50,
+  "total": 237,
+  "logs": [
+    ".scratch/runtime/interface/copy-typecheck-final.log",
+    ".scratch/runtime/interface/copy-lint-final.log",
+    ".scratch/runtime/interface/copy-app-tests-final.log"
+  ],
+  "productionChanged": false
+}

@@ -1,0 +1,181 @@
+{
+  "memory": {
+    "FreePhysicalMemory": 7007600,
+    "TotalVisibleMemorySize": 33419316
+  },
+  "watchers": [],
+  "containers": [
+    "supabase_db_care-platform",
+    "supabase_pg_meta_care-platform",
+    "supabase_storage_care-platform",
+    "supabase_rest_care-platform",
+    "supabase_realtime_care-platform",
+    "supabase_inbucket_care-platform",
+    "supabase_auth_care-platform",
+    "supabase_kong_care-platform",
+    "ai-memory"
+  ],
+  "processes": [
+    {
+      "parent": 17508,
+      "name": "node.exe",
+      "pid": 13484,
+      "created": "2026-10-11T00:30:54.7252770-03:00"
+    },
+    {
+      "parent": 29732,
+      "name": "node.exe",
+      "pid": 25292,
+      "created": "2026-10-11T00:31:08.4526970-03:00"
+    },
+    {
+      "parent": 25292,
+      "name": "node.exe",
+      "pid": 18912,
+      "created": "2026-10-11T00:31:10.5233220-03:00"
+    },
+    {
+      "parent": 67956,
+      "name": "adb.exe",
+      "pid": 38660,
+      "created": "2026-10-14T17:11:43.0558610-03:00"
+    },
+    {
+      "parent": 19880,
+      "name": "node.exe",
+      "pid": 63576,
+      "created": "2026-10-18T01:14:26.8800370-03:00"
+    },
+    {
+      "parent": 69096,
+      "name": "node.exe",
+      "pid": 36080,
+      "created": "2026-10-18T01:14:27.1023180-03:00"
+    },
+    {
+      "parent": 67208,
+      "name": "node.exe",
+      "pid": 10968,
+      "created": "2026-10-18T01:14:27.2890400-03:00"
+    },
+    {
+      "parent": 57548,
+      "name": "node.exe",
+      "pid": 55996,
+      "created": "2026-10-18T01:14:27.3021280-03:00"
+    },
+    {
+      "parent": 62764,
+      "name": "node.exe",
+      "pid": 51152,
+      "created": "2026-10-18T01:14:28.1922580-03:00"
+    },
+    {
+      "parent": 35928,
+      "name": "node.exe",
+      "pid": 42616,
+      "created": "2026-10-18T01:14:43.9057200-03:00"
+    },
+    {
+      "parent": 18220,
+      "name": "node.exe",
+      "pid": 28436,
+      "created": "2026-10-19T14:02:40.7491120-03:00"
+    },
+    {
+      "parent": 35452,
+      "name": "node.exe",
+      "pid": 40500,
+      "created": "2026-10-19T14:02:41.1173940-03:00"
+    },
+    {
+      "parent": 69492,
+      "name": "node.exe",
+      "pid": 57584,
+      "created": "2026-10-19T14:02:41.4435960-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 32468,
+      "created": "2026-10-19T14:02:41.4969970-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 47340,
+      "created": "2026-10-19T14:02:41.5176900-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 22860,
+      "created": "2026-10-19T14:02:41.5275240-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 46624,
+      "created": "2026-10-19T14:02:41.5774050-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 45448,
+      "created": "2026-10-19T14:02:41.5903450-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 58596,
+      "created": "2026-10-19T14:02:41.6036700-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 15540,
+      "created": "2026-10-19T14:02:41.6162990-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 65520,
+      "created": "2026-10-19T14:02:42.4165690-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 23248,
+      "created": "2026-10-19T14:02:42.9379630-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 60572,
+      "created": "2026-10-19T14:02:43.1104910-03:00"
+    },
+    {
+      "parent": 57584,
+      "name": "node.exe",
+      "pid": 44892,
+      "created": "2026-10-19T14:02:43.1328060-03:00"
+    }
+  ],
+  "originalAvdMetadata": [
+    {
+      "bytes": 6356992,
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img",
+      "lastWriteUtc": "2026-01-28T21:19:43.8497568Z"
+    },
+    {
+      "bytes": 8824946688,
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img.qcow2",
+      "lastWriteUtc": "2026-10-17T13:37:51.0131436Z"
+    },
+    {
+      "bytes": 1258,
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\config.ini",
+      "lastWriteUtc": "2026-01-28T21:19:22.7515168Z"
+    }
+  ]
+}

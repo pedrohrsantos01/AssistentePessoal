@@ -206,3 +206,37 @@ test('an onboarded account without a local copy starts an atomic snapshot and ne
   await synchronize(store,api());assert.equal(store.view(day).habits[0]?.title,'Cópia completa');assert.equal(store.snapshotProgress(),null);
  } finally {store.close();rmSync(directory,{recursive:true,force:true});}
 });
+
+
+test('a nonempty interrupted copy preserves the old base and dependent XP across restart and a fresh manifest',async t=>{
+ const directory=mkdtempSync(join(tmpdir(),'ritmo-partial-chain-')),path=join(directory,'account.db');let store=openTestStore(path,id(1),id(2));
+ store.applyPull({changes:[{revision:'1',operationResults:[],entities:[habit('Base anterior')]}],nextCursor:'old-pull-cursor',hasMore:false,highWaterRevision:'1',serverTime:at});
+ const chain=[store.enqueue(command,id(4),at),store.enqueue({type:'habit.mark',habitId:command.habitId,dayKey:day,timeContext:command.timeContext,observedUndoIds:[]},id(5),at)];
+ assert.deepEqual(chain[1]!.dependsOn,[chain[0]!.operationId]);const previous=store.view(day);assert.equal(previous.totalXp,10);
+ let copies=0,interrupted=true;const queried:string[][]=[];
+ t.mock.method(globalThis,'fetch',async(input:string,init:RequestInit)=>{
+  if(input.endsWith('/snapshots')) {copies++;return Response.json(manifest(id(20+copies),2));}
+  if(input.includes('/snapshots/')) {
+   if(input.endsWith('first-page-cursor')) {
+    assert.equal(store.snapshotProgress()?.staged,0,'fresh manifest must replace old staging');
+    return Response.json({...page(id(20+copies),[habit('Base nova')]),complete:false,nextPageCursor:'second-page-cursor',pullCursor:null});
+   }
+   assert.equal(store.snapshotProgress()?.staged,1);assert.deepEqual(store.operations(),chain);assert.deepEqual(store.view(day),previous);
+   if(interrupted)throw new TypeError('page_two_interrupted');
+   return Response.json(page(id(20+copies),[habit('Outro remoto','2',id(32))]));
+  }
+  if(input.endsWith('/receipts')) {
+   const ids=(JSON.parse(String(init.body)) as {operationIds:string[]}).operationIds;queried.push(ids);
+   return Response.json({snapshotId:id(20+copies),highWaterRevision:'2',results:ids.map(operationId=>({operationId,status:'notProcessedAtH'}))});
+  }
+  if(input.endsWith('/push')) {assert.equal(store.cursor(),'snapshot-pull-cursor');throw new TypeError('push_still_offline');}
+  return store.cursor()==='old-pull-cursor'?resync():idle();
+ });
+ try {
+  await assert.rejects(synchronize(store,api()),/page_two_interrupted/);assert.equal(store.snapshotProgress()?.staged,1);
+  store.close();store=openTestStore(path,id(1),id(2));assert.equal(store.snapshotProgress()?.staged,1);assert.equal(store.cursor(),'old-pull-cursor');assert.deepEqual(store.operations(),chain);assert.deepEqual(store.view(day),previous);
+  interrupted=false;await assert.rejects(synchronize(store,api()),/push_still_offline/);
+  assert.equal(copies,2);assert.deepEqual(queried,[chain.map(op=>op.operationId)]);assert.equal(store.snapshotProgress(),null);assert.deepEqual(store.operations(),chain);
+  assert.deepEqual(store.view(day).habits.map(h=>h.title).sort(),['Base nova','Caminhar','Outro remoto']);assert.equal(store.view(day).totalXp,10);
+ } finally {store.close();rmSync(directory,{recursive:true,force:true});}
+});

@@ -365,3 +365,17 @@ $env:ANDROID_AVD_HOME = Join-Path $PWD '.scratch/runtime/interface/readonly-avds
 `-RetryExhausted` implica `-Matrix`, não combina com Recovery/Traversal/SyncStates/ReadOnly/SkipInstall e reutiliza somente current.apk/dev.ritmo.readonlytest; não instala updated.apk. O lançador exige fixture ausente, preserva o controle journeytest e remove apenas os pacotes temporários que instalou. Java21, SDK e Docker precisam estar preparados. Em outra máquina, preparar um AVD de teste com espaço livre e o APK normal antes do lançador; não apagar dados preexistentes.
 
 O roteiro mantém o relógio/backoff reais e usa a fixture HTTP existente sync-push-503: pull real e push recusado antes de encaminhar, Retry-After60. Nove prazos e a parada na décima falha levam pelo menos808s entre a primeira e a última. O Retry-After60 da décima recusa também permanece após reinício; o botão fica bloqueado até vencer. O vencimento só habilita a ação, sem autoenvio. Conferir intenção/dependente/10 XP provisórios, reinício sem falha, reconexão/foreground sem reenvio, retomada manual física pelo TalkBack e convergência independente sem duplicação. Tela a200%; timeout de desligamento da tela temporário e restaurado. Texto sintético por teclas de hardware não aceita edição falada. [Plano e limites](../.scratch/interface-m1/leitor-retentativas-esgotadas.md).
+
+
+### Cópia parcial interrompida com TalkBack
+
+O modo `-PartialCopy` do lançador de acessibilidade usa a fixture isolada `dev.ritmo.readonlytest/current.apk`, instalada apenas durante o ensaio. Compile-a com `scripts/build-android-readonly.ps1` após mudar o harness. O pacote journeytest e seus dados são preservados; a variante temporária é removida ao terminar, inclusive nas falhas.
+
+```powershell
+$env:JAVA_HOME='C:/Program Files/Android/Android Studio/jbr'
+$env:ANDROID_HOME='H:/Android/Sdk' # ajustar ao SDK local
+$env:ANDROID_AVD_HOME=Join-Path (Get-Location) '.scratch/runtime/interface/readonly-avds'
+./scripts/verify-android-accessibility.ps1 -PartialCopy -Avd Ritmo_ReadOnly -GpuMode host -MemoryMegabytes 4096 -EvidenceDirectory docs/design/evidencias/2026-10-19/leitor-copia-parcial/rodada1
+```
+
+Requer AVD separado já preparado, controle journeytest instalado e observador compilado. Abre emulador e acompanhamento visíveis somente no teste. O roteiro recebe a primeira página real de 500 entidades de snapshots com 501; tombstones mantêm a tela pequena. `sync-staged-copy` simula cursor expirado e recusa a segunda página com 503/Retry-After de 120s. `sync-staged-complete` simula o cursor expirado até obter manifesto e deixa a cópia real terminar. Não limpa bancos, guard, fila nem cofre. O reinício offline permite observar staging persistido sem nova requisição. Conta inicial continua bloqueada; conta com base mantém projeção e intenções originais. A/B/A e cliente HTTP independente verificam isolamento, um cumprimento e 10 XP. O ensaio não valida o cleaner real, edição falada ou desempenho. [Plano](../.scratch/interface-m1/leitor-copia-parcial.md).

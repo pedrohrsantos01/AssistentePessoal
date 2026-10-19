@@ -19,13 +19,21 @@ export async function openJourneyTestRuntime(origin:string) {
   CLIENT.appVersion='0.1.1';
  }
  const url=await Linking.getInitialURL(),fault=url?.match(/[?&]ritmoTestFault=([a-z0-9-]+)(?:[&#]|$)/)?.[1]??(url?.startsWith('https://api.example.test/password-reset#token=')?'recovery-isolation':undefined);
- const originalFetch=globalThis.fetch;let intercepted=false;
- if(['sync-429','sync-503','sync-push-429','sync-push-503','sync-update','sync-identity','sync-snapshot','recovery-isolation'].includes(fault??'')) globalThis.fetch=async(input,init)=>{
+ const originalFetch=globalThis.fetch;let intercepted=false,snapshotPages=0,snapshotStarted=false;
+ if(['sync-429','sync-503','sync-push-429','sync-push-503','sync-update','sync-identity','sync-snapshot','sync-staged-copy','sync-staged-complete','recovery-isolation'].includes(fault??'')) globalThis.fetch=async(input,init)=>{
   const path=typeof input==='string'?input:'';
   if(!path.startsWith(origin+'/api/v1/sync/')) return originalFetch(input,init);
   if(fault==='recovery-isolation') throw new TypeError('synthetic_sync_network_interruption');
   if((fault==='sync-429'||fault==='sync-503'||(fault==='sync-push-429'||fault==='sync-push-503')&&path.endsWith('/push'))) return new Response(JSON.stringify({error:{code:'temporarily_unavailable'}}),{status:fault==='sync-429'||fault==='sync-push-429'?429:503,headers:{'Content-Type':'application/json','Retry-After':'60'}});
   if(fault==='sync-update') return new Response(JSON.stringify({error:{code:'update_required'}}),{status:426,headers:{'Content-Type':'application/json'}});
+  if(fault==='sync-staged-copy'||fault==='sync-staged-complete') {
+   // Simulate an expired pull cursor, then retain the real manifest and first page.
+   if(path.includes('/pull')&&(fault==='sync-staged-copy'||!snapshotStarted)) return new Response(JSON.stringify({error:{code:'resync_required'}}),{status:409,headers:{'Content-Type':'application/json'}});
+   if(path.endsWith('/snapshots')) {snapshotStarted=true;snapshotPages=0;}
+   if(path.includes('/snapshots/')&&++snapshotPages>1&&fault==='sync-staged-copy') {
+    return new Response(JSON.stringify({error:{code:'temporarily_unavailable'}}),{status:503,headers:{'Content-Type':'application/json','Retry-After':'120'}});
+   }
+  }
   if(fault==='sync-snapshot'&&path.includes('/snapshots/')) {await new Promise<void>(resolve=>setTimeout(resolve,4000));throw new TypeError('synthetic_snapshot_interruption');}
   if(fault==='sync-identity'&&path.endsWith('/push')&&!intercepted&&typeof init?.body==='string') {
    const body=JSON.parse(init.body) as {operations:Operation[]},operation=body.operations.find(op=>op.command.type==='habit.create');

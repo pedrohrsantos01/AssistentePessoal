@@ -1,0 +1,15 @@
+{
+  "api/src/test/java/dev/ritmo/RuntimeTests.java": "97c8f7e65bbf2b8e5ac68a44ef1d6f431e080e60ec50d2ac7154ae8e77ad6287",
+  "app/harness/journey-runtime.ts": "f7e2fffd883d57a9eeba6ea5af32a8157908688bab38e6b502bec41a6cc185b1",
+  "app/test/snapshot.test.ts": "1823381605578882ffd49a5d091bbd4db4333b31680868b57715aaf324ecdfb9",
+  "app/test/components/journey.test.tsx": "611c5efc64d260b719bfa2f4b761457d021bfb4de91187ff5cfb5eea040ec76c",
+  "app/test/integration/snapshots.test.ts": "e9f8deb4306598dce5acf212eb2e659ed1d687287223a282c5144bbfd57fcf0b",
+  "app/test/integration/android-reader-partial-copy.test.ts": "859fdec8a02edd2e9966c349644cffe58b47dd241987b814a3d2aba5eeb907a0",
+  "scripts/verify-android-accessibility.ps1": "568e33456191c485db58a88a77ad09af1a53833dfac06f5ade8d8350be62a79c",
+  "scripts/build-android-readonly.ps1": "476ff9e98e440dea71978d96f4936037b12aee81c2530af60999e06d395e4af4",
+  "app/src/core/db/account-store.ts": "5d752cd4b1e4fd52012ed0b5619727c7de9b687a3ee4e7e9511eb6737a1193b2",
+  "app/src/core/sync/synchronize.ts": "e68602be793acea68e48b6a98c6218fb34902dad991597cb50c972912d92f880",
+  "app/src/core/sync/scheduler.ts": "f56c4630fb2909f8ac38647a386c830c394ded3f5a40639c054d74fe0d9213ff",
+  "app/src/features/journey/journey.ts": "04d9af7c2d143e22e182e10b8dc50e248de3b73a38418a7708b7b017e92fc36d",
+  "app/src/features/journey/sync-state.tsx": "407e0bfc21d418d8328db5a61da34450ad5c9d7b0d8008651dd92d758fb26043"
+}

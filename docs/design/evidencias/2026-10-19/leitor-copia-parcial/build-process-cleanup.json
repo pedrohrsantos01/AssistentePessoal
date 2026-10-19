@@ -1,0 +1,12 @@
+{
+  "preexistingStopped": false,
+  "processes": [
+    {
+      "alreadyAbsent": true,
+      "pid": 50956,
+      "ownedIdentityConfirmed": false,
+      "created": "2026-10-19T14:07:41.482199-03:00",
+      "stopped": false
+    }
+  ]
+}

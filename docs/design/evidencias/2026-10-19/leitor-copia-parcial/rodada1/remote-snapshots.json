@@ -1,0 +1,22 @@
+[
+  {
+    "account": "01a15533-20cc-715b-8378-70622052e74f",
+    "snapshotId": "01a15535-4e9b-7187-8f02-025968f9ea4e",
+    "entityCount": 501,
+    "firstPageEntities": 500,
+    "firstPageComplete": false,
+    "visibleHabitInFirstPage": true,
+    "tombstones": 498,
+    "commands": 997
+  },
+  {
+    "account": "01a15537-b901-7c3a-a783-8fd7eaa11f13",
+    "snapshotId": "01a15538-0855-7c35-ae6b-1ad57c3162fc",
+    "entityCount": 501,
+    "firstPageEntities": 500,
+    "firstPageComplete": false,
+    "visibleHabitInFirstPage": true,
+    "tombstones": 499,
+    "commands": 1000
+  }
+]

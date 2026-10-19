@@ -394,3 +394,22 @@ test('exhausted synchronization keeps the explicit retry disabled during the pre
   const retry=jest.spyOn(f.scheduler,'retry');await fireEvent.press(screen.getByRole('button',{name:pt.retry}));expect(retry).not.toHaveBeenCalled();expect(f.session.account().operations()).toEqual(before);
  }finally{f.close();}
 });
+
+
+test.each(['initial','existing'] as const)('nonempty staging keeps the %s account isolated until atomic installation',async mode=>{
+ const f=fixture();try {
+  await f.session.login('a@example.test','password');const store=f.session.account(),at='2026-10-09T13:00:00Z';
+  if(mode==='existing'){store.applyPull({changes:[],nextCursor:'previous-cursor',hasMore:false,highWaterRevision:'0',serverTime:at});f.journey.skip();f.journey.create('Base local','reading','blue',false);f.journey.toggle(f.journey.state().local!.habits[0]!.habitId,false);}
+  else store.seedProfile({...store.profile(),onboardedAt:at});
+  const before=store.operations(),snapshot='01996300-0000-7000-8000-000000000900';
+  const entity={kind:'habit' as const,value:{habitId:'01996300-0000-7000-8000-000000000901',title:'Somente na cópia completa',habitType:'binary' as const,scheduleKind:'daily' as const,startDayKey:'2026-10-09',creationTimeContext:store.profile().timeContext,iconKey:null,colorToken:null,sortOrder:0,createdAt:at,updatedAt:at,deletedAt:null,revision:'1'}};
+  store.beginSnapshot(snapshot,'1','first','2099-01-01T00:00:00Z');store.stageSnapshotPage(snapshot,'first',[entity],'second');await mount(f);
+  expect(screen.getByText(pt.snapshotProgress(1))).toBeOnTheScreen();expect(screen.queryByRole('checkbox',{name:pt.habitLabel(entity.value.title,false)})).toBeNull();
+  if(mode==='initial'){expect(screen.getByRole('header',{name:pt.initialLoading})).toBeOnTheScreen();expect(screen.queryByRole('button',{name:pt.habits})).toBeNull();}
+  else {expect(screen.getByRole('checkbox',{name:pt.habitLabel('Base local',true)})).toBeOnTheScreen();expect(screen.getByText(pt.totalXp(10))).toBeOnTheScreen();}
+  expect(store.operations()).toEqual(before);
+  await act(()=>{store.stageSnapshotPage(snapshot,'second',[{kind:'profile',value:store.profile()}],null);store.installSnapshot(snapshot,2,[],'complete-cursor');});
+  expect(screen.queryByText(pt.snapshotProgress(1))).toBeNull();expect(screen.getByRole('checkbox',{name:pt.habitLabel(entity.value.title,false)})).toBeOnTheScreen();expect(store.operations()).toEqual(before);
+  if(mode==='existing')expect(f.journey.state().local?.totalXp).toBe(10);
+ } finally {f.close();}
+});

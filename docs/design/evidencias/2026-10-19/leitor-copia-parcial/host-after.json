@@ -1,0 +1,36 @@
+{
+  "containers": [
+    "supabase_db_care-platform",
+    "supabase_pg_meta_care-platform",
+    "supabase_storage_care-platform",
+    "supabase_rest_care-platform",
+    "supabase_realtime_care-platform",
+    "supabase_inbucket_care-platform",
+    "supabase_auth_care-platform",
+    "supabase_kong_care-platform",
+    "ai-memory"
+  ],
+  "originalAvdMetadata": [
+    {
+      "lastWriteUtc": "2026-01-28T21:19:43.8497568Z",
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img",
+      "bytes": 6356992
+    },
+    {
+      "lastWriteUtc": "2026-10-17T13:37:51.0131436Z",
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img.qcow2",
+      "bytes": 8824946688
+    },
+    {
+      "lastWriteUtc": "2026-01-28T21:19:22.7515168Z",
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\config.ini",
+      "bytes": 1258
+    }
+  ],
+  "watchers": [],
+  "adbDevices": [
+    "List of devices attached",
+    ""
+  ],
+  "emulators": []
+}

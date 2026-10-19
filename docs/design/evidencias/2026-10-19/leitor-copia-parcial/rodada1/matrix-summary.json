@@ -1,0 +1,967 @@
+{
+  "passed": true,
+  "apkSha256": "a7f47a737703fe7d1bc69fcaaa417aa68e7a12f5a90d86a5f215b2af2138f20d",
+  "fontScale": 2,
+  "dialogFocus": [
+    {
+      "returned": "Sincronização: Offline · salvo no aparelho. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Offline · salvo no aparelho. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Tudo sincronizado. Ver sincronização",
+      "matchesOpener": true
+    }
+  ],
+  "imeReadiness": [
+    {
+      "label": "Nome",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "E-mail",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][1017,949]",
+          "imeBounds": "[0,1420][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][1017,949]",
+          "imeBounds": "[0,1420][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Senha",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1081][662,1228]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1081][662,1228]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Fuso horário",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,946][1017,1093]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,946][1017,1093]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Nome do hábito",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1395][1017,1541]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1395][1017,1541]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Nome do hábito",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[53,529][1028,676]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[53,529][1028,676]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "E-mail",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Senha",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][662,949]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][662,949]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "E-mail",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Senha",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][662,949]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][662,949]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    }
+  ],
+  "seedProof": [
+    {
+      "account": "01a15533-20cc-715b-8378-70622052e74f",
+      "snapshotId": "01a15535-4e9b-7187-8f02-025968f9ea4e",
+      "entityCount": 501,
+      "firstPageEntities": 500,
+      "firstPageComplete": false,
+      "visibleHabitInFirstPage": true,
+      "tombstones": 498,
+      "commands": 997
+    },
+    {
+      "account": "01a15537-b901-7c3a-a783-8fd7eaa11f13",
+      "snapshotId": "01a15538-0855-7c35-ae6b-1ad57c3162fc",
+      "entityCount": 501,
+      "firstPageEntities": 500,
+      "firstPageComplete": false,
+      "visibleHabitInFirstPage": true,
+      "tombstones": 499,
+      "commands": 1000
+    }
+  ],
+  "gates": [
+    {
+      "account": "A",
+      "staged": 500,
+      "reopenedOffline": true,
+      "oldBaseVisible": true,
+      "partialHabitHidden": true,
+      "sameOriginals": true,
+      "provisionalXp": 10
+    },
+    {
+      "account": "B",
+      "staged": 500,
+      "reopenedOffline": true,
+      "initialGate": true,
+      "partialHabitHidden": true,
+      "originAccountHidden": true
+    }
+  ],
+  "originals": [
+    [
+      {
+        "operationId": "01a15534-2568-75c6-9157-f5bf40ec6968",
+        "deviceId": "01a15531-ee0e-72cf-aa8b-d1770b31ad1c",
+        "clientSequence": 5,
+        "occurredAt": "2026-10-19T17:27:23.240Z",
+        "dependsOn": [
+          "01a15534-0a54-7ed7-9126-02ddb0859c04"
+        ],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01a15534-0a54-702c-a22f-efacedbb34ba",
+          "dayKey": "2026-10-19",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      {
+        "operationId": "01a15534-0a54-7ed7-9126-02ddb0859c04",
+        "deviceId": "01a15531-ee0e-72cf-aa8b-d1770b31ad1c",
+        "clientSequence": 4,
+        "occurredAt": "2026-10-19T17:27:16.308Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.create",
+          "habitId": "01a15534-0a54-702c-a22f-efacedbb34ba",
+          "title": "Intencao preservada",
+          "habitType": "binary",
+          "scheduleKind": "daily",
+          "startDayKey": "2026-10-19",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "iconKey": "meditation",
+          "colorToken": "accent",
+          "sortOrder": 1
+        }
+      }
+    ],
+    [
+      {
+        "operationId": "01a15534-2568-75c6-9157-f5bf40ec6968",
+        "deviceId": "01a15531-ee0e-72cf-aa8b-d1770b31ad1c",
+        "clientSequence": 5,
+        "occurredAt": "2026-10-19T17:27:23.240Z",
+        "dependsOn": [
+          "01a15534-0a54-7ed7-9126-02ddb0859c04"
+        ],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01a15534-0a54-702c-a22f-efacedbb34ba",
+          "dayKey": "2026-10-19",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      {
+        "operationId": "01a15534-0a54-7ed7-9126-02ddb0859c04",
+        "deviceId": "01a15531-ee0e-72cf-aa8b-d1770b31ad1c",
+        "clientSequence": 4,
+        "occurredAt": "2026-10-19T17:27:16.308Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.create",
+          "habitId": "01a15534-0a54-702c-a22f-efacedbb34ba",
+          "title": "Intencao preservada",
+          "habitType": "binary",
+          "scheduleKind": "daily",
+          "startDayKey": "2026-10-19",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "iconKey": "meditation",
+          "colorToken": "accent",
+          "sortOrder": 1
+        }
+      }
+    ],
+    [
+      {
+        "operationId": "01a15534-2568-75c6-9157-f5bf40ec6968",
+        "deviceId": "01a15531-ee0e-72cf-aa8b-d1770b31ad1c",
+        "clientSequence": 5,
+        "occurredAt": "2026-10-19T17:27:23.240Z",
+        "dependsOn": [
+          "01a15534-0a54-7ed7-9126-02ddb0859c04"
+        ],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01a15534-0a54-702c-a22f-efacedbb34ba",
+          "dayKey": "2026-10-19",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      {
+        "operationId": "01a15534-0a54-7ed7-9126-02ddb0859c04",
+        "deviceId": "01a15531-ee0e-72cf-aa8b-d1770b31ad1c",
+        "clientSequence": 4,
+        "occurredAt": "2026-10-19T17:27:16.308Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.create",
+          "habitId": "01a15534-0a54-702c-a22f-efacedbb34ba",
+          "title": "Intencao preservada",
+          "habitType": "binary",
+          "scheduleKind": "daily",
+          "startDayKey": "2026-10-19",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "iconKey": "meditation",
+          "colorToken": "accent",
+          "sortOrder": 1
+        }
+      }
+    ]
+  ],
+  "phases": [
+    "reader_200_and_physical_input_ready",
+    "original_dependency_and_xp_before_partial_copy",
+    "nonzero_active_copy_and_restart_preserve_previous_base_and_intentions",
+    "fresh_complete_snapshot_and_original_chain_converge_once",
+    "initial_copy_with_real_first_page_stays_gated_after_offline_restart",
+    "complete_install_and_account_roundtrip_preserve_isolation_and_xp"
+  ],
+  "targets": [
+    {
+      "label": "Nome",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1420,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1765,
+        1017,
+        1922
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1936,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        63,
+        1974,
+        1017,
+        2120
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        63,
+        1395,
+        1017,
+        1541
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar e ir para o Briefing",
+      "bounds": [
+        63,
+        1635,
+        1017,
+        1792
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Hábitos",
+      "bounds": [
+        371,
+        2202,
+        710,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Novo hábito",
+      "bounds": [
+        736,
+        179,
+        1028,
+        311
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar hábito",
+      "bounds": [
+        53,
+        1990,
+        1028,
+        2147
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Briefing",
+      "bounds": [
+        32,
+        2202,
+        371,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Intencao preservada, não feito",
+      "bounds": [
+        92,
+        1385,
+        988,
+        1762
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        640,
+        1026,
+        828
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1859,
+        1028,
+        2117
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1375,
+        984,
+        1613
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        2113,
+        984,
+        2351
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        98,
+        1019,
+        984,
+        1257
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1574,
+        1026,
+        1762
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1888,
+        1028,
+        2147
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1573,
+        984,
+        1811
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        2259,
+        984,
+        2424
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        98,
+        1019,
+        984,
+        1257
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        640,
+        842,
+        756
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1859,
+        1028,
+        2117
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1465,
+        984,
+        1703
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        2242,
+        984,
+        2424
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        98,
+        974,
+        984,
+        1212
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ajustes",
+      "bounds": [
+        710,
+        2202,
+        1049,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        47,
+        1956,
+        1033,
+        2121
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        53,
+        1961,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Já tenho conta",
+      "bounds": [
+        63,
+        2081,
+        1017,
+        2246
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Entrar",
+      "bounds": [
+        63,
+        989,
+        1017,
+        1146
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ajustes",
+      "bounds": [
+        710,
+        2202,
+        1049,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        47,
+        1956,
+        1033,
+        2121
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Sair desta conta",
+      "bounds": [
+        53,
+        1961,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Já tenho conta",
+      "bounds": [
+        63,
+        2081,
+        1017,
+        2246
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        802,
+        662,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Entrar",
+      "bounds": [
+        63,
+        989,
+        1017,
+        1146
+      ],
+      "density": 2.625
+    }
+  ],
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "real nonzero staging in initial and existing accounts, first page500 real HTTP and interrupted second page, offline restart, previous base and original dependency/XP, complete install, post-cut edit and A/B/A; pull expiry and second-page503 are synthetic external faults; no real cleaner, VoiceOver, spoken character editing, performance, palettes or full M1 acceptance",
+  "restored": true
+}
