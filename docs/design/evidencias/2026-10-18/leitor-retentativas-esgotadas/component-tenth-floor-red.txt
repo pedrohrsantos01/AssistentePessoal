@@ -1,0 +1,67 @@
+FAIL test/components/journey.test.tsx (41.427 s)
+  × exhausted synchronization keeps the explicit retry disabled during the preserved server floor (2016 ms)
+  ○ skipped offline login preserves typed values and exposes a useful connection error
+  ○ skipped login explains the persisted update requirement without exposing the closed account
+  ○ skipped login explains the http update requirement without exposing the closed account
+  ○ skipped the native components go through onboarding, skip, create and mark/undo using SQLite
+  ○ skipped a durable write failure keeps the form and step and never renders a successful habit
+  ○ skipped logout fences the rendered account immediately; login B never renders A data
+  ○ skipped privacy is a full accessible action before registration and its sheet closes
+  ○ skipped a confirmed daily XP limit keeps the checkbox done and shows no partial prize
+  ○ skipped a committed local projection updates controls without a loading swap or lost native identity
+  ○ skipped failing local rendering and async loading stay inside their own Briefing cards
+  ○ skipped management edits only changed fields; failed save preserves the draft and delete cancellation never writes
+  ○ skipped delete failure retains confirmation and data; retry deletes durably and returns useful management empty state
+  ○ skipped order controls change the same Briefing and compatibility disables management writes
+  ○ skipped switching accounts while a destructive confirmation is open fences the modal and its previous habit
+  ○ skipped Briefing distinguishes no due habits from no habits; management can edit a future start
+  ○ skipped Briefing at 200% summarizes the update requirement while preserving the read-only gate and local work
+  ○ skipped Briefing at 200% keeps the full vault notice and actionable sync summary without changing local work
+  ○ skipped vault pause is actionable in management and creation while local writing continues
+  ○ skipped account opening failure shows a safe diagnosis and retry preserves pending work
+  ○ skipped incomplete logout fences old routes and sheets until credential cleanup succeeds
+  ○ skipped installation failure prevents login and retry opens only after control becomes healthy
+  ○ skipped expired remote authentication remains local and only the same online account can reauthenticate
+  ○ skipped a vault write failure during new login cannot activate an account and retry keeps typed fields
+  ○ skipped sync review corrects a proven rejection and never offers discard for uncertain identity
+  ○ skipped canceling a proposed discard preserves the original and requires a fresh explicit confirmation
+  ○ skipped discard confirms only the selected rejection, preserves its child, and read-only update disables correction fields
+  ○ skipped a failed correction preserves typed fields and unresolved intent; repeated refresh announces no new result
+  ○ skipped first habit suggestions stay simple, retain a draft when revisiting time, and keep all day-start hours available
+  ○ skipped the current catalogue creates source metadata while title-only editing preserves legacy icon and color
+  ○ skipped management keeps confirmed rows compact while pending and refused intentions remain explicit
+
+  ● exhausted synchronization keeps the explicit retry disabled during the preserved server floor
+
+    expect(instance).toBeDisabled()
+
+    Received instance is not disabled:
+      <View
+        accessibilityLabel="Tentar novamente"
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "busy": false,
+            "disabled": false,
+          }
+        }
+        accessible={true}
+      />
+
+      391 |   });
+      392 |   const before=f.session.account().operations();await mount(f);await fireEvent.press(screen.getByRole('button',{name:/^Sincronização: /}));
+    > 393 |   expect(screen.getAllByText(pt.syncFailed).length).toBeGreaterThan(0);expect(screen.getByRole('button',{name:pt.retry})).toBeDisabled();
+          |                                                                                                                           ^
+      394 |   const retry=jest.spyOn(f.scheduler,'retry');await fireEvent.press(screen.getByRole('button',{name:pt.retry}));expect(retry).not.toHaveBeenCalled();expect(f.session.account().operations()).toEqual(before);
+      395 |  }finally{f.close();}
+      396 | });
+
+      at Object.toBeDisabled (test/components/journey.test.tsx:393:123)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 30 skipped, 31 total
+Snapshots:   0 total
+Time:        46.076 s
+Ran all test suites matching /test\\components\\journey.test.tsx/i with tests matching "exhausted synchronization keeps".

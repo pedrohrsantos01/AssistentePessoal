@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "originalAvdMetadataUnchanged": true,
+  "preexistingContainerNamesStillPresent": true,
+  "adbServerPid": 38660,
+  "emulatorsAfter": 0,
+  "watchersAfter": 0,
+  "scope": "file size/mtime metadata, not a database content checksum"
+}

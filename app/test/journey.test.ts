@@ -237,3 +237,17 @@ for(const status of [429,503]) test('journey exposes '+status+' waiting without 
   await s.clock.advance(59000);assert.equal(requests,1);await s.clock.advance(1000);assert.equal(requests,2);
  } finally {j.dispose();s.close();}
 });
+
+test('exhausted pull waiting becomes manually available at its minimum without automatic sending',async t=>{
+ const s=setup(),j=s.make();let requests=0;
+ t.mock.method(globalThis,'fetch',async()=>{requests++;throw new SyncHttpError(503,'temporarily_unavailable','60');});
+ try{
+  await s.f.session.login('a','password');j.skip();s.scheduler.update({active:true,online:true});await settle();
+  for(const delay of [60000,60000,60000,60000,60000,60000,64000,128000,256000])await s.clock.advance(delay);
+  assert.equal(requests,10);assert.equal(j.state().sync.phase,'failed');assert.equal(j.state().canRetry,false);
+  const operations=s.f.session.account().operations();await j.retry();assert.equal(requests,10);
+  await s.clock.advance(59999);assert.equal(j.state().canRetry,false);await s.clock.advance(1);
+  assert.equal(j.state().canRetry,true);assert.equal(j.state().sync.phase,'failed');assert.equal(requests,10);
+  assert.deepEqual(s.f.session.account().operations(),operations);
+ }finally{j.dispose();s.close();}
+});

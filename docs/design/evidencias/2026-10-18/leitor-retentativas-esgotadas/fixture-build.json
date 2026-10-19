@@ -1,0 +1,31 @@
+{
+  "package": "dev.ritmo.readonlytest",
+  "syntheticVersion": "0.1.0",
+  "apkSha256": "b3731effbf1f782ca4bfeb29213b7b16c3616d6f4287a463f58e3c5c1d3b61d3",
+  "builds": {
+    "current": {
+      "apkSha256": "b3731effbf1f782ca4bfeb29213b7b16c3616d6f4287a463f58e3c5c1d3b61d3",
+      "bundleSha256": "f16b673ef7502c00ee18883ab77ffb1269defbe15129677957719234fcb8371d"
+    },
+    "updated": {
+      "apkSha256": "f92ddd674f634581b165ed45d1ce39dfb86b416e4befd12f975f800e2051b250",
+      "bundleSha256": "f72d8f04fb765fd1d6aa2c594dbaa3170ab1674cc3e65d8731ccad288af446f4"
+    }
+  },
+  "bundleComparison": {
+    "updated": {
+      "updatedVersionLiteral": true,
+      "sha256": "f72d8f04fb765fd1d6aa2c594dbaa3170ab1674cc3e65d8731ccad288af446f4"
+    },
+    "current": {
+      "updatedVersionLiteral": false,
+      "sha256": "f16b673ef7502c00ee18883ab77ffb1269defbe15129677957719234fcb8371d"
+    }
+  },
+  "observerSha256": "74c29b956dd3f50849929ae4cee19a8d0ca8c5ee8a5b6b994c238ecdcb54b818",
+  "fixture": "sync-push-503",
+  "retryAfterSeconds": 60,
+  "clock": "system, no accelerated deadlines",
+  "productionSourceChanges": true,
+  "updatedApkUsedInThisTest": false
+}

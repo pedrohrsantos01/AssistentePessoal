@@ -107,21 +107,24 @@ test('a failed push keeps its retry deadline and immutable intention after resta
 });
 
 test('exhausted pushes stay recoverable after restart and manual retry keeps the original operation ID',async t=>{
-  const f=fixture(),clock=new Clock();let unavailable=true;
-  t.mock.method(globalThis,'fetch',async(url:RequestInfo|URL)=>String(url).endsWith('/push')?
-    unavailable?Response.json({error:{code:'unavailable'}},{status:503}):acceptedCreate(id(10)):pull('cursor-exhausted-001'));
+  const f=fixture(),clock=new Clock();let unavailable=true;const sent:unknown[]=[];
+  t.mock.method(globalThis,'fetch',async(url:RequestInfo|URL,init?:RequestInit)=>{if(String(url).endsWith('/push'))sent.push(JSON.parse(String(init?.body)));return String(url).endsWith('/push')?
+    unavailable?Response.json({error:{code:'unavailable'}},{status:503}):acceptedCreate(id(10)):pull('cursor-exhausted-001');});
   await f.session.login('a','fixture-password');const operation=f.session.account().enqueue(command,id(10),at);
   let scheduler=new SyncScheduler(f.session,'https://api.example.test',clock);
   try {
     scheduler.update({active:true,online:true});await settle();
     for(const delay of [1000,2000,4000,8000,16000,32000,64000,128000,256000]) await clock.advance(delay);
+    assert.equal(sent.length,10);assert.ok(sent.every(body=>JSON.stringify(body)===JSON.stringify(sent[0])));
+    assert.deepEqual(f.session.account().retryState(),{failedCount:1,failures:10,nextAttemptAt:null});
     scheduler.dispose();await f.restart();unavailable=false;
     scheduler=new SyncScheduler(f.session,'https://api.example.test',clock);
     scheduler.update({active:true,online:true});await clock.advance(900000);
-    assert.equal(scheduler.status().sync.phase,'failed');
+    assert.equal(scheduler.status().sync.phase,'failed');assert.equal(sent.length,10);
+    assert.deepEqual(f.session.account().retryState(),{failedCount:1,failures:10,nextAttemptAt:null});
     assert.deepEqual(f.session.account().operations(),[operation]);
     assert.equal(f.session.account().view(day).habits[0]?.title,'Caminhar');
-    scheduler.retry();await settle();assert.equal(f.session.account().view(day).pendingCount,0);
+    scheduler.retry();await settle();assert.equal(sent.length,11);assert.deepEqual(sent[10],sent[0]);assert.equal(f.session.account().view(day).pendingCount,0);
     assert.equal(f.session.account().view(day).habits[0]?.title,'Caminhar');
     assert.equal(scheduler.status().sync.phase,'idle');
   } finally {scheduler.dispose();f.close();}
@@ -278,4 +281,26 @@ test('a new dependent operation cannot bypass its parent retry deadline',async t
     await f.session.synchronize('https://api.example.test',clock.now).catch(()=>undefined);
     assert.deepEqual(sent,[[id(10)]]);assert.equal(f.session.account().view(day).pendingCount,2);
   } finally {scheduler.dispose();f.close();}
+});
+
+test('the tenth push failure still protects its Retry-After minimum from explicit retry and restart',async t=>{
+ const f=fixture(),clock=new Clock();let unavailable=true,pushes=0;
+ t.mock.method(globalThis,'fetch',async(url:RequestInfo|URL)=>{
+  if(!String(url).endsWith('/push'))return pull('cursor-tenth-floor-01');
+  pushes++;return unavailable?Response.json({error:{code:'unavailable'}},{status:503,headers:{'Retry-After':'60'}}):acceptedCreate(id(10));
+ });
+ await f.session.login('a','fixture-password');const operation=f.session.account().enqueue(command,id(10),at);
+ let scheduler=new SyncScheduler(f.session,'https://api.example.test',clock);
+ try{
+  scheduler.update({active:true,online:true});await settle();
+  for(const delay of [60000,60000,60000,60000,60000,60000,64000,128000,256000])await clock.advance(delay);
+  assert.equal(pushes,10);assert.equal(scheduler.status().sync.phase,'failed');const floor=clock.now()+60000;
+  unavailable=false;scheduler.retry();await settle();assert.equal(pushes,10,'manual retry bypassed the tenth Retry-After');
+  assert.equal(scheduler.status().sync.nextAttemptAt,floor);assert.deepEqual(f.session.account().operations(),[operation]);
+  scheduler.dispose();await f.restart();scheduler=new SyncScheduler(f.session,'https://api.example.test',clock);scheduler.update({active:true,online:true});
+  assert.equal(scheduler.status().sync.phase,'failed');assert.equal(scheduler.status().sync.nextAttemptAt,floor);
+  await clock.advance(59999);scheduler.retry();await settle();assert.equal(pushes,10);
+  await clock.advance(1);assert.equal(pushes,10,'deadline expiry must not automatically resume exhausted work');
+  scheduler.retry();await settle();assert.equal(pushes,11);assert.equal(scheduler.status().sync.phase,'idle');assert.equal(f.session.account().view(day).pendingCount,0);
+ }finally{scheduler.dispose();f.close();}
 });

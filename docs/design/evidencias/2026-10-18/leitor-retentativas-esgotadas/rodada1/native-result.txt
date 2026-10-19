@@ -1,0 +1,30 @@
+{"phase":"reader_200_and_physical_input_ready","passed":true,"fontScale":2}
+✖ TalkBack at200%: ten failed pushes, durable manual stop and original-dependent resume (50544.7562ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 204776.7811
+
+✖ failing tests:
+
+test at test\integration\android-reader-retry-exhausted.test.ts:1:2529
+✖ TalkBack at200%: ten failed pushes, durable manual stop and original-dependent resume (50544.7562ms)
+  AssertionError [ERR_ASSERTION]: keyboard_not_visible
+
+  'false' !== 'true'
+
+      at enter (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-reader-retry-exhausted.test.ts:88:72)
+      at async TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-reader-retry-exhausted.test.ts:137:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'false',
+    expected: 'true',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

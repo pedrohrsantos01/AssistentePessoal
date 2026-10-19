@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-18",
+  "typecheck": true,
+  "lint": true,
+  "coreInfraTests": 184,
+  "componentTests": 47,
+  "failed": 0,
+  "schedulerEnhancedAssertions": "10 identical pushes; persisted failedCount1/failures10 after SQLite reopening; no eleventh push during900000ms controlled time; explicit retry preserves body"
+}

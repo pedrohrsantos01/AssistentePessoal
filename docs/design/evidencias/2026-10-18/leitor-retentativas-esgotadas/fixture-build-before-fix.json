@@ -1,0 +1,12 @@
+{
+  "package": "dev.ritmo.readonlytest",
+  "syntheticVersion": "0.1.0",
+  "apkSha256": "5e201d36ad9e9f7838f08e32a2546467b4af64c95225d0f025b1e23935f94743",
+  "bundleSha256": "3bde000cd3930a76906bb9d1784356e64e1e2d036f3f560b80284ba2a931955c",
+  "observerSha256": "74c29b956dd3f50849929ae4cee19a8d0ca8c5ee8a5b6b994c238ecdcb54b818",
+  "fixture": "sync-push-503",
+  "httpFaultBeforeForwarding": true,
+  "retryAfterSeconds": 60,
+  "clock": "system, no accelerated deadlines",
+  "productionSourceChanges": false
+}

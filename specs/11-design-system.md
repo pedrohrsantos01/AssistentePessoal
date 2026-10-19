@@ -146,3 +146,6 @@ Q60=A implementada em14/10: [foco protegido dos diálogos](../docs/analises/2026
 
 
 18/10/2026 — [Atualização obrigatória e leitura local com TalkBack](../docs/analises/2026-10-17-talkback-somente-leitura.md). Q60/REQ-DS-003: rolagem arredondada para fora na grade física, seguida de nova medida visível, corrige retorno ao acionador alinhado à borda sem aumentar tentativas ou relaxar guardas. Regressão red/green e rodada 12 a 200% confirmaram o retorno real; 76 controles/11 campos-IME no AVD/API 35/4 GB. Não implica aceite integral de leitor, paletas, desempenho ou aparelhos.
+
+
+18/10/2026 — [Retentativas esgotadas e retomada manual com TalkBack](../docs/analises/2026-10-18-talkback-retentativas-esgotadas.md). Corrigida perda de Retry-After na décima falha, mantendo prazo/IDs/dependência e exigindo ação após o vencimento. Red/green de núcleo/componente e rodada 3 a 200% aprovados: seis fases, 40 controles/seis campos-IME/cinco retornos, reinício/gatilhos sem autoenvio e convergência de um hábito e 10 XP. Tipos/lint e 234 testes do app; API check completo em 17m39s, 85 executados/oito opt-in ignorados, 13 operacionais/modularidade, zero falhas. Restauração e isolamento confirmados; recursos próprios encerrados. Próximo: staging não zero interrompido; demais estados/leitura, edição falada, desempenho, paletas do novo APK e iPhone mantêm 06/M1 abertos.

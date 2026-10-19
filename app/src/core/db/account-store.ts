@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import {operationHash} from '../sync/operation-hash.ts';
-import {retryDelay} from '../sync/retry.ts';
+import {retryDelay,retryAfterDelay} from '../sync/retry.ts';
 import type { BaseSQLiteDatabase } from 'drizzle-orm/sqlite-core';
 import { project } from '../../features/habits/domain/project.ts';
 import { entityKey } from '../sync/protocol.ts';
@@ -331,9 +331,10 @@ export class AccountStore {
     this.guard();
     this.transaction(tx=>{for(const op of batch) {
       const attempts=tx.get<{attempts:number}>(sql`select attempts from sync_mutations where account_id=${this.accountId} and operation_id=${op.operationId}`)?.attempts??1;
-      const next=new Date(now+retryDelay(attempts,error,now)).toISOString();
+      const delay=attempts>=10?retryAfterDelay(error,now):retryDelay(attempts,error,now);
+      const next=delay>0?new Date(now+delay).toISOString():null;
       const status=attempts>=10?'blocked_local':'retry_wait',reason=attempts>=10?JSON.stringify({code:'retry_exhausted'}):null;
-      tx.run(sql`update sync_mutations set status=${status},next_attempt_at=${attempts>=10?null:next},error=${reason}
+      tx.run(sql`update sync_mutations set status=${status},next_attempt_at=${next},error=${reason}
         where account_id=${this.accountId} and operation_id=${op.operationId} and status='in_flight'`);
     }});
   }
@@ -344,10 +345,11 @@ export class AccountStore {
     const dates=rows.flatMap(row=>row.next_attempt_at?[Date.parse(row.next_attempt_at)]:[]);
     return {failures:Math.max(0,...rows.map(row=>row.attempts)),nextAttemptAt:dates.length?Math.min(...dates):null,failedCount:rows.filter(row=>row.status==='blocked_local').length};
   }
-  retryFailed() {
+  retryFailed(now=Date.now()) {
     this.guard(true);
     this.db.run(sql`update sync_mutations set status='pending',attempts=0,next_attempt_at=null,error=null where account_id=${this.accountId}
-      and status='blocked_local' and json_extract(error,'$.code')='retry_exhausted'`);
+      and status='blocked_local' and json_extract(error,'$.code')='retry_exhausted'
+      and (next_attempt_at is null or next_attempt_at<=${new Date(now).toISOString()})`);
   }
   cursor():string|null {
     this.guard();

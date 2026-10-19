@@ -1,0 +1,28 @@
+✖ the tenth push failure still protects its Retry-After minimum from explicit retry and restart (462.9852ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5497.2285
+
+✖ failing tests:
+
+test at test\scheduler.test.ts:1:16754
+✖ the tenth push failure still protects its Retry-After minimum from explicit retry and restart (462.9852ms)
+  AssertionError [ERR_ASSERTION]: manual retry bypassed the tenth Retry-After
+
+  11 !== 10
+
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\scheduler.test.ts:298:61)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 11,
+    expected: 10,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "typecheck": true,
+  "lint": true,
+  "coreInfraTests": 186,
+  "componentTests": 48,
+  "failed": 0,
+  "redGreen": [
+    "tenth-floor-core",
+    "disabled-button-component"
+  ],
+  "nativeDriverTypecheckedAfterFinalProbe": true
+}

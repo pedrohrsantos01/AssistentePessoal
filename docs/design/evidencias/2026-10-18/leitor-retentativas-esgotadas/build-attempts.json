@@ -1,0 +1,18 @@
+{
+  "first": {
+    "passed": false,
+    "failedTask": "expo-modules-core:buildCMakeRelWithDebInfo[x86_64]",
+    "signal": "Unable to delete directory, three hard-linked .so files",
+    "cause": "not established",
+    "normalApkPreserved": true
+  },
+  "second": {
+    "passed": true,
+    "results": [
+      "BUILD SUCCESSFUL in 6m 16s",
+      "BUILD SUCCESSFUL in 5m 38s"
+    ],
+    "manualCacheDeletion": false,
+    "preexistingProcessesStopped": false
+  }
+}

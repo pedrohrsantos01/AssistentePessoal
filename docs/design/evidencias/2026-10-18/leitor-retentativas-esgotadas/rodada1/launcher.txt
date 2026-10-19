@@ -1,0 +1,11 @@
+API/PostgreSQL preparados; iniciando agora o emulador visível.
+sendTouch: endpoint próprio em loopback, autenticação JWT obrigatória.
+Performing Streamed Install
+Success
+Filesystem       Size Used Avail Use% Mounted on
+/dev/block/dm-46 7.7G 1.5G  6.0G  21% /data/user/0
+Performing Streamed Install
+Success
+Preparando API e PostgreSQL descartáveis antes do emulador.
+{"phase":"reader_200_and_physical_input_ready","passed":true,"fontScale":2}
+{"exitCode":1,"phase":"reader_matrix_failed","passed":false}

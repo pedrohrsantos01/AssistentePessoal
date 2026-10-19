@@ -1,0 +1,8 @@
+{
+  "acceptedForFinal": false,
+  "earlierScriptPassed": true,
+  "reason": "incomplete criterion: tenth Retry-After floor was not checked, and retry was expected enabled",
+  "beforeFixApkSha256": "5e201d36ad9e9f7838f08e32a2546467b4af64c95225d0f025b1e23935f94743",
+  "driverSha256": "3b4667b76cbad2f99111781e8730e93ce69d54cbf0c42eb528a311730725a3c9",
+  "evidenceOfGap": "03-automatic-attempts-exhausted.xml: enabled retry and no wait; core red regression proves eleventh push before last60s"
+}

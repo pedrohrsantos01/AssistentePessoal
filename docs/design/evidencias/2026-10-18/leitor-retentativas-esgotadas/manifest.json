@@ -1,0 +1,572 @@
+{
+  "algorithm": "SHA-256",
+  "textEncoding": "UTF-8 LF",
+  "capturedTextNormalization": "txt trailing spaces/tabs removed",
+  "acceptedRound": "rodada3",
+  "files": {
+    "api-check-before-fix.json": {
+      "bytes": 2209,
+      "sha256": "9f28e2a234b68f2199a821d31af267ff74d6b2a2fe69d9186721621f9ed748d1"
+    },
+    "api-check.json": {
+      "bytes": 2210,
+      "sha256": "dee910b87dc1351c24deb9d5ad53547bf4dfa4df35c843a453ea6a0c114e3179"
+    },
+    "app-checks-before-fix.json": {
+      "bytes": 322,
+      "sha256": "7b5fcbd716003263f38e0dc0b2ce44b909c624eb480abf2752b5f36947c5c2dd"
+    },
+    "app-checks.json": {
+      "bytes": 249,
+      "sha256": "67141116a1b13ed519635f1f85f68f21f57ffb3c3b65ba560dd1b33f8563beed"
+    },
+    "build-attempts.json": {
+      "bytes": 459,
+      "sha256": "d4d4fc725b2e5edfdcd6fd56e8b1068cc01ad1ccfc7eb24eb7119714ddfcbf75"
+    },
+    "build-process-cleanup.json": {
+      "bytes": 47,
+      "sha256": "56bbd359613c7d84bd97e64fd843837ef5620e78960a9ca5e8a3823f1881a97d"
+    },
+    "component-tenth-floor-green.txt": {
+      "bytes": 3574,
+      "sha256": "0485787badd716e99b044194c5d0b5db1b3343aa3551fb489c0751f7db766a61"
+    },
+    "component-tenth-floor-red.txt": {
+      "bytes": 4957,
+      "sha256": "696ae92f7fb5e7dacf14cf8180e7919c997ba0e40999123fc7d0b29277ed6d8d"
+    },
+    "core-tenth-floor-green.txt": {
+      "bytes": 4130,
+      "sha256": "751bcd7f3fbc6fc62d94e1e57ecaa15f601f3978486256d37d2357f0fe0e9ed2"
+    },
+    "core-tenth-floor-red.txt": {
+      "bytes": 902,
+      "sha256": "eb13c5be87837f2fa98b2f2c04c5341851938131b1da563b07730d41a61c79a8"
+    },
+    "fixture-build-before-fix.json": {
+      "bytes": 507,
+      "sha256": "aa99b613015ae38ee7bfe310ea3b1436a272683f925d0428d6c4d22c48b763e0"
+    },
+    "fixture-build.json": {
+      "bytes": 1155,
+      "sha256": "3e345bc70f190388884ee3a1a84db5fcbbdb2cbc74c36538140ada07ead26ad8"
+    },
+    "host-after.json": {
+      "bytes": 951,
+      "sha256": "8a8ee3276dd1e1dbc06ed9e20fe9f1c3bf46ee3f8e3bd46c91ded5019293cde8"
+    },
+    "host-before-final.json": {
+      "bytes": 161,
+      "sha256": "94b0f91780aed850de8bf54d3022815780015fd2a3dbd683dedb390e254d65d2"
+    },
+    "host-before.json": {
+      "bytes": 857,
+      "sha256": "91ed5c49313b6ccd77791278ed1e2778a5ab3f99fc6cb6d5618af75e2a92f86c"
+    },
+    "host-preservation.json": {
+      "bytes": 252,
+      "sha256": "b14c2f00b084620c0c8ef0b383ae2b43f959845b2df33d095cd797d73e978927"
+    },
+    "README.md": {
+      "bytes": 3851,
+      "sha256": "9eff151a3bc2ce9320347d0d07a655fcb39a0344c21f87d650123f5a6eaf48f2"
+    },
+    "rodada1/diagnosis.json": {
+      "bytes": 582,
+      "sha256": "52c7ac8e3f2ed47e80e41a923c6e0a6751fbb69ae89c38c8ddacfcfa01f66626"
+    },
+    "rodada1/failure-app-state.json": {
+      "bytes": 244,
+      "sha256": "fccd7cb26ba6b4e669de0f710c247f16c8d47ed527874451027f0e88e07c0e59"
+    },
+    "rodada1/failure-reader-retry-exhausted.png": {
+      "bytes": 149549,
+      "sha256": "375a7d90194ba94ff5f2eb17bd2c9c3b7666d127af397dd5892c7224ef229c73"
+    },
+    "rodada1/failure-reader-retry-exhausted.xml": {
+      "bytes": 11480,
+      "sha256": "71ee30740339d8cea54e80e88fec7641615edd8517277e675913741c4356b4dc"
+    },
+    "rodada1/installation-isolation.json": {
+      "bytes": 326,
+      "sha256": "e47c373b1b56dfb059200df007b3a91a75c7e3a21510530cfb7cac4b725c29f7"
+    },
+    "rodada1/installed-apk.json": {
+      "bytes": 288,
+      "sha256": "9ea96e90390dd6bf1bcdfcc12cefb373fc13316ab01fb4ba53ed95db3f935ca8"
+    },
+    "rodada1/latest-hierarchy.xml": {
+      "bytes": 11480,
+      "sha256": "71ee30740339d8cea54e80e88fec7641615edd8517277e675913741c4356b4dc"
+    },
+    "rodada1/latest-observer-status.json": {
+      "bytes": 50,
+      "sha256": "b1ed5e8aa10745eb687577e5253487391ce81c35dfb1ed7241e588b4b1f42d63"
+    },
+    "rodada1/launcher.txt": {
+      "bytes": 509,
+      "sha256": "e7a84bbf64fc629745eb8a421b799abceef861e129c0f91ebd925e9b4718aa94"
+    },
+    "rodada1/matrix-summary.json": {
+      "bytes": 1047,
+      "sha256": "fe998bb50087e70711093a7e0ae17977ed0ee1967a7e4a1884c13041b0ba6461"
+    },
+    "rodada1/native-result.txt": {
+      "bytes": 1169,
+      "sha256": "071bbfd61eef05e654bdb4ede528ba4353485b14a8f34565561740d7d9c3181d"
+    },
+    "rodada1/reader-cleanup.json": {
+      "bytes": 291,
+      "sha256": "e086a1290f8579fac00fd21a5ace0bc43979d1d20042d210371cb1ffd6b89f98"
+    },
+    "rodada1/reader-environment.json": {
+      "bytes": 398,
+      "sha256": "6f3b88f512fb2a0133bb7b3ba8f1dde4b3b9177ebaec7cc407cf9c1758b7c7c6"
+    },
+    "rodada2/01-original-offline-0.png": {
+      "bytes": 213479,
+      "sha256": "45832c799c3a6350ae3e22b01718618feaedc9ed02ad93f4aba6536be843b724"
+    },
+    "rodada2/01-original-offline-0.xml": {
+      "bytes": 18200,
+      "sha256": "cf3b3da4807dae846e40670009827b70b4d0cabc66caf3d813c158132c6d65eb"
+    },
+    "rodada2/01-original-offline-1.png": {
+      "bytes": 287596,
+      "sha256": "305e4dae5a3edad437e0dede2c44a202fafc4ea0833421d73d4d633d17273ad3"
+    },
+    "rodada2/01-original-offline-1.xml": {
+      "bytes": 18331,
+      "sha256": "45b05131155452b24f5acc0f13cce3e10744df3b9434562ccc1086c98a939924"
+    },
+    "rodada2/02-wait-1.png": {
+      "bytes": 173561,
+      "sha256": "46c32e5076f69c0ba4274a01fa0314e53689855353550daa0600822571260502"
+    },
+    "rodada2/02-wait-1.xml": {
+      "bytes": 15226,
+      "sha256": "383a7e1acdd51bbae8f71ccd2d6daf0ca8b6e95ad5dce97c952dd69a78f6bc90"
+    },
+    "rodada2/02-wait-2.png": {
+      "bytes": 173403,
+      "sha256": "57a858487ed6f775e2eed2a296f68801f706f292cd437bc52674d4890e8efbe6"
+    },
+    "rodada2/02-wait-2.xml": {
+      "bytes": 15226,
+      "sha256": "0ba4dc8e6ff3e81f5de362cff80be9db593545405cf74005fdbda75351813e55"
+    },
+    "rodada2/02-wait-3.png": {
+      "bytes": 174232,
+      "sha256": "0dacefa3b9c05f8c2d916b2b7a7a552cb959edad6ef211d0531c8aaa7c697b79"
+    },
+    "rodada2/02-wait-3.xml": {
+      "bytes": 15226,
+      "sha256": "0dd56bf6ac0f5f9fdb24eb43a709a417872d4d4d0d0615816aecf848359af826"
+    },
+    "rodada2/02-wait-4.png": {
+      "bytes": 173297,
+      "sha256": "23e2ac6d8a9166193cb07fafbbdb813b8b799400a43c2ca196ebbefbd21c2583"
+    },
+    "rodada2/02-wait-4.xml": {
+      "bytes": 15226,
+      "sha256": "f57dfc94798a3577178230db06e3770421026589675d3a53cb852db6d2f1df00"
+    },
+    "rodada2/02-wait-5.png": {
+      "bytes": 174020,
+      "sha256": "f94dd3d3c57f332da477effb544c9339321797cac42c06a5e01c45c9707e1b4b"
+    },
+    "rodada2/02-wait-5.xml": {
+      "bytes": 15226,
+      "sha256": "32a35cc57ab09ff7d770d173766ceebdad2f6e179d8e6650f57d941079e3664f"
+    },
+    "rodada2/02-wait-6.png": {
+      "bytes": 174166,
+      "sha256": "b1473fcd8b5c6b79a2ecf6b08a720768c0fdc5677c484ee3c60fc5211d20f773"
+    },
+    "rodada2/02-wait-6.xml": {
+      "bytes": 15226,
+      "sha256": "ff108eeb07232c05f7f267f70b4ab820a80ef04e3178b25e80434f8e855dedbf"
+    },
+    "rodada2/02-wait-7.png": {
+      "bytes": 174105,
+      "sha256": "fd90628bd904efe0db72ceb821a1d8d5cc797f980366ce71daa76d2fedd27b6c"
+    },
+    "rodada2/02-wait-7.xml": {
+      "bytes": 15226,
+      "sha256": "e4a82fed3f17d938b31d2aabf56a2293ee9b5c9a5159db1a7d16b4b8f59cf1cf"
+    },
+    "rodada2/02-wait-8.png": {
+      "bytes": 174134,
+      "sha256": "4a09f32227bf169f31249a40a9645dc150b6920731d060c259adbe2d6ccde6ef"
+    },
+    "rodada2/02-wait-8.xml": {
+      "bytes": 15226,
+      "sha256": "f580c03adec615c9a3769d9d51185b36e061704267e119cb4e1ef75c451f19df"
+    },
+    "rodada2/02-wait-9.png": {
+      "bytes": 173321,
+      "sha256": "d9a4ffcbd2b2360a54b036fdc10c579fb85b755a9a09f066a08a415f581030b0"
+    },
+    "rodada2/02-wait-9.xml": {
+      "bytes": 15226,
+      "sha256": "d90a306557bf362bd02fabda8ac998c08cf5ffceed5b68ac2d8caeafd218de3c"
+    },
+    "rodada2/03-automatic-attempts-exhausted.png": {
+      "bytes": 175512,
+      "sha256": "a1827de5cf3390abbb446e2e281ad2fbb8b7fbdb00ff552a89cd7cc78ad05024"
+    },
+    "rodada2/03-automatic-attempts-exhausted.xml": {
+      "bytes": 14758,
+      "sha256": "d17863d5f67eed4cad9811298cf062354e88486da6b71be6c3c2316eac433e0a"
+    },
+    "rodada2/04-exhausted-originals-0.png": {
+      "bytes": 207130,
+      "sha256": "7c06dc6462f6caf240b881563791984ffcb2395f5cd24cae66df77a143430021"
+    },
+    "rodada2/04-exhausted-originals-0.xml": {
+      "bytes": 19074,
+      "sha256": "98eb15ff9b3f481cfa32f909414d6a3986d97ca6c4b937a63c9444715d622858"
+    },
+    "rodada2/04-exhausted-originals-1.png": {
+      "bytes": 240970,
+      "sha256": "633ad79cf7b38d8cd51775b9530cd50b331ed236911930317a53ec4f3ac11dc5"
+    },
+    "rodada2/04-exhausted-originals-1.xml": {
+      "bytes": 19206,
+      "sha256": "594980e59fe90c55e5126482f04a3f6f65fc0661f3e5d84c83dba8e26bc05371"
+    },
+    "rodada2/05-restart-stays-failed.png": {
+      "bytes": 177100,
+      "sha256": "d9ce711892e359482157579dbcdb292139e4542e0a11ba2b0896bb29c1ff8f23"
+    },
+    "rodada2/05-restart-stays-failed.xml": {
+      "bytes": 14800,
+      "sha256": "9d380327a0bbc9d80aa71530884ab730c79762bf37b3abfa0930be2beec791f1"
+    },
+    "rodada2/06-restart-originals-0.png": {
+      "bytes": 208601,
+      "sha256": "2d119f137de4c41b5827a5f465a515c1e2891951d992d91f283d242f8976bb98"
+    },
+    "rodada2/06-restart-originals-0.xml": {
+      "bytes": 19125,
+      "sha256": "1b0c07d24f0e1f4c7a5fdeb2aa1f521f837cd72abc75bd72a85a4616a6bbfead"
+    },
+    "rodada2/06-restart-originals-1.png": {
+      "bytes": 242468,
+      "sha256": "9e28020f8608e8cb69cd78e916790c30dc77d674af7608e4259b82b4d11bb5d5"
+    },
+    "rodada2/06-restart-originals-1.xml": {
+      "bytes": 19257,
+      "sha256": "1d012d9a3f2e98ac4ce8501f5ac48b2832d0819ad31c1a595ffbafb8eb041a63"
+    },
+    "rodada2/07-manual-retry.png": {
+      "bytes": 145469,
+      "sha256": "8eaebad3193fbea4b23e228d1e28085be1355bdee22ce8a18be92fbf0195b021"
+    },
+    "rodada2/07-manual-retry.xml": {
+      "bytes": 13904,
+      "sha256": "ee5298e344a74685c6c5694cfe75053403926fdbcb6e42b301f00e80690abe35"
+    },
+    "rodada2/08-confirmed-originals-0.png": {
+      "bytes": 199403,
+      "sha256": "3358be37f12f5e7e16228e1f512a12274ab9f80f7e2a688455e9decd77e9a1f3"
+    },
+    "rodada2/08-confirmed-originals-0.xml": {
+      "bytes": 18250,
+      "sha256": "3609bf67e17c188684b798f50eeab78926a542931657794b059e007caabe2b8e"
+    },
+    "rodada2/08-confirmed-originals-1.png": {
+      "bytes": 226180,
+      "sha256": "c0456985e77422287d6018bfab2ebea70d6dc7c60fbde67ea73448fed8fb45f4"
+    },
+    "rodada2/08-confirmed-originals-1.xml": {
+      "bytes": 18383,
+      "sha256": "82550c57332915ddb1ebb6a1d2ad8027160224c5d1c5fcd3562ffcaa7c2a9b12"
+    },
+    "rodada2/09-converged-once.png": {
+      "bytes": 182662,
+      "sha256": "8379c0e44b18387717631d75033ac792c42892cadd22946a8e47bf02fddfccf2"
+    },
+    "rodada2/09-converged-once.xml": {
+      "bytes": 19270,
+      "sha256": "cdabe9cf60caf37b14a4e0a290dfa58a3aacb093831c8dde79fdcea1138b5fcf"
+    },
+    "rodada2/acceptance.json": {
+      "bytes": 492,
+      "sha256": "e62567874d547ab11c64012e2bc60085e9020aae5da886de2880d9f7ba17c91b"
+    },
+    "rodada2/automatic-stop-observation.json": {
+      "bytes": 137,
+      "sha256": "4b553a156b2740acb031fb5d01d138cd3a74ebd0627bc6aa7a0d36b01f7e0f7e"
+    },
+    "rodada2/ime-readiness.json": {
+      "bytes": 2791,
+      "sha256": "4430a83d6f6b11038fc241baa1a50bb1353cdffd5689e76779aba83ed74ab5da"
+    },
+    "rodada2/installation-isolation.json": {
+      "bytes": 326,
+      "sha256": "e62f124da058e96e72fa2d2b0e9d1d42ee0288b755d4dfe6ffaf93b8d2e805c7"
+    },
+    "rodada2/installed-apk.json": {
+      "bytes": 288,
+      "sha256": "2abb6ff65290344268835b73365561475ea38ade9a2e560ff5cffd3961a7ed33"
+    },
+    "rodada2/latest-hierarchy.xml": {
+      "bytes": 19270,
+      "sha256": "cdabe9cf60caf37b14a4e0a290dfa58a3aacb093831c8dde79fdcea1138b5fcf"
+    },
+    "rodada2/latest-observer-status.json": {
+      "bytes": 50,
+      "sha256": "b1ed5e8aa10745eb687577e5253487391ce81c35dfb1ed7241e588b4b1f42d63"
+    },
+    "rodada2/launcher.txt": {
+      "bytes": 2200,
+      "sha256": "8fb4cee92e7f324a9d29e5488ac3781b9aee46e904f67c1eb8b9244e8163266b"
+    },
+    "rodada2/matrix-summary.json": {
+      "bytes": 20185,
+      "sha256": "53306d141fc1ab1c77c1cb7d044b13d86720245a64e80603dcf9f4d9833d8317"
+    },
+    "rodada2/native-result.txt": {
+      "bytes": 2052,
+      "sha256": "4322eba344e9a00c4ee028ffd16765e328a0aef576bfeac09972dededd454950"
+    },
+    "rodada2/reader-cleanup.json": {
+      "bytes": 291,
+      "sha256": "e086a1290f8579fac00fd21a5ace0bc43979d1d20042d210371cb1ffd6b89f98"
+    },
+    "rodada2/reader-environment.json": {
+      "bytes": 398,
+      "sha256": "6f3b88f512fb2a0133bb7b3ba8f1dde4b3b9177ebaec7cc407cf9c1758b7c7c6"
+    },
+    "rodada2/remote-result.json": {
+      "bytes": 192,
+      "sha256": "6c826ac0e2d47d655630124f98035dc5fa11d851187b469d8ccac1721341e7e5"
+    },
+    "rodada2/retry-deadlines.json": {
+      "bytes": 1614,
+      "sha256": "15db2d98b8b50dfe53143c22b75456c267375d8b24852e4f1b04333d067f77c7"
+    },
+    "rodada3/01-original-offline-0.png": {
+      "bytes": 210455,
+      "sha256": "b0595e8241a994e8c2d448b13e3aa3bcc9cfd830e06139bd63b1810dca5515fb"
+    },
+    "rodada3/01-original-offline-0.xml": {
+      "bytes": 18249,
+      "sha256": "eb5c8d3491643d858dd63c6067b94ab6afcd341eeaf5d0d72c6799a880c4f382"
+    },
+    "rodada3/01-original-offline-1.png": {
+      "bytes": 292673,
+      "sha256": "7aa2e64550818e80828b05adf0d8836e493d25613c58eb4487b523da555906ab"
+    },
+    "rodada3/01-original-offline-1.xml": {
+      "bytes": 18380,
+      "sha256": "060356a11d892edab1cff3e21200b6174d9ec8effe7826f0f0ec19f12b3ba5f0"
+    },
+    "rodada3/02-wait-1.png": {
+      "bytes": 172298,
+      "sha256": "1137c6998693b96206d0f38bab14fa0391d3eeec9d820c89359f2431f9aa1b96"
+    },
+    "rodada3/02-wait-1.xml": {
+      "bytes": 15269,
+      "sha256": "8bb25cb1c688618853150f5c5e59efe5de0b465b5b7825680e69c65e73ef53a7"
+    },
+    "rodada3/02-wait-2.png": {
+      "bytes": 172715,
+      "sha256": "d32c060594264785068ca66aa4c6ee48541216932f3ae83e2eb7d4f34597573f"
+    },
+    "rodada3/02-wait-2.xml": {
+      "bytes": 15269,
+      "sha256": "4373d9af88e2a146baa9547574df7897c66c114c53bd803e6459ecf5873691fa"
+    },
+    "rodada3/02-wait-3.png": {
+      "bytes": 174166,
+      "sha256": "22f8fe580b05e098b5e6e04e6f3c9e0c9ff78c1e02a38f17cd64e30c77d58b68"
+    },
+    "rodada3/02-wait-3.xml": {
+      "bytes": 15269,
+      "sha256": "3f4be50086aefc4f5830456ddfd39bfd6fc11a4bf00153fe0eec04002ba4b352"
+    },
+    "rodada3/02-wait-4.png": {
+      "bytes": 172961,
+      "sha256": "0f253cea89e2a2632eb0fcda3da682c6cbe3feb7ae117d0293dce5e2b99897ff"
+    },
+    "rodada3/02-wait-4.xml": {
+      "bytes": 15269,
+      "sha256": "a593cd59b89ff7a7cfd29a151cbc36a97d612a51bd620bd9c590adb4a636f0f5"
+    },
+    "rodada3/02-wait-5.png": {
+      "bytes": 173221,
+      "sha256": "ac12dd25d6d9b3d12a90b8fafd9ec180b129bfca36247e41dd26de9e6fd08b9c"
+    },
+    "rodada3/02-wait-5.xml": {
+      "bytes": 15269,
+      "sha256": "7980a2365e3ac3c55085297ed7182bea66efe250311eff29eba37a470f0ce905"
+    },
+    "rodada3/02-wait-6.png": {
+      "bytes": 174020,
+      "sha256": "c930fdb46714cfb5dfb7acff6632eab8412ba7aea77d5554eb4c4ebc7d6338d4"
+    },
+    "rodada3/02-wait-6.xml": {
+      "bytes": 15269,
+      "sha256": "c01baa14bad3dbcaef2215cbf3a7b323776b7045c3b0030ba219fc883fd385e2"
+    },
+    "rodada3/02-wait-7.png": {
+      "bytes": 172520,
+      "sha256": "525bda646fe977dff80625bc54ece237203193b52deffc49ee068914c8985540"
+    },
+    "rodada3/02-wait-7.xml": {
+      "bytes": 15269,
+      "sha256": "82819cb718a7aadb22708b3a5011e5aa7810ae78dbc508bb41ab2327abf90551"
+    },
+    "rodada3/02-wait-8.png": {
+      "bytes": 173661,
+      "sha256": "d43c531d84eb93e1988c2ef8bbc2a2f757cfdd1d14a8d37dfe83c69a04afc0eb"
+    },
+    "rodada3/02-wait-8.xml": {
+      "bytes": 15269,
+      "sha256": "44ca977e043b14a146eecae1d5b7006ac150f724a59c668c81ff98beea54ca46"
+    },
+    "rodada3/02-wait-9.png": {
+      "bytes": 174164,
+      "sha256": "69db23a93827da951caf12b8e746b2e74a4a5cd17fb662e2569d22d03c6da07d"
+    },
+    "rodada3/02-wait-9.xml": {
+      "bytes": 15269,
+      "sha256": "2978c952f4d2c4fbed75c2acec957e6d698bc7208e9f4ad384e16cd1be745c5f"
+    },
+    "rodada3/03-exhausted-server-floor.png": {
+      "bytes": 189340,
+      "sha256": "b8d05fa9cd3b8316fe163deb1c662ce12ad9ed33b406c78b63b65e2bf0bbb67e"
+    },
+    "rodada3/03-exhausted-server-floor.xml": {
+      "bytes": 15251,
+      "sha256": "8a62bfd7a1f867ed132009a3ef9fcf391d9d52ac1366eb59dc002c22a516d835"
+    },
+    "rodada3/04-restart-retains-server-floor.png": {
+      "bytes": 189391,
+      "sha256": "f6443adfdc2dcb964634712cdcb6e13aea3c4b97cbad2cdfb6f7591ad4e0f63d"
+    },
+    "rodada3/04-restart-retains-server-floor.xml": {
+      "bytes": 15251,
+      "sha256": "ef5973c83a5695e8d8e2d401db17d183d9142ea90020961eda4b4601c7ba274d"
+    },
+    "rodada3/05-floor-expired-without-automatic-send.png": {
+      "bytes": 188546,
+      "sha256": "b3427cc38cb4f268d0621e04b9de4dcdbb765ee5b083d857613ad31ebcddeb1c"
+    },
+    "rodada3/05-floor-expired-without-automatic-send.xml": {
+      "bytes": 15250,
+      "sha256": "6f6db1e506d7f5ae6ea7eef35d7232cac80f3915d17c408fab8d4f061690eaec"
+    },
+    "rodada3/06-restart-originals-0.png": {
+      "bytes": 216806,
+      "sha256": "315cf35a435a715db3b393e7a90e69256e7a9ffcc3107643a570d38a2ccef010"
+    },
+    "rodada3/06-restart-originals-0.xml": {
+      "bytes": 19570,
+      "sha256": "dd45193739b5dee77364f16a9dde2408914998f4f8cea5d4ea9aaa326a071427"
+    },
+    "rodada3/06-restart-originals-1.png": {
+      "bytes": 245262,
+      "sha256": "37720869a621861202ec32b8007877cd11d984a45ea3c086135b3cfd8cfbe302"
+    },
+    "rodada3/06-restart-originals-1.xml": {
+      "bytes": 19702,
+      "sha256": "e87b408b1d5f7a4a2f4e155dfff4cd7bb1910176202d4155707706d25f4257af"
+    },
+    "rodada3/07-manual-retry.png": {
+      "bytes": 145265,
+      "sha256": "23339ae7311747905ffefeb6720cd801308e836345a32acb8c44e6695de88201"
+    },
+    "rodada3/07-manual-retry.xml": {
+      "bytes": 13904,
+      "sha256": "5dabf7d1a2155effb692fa96acf4c72f59be25779b3629214c5c786936345de6"
+    },
+    "rodada3/08-confirmed-originals-0.png": {
+      "bytes": 199645,
+      "sha256": "64ca256e73ce8ca6683463f7e3abd8c981a9e12a83a2dcca8925d7c5677d8189"
+    },
+    "rodada3/08-confirmed-originals-0.xml": {
+      "bytes": 18250,
+      "sha256": "83da87fef99b219a42e696be317832036e7f9de4ebb8cbbc460924a2db4e2996"
+    },
+    "rodada3/08-confirmed-originals-1.png": {
+      "bytes": 244872,
+      "sha256": "6b2872ee314be16bb84481a89e0f75bb1c67690d3e56bbad2ddd2ed641c81f6f"
+    },
+    "rodada3/08-confirmed-originals-1.xml": {
+      "bytes": 18385,
+      "sha256": "0c2208d1df50db1854f3324a8fd8fbab8ded16f6dfe8d7f80633c4af8a578719"
+    },
+    "rodada3/09-converged-once.png": {
+      "bytes": 181018,
+      "sha256": "ab7a1f8f3834d67b70dcf4c3dd33bb72e4dd4da117260a8ee50cd7e9aefcd591"
+    },
+    "rodada3/09-converged-once.xml": {
+      "bytes": 19270,
+      "sha256": "956b9698ba7367ce92b78cba9ea757b67c1e7ea43c09ff0f5c256a66e2ecf870"
+    },
+    "rodada3/automatic-stop-observation.json": {
+      "bytes": 137,
+      "sha256": "2a905c2adc5936c2bf07fa4bad9228e0eea326064b84bc0df8203b688fad20df"
+    },
+    "rodada3/exhausted-minimum.json": {
+      "bytes": 429,
+      "sha256": "2446a8f953f1b297e9d7657f33a4c8c408661bbce2c2f249e3c3bbeec5f2288a"
+    },
+    "rodada3/ime-readiness.json": {
+      "bytes": 2637,
+      "sha256": "1c548a199bba62ff0e3e921629910fcf448b45d501b323de762b4a317c375d30"
+    },
+    "rodada3/installation-isolation.json": {
+      "bytes": 326,
+      "sha256": "e47c373b1b56dfb059200df007b3a91a75c7e3a21510530cfb7cac4b725c29f7"
+    },
+    "rodada3/installed-apk.json": {
+      "bytes": 288,
+      "sha256": "82744a3cbcdd61ac9fa84b0f0216e756088a16adc392d9c2d72f1332d86776d9"
+    },
+    "rodada3/latest-hierarchy.xml": {
+      "bytes": 19270,
+      "sha256": "956b9698ba7367ce92b78cba9ea757b67c1e7ea43c09ff0f5c256a66e2ecf870"
+    },
+    "rodada3/latest-observer-status.json": {
+      "bytes": 50,
+      "sha256": "b1ed5e8aa10745eb687577e5253487391ce81c35dfb1ed7241e588b4b1f42d63"
+    },
+    "rodada3/launcher.txt": {
+      "bytes": 2205,
+      "sha256": "1d7132b2cf510fba1f1f8c70c756ee1c24bfe62cb2b11d345ec122ca5e73b2b4"
+    },
+    "rodada3/matrix-summary.json": {
+      "bytes": 17634,
+      "sha256": "29d39c6ca2646665e9c528318a747efdad596ef04509f79480f7263d6dbef741"
+    },
+    "rodada3/native-result.txt": {
+      "bytes": 2057,
+      "sha256": "15a47fceb333dd74197178999a50998791603c7dd1b7a52e44e143fa3dad86bd"
+    },
+    "rodada3/reader-cleanup.json": {
+      "bytes": 291,
+      "sha256": "e086a1290f8579fac00fd21a5ace0bc43979d1d20042d210371cb1ffd6b89f98"
+    },
+    "rodada3/reader-environment.json": {
+      "bytes": 398,
+      "sha256": "6f3b88f512fb2a0133bb7b3ba8f1dde4b3b9177ebaec7cc407cf9c1758b7c7c6"
+    },
+    "rodada3/remote-result.json": {
+      "bytes": 192,
+      "sha256": "4d406cc435f3119115257f848fb1e90fed3cbf1b6950f3878f530304f920cd30"
+    },
+    "rodada3/retry-deadlines.json": {
+      "bytes": 1614,
+      "sha256": "a4b2ca1bfa59cc060efcc17be9ede166b20e8c017f044788adfd01f5366b4ed9"
+    },
+    "source-checksums.json": {
+      "bytes": 1434,
+      "sha256": "18ec49893e1f3f2f78d08ab05139621c61660db273a4ee3d1c09ca6c83f6e922"
+    }
+  }
+}

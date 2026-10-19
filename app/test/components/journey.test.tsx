@@ -1,3 +1,4 @@
+import {SyncHttpError} from '../../src/core/sync/synchronize.ts';
 import {IdentityHttpError} from '../../src/core/identity/http-identity.ts';
 import {useEffect} from 'react';
 import {act,fireEvent,render,screen,waitFor} from '@testing-library/react-native';
@@ -378,4 +379,18 @@ test('management keeps confirmed rows compact while pending and refused intentio
   await act(()=>store.applyAck([{receipt:{operationId:operation.operationId,operationHash:operationHash(operation),status:'rejected',error:{code:'title_unavailable',fields:[],dependencyIds:[]}},replayed:false}]));
   expect(screen.getByText(pt.operationStates.rejected)).toBeOnTheScreen();expect(screen.getByRole('button',{name:pt.editLabel('Confirmado')})).toBeOnTheScreen();expect(screen.queryByText(pt.operationStates.acknowledged)).toBeNull();
  } finally {f.close();}
+});
+
+test('exhausted synchronization keeps the explicit retry disabled during the preserved server floor',async()=>{
+ const f=fixture();try{
+  await act(async()=>{
+   await f.session.login('a@example.test','password');f.journey.skip();f.journey.create('Preservado','reading','blue',false);
+   const store=f.session.account(),batch=store.operations(),now=Date.parse('2026-10-09T13:00:00Z');
+   for(let attempt=0;attempt<10;attempt++){store.beginAttempt(batch,now);store.retryLater(batch,new SyncHttpError(503,'temporarily_unavailable','60'),now);}
+   f.session.close();await f.session.restore();f.scheduler.update({active:true,online:true});
+  });
+  const before=f.session.account().operations();await mount(f);await fireEvent.press(screen.getByRole('button',{name:/^Sincronização: /}));
+  expect(screen.getAllByText(pt.syncFailed).length).toBeGreaterThan(0);expect(screen.getByRole('button',{name:pt.retry})).toBeDisabled();
+  const retry=jest.spyOn(f.scheduler,'retry');await fireEvent.press(screen.getByRole('button',{name:pt.retry}));expect(retry).not.toHaveBeenCalled();expect(f.session.account().operations()).toEqual(before);
+ }finally{f.close();}
 });

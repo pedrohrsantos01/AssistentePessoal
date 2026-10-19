@@ -1,0 +1,24 @@
+API/PostgreSQL preparados; iniciando agora o emulador visível.
+sendTouch: endpoint próprio em loopback, autenticação JWT obrigatória.
+Performing Streamed Install
+Success
+Filesystem       Size Used Avail Use% Mounted on
+/dev/block/dm-46 7.7G 1.5G  6.0G  21% /data/user/0
+Performing Streamed Install
+Success
+Preparando API e PostgreSQL descartáveis antes do emulador.
+{"phase":"reader_200_and_physical_input_ready","passed":true,"fontScale":2}
+{"phase":"real_account_and_base_habit","passed":true,"fontScale":2}
+{"phase":"offline_originals_dependency_and_provisional_xp_preserved","passed":true,"fontScale":2}
+{"phase":"real_backoff_wait","number":1,"displayed":"Nova tentativa a partir de 18/10/2026, 19:22:36. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":2,"displayed":"Nova tentativa a partir de 18/10/2026, 19:23:36. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":3,"displayed":"Nova tentativa a partir de 18/10/2026, 19:24:36. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":4,"displayed":"Nova tentativa a partir de 18/10/2026, 19:25:37. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":5,"displayed":"Nova tentativa a partir de 18/10/2026, 19:26:37. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":6,"displayed":"Nova tentativa a partir de 18/10/2026, 19:27:37. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":7,"displayed":"Nova tentativa a partir de 18/10/2026, 19:28:42. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":8,"displayed":"Nova tentativa a partir de 18/10/2026, 19:30:50. O prazo do servidor será respeitado."}
+{"phase":"real_backoff_wait","number":9,"displayed":"Nova tentativa a partir de 18/10/2026, 19:35:06. O prazo do servidor será respeitado."}
+{"phase":"exhausted_minimum_persists_after_restart_and_early_retry_stays_blocked","passed":true,"fontScale":2}
+{"phase":"restart_connectivity_and_foreground_preserve_stop_without_remote_result","passed":true,"fontScale":2}
+{"phase":"manual_reader_retry_converges_original_chain_once","passed":true,"fontScale":2}

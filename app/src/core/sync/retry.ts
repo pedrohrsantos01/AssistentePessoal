@@ -15,12 +15,14 @@ export function failureKind(error:unknown):FailureKind {
   }
   return 'blocked';
 }
-export function retryDelay(attempt:number,error:unknown,now:number):number {
-  let delay=Math.min(1000*2**Math.max(0,attempt-1),300000);
+export function retryAfterDelay(error:unknown,now:number):number {
   if(error instanceof Error&&'retryAfter' in error&&typeof error.retryAfter==='string') {
     const value=error.retryAfter.trim();
     const requested=/^\d+$/.test(value)?Number(value)*1000:Date.parse(value)-now;
-    if(Number.isFinite(requested)&&requested>0) delay=Math.max(delay,requested);
+    if(Number.isFinite(requested)&&requested>0) return requested;
   }
-  return delay;
+  return 0;
+}
+export function retryDelay(attempt:number,error:unknown,now:number):number {
+  return Math.max(Math.min(1000*2**Math.max(0,attempt-1),300000),retryAfterDelay(error,now));
 }

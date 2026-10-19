@@ -1,0 +1,918 @@
+{
+  "passed": true,
+  "apkSha256": "5e201d36ad9e9f7838f08e32a2546467b4af64c95225d0f025b1e23935f94743",
+  "fontScale": 2,
+  "dialogFocus": [
+    {
+      "returned": "Sincronização: Offline · salvo no aparelho. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Serviço indisponível agora. Seus dados e campos foram mantidos.. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Serviço indisponível agora. Seus dados e campos foram mantidos.. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Serviço indisponível agora. Seus dados e campos foram mantidos.. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Serviço indisponível agora. Seus dados e campos foram mantidos.. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Tudo sincronizado. Ver sincronização",
+      "matchesOpener": true
+    },
+    {
+      "returned": "Sincronização: Tudo sincronizado. Ver sincronização",
+      "matchesOpener": true
+    }
+  ],
+  "imeReadiness": [
+    {
+      "label": "Nome",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,2189][1080,3072]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,522][1017,669]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "E-mail",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][1017,949]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,802][1017,949]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Senha",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1081][662,1228]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1081][662,1228]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Fuso horário",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,946][1017,1093]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,946][1017,1093]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Nome do hábito",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1395][1017,1541]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1395][1017,1541]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Nome do hábito",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[53,529][1028,676]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[53,529][1028,676]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    }
+  ],
+  "waits": [
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:34:30. O prazo do servidor será respeitado.",
+      "deadline": 1792348470000,
+      "observedAt": 1792348421087
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:35:30. O prazo do servidor será respeitado.",
+      "deadline": 1792348530000,
+      "observedAt": 1792348477210
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:36:30. O prazo do servidor será respeitado.",
+      "deadline": 1792348590000,
+      "observedAt": 1792348532663
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:37:30. O prazo do servidor será respeitado.",
+      "deadline": 1792348650000,
+      "observedAt": 1792348598902
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:38:31. O prazo do servidor será respeitado.",
+      "deadline": 1792348711000,
+      "observedAt": 1792348654007
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:39:31. O prazo do servidor será respeitado.",
+      "deadline": 1792348771000,
+      "observedAt": 1792348720198
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:40:35. O prazo do servidor será respeitado.",
+      "deadline": 1792348835000,
+      "observedAt": 1792348775551
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:42:43. O prazo do servidor será respeitado.",
+      "deadline": 1792348963000,
+      "observedAt": 1792348842142
+    },
+    {
+      "displayed": "Nova tentativa a partir de 18/10/2026, 18:47:00. O prazo do servidor será respeitado.",
+      "deadline": 1792349220000,
+      "observedAt": 1792348974240
+    }
+  ],
+  "originals": [
+    [
+      {
+        "operationId": "01a15049-5fea-7dd7-bf42-104d4981c199",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 5,
+        "occurredAt": "2026-10-18T18:32:28.394Z",
+        "dependsOn": [
+          "01a15049-44a4-7e12-a66a-f9cdba5fc3ff"
+        ],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "dayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      {
+        "operationId": "01a15049-44a4-7e12-a66a-f9cdba5fc3ff",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 4,
+        "occurredAt": "2026-10-18T18:32:21.412Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.create",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "title": "Retomada preservada",
+          "habitType": "binary",
+          "scheduleKind": "daily",
+          "startDayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "iconKey": "meditation",
+          "colorToken": "accent",
+          "sortOrder": 1
+        }
+      }
+    ],
+    [
+      {
+        "operationId": "01a15049-5fea-7dd7-bf42-104d4981c199",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 5,
+        "occurredAt": "2026-10-18T18:32:28.394Z",
+        "dependsOn": [
+          "01a15049-44a4-7e12-a66a-f9cdba5fc3ff"
+        ],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "dayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      {
+        "operationId": "01a15049-44a4-7e12-a66a-f9cdba5fc3ff",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 4,
+        "occurredAt": "2026-10-18T18:32:21.412Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.create",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "title": "Retomada preservada",
+          "habitType": "binary",
+          "scheduleKind": "daily",
+          "startDayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "iconKey": "meditation",
+          "colorToken": "accent",
+          "sortOrder": 1
+        }
+      }
+    ],
+    [
+      {
+        "operationId": "01a15049-5fea-7dd7-bf42-104d4981c199",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 5,
+        "occurredAt": "2026-10-18T18:32:28.394Z",
+        "dependsOn": [
+          "01a15049-44a4-7e12-a66a-f9cdba5fc3ff"
+        ],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "dayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      {
+        "operationId": "01a15049-44a4-7e12-a66a-f9cdba5fc3ff",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 4,
+        "occurredAt": "2026-10-18T18:32:21.412Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.create",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "title": "Retomada preservada",
+          "habitType": "binary",
+          "scheduleKind": "daily",
+          "startDayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "iconKey": "meditation",
+          "colorToken": "accent",
+          "sortOrder": 1
+        }
+      }
+    ],
+    [
+      {
+        "operationId": "01a15049-5fea-7dd7-bf42-104d4981c199",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 5,
+        "occurredAt": "2026-10-18T18:32:28.394Z",
+        "dependsOn": [
+          "01a15049-44a4-7e12-a66a-f9cdba5fc3ff"
+        ],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "dayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      {
+        "operationId": "01a15049-44a4-7e12-a66a-f9cdba5fc3ff",
+        "deviceId": "01a15047-6bfa-77fc-a6e5-68b2ca7668e7",
+        "clientSequence": 4,
+        "occurredAt": "2026-10-18T18:32:21.412Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.create",
+          "habitId": "01a15049-44a4-7133-aa17-e3fbcfa36b8f",
+          "title": "Retomada preservada",
+          "habitType": "binary",
+          "scheduleKind": "daily",
+          "startDayKey": "2026-10-18",
+          "timeContext": {
+            "timezone": "UTC",
+            "dayStartHour": 4
+          },
+          "iconKey": "meditation",
+          "colorToken": "accent",
+          "sortOrder": 1
+        }
+      }
+    ]
+  ],
+  "phases": [
+    "reader_200_and_physical_input_ready",
+    "real_account_and_base_habit",
+    "offline_originals_dependency_and_provisional_xp_preserved",
+    "exhausted_state_is_readable_and_keeps_originals_dependency_and_xp",
+    "restart_connectivity_and_foreground_preserve_stop_without_remote_result",
+    "manual_reader_retry_converges_original_chain_once"
+  ],
+  "targets": [
+    {
+      "label": "Nome",
+      "bounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "inputBounds": [
+        63,
+        522,
+        1017,
+        669
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        802,
+        1017,
+        949
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        1081,
+        662,
+        1228
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1765,
+        1017,
+        1922
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        946,
+        1017,
+        1093
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1936,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        63,
+        1974,
+        1017,
+        2120
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        63,
+        1395,
+        1017,
+        1541
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar e ir para o Briefing",
+      "bounds": [
+        63,
+        1635,
+        1017,
+        1792
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Hábitos",
+      "bounds": [
+        371,
+        2202,
+        710,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Novo hábito",
+      "bounds": [
+        736,
+        179,
+        1028,
+        311
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "inputBounds": [
+        53,
+        529,
+        1028,
+        676
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar hábito",
+      "bounds": [
+        53,
+        1990,
+        1028,
+        2147
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Briefing",
+      "bounds": [
+        32,
+        2202,
+        371,
+        2360
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Retomada preservada, não feito",
+      "bounds": [
+        92,
+        1385,
+        988,
+        1762
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        640,
+        1026,
+        828
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1859,
+        1028,
+        2117
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1469,
+        984,
+        1707
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        2156,
+        984,
+        2394
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        98,
+        1019,
+        984,
+        1257
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1314,
+        865,
+        1429
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2154,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1220,
+        865,
+        1335
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1859,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1727,
+        984,
+        1965
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1681,
+        984,
+        1919
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        98,
+        1019,
+        984,
+        1257
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1052,
+        865,
+        1167
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2154,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1052,
+        865,
+        1167
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1859,
+        1028,
+        2118
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1727,
+        984,
+        1965
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1681,
+        984,
+        1919
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        98,
+        973,
+        984,
+        1211
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        1052,
+        865,
+        1167
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Tentar novamente",
+      "bounds": [
+        53,
+        1416,
+        1028,
+        1573
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2320
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver sincronização",
+      "bounds": [
+        52,
+        640,
+        842,
+        756
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver histórico de intenções",
+      "bounds": [
+        53,
+        1859,
+        1028,
+        2117
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1559,
+        984,
+        1797
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ver intenção e diagnóstico",
+      "bounds": [
+        98,
+        1464,
+        984,
+        1702
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Ocultar intenção e diagnóstico",
+      "bounds": [
+        98,
+        974,
+        984,
+        1212
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fechar",
+      "bounds": [
+        53,
+        2155,
+        1028,
+        2319
+      ],
+      "density": 2.625
+    }
+  ],
+  "minimumLogicalUnits": 44,
+  "pixelRounding": "floor",
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES",
+  "fixtureText": "adb.hardware_keys_not_spoken_character_editing",
+  "scope": "real wall-clock retry exhaustion with 503 Retry-After60, original dependency and provisional XP preservation, restart/connectivity/foreground stop for65s, explicit reader retry and independent real API convergence; no real API outage, VoiceOver, spoken character editing, performance, nonzero staging or full M1 acceptance",
+  "restored": true
+}

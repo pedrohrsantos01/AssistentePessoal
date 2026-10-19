@@ -1,0 +1,13 @@
+{
+  "before": {
+    "displayed": "Nova tentativa a partir de 18/10/2026, 19:36:07. O prazo do servidor será respeitado.",
+    "deadline": 1792352167000,
+    "observedAt": 1792352129627
+  },
+  "reopened": {
+    "displayed": "Nova tentativa a partir de 18/10/2026, 19:36:07. O prazo do servidor será respeitado.",
+    "deadline": 1792352167000,
+    "observedAt": 1792352146423
+  },
+  "retryDisabledBeforeAndAfterRestart": true
+}

@@ -1,0 +1,12 @@
+{
+  "accepted": false,
+  "symptom": "keyboard_not_visible on first Nome entry",
+  "evidence": "assertion read ime-visible=false; later failure XML and screenshot show IME and same focused input",
+  "hypotheses": [
+    "asynchronous IME startup",
+    "transient observer metadata",
+    "focus lost during transition (not observed in failure capture)"
+  ],
+  "change": "bounded observation of focused input plus visible IME and stable geometry; no repeated touch or production change",
+  "scopeReached": "reader enabled and first input touched; no registration or retry acceptance"
+}

@@ -1,8 +1,9 @@
-param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[string]$PaletteEvidenceDirectory='',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$TrimCaches,[switch]$ReaderOnly,[switch]$Matrix,[switch]$Recovery,[switch]$Traversal,[switch]$SyncStates,[switch]$ReadOnly,[ValidateSet('swiftshader','host')][string]$GpuMode='swiftshader',[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[ValidateRange(1024,65535)][int]$GrpcPort=8590)
+param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[string]$PaletteEvidenceDirectory='',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$TrimCaches,[switch]$ReaderOnly,[switch]$Matrix,[switch]$Recovery,[switch]$Traversal,[switch]$SyncStates,[switch]$ReadOnly,[switch]$RetryExhausted,[ValidateSet('swiftshader','host')][string]$GpuMode='swiftshader',[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[ValidateRange(1024,65535)][int]$GrpcPort=8590)
 $ErrorActionPreference='Stop'
-if(@($Recovery,$Traversal,$SyncStates,$ReadOnly | Where-Object {$_}).Count -gt 1) {throw 'Escolha somente Recovery, Traversal, SyncStates ou ReadOnly.'}
-if($Recovery -or $Traversal -or $SyncStates -or $ReadOnly) {$Matrix=$true}
-if($ReadOnly -and $SkipInstall) {throw 'ReadOnly exige instalação nova do pacote isolado.'}
+if(@($Recovery,$Traversal,$SyncStates,$ReadOnly,$RetryExhausted | Where-Object {$_}).Count -gt 1) {throw 'Escolha somente Recovery, Traversal, SyncStates, ReadOnly ou RetryExhausted.'}
+if($Recovery -or $Traversal -or $SyncStates -or $ReadOnly -or $RetryExhausted) {$Matrix=$true}
+$taskIsolated=$ReadOnly -or $RetryExhausted
+if($taskIsolated -and $SkipInstall) {throw 'O modo isolado exige instalação nova do pacote de ensaio.'}
 $taskRoot=Split-Path $PSScriptRoot -Parent
 if(-not $env:ANDROID_HOME) {throw 'Configure ANDROID_HOME.'}
 $taskAdb=Join-Path $env:ANDROID_HOME 'platform-tools/adb.exe'
@@ -10,9 +11,9 @@ $taskRuntime=Join-Path $taskRoot '.scratch/runtime/interface'
 $taskLog=Join-Path $taskRuntime 'android-accessibility.log'
 $taskCompletion=Join-Path $taskRuntime 'android-accessibility-complete'
 $taskApiProcess=$null;$taskBootstrap=$null;$taskOwnObserver=$false;$taskOwnEmulator=$false;$taskEmulatorProcess=$null;$taskPanel=$null
-$taskPackage=if($ReadOnly){'dev.ritmo.readonlytest'}else{'dev.ritmo.journeytest'}
+$taskPackage=if($taskIsolated){'dev.ritmo.readonlytest'}else{'dev.ritmo.journeytest'}
 $taskIsolationFailed=$false;$taskOwnReadOnly=$false;$taskOriginalHash=$null;$taskOriginalPath=$null
-$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY','RITMO_EMULATOR_DISCOVERY','RITMO_EMULATOR_GRPC_PORT','RITMO_PALETTE_EVIDENCE','RITMO_ANDROID_READER_MATRIX','RITMO_READER_PROGRESS','RITMO_READER_BOOTSTRAP','RITMO_READER_RECOVERY','RITMO_READER_TRAVERSAL','RITMO_READER_SYNC_STATES','RITMO_READER_READONLY')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
+$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY','RITMO_EMULATOR_DISCOVERY','RITMO_EMULATOR_GRPC_PORT','RITMO_PALETTE_EVIDENCE','RITMO_ANDROID_READER_MATRIX','RITMO_READER_PROGRESS','RITMO_READER_BOOTSTRAP','RITMO_READER_RECOVERY','RITMO_READER_TRAVERSAL','RITMO_READER_SYNC_STATES','RITMO_READER_READONLY','RITMO_READER_RETRY_EXHAUSTED')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
 New-Item -ItemType Directory -Force -Path $taskRuntime | Out-Null
 try {
  if($Matrix) {
@@ -23,6 +24,7 @@ try {
   $env:RITMO_READER_TRAVERSAL=if($Traversal){'1'}else{$null}
   $env:RITMO_READER_SYNC_STATES=if($SyncStates){'1'}else{$null}
   $env:RITMO_READER_READONLY=if($ReadOnly){'1'}else{$null}
+  $env:RITMO_READER_RETRY_EXHAUSTED=if($RetryExhausted){'1'}else{$null}
   $env:RITMO_READER_BOOTSTRAP=$taskBootstrap;$env:RITMO_ANDROID_READER_MATRIX='1';$env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb
   $env:RITMO_JOURNEY_EVIDENCE=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
   if(-not $env:RITMO_JOURNEY_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidências fora do workspace.'}
@@ -64,13 +66,13 @@ try {
   return
  }
  if(-not ((& $taskAdb -s $Serial shell pm path dev.ritmo.journeytest) -match '^package:')) {throw 'Execute primeiro a suite appearance para instalar/preparar somente a variante descartável.'}
- if($ReadOnly) {
-  if((& $taskAdb -s $Serial shell pm path $taskPackage) -match '^package:') {throw 'Pacote ReadOnly preexistente preservado; use uma instalação de ensaio nova.'}
+ if($taskIsolated) {
+  if((& $taskAdb -s $Serial shell pm path $taskPackage) -match '^package:') {throw 'Pacote de ensaio isolado preexistente preservado; use uma instalação de ensaio nova.'}
   $taskOriginalPath=((& $taskAdb -s $Serial shell pm path dev.ritmo.journeytest) | Select-Object -First 1) -replace '^package:',''
   if($taskOriginalPath -notmatch '^/data/app/[A-Za-z0-9._~+/=-]+/base[.]apk$') {throw 'Instalação original não confirmada.'}
   $taskOriginalHash=((& $taskAdb -s $Serial shell sha256sum $taskOriginalPath) -split '\s+')[0]
  }
- $taskApk=if($ReadOnly){Join-Path $taskRuntime 'readonly-journey/current.apk'}else{Join-Path $taskRoot 'app/android/app/build/outputs/apk/release/app-release.apk'}
+ $taskApk=if($taskIsolated){Join-Path $taskRuntime 'readonly-journey/current.apk'}else{Join-Path $taskRoot 'app/android/app/build/outputs/apk/release/app-release.apk'}
  $taskAapt=Get-ChildItem (Join-Path $env:ANDROID_HOME 'build-tools') -Directory | Sort-Object Name -Descending | ForEach-Object {Join-Path $_.FullName 'aapt2.exe'} | Where-Object {Test-Path -LiteralPath $_} | Select-Object -First 1
  if(-not $taskAapt -or -not ((& $taskAapt dump badging $taskApk) -match ("package: name='"+[regex]::Escape($taskPackage)+"'"))) {throw 'APK diverge do pacote de teste esperado.'}
  if(-not $taskOwnEmulator) {throw 'Ensaio de toque exige emulador iniciado por este lançador; processo preexistente foi preservado.'}
@@ -121,8 +123,8 @@ try {
  }
  & $taskAdb -s $Serial shell df -h /data
  if(-not $SkipInstall) {
-  if($ReadOnly) {$taskOwnReadOnly=$true}
-  if($ReadOnly) {& $taskAdb -s $Serial install --no-incremental -r $taskApk} else {& $taskAdb -s $Serial install -r $taskApk}
+  if($taskIsolated) {$taskOwnReadOnly=$true}
+  if($taskIsolated) {& $taskAdb -s $Serial install --no-incremental -r $taskApk} else {& $taskAdb -s $Serial install -r $taskApk}
   if($LASTEXITCODE -ne 0) {
    Start-Sleep -Seconds 2
    & $taskAdb -s $Serial install --no-streaming -r $taskApk
@@ -198,4 +200,4 @@ try {
  }
  foreach($taskName in $taskPrevious.Keys) {[Environment]::SetEnvironmentVariable($taskName,$taskPrevious[$taskName],'Process')}
 }
-if($taskIsolationFailed) {throw 'Limpeza ou isolamento do pacote ReadOnly não confirmado.'}
+if($taskIsolationFailed) {throw 'Limpeza ou isolamento do pacote isolado não confirmado.'}

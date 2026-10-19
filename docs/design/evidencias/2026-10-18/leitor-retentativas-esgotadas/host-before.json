@@ -1,0 +1,33 @@
+{
+  "preexistingEmulators": [],
+  "freeMemoryKiB": 6185640,
+  "originalAvdMetadata": [
+    {
+      "Name": "userdata-qemu.img",
+      "Length": 6356992,
+      "LastWriteTimeUtc": "2026-01-28T21:19:43.8497568Z"
+    },
+    {
+      "Name": "userdata-qemu.img.qcow2",
+      "Length": 8824946688,
+      "LastWriteTimeUtc": "2026-10-17T13:37:51.0131436Z"
+    },
+    {
+      "Name": "config.ini",
+      "Length": 1258,
+      "LastWriteTimeUtc": "2026-01-28T21:19:22.7515168Z"
+    }
+  ],
+  "containers": [
+    "supabase_db_care-platform",
+    "supabase_pg_meta_care-platform",
+    "supabase_storage_care-platform",
+    "supabase_rest_care-platform",
+    "supabase_realtime_care-platform",
+    "supabase_inbucket_care-platform",
+    "supabase_auth_care-platform",
+    "supabase_kong_care-platform",
+    "ai-memory"
+  ],
+  "adb": "List of devices attached\r\n\r\n"
+}

@@ -352,3 +352,16 @@ O diretório do AVD é local/ignorado; em outra máquina, crie um AVD de teste c
 
 
 Resultado de 18/10: [rodada 12 aprovada](../docs/analises/2026-10-17-talkback-somente-leitura.md), 11 fases, 76 controles/11 campos-IME, atualizando sem reset e convergindo originais/diagnóstico/10 XP sem duplicação. Restauração/isolamento confirmados e recursos próprios fechados. Tipos/lint e 231 testes do app; API check completo aprovado. Recusa de alvo do observador verificada separadamente; as demais tentativas não recebem aceite integral. 06/M1 permanecem abertos pelos limites acima.
+
+## Retentativas esgotadas com TalkBack
+
+Da raiz, após preparar observador, APK isolado atual e controle journeytest conforme a seção anterior:
+
+```powershell
+$env:ANDROID_AVD_HOME = Join-Path $PWD '.scratch/runtime/interface/readonly-avds'
+.\scripts\verify-android-accessibility.ps1 -RetryExhausted -Avd Ritmo_ReadOnly -GpuMode host -MemoryMegabytes 4096 -EvidenceDirectory '.scratch/runtime/interface/leitor-retry-reexecucao'
+```
+
+`-RetryExhausted` implica `-Matrix`, não combina com Recovery/Traversal/SyncStates/ReadOnly/SkipInstall e reutiliza somente current.apk/dev.ritmo.readonlytest; não instala updated.apk. O lançador exige fixture ausente, preserva o controle journeytest e remove apenas os pacotes temporários que instalou. Java21, SDK e Docker precisam estar preparados. Em outra máquina, preparar um AVD de teste com espaço livre e o APK normal antes do lançador; não apagar dados preexistentes.
+
+O roteiro mantém o relógio/backoff reais e usa a fixture HTTP existente sync-push-503: pull real e push recusado antes de encaminhar, Retry-After60. Nove prazos e a parada na décima falha levam pelo menos808s entre a primeira e a última. O Retry-After60 da décima recusa também permanece após reinício; o botão fica bloqueado até vencer. O vencimento só habilita a ação, sem autoenvio. Conferir intenção/dependente/10 XP provisórios, reinício sem falha, reconexão/foreground sem reenvio, retomada manual física pelo TalkBack e convergência independente sem duplicação. Tela a200%; timeout de desligamento da tela temporário e restaurado. Texto sintético por teclas de hardware não aceita edição falada. [Plano e limites](../.scratch/interface-m1/leitor-retentativas-esgotadas.md).

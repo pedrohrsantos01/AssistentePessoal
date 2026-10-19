@@ -1,0 +1,7 @@
+{
+  "processPresent": true,
+  "foreground": [
+    "  mCurrentFocus=Window{4465ec9 u0 dev.ritmo.readonlytest/dev.ritmo.readonlytest.MainActivity}\r",
+    "  mFocusedApp=ActivityRecord{a325738 u0 dev.ritmo.readonlytest/.MainActivity t7}\r"
+  ]
+}

@@ -1,5 +1,5 @@
 import type {Session} from '../identity/session.ts';
-import {failureKind,retryDelay} from './retry.ts';
+import {failureKind,retryDelay,retryAfterDelay} from './retry.ts';
 
 export type SyncState={phase:'idle'|'running'|'retry_wait'|'failed'|'authentication_required'|'update_required'|'blocked'|'paused';failures:number;nextAttemptAt:number|null;lastFailure?:'rate_limit'|'unavailable'|'connection'};
 export type SyncClock={now:()=>number;schedule:(delay:number,run:()=>void)=>()=>void};
@@ -59,7 +59,7 @@ export class SyncScheduler {
     if(this.session.databaseRecovery()) return {phase:'paused',failures:0,nextAttemptAt:null};
     if(!this.key||this.session.access().mode==='read_only') return idle();
     const retry=this.session.account().retryState();
-    if(retry.failedCount>0) return {phase:'failed',failures:retry.failures,nextAttemptAt:null};
+    if(retry.failedCount>0) return {phase:'failed',failures:retry.failures,nextAttemptAt:retry.nextAttemptAt};
     return retry.nextAttemptAt===null?idle():{phase:'retry_wait',failures:retry.failures,nextAttemptAt:retry.nextAttemptAt};
   }
   private ready() {return !this.stopped&&this.environment.active&&this.environment.online;}
@@ -73,8 +73,8 @@ export class SyncScheduler {
     if(this.stopped) return;
     for(const name of ['sync','revocations'] as const) {
       const lane=this.lanes[name];
-      if(lane.running||!['idle','failed'].includes(lane.state.phase)) continue;
-      if(name==='sync'&&this.key&&this.session.access().mode==='read_write') this.session.account().retryFailed();
+      if(lane.running||!['idle','failed'].includes(lane.state.phase)||lane.state.nextAttemptAt!==null&&lane.state.nextAttemptAt>this.clock.now()) continue;
+      if(name==='sync'&&this.key&&this.session.access().mode==='read_write') this.session.account().retryFailed(this.clock.now());
       lane.state=idle();this.kick(name);
     }
   }
@@ -98,7 +98,7 @@ export class SyncScheduler {
       if(name==='sync') {
         const pending=await this.session.synchronize(this.origin,this.clock.now,()=>this.ready()&&this.session.networkState().key===key);
         if(this.stopped||epoch!==lane.epoch) return;
-        if(pending&&pending.failedCount>0) lane.state={phase:'failed',failures:pending.failures,nextAttemptAt:null};
+        if(pending&&pending.failedCount>0) lane.state={phase:'failed',failures:pending.failures,nextAttemptAt:pending.nextAttemptAt};
         else if(pending?.nextAttemptAt!==null&&pending?.nextAttemptAt!==undefined) {
           delay=Math.max(0,pending.nextAttemptAt-this.clock.now());lane.state={phase:'retry_wait',failures:pending.failures,nextAttemptAt:pending.nextAttemptAt};
         } else lane.state=idle();
@@ -115,7 +115,10 @@ export class SyncScheduler {
       if(kind==='retry'&&failures<10) {
         delay=Math.max(retryDelay(failures,error,this.clock.now()),(pending?.nextAttemptAt??0)-this.clock.now());
         lane.state={phase:'retry_wait',failures,nextAttemptAt:this.clock.now()+delay,lastFailure:error instanceof Error&&'status' in error&&error.status===429?'rate_limit':error instanceof Error&&'status' in error&&typeof error.status==='number'&&error.status>=500?'unavailable':'connection'};
-      } else lane.state={phase:kind==='retry'?'failed':kind,failures:kind==='paused'?lane.state.failures:failures,nextAttemptAt:null};
+      } else {
+        const minimum=kind==='retry'?Math.max(pending?.nextAttemptAt??0,this.clock.now()+retryAfterDelay(error,this.clock.now())):0;
+        lane.state={phase:kind==='retry'?'failed':kind,failures:kind==='paused'?lane.state.failures:failures,nextAttemptAt:minimum>this.clock.now()?minimum:null};
+      }
     } finally {
       lane.running=false;this.notify();
       if(this.ready()) {

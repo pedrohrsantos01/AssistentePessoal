@@ -53,7 +53,7 @@ export class Journey {
     state.local=store.presentation(day);state.day=day;
     state.gate=store.initialCopyRequired()?'initial':'account';
     state.operations=store.operationStates();state.recoveries=store.recovery();state.snapshot=store.snapshotProgress();state.sync=scheduler.status().sync;
-    state.canRetry=state.online&&!state.busy&&['idle','failed'].includes(state.sync.phase);
+    state.canRetry=state.online&&!state.busy&&['idle','failed'].includes(state.sync.phase)&&(state.sync.nextAttemptAt===null||state.sync.nextAttemptAt<=state.instant);
     const phase=state.sync.phase;state.authenticationRequired=phase==='authentication_required';
     state.remote=!state.writable?pt.update:network.vaultUnavailable?pt.vault:
      phase==='authentication_required'?pt.remoteLogin:state.local.blockedCount?pt.attention:
@@ -64,7 +64,9 @@ export class Journey {
   this.cancelClock?.();this.cancelClock=null;
   if(state.local) {
    const {timezone,dayStartHour}=state.local.profile.timeContext;
-   this.cancelClock=this.clock.schedule(nextLogicalDayAt(new Date(state.instant),timezone,dayStartHour)-state.instant,this.refresh);
+   const dayBoundary=nextLogicalDayAt(new Date(state.instant),timezone,dayStartHour);
+   const retryBoundary=state.sync.nextAttemptAt!==null&&state.sync.nextAttemptAt>state.instant?state.sync.nextAttemptAt:Infinity;
+   this.cancelClock=this.clock.schedule(Math.min(dayBoundary,retryBoundary)-state.instant,this.refresh);
   }
   if(this.snapshot&&state.key!==this.snapshot.key) {this.error=null;state.error=null;this.passwordRecovery.close();}
   this.snapshot=state;for(const listener of this.listeners) listener();

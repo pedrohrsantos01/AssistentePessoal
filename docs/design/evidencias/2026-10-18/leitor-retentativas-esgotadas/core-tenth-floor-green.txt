@@ -1,0 +1,48 @@
+✔ public journey resumes the local onboarding step, skip gives useful data, and another account cannot read it (386.9876ms)
+✔ offline mark, rapid duplicate tap, undo and remark use the original occurrence and survive process reopening (211.2976ms)
+✔ a failed transaction cannot advance onboarding or announce a habit, XP, or successful write (164.6229ms)
+✔ local projection subscriptions deliver committed changes and a pull, but never a rolled-back intention (126.4641ms)
+✔ open Briefing changes at the configured boundary and the next tap uses the new logical day (193.6947ms)
+✔ authentication validation and offline failures do not activate a local account (23.0732ms)
+✔ next logical boundary America/New_York 2026-03-08T06:59:59Z (3.2872ms)
+✔ next logical boundary America/New_York 2026-11-01T04:59:59Z (2.0143ms)
+✔ next logical boundary Asia/Kathmandu 2026-09-25T21:59:59Z (2.5541ms)
+✔ a failed remote pull with no pending changes is never presented as synchronized (98.11ms)
+✔ account validation counts Unicode code points, normalizes only the name and preserves the password (110.5277ms)
+✔ editing sends only changed fields, preserves unknown metadata and independent remote fields, and survives reopening (230.2123ms)
+✔ canonical Unicode title collisions are blocked before creating or editing an offline intention (113.0539ms)
+✔ reordering tied positions is durable and atomic when a later write fails (235.612ms)
+✔ deletion removes local habit and XP, survives restart and cannot target another account (240.3741ms)
+✔ management includes a not-started habit; Briefing and marking remain limited to due habits (165.2767ms)
+✔ local writes continue while vault recovery is pending and keep the same queue (174.3799ms)
+✔ a late authentication failure from A cannot publish an error into B (164.9838ms)
+✔ journey distinguishes sending, proven rejection and uncertain identity, and resolves only selected intentions (227.044ms)
+✔ journey exposes 429 waiting without manual retry shortening the server deadline (147.6654ms)
+✔ journey exposes 503 waiting without manual retry shortening the server deadline (146.5613ms)
+✔ exhausted pull waiting becomes manually available at its minimum without automatic sending (339.5006ms)
+✔ an offline session pulls automatically when connectivity returns (121.6388ms)
+✔ foreground polling waits five minutes and pauses until the app is active again (96.9392ms)
+✔ transient failures wait one then two seconds before synchronization recovers (93.1624ms)
+✔ ten failed attempts stop automatic retries until an explicit retry, preserving local work (205.085ms)
+✔ Retry-After from a non-JSON gateway response survives foreground and connectivity triggers (77.1744ms)
+✔ a failed push keeps its retry deadline and immutable intention after restarting the session (117.1997ms)
+✔ exhausted pushes stay recoverable after restart and manual retry keeps the original operation ID (244.8784ms)
+✔ login starts automatic sync and logout flushes revocations even without an active account (171.0159ms)
+✔ pausing between pull and push does not strand the offline intention in flight (108.9083ms)
+✔ a revoked-session retry respects Retry-After without delaying the active account sync (113.1382ms)
+✔ interruption during a push preserves the retry deadline before any response arrives (103.9789ms)
+✔ deferred operations back off and eventually require a manual retry without losing their content (261.3393ms)
+✔ a late response from A cannot change B or stop B automatic synchronization (183.3371ms)
+✔ HTTP 400 stops automatic retries while preserving local work (76.6725ms)
+✔ HTTP 401 stops automatic retries while preserving local work (67.0441ms)
+✔ HTTP 426 stops automatic retries while preserving local work (72.6689ms)
+✔ a new dependent operation cannot bypass its parent retry deadline (107.5973ms)
+✔ the tenth push failure still protects its Retry-After minimum from explicit retry and restart (217.1247ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 40
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5114.3849

@@ -1,0 +1,115 @@
+{
+  "passed": true,
+  "command": "./gradlew check --no-daemon --max-workers=2",
+  "buildResult": "BUILD SUCCESSFUL in 17m 39s",
+  "suites": [
+    {
+      "name": "dev.ritmo.ContainerPackagingTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.ModularityTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.OperationalSchedulingTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.PrimaryTelemetryTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.ProbeTransportTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.ProxyTlsTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.RateLimitTests",
+      "tests": 11,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.ReceiverSupervisionTests",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.RestoreTests",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.RetentionLifecycleTests",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.RuntimeTests",
+      "tests": 46,
+      "skipped": 8,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.SyncRetentionTests",
+      "tests": 11,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.TrustedProxyTests",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    },
+    {
+      "name": "dev.ritmo.WalRecoveryTests",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0
+    }
+  ],
+  "totals": {
+    "tests": 93,
+    "skipped": 8,
+    "failures": 0,
+    "errors": 0
+  },
+  "operationalPython": {
+    "tests": 13,
+    "passed": true
+  }
+}
