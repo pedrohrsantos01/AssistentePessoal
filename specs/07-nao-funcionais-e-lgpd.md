@@ -15,6 +15,10 @@
 
 Listas sempre virtualizadas (`FlashList`). Nenhuma query síncrona na thread de UI.
 
+### Evidência parcial de latência — 20/10/2026
+
+[Comparação e limites](../docs/analises/2026-10-20-latencia-do-cumprimento-m1.md): atualização duplicada removida após commit. No AVD/API35/3 GB, p50 de 130,74→97,31 ms e 1/20→12/20 dentro de 100 ms; p95 corrigido160,58 ms/máximo 234,66 ms. Não aceita100 ms em todas as amostras, aparelho mediano físico ou M1. Probe v4 exige o mesmo PressEvent/UP e preserva amostras altas válidas; versões anteriores não permitem atribuir picos sem essa correlação. Cards continuam0/10≤300 ms. Próximo: decompor a cauda do cumprimento, depois partida dos cards.
+
 ## 2. Confiabilidade
 
 - Crash-free sessions ≥ 99,5%

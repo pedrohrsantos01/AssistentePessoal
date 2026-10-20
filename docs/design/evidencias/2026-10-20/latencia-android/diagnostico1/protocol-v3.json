@@ -1,0 +1,58 @@
+{
+  "schema": 3,
+  "status": "prepared",
+  "date": "2026-10-20",
+  "baseline": "../desempenho-android/rodada8",
+  "cohort": {
+    "processColdStarts": 10,
+    "offlineTogglesPerStart": 2,
+    "preserveAllValidSamples": true,
+    "startupTargetMs": 2000,
+    "localCardsTargetMs": 300,
+    "toggleTargetMs": 100
+  },
+  "device": {
+    "avd": "Ritmo_ReadOnly",
+    "api": 35,
+    "abi": "x86_64",
+    "memoryMb": 3072,
+    "gpu": "host",
+    "fontScale": 1,
+    "talkBack": false,
+    "animationScales": 0
+  },
+  "start": "MotionEvent.eventTimeNanos at actual ACTION_UP in checkbox bounds",
+  "end": "correlated FrameMetrics.INTENDED_VSYNC_TIMESTAMP + TOTAL_DURATION; rendered and issued, not photons",
+  "nativeSeams": [
+    "inputNs",
+    "dispatchNs before probe scan",
+    "dispatchProbeEndNs",
+    "drawNs",
+    "frameEndNs"
+  ],
+  "javascriptSeams": [
+    "toggle.handler with PressEvent timestamp",
+    "store.committed after SQLite transaction returns before subscribers",
+    "refresh.started/published/finished",
+    "local.persisted after store subscribers return",
+    "local.returned after scheduler request",
+    "toggle.react in useLayoutEffect keyed to checked state"
+  ],
+  "clockChecks": [
+    "RN0.86.3 NativePerformance/JSRuntimeBindings -> HighResTimeStamp steady_clock (ms from system boot)",
+    "performance.now within nativePerformanceNow bracket on each marker; reject fallback",
+    "JS PressEvent timestamp agrees with MotionEvent.eventTimeNanos within <1ms (integer millisecond event timestamp)",
+    "native dispatch, JS phases and frame must form chronological chain; no host offset calibration"
+  ],
+  "limits": [
+    "AVD only, no median physical Android or iPhone acceptance",
+    "added diagnostics perturb timings; compare same schema3 instrumentation before and after",
+    "native endpoint does not measure display photons",
+    "no changes to success-before-commit, schema, XP or operation identities"
+  ],
+  "primaryReferences": [
+    "https://reactnative.dev/docs/0.86/global-performance",
+    "https://developer.android.com/reference/android/os/SystemClock",
+    "https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-18.1.8/libcxx/src/chrono.cpp"
+  ]
+}

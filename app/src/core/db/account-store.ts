@@ -1,3 +1,4 @@
+import {performanceMark} from '../diagnostics/performance.ts';
 import { sql } from 'drizzle-orm';
 import {operationHash} from '../sync/operation-hash.ts';
 import {retryDelay,retryAfterDelay} from '../sync/retry.ts';
@@ -39,7 +40,7 @@ export class AccountStore {
     // Internal commands join the outer transaction. Expo must never start a second BEGIN.
     if(this.activeTransaction) return work(this.activeTransaction);
     let committed=false;
-    try {const result=this.db.transaction(tx=>{this.activeTransaction=tx;return work(tx);});committed=true;return result;}
+    try {const result=this.db.transaction(tx=>{this.activeTransaction=tx;return work(tx);});committed=true;performanceMark('store.committed');return result;}
     finally {this.activeTransaction=null;if(committed) for(const listener of this.listeners) {
       // Presentation failures cannot turn a committed intent into an apparent storage failure.
       try {listener();} catch { /* The failing presentation owns its error boundary. */ }

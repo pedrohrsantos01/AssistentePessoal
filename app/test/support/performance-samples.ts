@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 export type ColdProof={pidAbsentBeforeLaunch:true;pidAfterLaunch:number;launcherPid:number;launchNs:number;sample:number};
-export type FrameSample={schema:2;pid:number;launchClock?:'device_intent_request';originPid?:number;coldProof?:ColdProof;sample:number;kind:'startup'|'toggle';frameVsyncNs:number;frameIntendedNs:number;drawVsyncNs:number;drawNs:number;scanNs:number;frameTotalNs:number;frameEndNs:number;dropped:0;checked:boolean;launchNs?:number;inputNs?:number;sequence?:number};
+export type FrameSample={schema:2|3|4;downNs?:number;dispatchNs?:number;dispatchProbeEndNs?:number;pid:number;launchClock?:'device_intent_request';originPid?:number;coldProof?:ColdProof;sample:number;kind:'startup'|'toggle';frameVsyncNs:number;frameIntendedNs:number;drawVsyncNs:number;drawNs:number;scanNs:number;frameTotalNs:number;frameEndNs:number;dropped:0;checked:boolean;launchNs?:number;inputNs?:number;sequence?:number};
 export function frameSample(value:unknown):FrameSample {
  assert.ok(value&&typeof value==='object');const v=value as Record<string,unknown>;
- assert.equal(v.schema,2);assert.ok(v.kind==='startup'||v.kind==='toggle');assert.ok(typeof v.checked==='boolean');assert.equal(v.dropped,0);
+ assert.ok(v.schema===2||v.schema===3||v.schema===4);assert.ok(v.kind==='startup'||v.kind==='toggle');assert.ok(typeof v.checked==='boolean');assert.equal(v.dropped,0);
  for(const key of ['pid','sample','frameVsyncNs','frameIntendedNs','drawVsyncNs','drawNs','scanNs','frameTotalNs','frameEndNs'])assert.ok(typeof v[key]==='number'&&Number.isSafeInteger(v[key])&&v[key]>=0,key);
  assert.ok((v.sample as number)>=1&&(v.sample as number)<=10);
  assert.ok(v.drawVsyncNs===v.frameVsyncNs||v.drawVsyncNs===v.frameIntendedNs,'frame_correlation_missing');
@@ -14,7 +14,14 @@ export function frameSample(value:unknown):FrameSample {
   assert.equal(v.checked,false);assert.equal(v.launchClock,'device_intent_request');
   const proof=v.coldProof as ColdProof|undefined;assert.ok(proof);assert.equal(proof.pidAbsentBeforeLaunch,true);assert.equal(proof.pidAfterLaunch,v.pid);assert.equal(proof.launcherPid,v.originPid);assert.equal(proof.launchNs,v.launchNs);assert.equal(proof.sample,v.sample);
   for(const n of [proof.pidAfterLaunch,proof.launcherPid])assert.ok(Number.isSafeInteger(n)&&n>0);assert.notEqual(proof.launcherPid,proof.pidAfterLaunch);
- }else assert.ok(v.sequence===1||v.sequence===2);
+ }else {
+  assert.ok(v.sequence===1||v.sequence===2);
+  if(v.schema===3||v.schema===4) {
+   for(const key of ['dispatchNs','dispatchProbeEndNs'])assert.ok(typeof v[key]==='number'&&Number.isSafeInteger(v[key]),key);
+   if(v.schema===4)assert.ok(typeof v.downNs==='number'&&Number.isSafeInteger(v.downNs)&&v.downNs>0&&v.downNs<=(v.inputNs as number),'tap_down_missing');
+   assert.ok((v.inputNs as number)<=(v.dispatchNs as number)&&(v.dispatchNs as number)<=(v.dispatchProbeEndNs as number)&&(v.dispatchProbeEndNs as number)<=(v.drawNs as number),'dispatch_clock_reversed');
+  }
+ }
  return v as FrameSample;
 }
 export function correlateColdStartup(value:unknown,proof:ColdProof):FrameSample {

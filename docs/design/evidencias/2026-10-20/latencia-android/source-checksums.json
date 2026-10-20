@@ -1,0 +1,21 @@
+{
+  ".scratch/interface-m1/cauda-do-cumprimento.md": "fd3d725e15864b33663be2da08915a5e14ca5985f3c9442cd74a8379083dc6e9",
+  ".scratch/interface-m1/issues/06-aparencia-e-acessibilidade.md": "27a604a0dcf70c7bd25747f4d61cfc94a14c912f2b619bdce2d1748bfedb7a1b",
+  ".scratch/interface-m1/latencia-do-cumprimento.md": "a83af4970895b6d56dad71033eb59bb0d6908be774ef99f11f1a9822030f6da4",
+  ".scratch/interface-m1/leitor-e-desempenho.md": "999b093ad1e7c32ac22f7444a9b39975c6912fc509d8b08a1ec58fa37b796a6d",
+  "app/harness/RitmoFrameProbe.kt": "d60c130ba7973a652d08e17c3aed2684a0fd720d358369eb7442ba58193ca971",
+  "app/src/core/db/account-store.ts": "07a3b3977b7f83a8b943ef311d2a0a7bdbd81660ad0773a1f26e9de073ba8b1d",
+  "app/src/core/diagnostics/performance.ts": "2837f5708b834c991949250d9138f70934da71ade28b087a0cd1115b97b8f172",
+  "app/src/features/journey/journey.ts": "df7526ad8ad3790d542ae117e7a9822047d9e4b93e4646f94bd5c6e73143e3df",
+  "app/src/features/journey/screens.tsx": "929daa5c935b9a4c9f6c013523e4acc81e6899c43d65f4ce233efe3f4ce1f922",
+  "app/test/integration/android-performance.test.ts": "b4f0106ad183fe0765114e2e28a73abb99ccb0ba5c96937392b14c0dd2dc6d06",
+  "app/test/journey.test.ts": "70e26aa9dab18a024ec4625e47069f9867b4ea62b9c29545d65f067b10fdd9ec",
+  "app/test/support/performance-samples.ts": "5e589ae412f465603baa5b2766a3c9a48b72409164cf84aee48b5df60b1b9236",
+  "app/test/support/toggle-latency.ts": "95d5410e63f935ce2439326dd6723fe0f4703a0d5f79fbbca329bee6305004d3",
+  "app/test/toggle-latency.test.ts": "af2aca42de44b1162b16900aa8b808164d0198798914e3a4a2d2b8a583e24125",
+  "docs/analises/2026-10-20-desempenho-instrumentado-m1.md": "0881a359c845cb501773662115ebcacf12d2c0a270c03d02bdce658962d3cb51",
+  "docs/analises/2026-10-20-latencia-do-cumprimento-m1.md": "e67457cf5f3fe409ceb8fe8619094ff5389abc67652b473ae285183c43348612",
+  "scripts/build-android-readonly.ps1": "6e447379dee0e7a8ef9d55852c73ccc82b9f3d0a98cf82badd222c929bc65a10",
+  "specs/07-nao-funcionais-e-lgpd.md": "8404dffe1e1de5a87beeb23a2f085149d5f80130ca443be583b1ba471601dc4f",
+  "specs/08-briefing.md": "370f9dc0902c269e6e1077026c8146afc50d70f961b99d00aee4e145596a3929"
+}

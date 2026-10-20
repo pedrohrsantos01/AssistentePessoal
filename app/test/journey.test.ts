@@ -61,6 +61,18 @@ test('local projection subscriptions deliver committed changes and a pull, but n
   assert.equal(journey.state().local?.profile.displayName,'Nome remoto');unsubscribe();
  } finally {journey.dispose();s.close();}
 });
+test('one offline toggle publishes one committed presentation rather than repeating the full refresh',async()=>{
+ const s=setup(),journey=s.make();try {
+  await s.f.session.login('a','password');journey.confirmTime({timezone:'UTC',dayStartHour:4});journey.create('Ler','reading','blue',true);
+  const store=s.f.session.account(),before=store.operations().length,habit=journey.state().local!.habits[0]!;
+  const notices:{done:boolean|undefined;xp:number|undefined;operations:number}[]=[];
+  const unsubscribe=journey.subscribe(()=>notices.push({done:journey.state().local?.habits[0]?.done,xp:journey.state().local?.totalXp,operations:store.operations().length}));
+  journey.toggle(habit.habitId,false);unsubscribe();
+  assert.deepEqual(notices,[{done:true,xp:10,operations:before+1}]);
+  assert.equal(store.operations().length,before+1);
+ } finally {journey.dispose();s.close();}
+});
+
 test('open Briefing changes at the configured boundary and the next tap uses the new logical day',async()=>{
  const s=setup(),journey=s.make();try {
   s.clock.time=Date.parse('2026-09-25T03:59:59Z');await s.f.session.login('a','password');journey.confirmTime({timezone:'UTC',dayStartHour:4});journey.create('Ler','reading','blue',true);

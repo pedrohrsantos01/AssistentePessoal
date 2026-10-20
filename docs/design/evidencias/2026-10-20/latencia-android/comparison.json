@@ -1,0 +1,212 @@
+{
+  "method": "nearest rank, all 20 valid changes retained per cohort",
+  "schema": 4,
+  "baseline": "baseline2",
+  "optimized": "optimized4",
+  "cohorts": {
+    "baseline2": {
+      "summary": {
+        "measurementValid": true,
+        "method": "Device-side Intent launch request / physical ACTION_UP to correlated native frame rendered and issued; process absence/new PID and exact launcher/native clock verified; not physical display photons",
+        "startup": {
+          "count": 10,
+          "minMs": 885.9534,
+          "p50Ms": 1029.9138,
+          "p95Ms": 1378.1572,
+          "maxMs": 1378.1572,
+          "targetMs": 2000,
+          "withinTarget": 10,
+          "allWithinTarget": true
+        },
+        "localCards": {
+          "count": 10,
+          "minMs": 885.9534,
+          "p50Ms": 1029.9138,
+          "p95Ms": 1378.1572,
+          "maxMs": 1378.1572,
+          "targetMs": 300,
+          "withinTarget": 0,
+          "allWithinTarget": false
+        },
+        "feedback": {
+          "count": 20,
+          "minMs": 96.374,
+          "p50Ms": 130.7408,
+          "p95Ms": 175.5564,
+          "maxMs": 189.8975,
+          "targetMs": 100,
+          "withinTarget": 1,
+          "allWithinTarget": false
+        },
+        "physicalDeviceAccepted": false
+      },
+      "refreshCounts": [
+        2
+      ],
+      "phases": {
+        "eventToDispatchMs": {
+          "count": 20,
+          "p50Ms": 0.8540000000211876,
+          "p95Ms": 1.2479000000166707,
+          "maxMs": 1.441900000005262
+        },
+        "dispatchToHandlerMs": {
+          "count": 20,
+          "p50Ms": 8.193800000008196,
+          "p95Ms": 15.23399999999674,
+          "maxMs": 15.926199999987148
+        },
+        "handlerToCommitMs": {
+          "count": 20,
+          "p50Ms": 19.085599999991246,
+          "p95Ms": 26.159499999979744,
+          "maxMs": 28.373300000006566
+        },
+        "commitToReturnMs": {
+          "count": 20,
+          "p50Ms": 57.62909999999101,
+          "p95Ms": 77.72690000000875,
+          "maxMs": 84.65019999997457
+        },
+        "returnToReactMs": {
+          "count": 20,
+          "p50Ms": 18.550199999997858,
+          "p95Ms": 30.227000000013504,
+          "maxMs": 32.27150000000256
+        },
+        "reactToFrameMs": {
+          "count": 20,
+          "p50Ms": 22.186699999991106,
+          "p95Ms": 29.92860000001383,
+          "maxMs": 44.20699999999488
+        }
+      },
+      "maxDispatchProbeMs": 0.6485999999858905,
+      "maxClockBracketMs": 0.3299999999871943,
+      "slowest": {
+        "sample": 1,
+        "sequence": 1,
+        "checked": true,
+        "totalMs": 189.89749999999185,
+        "eventToDispatchMs": 0.8194999999832362,
+        "dispatchProbeMs": 0.5490000000281725,
+        "dispatchToHandlerMs": 8.193800000008196,
+        "handlerToCommitMs": 21.800000000017462,
+        "commitToReturnMs": 84.65019999997457,
+        "returnToReactMs": 30.227000000013504,
+        "reactToFrameMs": 44.20699999999488,
+        "refreshCount": 2,
+        "refreshes": [
+          {
+            "durationMs": 40.90659999998752
+          },
+          {
+            "durationMs": 42.7618000000075
+          }
+        ],
+        "clockBracketMaxMs": 0.28579999998328276
+      }
+    },
+    "optimized4": {
+      "summary": {
+        "measurementValid": true,
+        "method": "Device-side Intent launch request / physical ACTION_UP to correlated native frame rendered and issued; process absence/new PID and exact launcher/native clock verified; not physical display photons",
+        "startup": {
+          "count": 10,
+          "minMs": 835.8667,
+          "p50Ms": 1038.6547,
+          "p95Ms": 1574.1292,
+          "maxMs": 1574.1292,
+          "targetMs": 2000,
+          "withinTarget": 10,
+          "allWithinTarget": true
+        },
+        "localCards": {
+          "count": 10,
+          "minMs": 835.8667,
+          "p50Ms": 1038.6547,
+          "p95Ms": 1574.1292,
+          "maxMs": 1574.1292,
+          "targetMs": 300,
+          "withinTarget": 0,
+          "allWithinTarget": false
+        },
+        "feedback": {
+          "count": 20,
+          "minMs": 83.9869,
+          "p50Ms": 97.3126,
+          "p95Ms": 160.5767,
+          "maxMs": 234.6592,
+          "targetMs": 100,
+          "withinTarget": 12,
+          "allWithinTarget": false
+        },
+        "physicalDeviceAccepted": false
+      },
+      "refreshCounts": [
+        1
+      ],
+      "phases": {
+        "eventToDispatchMs": {
+          "count": 20,
+          "p50Ms": 0.8869999999878928,
+          "p95Ms": 1.9455000000016298,
+          "maxMs": 13.05449999999837
+        },
+        "dispatchToHandlerMs": {
+          "count": 20,
+          "p50Ms": 9.127800000016578,
+          "p95Ms": 17.050600000016857,
+          "maxMs": 35.861999999993714
+        },
+        "handlerToCommitMs": {
+          "count": 20,
+          "p50Ms": 19.019899999984773,
+          "p95Ms": 39.437100000010105,
+          "maxMs": 77.85680000000866
+        },
+        "commitToReturnMs": {
+          "count": 20,
+          "p50Ms": 26.99340000000666,
+          "p95Ms": 52.24590000000899,
+          "maxMs": 53.45750000001863
+        },
+        "returnToReactMs": {
+          "count": 20,
+          "p50Ms": 18.43989999999758,
+          "p95Ms": 30.435499999963213,
+          "maxMs": 33.98020000001998
+        },
+        "reactToFrameMs": {
+          "count": 20,
+          "p50Ms": 24.54059999997844,
+          "p95Ms": 31.84280000004219,
+          "maxMs": 31.855299999995623
+        }
+      },
+      "maxDispatchProbeMs": 1.0577000000048429,
+      "maxClockBracketMs": 0.37800000002607703,
+      "slowest": {
+        "sample": 6,
+        "sequence": 1,
+        "checked": true,
+        "totalMs": 234.6591999999946,
+        "eventToDispatchMs": 13.05449999999837,
+        "dispatchProbeMs": 0.34429999999701977,
+        "dispatchToHandlerMs": 35.861999999993714,
+        "handlerToCommitMs": 77.85680000000866,
+        "commitToReturnMs": 52.24590000000899,
+        "returnToReactMs": 28.931500000006054,
+        "reactToFrameMs": 26.708499999978812,
+        "refreshCount": 1,
+        "refreshes": [
+          {
+            "durationMs": 51.406199999997625
+          }
+        ],
+        "clockBracketMaxMs": 0.2298000000009779
+      }
+    }
+  },
+  "p50ReductionPercent": 25.56830002569971
+}

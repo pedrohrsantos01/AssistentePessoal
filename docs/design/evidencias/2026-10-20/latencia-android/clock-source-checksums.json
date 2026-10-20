@@ -1,0 +1,12 @@
+{
+  "reactNative": "0.86.3",
+  "files": {
+    "ReactCommon/react/nativemodule/webperformance/NativePerformance.cpp": "ec191f7d8960be06c6d011d8ee5f0ed03719659b2129ef70036bb14ee5830c6b",
+    "ReactCommon/react/timing/primitives.h": "c1b629efa8b6348f7c4e575749444c1e45c5cd347acddcbd1115541713899514",
+    "ReactCommon/jsitooling/react/runtime/JSRuntimeBindings.cpp": "d88b1047024bc7ca9c7b3574b2ee04deeab4cb2e24ecfdee8af8aa40c396d6e5",
+    "ReactCommon/react/runtime/ReactInstance.cpp": "e56aa7f4aec928e87a42d6ec2de1cfd6dde58d2f6003e4129e2d894a7783318d",
+    "src/private/webapis/performance/internals/Utilities.js": "d139614c34f811b99ab3ccda3ea642d8d4533c6dfe8c7f0c24207b1d88a3a9c4",
+    "ReactAndroid/src/main/java/com/facebook/react/uimanager/events/TouchEvent.kt": "5fca07e418e3ef891a9ca37a8ff0357ed4542ed60d4b13a73eb67254f4244ff4",
+    "ReactAndroid/src/main/java/com/facebook/react/uimanager/events/TouchesHelper.kt": "c23f4cecd710c5083d27f3c14fe166b1a7ade4879b9bf90a4065b17b51be20fb"
+  }
+}

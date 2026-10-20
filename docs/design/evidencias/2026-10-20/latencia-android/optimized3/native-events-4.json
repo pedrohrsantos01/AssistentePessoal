@@ -1,0 +1,10 @@
+[
+  {
+    "kind": "invalid",
+    "reason": "frame_metrics_missing_or_dropped",
+    "dropped": 1,
+    "schema": 4,
+    "sample": 4,
+    "pid": 8203
+  }
+]

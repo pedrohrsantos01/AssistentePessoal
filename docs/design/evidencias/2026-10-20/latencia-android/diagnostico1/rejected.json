@@ -1,0 +1,16 @@
+{
+  "acceptedForComparison": false,
+  "reason": "native armed an earlier ACTION_UP; it does not identify the PressEvent producing the changed frame",
+  "mismatches": [
+    {
+      "sample": 1,
+      "sequence": 1,
+      "armedUpMs": 153132.056,
+      "actualPressEventMs": 158803,
+      "mismatchMs": 5670.943999999989
+    }
+  ],
+  "cohortCompleted": false,
+  "settingsRestored": true,
+  "temporaryInstallationRemoved": true
+}

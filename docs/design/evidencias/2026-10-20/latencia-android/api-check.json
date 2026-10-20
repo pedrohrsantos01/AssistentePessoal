@@ -1,0 +1,125 @@
+{
+  "exitCode": 0,
+  "suites": [
+    {
+      "name": "dev.ritmo.ContainerPackagingTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "67.503"
+    },
+    {
+      "name": "dev.ritmo.ModularityTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.926"
+    },
+    {
+      "name": "dev.ritmo.OperationalSchedulingTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "27.44"
+    },
+    {
+      "name": "dev.ritmo.PrimaryTelemetryTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "67.024"
+    },
+    {
+      "name": "dev.ritmo.ProbeTransportTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "23.68"
+    },
+    {
+      "name": "dev.ritmo.ProxyTlsTests",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "153.45"
+    },
+    {
+      "name": "dev.ritmo.RateLimitTests",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "8.751"
+    },
+    {
+      "name": "dev.ritmo.ReceiverSupervisionTests",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "134.526"
+    },
+    {
+      "name": "dev.ritmo.RestoreTests",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "39.902"
+    },
+    {
+      "name": "dev.ritmo.RetentionLifecycleTests",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "12.865"
+    },
+    {
+      "name": "dev.ritmo.RuntimeTests",
+      "tests": "46",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "8",
+      "time": "51.519"
+    },
+    {
+      "name": "dev.ritmo.SyncRetentionTests",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "14.406"
+    },
+    {
+      "name": "dev.ritmo.TrustedProxyTests",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.14"
+    },
+    {
+      "name": "dev.ritmo.WalRecoveryTests",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "99.57"
+    }
+  ],
+  "totals": {
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 8
+  },
+  "executed": 85,
+  "duration": "12m 17s"
+}

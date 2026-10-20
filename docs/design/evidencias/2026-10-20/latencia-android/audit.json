@@ -1,0 +1,16 @@
+{
+  "validatedNativeFileCountsBeforeAudit": {
+    "json": 129,
+    "xml": 28,
+    "png": 24
+  },
+  "secretPatternScanPassed": true,
+  "localMarkdownLinksValid": true,
+  "allHighValidSamplesRetained": true,
+  "acceptedCohorts": [
+    "baseline2",
+    "optimized4"
+  ],
+  "fullApiCheckPassed": true,
+  "appChecksPassed": true
+}

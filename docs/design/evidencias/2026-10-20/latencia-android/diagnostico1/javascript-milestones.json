@@ -1,0 +1,2742 @@
+[
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 150009.3941,
+    "nativeBeforeMs": 150009.3775,
+    "nativeAfterMs": 150009.4049
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 150015.8971,
+    "nativeBeforeMs": 150015.8735,
+    "nativeAfterMs": 150015.9191
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 150063.6576,
+    "nativeBeforeMs": 150063.6324,
+    "nativeAfterMs": 150063.6776
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 150133.7421,
+    "nativeBeforeMs": 150133.7222,
+    "nativeAfterMs": 150133.7564
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 150138.6998,
+    "nativeBeforeMs": 150138.6773,
+    "nativeAfterMs": 150138.7155
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 150200.4358,
+    "nativeBeforeMs": 150200.4102,
+    "nativeAfterMs": 150200.4545
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 150200.6817,
+    "nativeBeforeMs": 150200.6566,
+    "nativeAfterMs": 150200.7034
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 150200.7879,
+    "nativeBeforeMs": 150200.7667,
+    "nativeAfterMs": 150200.8056
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 150201.0784,
+    "nativeBeforeMs": 150201.0605,
+    "nativeAfterMs": 150201.0952
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 150227.3227,
+    "nativeBeforeMs": 150227.3104,
+    "nativeAfterMs": 150227.3563
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 150227.5319,
+    "nativeBeforeMs": 150227.52,
+    "nativeAfterMs": 150227.542
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 150260.048,
+    "nativeBeforeMs": 150260.0337,
+    "nativeAfterMs": 150260.0642
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 158815.612,
+    "nativeBeforeMs": 158815.6029,
+    "nativeAfterMs": 158815.6229,
+    "inputTimestampMs": 158803
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 158832.4411,
+    "nativeBeforeMs": 158832.4285,
+    "nativeAfterMs": 158832.451
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 158832.58,
+    "nativeBeforeMs": 158832.5661,
+    "nativeAfterMs": 158832.5901
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 158854.7195,
+    "nativeBeforeMs": 158854.7081,
+    "nativeAfterMs": 158854.7292
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 158854.8785,
+    "nativeBeforeMs": 158854.867,
+    "nativeAfterMs": 158854.8883
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 158854.9437,
+    "nativeBeforeMs": 158854.935,
+    "nativeAfterMs": 158854.9522
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 158854.9986,
+    "nativeBeforeMs": 158854.9901,
+    "nativeAfterMs": 158855.0072
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 158874.3553,
+    "nativeBeforeMs": 158874.344,
+    "nativeAfterMs": 158874.3648
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 158874.5136,
+    "nativeBeforeMs": 158874.5009,
+    "nativeAfterMs": 158874.5252
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 158874.6076,
+    "nativeBeforeMs": 158874.5957,
+    "nativeAfterMs": 158874.6174
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 158890.8601,
+    "nativeBeforeMs": 158890.8509,
+    "nativeAfterMs": 158890.8726
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 167332.8845,
+    "nativeBeforeMs": 167332.874,
+    "nativeAfterMs": 167332.8941,
+    "inputTimestampMs": 167324
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 167348.3812,
+    "nativeBeforeMs": 167348.3687,
+    "nativeAfterMs": 167348.3906
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 167348.5969,
+    "nativeBeforeMs": 167348.5381,
+    "nativeAfterMs": 167348.6076
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 167368.2009,
+    "nativeBeforeMs": 167368.1894,
+    "nativeAfterMs": 167368.2104
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 167368.3548,
+    "nativeBeforeMs": 167368.3435,
+    "nativeAfterMs": 167368.3646
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 167368.7211,
+    "nativeBeforeMs": 167368.647,
+    "nativeAfterMs": 167368.7314
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 167368.8258,
+    "nativeBeforeMs": 167368.8145,
+    "nativeAfterMs": 167368.8359
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 167387.3549,
+    "nativeBeforeMs": 167387.3417,
+    "nativeAfterMs": 167387.3649
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 167387.5836,
+    "nativeBeforeMs": 167387.5708,
+    "nativeAfterMs": 167387.5939
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 167387.6661,
+    "nativeBeforeMs": 167387.6477,
+    "nativeAfterMs": 167387.6754
+  },
+  {
+    "sample": 1,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 167404.2426,
+    "nativeBeforeMs": 167404.231,
+    "nativeAfterMs": 167404.252
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 170173.3239,
+    "nativeBeforeMs": 170173.3067,
+    "nativeAfterMs": 170173.3432
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 170179.8788,
+    "nativeBeforeMs": 170179.8603,
+    "nativeAfterMs": 170179.8893
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 170200.4465,
+    "nativeBeforeMs": 170200.4358,
+    "nativeAfterMs": 170200.4561
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 170247.1011,
+    "nativeBeforeMs": 170247.0797,
+    "nativeAfterMs": 170247.1158
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 170253.2566,
+    "nativeBeforeMs": 170253.2451,
+    "nativeAfterMs": 170253.2663
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 170291.8559,
+    "nativeBeforeMs": 170291.8403,
+    "nativeAfterMs": 170291.8687
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 170292.0828,
+    "nativeBeforeMs": 170292.0699,
+    "nativeAfterMs": 170292.093
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 170292.3394,
+    "nativeBeforeMs": 170292.3288,
+    "nativeAfterMs": 170292.3489
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 170292.6954,
+    "nativeBeforeMs": 170292.6562,
+    "nativeAfterMs": 170292.7108
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 170320.3022,
+    "nativeBeforeMs": 170320.2907,
+    "nativeAfterMs": 170320.3116
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 170320.4461,
+    "nativeBeforeMs": 170320.4363,
+    "nativeAfterMs": 170320.4596
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 170353.7701,
+    "nativeBeforeMs": 170353.7512,
+    "nativeAfterMs": 170353.7857
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 175082.0828,
+    "nativeBeforeMs": 175082.0738,
+    "nativeAfterMs": 175082.0935,
+    "inputTimestampMs": 175073
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 175096.0775,
+    "nativeBeforeMs": 175096.0463,
+    "nativeAfterMs": 175096.0911
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 175096.2196,
+    "nativeBeforeMs": 175096.2106,
+    "nativeAfterMs": 175096.2303
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 175120.0533,
+    "nativeBeforeMs": 175120.0414,
+    "nativeAfterMs": 175120.0631
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 175120.257,
+    "nativeBeforeMs": 175120.2405,
+    "nativeAfterMs": 175120.2716
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 175120.3664,
+    "nativeBeforeMs": 175120.3551,
+    "nativeAfterMs": 175120.3818
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 175120.497,
+    "nativeBeforeMs": 175120.4868,
+    "nativeAfterMs": 175120.5122
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 175146.8271,
+    "nativeBeforeMs": 175146.8135,
+    "nativeAfterMs": 175146.837
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 175146.9899,
+    "nativeBeforeMs": 175146.9785,
+    "nativeAfterMs": 175146.9999
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 175147.0793,
+    "nativeBeforeMs": 175147.068,
+    "nativeAfterMs": 175147.0892
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 175166.6927,
+    "nativeBeforeMs": 175166.6806,
+    "nativeAfterMs": 175166.7027
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 181166.6169,
+    "nativeBeforeMs": 181166.6058,
+    "nativeAfterMs": 181166.6266,
+    "inputTimestampMs": 181162
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 181188.6135,
+    "nativeBeforeMs": 181188.6042,
+    "nativeAfterMs": 181188.6299
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 181188.7516,
+    "nativeBeforeMs": 181188.7398,
+    "nativeAfterMs": 181188.7621
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 181210.2642,
+    "nativeBeforeMs": 181210.2503,
+    "nativeAfterMs": 181210.2766
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 181210.4621,
+    "nativeBeforeMs": 181210.4446,
+    "nativeAfterMs": 181211.2976
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 181211.522,
+    "nativeBeforeMs": 181211.5058,
+    "nativeAfterMs": 181211.537
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 181211.6311,
+    "nativeBeforeMs": 181211.6204,
+    "nativeAfterMs": 181211.6409
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 181235.385,
+    "nativeBeforeMs": 181235.3665,
+    "nativeAfterMs": 181235.4023
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 181235.5706,
+    "nativeBeforeMs": 181235.5586,
+    "nativeAfterMs": 181235.5808
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 181235.6631,
+    "nativeBeforeMs": 181235.6525,
+    "nativeAfterMs": 181235.6728
+  },
+  {
+    "sample": 2,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 181253.577,
+    "nativeBeforeMs": 181253.5651,
+    "nativeAfterMs": 181253.5865
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 187419.6377,
+    "nativeBeforeMs": 187419.6127,
+    "nativeAfterMs": 187419.651
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 187425.9674,
+    "nativeBeforeMs": 187425.9403,
+    "nativeAfterMs": 187425.9788
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 187444.1505,
+    "nativeBeforeMs": 187444.1285,
+    "nativeAfterMs": 187444.164
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 187503.3872,
+    "nativeBeforeMs": 187503.3704,
+    "nativeAfterMs": 187503.3974
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 187507.3193,
+    "nativeBeforeMs": 187507.3069,
+    "nativeAfterMs": 187507.3292
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 187548.8251,
+    "nativeBeforeMs": 187548.8141,
+    "nativeAfterMs": 187548.8341
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 187549.0445,
+    "nativeBeforeMs": 187549.0231,
+    "nativeAfterMs": 187549.0658
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 187549.3066,
+    "nativeBeforeMs": 187549.1825,
+    "nativeAfterMs": 187549.3176
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 187549.8492,
+    "nativeBeforeMs": 187549.8322,
+    "nativeAfterMs": 187549.8601
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 187578.5332,
+    "nativeBeforeMs": 187578.5204,
+    "nativeAfterMs": 187578.5434
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 187578.7602,
+    "nativeBeforeMs": 187578.7427,
+    "nativeAfterMs": 187578.7728
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 187609.0957,
+    "nativeBeforeMs": 187609.0871,
+    "nativeAfterMs": 187609.1212
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 193252.0596,
+    "nativeBeforeMs": 193251.4162,
+    "nativeAfterMs": 193252.0718,
+    "inputTimestampMs": 193235
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 193275.863,
+    "nativeBeforeMs": 193275.849,
+    "nativeAfterMs": 193275.8732
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 193276.8074,
+    "nativeBeforeMs": 193276.7917,
+    "nativeAfterMs": 193276.8306
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 193303.9036,
+    "nativeBeforeMs": 193303.893,
+    "nativeAfterMs": 193303.9191
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 193304.0739,
+    "nativeBeforeMs": 193304.0637,
+    "nativeAfterMs": 193304.0835
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 193304.179,
+    "nativeBeforeMs": 193304.1672,
+    "nativeAfterMs": 193304.1897
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 193304.2417,
+    "nativeBeforeMs": 193304.2323,
+    "nativeAfterMs": 193304.2504
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 193325.7324,
+    "nativeBeforeMs": 193325.721,
+    "nativeAfterMs": 193325.742
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 193325.8438,
+    "nativeBeforeMs": 193325.8296,
+    "nativeAfterMs": 193325.8543
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 193325.9287,
+    "nativeBeforeMs": 193325.9159,
+    "nativeAfterMs": 193325.9388
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 193344.7269,
+    "nativeBeforeMs": 193344.6605,
+    "nativeAfterMs": 193344.7437
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 198134.5086,
+    "nativeBeforeMs": 198134.4965,
+    "nativeAfterMs": 198134.5188,
+    "inputTimestampMs": 198131
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 198150.3262,
+    "nativeBeforeMs": 198150.3157,
+    "nativeAfterMs": 198150.3488
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 198150.5085,
+    "nativeBeforeMs": 198150.494,
+    "nativeAfterMs": 198150.5217
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 198172.9505,
+    "nativeBeforeMs": 198172.9376,
+    "nativeAfterMs": 198172.9601
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 198173.1274,
+    "nativeBeforeMs": 198173.1152,
+    "nativeAfterMs": 198173.1375
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 198173.2379,
+    "nativeBeforeMs": 198173.2271,
+    "nativeAfterMs": 198173.2484
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 198173.2953,
+    "nativeBeforeMs": 198173.2866,
+    "nativeAfterMs": 198173.304
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 198194.0444,
+    "nativeBeforeMs": 198194.033,
+    "nativeAfterMs": 198194.0536
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 198194.2177,
+    "nativeBeforeMs": 198194.2029,
+    "nativeAfterMs": 198194.228
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 198194.3489,
+    "nativeBeforeMs": 198194.3316,
+    "nativeAfterMs": 198194.3603
+  },
+  {
+    "sample": 3,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 198210.4952,
+    "nativeBeforeMs": 198210.4837,
+    "nativeAfterMs": 198210.5046
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 202717.6324,
+    "nativeBeforeMs": 202717.6108,
+    "nativeAfterMs": 202717.6487
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 202723.4116,
+    "nativeBeforeMs": 202723.3882,
+    "nativeAfterMs": 202723.4556
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 202745.9059,
+    "nativeBeforeMs": 202745.8858,
+    "nativeAfterMs": 202745.9221
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 202821.5158,
+    "nativeBeforeMs": 202821.4909,
+    "nativeAfterMs": 202821.5299
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 202825.0909,
+    "nativeBeforeMs": 202825.0689,
+    "nativeAfterMs": 202825.1082
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 202871.3745,
+    "nativeBeforeMs": 202871.336,
+    "nativeAfterMs": 202871.3948
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 202872.0613,
+    "nativeBeforeMs": 202872.0165,
+    "nativeAfterMs": 202872.081
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 202872.4167,
+    "nativeBeforeMs": 202872.3771,
+    "nativeAfterMs": 202872.4353
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 202873.2614,
+    "nativeBeforeMs": 202873.2469,
+    "nativeAfterMs": 202873.2731
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 202918.9401,
+    "nativeBeforeMs": 202918.9197,
+    "nativeAfterMs": 202918.9568
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 202919.1939,
+    "nativeBeforeMs": 202919.1737,
+    "nativeAfterMs": 202919.2123
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 202981.6065,
+    "nativeBeforeMs": 202981.5913,
+    "nativeAfterMs": 202981.6343
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 205450.7068,
+    "nativeBeforeMs": 205450.6947,
+    "nativeAfterMs": 205450.7266,
+    "inputTimestampMs": 205445
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 205471.788,
+    "nativeBeforeMs": 205471.7583,
+    "nativeAfterMs": 205471.8054
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 205471.9715,
+    "nativeBeforeMs": 205471.9574,
+    "nativeAfterMs": 205471.982
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 205503.7564,
+    "nativeBeforeMs": 205503.7427,
+    "nativeAfterMs": 205503.7666
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 205503.9393,
+    "nativeBeforeMs": 205503.9272,
+    "nativeAfterMs": 205503.9496
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 205504.2386,
+    "nativeBeforeMs": 205504.0939,
+    "nativeAfterMs": 205504.2528
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 205504.3796,
+    "nativeBeforeMs": 205504.3672,
+    "nativeAfterMs": 205504.3894
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 205530.6904,
+    "nativeBeforeMs": 205530.6789,
+    "nativeAfterMs": 205530.6995
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 205530.8594,
+    "nativeBeforeMs": 205530.8485,
+    "nativeAfterMs": 205530.8684
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 205531.0201,
+    "nativeBeforeMs": 205531.0094,
+    "nativeAfterMs": 205531.0299
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 205556.8316,
+    "nativeBeforeMs": 205556.8083,
+    "nativeAfterMs": 205556.8487
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 217215.6186,
+    "nativeBeforeMs": 217215.6068,
+    "nativeAfterMs": 217215.6293,
+    "inputTimestampMs": 217202
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 217229.3798,
+    "nativeBeforeMs": 217229.3673,
+    "nativeAfterMs": 217229.3895
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 217229.524,
+    "nativeBeforeMs": 217229.5135,
+    "nativeAfterMs": 217229.5335
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 217249.8998,
+    "nativeBeforeMs": 217249.8852,
+    "nativeAfterMs": 217249.9099
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 217250.0853,
+    "nativeBeforeMs": 217250.075,
+    "nativeAfterMs": 217250.0947
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 217250.1585,
+    "nativeBeforeMs": 217250.1487,
+    "nativeAfterMs": 217250.1679
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 217250.2208,
+    "nativeBeforeMs": 217250.2112,
+    "nativeAfterMs": 217250.2302
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 217268.5543,
+    "nativeBeforeMs": 217268.533,
+    "nativeAfterMs": 217268.5643
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 217268.7444,
+    "nativeBeforeMs": 217268.7339,
+    "nativeAfterMs": 217268.7542
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 217269.0385,
+    "nativeBeforeMs": 217269.0247,
+    "nativeAfterMs": 217269.0491
+  },
+  {
+    "sample": 4,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 217285.0373,
+    "nativeBeforeMs": 217285.026,
+    "nativeAfterMs": 217285.0468
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 221811.122,
+    "nativeBeforeMs": 221811.0966,
+    "nativeAfterMs": 221811.1393
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 221821.896,
+    "nativeBeforeMs": 221821.8755,
+    "nativeAfterMs": 221821.9116
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 221875.8867,
+    "nativeBeforeMs": 221875.8715,
+    "nativeAfterMs": 221875.9006
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 221947.1193,
+    "nativeBeforeMs": 221947.0684,
+    "nativeAfterMs": 221947.137
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 221954.3974,
+    "nativeBeforeMs": 221954.3729,
+    "nativeAfterMs": 221954.4158
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 222040.7627,
+    "nativeBeforeMs": 222040.7401,
+    "nativeAfterMs": 222040.7794
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 222041.9353,
+    "nativeBeforeMs": 222041.4532,
+    "nativeAfterMs": 222041.9548
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 222042.227,
+    "nativeBeforeMs": 222042.2088,
+    "nativeAfterMs": 222042.2441
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 222043.0118,
+    "nativeBeforeMs": 222042.9943,
+    "nativeAfterMs": 222043.0314
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 222091.1653,
+    "nativeBeforeMs": 222091.147,
+    "nativeAfterMs": 222091.1807
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 222091.4167,
+    "nativeBeforeMs": 222091.3969,
+    "nativeAfterMs": 222091.4326
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 222152.8782,
+    "nativeBeforeMs": 222152.8593,
+    "nativeAfterMs": 222152.9039
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 225450.3602,
+    "nativeBeforeMs": 225450.3368,
+    "nativeAfterMs": 225450.3772,
+    "inputTimestampMs": 225431
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 225479.2834,
+    "nativeBeforeMs": 225479.2571,
+    "nativeAfterMs": 225479.3137
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 225479.5996,
+    "nativeBeforeMs": 225479.5818,
+    "nativeAfterMs": 225479.6158
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 225523.0984,
+    "nativeBeforeMs": 225523.0753,
+    "nativeAfterMs": 225523.1168
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 225523.6782,
+    "nativeBeforeMs": 225523.6624,
+    "nativeAfterMs": 225523.6928
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 225523.8635,
+    "nativeBeforeMs": 225523.8496,
+    "nativeAfterMs": 225523.8764
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 225524.007,
+    "nativeBeforeMs": 225523.9927,
+    "nativeAfterMs": 225524.0199
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 225569.7465,
+    "nativeBeforeMs": 225569.7279,
+    "nativeAfterMs": 225569.7726
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 225570.0433,
+    "nativeBeforeMs": 225570.0134,
+    "nativeAfterMs": 225570.0645
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 225570.2606,
+    "nativeBeforeMs": 225570.2479,
+    "nativeAfterMs": 225570.2837
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 225605.9866,
+    "nativeBeforeMs": 225605.9684,
+    "nativeAfterMs": 225606.0005
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 229349.5545,
+    "nativeBeforeMs": 229349.5408,
+    "nativeAfterMs": 229349.577,
+    "inputTimestampMs": 229335
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 229364.2666,
+    "nativeBeforeMs": 229364.2572,
+    "nativeAfterMs": 229364.2817
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 229364.4285,
+    "nativeBeforeMs": 229364.4115,
+    "nativeAfterMs": 229364.4469
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 229393.4557,
+    "nativeBeforeMs": 229393.439,
+    "nativeAfterMs": 229393.4693
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 229393.7376,
+    "nativeBeforeMs": 229393.7178,
+    "nativeAfterMs": 229393.7556
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 229393.8788,
+    "nativeBeforeMs": 229393.8678,
+    "nativeAfterMs": 229393.8883
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 229393.9863,
+    "nativeBeforeMs": 229393.974,
+    "nativeAfterMs": 229393.9953
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 229418.0643,
+    "nativeBeforeMs": 229418.052,
+    "nativeAfterMs": 229418.0741
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 229418.2386,
+    "nativeBeforeMs": 229418.2265,
+    "nativeAfterMs": 229418.2484
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 229418.3258,
+    "nativeBeforeMs": 229418.3142,
+    "nativeAfterMs": 229418.3357
+  },
+  {
+    "sample": 5,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 229434.4738,
+    "nativeBeforeMs": 229434.4611,
+    "nativeAfterMs": 229434.4849
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 231973.9883,
+    "nativeBeforeMs": 231973.974,
+    "nativeAfterMs": 231974.0143
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 231981.8677,
+    "nativeBeforeMs": 231981.8537,
+    "nativeAfterMs": 231981.8832
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 231997.9479,
+    "nativeBeforeMs": 231997.4283,
+    "nativeAfterMs": 231997.9591
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 232043.8804,
+    "nativeBeforeMs": 232043.8631,
+    "nativeAfterMs": 232043.891
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 232047.2089,
+    "nativeBeforeMs": 232047.1913,
+    "nativeAfterMs": 232047.2203
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 232085.0564,
+    "nativeBeforeMs": 232085.0443,
+    "nativeAfterMs": 232085.0662
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 232085.1987,
+    "nativeBeforeMs": 232085.1868,
+    "nativeAfterMs": 232085.2096
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 232085.2982,
+    "nativeBeforeMs": 232085.2887,
+    "nativeAfterMs": 232085.3078
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 232085.7029,
+    "nativeBeforeMs": 232085.6882,
+    "nativeAfterMs": 232085.7138
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 232110.717,
+    "nativeBeforeMs": 232110.7077,
+    "nativeAfterMs": 232110.7291
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 232110.8889,
+    "nativeBeforeMs": 232110.8613,
+    "nativeAfterMs": 232110.9122
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 232140.4371,
+    "nativeBeforeMs": 232140.4033,
+    "nativeAfterMs": 232140.4485
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 234282.2317,
+    "nativeBeforeMs": 234282.2151,
+    "nativeAfterMs": 234282.2446,
+    "inputTimestampMs": 234279
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 234301.481,
+    "nativeBeforeMs": 234301.4679,
+    "nativeAfterMs": 234301.4906
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 234301.6247,
+    "nativeBeforeMs": 234301.6117,
+    "nativeAfterMs": 234301.6352
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 234323.48,
+    "nativeBeforeMs": 234323.4683,
+    "nativeAfterMs": 234323.4895
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 234323.6488,
+    "nativeBeforeMs": 234323.6357,
+    "nativeAfterMs": 234323.6585
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 234323.7243,
+    "nativeBeforeMs": 234323.7147,
+    "nativeAfterMs": 234323.7337
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 234323.7889,
+    "nativeBeforeMs": 234323.7765,
+    "nativeAfterMs": 234323.7998
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 234344.5566,
+    "nativeBeforeMs": 234344.5448,
+    "nativeAfterMs": 234344.5659
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 234344.7055,
+    "nativeBeforeMs": 234344.6955,
+    "nativeAfterMs": 234344.715
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 234344.7921,
+    "nativeBeforeMs": 234344.7814,
+    "nativeAfterMs": 234344.8015
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 234362.1164,
+    "nativeBeforeMs": 234362.1048,
+    "nativeAfterMs": 234362.1262
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 238015.9244,
+    "nativeBeforeMs": 238015.9132,
+    "nativeAfterMs": 238015.9345,
+    "inputTimestampMs": 237997
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 238030.3681,
+    "nativeBeforeMs": 238030.3532,
+    "nativeAfterMs": 238030.3793
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 238030.577,
+    "nativeBeforeMs": 238030.5604,
+    "nativeAfterMs": 238030.5959
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 238054.6866,
+    "nativeBeforeMs": 238054.6746,
+    "nativeAfterMs": 238054.6962
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 238054.857,
+    "nativeBeforeMs": 238054.8467,
+    "nativeAfterMs": 238054.8663
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 238054.914,
+    "nativeBeforeMs": 238054.9052,
+    "nativeAfterMs": 238054.9225
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 238054.9701,
+    "nativeBeforeMs": 238054.9616,
+    "nativeAfterMs": 238054.9787
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 238078.7046,
+    "nativeBeforeMs": 238078.6926,
+    "nativeAfterMs": 238078.7143
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 238078.8708,
+    "nativeBeforeMs": 238078.8594,
+    "nativeAfterMs": 238078.8805
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 238078.954,
+    "nativeBeforeMs": 238078.9428,
+    "nativeAfterMs": 238078.964
+  },
+  {
+    "sample": 6,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 238093.3637,
+    "nativeBeforeMs": 238093.3474,
+    "nativeAfterMs": 238093.374
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 240754.1842,
+    "nativeBeforeMs": 240754.1661,
+    "nativeAfterMs": 240754.199
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 240762.4947,
+    "nativeBeforeMs": 240762.4809,
+    "nativeAfterMs": 240762.5065
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 240816.4509,
+    "nativeBeforeMs": 240816.4374,
+    "nativeAfterMs": 240816.461
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 240856.1236,
+    "nativeBeforeMs": 240856.1127,
+    "nativeAfterMs": 240856.3985
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 240860.3875,
+    "nativeBeforeMs": 240860.3772,
+    "nativeAfterMs": 240860.4054
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 240912.4033,
+    "nativeBeforeMs": 240912.3817,
+    "nativeAfterMs": 240912.422
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 240912.6607,
+    "nativeBeforeMs": 240912.642,
+    "nativeAfterMs": 240912.6725
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 240912.8445,
+    "nativeBeforeMs": 240912.8261,
+    "nativeAfterMs": 240912.8618
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 240913.4459,
+    "nativeBeforeMs": 240913.2602,
+    "nativeAfterMs": 240913.4591
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 240945.8844,
+    "nativeBeforeMs": 240945.8721,
+    "nativeAfterMs": 240945.8944
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 240946.0617,
+    "nativeBeforeMs": 240946.0431,
+    "nativeAfterMs": 240946.0771
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 240986.9784,
+    "nativeBeforeMs": 240986.9602,
+    "nativeAfterMs": 240986.9896
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 244200.0613,
+    "nativeBeforeMs": 244200.0479,
+    "nativeAfterMs": 244200.0736,
+    "inputTimestampMs": 244197
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 244217.916,
+    "nativeBeforeMs": 244217.9026,
+    "nativeAfterMs": 244217.926
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 244218.1212,
+    "nativeBeforeMs": 244218.1098,
+    "nativeAfterMs": 244218.1309
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 244241.4335,
+    "nativeBeforeMs": 244241.4214,
+    "nativeAfterMs": 244241.4433
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 244241.6209,
+    "nativeBeforeMs": 244241.6102,
+    "nativeAfterMs": 244241.6306
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 244241.801,
+    "nativeBeforeMs": 244241.7875,
+    "nativeAfterMs": 244241.8108
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 244241.9158,
+    "nativeBeforeMs": 244241.9023,
+    "nativeAfterMs": 244241.9274
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 244265.6128,
+    "nativeBeforeMs": 244265.6012,
+    "nativeAfterMs": 244265.6226
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 244265.8089,
+    "nativeBeforeMs": 244265.7988,
+    "nativeAfterMs": 244265.8183
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 244265.9419,
+    "nativeBeforeMs": 244265.9316,
+    "nativeAfterMs": 244265.9513
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 244280.3315,
+    "nativeBeforeMs": 244280.3197,
+    "nativeAfterMs": 244280.3411
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 246215.6592,
+    "nativeBeforeMs": 246215.6385,
+    "nativeAfterMs": 246215.6716,
+    "inputTimestampMs": 246211
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 246230.5956,
+    "nativeBeforeMs": 246230.5793,
+    "nativeAfterMs": 246230.6065
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 246230.8323,
+    "nativeBeforeMs": 246230.8214,
+    "nativeAfterMs": 246230.8422
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 246253.4818,
+    "nativeBeforeMs": 246253.4691,
+    "nativeAfterMs": 246253.4926
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 246253.6556,
+    "nativeBeforeMs": 246253.6442,
+    "nativeAfterMs": 246253.6663
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 246253.7136,
+    "nativeBeforeMs": 246253.7009,
+    "nativeAfterMs": 246253.7234
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 246253.8124,
+    "nativeBeforeMs": 246253.8005,
+    "nativeAfterMs": 246253.8217
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 246273.2018,
+    "nativeBeforeMs": 246273.1931,
+    "nativeAfterMs": 246273.219
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 246273.3628,
+    "nativeBeforeMs": 246273.3526,
+    "nativeAfterMs": 246273.373
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 246273.4478,
+    "nativeBeforeMs": 246273.4354,
+    "nativeAfterMs": 246273.4579
+  },
+  {
+    "sample": 7,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 246286.8693,
+    "nativeBeforeMs": 246286.8578,
+    "nativeAfterMs": 246286.8787
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 250489.2118,
+    "nativeBeforeMs": 250489.2014,
+    "nativeAfterMs": 250489.2244
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 250496.0577,
+    "nativeBeforeMs": 250496.0454,
+    "nativeAfterMs": 250496.0674
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 250515.5804,
+    "nativeBeforeMs": 250515.5622,
+    "nativeAfterMs": 250515.5968
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 250560.1089,
+    "nativeBeforeMs": 250560.0931,
+    "nativeAfterMs": 250560.1191
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 250563.3644,
+    "nativeBeforeMs": 250563.3517,
+    "nativeAfterMs": 250563.3795
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 250599.7189,
+    "nativeBeforeMs": 250599.7074,
+    "nativeAfterMs": 250599.7283
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 250599.8586,
+    "nativeBeforeMs": 250599.8446,
+    "nativeAfterMs": 250599.8697
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 250599.9442,
+    "nativeBeforeMs": 250599.9304,
+    "nativeAfterMs": 250599.9544
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 250600.1327,
+    "nativeBeforeMs": 250600.1226,
+    "nativeAfterMs": 250600.142
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 250622.6407,
+    "nativeBeforeMs": 250622.6288,
+    "nativeAfterMs": 250622.6502
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 250622.79,
+    "nativeBeforeMs": 250622.7797,
+    "nativeAfterMs": 250622.8075
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 250656.6423,
+    "nativeBeforeMs": 250656.4641,
+    "nativeAfterMs": 250656.6562
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 259932.8188,
+    "nativeBeforeMs": 259932.8072,
+    "nativeAfterMs": 259932.8292,
+    "inputTimestampMs": 259923
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 259949.2737,
+    "nativeBeforeMs": 259949.261,
+    "nativeAfterMs": 259949.2832
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 259949.406,
+    "nativeBeforeMs": 259949.3928,
+    "nativeAfterMs": 259949.4165
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 259972.9972,
+    "nativeBeforeMs": 259972.9845,
+    "nativeAfterMs": 259973.0068
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 259973.1797,
+    "nativeBeforeMs": 259973.1678,
+    "nativeAfterMs": 259973.1897
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 259973.2321,
+    "nativeBeforeMs": 259973.2233,
+    "nativeAfterMs": 259973.2409
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 259973.2882,
+    "nativeBeforeMs": 259973.2793,
+    "nativeAfterMs": 259973.2968
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 259994.9033,
+    "nativeBeforeMs": 259994.8941,
+    "nativeAfterMs": 259994.9219
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 259995.0847,
+    "nativeBeforeMs": 259995.0724,
+    "nativeAfterMs": 259995.0946
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 259995.2229,
+    "nativeBeforeMs": 259995.2113,
+    "nativeAfterMs": 259995.2328
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 260011.512,
+    "nativeBeforeMs": 260011.5004,
+    "nativeAfterMs": 260011.5213
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 262250.125,
+    "nativeBeforeMs": 262250.115,
+    "nativeAfterMs": 262250.1364,
+    "inputTimestampMs": 262232
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 262278.215,
+    "nativeBeforeMs": 262278.1968,
+    "nativeAfterMs": 262278.2282
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 262278.3754,
+    "nativeBeforeMs": 262278.3599,
+    "nativeAfterMs": 262278.3886
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 262311.0775,
+    "nativeBeforeMs": 262311.0145,
+    "nativeAfterMs": 262311.1511
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 262311.4252,
+    "nativeBeforeMs": 262311.4102,
+    "nativeAfterMs": 262311.466
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 262311.8874,
+    "nativeBeforeMs": 262311.8675,
+    "nativeAfterMs": 262311.91
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 262312.0576,
+    "nativeBeforeMs": 262312.0379,
+    "nativeAfterMs": 262312.0726
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 262351.9978,
+    "nativeBeforeMs": 262351.9744,
+    "nativeAfterMs": 262352.2713
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 262352.6375,
+    "nativeBeforeMs": 262352.6222,
+    "nativeAfterMs": 262352.6572
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 262352.9449,
+    "nativeBeforeMs": 262352.9125,
+    "nativeAfterMs": 262352.9658
+  },
+  {
+    "sample": 8,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 262383.9464,
+    "nativeBeforeMs": 262383.9287,
+    "nativeAfterMs": 262383.9574
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 269884.2752,
+    "nativeBeforeMs": 269884.2567,
+    "nativeAfterMs": 269884.2892
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 269894.2753,
+    "nativeBeforeMs": 269894.2455,
+    "nativeAfterMs": 269894.3085
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 269941.2085,
+    "nativeBeforeMs": 269941.1919,
+    "nativeAfterMs": 269941.2218
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 269995.7356,
+    "nativeBeforeMs": 269995.7218,
+    "nativeAfterMs": 269995.7671
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 270002.9913,
+    "nativeBeforeMs": 270002.9693,
+    "nativeAfterMs": 270003.0121
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 270079.4639,
+    "nativeBeforeMs": 270079.4448,
+    "nativeAfterMs": 270079.478
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 270079.7395,
+    "nativeBeforeMs": 270079.7157,
+    "nativeAfterMs": 270079.7562
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 270079.838,
+    "nativeBeforeMs": 270079.8229,
+    "nativeAfterMs": 270079.8517
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 270080.1254,
+    "nativeBeforeMs": 270080.1049,
+    "nativeAfterMs": 270080.143
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 270128.9789,
+    "nativeBeforeMs": 270128.9586,
+    "nativeAfterMs": 270128.9916
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 270129.8253,
+    "nativeBeforeMs": 270129.8039,
+    "nativeAfterMs": 270129.8442
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 270190.3271,
+    "nativeBeforeMs": 270190.0135,
+    "nativeAfterMs": 270190.3496
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 277999.2223,
+    "nativeBeforeMs": 277999.2078,
+    "nativeAfterMs": 277999.2332,
+    "inputTimestampMs": 277992
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 278021.0525,
+    "nativeBeforeMs": 278021.0387,
+    "nativeAfterMs": 278021.0622
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 278021.195,
+    "nativeBeforeMs": 278021.1829,
+    "nativeAfterMs": 278021.2053
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 278050.6754,
+    "nativeBeforeMs": 278050.6639,
+    "nativeAfterMs": 278050.6847
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 278050.8279,
+    "nativeBeforeMs": 278050.8176,
+    "nativeAfterMs": 278050.8416
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 278050.9035,
+    "nativeBeforeMs": 278050.8932,
+    "nativeAfterMs": 278050.9129
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 278050.9994,
+    "nativeBeforeMs": 278050.9872,
+    "nativeAfterMs": 278051.0095
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 278071.0605,
+    "nativeBeforeMs": 278071.0488,
+    "nativeAfterMs": 278071.0699
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 278071.2145,
+    "nativeBeforeMs": 278071.2032,
+    "nativeAfterMs": 278071.2244
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 278071.306,
+    "nativeBeforeMs": 278071.2961,
+    "nativeAfterMs": 278071.3153
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 278086.8105,
+    "nativeBeforeMs": 278086.7989,
+    "nativeAfterMs": 278086.8196
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 279782.3751,
+    "nativeBeforeMs": 279782.3036,
+    "nativeAfterMs": 279782.402,
+    "inputTimestampMs": 279773
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 279806.2465,
+    "nativeBeforeMs": 279806.2333,
+    "nativeAfterMs": 279806.2678
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 279806.4228,
+    "nativeBeforeMs": 279806.412,
+    "nativeAfterMs": 279806.4325
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 279828.7738,
+    "nativeBeforeMs": 279828.762,
+    "nativeAfterMs": 279828.7834
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 279828.9364,
+    "nativeBeforeMs": 279828.9245,
+    "nativeAfterMs": 279828.9462
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 279829.0027,
+    "nativeBeforeMs": 279828.9932,
+    "nativeAfterMs": 279829.0116
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 279829.0581,
+    "nativeBeforeMs": 279829.0492,
+    "nativeAfterMs": 279829.0669
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 279849.1334,
+    "nativeBeforeMs": 279849.1218,
+    "nativeAfterMs": 279849.1427
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 279849.2784,
+    "nativeBeforeMs": 279849.2671,
+    "nativeAfterMs": 279849.288
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 279849.3703,
+    "nativeBeforeMs": 279849.3571,
+    "nativeAfterMs": 279849.3798
+  },
+  {
+    "sample": 9,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 279866.1363,
+    "nativeBeforeMs": 279866.125,
+    "nativeAfterMs": 279866.1458
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "app.module",
+    "at": 282478.1894,
+    "nativeBeforeMs": 282478.1744,
+    "nativeAfterMs": 282478.1993
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "preferences.ready",
+    "at": 282484.6985,
+    "nativeBeforeMs": 282484.6759,
+    "nativeAfterMs": 282484.715
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "fonts.ready",
+    "at": 282539.9319,
+    "nativeBeforeMs": 282539.9206,
+    "nativeAfterMs": 282539.9447
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 282578.1759,
+    "nativeBeforeMs": 282578.1646,
+    "nativeAfterMs": 282578.1866
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 282582.5248,
+    "nativeBeforeMs": 282582.507,
+    "nativeAfterMs": 282582.5363
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 282625.1494,
+    "nativeBeforeMs": 282625.1359,
+    "nativeAfterMs": 282625.1596
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 282625.4042,
+    "nativeBeforeMs": 282625.3931,
+    "nativeAfterMs": 282625.4137
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "runtime.ready",
+    "at": 282625.8485,
+    "nativeBeforeMs": 282625.8374,
+    "nativeAfterMs": 282625.8583
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 282626.1725,
+    "nativeBeforeMs": 282626.1605,
+    "nativeAfterMs": 282626.1826
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 282656.8144,
+    "nativeBeforeMs": 282656.8028,
+    "nativeAfterMs": 282656.8239
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 282657.3908,
+    "nativeBeforeMs": 282657.3803,
+    "nativeAfterMs": 282657.4003
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 282692.6549,
+    "nativeBeforeMs": 282692.6428,
+    "nativeAfterMs": 282692.6643
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 289699.0236,
+    "nativeBeforeMs": 289699.0124,
+    "nativeAfterMs": 289699.0333,
+    "inputTimestampMs": 289692
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 289716.3447,
+    "nativeBeforeMs": 289716.3312,
+    "nativeAfterMs": 289716.3547
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 289716.5365,
+    "nativeBeforeMs": 289716.5256,
+    "nativeAfterMs": 289716.5466
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 289746.3568,
+    "nativeBeforeMs": 289746.345,
+    "nativeAfterMs": 289746.3666
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 289746.57,
+    "nativeBeforeMs": 289746.5595,
+    "nativeAfterMs": 289746.5797
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 289746.6896,
+    "nativeBeforeMs": 289746.6794,
+    "nativeAfterMs": 289746.6992
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 289746.7955,
+    "nativeBeforeMs": 289746.7854,
+    "nativeAfterMs": 289746.805
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 289771.6957,
+    "nativeBeforeMs": 289771.6845,
+    "nativeAfterMs": 289771.718
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 289772.0102,
+    "nativeBeforeMs": 289771.9897,
+    "nativeAfterMs": 289772.0289
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 289772.2656,
+    "nativeBeforeMs": 289772.2451,
+    "nativeAfterMs": 289772.2835
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 289789.8155,
+    "nativeBeforeMs": 289789.8026,
+    "nativeAfterMs": 289789.8254
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "toggle.handler",
+    "at": 293432.7108,
+    "nativeBeforeMs": 293432.6984,
+    "nativeAfterMs": 293432.7221,
+    "inputTimestampMs": 293424
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "store.committed",
+    "at": 293451.5623,
+    "nativeBeforeMs": 293451.544,
+    "nativeAfterMs": 293451.5737
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 293451.7366,
+    "nativeBeforeMs": 293451.7261,
+    "nativeAfterMs": 293451.7506
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 293474.1906,
+    "nativeBeforeMs": 293474.1792,
+    "nativeAfterMs": 293474.2
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 293474.406,
+    "nativeBeforeMs": 293474.3956,
+    "nativeAfterMs": 293474.4155
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "local.persisted",
+    "at": 293474.5227,
+    "nativeBeforeMs": 293474.5131,
+    "nativeAfterMs": 293474.5319
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.started",
+    "at": 293474.6238,
+    "nativeBeforeMs": 293474.6142,
+    "nativeAfterMs": 293474.6329
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.published",
+    "at": 293496.5311,
+    "nativeBeforeMs": 293496.5201,
+    "nativeAfterMs": 293496.5405
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "refresh.finished",
+    "at": 293497.2045,
+    "nativeBeforeMs": 293496.9522,
+    "nativeAfterMs": 293497.2155
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "local.returned",
+    "at": 293497.2946,
+    "nativeBeforeMs": 293497.2811,
+    "nativeAfterMs": 293497.3053
+  },
+  {
+    "sample": 10,
+    "schema": 2,
+    "phase": "toggle.react",
+    "at": 293515.9525,
+    "nativeBeforeMs": 293515.9412,
+    "nativeAfterMs": 293515.9618
+  }
+]

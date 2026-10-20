@@ -1,0 +1,8 @@
+{
+  "habitCount": 1,
+  "done": true,
+  "totalXp": 10,
+  "coldStarts": 10,
+  "timedVisualChanges": 20,
+  "persistedAfterRestart": true
+}

@@ -1,0 +1,31 @@
+✔ public journey resumes the local onboarding step, skip gives useful data, and another account cannot read it (306.0509ms)
+✔ offline mark, rapid duplicate tap, undo and remark use the original occurrence and survive process reopening (136.32ms)
+✔ a failed transaction cannot advance onboarding or announce a habit, XP, or successful write (111.5486ms)
+✔ local projection subscriptions deliver committed changes and a pull, but never a rolled-back intention (82.4019ms)
+✔ one offline toggle publishes one committed presentation rather than repeating the full refresh (85.8835ms)
+✔ open Briefing changes at the configured boundary and the next tap uses the new logical day (116.4871ms)
+✔ authentication validation and offline failures do not activate a local account (21.3151ms)
+✔ next logical boundary America/New_York 2026-03-08T06:59:59Z (2.4309ms)
+✔ next logical boundary America/New_York 2026-11-01T04:59:59Z (1.0564ms)
+✔ next logical boundary Asia/Kathmandu 2026-09-25T21:59:59Z (1.2608ms)
+✔ a failed remote pull with no pending changes is never presented as synchronized (97.2297ms)
+✔ account validation counts Unicode code points, normalizes only the name and preserves the password (91.3575ms)
+✔ editing sends only changed fields, preserves unknown metadata and independent remote fields, and survives reopening (177.8694ms)
+✔ canonical Unicode title collisions are blocked before creating or editing an offline intention (158.7514ms)
+✔ reordering tied positions is durable and atomic when a later write fails (192.7791ms)
+✔ deletion removes local habit and XP, survives restart and cannot target another account (264.2093ms)
+✔ management includes a not-started habit; Briefing and marking remain limited to due habits (140.8292ms)
+✔ local writes continue while vault recovery is pending and keep the same queue (172.3779ms)
+✔ a late authentication failure from A cannot publish an error into B (170.879ms)
+✔ journey distinguishes sending, proven rejection and uncertain identity, and resolves only selected intentions (149.2285ms)
+✔ journey exposes 429 waiting without manual retry shortening the server deadline (159.0737ms)
+✔ journey exposes 503 waiting without manual retry shortening the server deadline (184.0695ms)
+✔ exhausted pull waiting becomes manually available at its minimum without automatic sending (371.873ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4207.1459

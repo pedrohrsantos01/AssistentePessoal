@@ -1,0 +1,40 @@
+✖ one offline toggle publishes one committed presentation rather than repeating the full refresh (204.0979ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1287.449
+
+✖ failing tests:
+
+test at test\journey.test.ts:1:5290
+✖ one offline toggle publishes one committed presentation rather than repeating the full refresh (204.0979ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+
+    [
+      {
+        done: true,
+        operations: 4,
+        xp: 10
+      },
+  +   {
+  +     done: true,
+  +     operations: 4,
+  +     xp: 10
+  +   }
+    ]
+
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\journey.test.ts:71:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ { done: true, xp: 10, operations: 4 }, { done: true, xp: 10, operations: 4 } ],
+    expected: [ { done: true, xp: 10, operations: 4 } ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

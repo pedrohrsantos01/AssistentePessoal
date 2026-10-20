@@ -1,0 +1,42 @@
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+{"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (142071.0339ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 201567.2186
+
+✖ failing tests:
+
+test at test\integration\android-performance.test.ts:1:2555
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (142071.0339ms)
+  AssertionError [ERR_ASSERTION]: native_measurement_invalid_{"kind":"invalid","reason":"frame_metrics_missing_or_dropped","dropped":1,"schema":4,"sample":4,"pid":8203}
+  + actual - expected
+
+  + {
+  +   dropped: 1,
+  +   kind: 'invalid',
+  +   pid: 8203,
+  +   reason: 'frame_metrics_missing_or_dropped',
+  +   sample: 4,
+  +   schema: 4
+  + }
+  - undefined
+
+      at waitFrame (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:127:217)
+      at async TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:167:18)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'invalid', reason: 'frame_metrics_missing_or_dropped', dropped: 1, schema: 4, sample: 4, pid: 8203 },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

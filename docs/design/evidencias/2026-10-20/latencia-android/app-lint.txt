@@ -1,0 +1,3 @@
+
+> ritmo-app@0.1.0 lint C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app
+> eslint .

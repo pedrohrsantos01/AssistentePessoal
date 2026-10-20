@@ -1,0 +1,14 @@
+[
+  {
+    "script": "typecheck",
+    "exitCode": 0
+  },
+  {
+    "script": "lint",
+    "exitCode": 0
+  },
+  {
+    "script": "test",
+    "exitCode": 0
+  }
+]

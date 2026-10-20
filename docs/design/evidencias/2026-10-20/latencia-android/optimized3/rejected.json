@@ -1,0 +1,7 @@
+{
+  "acceptedForComparison": false,
+  "reason": "FrameMetrics callback delivery dropped=1 at cold start 4; incomplete cohort",
+  "sameApkAs": "optimized4",
+  "wholeCohortRepeated": true,
+  "allPartialSamplesRetained": true
+}

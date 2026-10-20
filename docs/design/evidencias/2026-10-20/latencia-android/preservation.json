@@ -1,0 +1,12 @@
+{
+  "emulatorsClosed": true,
+  "watchersClosed": true,
+  "ownJavaExited": true,
+  "containerNamesPreserved": true,
+  "originalAvdMetadataPreserved": true,
+  "normalApkPreserved": true,
+  "preexistingAdbPreserved": true,
+  "sourceMatchesCompiledCurrent": true,
+  "nativeProbeMatchesSelection": true,
+  "normalNativeConfigHasNoProbe": true
+}

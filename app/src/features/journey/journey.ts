@@ -41,6 +41,7 @@ export class Journey {
  state=()=>this.snapshot;
  refresh=()=>{
   if(this.stopped) return;
+  performanceMark('refresh.started');
   const state:JourneyState={gate:'entry',key:null,busy:this.busy,error:this.error,local:null,day:null,instant:this.clock.now(),online:false,remote:pt.saved,writable:false,vaultUnavailable:false,authenticationRequired:false,recovery:this.runtime.recovery(),operations:[],recoveries:[],sync:{phase:'idle',failures:0,nextAttemptAt:null},snapshot:null,canRetry:false};
   if(state.recovery) state.gate='database';
   else {
@@ -70,7 +71,7 @@ export class Journey {
    this.cancelClock=this.clock.schedule(Math.min(dayBoundary,retryBoundary)-state.instant,this.refresh);
   }
   if(this.snapshot&&state.key!==this.snapshot.key) {this.error=null;state.error=null;this.passwordRecovery.close();}
-  this.snapshot=state;for(const listener of this.listeners) listener();
+  this.snapshot=state;performanceMark('refresh.published');for(const listener of this.listeners) listener();performanceMark('refresh.finished');
  };
  private message(error:unknown,local=false) {
   if(error instanceof IdentityHttpError) {
@@ -105,7 +106,14 @@ export class Journey {
  private local(work:(store:AccountStore)=>void) {
   if((this.busy&&!this.localWhileBusy)||this.stopped) return false;
   this.error=null;
-  try {work(this.runtime.session.account());performanceMark('local.persisted');this.refresh();this.runtime.sync.requestSync();return true;}
+  const previous=this.snapshot;
+  try {
+   work(this.runtime.session.account());performanceMark('local.persisted');
+   // A committed store notification already publishes the fresh presentation.
+   // Commands without a notification still clear errors and update the clock.
+   if(this.snapshot===previous)this.refresh();
+   this.runtime.sync.requestSync();performanceMark('local.returned');return true;
+  }
   catch(error) {this.error=this.message(error,true);this.refresh();return false;}
  }
  confirmTime(context:TimeContext) {

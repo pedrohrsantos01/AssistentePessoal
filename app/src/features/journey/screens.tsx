@@ -1,7 +1,7 @@
 import {performanceTest,performanceMark} from '../../core/diagnostics/performance.ts';
 import {AppearanceSection} from '../preferences/appearance-section.tsx';
 import {PasswordRecoveryScreen} from './password-recovery-screen.tsx';
-import {useCallback,useEffect,useState,useSyncExternalStore} from 'react';
+import {useCallback,useEffect,useLayoutEffect,useState,useSyncExternalStore} from 'react';
 import {AccessibilityInfo,BackHandler,Image,useWindowDimensions,View} from 'react-native';
 import {pt} from '../../i18n/pt-BR.ts';
 import {useTheme} from '../../theme/theme.tsx';
@@ -72,7 +72,8 @@ function HabitForm({journey,state,onboarding,initial,onBackTime,draft}:{journey:
  </Page>{confirmDelete&&baseline&&<DeleteConfirmation journey={journey} state={state} habit={baseline} close={()=>setConfirmDelete(false)} deleted={()=>{setConfirmDelete(false);nav.go('habits');}}/>}</>;
 }
 function HabitRow({habit,state,journey,index}:{habit:NonNullable<JourneyState['local']>['habits'][number];state:JourneyState;journey:Journey;index:number}) {
- const t=useTheme();return <Touch testID={performanceTest?(habit.done?'ritmo.perf.habit.done':'ritmo.perf.habit.open'):undefined} accessibilityRole="checkbox" accessibilityLabel={pt.habitLabel(habit.title,habit.done)} accessibilityHint={pt.toggleHint(habit.done)} accessibilityState={{checked:habit.done,disabled:!state.writable}} disabled={!state.writable} dimWhenDisabled={false} onPress={()=>{performanceMark('toggle.handler');journey.toggle(habit.habitId,habit.done);}} style={{minHeight:t.metrics.habitRow,paddingVertical:t.space.compact,gap:t.space.controlGap,flexDirection:'row',alignItems:'center',borderTopWidth:index?t.metrics.border:t.space.none,borderTopColor:t.border.decorative}}>
+ useLayoutEffect(()=>{performanceMark('toggle.react');},[habit.done]);
+ const t=useTheme();return <Touch testID={performanceTest?(habit.done?'ritmo.perf.habit.done':'ritmo.perf.habit.open'):undefined} accessibilityRole="checkbox" accessibilityLabel={pt.habitLabel(habit.title,habit.done)} accessibilityHint={pt.toggleHint(habit.done)} accessibilityState={{checked:habit.done,disabled:!state.writable}} disabled={!state.writable} dimWhenDisabled={false} onPress={event=>{performanceMark('toggle.handler',event?.nativeEvent?.timestamp);journey.toggle(habit.habitId,habit.done);}} style={{minHeight:t.metrics.habitRow,paddingVertical:t.space.compact,gap:t.space.controlGap,flexDirection:'row',alignItems:'center',borderTopWidth:index?t.metrics.border:t.space.none,borderTopColor:t.border.decorative}}>
   <View accessible={false} importantForAccessibility="no-hide-descendants" style={{opacity:state.writable?1:t.metrics.disabledOpacity,width:t.metrics.touch,minHeight:t.metrics.touch,marginLeft:-t.space.small,alignItems:'center',justifyContent:'center'}}><View style={{width:t.metrics.check,height:t.metrics.check,borderRadius:t.radius.check,borderWidth:t.metrics.controlBorder,borderColor:habit.done?t.accent.fill:t.border.interactive,backgroundColor:habit.done?t.accent.fill:t.bg.transparent,alignItems:'center',justifyContent:'center'}}>{habit.done&&<Image source={checkIcon} tintColor={t.text.onAccent} style={{width:t.space.large,height:t.space.large}}/>}</View></View>
   <Type size="tile">{habitGlyph(habit.iconKey)}</Type><View style={{flex:1,gap:t.space.tiny}}><Type style={{lineHeight:t.typeSize.body*t.line.row}}>{habit.title}</Type><Type size="caption" mono tone="secondary">{itemStatus(state,habit.habitId,state.day??undefined)===pt.operationStates.acknowledged?(habit.done?(habit.limitReached?pt.habitDoneWithoutXp:pt.habitDone):pt.habitIdle):itemStatus(state,habit.habitId,state.day??undefined)}</Type>{habit.limitReached&&habit.done&&<Type size="caption" mono tone="secondary">{pt.xpLimit}</Type>}</View>
  </Touch>;

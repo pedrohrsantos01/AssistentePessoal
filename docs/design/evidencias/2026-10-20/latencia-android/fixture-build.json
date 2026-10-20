@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "durations": [
+    "5m 44s",
+    "1m 34s"
+  ],
+  "variants": {
+    "baseline": {
+      "sha256": "3f41b8bf5cc9382c073505444bfcf7cab3d05012be7283209ec1ac9b239bd8e8",
+      "bytes": 44661709
+    },
+    "optimized": {
+      "sha256": "c7da0cca5496e35d58bbf403b9bf44c2dc7fbeb51af21005a65a4b96bab207b8",
+      "bytes": 44661709
+    }
+  },
+  "normalApkSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "command": "scripts/build-android-readonly.ps1 -Performance -CompareRefresh",
+  "sourceRestored": true
+}

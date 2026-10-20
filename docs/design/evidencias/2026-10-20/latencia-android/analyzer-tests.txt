@@ -1,0 +1,22 @@
+✔ native frame analysis retains a slow cold sample and uses the same launch origin for local cards (3.4192ms)
+✔ native measurement refuses incomplete clock/state/frame {"drawVsyncNs":1} (4.4143ms)
+✔ native measurement refuses incomplete clock/state/frame {"drawVsyncNs":2000000001} (0.3928ms)
+✔ native measurement refuses incomplete clock/state/frame {"launchNs":3000000000} (0.3341ms)
+✔ native measurement refuses incomplete clock/state/frame {"launchClock":"adb_wall_clock"} (1.0964ms)
+✔ native measurement refuses incomplete clock/state/frame {} (18.5815ms)
+✔ native measurement refuses incomplete clock/state/frame {"dropped":1} (0.4529ms)
+✔ native measurement refuses incomplete clock/state/frame {"frameEndNs":2000000000} (0.3569ms)
+✔ missing or duplicate samples and unchanged visual state cannot manufacture a passing distribution (2.5695ms)
+✔ startup correlation refuses a live process, different PID, different origin and a different launch clock (1.491ms)
+✔ ADB unavailable or diagnostic failures cannot prove a cold process (0.226ms)
+✔ attribution preserves all slow samples and separates input, committed work, repeated refresh and presentation (4.067ms)
+✔ attribution rejects missing dispatch, JS fallback clocks, mismatched events and missing or reversed phases (11.8505ms)
+✔ an earlier ACTION_UP cannot acquire a later press just because its frame changes the checkbox (1.0636ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 676.4693

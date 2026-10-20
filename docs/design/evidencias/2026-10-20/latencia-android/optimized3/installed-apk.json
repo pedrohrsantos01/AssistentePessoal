@@ -1,0 +1,8 @@
+{
+  "serial": "emulator-5560",
+  "apkSha256": "c7da0cca5496e35d58bbf403b9bf44c2dc7fbeb51af21005a65a4b96bab207b8",
+  "installedSha256": "c7da0cca5496e35d58bbf403b9bf44c2dc7fbeb51af21005a65a4b96bab207b8",
+  "passed": true,
+  "package": "dev.ritmo.readonlytest",
+  "avd": "Ritmo_ReadOnly"
+}

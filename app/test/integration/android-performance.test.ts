@@ -13,6 +13,7 @@ import {getDayKey} from '../../src/features/gamification/domain/day-key.ts';
 import {pt} from '../../src/i18n/pt-BR.ts';
 import {frameSample,summarizePerformance,correlateColdStartup,pidIsAbsent,type ColdProof,type FrameSample} from '../support/performance-samples.ts';
 import {failureKind,retryDelay} from '../../src/core/sync/retry.ts';
+import {attributeToggleLatency} from '../support/toggle-latency.ts';
 // API fixture starts before the emulator. Accept only the launcher's verified discovery path.
 if(process.env.RITMO_READER_BOOTSTRAP){
  const directory=resolve(process.env.RITMO_READER_BOOTSTRAP),ready=join(directory,'device.json'),deadline=Date.now()+240000;
@@ -165,6 +166,16 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
    const proof:ColdProof={pidAbsentBeforeLaunch:true,pidAfterLaunch:Number(pid),launcherPid,launchNs,sample};
    const startup=await waitFrame(pid,sample,'startup',undefined,proof);rawFrames.push(startup);launches.push({sample,pid,launchState:'PROCESS_COLD',expectedPendingChangesAtStart:2*(sample-1),proof,deviceLauncher:output});
    await find(pt.habitLabel(title,false));await find(pt.totalXp(0));if(sample===1||sample===10)await snapshot('02-cold-'+sample);
+   if(sample===1) {
+    // A scroll ending over the row must not arm the probe for a later press.
+    const end=point(await find(pt.habitLabel(title,false)));
+    await touch.scroll([end[0],Math.max(1,end[1]-220)],end);
+    const events=frames(pid) as Record<string,unknown>[];
+    assert.ok(events.some(v=>v.kind==='gesture_ignored'&&v.reason==='multiple_pointers'));
+    assert.ok(!events.some(v=>v.kind==='toggle'),'scroll_cannot_be_a_measured_toggle');
+    await find(pt.habitLabel(title,false));await find(pt.totalXp(0));
+    writeFileSync(join(folder,'gesture-guard.json'),JSON.stringify({twoFingerScrollIgnored:true,noToggleFrame:true,localStateUnchanged:true},null,2)+'\n');
+   }
    for(let sequence=1;sequence<=2;sequence++){
     await press(pt.habitLabel(title,sequence===2));const measured=await waitFrame(pid,sample,'toggle',sequence);rawFrames.push(measured);
     await find(pt.habitLabel(title,sequence===1));await find(pt.totalXp(sequence===1?10:0));
@@ -175,6 +186,7 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
    report('cold_'+sample+'_and_two_visual_changes_measured');
   }
   const summary=summarizePerformance(rawFrames);writeFileSync(join(folder,'performance-summary.json'),JSON.stringify(summary,null,2)+'\n');writeFileSync(join(folder,'javascript-milestones.json'),JSON.stringify(jsMarks,null,2)+'\n');
+  writeFileSync(join(folder,'toggle-attribution.json'),JSON.stringify(attributeToggleLatency(rawFrames,jsMarks),null,2)+'\n');
   launch();await find(pt.offline);await find(pt.habitLabel(title,false));await find(pt.totalXp(0));await snapshot('04-cohort-survives-restart');await press(pt.habitLabel(title,false));await find(pt.totalXp(10));online();await find(pt.synced);
   await repeat(()=>synchronize(other!,transport));assert.equal(other.view(day).habits.filter(h=>h.title===title).length,1);assert.equal(other.view(day).habits.find(h=>h.title===title)?.done,true);assert.equal(other.view(day).totalXp,10);await snapshot('05-confirmed-once');
   writeFileSync(join(folder,'remote-result.json'),JSON.stringify({habitCount:1,done:true,totalXp:10,coldStarts:10,timedVisualChanges:20,persistedAfterRestart:true},null,2)+'\n');report('durable_final_mark_converges_once');success=true;

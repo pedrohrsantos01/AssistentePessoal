@@ -1,0 +1,39 @@
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+{"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_4_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_5_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_6_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_7_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_8_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_9_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_10_and_two_visual_changes_measured","passed":true,"fontScale":1}
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (246915.3735ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 310651.4628
+
+✖ failing tests:
+
+test at test\integration\android-performance.test.ts:1:2555
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (246915.3735ms)
+  AssertionError [ERR_ASSERTION]: event_clock_correlation_missing
+      at <anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\support\toggle-latency.ts:22:10)
+      at Array.map (<anonymous>)
+      at attributeToggleLatency (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\support\toggle-latency.ts:17:14)
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:179:71)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

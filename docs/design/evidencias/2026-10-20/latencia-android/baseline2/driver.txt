@@ -1,0 +1,21 @@
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+{"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_4_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_5_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_6_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_7_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_8_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_9_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_10_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"durable_final_mark_converges_once","passed":true,"fontScale":1}
+✔ Android native frames: cold launch, local cards and durable visual toggle latency (267472.7252ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 333828.6865
