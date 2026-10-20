@@ -1,0 +1,35 @@
+{
+  "measurementValid": true,
+  "method": "Device-side Intent launch request / physical ACTION_UP to correlated native frame rendered and issued; process absence/new PID and exact launcher/native clock verified; not physical display photons",
+  "startup": {
+    "count": 10,
+    "minMs": 826.3763,
+    "p50Ms": 883.5123,
+    "p95Ms": 1091.8788,
+    "maxMs": 1091.8788,
+    "targetMs": 2000,
+    "withinTarget": 10,
+    "allWithinTarget": true
+  },
+  "localCards": {
+    "count": 10,
+    "minMs": 826.3763,
+    "p50Ms": 883.5123,
+    "p95Ms": 1091.8788,
+    "maxMs": 1091.8788,
+    "targetMs": 300,
+    "withinTarget": 0,
+    "allWithinTarget": false
+  },
+  "feedback": {
+    "count": 20,
+    "minMs": 103.7803,
+    "p50Ms": 117.7801,
+    "p95Ms": 135.0309,
+    "maxMs": 3014.3666,
+    "targetMs": 100,
+    "withinTarget": 0,
+    "allWithinTarget": false
+  },
+  "physicalDeviceAccepted": false
+}

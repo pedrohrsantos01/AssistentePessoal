@@ -1,0 +1,11 @@
+{
+  "measurementPassed": false,
+  "phase": "offline_preparation_snapshot",
+  "coldSamples": 0,
+  "toggleSamples": 0,
+  "observedFailure": "reader_snapshot_has_no_current_hierarchy",
+  "keyboardPreparationPassed": true,
+  "evidence": "Following failure snapshot read had a valid current fixture hierarchy; screenshot shows offline Briefing with one unchecked local habit and 0 XP.",
+  "nextExperiment": "Require a fresh application hierarchy with application-window-count > 0 within bounded 12 s for screenshots; preserve query outcomes, fail if none. No change to native clock/frame thresholds.",
+  "causeStatus": "single current-hierarchy query failure observed; transient-observer inference, not a product failure established"
+}

@@ -1,0 +1,7 @@
+{
+  "stage": "round6_after_install_before_cohort",
+  "freePhysicalMemoryKiB": 5075220,
+  "totalVisibleMemoryKiB": 33419316,
+  "avdRamMiB": 3072,
+  "gpu": "host"
+}

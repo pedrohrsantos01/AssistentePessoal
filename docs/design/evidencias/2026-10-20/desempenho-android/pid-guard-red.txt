@@ -1,0 +1,42 @@
+✔ native frame analysis retains a slow cold sample and uses the same launch origin for local cards (1.5929ms)
+✔ native measurement refuses incomplete clock/state/frame {"drawVsyncNs":1} (2.089ms)
+✔ native measurement refuses incomplete clock/state/frame {"drawVsyncNs":2000000001} (0.1857ms)
+✔ native measurement refuses incomplete clock/state/frame {"launchNs":3000000000} (0.1775ms)
+✔ native measurement refuses incomplete clock/state/frame {"launchClock":"adb_wall_clock"} (0.5754ms)
+✔ native measurement refuses incomplete clock/state/frame {} (6.0049ms)
+✔ native measurement refuses incomplete clock/state/frame {"dropped":1} (0.2634ms)
+✔ native measurement refuses incomplete clock/state/frame {"frameEndNs":2000000000} (0.199ms)
+✔ missing or duplicate samples and unchanged visual state cannot manufacture a passing distribution (1.3742ms)
+✔ startup correlation refuses a live process, different PID, different origin and a different launch clock (0.7831ms)
+✖ ADB unavailable or diagnostic failures cannot prove a cold process (0.2469ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 256.8957
+
+✖ failing tests:
+
+test at test\performance-samples.test.ts:1:2522
+✖ ADB unavailable or diagnostic failures cannot prove a cold process (0.2469ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  true !== false
+
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\performance-samples.test.ts:22:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

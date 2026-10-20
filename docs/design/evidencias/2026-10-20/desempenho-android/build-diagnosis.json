@@ -1,0 +1,24 @@
+{
+  "causeEstablished": false,
+  "files": [
+    {
+      "name": "libfbjni.so",
+      "readOnly": false,
+      "attributes": "Archive",
+      "length": 2101664
+    },
+    {
+      "name": "libjsi.so",
+      "readOnly": false,
+      "attributes": "Archive",
+      "length": 4181536
+    },
+    {
+      "name": "libreactnative.so",
+      "readOnly": false,
+      "attributes": "Archive",
+      "length": 131724800
+    }
+  ],
+  "nativeTools": []
+}

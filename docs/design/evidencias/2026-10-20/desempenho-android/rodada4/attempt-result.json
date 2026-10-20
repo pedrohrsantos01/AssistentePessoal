@@ -1,0 +1,10 @@
+{
+  "measurementPassed": false,
+  "phase": "fixture_first_habit_keyboard",
+  "coldSamples": 0,
+  "toggleSamples": 0,
+  "observedFailure": "focused_field_and_visible_stable_keyboard_required_Nome do h\u00e1bito",
+  "observations": "Focused field and visible IME with identical geometry observed multiple times, interleaved with unavailable hierarchies; screenshot confirms actual keyboard.",
+  "nextExperiment": "Require two successive valid observations of focus/visible keyboard/same bounds. Unavailable hierarchy pauses observation; valid contradictory observation still resets. Same deadline and geometry checks, no text sent before readiness.",
+  "causeStatus": "driver treated unavailable read as negative observation"
+}

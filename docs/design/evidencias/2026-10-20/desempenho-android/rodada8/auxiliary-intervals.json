@@ -1,0 +1,122 @@
+{
+  "scope": "Within-JS intervals only; no cross-clock attribution to native input/frame or proof of root cause. Persistence mark precedes refresh/render.",
+  "samples": [
+    {
+      "sample": 1,
+      "moduleToRuntimeMs": 119.54619999998249,
+      "moduleToFontsMs": 43.460499999986496,
+      "fontsToRuntimeMs": 76.085699999996,
+      "handlerToPersistMs": [
+        38.241700000013225,
+        43.06620000000112
+      ]
+    },
+    {
+      "sample": 2,
+      "moduleToRuntimeMs": 101.4256999999925,
+      "moduleToFontsMs": 28.238599999982398,
+      "fontsToRuntimeMs": 73.1871000000101,
+      "handlerToPersistMs": [
+        39.38220000002184,
+        38.51840000000084
+      ]
+    },
+    {
+      "sample": 3,
+      "moduleToRuntimeMs": 93.35759999998845,
+      "moduleToFontsMs": 27.89879999999539,
+      "fontsToRuntimeMs": 65.45879999999306,
+      "handlerToPersistMs": [
+        40.64280000000144,
+        39.02139999999781
+      ]
+    },
+    {
+      "sample": 4,
+      "moduleToRuntimeMs": 123.55360000001383,
+      "moduleToFontsMs": 55.7442999999912,
+      "fontsToRuntimeMs": 67.80930000002263,
+      "handlerToPersistMs": [
+        40.178699999989476,
+        35.07950000002165
+      ]
+    },
+    {
+      "sample": 5,
+      "moduleToRuntimeMs": 130.9323999999906,
+      "moduleToFontsMs": 47.29219999999623,
+      "fontsToRuntimeMs": 83.64019999999437,
+      "handlerToPersistMs": [
+        51.27270000000135,
+        37.53489999999874
+      ]
+    },
+    {
+      "sample": 6,
+      "moduleToRuntimeMs": 132.5752999999968,
+      "moduleToFontsMs": 52.93319999999949,
+      "fontsToRuntimeMs": 79.6420999999973,
+      "handlerToPersistMs": [
+        49.710800000000745,
+        38.16790000000037
+      ]
+    },
+    {
+      "sample": 7,
+      "moduleToRuntimeMs": 115.03979999999865,
+      "moduleToFontsMs": 27.597099999984493,
+      "fontsToRuntimeMs": 87.44270000001416,
+      "handlerToPersistMs": [
+        57.93049999998766,
+        44.22959999999148
+      ]
+    },
+    {
+      "sample": 8,
+      "moduleToRuntimeMs": 118.79359999997541,
+      "moduleToFontsMs": 45.112799999973504,
+      "fontsToRuntimeMs": 73.68080000000191,
+      "handlerToPersistMs": [
+        51.992700000002515,
+        47.20910000000731
+      ]
+    },
+    {
+      "sample": 9,
+      "moduleToRuntimeMs": 113.87249999999767,
+      "moduleToFontsMs": 34.42720000000554,
+      "fontsToRuntimeMs": 79.44529999999213,
+      "handlerToPersistMs": [
+        40.01819999999134,
+        40.67550000001211
+      ]
+    },
+    {
+      "sample": 10,
+      "moduleToRuntimeMs": 141.82719999999972,
+      "moduleToFontsMs": 52.844799999991665,
+      "fontsToRuntimeMs": 88.98240000000806,
+      "handlerToPersistMs": [
+        47.39590000000317,
+        44.01269999999204
+      ]
+    }
+  ],
+  "scanMs": {
+    "p50": 0.2313,
+    "p95": 1.9564,
+    "max": 1.958
+  },
+  "handlerToPersist": {
+    "count": 20,
+    "p50Ms": 40.64280000000144,
+    "p95Ms": 51.992700000002515,
+    "maxMs": 57.93049999998766
+  },
+  "moduleToRuntime": {
+    "count": 10,
+    "p50Ms": 118.79359999997541,
+    "p95Ms": 141.82719999999972,
+    "maxMs": 141.82719999999972
+  }
+}

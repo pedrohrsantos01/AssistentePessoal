@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "duration": "17m 56s",
+  "suiteCount": 14,
+  "totals": {
+    "tests": 93,
+    "skipped": 8,
+    "failures": 0,
+    "errors": 0,
+    "executed": 85
+  },
+  "operationalChecks": 13,
+  "modularity": true,
+  "suites": [
+    {
+      "suite": "dev.ritmo.ContainerPackagingTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 140.529
+    },
+    {
+      "suite": "dev.ritmo.ModularityTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 2.564
+    },
+    {
+      "suite": "dev.ritmo.OperationalSchedulingTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 56.38
+    },
+    {
+      "suite": "dev.ritmo.PrimaryTelemetryTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 107.451
+    },
+    {
+      "suite": "dev.ritmo.ProbeTransportTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 65.108
+    },
+    {
+      "suite": "dev.ritmo.ProxyTlsTests",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 204.597
+    },
+    {
+      "suite": "dev.ritmo.RateLimitTests",
+      "tests": 11,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 16.801
+    },
+    {
+      "suite": "dev.ritmo.ReceiverSupervisionTests",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 222.069
+    },
+    {
+      "suite": "dev.ritmo.RestoreTests",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 47.2
+    },
+    {
+      "suite": "dev.ritmo.RetentionLifecycleTests",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 13.659
+    },
+    {
+      "suite": "dev.ritmo.RuntimeTests",
+      "tests": 46,
+      "skipped": 8,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 46.317
+    },
+    {
+      "suite": "dev.ritmo.SyncRetentionTests",
+      "tests": 11,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 14.014
+    },
+    {
+      "suite": "dev.ritmo.TrustedProxyTests",
+      "tests": 3,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 0.124
+    },
+    {
+      "suite": "dev.ritmo.WalRecoveryTests",
+      "tests": 5,
+      "skipped": 0,
+      "failures": 0,
+      "errors": 0,
+      "timeSeconds": 97.016
+    }
+  ],
+  "snapshotBeforeNative": true
+}

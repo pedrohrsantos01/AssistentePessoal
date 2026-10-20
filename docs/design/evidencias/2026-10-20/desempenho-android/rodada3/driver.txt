@@ -1,0 +1,21 @@
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (96917.2939ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 175743.9054
+
+✖ failing tests:
+
+test at test\integration\android-performance.test.ts:1:2457
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (96917.2939ms)
+  Error: reader_snapshot_has_no_current_hierarchy
+      at snapshot (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:101:114)
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:132:84)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

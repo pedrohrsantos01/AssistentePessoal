@@ -1,0 +1,48 @@
+{
+  "cohort": {
+    "coldStarts": 10,
+    "visualChanges": 20,
+    "localHabits": 1,
+    "offline": true,
+    "pendingChangesAtLaunch": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ]
+  },
+  "device": {
+    "avd": "Ritmo_ReadOnly",
+    "api": 35,
+    "ramMiB": 3072,
+    "gpu": "host",
+    "visible": true,
+    "notPhysicalAcceptance": true
+  },
+  "settings": {
+    "fontScale": 1,
+    "talkBack": false,
+    "animationScales": 0,
+    "stylusHandwriting": false,
+    "restoredAfterwards": true
+  },
+  "protocolAmendmentBeforeSamples": "Initial 4096 MiB AVD attempts had zero measurements: preparation tutorial then boot hang. Use 3072 MiB before first timed sample to reduce host pressure. No metric threshold or endpoint changed. API history then returned two records without current PID, so method v1 has no accepted sample. Method v2 explicitly measures the earlier device-side Intent request, with the same thresholds/frame endpoint; no fallback or mixed dataset.",
+  "thresholdsMs": {
+    "startup": 2000,
+    "localCards": 300,
+    "visualFeedback": 100
+  },
+  "origins": {
+    "startupAndCards": "System.nanoTime in isolated on-device Instrumentation immediately before Context.startActivity; driver communication/preparation outside interval",
+    "feedback": "Physical MotionEvent ACTION_UP"
+  },
+  "endpoint": "Correlated frame rendered and issued to display subsystem, after real checked state from committed local projection; not physical photons.",
+  "methodVersion": 2,
+  "coldProof": "PID absent after force-stop; new unique PID after launch; native PID equals observed PID; native origin PID and launchNs equal launcher result. All must match before accepting a sample."
+}

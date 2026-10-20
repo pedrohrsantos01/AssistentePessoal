@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "closedEmulatorTransportRefusedAsPidAbsence": true,
+  "resourcesStarted": false,
+  "apkUnchanged": true,
+  "scope": "post-run failure-branch hardening; does not alter collected timings"
+}

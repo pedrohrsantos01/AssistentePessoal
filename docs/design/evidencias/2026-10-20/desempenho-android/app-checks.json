@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "coreTests": 198,
+  "componentTests": 51,
+  "total": 249,
+  "types": true,
+  "lint": true,
+  "logs": [
+    ".scratch/runtime/interface/perf-app-tests-final.log",
+    ".scratch/runtime/interface/perf-typecheck-final.log",
+    ".scratch/runtime/interface/perf-lint-final.log"
+  ],
+  "redRegression": {
+    "file": "test/performance-samples.test.ts",
+    "case": "drawVsyncNs differs by one ns but rounds to the same millisecond",
+    "failedBeforeExactComparison": true,
+    "passedAfter": true
+  },
+  "startupProofRegression": [
+    "reject live process before launch",
+    "reject different PID",
+    "reject different launcher PID",
+    "reject different launch clock",
+    "reject different sample"
+  ],
+  "adbTransportFailureCannotProveAbsentPid": true
+}

@@ -1,0 +1,127 @@
+{
+  "watchers": [],
+  "processes": [
+    {
+      "pid": 13484,
+      "created": "2026-10-11T00:30:54.7252770-03:00",
+      "parent": 17508,
+      "name": "node.exe"
+    },
+    {
+      "pid": 25292,
+      "created": "2026-10-11T00:31:08.4526970-03:00",
+      "parent": 29732,
+      "name": "node.exe"
+    },
+    {
+      "pid": 18912,
+      "created": "2026-10-11T00:31:10.5233220-03:00",
+      "parent": 25292,
+      "name": "node.exe"
+    },
+    {
+      "pid": 38660,
+      "created": "2026-10-14T17:11:43.0558610-03:00",
+      "parent": 67956,
+      "name": "adb.exe"
+    },
+    {
+      "pid": 63576,
+      "created": "2026-10-18T01:14:26.8800370-03:00",
+      "parent": 19880,
+      "name": "node.exe"
+    },
+    {
+      "pid": 36080,
+      "created": "2026-10-18T01:14:27.1023180-03:00",
+      "parent": 69096,
+      "name": "node.exe"
+    },
+    {
+      "pid": 10968,
+      "created": "2026-10-18T01:14:27.2890400-03:00",
+      "parent": 67208,
+      "name": "node.exe"
+    },
+    {
+      "pid": 55996,
+      "created": "2026-10-18T01:14:27.3021280-03:00",
+      "parent": 57548,
+      "name": "node.exe"
+    },
+    {
+      "pid": 51152,
+      "created": "2026-10-18T01:14:28.1922580-03:00",
+      "parent": 62764,
+      "name": "node.exe"
+    },
+    {
+      "pid": 42616,
+      "created": "2026-10-18T01:14:43.9057200-03:00",
+      "parent": 35928,
+      "name": "node.exe"
+    },
+    {
+      "pid": 19436,
+      "created": "2026-10-19T21:01:09.8011350-03:00",
+      "parent": 39784,
+      "name": "node.exe"
+    },
+    {
+      "pid": 21296,
+      "created": "2026-10-20T01:37:33.6181070-03:00",
+      "parent": 53544,
+      "name": "node.exe"
+    },
+    {
+      "pid": 54348,
+      "created": "2026-10-20T01:37:34.8207370-03:00",
+      "parent": 64276,
+      "name": "node.exe"
+    },
+    {
+      "pid": 22704,
+      "created": "2026-10-20T01:37:37.5988760-03:00",
+      "parent": 54348,
+      "name": "node.exe"
+    },
+    {
+      "pid": 57812,
+      "created": "2026-10-20T01:37:44.3211840-03:00",
+      "parent": 54348,
+      "name": "node.exe"
+    }
+  ],
+  "memory": {
+    "FreePhysicalMemory": 5162896,
+    "TotalVisibleMemorySize": 33419316
+  },
+  "containers": [
+    "supabase_db_care-platform",
+    "supabase_pg_meta_care-platform",
+    "supabase_storage_care-platform",
+    "supabase_rest_care-platform",
+    "supabase_realtime_care-platform",
+    "supabase_inbucket_care-platform",
+    "supabase_auth_care-platform",
+    "supabase_kong_care-platform",
+    "ai-memory"
+  ],
+  "originalAvdMetadata": [
+    {
+      "bytes": 6356992,
+      "lastWriteUtc": "2026-01-28T21:19:43.8497568Z",
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img"
+    },
+    {
+      "bytes": 8824946688,
+      "lastWriteUtc": "2026-10-17T13:37:51.0131436Z",
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img.qcow2"
+    },
+    {
+      "bytes": 1258,
+      "lastWriteUtc": "2026-01-28T21:19:22.7515168Z",
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\config.ini"
+    }
+  ]
+}

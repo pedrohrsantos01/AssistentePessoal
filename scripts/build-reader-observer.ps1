@@ -8,9 +8,9 @@ $taskDex=Join-Path $taskBuild 'dex'
 New-Item -ItemType Directory -Force -Path $taskClasses,$taskDex | Out-Null
 $taskTools=Join-Path $env:ANDROID_HOME 'build-tools/36.0.0'
 $taskAndroid=Join-Path $env:ANDROID_HOME 'platforms/android-35/android.jar'
-& (Join-Path $env:JAVA_HOME 'bin/javac.exe') --release 17 -encoding UTF-8 -classpath $taskAndroid -d $taskClasses (Join-Path $taskSource 'ReaderObserver.java')
+& (Join-Path $env:JAVA_HOME 'bin/javac.exe') --release 17 -encoding UTF-8 -classpath $taskAndroid -d $taskClasses @((Join-Path $taskSource 'ReaderObserver.java'),(Join-Path $taskSource 'PerformanceLauncher.java'))
 if($LASTEXITCODE -ne 0) {throw 'Compilação do observador falhou.'}
-& (Join-Path $taskTools 'd8.bat') --lib $taskAndroid --output $taskDex (Join-Path $taskClasses 'dev/ritmo/readerobserver/ReaderObserver.class')
+& (Join-Path $taskTools 'd8.bat') --lib $taskAndroid --output $taskDex @((Join-Path $taskClasses 'dev/ritmo/readerobserver/ReaderObserver.class'),(Join-Path $taskClasses 'dev/ritmo/readerobserver/PerformanceLauncher.class'))
 if($LASTEXITCODE -ne 0) {throw 'DEX do observador falhou.'}
 $taskUnsigned=Join-Path $taskBuild 'unsigned.apk'
 & (Join-Path $taskTools 'aapt2.exe') link -o $taskUnsigned -I $taskAndroid --manifest (Join-Path $taskSource 'AndroidManifest.xml')

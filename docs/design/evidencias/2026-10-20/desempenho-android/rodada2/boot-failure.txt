@@ -1,0 +1,8 @@
+ERROR        | detected a hanging thread 'QEMU2 main loop'. No response for 15000 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU0 thread'. No response for 15058 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU1 thread'. No response for 15058 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU2 thread'. No response for 15059 ms
+ERROR        | detected a hanging thread 'QEMU2 CPU3 thread'. No response for 15060 ms
+WARNING      | adb command 'H:/Android/Sdk\platform-tools\adb.exe -s emulator-5560 shell am start-foreground-service -e meter on com.android.emulator.radio.config/.MeterService ' failed: 'adb.exe: device offline'
+WARNING      | adb command 'H:\Android\Sdk\platform-tools\adb.exe -s emulator-5560 shell getprop sys.boot_completed ' failed: 'adb.exe: device offline'
+ERROR        | detected a hanging thread 'QEMU2 main loop'. No response for 15004 ms

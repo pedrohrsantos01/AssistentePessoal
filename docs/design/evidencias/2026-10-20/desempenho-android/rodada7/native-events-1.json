@@ -1,0 +1,21 @@
+[
+  {
+    "kind": "invalid",
+    "frameVsyncNs": 148743638072,
+    "frameIntendedNs": 148743638072,
+    "drawVsyncNs": 148743638072,
+    "drawNs": 148759243500,
+    "scanNs": 1358400,
+    "frameTotalNs": 62906628,
+    "frameEndNs": 148806544700,
+    "dropped": 0,
+    "checked": false,
+    "historyRecords": 2,
+    "ownRecordStartTypes": [],
+    "ownColdRecords": 0,
+    "reason": "own_cold_launch_clock_missing",
+    "launchNs": null,
+    "schema": 1,
+    "sample": 1
+  }
+]

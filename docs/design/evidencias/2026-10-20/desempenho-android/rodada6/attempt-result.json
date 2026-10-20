@@ -1,0 +1,10 @@
+{
+  "measurementPassed": false,
+  "phase": "own_launch_clock_validation",
+  "coldSamples": 0,
+  "toggleSamples": 0,
+  "observedFailure": "own_cold_launch_clock_missing",
+  "nativeFrameCorrelationReached": true,
+  "nextExperiment": "Query all retained start records and require a unique cold record from own PID with a valid launch timestamp; retain scalar history diagnostics on success/failure. No warm record, callback duration or fallback clock accepted.",
+  "causeStatus": "latest-one lookup did not satisfy current PID/cold/clock checks; which condition failed was not recorded in initial diagnostic."
+}

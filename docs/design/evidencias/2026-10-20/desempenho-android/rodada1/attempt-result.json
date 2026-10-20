@@ -1,0 +1,15 @@
+{
+  "measurementPassed": false,
+  "phase": "fixture_preparation_name_field",
+  "coldSamples": 0,
+  "toggleSamples": 0,
+  "observedFailure": "focused_field_and_visible_stable_keyboard_required_Nome",
+  "captureFinding": "System handwriting first-use tutorial covers registration form; field focused but soft keyboard not confirmed.",
+  "hypothesesRanked": [
+    "system_handwriting_tutorial",
+    "soft_keyboard_visibility_delayed",
+    "touch_geometry_stale"
+  ],
+  "nextExperiment": "Temporarily disable and read back secure stylus_handwriting_enabled, preserving and restoring its prior value; keep all IME assertions.",
+  "causeStatus": "tutorial directly observed; causal experiment pending"
+}

@@ -1,0 +1,18 @@
+{
+  "serial": "emulator-5560",
+  "pkg": "dev.ritmo.readonlytest",
+  "secureSettings": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "touch_exploration_enabled": "0"
+  },
+  "fontScale": "1.0",
+  "screenTimeout": "2147483647",
+  "wifi": "1",
+  "data": "1",
+  "animations": {
+    "animator_duration_scale": "null",
+    "transition_animation_scale": "1.0",
+    "window_animation_scale": "1.0"
+  }
+}

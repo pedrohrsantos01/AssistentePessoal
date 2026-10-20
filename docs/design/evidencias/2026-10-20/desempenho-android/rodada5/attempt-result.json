@@ -1,0 +1,12 @@
+{
+  "measurementPassed": false,
+  "phase": "first_native_cold_start",
+  "coldSamples": 0,
+  "toggleSamples": 0,
+  "observedFailure": "native_frame_missing_1_startup_undefined",
+  "preparedAccountAndHabit": true,
+  "nativeEvents": [],
+  "hypothesis": "View drawingTime read during OnDraw can refer to previous frame because ViewRootImpl updates it after dispatchOnDraw.",
+  "nextExperiment": "Use public Choreographer.FrameCallback before traversal and require nanosecond equality to actual/intended VSYNC. No fallback timing or threshold changes.",
+  "causeStatus": "source-backed hypothesis to verify natively"
+}

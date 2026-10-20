@@ -2,6 +2,8 @@
 
 Preferências já implementadas; recorte 06 permanece em andamento. [Resultado atual](../../docs/analises/2026-10-12-interface-aparencia-e-preferencias.md). Não confundir fixture com comportamento do produto nem marcação comum com ativação do leitor.
 
+Atualização de20/10: [instrumentação/coleta concluída](../../docs/analises/2026-10-20-desempenho-instrumentado-m1.md), com metas de cards/feedback ainda não atendidas. Próximo: [latência do cumprimento](latencia-do-cumprimento.md).
+
 ## Leitor — ponte e primeiro roteiro aprovados
 
 A ponte sendTouch/JWT e o observador FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES funcionam no Pixel_9 Google Play existente, sem root, alteração de SELinux ou troca/descarte de imagem. [Resultado e reprodução](../../docs/analises/2026-10-12-talkback-e-continuidade-do-briefing.md). O falso positivo adb input e as tentativas anteriores continuam rejeitados/preservados.
@@ -43,3 +45,5 @@ Critério de fechamento de06: roteiro de leitor e matriz de estados aprovados no
 
 
 19/10/2026 — [Cópia parcial interrompida com TalkBack](../../docs/analises/2026-10-19-talkback-copia-parcial.md). Rodada 1 aprovada a 200% no APK a7f47a73: seis fases, 46 controles/dez campos-IME/três retornos. Staging real de 500 entidades preservado no reinício offline, base anterior/intenções dependentes/10 XP conservados, conta inicial bloqueada até completar e A/B/A isoladas. Três conjuntos originais idênticos e confirmação independente sem duplicação. Fontes de produto/schema inalterados; testes/harness/lançador ampliados. Tipos/lint e 237 testes do app; API check completo em 19m15s, 85 executados/oito opt-in ignorados, 13 operacionais/modularidade, zero falhas. Restauração/isolamento confirmados e recursos próprios encerrados. Próximo recomendado: medidas instrumentadas de abertura/cards/feedback; leitura/edição falada restante, paletas integrais, iPhone e gates externos mantêm 06/M1 abertos.
+
+20/10/2026 — [Desempenho instrumentado](../../docs/analises/2026-10-20-desempenho-instrumentado-m1.md). Rodada8/schema2 válida no AVD/API35/3GB:10 processos frios/20 alterações offline. Abertura: p95/máximo1091,88ms,10/10≤2s. Cards: p50 de883,51ms,0/10≤300ms. Feedback: p95 de135,03ms/máximo3014,37ms,0/20≤100ms. Origem de abertura/cards no launcher do próprio Android antes do Intent; PID ausente/novo e relógios correlacionados ao frame, sem incluir comunicação do ADB. Reinício/convergência independente10XP e restauração confirmados; recursos próprios fechados. Tipos/lint e249 testes app; check API85 executados/oito opt-in ignorados,13 operacionais/modularidade, zero falhas. Sete tentativas rejeitadas separadas; metas não relaxadas. Próximo: atribuir/reduzir latência do cumprimento, depois partida dos cards. AVD não aceita aparelho mediano físico/iPhone;06/M1 continuam abertos.

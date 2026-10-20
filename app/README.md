@@ -379,3 +379,19 @@ $env:ANDROID_AVD_HOME=Join-Path (Get-Location) '.scratch/runtime/interface/reado
 ```
 
 Requer AVD separado já preparado, controle journeytest instalado e observador compilado. Abre emulador e acompanhamento visíveis somente no teste. O roteiro recebe a primeira página real de 500 entidades de snapshots com 501; tombstones mantêm a tela pequena. `sync-staged-copy` simula cursor expirado e recusa a segunda página com 503/Retry-After de 120s. `sync-staged-complete` simula o cursor expirado até obter manifesto e deixa a cópia real terminar. Não limpa bancos, guard, fila nem cofre. O reinício offline permite observar staging persistido sem nova requisição. Conta inicial continua bloqueada; conta com base mantém projeção e intenções originais. A/B/A e cliente HTTP independente verificam isolamento, um cumprimento e 10 XP. O ensaio não valida o cleaner real, edição falada ou desempenho. [Plano](../.scratch/interface-m1/leitor-copia-parcial.md).
+
+
+### Medidas nativas de abertura, cards e feedback
+
+```powershell
+$env:JAVA_HOME='C:/Program Files/Android/Android Studio/jbr'
+$env:ANDROID_HOME='H:/Android/Sdk' # ajustar ao SDK local
+./scripts/build-reader-observer.ps1
+./scripts/build-android-readonly.ps1 -Performance
+$env:ANDROID_AVD_HOME=Join-Path (Get-Location) '.scratch/runtime/interface/readonly-avds'
+./scripts/verify-android-accessibility.ps1 -Performance -Avd Ritmo_ReadOnly -GpuMode host -MemoryMegabytes 3072 -EvidenceDirectory .scratch/runtime/interface/performance-replay-novo
+```
+
+Usa a instalação isolada readonlytest; o builder gera somente current.apk no modo Performance e restaura configuração/APK normais. A flag pública de instrumentação exige essa variante; plugin nativo não entra no produto normal. Ensaio validado no Android API35: o launcher isolado registra System.nanoTime imediatamente antes de Context.startActivity; o driver exige processo ausente, novo PID e correspondência exata com o relógio/PID de origem lidos pelo app. Choreographer.FrameCallback + OnDraw + FrameMetrics correlacionam o estado local ao frame nativo. Tags estáticas do conteúdo/checked e marcos JS sem conteúdo são locais. Não adiciona dependência, tabela ou coleta externa. O driver prepara uma conta/hábito reais, mede dez processos frios e vinte alterações offline, preserva fila e confirma o resultado por HTTP independente. Fila de zero a 18 pendências no início dos ciclos. Fonte100%, TalkBack desligado e animações do sistema desligadas para esta amostra; settings são restaurados. Ponte SDK física, observador somente entre intervalos e emulador/acompanhamento visíveis, com limpeza própria.
+
+Amostras inválidas falham a coleta. Tempos altos válidos ficam no relatório e não são descartados. O resumo separa validade da medida e atendimento às metas de 2000/300/100ms; p50/p95/máxima são descritivos. A origem dos cards e da abertura é a mesma solicitação de abertura no aparelho; não depende do histórico ApplicationStartInfo. Use uma pasta de evidências nova. Polling, waits do driver e marcas JS não substituem o término do frame. AVD não dá aceite de aparelho mediano/iPhone. [Plano e método](../.scratch/interface-m1/desempenho-instrumentado.md).

@@ -2,4 +2,5 @@
   <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="35"/>
   <application android:label="Ritmo test observer" android:debuggable="true" android:testOnly="true" android:allowBackup="false"/>
   <instrumentation android:name="dev.ritmo.readerobserver.ReaderObserver" android:targetPackage="dev.ritmo.readerobserver"/>
+  <instrumentation android:name="dev.ritmo.readerobserver.PerformanceLauncher" android:targetPackage="dev.ritmo.readerobserver"/>
 </manifest>

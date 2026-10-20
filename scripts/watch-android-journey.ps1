@@ -1,8 +1,11 @@
-param([ValidateSet('journey','session','sync','recovery','appearance','accessibility','reader-matrix')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
+param([ValidateSet('journey','session','sync','recovery','appearance','accessibility','reader-matrix','performance')][string]$Suite='journey',[Parameter(Mandatory=$true)][string]$Log,[Parameter(Mandatory=$true)][string]$CompletionPath)
 $Host.UI.RawUI.WindowTitle='Ritmo — jornada visível no Android'
-$taskDeadline=(Get-Date).AddMinutes($(if($Suite -eq 'reader-matrix'){30}else{15}))
+$taskDeadline=(Get-Date).AddMinutes($(if($Suite -in @('reader-matrix','performance')){30}else{15}))
 $taskPosition=0
-if($Suite -eq 'reader-matrix') {
+if($Suite -eq 'performance') {
+ Write-Host 'RITMO | MEDIDAS NATIVAS: ABERTURA, CARDS E FEEDBACK' -ForegroundColor Cyan
+ Write-Host 'Preparação real → dez processos frios offline → vinte marcações/desmarcações → convergência'
+} elseif($Suite -eq 'reader-matrix') {
  Write-Host 'RITMO | TALKBACK 200%: FORMULARIOS, TECLADO, SHEETS E ERROS' -ForegroundColor Cyan
  Write-Host 'Cadastro e onboarding reais → hábitos → foco de sheets → sincronização → falhas preservadas'
 } elseif($Suite -eq 'accessibility') {

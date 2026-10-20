@@ -1,0 +1,11 @@
+{
+  "measurementPassed": false,
+  "phase": "emulator_boot",
+  "coldSamples": 0,
+  "toggleSamples": 0,
+  "observedFailure": "Emulador n\u00e3o iniciou; ADB offline and QEMU main/CPU threads hanging.",
+  "noFixtureInstalled": true,
+  "shutdown": "Own adb emu-kill client hung; exact PID/creation/parent/serial verified before stopping only it. Launcher then stopped own QEMU/emulator.",
+  "causeStatus": "not established",
+  "nextExperiment": "Use 3072 MiB AVD RAM to reduce host pressure before the first measured sample; retain API35, host GPU and all measurement criteria."
+}

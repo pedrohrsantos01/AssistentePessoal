@@ -1,0 +1,24 @@
+{
+  "built": true,
+  "mode": "performance-current-only",
+  "apkSha256": "d902bceacc2b94a6c54fe67c3c977b325a92fc398f11d501472bedced46b0d55",
+  "normalControlSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "probeTemplateSha256": "ca851ce14e845d117af2911ebf3e88041b6aa57c1651fd24e1af4c805c1432e1",
+  "bundleSha256": "a2a0fffbef14fc288c6254b0841007fa16ea478dad58173862f99123afafddbc",
+  "nativeMarkersVerified": [
+    "RitmoFrameProbe",
+    "ritmoPerfSample",
+    "frameEndNs",
+    "RitmoPerf"
+  ],
+  "normalGeneratedMainActivityHasProbe": false,
+  "firstAttempt": {
+    "passed": false,
+    "reason": "expo-modules-core C++ cache cleanup could not delete three .so files; cause not established; no manual cache removal"
+  },
+  "secondAttempt": {
+    "passed": true,
+    "buildDuration": "6m 52s"
+  },
+  "staleUpdatedApkUsed": false
+}

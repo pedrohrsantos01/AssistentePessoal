@@ -1,3 +1,4 @@
+import {performanceMark} from '../../core/diagnostics/performance.ts';
 import {PasswordRecovery} from './password-recovery.ts';
 import type {PasswordResetTransport} from '../../core/identity/types.ts';
 import type {Session} from '../../core/identity/session.ts';
@@ -104,7 +105,7 @@ export class Journey {
  private local(work:(store:AccountStore)=>void) {
   if((this.busy&&!this.localWhileBusy)||this.stopped) return false;
   this.error=null;
-  try {work(this.runtime.session.account());this.refresh();this.runtime.sync.requestSync();return true;}
+  try {work(this.runtime.session.account());performanceMark('local.persisted');this.refresh();this.runtime.sync.requestSync();return true;}
   catch(error) {this.error=this.message(error,true);this.refresh();return false;}
  }
  confirmTime(context:TimeContext) {

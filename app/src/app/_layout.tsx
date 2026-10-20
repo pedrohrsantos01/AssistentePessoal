@@ -1,3 +1,4 @@
+import {performanceMark} from '../core/diagnostics/performance.ts';
 import {AppearanceReadNotice} from '../features/preferences/appearance-section.tsx';
 import '../../global.css';
 import {Slot} from 'expo-router';
@@ -12,6 +13,7 @@ import {Loading} from '../ui/primitives.tsx';
 import {pt} from '../i18n/pt-BR.ts';
 function Content({preferences}:{preferences:AppearancePreferences}){
  const state=useSyncExternalStore(preferences.subscribe,preferences.state),theme=useTheme();
+ useEffect(()=>{if(state.ready)performanceMark('preferences.ready');},[state.ready]);
  return <><StatusBar style={theme.mode==='dark'?'light':'dark'}/>{state.ready?<><AppearanceReadNotice preferences={preferences}/><Slot/></>:<Loading message={pt.loading}/>}</>;
 }
 export default function Layout(){

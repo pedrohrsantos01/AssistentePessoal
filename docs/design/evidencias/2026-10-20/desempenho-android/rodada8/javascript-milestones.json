@@ -1,0 +1,482 @@
+[
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 137776.7318
+  },
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 137782.3659
+  },
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 137820.1923
+  },
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 137896.278
+  },
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 143039.7174
+  },
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 143077.9591
+  },
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 147590.6935
+  },
+  {
+    "sample": 1,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 147633.7597
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 151866.7924
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 151872.8852
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 151895.031
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 151968.2181
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 156523.1198
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 156562.502
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 158339.3145
+  },
+  {
+    "sample": 2,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 158377.8329
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 162572.0417
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 162577.1977
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 162599.9405
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 162665.3993
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 164756.5443
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 164797.1871
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 168240.29
+  },
+  {
+    "sample": 3,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 168279.3114
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 175801.5122
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 175807.9023
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 175857.2565
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 175925.0658
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 183039.4536
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 183079.6323
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 184906.0384
+  },
+  {
+    "sample": 4,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 184941.1179
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 187711.4319
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 187718.5378
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 187758.7241
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 187842.3643
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 190124.0739
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 190175.3466
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 196089.6208
+  },
+  {
+    "sample": 5,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 196127.1557
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 198749.4218
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 198756.7294
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 198802.355
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 198881.9971
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 201974.1859
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 202023.8967
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 204689.7523
+  },
+  {
+    "sample": 6,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 204727.9202
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 207273.9487
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 207279.5904
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 207301.5458
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 207388.9885
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 210206.5663
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 210264.4968
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 213789.6802
+  },
+  {
+    "sample": 7,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 213833.9098
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 216322.6032
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 216328.9068
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 216367.716
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 216441.3968
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 222589.8755
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 222641.8682
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 227939.5496
+  },
+  {
+    "sample": 8,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 227986.7587
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 231327.7189
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 231333.0611
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 231362.1461
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 231441.5914
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 237189.3505
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 237229.3687
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 241523.4317
+  },
+  {
+    "sample": 9,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 241564.1072
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "app.module",
+    "at": 244058.9694
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "preferences.ready",
+    "at": 244067.9142
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "fonts.ready",
+    "at": 244111.8142
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "runtime.ready",
+    "at": 244200.7966
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 249774.221
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 249821.6169
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "toggle.handler",
+    "at": 252423.0863
+  },
+  {
+    "sample": 10,
+    "schema": 1,
+    "phase": "local.persisted",
+    "at": 252467.099
+  }
+]

@@ -1,0 +1,342 @@
+{
+  "measurementPassed": false,
+  "apkSha256": "d902bceacc2b94a6c54fe67c3c977b325a92fc398f11d501472bedced46b0d55",
+  "fontScale": 1,
+  "talkBack": false,
+  "stylusHandwriting": false,
+  "animations": 0,
+  "imeReadiness": [
+    {
+      "label": "Nome",
+      "stableObservations": 2,
+      "samples": [
+        {},
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,471][1017,597]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,471][1017,597]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,471][1017,597]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {},
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,471][1017,597]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,471][1017,597]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "E-mail",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,700][1017,826]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,700][1017,826]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,700][1017,826]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {},
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,700][1017,826]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,700][1017,826]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Senha",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,929][776,1055]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,929][776,1055]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,929][776,1055]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,929][776,1055]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,929][776,1055]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,929][776,1055]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Fuso horário",
+      "stableObservations": 2,
+      "samples": [
+        {
+          "imeVisible": "true",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {},
+        {
+          "imeVisible": "false",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "imeVisible": "false",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,690][1017,816]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,690][1017,816]",
+          "imeBounds": "[0,1541][1080,2424]"
+        }
+      ]
+    },
+    {
+      "label": "Nome do hábito",
+      "stableObservations": 0,
+      "samples": [
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,1215][1017,1341]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1215][1017,1341]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {},
+        {},
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1215][1017,1341]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {},
+        {},
+        {},
+        {},
+        {
+          "focused": "true",
+          "imeVisible": "false",
+          "fieldBounds": "[63,1215][1017,1341]",
+          "imeBounds": "[0,0][0,0]"
+        },
+        {
+          "focused": "true",
+          "imeVisible": "true",
+          "fieldBounds": "[63,1215][1017,1341]",
+          "imeBounds": "[0,1541][1080,2424]"
+        },
+        {},
+        {}
+      ]
+    }
+  ],
+  "phases": [],
+  "targets": [
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1941,
+        1017,
+        2078
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "bounds": [
+        63,
+        471,
+        1017,
+        597
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome",
+      "inputBounds": [
+        63,
+        471,
+        1017,
+        597
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "E-mail",
+      "bounds": [
+        63,
+        700,
+        1017,
+        826
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "E-mail",
+      "inputBounds": [
+        63,
+        700,
+        1017,
+        826
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Senha",
+      "bounds": [
+        63,
+        929,
+        776,
+        1055
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Senha",
+      "inputBounds": [
+        63,
+        929,
+        776,
+        1055
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Criar conta",
+      "bounds": [
+        63,
+        1317,
+        1017,
+        1454
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "bounds": [
+        63,
+        690,
+        1017,
+        816
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Fuso horário",
+      "inputBounds": [
+        63,
+        690,
+        1017,
+        816
+      ],
+      "imeTop": 1541,
+      "focused": true
+    },
+    {
+      "label": "Continuar",
+      "bounds": [
+        63,
+        1957,
+        1017,
+        2093
+      ],
+      "density": 2.625
+    },
+    {
+      "label": "Nome do hábito",
+      "bounds": [
+        63,
+        1215,
+        1017,
+        1341
+      ],
+      "density": 2.625
+    }
+  ],
+  "coldFrames": 0,
+  "toggleFrames": 0,
+  "authentication": {
+    "touch": [
+      16,
+      7,
+      7
+    ]
+  },
+  "physicalInput": "grpc.sendTouch",
+  "observer": "FLAG_DONT_SUPPRESS_ACCESSIBILITY_SERVICES_between_intervals",
+  "scope": "native frame rendering and issue to display subsystem from own cold launch clock and ACTION_UP; AVD baseline only, not physical-device acceptance, screen photon time, TalkBack or full M1",
+  "restored": true
+}

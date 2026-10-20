@@ -1,0 +1,6 @@
+{
+  "stage": "after_emulator_boot_before_cohort",
+  "freePhysicalMemoryKiB": 1504512,
+  "totalVisibleMemoryKiB": 33419316,
+  "notControlledPhysicalDevice": true
+}

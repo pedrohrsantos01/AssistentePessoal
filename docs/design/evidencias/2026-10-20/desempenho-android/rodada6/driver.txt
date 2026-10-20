@@ -1,0 +1,37 @@
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (127720.7308ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 233542.5104
+
+✖ failing tests:
+
+test at test\integration\android-performance.test.ts:1:2457
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (127720.7308ms)
+  AssertionError [ERR_ASSERTION]: native_measurement_invalid_{"kind":"invalid","reason":"own_cold_launch_clock_missing","schema":1,"sample":1}
+  + actual - expected
+
+  + {
+  +   kind: 'invalid',
+  +   reason: 'own_cold_launch_clock_missing',
+  +   sample: 1,
+  +   schema: 1
+  + }
+  - undefined
+
+      at waitFrame (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:126:217)
+      at async TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:151:18)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { kind: 'invalid', reason: 'own_cold_launch_clock_missing', schema: 1, sample: 1 },
+    expected: undefined,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

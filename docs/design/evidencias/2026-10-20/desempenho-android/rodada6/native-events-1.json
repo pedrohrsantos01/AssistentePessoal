@@ -1,0 +1,8 @@
+[
+  {
+    "kind": "invalid",
+    "reason": "own_cold_launch_clock_missing",
+    "schema": 1,
+    "sample": 1
+  }
+]

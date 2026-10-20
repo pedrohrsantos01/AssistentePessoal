@@ -1,0 +1,29 @@
+{
+  "built": true,
+  "mode": "performance-current-only",
+  "apkSha256": "ef7e98a27b8171f58df21196561f878840f0aff0b124ff49353640106f49aa9e",
+  "normalControlSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "probeTemplateSha256": "03b7965c71a5cdc7fcf2eb2b3270c353c78d450b51dbae5e1d4dc06b8481cc9d",
+  "bundleSha256": "a2a0fffbef14fc288c6254b0841007fa16ea478dad58173862f99123afafddbc",
+  "nativeMarkersVerified": [
+    "RitmoFrameProbe",
+    "ritmoPerfSample",
+    "frameEndNs",
+    "RitmoPerf"
+  ],
+  "normalGeneratedMainActivityHasProbe": false,
+  "firstAttempt": {
+    "passed": false,
+    "reason": "expo-modules-core C++ cache cleanup could not delete three .so files; cause not established; no manual cache removal"
+  },
+  "secondAttempt": {
+    "passed": true,
+    "buildDuration": "6m 52s"
+  },
+  "staleUpdatedApkUsed": false,
+  "frameClock": "Choreographer.FrameCallback exact ns before traversal",
+  "finalBuildDuration": "5m 30s",
+  "launchOrigin": "unique own-PID cold record from all retained ApplicationStartInfo records",
+  "probeWarnings": [],
+  "existingDependencyWarningsObserved": true
+}

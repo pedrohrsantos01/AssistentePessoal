@@ -1,0 +1,46 @@
+{
+  "cohort": {
+    "coldStarts": 10,
+    "visualChanges": 20,
+    "localHabits": 1,
+    "offline": true,
+    "pendingChangesAtLaunch": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18
+    ]
+  },
+  "device": {
+    "avd": "Ritmo_ReadOnly",
+    "api": 35,
+    "ramMiB": 3072,
+    "gpu": "host",
+    "visible": true,
+    "notPhysicalAcceptance": true
+  },
+  "settings": {
+    "fontScale": 1,
+    "talkBack": false,
+    "animationScales": 0,
+    "stylusHandwriting": false,
+    "restoredAfterwards": true
+  },
+  "protocolAmendmentBeforeSamples": "Initial 4096 MiB AVD attempts had zero measurements: preparation tutorial then boot hang. Use 3072 MiB before first timed sample to reduce host pressure. No metric threshold or endpoint changed.",
+  "thresholdsMs": {
+    "startup": 2000,
+    "localCards": 300,
+    "visualFeedback": 100
+  },
+  "origins": {
+    "startupAndCards": "Own cold process START_TIMESTAMP_LAUNCH",
+    "feedback": "Physical MotionEvent ACTION_UP"
+  },
+  "endpoint": "Correlated frame rendered and issued to display subsystem, after real checked state from committed local projection; not physical photons."
+}

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "sdk": 35,
+  "targetPackage": "dev.ritmo.readonlytest only",
+  "sha256": {
+    "app/harness/reader-observer/PerformanceLauncher.java": "db8a9c60ad7ef86b5f3fff4bedaa0e59d92627dfdac0f9f639f8ee8a0716b48a",
+    "app/harness/reader-observer/ReaderObserver.java": "0fe99267be1b4b64730694b2b897f3b9ee09c264c096596a43579884163e7a40",
+    "app/harness/reader-observer/AndroidManifest.xml": "df611d95cb0f0a5c2222e88ff4b6a9d728c62da3e42103c006e780452a17a0d4",
+    ".scratch/runtime/interface/reader-observer/observer.apk": "94553b0e24dc891b520410aaba5a316a8baebe592d683f45b9e872617baf0516"
+  }
+}

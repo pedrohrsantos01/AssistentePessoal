@@ -1,3 +1,4 @@
+import {performanceMark} from '../core/diagnostics/performance.ts';
 import {consumePasswordResetIntent,subscribePasswordResetIntent} from '../core/identity/password-reset-intent.ts';
 import {useEffect,useState} from 'react';
 import {AppState} from 'react-native';
@@ -9,18 +10,20 @@ import {Journey} from '../features/journey/journey.ts';
 import {JourneyView} from '../features/journey/screens.tsx';
 import {Banner,Button,Loading,Page,Type} from '../ui/primitives.tsx';
 import {pt} from '../i18n/pt-BR.ts';
+performanceMark('app.module');
 const origin=process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST==='1'?'http://127.0.0.1:18766':process.env.EXPO_PUBLIC_RITMO_API_ORIGIN;
 export default function App() {
  const [fonts,fontError]=useFonts(bundledFonts),[journey,setJourney]=useState<Journey|null>(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0);
  useEffect(()=>{
   if(!fonts&&!fontError) return;
+  if(fonts)performanceMark('fonts.ready');
   let cancelled=false,owner:Journey|undefined;
   if(!origin||(!/^https:\/\//.test(origin)&&process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST!=='1')) {setFailed(true);return;}
   const opening=process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST==='1'
    ?import('../../harness/journey-runtime.ts').then(module=>module.openJourneyTestRuntime(origin)):openExpoRuntime(origin);
   void opening.then(runtime=>{
    if(cancelled) {runtime.close();return;}
-   owner=new Journey(runtime,nativeId);setJourney(owner);
+   owner=new Journey(runtime,nativeId);performanceMark('runtime.ready');setJourney(owner);
   }).catch(()=>{if(!cancelled) setFailed(true);});
   return ()=>{cancelled=true;owner?.dispose();};
  },[fonts,fontError,attempt]);

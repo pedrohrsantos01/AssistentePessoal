@@ -1,0 +1,46 @@
+{
+  "noEmulators": true,
+  "noWatchers": true,
+  "emulators": [],
+  "watchers": [],
+  "originalAvdMetadata": [
+    {
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img",
+      "unchanged": true,
+      "lastWriteUtc": "2026-01-28T21:19:43.8497568Z",
+      "bytes": 6356992
+    },
+    {
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img.qcow2",
+      "unchanged": true,
+      "lastWriteUtc": "2026-10-17T13:37:51.0131436Z",
+      "bytes": 8824946688
+    },
+    {
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\config.ini",
+      "unchanged": true,
+      "lastWriteUtc": "2026-01-28T21:19:22.7515168Z",
+      "bytes": 1258
+    }
+  ],
+  "containers": [
+    "supabase_db_care-platform",
+    "supabase_pg_meta_care-platform",
+    "supabase_storage_care-platform",
+    "supabase_rest_care-platform",
+    "supabase_realtime_care-platform",
+    "supabase_inbucket_care-platform",
+    "supabase_auth_care-platform",
+    "supabase_kong_care-platform",
+    "ai-memory"
+  ],
+  "preexistingContainersPreserved": true,
+  "preexistingAdbPreserved": true,
+  "normalControlApkSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "normalGeneratedProbeFiles": 0,
+  "memory": {
+    "FreePhysicalMemory": 11418668,
+    "TotalVisibleMemorySize": 33419316
+  },
+  "watcherDetection": "Actual -File invocation; audit process excluded"
+}

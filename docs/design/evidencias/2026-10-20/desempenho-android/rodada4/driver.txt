@@ -1,0 +1,26 @@
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (130482.6054ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 190784.1965
+
+✖ failing tests:
+
+test at test\integration\android-performance.test.ts:1:2457
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (130482.6054ms)
+  AssertionError [ERR_ASSERTION]: focused_field_and_visible_stable_keyboard_required_Nome do hábito
+      at enter (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:90:10)
+      at async TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:138:211)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

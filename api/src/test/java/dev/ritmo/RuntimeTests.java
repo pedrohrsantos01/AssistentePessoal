@@ -850,7 +850,7 @@ class RuntimeTests {
         String bootstrap=System.getenv("RITMO_READER_BOOTSTRAP");
         if(bootstrap!=null) java.nio.file.Files.writeString(java.nio.file.Path.of(bootstrap,"api-ready"),"ready");
         var log=java.nio.file.Path.of("build/android-reader-integration.log");
-        String readerFile="1".equals(System.getenv("RITMO_READER_PARTIAL_COPY"))?"test/integration/android-reader-partial-copy.test.ts":"1".equals(System.getenv("RITMO_READER_RETRY_EXHAUSTED"))?"test/integration/android-reader-retry-exhausted.test.ts":"1".equals(System.getenv("RITMO_READER_READONLY"))?"test/integration/android-reader-readonly.test.ts":"1".equals(System.getenv("RITMO_READER_SYNC_STATES"))?"test/integration/android-reader-sync-states.test.ts":"test/integration/android-reader-matrix.test.ts";
+        String readerFile="1".equals(System.getenv("RITMO_READER_PERFORMANCE"))?"test/integration/android-performance.test.ts":"1".equals(System.getenv("RITMO_READER_PARTIAL_COPY"))?"test/integration/android-reader-partial-copy.test.ts":"1".equals(System.getenv("RITMO_READER_RETRY_EXHAUSTED"))?"test/integration/android-reader-retry-exhausted.test.ts":"1".equals(System.getenv("RITMO_READER_READONLY"))?"test/integration/android-reader-readonly.test.ts":"1".equals(System.getenv("RITMO_READER_SYNC_STATES"))?"test/integration/android-reader-sync-states.test.ts":"test/integration/android-reader-matrix.test.ts";
         var builder=new ProcessBuilder("node","--import","tsx","--test",readerFile)
             .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
         builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);

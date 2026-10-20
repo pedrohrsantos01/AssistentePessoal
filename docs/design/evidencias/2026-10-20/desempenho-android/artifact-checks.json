@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "counts": {
+    "json": 114,
+    "xml": 23,
+    "png": 17,
+    "files": 180
+  },
+  "allJsonXmlAndPngCrcValid": true,
+  "pngCrcVerifiedBeforeFinalTextOnlyUpdates": true,
+  "checkedFixturePasswordJwtAndPrivateKeyAbsent": true,
+  "sourceUtf8LfAndLocalLinksValid": true,
+  "sourceFiles": 29
+}

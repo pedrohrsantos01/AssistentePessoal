@@ -1,3 +1,4 @@
+param([switch]$Performance)
 # Finite build fixture. Preserve the normal journey APK and regenerate its native config afterwards.
 $ErrorActionPreference='Stop'
 $taskRoot=Split-Path $PSScriptRoot -Parent
@@ -8,11 +9,12 @@ if(-not $env:JAVA_HOME -or -not $env:ANDROID_HOME) {throw 'Configure Java21 e SD
 New-Item -ItemType Directory -Force -Path $taskBuild | Out-Null
 $taskBackup=Join-Path $taskBuild ('preserved-'+(Get-FileHash -LiteralPath $taskApk -Algorithm SHA256).Hash.ToLowerInvariant()+'.apk')
 Copy-Item -LiteralPath $taskApk -Destination $taskBackup -Force
-$taskPrevious=@{};foreach($taskKey in @('EXPO_PUBLIC_RITMO_JOURNEY_TEST','EXPO_PUBLIC_RITMO_READONLY_TEST','EXPO_PUBLIC_RITMO_READONLY_UPDATED','EXPO_PUBLIC_RITMO_HTTP_HARNESS','EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS','NODE_ENV','CI')) {$taskPrevious[$taskKey]=[Environment]::GetEnvironmentVariable($taskKey,'Process')}
+$taskPrevious=@{};foreach($taskKey in @('EXPO_PUBLIC_RITMO_JOURNEY_TEST','EXPO_PUBLIC_RITMO_READONLY_TEST','EXPO_PUBLIC_RITMO_READONLY_UPDATED','EXPO_PUBLIC_RITMO_HTTP_HARNESS','EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS','NODE_ENV','CI','EXPO_PUBLIC_RITMO_PERF_TEST')) {$taskPrevious[$taskKey]=[Environment]::GetEnvironmentVariable($taskKey,'Process')}
 Push-Location $taskApp
 try {
+ $env:EXPO_PUBLIC_RITMO_PERF_TEST=if($Performance){'1'}else{$null}
  $env:NODE_ENV='production';$env:CI='1';$env:EXPO_PUBLIC_RITMO_JOURNEY_TEST='1';$env:EXPO_PUBLIC_RITMO_HTTP_HARNESS=$null;$env:EXPO_PUBLIC_RITMO_TECHNICAL_HARNESS=$null;$env:EXPO_PUBLIC_RITMO_READONLY_TEST='1'
- foreach($taskVersion in @('current','updated')) {
+ foreach($taskVersion in $(if($Performance){@('current')}else{@('current','updated')})) {
   $env:EXPO_PUBLIC_RITMO_READONLY_UPDATED=if($taskVersion -eq 'updated'){'1'}else{$null}
   $env:CI='1'
   & pnpm exec expo prebuild --platform android --no-install
@@ -25,7 +27,7 @@ try {
   if($LASTEXITCODE -ne 0) {throw 'Assinatura de debug da fixture falhou.'}
  }
  $taskBundles=@{}
- foreach($taskVersion in @('current','updated')) {
+ foreach($taskVersion in $(if($Performance){@('current')}else{@('current','updated')})) {
   $taskArchive=[IO.Compression.ZipFile]::OpenRead((Join-Path $taskBuild ($taskVersion+'.apk')))
   try {
    $taskEntry=$taskArchive.GetEntry('assets/index.android.bundle')
@@ -35,10 +37,11 @@ try {
    $taskBundles[$taskVersion]=@{sha256=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData($taskBytes)).ToLowerInvariant();updatedVersionLiteral=[Text.Encoding]::ASCII.GetString($taskBytes).Contains('0.1.1')}
   } finally {$taskArchive.Dispose()}
  }
- if($taskBundles.current.sha256 -eq $taskBundles.updated.sha256 -or $taskBundles.current.updatedVersionLiteral -or -not $taskBundles.updated.updatedVersionLiteral) {throw 'Bundles de versao da fixture divergentes do esperado; nao executar ensaio nativo.'}
+ if($taskBundles.current.updatedVersionLiteral -or (-not $Performance -and ($taskBundles.current.sha256 -eq $taskBundles.updated.sha256 -or -not $taskBundles.updated.updatedVersionLiteral))) {throw 'Bundles de versao da fixture divergentes do esperado; nao executar ensaio nativo.'}
  [IO.File]::WriteAllText((Join-Path $taskBuild 'bundle-metadata.json'),($taskBundles | ConvertTo-Json)+"`n")
 } finally {
  try {
+  $env:EXPO_PUBLIC_RITMO_PERF_TEST=$null
   $env:CI='1';$env:EXPO_PUBLIC_RITMO_JOURNEY_TEST='1';$env:EXPO_PUBLIC_RITMO_READONLY_TEST=$null;$env:EXPO_PUBLIC_RITMO_READONLY_UPDATED=$null
   & pnpm exec expo prebuild --platform android --no-install
   if($LASTEXITCODE -ne 0) {Write-Warning 'Configuração nativa normal não foi regenerada; APK original será preservado.'}
@@ -49,4 +52,6 @@ try {
   Pop-Location
  }
 }
-Get-FileHash -Algorithm SHA256 -LiteralPath (Join-Path $taskBuild 'current.apk'),(Join-Path $taskBuild 'updated.apk'),$taskApk
+$taskPaths=@((Join-Path $taskBuild 'current.apk'),$taskApk)
+if(-not $Performance){$taskPaths+=(Join-Path $taskBuild 'updated.apk')}
+Get-FileHash -Algorithm SHA256 -LiteralPath $taskPaths

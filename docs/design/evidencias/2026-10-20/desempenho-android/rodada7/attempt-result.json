@@ -1,0 +1,13 @@
+{
+  "measurementPassed": false,
+  "phase": "own_launch_clock_validation",
+  "coldSamples": 0,
+  "toggleSamples": 0,
+  "observedFailure": "own_cold_launch_clock_missing",
+  "historyRecords": 2,
+  "ownRecordStartTypes": [],
+  "ownColdRecords": 0,
+  "nativeFrameCorrelated": true,
+  "causeStatus": "No returned record matched the current process PID; Android history is not usable as origin for this observed launch. Underlying system cause not established.",
+  "nextMethod": "Explicit protocol v2: device-side Instrumentation timestamp immediately before Context.startActivity, with process absence before launch, new unique PID after launch, exact native/launcher clock correlation. Earlier origin, same thresholds/endpoints; not an ADB wall clock or fallback accepted as old method."
+}
