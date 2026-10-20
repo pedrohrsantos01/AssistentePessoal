@@ -1,0 +1,5885 @@
+{
+  "schema": 1,
+  "validated": true,
+  "clock": "MONOTONIC",
+  "source": "sched_switch_and_thread_state",
+  "traceSha256": "fc86b8f35c3b3b2ab4cfaa1e7f93908d35bd9da9d42421905bcc2595e35ce624",
+  "traceProcessorSha256": "adfa6bad3d72be3ba9b83fa2b17b69fa13b3ab1cad0f42e52b86188bd5f0f997",
+  "exportsSha256": {
+    "native-frames.json": "88e8e70ebaad496bd952263efc9cc7b4b0ce9d26c54b81d4b08fb4af372a0b5e",
+    "toggle-profiles.json": "0dc7d822b3c987a64c7b80ad66e418425f9cc0779e6a4451be77870cc658c190",
+    "toggle-attribution.json": "512ef9ddb6ccbcb6a8b5e3187758b5eed7942a92565a6099d9ed7c6c2fb2e921",
+    "javascript-profiles.json": "f9fe3a49225716b883307e581a2a86ba8b865abf5ca373fce6ff612049ead833",
+    "javascript-milestones.json": "924231397b6b6ca0edcfba8fe911538c37d33cea27265fbe8fecf202a2e561cf",
+    "scheduler-clocks.csv": "546f380fe01b6b27085206933b79586378311b75fb9c020d9d34908a1af33849",
+    "scheduler-clocks.sql": "dccc93186036d1722eee9d2933d6ad766eb18252b1571ca5698900417246270c",
+    "scheduler-stats.csv": "427c88e19fe27c434eb4eaa201f5a3053a2c928acfa0b1b87532b967999412b3",
+    "scheduler-stats.sql": "ba566c6e92bfbb175a8342d2f4f1b60ac5f0014a55454b25ac2cedbfd2c7dff8",
+    "scheduler-bounds.csv": "d555ab8f4507b8cdf0cc9711609cb9ad62a6974f33f04bbc29976c91581b76a8",
+    "scheduler-bounds.sql": "e2d800b33f5debd54c2b6a756a2730ee79cd9e27b6f893c1cce89aea986ef56e",
+    "scheduler-threads.csv": "6f7c68f003b4676c08463ec7bdfff23b9fb39e9bb1f9a458a5c1cb9271b1f935",
+    "scheduler-threads.sql": "b3697ff3e240312787ec97a3ae3f9cfdc204cd2c6ebe1e047939b7e7b9b103d4",
+    "scheduler-slices.csv": "aa3b2129f4f28d53480e5cf374bbf8187e41bba4b35cc6d7099e1632994bea0e",
+    "scheduler-slices.sql": "874dec035c3b434c64dde7b34fb135178dc7138ab7fa9b6bfe26fddab8f3ad22",
+    "scheduler-states.csv": "27bc88c7b23cfb367b4474fe0ef4d836205354149b8c3297d354f3596d975dc4",
+    "scheduler-states.sql": "73110a0c3446863478b8ecf13bf29d8a607566fc3365208a2e034a0803106ff1"
+  },
+  "nativeCpuCounterUsed": false,
+  "scope": "guest vCPU residency; not useful CPU time or host/disk attribution",
+  "rows": [
+    {
+      "sample": 1,
+      "sequence": 1,
+      "totalMs": 236.961,
+      "wallMs": 116.76715,
+      "scheduledMs": 92.81935,
+      "statesMs": {
+        "Running": 92.81935,
+        "R+": 0.5847,
+        "R": 11.862,
+        "D": 11.5011
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 25.8145,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 25.8145
+            }
+          },
+          "ui": {
+            "wallMs": 25.8145,
+            "scheduledMs": 1.3028,
+            "statesMs": {
+              "S": 23.8681,
+              "R": 0.6436,
+              "Running": 1.3028
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 17.7451,
+            "scheduledMs": 1.0282,
+            "statesMs": {
+              "S": 12.3416,
+              "R": 3.1309,
+              "Running": 1.0282,
+              "R+": 1.2444
+            }
+          },
+          "ui": {
+            "wallMs": 17.7451,
+            "scheduledMs": 6.0249,
+            "statesMs": {
+              "Running": 6.0249,
+              "R": 0.3932,
+              "S": 11.327
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 66.7933,
+            "scheduledMs": 44.8217,
+            "statesMs": {
+              "Running": 44.8217,
+              "R+": 0.6282,
+              "R": 9.8423,
+              "D": 11.5011
+            }
+          },
+          "ui": {
+            "wallMs": 66.7933,
+            "scheduledMs": 5.207,
+            "statesMs": {
+              "S": 37.0412,
+              "R": 24.5451,
+              "Running": 5.207
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 50.4605,
+            "scheduledMs": 48.4408,
+            "statesMs": {
+              "Running": 48.4408,
+              "R": 2.0197
+            }
+          },
+          "ui": {
+            "wallMs": 50.4605,
+            "scheduledMs": 3.9678,
+            "statesMs": {
+              "S": 45.1381,
+              "R": 0.8908,
+              "Running": 3.9678,
+              "R+": 0.4638
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 29.3185,
+            "scheduledMs": 29.3185,
+            "statesMs": {
+              "Running": 29.3185
+            }
+          },
+          "ui": {
+            "wallMs": 29.3185,
+            "scheduledMs": 3.9375,
+            "statesMs": {
+              "S": 24.8304,
+              "R": 0.3659,
+              "Running": 3.9375,
+              "R+": 0.1847
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 46.8291,
+            "scheduledMs": 4.5317,
+            "statesMs": {
+              "Running": 4.5317,
+              "S": 42.2974
+            }
+          },
+          "ui": {
+            "wallMs": 46.8291,
+            "scheduledMs": 17.1151,
+            "statesMs": {
+              "S": 27.3941,
+              "R": 2.3199,
+              "Running": 17.1151
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 3.07585,
+          "scheduledMs": 2.5956,
+          "statesMs": {
+            "R+": 0.29725,
+            "Running": 2.5956,
+            "R": 0.183
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 17.2142,
+          "scheduledMs": 13.0914,
+          "statesMs": {
+            "Running": 13.0914,
+            "R": 4.1228
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 14.88505,
+          "scheduledMs": 12.21455,
+          "statesMs": {
+            "Running": 12.21455,
+            "R": 2.6705
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 1.1625,
+          "scheduledMs": 1.1625,
+          "statesMs": {
+            "Running": 1.1625
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.26595,
+          "scheduledMs": 0.26595,
+          "statesMs": {
+            "Running": 0.26595
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 2.59945,
+          "scheduledMs": 2.59945,
+          "statesMs": {
+            "Running": 2.59945
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.90995,
+          "scheduledMs": 0.90995,
+          "statesMs": {
+            "Running": 0.90995
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 1.1175,
+          "scheduledMs": 1.1175,
+          "statesMs": {
+            "Running": 1.1175
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.17485,
+          "scheduledMs": 0.17485,
+          "statesMs": {
+            "Running": 0.17485
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.3582,
+          "scheduledMs": 1.3582,
+          "statesMs": {
+            "Running": 1.3582
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 25.21825,
+          "scheduledMs": 11.66225,
+          "statesMs": {
+            "Running": 11.66225,
+            "R": 1.9768,
+            "R+": 0.0781,
+            "D": 11.5011
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 2.62215,
+          "scheduledMs": 2.30715,
+          "statesMs": {
+            "Running": 2.30715,
+            "R": 0.315
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 11.56355,
+          "scheduledMs": 11.09405,
+          "statesMs": {
+            "Running": 11.09405,
+            "R": 0.4695
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 10.35885,
+          "scheduledMs": 9.12365,
+          "statesMs": {
+            "Running": 9.12365,
+            "R": 1.2352
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.43105,
+          "scheduledMs": 2.43105,
+          "statesMs": {
+            "Running": 2.43105
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 16.91955,
+          "scheduledMs": 16.91955,
+          "statesMs": {
+            "Running": 16.91955
+          }
+        }
+      ]
+    },
+    {
+      "sample": 1,
+      "sequence": 2,
+      "totalMs": 137.9764,
+      "wallMs": 71.85815,
+      "scheduledMs": 59.00045,
+      "statesMs": {
+        "Running": 59.00045,
+        "R": 4.4427,
+        "R+": 0.4696,
+        "D": 6.3074,
+        "S": 1.638
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 1.4264,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 1.4264
+            }
+          },
+          "ui": {
+            "wallMs": 1.4264,
+            "scheduledMs": 0.6983,
+            "statesMs": {
+              "S": 0.571,
+              "R": 0.1571,
+              "Running": 0.6983
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 15.4615,
+            "scheduledMs": 0.3894,
+            "statesMs": {
+              "S": 14.9623,
+              "R": 0.1098,
+              "Running": 0.3894
+            }
+          },
+          "ui": {
+            "wallMs": 15.4615,
+            "scheduledMs": 1.9197,
+            "statesMs": {
+              "Running": 1.9197,
+              "S": 13.4116,
+              "R": 0.1302
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 32.8021,
+            "scheduledMs": 22.9505,
+            "statesMs": {
+              "Running": 22.9505,
+              "R": 3.4712,
+              "R+": 0.2262,
+              "D": 6.1542
+            }
+          },
+          "ui": {
+            "wallMs": 32.8021,
+            "scheduledMs": 1.1,
+            "statesMs": {
+              "S": 31.3771,
+              "R": 0.325,
+              "Running": 1.1
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 39.1958,
+            "scheduledMs": 36.1897,
+            "statesMs": {
+              "Running": 36.1897,
+              "R": 0.9715,
+              "S": 1.638,
+              "D": 0.1532,
+              "R+": 0.2434
+            }
+          },
+          "ui": {
+            "wallMs": 39.1958,
+            "scheduledMs": 1.2073,
+            "statesMs": {
+              "Running": 1.2073,
+              "S": 37.7422,
+              "R": 0.2463
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 23.4419,
+            "scheduledMs": 23.1948,
+            "statesMs": {
+              "Running": 23.1948,
+              "R": 0.2471
+            }
+          },
+          "ui": {
+            "wallMs": 23.4419,
+            "scheduledMs": 0.5342,
+            "statesMs": {
+              "S": 22.7192,
+              "R": 0.1885,
+              "Running": 0.5342
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 25.6487,
+            "scheduledMs": 3.1069,
+            "statesMs": {
+              "Running": 3.1069,
+              "S": 22.5418
+            }
+          },
+          "ui": {
+            "wallMs": 25.6487,
+            "scheduledMs": 14.318,
+            "statesMs": {
+              "S": 6.6808,
+              "R": 3.9211,
+              "Running": 14.318,
+              "R+": 0.7288
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 2.50005,
+          "scheduledMs": 2.00655,
+          "statesMs": {
+            "Running": 2.00655,
+            "R": 0.4935
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 8.4767,
+          "scheduledMs": 7.1842,
+          "statesMs": {
+            "Running": 7.1842,
+            "R": 1.0663,
+            "R+": 0.2262
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 3.3923,
+          "scheduledMs": 2.865,
+          "statesMs": {
+            "Running": 2.865,
+            "R": 0.5273
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.16905,
+          "scheduledMs": 0.16905,
+          "statesMs": {
+            "Running": 0.16905
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.7331,
+          "scheduledMs": 0.3663,
+          "statesMs": {
+            "Running": 0.3663,
+            "R": 0.3668
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.1089,
+          "scheduledMs": 1.1089,
+          "statesMs": {
+            "Running": 1.1089
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.51665,
+          "scheduledMs": 0.51665,
+          "statesMs": {
+            "Running": 0.51665
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.50845,
+          "scheduledMs": 0.50845,
+          "statesMs": {
+            "Running": 0.50845
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1347,
+          "scheduledMs": 0.1347,
+          "statesMs": {
+            "Running": 0.1347
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.93785,
+          "scheduledMs": 0.93785,
+          "statesMs": {
+            "Running": 0.93785
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 14.94345,
+          "scheduledMs": 7.82975,
+          "statesMs": {
+            "Running": 7.82975,
+            "R": 0.9595,
+            "D": 6.1542
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.2841,
+          "scheduledMs": 1.2841,
+          "statesMs": {
+            "Running": 1.2841
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 5.8502,
+          "scheduledMs": 5.7929,
+          "statesMs": {
+            "Running": 5.7929,
+            "R": 0.0573
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 5.2736,
+          "scheduledMs": 5.0826,
+          "statesMs": {
+            "Running": 5.0826,
+            "S": 0.0721,
+            "R": 0.1189
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 7.97485,
+          "scheduledMs": 5.80445,
+          "statesMs": {
+            "Running": 5.80445,
+            "S": 1.5659,
+            "R": 0.6045
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 13.8712,
+          "scheduledMs": 13.2838,
+          "statesMs": {
+            "Running": 13.2838,
+            "D": 0.1532,
+            "R": 0.1908,
+            "R+": 0.2434
+          }
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "sequence": 1,
+      "totalMs": 173.9066,
+      "wallMs": 86.75415,
+      "scheduledMs": 74.87875,
+      "statesMs": {
+        "Running": 74.87875,
+        "R": 5.018,
+        "R+": 2.5278,
+        "D": 4.3296
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 0.8313,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 0.8313
+            }
+          },
+          "ui": {
+            "wallMs": 0.8313,
+            "scheduledMs": 0.2225,
+            "statesMs": {
+              "S": 0.5642,
+              "R": 0.0446,
+              "Running": 0.2225
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 18.3074,
+            "scheduledMs": 1.2241,
+            "statesMs": {
+              "S": 16.9455,
+              "R": 0.1378,
+              "Running": 1.2241
+            }
+          },
+          "ui": {
+            "wallMs": 18.3074,
+            "scheduledMs": 2.5665,
+            "statesMs": {
+              "Running": 2.5665,
+              "S": 15.4963,
+              "R": 0.2446
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 40.9535,
+            "scheduledMs": 32.4012,
+            "statesMs": {
+              "Running": 32.4012,
+              "R+": 1.5184,
+              "R": 2.7043,
+              "D": 4.3296
+            }
+          },
+          "ui": {
+            "wallMs": 40.9535,
+            "scheduledMs": 2.5383,
+            "statesMs": {
+              "S": 37.8746,
+              "R": 0.5406,
+              "Running": 2.5383
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 45.8325,
+            "scheduledMs": 42.4995,
+            "statesMs": {
+              "Running": 42.4995,
+              "R+": 1.0193,
+              "R": 2.3137
+            }
+          },
+          "ui": {
+            "wallMs": 45.8325,
+            "scheduledMs": 2.139,
+            "statesMs": {
+              "S": 43.1764,
+              "R": 0.5171,
+              "Running": 2.139
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 40.5064,
+            "scheduledMs": 31.325,
+            "statesMs": {
+              "Running": 31.325,
+              "R+": 0.2401,
+              "R": 8.9413
+            }
+          },
+          "ui": {
+            "wallMs": 40.5064,
+            "scheduledMs": 1.716,
+            "statesMs": {
+              "S": 37.4871,
+              "R": 1.3033,
+              "Running": 1.716
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 27.4755,
+            "scheduledMs": 3.2454,
+            "statesMs": {
+              "Running": 3.2454,
+              "R+": 0.0704,
+              "R": 0.1441,
+              "S": 24.0156
+            }
+          },
+          "ui": {
+            "wallMs": 27.4755,
+            "scheduledMs": 13.4746,
+            "statesMs": {
+              "S": 7.8994,
+              "R": 2.3473,
+              "Running": 13.4746,
+              "R+": 3.7542
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.79745,
+          "scheduledMs": 1.79745,
+          "statesMs": {
+            "Running": 1.79745
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 13.41665,
+          "scheduledMs": 11.19935,
+          "statesMs": {
+            "Running": 11.19935,
+            "R": 2.142,
+            "R+": 0.0753
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 3.2883,
+          "scheduledMs": 3.1392,
+          "statesMs": {
+            "Running": 3.1392,
+            "R": 0.1491
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 1.50255,
+          "scheduledMs": 1.50255,
+          "statesMs": {
+            "Running": 1.50255
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.2745,
+          "scheduledMs": 0.2745,
+          "statesMs": {
+            "Running": 0.2745
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.87615,
+          "scheduledMs": 0.87615,
+          "statesMs": {
+            "Running": 0.87615
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 1.128,
+          "scheduledMs": 1.128,
+          "statesMs": {
+            "Running": 1.128
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 1.5458,
+          "scheduledMs": 1.37585,
+          "statesMs": {
+            "Running": 1.37585,
+            "R+": 0.16995
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.962,
+          "scheduledMs": 0.6378,
+          "statesMs": {
+            "Running": 0.6378,
+            "R+": 0.3242
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 3.46465,
+          "scheduledMs": 3.05745,
+          "statesMs": {
+            "Running": 3.05745,
+            "R+": 0.4072
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 17.61825,
+          "scheduledMs": 11.49445,
+          "statesMs": {
+            "Running": 11.49445,
+            "R+": 1.381,
+            "D": 4.3296,
+            "R": 0.4132
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.368,
+          "scheduledMs": 1.368,
+          "statesMs": {
+            "Running": 1.368
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 10.02855,
+          "scheduledMs": 9.13255,
+          "statesMs": {
+            "Running": 9.13255,
+            "R": 0.896
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 8.37585,
+          "scheduledMs": 7.76795,
+          "statesMs": {
+            "Running": 7.76795,
+            "R": 0.6079
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.0949,
+          "scheduledMs": 2.0949,
+          "statesMs": {
+            "Running": 2.0949
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 17.4615,
+          "scheduledMs": 16.5848,
+          "statesMs": {
+            "Running": 16.5848,
+            "R+": 0.2841,
+            "R": 0.5926
+          }
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "sequence": 2,
+      "totalMs": 149.6467,
+      "wallMs": 86.00085,
+      "scheduledMs": 73.87845,
+      "statesMs": {
+        "Running": 73.87845,
+        "R": 6.0736,
+        "R+": 2.739,
+        "D": 3.3098
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 0.8924,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 0.8924
+            }
+          },
+          "ui": {
+            "wallMs": 0.8924,
+            "scheduledMs": 0.4258,
+            "statesMs": {
+              "Running": 0.4258,
+              "R+": 0.4666
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 16.4095,
+            "scheduledMs": 0.4834,
+            "statesMs": {
+              "S": 15.715,
+              "R": 0.2111,
+              "Running": 0.4834
+            }
+          },
+          "ui": {
+            "wallMs": 16.4095,
+            "scheduledMs": 2.3709,
+            "statesMs": {
+              "Running": 2.3709,
+              "R+": 0.0359,
+              "S": 13.8174,
+              "R": 0.1853
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 35.3879,
+            "scheduledMs": 26.6111,
+            "statesMs": {
+              "Running": 26.6111,
+              "R": 3.143,
+              "R+": 2.324,
+              "D": 3.3098
+            }
+          },
+          "ui": {
+            "wallMs": 35.3879,
+            "scheduledMs": 1.9612,
+            "statesMs": {
+              "S": 32.9312,
+              "R": 0.2834,
+              "Running": 1.9612,
+              "R+": 0.2121
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 50.4606,
+            "scheduledMs": 47.115,
+            "statesMs": {
+              "Running": 47.115,
+              "R+": 0.415,
+              "R": 2.9306
+            }
+          },
+          "ui": {
+            "wallMs": 50.4606,
+            "scheduledMs": 2.3358,
+            "statesMs": {
+              "S": 46.3703,
+              "R": 1.711,
+              "Running": 2.3358,
+              "R+": 0.0435
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 27.4365,
+            "scheduledMs": 27.1076,
+            "statesMs": {
+              "Running": 27.1076,
+              "R": 0.3289
+            }
+          },
+          "ui": {
+            "wallMs": 27.4365,
+            "scheduledMs": 0.6902,
+            "statesMs": {
+              "S": 26.5339,
+              "R": 0.2124,
+              "Running": 0.6902
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 19.0598,
+            "scheduledMs": 3.5187,
+            "statesMs": {
+              "Running": 3.5187,
+              "R": 0.2661,
+              "S": 15.275
+            }
+          },
+          "ui": {
+            "wallMs": 19.0598,
+            "scheduledMs": 4.5262,
+            "statesMs": {
+              "S": 10.4562,
+              "R": 4.0417,
+              "Running": 4.5262,
+              "R+": 0.0357
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.5809,
+          "scheduledMs": 1.5809,
+          "statesMs": {
+            "Running": 1.5809
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 13.2138,
+          "scheduledMs": 10.2658,
+          "statesMs": {
+            "Running": 10.2658,
+            "R": 2.6758,
+            "R+": 0.2722
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 2.12025,
+          "scheduledMs": 1.94835,
+          "statesMs": {
+            "Running": 1.94835,
+            "R": 0.1719
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.10345,
+          "scheduledMs": 0.10345,
+          "statesMs": {
+            "Running": 0.10345
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.25215,
+          "scheduledMs": 0.25215,
+          "statesMs": {
+            "Running": 0.25215
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.0058,
+          "scheduledMs": 1.0058,
+          "statesMs": {
+            "Running": 1.0058
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.59135,
+          "scheduledMs": 0.59135,
+          "statesMs": {
+            "Running": 0.59135
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 1.7561,
+          "scheduledMs": 1.7561,
+          "statesMs": {
+            "Running": 1.7561
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.12735,
+          "scheduledMs": 0.12735,
+          "statesMs": {
+            "Running": 0.12735
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.0887,
+          "scheduledMs": 1.0887,
+          "statesMs": {
+            "Running": 1.0887
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 15.69895,
+          "scheduledMs": 10.04205,
+          "statesMs": {
+            "Running": 10.04205,
+            "D": 3.3098,
+            "R": 0.2953,
+            "R+": 2.0518
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.7027,
+          "scheduledMs": 1.66245,
+          "statesMs": {
+            "Running": 1.66245,
+            "R+": 0.04025
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 9.24435,
+          "scheduledMs": 8.91455,
+          "statesMs": {
+            "Running": 8.91455,
+            "R": 0.3298
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 10.6286,
+          "scheduledMs": 8.8017,
+          "statesMs": {
+            "Running": 8.8017,
+            "R": 1.8269
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.6593,
+          "scheduledMs": 2.2453,
+          "statesMs": {
+            "Running": 2.2453,
+            "R": 0.2222,
+            "R+": 0.1918
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 16.26695,
+          "scheduledMs": 15.97805,
+          "statesMs": {
+            "Running": 15.97805,
+            "R": 0.2889
+          }
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "sequence": 1,
+      "totalMs": 192.4978,
+      "wallMs": 77.4636,
+      "scheduledMs": 65.4106,
+      "statesMs": {
+        "Running": 65.4106,
+        "R+": 1.4153,
+        "R": 7.1113,
+        "D": 3.5264
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 0.8634,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 0.8634
+            }
+          },
+          "ui": {
+            "wallMs": 0.8634,
+            "scheduledMs": 0.1679,
+            "statesMs": {
+              "S": 0.5412,
+              "R": 0.1543,
+              "Running": 0.1679
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 10.0096,
+            "scheduledMs": 0.533,
+            "statesMs": {
+              "S": 9.3848,
+              "R": 0.0918,
+              "Running": 0.533
+            }
+          },
+          "ui": {
+            "wallMs": 10.0096,
+            "scheduledMs": 2.2866,
+            "statesMs": {
+              "Running": 2.2866,
+              "R": 0.1486,
+              "S": 7.5744
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 25.5844,
+            "scheduledMs": 20.2553,
+            "statesMs": {
+              "Running": 20.2553,
+              "R+": 0.3427,
+              "R": 1.46,
+              "D": 3.5264
+            }
+          },
+          "ui": {
+            "wallMs": 25.5844,
+            "scheduledMs": 0.4609,
+            "statesMs": {
+              "S": 25.0175,
+              "R": 0.106,
+              "Running": 0.4609
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 52.3029,
+            "scheduledMs": 45.579,
+            "statesMs": {
+              "Running": 45.579,
+              "R": 5.6513,
+              "R+": 1.0726
+            }
+          },
+          "ui": {
+            "wallMs": 52.3029,
+            "scheduledMs": 4.946,
+            "statesMs": {
+              "S": 46.624,
+              "R": 0.4399,
+              "Running": 4.946,
+              "R+": 0.293
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 48.411,
+            "scheduledMs": 44.1002,
+            "statesMs": {
+              "Running": 44.1002,
+              "R": 4.3108
+            }
+          },
+          "ui": {
+            "wallMs": 48.411,
+            "scheduledMs": 6.3784,
+            "statesMs": {
+              "S": 40.6213,
+              "R": 1.1367,
+              "Running": 6.3784,
+              "R+": 0.2746
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 55.3265,
+            "scheduledMs": 4.8659,
+            "statesMs": {
+              "Running": 4.8659,
+              "R": 2.0683,
+              "R+": 0.1875,
+              "S": 48.2048
+            }
+          },
+          "ui": {
+            "wallMs": 55.3265,
+            "scheduledMs": 25.5066,
+            "statesMs": {
+              "S": 9.7452,
+              "R": 18.1692,
+              "Running": 25.5066,
+              "R+": 1.9055
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.875,
+          "scheduledMs": 1.875,
+          "statesMs": {
+            "Running": 1.875
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 7.62515,
+          "scheduledMs": 6.91905,
+          "statesMs": {
+            "Running": 6.91905,
+            "R": 0.7061
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 1.3046,
+          "scheduledMs": 1.3046,
+          "statesMs": {
+            "Running": 1.3046
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.7513,
+          "scheduledMs": 0.7513,
+          "statesMs": {
+            "Running": 0.7513
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.16405,
+          "scheduledMs": 0.16405,
+          "statesMs": {
+            "Running": 0.16405
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.5905,
+          "scheduledMs": 0.5267,
+          "statesMs": {
+            "Running": 0.5267,
+            "R": 0.0638
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.35055,
+          "scheduledMs": 0.35055,
+          "statesMs": {
+            "Running": 0.35055
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.7703,
+          "scheduledMs": 0.6438,
+          "statesMs": {
+            "Running": 0.6438,
+            "R": 0.1265
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1436,
+          "scheduledMs": 0.1436,
+          "statesMs": {
+            "Running": 0.1436
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 2.1929,
+          "scheduledMs": 2.1464,
+          "statesMs": {
+            "Running": 2.1464,
+            "R": 0.0465
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 10.86075,
+          "scheduledMs": 6.73485,
+          "statesMs": {
+            "Running": 6.73485,
+            "R": 0.5995,
+            "D": 3.5264
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.01455,
+          "scheduledMs": 0.98895,
+          "statesMs": {
+            "Running": 0.98895,
+            "R": 0.0256
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 7.99055,
+          "scheduledMs": 7.64765,
+          "statesMs": {
+            "Running": 7.64765,
+            "R+": 0.3036,
+            "R": 0.0393
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 8.28195,
+          "scheduledMs": 8.10865,
+          "statesMs": {
+            "Running": 8.10865,
+            "R": 0.1355,
+            "R+": 0.0378
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 3.2228,
+          "scheduledMs": 2.9066,
+          "statesMs": {
+            "Running": 2.9066,
+            "R": 0.2381,
+            "R+": 0.0781
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 26.6994,
+          "scheduledMs": 21.0209,
+          "statesMs": {
+            "Running": 21.0209,
+            "R+": 0.6531,
+            "R": 5.0254
+          }
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "sequence": 2,
+      "totalMs": 120.6136,
+      "wallMs": 72.3948,
+      "scheduledMs": 53.3102,
+      "statesMs": {
+        "Running": 53.3102,
+        "R": 13.7965,
+        "R+": 1.9174,
+        "D": 3.3707
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 2.3321,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 2.3321
+            }
+          },
+          "ui": {
+            "wallMs": 2.3321,
+            "scheduledMs": 0.1333,
+            "statesMs": {
+              "S": 2.0944,
+              "R": 0.1044,
+              "Running": 0.1333
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 3.8381,
+            "scheduledMs": 0.5888,
+            "statesMs": {
+              "S": 2.4204,
+              "R": 0.8289,
+              "Running": 0.5888
+            }
+          },
+          "ui": {
+            "wallMs": 3.8381,
+            "scheduledMs": 2.4476,
+            "statesMs": {
+              "Running": 2.4476,
+              "R": 0.1706,
+              "S": 1.2199
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 39.8319,
+            "scheduledMs": 21.7403,
+            "statesMs": {
+              "Running": 21.7403,
+              "R": 12.8432,
+              "R+": 1.8777,
+              "D": 3.3707
+            }
+          },
+          "ui": {
+            "wallMs": 39.8319,
+            "scheduledMs": 1.5488,
+            "statesMs": {
+              "S": 37.9133,
+              "R": 0.3698,
+              "Running": 1.5488
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 32.7458,
+            "scheduledMs": 31.7528,
+            "statesMs": {
+              "Running": 31.7528,
+              "R": 0.9533,
+              "R+": 0.0397
+            }
+          },
+          "ui": {
+            "wallMs": 32.7458,
+            "scheduledMs": 0.8176,
+            "statesMs": {
+              "S": 31.739,
+              "R": 0.1892,
+              "Running": 0.8176
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 16.6603,
+            "scheduledMs": 16.4095,
+            "statesMs": {
+              "Running": 16.4095,
+              "R": 0.2508
+            }
+          },
+          "ui": {
+            "wallMs": 16.6603,
+            "scheduledMs": 0.4404,
+            "statesMs": {
+              "S": 16.1227,
+              "R": 0.0972,
+              "Running": 0.4404
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 25.2054,
+            "scheduledMs": 2.1135,
+            "statesMs": {
+              "Running": 2.1135,
+              "R+": 0.0262,
+              "S": 23.0657
+            }
+          },
+          "ui": {
+            "wallMs": 25.2054,
+            "scheduledMs": 5.9256,
+            "statesMs": {
+              "S": 18.3723,
+              "R": 0.7191,
+              "Running": 5.9256,
+              "R+": 0.1884
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 7.0837,
+          "scheduledMs": 3.2815,
+          "statesMs": {
+            "Running": 3.2815,
+            "R": 3.8022
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 17.1972,
+          "scheduledMs": 8.157,
+          "statesMs": {
+            "Running": 8.157,
+            "R": 8.1231,
+            "R+": 0.9171
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 1.33155,
+          "scheduledMs": 1.33155,
+          "statesMs": {
+            "Running": 1.33155
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.0592,
+          "scheduledMs": 0.0592,
+          "statesMs": {
+            "Running": 0.0592
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.1838,
+          "scheduledMs": 0.1838,
+          "statesMs": {
+            "Running": 0.1838
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.9189,
+          "scheduledMs": 0.7497,
+          "statesMs": {
+            "Running": 0.7497,
+            "R": 0.1692
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.35425,
+          "scheduledMs": 0.35425,
+          "statesMs": {
+            "Running": 0.35425
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.42665,
+          "scheduledMs": 0.42665,
+          "statesMs": {
+            "Running": 0.42665
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.09975,
+          "scheduledMs": 0.09975,
+          "statesMs": {
+            "Running": 0.09975
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.8772,
+          "scheduledMs": 0.8772,
+          "statesMs": {
+            "Running": 0.8772
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 11.50865,
+          "scheduledMs": 6.29945,
+          "statesMs": {
+            "Running": 6.29945,
+            "R+": 0.9206,
+            "R": 0.9179,
+            "D": 3.3707
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.88875,
+          "scheduledMs": 1.88875,
+          "statesMs": {
+            "Running": 1.88875
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 5.87335,
+          "scheduledMs": 5.55545,
+          "statesMs": {
+            "Running": 5.55545,
+            "R": 0.3179
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 7.40475,
+          "scheduledMs": 7.06865,
+          "statesMs": {
+            "Running": 7.06865,
+            "R": 0.2964,
+            "R+": 0.0397
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.3269,
+          "scheduledMs": 2.3269,
+          "statesMs": {
+            "Running": 2.3269
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 11.39085,
+          "scheduledMs": 11.05185,
+          "statesMs": {
+            "Running": 11.05185,
+            "R": 0.339
+          }
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "sequence": 1,
+      "totalMs": 130.9502,
+      "wallMs": 60.6815,
+      "scheduledMs": 50.1899,
+      "statesMs": {
+        "Running": 50.1899,
+        "R": 4.7129,
+        "R+": 2.6299,
+        "D": 3.1488
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 0.6847,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 0.6847
+            }
+          },
+          "ui": {
+            "wallMs": 0.6847,
+            "scheduledMs": 0.0735,
+            "statesMs": {
+              "S": 0.5086,
+              "R": 0.1026,
+              "Running": 0.0735
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 15.3295,
+            "scheduledMs": 1.5961,
+            "statesMs": {
+              "S": 12.3284,
+              "R": 1.2186,
+              "Running": 1.5961,
+              "R+": 0.1864
+            }
+          },
+          "ui": {
+            "wallMs": 15.3295,
+            "scheduledMs": 1.9107,
+            "statesMs": {
+              "Running": 1.9107,
+              "S": 13.3138,
+              "R": 0.105
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 27.1475,
+            "scheduledMs": 20.5,
+            "statesMs": {
+              "Running": 20.5,
+              "R": 0.9954,
+              "R+": 2.5033,
+              "D": 3.1488
+            }
+          },
+          "ui": {
+            "wallMs": 27.1475,
+            "scheduledMs": 1.1366,
+            "statesMs": {
+              "S": 24.739,
+              "R": 1.2719,
+              "Running": 1.1366
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 34.2346,
+            "scheduledMs": 30.3905,
+            "statesMs": {
+              "Running": 30.3905,
+              "R": 3.7175,
+              "R+": 0.1266
+            }
+          },
+          "ui": {
+            "wallMs": 34.2346,
+            "scheduledMs": 1.2431,
+            "statesMs": {
+              "S": 32.7498,
+              "R": 0.2417,
+              "Running": 1.2431
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 23.0027,
+            "scheduledMs": 21.85,
+            "statesMs": {
+              "Running": 21.85,
+              "R": 1.1527
+            }
+          },
+          "ui": {
+            "wallMs": 23.0027,
+            "scheduledMs": 2.3524,
+            "statesMs": {
+              "S": 20.3928,
+              "R": 0.2575,
+              "Running": 2.3524
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 30.5512,
+            "scheduledMs": 2.5654,
+            "statesMs": {
+              "Running": 2.5654,
+              "S": 27.824,
+              "R": 0.1618
+            }
+          },
+          "ui": {
+            "wallMs": 30.5512,
+            "scheduledMs": 12.4996,
+            "statesMs": {
+              "S": 17.4833,
+              "R": 0.5683,
+              "Running": 12.4996
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.0178,
+          "scheduledMs": 1.0178,
+          "statesMs": {
+            "Running": 1.0178
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 11.60165,
+          "scheduledMs": 9.0186,
+          "statesMs": {
+            "Running": 9.0186,
+            "R": 0.7744,
+            "R+": 1.80865
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 1.84075,
+          "scheduledMs": 1.84075,
+          "statesMs": {
+            "Running": 1.84075
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.85455,
+          "scheduledMs": 0.85455,
+          "statesMs": {
+            "Running": 0.85455
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.16905,
+          "scheduledMs": 0.16905,
+          "statesMs": {
+            "Running": 0.16905
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.49085,
+          "scheduledMs": 0.49085,
+          "statesMs": {
+            "Running": 0.49085
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.66535,
+          "scheduledMs": 0.57395,
+          "statesMs": {
+            "Running": 0.57395,
+            "R+": 0.0914
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.5652,
+          "scheduledMs": 0.5436,
+          "statesMs": {
+            "Running": 0.5436,
+            "R": 0.0216
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1014,
+          "scheduledMs": 0.1014,
+          "statesMs": {
+            "Running": 0.1014
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.8327,
+          "scheduledMs": 0.8327,
+          "statesMs": {
+            "Running": 0.8327
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 8.36175,
+          "scheduledMs": 4.90055,
+          "statesMs": {
+            "Running": 4.90055,
+            "R+": 0.0914,
+            "R": 0.221,
+            "D": 3.1488
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 3.23585,
+          "scheduledMs": 2.24005,
+          "statesMs": {
+            "Running": 2.24005,
+            "R": 0.9958
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 5.0666,
+          "scheduledMs": 5.0328,
+          "statesMs": {
+            "Running": 5.0328,
+            "R": 0.0338
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 5.9638,
+          "scheduledMs": 5.8058,
+          "statesMs": {
+            "Running": 5.8058,
+            "R+": 0.1266,
+            "R": 0.0314
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 3.04685,
+          "scheduledMs": 2.30275,
+          "statesMs": {
+            "Running": 2.30275,
+            "R": 0.7441
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 13.85875,
+          "scheduledMs": 11.94635,
+          "statesMs": {
+            "Running": 11.94635,
+            "R": 1.9124
+          }
+        }
+      ]
+    },
+    {
+      "sample": 4,
+      "sequence": 2,
+      "totalMs": 219.0881,
+      "wallMs": 137.59755,
+      "scheduledMs": 65.66545,
+      "statesMs": {
+        "Running": 65.66545,
+        "R+": 24.5945,
+        "R": 43.6479,
+        "D": 3.6897
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 9.6635,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 9.6635
+            }
+          },
+          "ui": {
+            "wallMs": 9.6635,
+            "scheduledMs": 2.3926,
+            "statesMs": {
+              "S": 2.0809,
+              "R": 0.1167,
+              "Running": 2.3926,
+              "R+": 5.0733
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 24.1121,
+            "scheduledMs": 1.2085,
+            "statesMs": {
+              "S": 22.3243,
+              "R": 0.5157,
+              "Running": 1.2085,
+              "R+": 0.0636
+            }
+          },
+          "ui": {
+            "wallMs": 24.1121,
+            "scheduledMs": 7.7855,
+            "statesMs": {
+              "Running": 7.7855,
+              "R": 4.3179,
+              "R+": 10.4141,
+              "S": 1.5946
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 99.6075,
+            "scheduledMs": 37.1543,
+            "statesMs": {
+              "Running": 37.1543,
+              "R": 36.1348,
+              "R+": 22.6287,
+              "D": 3.6897
+            }
+          },
+          "ui": {
+            "wallMs": 99.6075,
+            "scheduledMs": 5.0482,
+            "statesMs": {
+              "S": 92.7422,
+              "R": 1.5467,
+              "Running": 5.0482,
+              "R+": 0.2704
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 39.5323,
+            "scheduledMs": 28.9613,
+            "statesMs": {
+              "Running": 28.9613,
+              "R": 8.6052,
+              "R+": 1.9658
+            }
+          },
+          "ui": {
+            "wallMs": 39.5323,
+            "scheduledMs": 1.8895,
+            "statesMs": {
+              "S": 34.2929,
+              "R": 3.3499,
+              "Running": 1.8895
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 18.9535,
+            "scheduledMs": 17.4654,
+            "statesMs": {
+              "Running": 17.4654,
+              "R": 1.345,
+              "R+": 0.1431
+            }
+          },
+          "ui": {
+            "wallMs": 18.9535,
+            "scheduledMs": 0.4453,
+            "statesMs": {
+              "S": 17.4542,
+              "R": 1.054,
+              "Running": 0.4453
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 27.2192,
+            "scheduledMs": 2.71,
+            "statesMs": {
+              "Running": 2.71,
+              "S": 24.5092
+            }
+          },
+          "ui": {
+            "wallMs": 27.2192,
+            "scheduledMs": 5.5818,
+            "statesMs": {
+              "S": 20.8751,
+              "R": 0.3933,
+              "Running": 5.5818,
+              "R+": 0.369
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 4.07935,
+          "scheduledMs": 2.28375,
+          "statesMs": {
+            "R+": 1.7956,
+            "Running": 2.28375
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 43.00815,
+          "scheduledMs": 13.23965,
+          "statesMs": {
+            "Running": 13.23965,
+            "R+": 13.051,
+            "R": 16.7175
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 4.81425,
+          "scheduledMs": 2.13205,
+          "statesMs": {
+            "Running": 2.13205,
+            "R": 2.6822
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.06535,
+          "scheduledMs": 0.06535,
+          "statesMs": {
+            "Running": 0.06535
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 2.2946,
+          "scheduledMs": 0.8931,
+          "statesMs": {
+            "Running": 0.8931,
+            "R+": 0.6216,
+            "R": 0.7799
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.8569,
+          "scheduledMs": 0.8569,
+          "statesMs": {
+            "Running": 0.8569
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.3054,
+          "scheduledMs": 0.3054,
+          "statesMs": {
+            "Running": 0.3054
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 4.50895,
+          "scheduledMs": 0.77465,
+          "statesMs": {
+            "Running": 0.77465,
+            "R": 3.7343
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1076,
+          "scheduledMs": 0.1076,
+          "statesMs": {
+            "Running": 0.1076
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 3.4004,
+          "scheduledMs": 1.1874,
+          "statesMs": {
+            "Running": 1.1874,
+            "R+": 2.213
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 34.8195,
+          "scheduledMs": 14.1715,
+          "statesMs": {
+            "R+": 4.4649,
+            "Running": 14.1715,
+            "R": 12.4934,
+            "D": 3.6897
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 2.53085,
+          "scheduledMs": 1.9508,
+          "statesMs": {
+            "Running": 1.9508,
+            "R": 0.5659,
+            "R+": 0.01415
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 5.1809,
+          "scheduledMs": 5.0764,
+          "statesMs": {
+            "Running": 5.0764,
+            "R": 0.1045
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 13.2728,
+          "scheduledMs": 7.29375,
+          "statesMs": {
+            "Running": 7.29375,
+            "R": 5.1634,
+            "R+": 0.81565
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 1.15,
+          "scheduledMs": 1.15,
+          "statesMs": {
+            "Running": 1.15
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 13.43265,
+          "scheduledMs": 10.66125,
+          "statesMs": {
+            "Running": 10.66125,
+            "R": 2.7714
+          }
+        }
+      ]
+    },
+    {
+      "sample": 5,
+      "sequence": 1,
+      "totalMs": 151.0077,
+      "wallMs": 76.8129,
+      "scheduledMs": 62.5049,
+      "statesMs": {
+        "Running": 62.5049,
+        "R": 9.7611,
+        "R+": 1.1939,
+        "D": 3.353
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 1.2965,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 1.2965
+            }
+          },
+          "ui": {
+            "wallMs": 1.2965,
+            "scheduledMs": 0.0814,
+            "statesMs": {
+              "S": 0.6624,
+              "R": 0.5527,
+              "Running": 0.0814
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 14.8991,
+            "scheduledMs": 0.5332,
+            "statesMs": {
+              "S": 14.2392,
+              "R": 0.1267,
+              "Running": 0.5332
+            }
+          },
+          "ui": {
+            "wallMs": 14.8991,
+            "scheduledMs": 2.3351,
+            "statesMs": {
+              "Running": 2.3351,
+              "S": 12.3279,
+              "R": 0.1612,
+              "R+": 0.0749
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 34.2065,
+            "scheduledMs": 23.3663,
+            "statesMs": {
+              "Running": 23.3663,
+              "R": 7.1587,
+              "R+": 0.3285,
+              "D": 3.353
+            }
+          },
+          "ui": {
+            "wallMs": 34.2065,
+            "scheduledMs": 1.2409,
+            "statesMs": {
+              "S": 30.1282,
+              "R": 2.8374,
+              "Running": 1.2409
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 43.7806,
+            "scheduledMs": 39.7642,
+            "statesMs": {
+              "Running": 39.7642,
+              "R": 3.151,
+              "R+": 0.8654
+            }
+          },
+          "ui": {
+            "wallMs": 43.7806,
+            "scheduledMs": 1.6932,
+            "statesMs": {
+              "R": 1.1921,
+              "Running": 1.6932,
+              "S": 40.8953
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 27.0295,
+            "scheduledMs": 24.7838,
+            "statesMs": {
+              "Running": 24.7838,
+              "R": 2.1677,
+              "R+": 0.078
+            }
+          },
+          "ui": {
+            "wallMs": 27.0295,
+            "scheduledMs": 1.2417,
+            "statesMs": {
+              "S": 25.4989,
+              "R": 0.2889,
+              "Running": 1.2417
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 29.7955,
+            "scheduledMs": 2.6347,
+            "statesMs": {
+              "Running": 2.6347,
+              "R": 0.1123,
+              "S": 27.0485
+            }
+          },
+          "ui": {
+            "wallMs": 29.7955,
+            "scheduledMs": 10.2757,
+            "statesMs": {
+              "S": 16.3817,
+              "R": 1.9127,
+              "Running": 10.2757,
+              "R+": 1.2254
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 2.3694,
+          "scheduledMs": 1.7673,
+          "statesMs": {
+            "Running": 1.7673,
+            "R": 0.6021
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 11.13965,
+          "scheduledMs": 7.69625,
+          "statesMs": {
+            "Running": 7.69625,
+            "R": 3.2856,
+            "R+": 0.1578
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 1.7924,
+          "scheduledMs": 1.7665,
+          "statesMs": {
+            "Running": 1.7665,
+            "R": 0.0259
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 1.3322,
+          "scheduledMs": 1.3322,
+          "statesMs": {
+            "Running": 1.3322
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.2459,
+          "scheduledMs": 0.2459,
+          "statesMs": {
+            "Running": 0.2459
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.3589,
+          "scheduledMs": 1.1529,
+          "statesMs": {
+            "Running": 1.1529,
+            "R": 0.0353,
+            "R+": 0.1707
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 1.1755,
+          "scheduledMs": 0.8375,
+          "statesMs": {
+            "Running": 0.8375,
+            "R": 0.338
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.7163,
+          "scheduledMs": 0.6875,
+          "statesMs": {
+            "Running": 0.6875,
+            "R": 0.0288
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.13305,
+          "scheduledMs": 0.13305,
+          "statesMs": {
+            "Running": 0.13305
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.55135,
+          "scheduledMs": 1.27135,
+          "statesMs": {
+            "Running": 1.27135,
+            "R": 0.28
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 11.82945,
+          "scheduledMs": 7.19745,
+          "statesMs": {
+            "Running": 7.19745,
+            "R": 1.1083,
+            "R+": 0.1707,
+            "D": 3.353
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.799,
+          "scheduledMs": 1.6469,
+          "statesMs": {
+            "Running": 1.6469,
+            "R": 0.1521
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 9.2939,
+          "scheduledMs": 8.1536,
+          "statesMs": {
+            "Running": 8.1536,
+            "R": 1.07,
+            "R+": 0.0703
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 13.2576,
+          "scheduledMs": 11.3277,
+          "statesMs": {
+            "Running": 11.3277,
+            "R+": 0.4046,
+            "R": 1.5253
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.2461,
+          "scheduledMs": 2.2461,
+          "statesMs": {
+            "Running": 2.2461
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 13.0909,
+          "scheduledMs": 12.3444,
+          "statesMs": {
+            "Running": 12.3444,
+            "R": 0.356,
+            "R+": 0.3905
+          }
+        }
+      ]
+    },
+    {
+      "sample": 5,
+      "sequence": 2,
+      "totalMs": 136.1161,
+      "wallMs": 83.29255,
+      "scheduledMs": 64.91875,
+      "statesMs": {
+        "Running": 64.91875,
+        "R+": 3.9703,
+        "R": 10.1165,
+        "D": 4.287
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 1.5377,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 1.5377
+            }
+          },
+          "ui": {
+            "wallMs": 1.5377,
+            "scheduledMs": 0.5494,
+            "statesMs": {
+              "S": 0.8159,
+              "R": 0.1724,
+              "Running": 0.5494
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 4.1692,
+            "scheduledMs": 0.5803,
+            "statesMs": {
+              "S": 3.4319,
+              "R": 0.157,
+              "Running": 0.5803
+            }
+          },
+          "ui": {
+            "wallMs": 4.1692,
+            "scheduledMs": 2.9362,
+            "statesMs": {
+              "Running": 2.9362,
+              "R+": 0.6527,
+              "S": 0.5803
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 40.1848,
+            "scheduledMs": 26.1324,
+            "statesMs": {
+              "Running": 26.1324,
+              "R+": 3.0087,
+              "R": 6.7567,
+              "D": 4.287
+            }
+          },
+          "ui": {
+            "wallMs": 40.1848,
+            "scheduledMs": 1.2989,
+            "statesMs": {
+              "S": 36.032,
+              "R": 2.8539,
+              "Running": 1.2989
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 43.2495,
+            "scheduledMs": 38.9281,
+            "statesMs": {
+              "Running": 38.9281,
+              "R": 3.3598,
+              "R+": 0.9616
+            }
+          },
+          "ui": {
+            "wallMs": 43.2495,
+            "scheduledMs": 1.6202,
+            "statesMs": {
+              "S": 41.2873,
+              "R": 0.342,
+              "Running": 1.6202
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 22.4163,
+            "scheduledMs": 20.9911,
+            "statesMs": {
+              "Running": 20.9911,
+              "R": 1.253,
+              "R+": 0.1722
+            }
+          },
+          "ui": {
+            "wallMs": 22.4163,
+            "scheduledMs": 0.4947,
+            "statesMs": {
+              "S": 21.8231,
+              "R": 0.0985,
+              "Running": 0.4947
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 24.5586,
+            "scheduledMs": 2.1013,
+            "statesMs": {
+              "Running": 2.1013,
+              "S": 22.4573
+            }
+          },
+          "ui": {
+            "wallMs": 24.5586,
+            "scheduledMs": 4.3684,
+            "statesMs": {
+              "S": 19.8097,
+              "R": 0.345,
+              "Running": 4.3684,
+              "R+": 0.0355
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 6.97685,
+          "scheduledMs": 2.99225,
+          "statesMs": {
+            "Running": 2.99225,
+            "R+": 0.085,
+            "R": 3.8996
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 11.0875,
+          "scheduledMs": 8.9383,
+          "statesMs": {
+            "Running": 8.9383,
+            "R": 1.3853,
+            "R+": 0.7639
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 2.44325,
+          "scheduledMs": 2.44325,
+          "statesMs": {
+            "Running": 2.44325
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.0997,
+          "scheduledMs": 0.0997,
+          "statesMs": {
+            "Running": 0.0997
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.97635,
+          "scheduledMs": 0.48265,
+          "statesMs": {
+            "Running": 0.48265,
+            "R+": 0.4937
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.9168,
+          "scheduledMs": 0.9168,
+          "statesMs": {
+            "Running": 0.9168
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.4975,
+          "scheduledMs": 0.4975,
+          "statesMs": {
+            "Running": 0.4975
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 1.1202,
+          "scheduledMs": 1.1202,
+          "statesMs": {
+            "Running": 1.1202
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1696,
+          "scheduledMs": 0.1696,
+          "statesMs": {
+            "Running": 0.1696
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 2.39805,
+          "scheduledMs": 1.49065,
+          "statesMs": {
+            "Running": 1.49065,
+            "R": 0.9074
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 15.056,
+          "scheduledMs": 8.3022,
+          "statesMs": {
+            "Running": 8.3022,
+            "R": 1.4357,
+            "R+": 1.0311,
+            "D": 4.287
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 3.48605,
+          "scheduledMs": 2.58215,
+          "statesMs": {
+            "Running": 2.58215,
+            "R": 0.9039
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 6.9384,
+          "scheduledMs": 6.3425,
+          "statesMs": {
+            "Running": 6.3425,
+            "R": 0.5959
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 10.6535,
+          "scheduledMs": 9.8045,
+          "statesMs": {
+            "Running": 9.8045,
+            "R": 0.849
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 1.7822,
+          "scheduledMs": 1.7822,
+          "statesMs": {
+            "Running": 1.7822
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 13.7975,
+          "scheduledMs": 12.6521,
+          "statesMs": {
+            "Running": 12.6521,
+            "R": 0.974,
+            "R+": 0.1714
+          }
+        }
+      ]
+    },
+    {
+      "sample": 6,
+      "sequence": 1,
+      "totalMs": 135.0073,
+      "wallMs": 72.9554,
+      "scheduledMs": 56.4816,
+      "statesMs": {
+        "Running": 56.4816,
+        "R": 10.655,
+        "D": 5.0339,
+        "R+": 0.7849
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 3.0041,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 3.0041
+            }
+          },
+          "ui": {
+            "wallMs": 3.0041,
+            "scheduledMs": 0.071,
+            "statesMs": {
+              "S": 1.2554,
+              "R": 1.6777,
+              "Running": 0.071
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 3.0896,
+            "scheduledMs": 0.5402,
+            "statesMs": {
+              "S": 1.5008,
+              "R": 1.0486,
+              "Running": 0.5402
+            }
+          },
+          "ui": {
+            "wallMs": 3.0896,
+            "scheduledMs": 1.7591,
+            "statesMs": {
+              "Running": 1.7591,
+              "S": 1.3305
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 33.429,
+            "scheduledMs": 20.2413,
+            "statesMs": {
+              "Running": 20.2413,
+              "R+": 0.2342,
+              "R": 7.9196,
+              "D": 5.0339
+            }
+          },
+          "ui": {
+            "wallMs": 33.429,
+            "scheduledMs": 1.1641,
+            "statesMs": {
+              "S": 31.977,
+              "R": 0.2879,
+              "Running": 1.1641
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 40.064,
+            "scheduledMs": 36.5437,
+            "statesMs": {
+              "Running": 36.5437,
+              "R+": 0.7849,
+              "R": 2.7354
+            }
+          },
+          "ui": {
+            "wallMs": 40.064,
+            "scheduledMs": 1.6055,
+            "statesMs": {
+              "S": 37.9992,
+              "R": 0.4593,
+              "Running": 1.6055
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 24.3692,
+            "scheduledMs": 23.3106,
+            "statesMs": {
+              "Running": 23.3106,
+              "R": 1.0586
+            }
+          },
+          "ui": {
+            "wallMs": 24.3692,
+            "scheduledMs": 2.3875,
+            "statesMs": {
+              "S": 21.703,
+              "R": 0.2787,
+              "Running": 2.3875
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 31.0514,
+            "scheduledMs": 3.1163,
+            "statesMs": {
+              "Running": 3.1163,
+              "R+": 0.1367,
+              "R": 0.0347,
+              "S": 27.7637
+            }
+          },
+          "ui": {
+            "wallMs": 31.0514,
+            "scheduledMs": 9.5877,
+            "statesMs": {
+              "S": 20.6136,
+              "R": 0.8501,
+              "Running": 9.5877
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.11215,
+          "scheduledMs": 1.11215,
+          "statesMs": {
+            "Running": 1.11215
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 11.72965,
+          "scheduledMs": 6.31995,
+          "statesMs": {
+            "Running": 6.31995,
+            "R": 5.4097
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 2.5086,
+          "scheduledMs": 2.5086,
+          "statesMs": {
+            "Running": 2.5086
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 1.2786,
+          "scheduledMs": 1.2786,
+          "statesMs": {
+            "Running": 1.2786
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.23885,
+          "scheduledMs": 0.23885,
+          "statesMs": {
+            "Running": 0.23885
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.78185,
+          "scheduledMs": 0.78185,
+          "statesMs": {
+            "Running": 0.78185
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.61125,
+          "scheduledMs": 0.61125,
+          "statesMs": {
+            "Running": 0.61125
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.50005,
+          "scheduledMs": 0.50005,
+          "statesMs": {
+            "Running": 0.50005
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1253,
+          "scheduledMs": 0.1253,
+          "statesMs": {
+            "Running": 0.1253
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.02125,
+          "scheduledMs": 1.02125,
+          "statesMs": {
+            "Running": 1.02125
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 11.62545,
+          "scheduledMs": 6.15345,
+          "statesMs": {
+            "Running": 6.15345,
+            "D": 5.0339,
+            "R": 0.4381
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.52285,
+          "scheduledMs": 1.52285,
+          "statesMs": {
+            "Running": 1.52285
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 6.6584,
+          "scheduledMs": 5.3991,
+          "statesMs": {
+            "Running": 5.3991,
+            "R": 1.2593
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 8.99765,
+          "scheduledMs": 7.97225,
+          "statesMs": {
+            "Running": 7.97225,
+            "R": 0.5085,
+            "R+": 0.5169
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 1.73785,
+          "scheduledMs": 1.73785,
+          "statesMs": {
+            "Running": 1.73785
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 15.51925,
+          "scheduledMs": 14.55165,
+          "statesMs": {
+            "Running": 14.55165,
+            "R": 0.9676
+          }
+        }
+      ]
+    },
+    {
+      "sample": 6,
+      "sequence": 2,
+      "totalMs": 172.3577,
+      "wallMs": 101.9134,
+      "scheduledMs": 82.8172,
+      "statesMs": {
+        "Running": 82.8172,
+        "R": 7.6461,
+        "R+": 2.796,
+        "D": 8.6541
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 3.3771,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 3.3771
+            }
+          },
+          "ui": {
+            "wallMs": 3.3771,
+            "scheduledMs": 0.0846,
+            "statesMs": {
+              "S": 2.3874,
+              "R": 0.9051,
+              "Running": 0.0846
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 3.6645,
+            "scheduledMs": 0.6066,
+            "statesMs": {
+              "S": 2.5324,
+              "R": 0.5255,
+              "Running": 0.6066
+            }
+          },
+          "ui": {
+            "wallMs": 3.6645,
+            "scheduledMs": 3.2067,
+            "statesMs": {
+              "Running": 3.2067,
+              "R+": 0.3215,
+              "S": 0.1363
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 53.0747,
+            "scheduledMs": 34.9447,
+            "statesMs": {
+              "Running": 34.9447,
+              "R+": 2.931,
+              "R": 6.5449,
+              "D": 8.6541
+            }
+          },
+          "ui": {
+            "wallMs": 53.0747,
+            "scheduledMs": 4.3851,
+            "statesMs": {
+              "S": 45.5358,
+              "R": 1.674,
+              "Running": 4.3851,
+              "R+": 1.4798
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 49.5352,
+            "scheduledMs": 48.0161,
+            "statesMs": {
+              "Running": 48.0161,
+              "R+": 0.4179,
+              "R": 1.1012
+            }
+          },
+          "ui": {
+            "wallMs": 49.5352,
+            "scheduledMs": 2.5699,
+            "statesMs": {
+              "S": 45.3131,
+              "R": 1.2495,
+              "Running": 2.5699,
+              "R+": 0.4027
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 29.1374,
+            "scheduledMs": 28.5231,
+            "statesMs": {
+              "Running": 28.5231,
+              "R": 0.6143
+            }
+          },
+          "ui": {
+            "wallMs": 29.1374,
+            "scheduledMs": 1.6129,
+            "statesMs": {
+              "S": 27.2442,
+              "R": 0.2803,
+              "Running": 1.6129
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 33.5688,
+            "scheduledMs": 3.8803,
+            "statesMs": {
+              "Running": 3.8803,
+              "R": 0.0453,
+              "S": 29.6432
+            }
+          },
+          "ui": {
+            "wallMs": 33.5688,
+            "scheduledMs": 7.603,
+            "statesMs": {
+              "S": 24.7715,
+              "R": 0.9988,
+              "Running": 7.603,
+              "R+": 0.1955
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 2.2772,
+          "scheduledMs": 2.118,
+          "statesMs": {
+            "Running": 2.118,
+            "R": 0.1592
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 16.80175,
+          "scheduledMs": 12.20405,
+          "statesMs": {
+            "Running": 12.20405,
+            "R": 4.5977
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 5.4263,
+          "scheduledMs": 4.36935,
+          "statesMs": {
+            "Running": 4.36935,
+            "R+": 1.05695
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.1201,
+          "scheduledMs": 0.1201,
+          "statesMs": {
+            "Running": 0.1201
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.2462,
+          "scheduledMs": 0.2462,
+          "statesMs": {
+            "Running": 0.2462
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.8213,
+          "scheduledMs": 1.8213,
+          "statesMs": {
+            "Running": 1.8213
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.738,
+          "scheduledMs": 0.738,
+          "statesMs": {
+            "Running": 0.738
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 2.04245,
+          "scheduledMs": 2.04245,
+          "statesMs": {
+            "Running": 2.04245
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.22895,
+          "scheduledMs": 0.22895,
+          "statesMs": {
+            "Running": 0.22895
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.66105,
+          "scheduledMs": 1.66105,
+          "statesMs": {
+            "Running": 1.66105
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 22.7679,
+          "scheduledMs": 12.5015,
+          "statesMs": {
+            "Running": 12.5015,
+            "R": 1.6123,
+            "D": 8.6541
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 2.0024,
+          "scheduledMs": 2.0024,
+          "statesMs": {
+            "Running": 2.0024
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 8.7167,
+          "scheduledMs": 8.4079,
+          "statesMs": {
+            "Running": 8.4079,
+            "R": 0.3088
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 8.84485,
+          "scheduledMs": 8.8022,
+          "statesMs": {
+            "Running": 8.8022,
+            "R": 0.0426,
+            "R+": 5e-05
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 3.25165,
+          "scheduledMs": 2.90155,
+          "statesMs": {
+            "Running": 2.90155,
+            "R": 0.3501
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 17.96705,
+          "scheduledMs": 17.53235,
+          "statesMs": {
+            "Running": 17.53235,
+            "R+": 0.035,
+            "R": 0.3997
+          }
+        }
+      ]
+    },
+    {
+      "sample": 7,
+      "sequence": 1,
+      "totalMs": 159.4296,
+      "wallMs": 101.75055,
+      "scheduledMs": 78.01135,
+      "statesMs": {
+        "Running": 78.01135,
+        "R+": 1.8492,
+        "R": 16.8182,
+        "D": 5.0718
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 0.9106,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 0.9106
+            }
+          },
+          "ui": {
+            "wallMs": 0.9106,
+            "scheduledMs": 0.1475,
+            "statesMs": {
+              "S": 0.7185,
+              "R": 0.0446,
+              "Running": 0.1475
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 11.5287,
+            "scheduledMs": 0.6212,
+            "statesMs": {
+              "S": 10.5822,
+              "R": 0.3253,
+              "Running": 0.6212
+            }
+          },
+          "ui": {
+            "wallMs": 11.5287,
+            "scheduledMs": 2.1718,
+            "statesMs": {
+              "Running": 2.1718,
+              "S": 9.1038,
+              "R": 0.2531
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 38.3116,
+            "scheduledMs": 26.5007,
+            "statesMs": {
+              "Running": 26.5007,
+              "R+": 0.4544,
+              "R": 6.2847,
+              "D": 5.0718
+            }
+          },
+          "ui": {
+            "wallMs": 38.3116,
+            "scheduledMs": 1.9672,
+            "statesMs": {
+              "S": 33.731,
+              "R": 2.527,
+              "Running": 1.9672,
+              "R+": 0.0864
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 63.7684,
+            "scheduledMs": 51.8793,
+            "statesMs": {
+              "Running": 51.8793,
+              "R": 10.5335,
+              "R+": 1.3556
+            }
+          },
+          "ui": {
+            "wallMs": 63.7684,
+            "scheduledMs": 2.466,
+            "statesMs": {
+              "S": 60.0819,
+              "R": 1.2205,
+              "Running": 2.466
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 23.9124,
+            "scheduledMs": 23.2032,
+            "statesMs": {
+              "Running": 23.2032,
+              "R+": 0.1248,
+              "R": 0.5844
+            }
+          },
+          "ui": {
+            "wallMs": 23.9124,
+            "scheduledMs": 0.5097,
+            "statesMs": {
+              "S": 23.2332,
+              "R": 0.1695,
+              "Running": 0.5097
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 20.9979,
+            "scheduledMs": 2.8492,
+            "statesMs": {
+              "Running": 2.8492,
+              "R+": 0.0652,
+              "R": 0.2217,
+              "S": 17.8618
+            }
+          },
+          "ui": {
+            "wallMs": 20.9979,
+            "scheduledMs": 8.5858,
+            "statesMs": {
+              "S": 11.0478,
+              "R": 1.3359,
+              "Running": 8.5858,
+              "R+": 0.0284
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.9156,
+          "scheduledMs": 1.81865,
+          "statesMs": {
+            "Running": 1.81865,
+            "R+": 0.09695
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 8.7773,
+          "scheduledMs": 7.856,
+          "statesMs": {
+            "Running": 7.856,
+            "R": 0.9213
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 5.5362,
+          "scheduledMs": 3.2549,
+          "statesMs": {
+            "Running": 3.2549,
+            "R": 2.2813
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 1.857,
+          "scheduledMs": 1.857,
+          "statesMs": {
+            "Running": 1.857
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.17105,
+          "scheduledMs": 0.17105,
+          "statesMs": {
+            "Running": 0.17105
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.9514,
+          "scheduledMs": 0.9514,
+          "statesMs": {
+            "Running": 0.9514
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.48225,
+          "scheduledMs": 0.48225,
+          "statesMs": {
+            "Running": 0.48225
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 2.74215,
+          "scheduledMs": 1.20555,
+          "statesMs": {
+            "Running": 1.20555,
+            "R": 1.5366
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.22365,
+          "scheduledMs": 0.22365,
+          "statesMs": {
+            "Running": 0.22365
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.5608,
+          "scheduledMs": 1.5608,
+          "statesMs": {
+            "Running": 1.5608
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 17.0479,
+          "scheduledMs": 8.7966,
+          "statesMs": {
+            "Running": 8.7966,
+            "R": 3.0821,
+            "R+": 0.0974,
+            "D": 5.0718
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 5.2705,
+          "scheduledMs": 5.2705,
+          "statesMs": {
+            "Running": 5.2705
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 14.1982,
+          "scheduledMs": 10.5445,
+          "statesMs": {
+            "Running": 10.5445,
+            "R": 2.535,
+            "R+": 1.1187
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 13.20095,
+          "scheduledMs": 11.22905,
+          "statesMs": {
+            "Running": 11.22905,
+            "R": 1.9719
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.32755,
+          "scheduledMs": 2.32755,
+          "statesMs": {
+            "Running": 2.32755
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 23.4836,
+          "scheduledMs": 17.3861,
+          "statesMs": {
+            "Running": 17.3861,
+            "R": 6.0266,
+            "R+": 0.0709
+          }
+        }
+      ]
+    },
+    {
+      "sample": 7,
+      "sequence": 2,
+      "totalMs": 111.3546,
+      "wallMs": 49.42355,
+      "scheduledMs": 42.81635,
+      "statesMs": {
+        "Running": 42.81635,
+        "R": 4.2853,
+        "D": 2.2356,
+        "R+": 0.0863
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 0.8379,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 0.8379
+            }
+          },
+          "ui": {
+            "wallMs": 0.8379,
+            "scheduledMs": 0.1388,
+            "statesMs": {
+              "S": 0.4867,
+              "R": 0.2124,
+              "Running": 0.1388
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 12.2983,
+            "scheduledMs": 0.5796,
+            "statesMs": {
+              "S": 11.5905,
+              "R": 0.1282,
+              "Running": 0.5796
+            }
+          },
+          "ui": {
+            "wallMs": 12.2983,
+            "scheduledMs": 1.9507,
+            "statesMs": {
+              "Running": 1.9507,
+              "R": 0.2512,
+              "S": 10.0964
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 22.3435,
+            "scheduledMs": 16.6022,
+            "statesMs": {
+              "Running": 16.6022,
+              "R": 3.5057,
+              "D": 2.2356
+            }
+          },
+          "ui": {
+            "wallMs": 22.3435,
+            "scheduledMs": 0.4513,
+            "statesMs": {
+              "S": 21.7939,
+              "R": 0.0983,
+              "Running": 0.4513
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 27.2612,
+            "scheduledMs": 26.3953,
+            "statesMs": {
+              "Running": 26.3953,
+              "R": 0.7796,
+              "R+": 0.0863
+            }
+          },
+          "ui": {
+            "wallMs": 27.2612,
+            "scheduledMs": 1.434,
+            "statesMs": {
+              "S": 25.5123,
+              "R": 0.3149,
+              "Running": 1.434
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 17.2944,
+            "scheduledMs": 16.8879,
+            "statesMs": {
+              "Running": 16.8879,
+              "R": 0.4065
+            }
+          },
+          "ui": {
+            "wallMs": 17.2944,
+            "scheduledMs": 0.4359,
+            "statesMs": {
+              "S": 16.7626,
+              "R": 0.0959,
+              "Running": 0.4359
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 31.3193,
+            "scheduledMs": 1.9075,
+            "statesMs": {
+              "Running": 1.9075,
+              "S": 29.4118
+            }
+          },
+          "ui": {
+            "wallMs": 31.3193,
+            "scheduledMs": 3.6277,
+            "statesMs": {
+              "S": 27.3665,
+              "R": 0.3251,
+              "Running": 3.6277
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.31075,
+          "scheduledMs": 1.31075,
+          "statesMs": {
+            "Running": 1.31075
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 9.13335,
+          "scheduledMs": 6.08365,
+          "statesMs": {
+            "Running": 6.08365,
+            "R": 3.0497
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 2.01705,
+          "scheduledMs": 2.01705,
+          "statesMs": {
+            "Running": 2.01705
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.05995,
+          "scheduledMs": 0.05995,
+          "statesMs": {
+            "Running": 0.05995
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.1622,
+          "scheduledMs": 0.1622,
+          "statesMs": {
+            "Running": 0.1622
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.6645,
+          "scheduledMs": 0.6645,
+          "statesMs": {
+            "Running": 0.6645
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.44155,
+          "scheduledMs": 0.44155,
+          "statesMs": {
+            "Running": 0.44155
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.6142,
+          "scheduledMs": 0.6142,
+          "statesMs": {
+            "Running": 0.6142
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1121,
+          "scheduledMs": 0.1121,
+          "statesMs": {
+            "Running": 0.1121
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.63985,
+          "scheduledMs": 0.63985,
+          "statesMs": {
+            "Running": 0.63985
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 7.88475,
+          "scheduledMs": 5.19315,
+          "statesMs": {
+            "Running": 5.19315,
+            "R": 0.456,
+            "D": 2.2356
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.0849,
+          "scheduledMs": 1.0849,
+          "statesMs": {
+            "Running": 1.0849
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 4.22565,
+          "scheduledMs": 4.22565,
+          "statesMs": {
+            "Running": 4.22565
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 6.82715,
+          "scheduledMs": 6.22705,
+          "statesMs": {
+            "Running": 6.22705,
+            "R": 0.6001
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.0422,
+          "scheduledMs": 2.0422,
+          "statesMs": {
+            "Running": 2.0422
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 9.04135,
+          "scheduledMs": 8.86185,
+          "statesMs": {
+            "Running": 8.86185,
+            "R": 0.1795
+          }
+        }
+      ]
+    },
+    {
+      "sample": 8,
+      "sequence": 1,
+      "totalMs": 270.6737,
+      "wallMs": 161.892,
+      "scheduledMs": 94.9804,
+      "statesMs": {
+        "Running": 94.9804,
+        "R+": 4.1966,
+        "R": 31.0868,
+        "D": 31.6282
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 5.4771,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 5.4771
+            }
+          },
+          "ui": {
+            "wallMs": 5.4771,
+            "scheduledMs": 0.8326,
+            "statesMs": {
+              "S": 3.5506,
+              "R": 1.0038,
+              "Running": 0.8326,
+              "R+": 0.0901
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 36.2006,
+            "scheduledMs": 1.6749,
+            "statesMs": {
+              "S": 23.416,
+              "R": 10.9192,
+              "Running": 1.6749,
+              "R+": 0.1905
+            }
+          },
+          "ui": {
+            "wallMs": 36.2006,
+            "scheduledMs": 2.8745,
+            "statesMs": {
+              "Running": 2.8745,
+              "R": 11.2354,
+              "S": 22.0907
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 106.9066,
+            "scheduledMs": 47.485,
+            "statesMs": {
+              "Running": 47.485,
+              "R": 24.9319,
+              "R+": 2.8615,
+              "D": 31.6282
+            }
+          },
+          "ui": {
+            "wallMs": 106.9066,
+            "scheduledMs": 16.5523,
+            "statesMs": {
+              "R": 15.6556,
+              "Running": 16.5523,
+              "S": 66.935,
+              "R+": 7.7637
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 56.5753,
+            "scheduledMs": 48.649,
+            "statesMs": {
+              "Running": 48.649,
+              "R+": 1.3351,
+              "R": 6.5912
+            }
+          },
+          "ui": {
+            "wallMs": 56.5753,
+            "scheduledMs": 5.8808,
+            "statesMs": {
+              "S": 43.8986,
+              "R": 6.4391,
+              "Running": 5.8808,
+              "R+": 0.3568
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 40.977,
+            "scheduledMs": 39.039,
+            "statesMs": {
+              "Running": 39.039,
+              "R": 1.938
+            }
+          },
+          "ui": {
+            "wallMs": 40.977,
+            "scheduledMs": 3.5403,
+            "statesMs": {
+              "S": 37.0163,
+              "R": 0.4204,
+              "Running": 3.5403
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 24.5371,
+            "scheduledMs": 2.7588,
+            "statesMs": {
+              "Running": 2.7588,
+              "S": 21.7783
+            }
+          },
+          "ui": {
+            "wallMs": 24.5371,
+            "scheduledMs": 13.7837,
+            "statesMs": {
+              "S": 7.5946,
+              "R": 3.1588,
+              "Running": 13.7837
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 2.8017,
+          "scheduledMs": 1.97945,
+          "statesMs": {
+            "R+": 0.61205,
+            "Running": 1.97945,
+            "R": 0.2102
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 40.96865,
+          "scheduledMs": 24.46595,
+          "statesMs": {
+            "Running": 24.46595,
+            "R": 15.7001,
+            "R+": 0.8026
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 4.46395,
+          "scheduledMs": 3.35005,
+          "statesMs": {
+            "Running": 3.35005,
+            "R": 1.1139
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 5.37045,
+          "scheduledMs": 3.09865,
+          "statesMs": {
+            "Running": 3.09865,
+            "R+": 1.0376,
+            "R": 1.2342
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.30245,
+          "scheduledMs": 0.30245,
+          "statesMs": {
+            "Running": 0.30245
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.661,
+          "scheduledMs": 1.661,
+          "statesMs": {
+            "Running": 1.661
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.79865,
+          "scheduledMs": 0.79865,
+          "statesMs": {
+            "Running": 0.79865
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 1.5197,
+          "scheduledMs": 1.4706,
+          "statesMs": {
+            "Running": 1.4706,
+            "R": 0.0491
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1925,
+          "scheduledMs": 0.1925,
+          "statesMs": {
+            "Running": 0.1925
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.42015,
+          "scheduledMs": 1.42015,
+          "statesMs": {
+            "Running": 1.42015
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 48.04675,
+          "scheduledMs": 10.18135,
+          "statesMs": {
+            "Running": 10.18135,
+            "R": 6.2372,
+            "D": 31.6282
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 7.86625,
+          "scheduledMs": 3.44735,
+          "statesMs": {
+            "R+": 0.0937,
+            "Running": 3.44735,
+            "R": 4.3252
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 12.45285,
+          "scheduledMs": 10.45005,
+          "statesMs": {
+            "Running": 10.45005,
+            "R+": 0.3187,
+            "R": 1.6841
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 8.8516,
+          "scheduledMs": 8.8516,
+          "statesMs": {
+            "Running": 8.8516
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 3.4469,
+          "scheduledMs": 3.1198,
+          "statesMs": {
+            "Running": 3.1198,
+            "R": 0.3271
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 16.19335,
+          "scheduledMs": 15.93855,
+          "statesMs": {
+            "Running": 15.93855,
+            "R": 0.2548
+          }
+        }
+      ]
+    },
+    {
+      "sample": 8,
+      "sequence": 2,
+      "totalMs": 153.9262,
+      "wallMs": 85.4591,
+      "scheduledMs": 71.2359,
+      "statesMs": {
+        "Running": 71.2359,
+        "R": 6.9603,
+        "R+": 0.4084,
+        "D": 6.8545
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 5.2801,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 5.2801
+            }
+          },
+          "ui": {
+            "wallMs": 5.2801,
+            "scheduledMs": 0.8727,
+            "statesMs": {
+              "S": 3.7162,
+              "R": 0.6021,
+              "Running": 0.8727,
+              "R+": 0.0891
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 16.8082,
+            "scheduledMs": 0.553,
+            "statesMs": {
+              "S": 16.0947,
+              "R": 0.1605,
+              "Running": 0.553
+            }
+          },
+          "ui": {
+            "wallMs": 16.8082,
+            "scheduledMs": 2.8749,
+            "statesMs": {
+              "Running": 2.8749,
+              "S": 13.3307,
+              "R": 0.6026
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 41.3267,
+            "scheduledMs": 27.9413,
+            "statesMs": {
+              "Running": 27.9413,
+              "R": 6.4968,
+              "R+": 0.0341,
+              "D": 6.8545
+            }
+          },
+          "ui": {
+            "wallMs": 41.3267,
+            "scheduledMs": 1.3307,
+            "statesMs": {
+              "S": 39.4352,
+              "R": 0.5608,
+              "Running": 1.3307
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 44.0574,
+            "scheduledMs": 43.2196,
+            "statesMs": {
+              "Running": 43.2196,
+              "R": 0.4635,
+              "R+": 0.3743
+            }
+          },
+          "ui": {
+            "wallMs": 44.0574,
+            "scheduledMs": 2.4003,
+            "statesMs": {
+              "S": 41.176,
+              "R": 0.4811,
+              "Running": 2.4003
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 22.8244,
+            "scheduledMs": 22.0543,
+            "statesMs": {
+              "Running": 22.0543,
+              "R": 0.6291,
+              "R+": 0.141
+            }
+          },
+          "ui": {
+            "wallMs": 22.8244,
+            "scheduledMs": 0.4413,
+            "statesMs": {
+              "S": 22.2921,
+              "R": 0.091,
+              "Running": 0.4413
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 23.6294,
+            "scheduledMs": 3.1239,
+            "statesMs": {
+              "Running": 3.1239,
+              "S": 20.5055
+            }
+          },
+          "ui": {
+            "wallMs": 23.6294,
+            "scheduledMs": 6.2143,
+            "statesMs": {
+              "S": 14.3994,
+              "R": 2.9315,
+              "Running": 6.2143,
+              "R+": 0.0842
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 4.625,
+          "scheduledMs": 3.135,
+          "statesMs": {
+            "Running": 3.135,
+            "R": 1.49
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 12.39325,
+          "scheduledMs": 8.91775,
+          "statesMs": {
+            "Running": 8.91775,
+            "R": 3.4755
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 3.436,
+          "scheduledMs": 3.3721,
+          "statesMs": {
+            "Running": 3.3721,
+            "R": 0.0639
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.1107,
+          "scheduledMs": 0.1107,
+          "statesMs": {
+            "Running": 0.1107
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.28575,
+          "scheduledMs": 0.28575,
+          "statesMs": {
+            "Running": 0.28575
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.24045,
+          "scheduledMs": 1.24045,
+          "statesMs": {
+            "Running": 1.24045
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.9056,
+          "scheduledMs": 0.9056,
+          "statesMs": {
+            "Running": 0.9056
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.95585,
+          "scheduledMs": 0.95585,
+          "statesMs": {
+            "Running": 0.95585
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1598,
+          "scheduledMs": 0.1598,
+          "statesMs": {
+            "Running": 0.1598
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 1.3608,
+          "scheduledMs": 1.2959,
+          "statesMs": {
+            "Running": 1.2959,
+            "R": 0.0649
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 16.26185,
+          "scheduledMs": 8.97845,
+          "statesMs": {
+            "Running": 8.97845,
+            "R": 0.3948,
+            "R+": 0.0341,
+            "D": 6.8545
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.2802,
+          "scheduledMs": 1.2802,
+          "statesMs": {
+            "Running": 1.2802
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 8.77615,
+          "scheduledMs": 8.64785,
+          "statesMs": {
+            "Running": 8.64785,
+            "R": 0.1283
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 9.1023,
+          "scheduledMs": 9.0281,
+          "statesMs": {
+            "Running": 9.0281,
+            "R": 0.0742
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 3.182,
+          "scheduledMs": 3.182,
+          "statesMs": {
+            "Running": 3.182
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 16.1327,
+          "scheduledMs": 15.856,
+          "statesMs": {
+            "Running": 15.856,
+            "R": 0.1418,
+            "R+": 0.1349
+          }
+        }
+      ]
+    },
+    {
+      "sample": 9,
+      "sequence": 1,
+      "totalMs": 117.5817,
+      "wallMs": 56.1001,
+      "scheduledMs": 52.0952,
+      "statesMs": {
+        "Running": 52.0952,
+        "R": 0.8815,
+        "R+": 0.5845,
+        "D": 2.5389
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 1.9942,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 1.9942
+            }
+          },
+          "ui": {
+            "wallMs": 1.9942,
+            "scheduledMs": 0.6304,
+            "statesMs": {
+              "S": 1.1079,
+              "R": 0.2559,
+              "Running": 0.6304
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 17.9972,
+            "scheduledMs": 0.54,
+            "statesMs": {
+              "S": 16.9616,
+              "R": 0.4956,
+              "Running": 0.54
+            }
+          },
+          "ui": {
+            "wallMs": 17.9972,
+            "scheduledMs": 2.32,
+            "statesMs": {
+              "Running": 2.32,
+              "S": 15.4977,
+              "R": 0.1795
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 24.4723,
+            "scheduledMs": 20.5582,
+            "statesMs": {
+              "Running": 20.5582,
+              "R": 0.7907,
+              "R+": 0.5845,
+              "D": 2.5389
+            }
+          },
+          "ui": {
+            "wallMs": 24.4723,
+            "scheduledMs": 1.0481,
+            "statesMs": {
+              "S": 23.1065,
+              "R": 0.1699,
+              "Running": 1.0481,
+              "R+": 0.1478
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 31.8174,
+            "scheduledMs": 31.7266,
+            "statesMs": {
+              "Running": 31.7266,
+              "R": 0.0908
+            }
+          },
+          "ui": {
+            "wallMs": 31.8174,
+            "scheduledMs": 0.8769,
+            "statesMs": {
+              "S": 30.7619,
+              "R": 0.1786,
+              "Running": 0.8769
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 21.5763,
+            "scheduledMs": 20.5608,
+            "statesMs": {
+              "Running": 20.5608,
+              "R": 1.0155
+            }
+          },
+          "ui": {
+            "wallMs": 21.5763,
+            "scheduledMs": 0.3988,
+            "statesMs": {
+              "S": 21.082,
+              "R": 0.0955,
+              "Running": 0.3988
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 19.7243,
+            "scheduledMs": 2.4706,
+            "statesMs": {
+              "Running": 2.4706,
+              "S": 17.2537
+            }
+          },
+          "ui": {
+            "wallMs": 19.7243,
+            "scheduledMs": 8.5511,
+            "statesMs": {
+              "S": 10.7744,
+              "R": 0.2155,
+              "Running": 8.5511,
+              "R+": 0.1833
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.35015,
+          "scheduledMs": 1.35015,
+          "statesMs": {
+            "Running": 1.35015
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 5.7398,
+          "scheduledMs": 5.7398,
+          "statesMs": {
+            "Running": 5.7398
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 2.92575,
+          "scheduledMs": 2.40955,
+          "statesMs": {
+            "Running": 2.40955,
+            "R": 0.5162
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 1.95065,
+          "scheduledMs": 1.95065,
+          "statesMs": {
+            "Running": 1.95065
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.1982,
+          "scheduledMs": 0.1982,
+          "statesMs": {
+            "Running": 0.1982
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.2394,
+          "scheduledMs": 1.2394,
+          "statesMs": {
+            "Running": 1.2394
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 1.02465,
+          "scheduledMs": 0.76005,
+          "statesMs": {
+            "Running": 0.76005,
+            "R+": 0.2646
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.8557,
+          "scheduledMs": 0.7653,
+          "statesMs": {
+            "Running": 0.7653,
+            "R": 0.0904
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1241,
+          "scheduledMs": 0.1241,
+          "statesMs": {
+            "Running": 0.1241
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.558,
+          "scheduledMs": 0.558,
+          "statesMs": {
+            "Running": 0.558
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 10.41695,
+          "scheduledMs": 7.01905,
+          "statesMs": {
+            "Running": 7.01905,
+            "R+": 0.5845,
+            "R": 0.2745,
+            "D": 2.5389
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.61225,
+          "scheduledMs": 1.61225,
+          "statesMs": {
+            "Running": 1.61225
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 6.1467,
+          "scheduledMs": 6.1467,
+          "statesMs": {
+            "Running": 6.1467
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 6.19475,
+          "scheduledMs": 6.19475,
+          "statesMs": {
+            "Running": 6.19475
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 2.19475,
+          "scheduledMs": 2.19475,
+          "statesMs": {
+            "Running": 2.19475
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 11.87605,
+          "scheduledMs": 11.78525,
+          "statesMs": {
+            "Running": 11.78525,
+            "R": 0.0908
+          }
+        }
+      ]
+    },
+    {
+      "sample": 9,
+      "sequence": 2,
+      "totalMs": 121.8612,
+      "wallMs": 67.6169,
+      "scheduledMs": 57.0054,
+      "statesMs": {
+        "Running": 57.0054,
+        "R": 5.6696,
+        "R+": 2.6076,
+        "D": 2.3343
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 1.1006,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 1.1006
+            }
+          },
+          "ui": {
+            "wallMs": 1.1006,
+            "scheduledMs": 0.0312,
+            "statesMs": {
+              "S": 0.9168,
+              "R": 0.1526,
+              "Running": 0.0312
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 3.276,
+            "scheduledMs": 0.589,
+            "statesMs": {
+              "S": 2.4628,
+              "R": 0.2242,
+              "Running": 0.589
+            }
+          },
+          "ui": {
+            "wallMs": 3.276,
+            "scheduledMs": 1.8252,
+            "statesMs": {
+              "Running": 1.8252,
+              "S": 1.3533,
+              "R": 0.0975
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 23.3912,
+            "scheduledMs": 16.5981,
+            "statesMs": {
+              "Running": 16.5981,
+              "R+": 2.0098,
+              "R": 2.449,
+              "D": 2.3343
+            }
+          },
+          "ui": {
+            "wallMs": 23.3912,
+            "scheduledMs": 0.8623,
+            "statesMs": {
+              "S": 21.6149,
+              "R": 0.914,
+              "Running": 0.8623
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 44.6465,
+            "scheduledMs": 40.5456,
+            "statesMs": {
+              "Running": 40.5456,
+              "R+": 0.8803,
+              "R": 3.2206
+            }
+          },
+          "ui": {
+            "wallMs": 44.6465,
+            "scheduledMs": 1.6704,
+            "statesMs": {
+              "S": 42.5271,
+              "R": 0.449,
+              "Running": 1.6704
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 29.7152,
+            "scheduledMs": 28.9777,
+            "statesMs": {
+              "Running": 28.9777,
+              "R": 0.7375
+            }
+          },
+          "ui": {
+            "wallMs": 29.7152,
+            "scheduledMs": 0.8435,
+            "statesMs": {
+              "S": 28.0703,
+              "R": 0.8014,
+              "Running": 0.8435
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 19.7317,
+            "scheduledMs": 3.9641,
+            "statesMs": {
+              "Running": 3.9641,
+              "S": 15.4381,
+              "R": 0.3295
+            }
+          },
+          "ui": {
+            "wallMs": 19.7317,
+            "scheduledMs": 5.0327,
+            "statesMs": {
+              "S": 14.0217,
+              "R": 0.6773,
+              "Running": 5.0327
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.1213,
+          "scheduledMs": 1.1213,
+          "statesMs": {
+            "Running": 1.1213
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 6.55495,
+          "scheduledMs": 5.50815,
+          "statesMs": {
+            "Running": 5.50815,
+            "R": 1.0468
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 3.4202,
+          "scheduledMs": 2.5386,
+          "statesMs": {
+            "Running": 2.5386,
+            "R": 0.8816
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.04485,
+          "scheduledMs": 0.04485,
+          "statesMs": {
+            "Running": 0.04485
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.13955,
+          "scheduledMs": 0.13955,
+          "statesMs": {
+            "Running": 0.13955
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 0.69685,
+          "scheduledMs": 0.69685,
+          "statesMs": {
+            "Running": 0.69685
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.3188,
+          "scheduledMs": 0.3188,
+          "statesMs": {
+            "Running": 0.3188
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.48025,
+          "scheduledMs": 0.48025,
+          "statesMs": {
+            "Running": 0.48025
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.15435,
+          "scheduledMs": 0.11235,
+          "statesMs": {
+            "R+": 0.042,
+            "Running": 0.11235
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.86085,
+          "scheduledMs": 0.86085,
+          "statesMs": {
+            "Running": 0.86085
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 10.09775,
+          "scheduledMs": 5.51555,
+          "statesMs": {
+            "Running": 5.51555,
+            "R+": 1.7273,
+            "D": 2.3343,
+            "R": 0.5206
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.1269,
+          "scheduledMs": 1.1269,
+          "statesMs": {
+            "Running": 1.1269
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 9.39865,
+          "scheduledMs": 7.18235,
+          "statesMs": {
+            "Running": 7.18235,
+            "R": 2.2163
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 8.6369,
+          "scheduledMs": 8.4642,
+          "statesMs": {
+            "R+": 0.0063,
+            "Running": 8.4642,
+            "R": 0.1664
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 3.25585,
+          "scheduledMs": 2.77815,
+          "statesMs": {
+            "Running": 2.77815,
+            "R": 0.4777
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 15.97425,
+          "scheduledMs": 15.53235,
+          "statesMs": {
+            "Running": 15.53235,
+            "R": 0.3602,
+            "R+": 0.0817
+          }
+        }
+      ]
+    },
+    {
+      "sample": 10,
+      "sequence": 1,
+      "totalMs": 117.4098,
+      "wallMs": 55.64715,
+      "scheduledMs": 50.65465,
+      "statesMs": {
+        "Running": 50.65465,
+        "R": 1.4209,
+        "R+": 0.7683,
+        "D": 2.8033
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 0.8264,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 0.8264
+            }
+          },
+          "ui": {
+            "wallMs": 0.8264,
+            "scheduledMs": 0.1006,
+            "statesMs": {
+              "S": 0.4778,
+              "R": 0.248,
+              "Running": 0.1006
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 8.8639,
+            "scheduledMs": 0.65,
+            "statesMs": {
+              "S": 7.2165,
+              "R": 0.9974,
+              "Running": 0.65
+            }
+          },
+          "ui": {
+            "wallMs": 8.8639,
+            "scheduledMs": 1.726,
+            "statesMs": {
+              "Running": 1.726,
+              "S": 7.0316,
+              "R": 0.1063
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 26.6922,
+            "scheduledMs": 22.1024,
+            "statesMs": {
+              "Running": 22.1024,
+              "R": 1.1771,
+              "R+": 0.6094,
+              "D": 2.8033
+            }
+          },
+          "ui": {
+            "wallMs": 26.6922,
+            "scheduledMs": 1.2548,
+            "statesMs": {
+              "S": 25.2816,
+              "R": 0.1558,
+              "Running": 1.2548
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 29.331,
+            "scheduledMs": 28.9579,
+            "statesMs": {
+              "Running": 28.9579,
+              "R": 0.2438,
+              "R+": 0.1293
+            }
+          },
+          "ui": {
+            "wallMs": 29.331,
+            "scheduledMs": 0.8884,
+            "statesMs": {
+              "S": 27.9843,
+              "R": 0.3845,
+              "Running": 0.8884,
+              "R+": 0.0738
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 18.5587,
+            "scheduledMs": 18.0956,
+            "statesMs": {
+              "Running": 18.0956,
+              "R+": 0.0296,
+              "R": 0.4335
+            }
+          },
+          "ui": {
+            "wallMs": 18.5587,
+            "scheduledMs": 0.4638,
+            "statesMs": {
+              "S": 17.9558,
+              "R": 0.1391,
+              "Running": 0.4638
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 33.1376,
+            "scheduledMs": 2.2193,
+            "statesMs": {
+              "Running": 2.2193,
+              "R+": 0.0996,
+              "S": 30.8187
+            }
+          },
+          "ui": {
+            "wallMs": 33.1376,
+            "scheduledMs": 13.5113,
+            "statesMs": {
+              "S": 14.6106,
+              "R": 0.5265,
+              "Running": 13.5113,
+              "R+": 4.4892
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 1.1645,
+          "scheduledMs": 1.1645,
+          "statesMs": {
+            "Running": 1.1645
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 7.9058,
+          "scheduledMs": 7.0087,
+          "statesMs": {
+            "Running": 7.0087,
+            "R": 0.8971
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 2.23045,
+          "scheduledMs": 1.93205,
+          "statesMs": {
+            "Running": 1.93205,
+            "R+": 0.2984
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 1.6292,
+          "scheduledMs": 1.6292,
+          "statesMs": {
+            "Running": 1.6292
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.1795,
+          "scheduledMs": 0.1795,
+          "statesMs": {
+            "Running": 0.1795
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.04615,
+          "scheduledMs": 1.04615,
+          "statesMs": {
+            "Running": 1.04615
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.46405,
+          "scheduledMs": 0.46405,
+          "statesMs": {
+            "Running": 0.46405
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.8535,
+          "scheduledMs": 0.8535,
+          "statesMs": {
+            "Running": 0.8535
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.12185,
+          "scheduledMs": 0.12185,
+          "statesMs": {
+            "Running": 0.12185
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.61515,
+          "scheduledMs": 0.61515,
+          "statesMs": {
+            "Running": 0.61515
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 10.98075,
+          "scheduledMs": 7.89745,
+          "statesMs": {
+            "Running": 7.89745,
+            "R": 0.28,
+            "D": 2.8033
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 1.0283,
+          "scheduledMs": 1.0283,
+          "statesMs": {
+            "Running": 1.0283
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 6.94365,
+          "scheduledMs": 6.88165,
+          "statesMs": {
+            "Running": 6.88165,
+            "R": 0.062
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 6.6764,
+          "scheduledMs": 6.5802,
+          "statesMs": {
+            "Running": 6.5802,
+            "R": 0.0962
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 1.4374,
+          "scheduledMs": 1.4374,
+          "statesMs": {
+            "Running": 1.4374
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 9.50885,
+          "scheduledMs": 9.42325,
+          "statesMs": {
+            "Running": 9.42325,
+            "R": 0.0856
+          }
+        }
+      ]
+    },
+    {
+      "sample": 10,
+      "sequence": 2,
+      "totalMs": 130.2192,
+      "wallMs": 78.91955,
+      "scheduledMs": 66.08435,
+      "statesMs": {
+        "Running": 66.08435,
+        "R": 7.5267,
+        "R+": 0.7294,
+        "D": 4.5791
+      },
+      "delivery": {
+        "eventToDispatch": {
+          "js": {
+            "wallMs": 1.1393,
+            "scheduledMs": 0.0,
+            "statesMs": {
+              "S": 1.1393
+            }
+          },
+          "ui": {
+            "wallMs": 1.1393,
+            "scheduledMs": 0.7467,
+            "statesMs": {
+              "R": 0.3926,
+              "Running": 0.7467
+            }
+          }
+        },
+        "dispatchToHandler": {
+          "js": {
+            "wallMs": 13.1874,
+            "scheduledMs": 0.4473,
+            "statesMs": {
+              "S": 12.6877,
+              "R": 0.0524,
+              "Running": 0.4473
+            }
+          },
+          "ui": {
+            "wallMs": 13.1874,
+            "scheduledMs": 2.5548,
+            "statesMs": {
+              "Running": 2.5548,
+              "R": 0.1571,
+              "S": 10.4755
+            }
+          }
+        },
+        "handlerToCommit": {
+          "js": {
+            "wallMs": 41.5664,
+            "scheduledMs": 29.7971,
+            "statesMs": {
+              "Running": 29.7971,
+              "R": 6.7171,
+              "R+": 0.4731,
+              "D": 4.5791
+            }
+          },
+          "ui": {
+            "wallMs": 41.5664,
+            "scheduledMs": 1.4616,
+            "statesMs": {
+              "S": 38.536,
+              "R": 1.5688,
+              "Running": 1.4616
+            }
+          }
+        },
+        "commitToReturn": {
+          "js": {
+            "wallMs": 37.5693,
+            "scheduledMs": 36.5034,
+            "statesMs": {
+              "Running": 36.5034,
+              "R": 0.8096,
+              "R+": 0.2563
+            }
+          },
+          "ui": {
+            "wallMs": 37.5693,
+            "scheduledMs": 1.1687,
+            "statesMs": {
+              "S": 34.8723,
+              "R": 1.2581,
+              "Running": 1.1687,
+              "R+": 0.2702
+            }
+          }
+        },
+        "returnToReact": {
+          "js": {
+            "wallMs": 20.4678,
+            "scheduledMs": 19.9704,
+            "statesMs": {
+              "Running": 19.9704,
+              "R": 0.4974
+            }
+          },
+          "ui": {
+            "wallMs": 20.4678,
+            "scheduledMs": 0.5489,
+            "statesMs": {
+              "S": 19.7926,
+              "R": 0.1263,
+              "Running": 0.5489
+            }
+          }
+        },
+        "reactToFrame": {
+          "js": {
+            "wallMs": 16.289,
+            "scheduledMs": 3.5815,
+            "statesMs": {
+              "Running": 3.5815,
+              "R": 0.4557,
+              "S": 12.2518
+            }
+          },
+          "ui": {
+            "wallMs": 16.289,
+            "scheduledMs": 5.752,
+            "statesMs": {
+              "S": 8.5108,
+              "R": 1.0755,
+              "Running": 5.752,
+              "R+": 0.9507
+            }
+          }
+        }
+      },
+      "spans": [
+        {
+          "name": "toggle.profile",
+          "depth": 0,
+          "wallMs": 4.44765,
+          "scheduledMs": 2.92485,
+          "statesMs": {
+            "Running": 2.92485,
+            "R": 1.5228
+          }
+        },
+        {
+          "name": "toggle.day",
+          "depth": 0,
+          "wallMs": 13.8313,
+          "scheduledMs": 11.3805,
+          "statesMs": {
+            "Running": 11.3805,
+            "R": 1.9777,
+            "R+": 0.4731
+          }
+        },
+        {
+          "name": "toggle.view",
+          "depth": 0,
+          "wallMs": 2.3496,
+          "scheduledMs": 2.3496,
+          "statesMs": {
+            "Running": 2.3496
+          }
+        },
+        {
+          "name": "toggle.command",
+          "depth": 0,
+          "wallMs": 0.12035,
+          "scheduledMs": 0.12035,
+          "statesMs": {
+            "Running": 0.12035
+          }
+        },
+        {
+          "name": "toggle.identity",
+          "depth": 0,
+          "wallMs": 0.2743,
+          "scheduledMs": 0.2743,
+          "statesMs": {
+            "Running": 0.2743
+          }
+        },
+        {
+          "name": "store.dependencies",
+          "depth": 1,
+          "wallMs": 1.1322,
+          "scheduledMs": 1.1322,
+          "statesMs": {
+            "Running": 1.1322
+          }
+        },
+        {
+          "name": "store.base",
+          "depth": 1,
+          "wallMs": 0.52285,
+          "scheduledMs": 0.52285,
+          "statesMs": {
+            "Running": 0.52285
+          }
+        },
+        {
+          "name": "store.pending",
+          "depth": 1,
+          "wallMs": 0.93145,
+          "scheduledMs": 0.93145,
+          "statesMs": {
+            "Running": 0.93145
+          }
+        },
+        {
+          "name": "store.project",
+          "depth": 1,
+          "wallMs": 0.1338,
+          "scheduledMs": 0.1338,
+          "statesMs": {
+            "Running": 0.1338
+          }
+        },
+        {
+          "name": "store.projectionWrite",
+          "depth": 1,
+          "wallMs": 0.95765,
+          "scheduledMs": 0.95765,
+          "statesMs": {
+            "Running": 0.95765
+          }
+        },
+        {
+          "name": "store.transaction",
+          "depth": 0,
+          "wallMs": 17.6715,
+          "scheduledMs": 9.8758,
+          "statesMs": {
+            "Running": 9.8758,
+            "R": 3.2166,
+            "D": 4.5791
+          }
+        },
+        {
+          "name": "refresh.profile",
+          "depth": 0,
+          "wallMs": 2.00485,
+          "scheduledMs": 2.00485,
+          "statesMs": {
+            "Running": 2.00485
+          }
+        },
+        {
+          "name": "refresh.day",
+          "depth": 0,
+          "wallMs": 6.00085,
+          "scheduledMs": 5.70705,
+          "statesMs": {
+            "Running": 5.70705,
+            "R": 0.2938
+          }
+        },
+        {
+          "name": "refresh.presentation",
+          "depth": 0,
+          "wallMs": 9.7511,
+          "scheduledMs": 9.7511,
+          "statesMs": {
+            "Running": 9.7511
+          }
+        },
+        {
+          "name": "refresh.status",
+          "depth": 0,
+          "wallMs": 3.45685,
+          "scheduledMs": 2.87625,
+          "statesMs": {
+            "Running": 2.87625,
+            "R+": 0.2563,
+            "R": 0.3243
+          }
+        },
+        {
+          "name": "refresh.nextDay",
+          "depth": 0,
+          "wallMs": 10.1629,
+          "scheduledMs": 10.1157,
+          "statesMs": {
+            "Running": 10.1157,
+            "R": 0.0472
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+API/PostgreSQL preparados; iniciando agora o emulador visível.
+sendTouch: endpoint próprio em loopback, autenticação JWT obrigatória.
+Performing Streamed Install
+Success
+Filesystem       Size Used Avail Use% Mounted on
+/dev/block/dm-46 7.7G 1.7G  5.8G  24% /data/user/0
+Performing Streamed Install
+Success
+Preparando API e PostgreSQL descartáveis antes do emulador.
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+{"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_4_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_5_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_6_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_7_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_8_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_9_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_10_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"durable_final_mark_converges_once","passed":true,"fontScale":1}

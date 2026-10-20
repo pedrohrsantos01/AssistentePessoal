@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-20T16:14:39.2685033-03:00",
+  "processes": [
+    {
+      "parent": 67956,
+      "name": "adb.exe",
+      "pid": 38660,
+      "created": "2026-10-14T17:11:43.0558610-03:00"
+    }
+  ],
+  "containerIdentities": [
+    "0f787dd105f5 supabase_db_care-platform",
+    "8ce1ea6d7cb9 supabase_pg_meta_care-platform",
+    "be317b65041e supabase_storage_care-platform",
+    "fab5b08db76e supabase_rest_care-platform",
+    "56be50f7c088 supabase_realtime_care-platform",
+    "a2720b018c6d supabase_inbucket_care-platform",
+    "bd51a691b5e0 supabase_auth_care-platform",
+    "fdecdd8e842d supabase_kong_care-platform",
+    "30500e5d65d3 ai-memory"
+  ],
+  "freeMemoryKiB": 7463912,
+  "originalAvd": [
+    {
+      "name": "userdata-qemu.img",
+      "length": 6356992,
+      "modified": "2026-01-28T21:19:43.8497568Z"
+    },
+    {
+      "name": "userdata-qemu.img.qcow2",
+      "length": 8824946688,
+      "modified": "2026-10-17T13:37:51.0131436Z"
+    },
+    {
+      "name": "config.ini",
+      "length": 1258,
+      "modified": "2026-01-28T21:19:22.7515168Z"
+    }
+  ],
+  "containers": [
+    "supabase_db_care-platform",
+    "supabase_pg_meta_care-platform",
+    "supabase_storage_care-platform",
+    "supabase_rest_care-platform",
+    "supabase_realtime_care-platform",
+    "supabase_inbucket_care-platform",
+    "supabase_auth_care-platform",
+    "supabase_kong_care-platform",
+    "ai-memory"
+  ]
+}

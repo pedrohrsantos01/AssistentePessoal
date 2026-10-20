@@ -1,3 +1,4 @@
+import {performanceSpan} from '../diagnostics/toggle-profile.ts';
 import {performanceMark} from '../diagnostics/performance.ts';
 import { sql } from 'drizzle-orm';
 import {operationHash} from '../sync/operation-hash.ts';
@@ -40,7 +41,7 @@ export class AccountStore {
     // Internal commands join the outer transaction. Expo must never start a second BEGIN.
     if(this.activeTransaction) return work(this.activeTransaction);
     let committed=false;
-    try {const result=this.db.transaction(tx=>{this.activeTransaction=tx;return work(tx);});committed=true;performanceMark('store.committed');return result;}
+    try {const result=performanceSpan('store.transaction',()=>this.db.transaction(tx=>{this.activeTransaction=tx;return work(tx);}));committed=true;performanceMark('store.committed');return result;}
     finally {this.activeTransaction=null;if(committed) for(const listener of this.listeners) {
       // Presentation failures cannot turn a committed intent into an apparent storage failure.
       try {listener();} catch { /* The failing presentation owns its error boundary. */ }
@@ -276,11 +277,14 @@ export class AccountStore {
     });
   }
   private rebuild(db=this.db) {
-    this.blockDependents(db);
-    const projection=project(this.base(db),this.pending(db),'9999-12-31');
+    performanceSpan('store.dependencies',()=>this.blockDependents(db));
+    const base=performanceSpan('store.base',()=>this.base(db)),pending=performanceSpan('store.pending',()=>this.pending(db));
+    const projection=performanceSpan('store.project',()=>project(base,pending,'9999-12-31'));
+    performanceSpan('store.projectionWrite',()=>{
     db.run(sql`delete from projected_views where account_id=${this.accountId}`);
     db.run(sql`insert into projected_views(account_id,kind,entity_key,payload) values(${this.accountId},'xp','total',${JSON.stringify({totalXp:projection.totalXp})})`);
     for(const habit of projection.habits) db.run(sql`insert into projected_views(account_id,kind,entity_key,payload) values(${this.accountId},'habit',${habit.habitId},${JSON.stringify(habit)})`);
+    });
   }
   view(day:string) {
     this.guard();

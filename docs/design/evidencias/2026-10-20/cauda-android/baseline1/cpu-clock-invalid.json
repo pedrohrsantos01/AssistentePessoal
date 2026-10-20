@@ -1,0 +1,27 @@
+[
+  {
+    "sample": 2,
+    "start": 207234.4854,
+    "name": "refresh.status",
+    "wallMs": 1.315150000009453,
+    "cpuMs": 1.925282999999979,
+    "startReading": {
+      "tid": 8238,
+      "cpuMs": 459.535569,
+      "afterMs": 207260.7371,
+      "thread": "mqt_v_js",
+      "beforeMs": 207260.7249,
+      "jsBeforeMs": 207260.6956,
+      "jsAfterMs": 207260.7624
+    },
+    "endReading": {
+      "tid": 8238,
+      "cpuMs": 461.460852,
+      "afterMs": 207262.0524,
+      "thread": "mqt_v_js",
+      "beforeMs": 207262.0399,
+      "jsBeforeMs": 207262.0132,
+      "jsAfterMs": 207262.0776
+    }
+  }
+]

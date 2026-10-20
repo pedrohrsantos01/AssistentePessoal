@@ -1,4 +1,4 @@
-const {withMainActivity,withDangerousMod}=require('expo/config-plugins');
+const {withMainActivity,withMainApplication,withDangerousMod}=require('expo/config-plugins');
 const {mkdir,readFile,writeFile}=require('node:fs/promises');
 const {join}=require('node:path');
 module.exports=(config,{enabled=false}={})=>{
@@ -22,10 +22,19 @@ module.exports=(config,{enabled=false}={})=>{
   override fun getMainComponentName()`);
   mod.modResults.contents=source;return mod;
  });
+ config=withMainApplication(config,mod=>{
+  const anchor='PackageList(this).packages.apply {';
+  if(!mod.modResults.contents.includes(anchor))throw new Error('performance_package_anchor_missing');
+  if(!mod.modResults.contents.includes('add(RitmoPerformancePackage())'))mod.modResults.contents=mod.modResults.contents.replace(anchor,anchor+'\n          add(RitmoPerformancePackage())');
+  return mod;
+ });
  return withDangerousMod(config,['android',async mod=>{
   const pkg=config.android.package,folder=join(mod.modRequest.platformProjectRoot,'app/src/main/java',...pkg.split('.'));
   await mkdir(folder,{recursive:true});
-  const source=await readFile(join(__dirname,'RitmoFrameProbe.kt'),'utf8');
-  await writeFile(join(folder,'RitmoFrameProbe.kt'),source.replace('RITMO_PACKAGE',pkg),'utf8');return mod;
+  for(const file of ['RitmoFrameProbe.kt','RitmoPerformance.kt']) {
+   const source=await readFile(join(__dirname,file),'utf8');
+   await writeFile(join(folder,file),source.replace('RITMO_PACKAGE',pkg),'utf8');
+  }
+  return mod;
  }]);
 };

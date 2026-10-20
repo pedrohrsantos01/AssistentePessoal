@@ -1,0 +1,100 @@
+[
+  {
+    "kind": "startup",
+    "frameVsyncNs": 263761005984,
+    "frameIntendedNs": 263761005984,
+    "drawVsyncNs": 263761005984,
+    "drawNs": 263790450100,
+    "scanNs": 5150800,
+    "frameTotalNs": 133930216,
+    "frameEndNs": 263894936200,
+    "dropped": 0,
+    "checked": false,
+    "launchNs": 262377894300,
+    "launchClock": "device_intent_request",
+    "originPid": 10130,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 266490952000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 270577672378,
+    "frameIntendedNs": 270577672378,
+    "drawVsyncNs": 270577672378,
+    "drawNs": 270586322200,
+    "scanNs": 928800,
+    "frameTotalNs": 17517222,
+    "frameEndNs": 270595189600,
+    "dropped": 0,
+    "checked": true,
+    "downNs": 270351735000,
+    "inputNs": 270419572000,
+    "dispatchNs": 270422724700,
+    "dispatchProbeEndNs": 270423038100,
+    "sequence": 1,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 272436420000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 276321453000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 281303725000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 283586119000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 287161005048,
+    "frameIntendedNs": 287161005048,
+    "drawVsyncNs": 287161005048,
+    "drawNs": 287164783300,
+    "scanNs": 285100,
+    "frameTotalNs": 17844252,
+    "frameEndNs": 287178849300,
+    "dropped": 0,
+    "checked": false,
+    "downNs": 286710915000,
+    "inputNs": 286786269000,
+    "dispatchNs": 286815006100,
+    "dispatchProbeEndNs": 286815297900,
+    "sequence": 2,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10147
+  }
+]

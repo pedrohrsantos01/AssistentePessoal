@@ -1,0 +1,8 @@
+{
+  "finishedAt": "2026-10-20T16:13:48.5601741-03:00",
+  "javaHome": "C:/Program Files/Android/Android Studio/jbr",
+  "exitCode": 0,
+  "seconds": 776.551697,
+  "startedAt": "2026-10-20T16:00:51.9936326-03:00",
+  "command": "./api/gradlew.bat -p api check --no-daemon --max-workers=2 --console=plain"
+}

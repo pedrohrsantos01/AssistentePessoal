@@ -1,7 +1,9 @@
 import {performanceMark} from '../core/diagnostics/performance.ts';
+import {performanceTest} from '../core/diagnostics/performance.ts';
+import {installPerformanceClock,type ThreadClock} from '../core/diagnostics/toggle-profile.ts';
 import {consumePasswordResetIntent,subscribePasswordResetIntent} from '../core/identity/password-reset-intent.ts';
 import {useEffect,useState} from 'react';
-import {AppState} from 'react-native';
+import {AppState,NativeModules} from 'react-native';
 import {useFonts} from 'expo-font';
 import {bundledFonts} from '../theme/fonts.ts';
 import {openExpoRuntime} from '../core/identity/open-expo-runtime.ts';
@@ -10,6 +12,7 @@ import {Journey} from '../features/journey/journey.ts';
 import {JourneyView} from '../features/journey/screens.tsx';
 import {Banner,Button,Loading,Page,Type} from '../ui/primitives.tsx';
 import {pt} from '../i18n/pt-BR.ts';
+if(performanceTest)installPerformanceClock(()=>(NativeModules.RitmoPerformance as {readClock:()=>ThreadClock}).readClock());
 performanceMark('app.module');
 const origin=process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST==='1'?'http://127.0.0.1:18766':process.env.EXPO_PUBLIC_RITMO_API_ORIGIN;
 export default function App() {

@@ -1,0 +1,23 @@
+{
+  ".scratch/interface-m1/cauda-do-cumprimento.md": "70b68265e4a289904ed0cf66e5a81c05b268ee858986a3af36bdfc9d84b5bd59",
+  ".scratch/interface-m1/feedback-com-probe-leve.md": "1095a1a8cb01f7ebd4e2269b8a2b36f594dee2f1e4e7422547e402b319bb37b3",
+  ".scratch/interface-m1/issues/06-aparencia-e-acessibilidade.md": "44e004921e40eba1c73d26c19c921502514cd0e106a10d6d860668e2cc472895",
+  ".scratch/interface-m1/leitor-e-desempenho.md": "54b361479ccede5349d08a9bd09c1afec9d819edc919cf9bdc58c4b889aae26b",
+  "app/harness/RitmoPerformance.kt": "b75997eabc6e51f830a06b647561263ed431b5ac43e5bc3b110fc77b5b59549f",
+  "app/harness/with-performance-probe.cjs": "2d238318180f855473495eb5dcdac78d6d4fbf36c507c3dfd397fd23841ae47e",
+  "app/src/app/index.tsx": "38c14fdd0dce57e00b2c07dbab111547e0475d7f535cc19b11ea77bd97be8fc5",
+  "app/src/core/db/account-store.ts": "c31c63736eed31105581c34d58c263bc7d1a04f9a64e22a371f7e15251ee54fa",
+  "app/src/core/diagnostics/toggle-profile.ts": "1a479fc7bc3647a50b08beca961faac4ba8c4228502b84b1aedaa67285094aa7",
+  "app/src/features/gamification/domain/day-key.ts": "6768e95b32950f0302bbe7a55b7b8e251406ba2b78371232623fd92771e77743",
+  "app/src/features/journey/journey.ts": "7fd48ebf6c3f7970ed33342a3d69594266f75b7e051736921ab87dc36a113744",
+  "app/test/day-key.test.ts": "63c25719d9c5e512b7e3a147be2c980b59c1e3609405ed91bb176489e31f8631",
+  "app/test/integration/android-performance.test.ts": "2eb805f22f81b4d912b57f3abc580b9b4bf7c8b42baa2e79be003341e7472f55",
+  "app/test/support/toggle-latency.ts": "915904b7518fc93014ad660fe97258e2180575a87a7e7cc1227ef57bf7410131",
+  "app/test/support/toggle-profile.ts": "0849c3d91679f547f3244a727ecb735b33581d72a77de9d33927f6876d57421c",
+  "app/test/toggle-profile.test.ts": "c935c1854e2bbd64db1d096adfd60a67f918987940ea22406d429c9ff55506b5",
+  "docs/analises/2026-10-20-cauda-do-cumprimento-m1.md": "2dd8680d52c144f75654ff99e25350b7ef712d57b2180170f2fba6bae5a6a60b",
+  "scripts/analyze_android_scheduler.py": "23b81f210fd1b18f8ed10aa15b965e8c66dd509864f1171cee6c10702e946475",
+  "scripts/test_analyze_android_scheduler.py": "f5e3221a4b5b455d71a31bb8acc93f8a131f5e1e53dc67b9d98dced6dc0c3b6d",
+  "specs/07-nao-funcionais-e-lgpd.md": "3e3a25b6bf218b5646e4216d8eb0f45e3e1cb19f77576c03096c72409a5ba1f6",
+  "specs/08-briefing.md": "e1f13a807c5d3af5856c6776dabc511559cc6befe4e38be87e20901bc1b1c68d"
+}

@@ -1,0 +1,92 @@
+[
+  {
+    "kind": "startup",
+    "frameVsyncNs": 282998761690,
+    "frameIntendedNs": 282998761690,
+    "drawVsyncNs": 282998761690,
+    "drawNs": 283025067900,
+    "scanNs": 2616900,
+    "frameTotalNs": 94291710,
+    "frameEndNs": 283093053400,
+    "dropped": 0,
+    "checked": false,
+    "launchNs": 282105119600,
+    "launchClock": "device_intent_request",
+    "originPid": 10473,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10488
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 285588593000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10488
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 288939266000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10488
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 291332094690,
+    "frameIntendedNs": 291332094690,
+    "drawVsyncNs": 291332094690,
+    "drawNs": 291338977000,
+    "scanNs": 157900,
+    "frameTotalNs": 17470110,
+    "frameEndNs": 291349564800,
+    "dropped": 0,
+    "checked": true,
+    "downNs": 291153988000,
+    "inputNs": 291216702000,
+    "dispatchNs": 291218077400,
+    "dispatchProbeEndNs": 291218291700,
+    "sequence": 1,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10488
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 292520976000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10488
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 295705052000,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10488
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 299398761034,
+    "frameIntendedNs": 299398761034,
+    "drawVsyncNs": 299398761034,
+    "drawNs": 299401977200,
+    "scanNs": 166100,
+    "frameTotalNs": 18357566,
+    "frameEndNs": 299417118600,
+    "dropped": 0,
+    "checked": false,
+    "downNs": 299246694000,
+    "inputNs": 299322840000,
+    "dispatchNs": 299323505100,
+    "dispatchProbeEndNs": 299323783200,
+    "sequence": 2,
+    "schema": 4,
+    "sample": 6,
+    "pid": 10488
+  }
+]

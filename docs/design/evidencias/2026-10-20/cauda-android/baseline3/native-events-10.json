@@ -1,0 +1,108 @@
+[
+  {
+    "kind": "startup",
+    "frameVsyncNs": 370861001700,
+    "frameIntendedNs": 370861001700,
+    "drawVsyncNs": 370861001700,
+    "drawNs": 370909533500,
+    "scanNs": 2253000,
+    "frameTotalNs": 168809500,
+    "frameEndNs": 371029811200,
+    "dropped": 0,
+    "checked": false,
+    "launchNs": 368803886900,
+    "launchClock": "device_intent_request",
+    "originPid": 13286,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 372887680000,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 376138267000,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 381035123000,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 384511001154,
+    "frameIntendedNs": 384511001154,
+    "drawVsyncNs": 384511001154,
+    "drawNs": 384520308400,
+    "scanNs": 209500,
+    "frameTotalNs": 19297946,
+    "frameEndNs": 384530299100,
+    "dropped": 0,
+    "checked": true,
+    "downNs": 384140994000,
+    "inputNs": 384216308000,
+    "dispatchNs": 384254036800,
+    "dispatchProbeEndNs": 384254376300,
+    "sequence": 1,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 386167152000,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 390323771000,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 392582663000,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 394511000754,
+    "frameIntendedNs": 394511000754,
+    "drawVsyncNs": 394511000754,
+    "drawNs": 394515673300,
+    "scanNs": 301700,
+    "frameTotalNs": 9307946,
+    "frameEndNs": 394520308700,
+    "dropped": 0,
+    "checked": false,
+    "downNs": 394303640000,
+    "inputNs": 394379872000,
+    "dispatchNs": 394380957000,
+    "dispatchProbeEndNs": 394381557700,
+    "sequence": 2,
+    "schema": 4,
+    "sample": 10,
+    "pid": 13301
+  }
+]

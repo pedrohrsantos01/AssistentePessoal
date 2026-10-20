@@ -1,0 +1,11 @@
+{
+  "app/harness/RitmoPerformance.kt": "b75997eabc6e51f830a06b647561263ed431b5ac43e5bc3b110fc77b5b59549f",
+  "app/harness/RitmoFrameProbe.kt": "d60c130ba7973a652d08e17c3aed2684a0fd720d358369eb7442ba58193ca971",
+  "app/harness/with-performance-probe.cjs": "2d238318180f855473495eb5dcdac78d6d4fbf36c507c3dfd397fd23841ae47e",
+  "app/src/app/index.tsx": "38c14fdd0dce57e00b2c07dbab111547e0475d7f535cc19b11ea77bd97be8fc5",
+  "app/src/core/diagnostics/performance.ts": "2837f5708b834c991949250d9138f70934da71ade28b087a0cd1115b97b8f172",
+  "app/src/core/diagnostics/toggle-profile.ts": "1a479fc7bc3647a50b08beca961faac4ba8c4228502b84b1aedaa67285094aa7",
+  "app/src/core/db/account-store.ts": "c31c63736eed31105581c34d58c263bc7d1a04f9a64e22a371f7e15251ee54fa",
+  "app/src/features/journey/journey.ts": "7fd48ebf6c3f7970ed33342a3d69594266f75b7e051736921ab87dc36a113744",
+  "app/src/features/gamification/domain/day-key.ts": "1dda246907e0c8ba4b794263996328485f010e47f7017e06667fe1f4f5d17719"
+}

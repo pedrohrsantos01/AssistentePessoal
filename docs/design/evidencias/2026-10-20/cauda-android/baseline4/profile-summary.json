@@ -1,0 +1,610 @@
+{
+  "samples": 20,
+  "visual": {
+    "count": 20,
+    "p50": 137.9764,
+    "p95": 236.961,
+    "maximum": 270.6737,
+    "minimum": 111.3546
+  },
+  "within100ms": 0,
+  "toggle": {
+    "wallMs": {
+      "count": 20,
+      "p50": 77.4636,
+      "p95": 137.59755,
+      "maximum": 161.892,
+      "minimum": 49.42355
+    },
+    "scheduledMs": {
+      "count": 20,
+      "p50": 64.91875,
+      "p95": 92.81935,
+      "maximum": 94.9804,
+      "minimum": 42.81635
+    }
+  },
+  "dayTotals": {
+    "wallMs": {
+      "count": 20,
+      "p50": 33.9073,
+      "p95": 61.621700000000004,
+      "maximum": 69.61484999999999,
+      "minimum": 22.40035
+    },
+    "scheduledMs": {
+      "count": 20,
+      "p50": 28.19425,
+      "p95": 41.105000000000004,
+      "maximum": 50.854549999999996,
+      "minimum": 19.17115
+    }
+  },
+  "sections": {
+    "refresh.day": {
+      "wallMs": {
+        "count": 20,
+        "p50": 6.94365,
+        "p95": 12.45285,
+        "maximum": 14.1982,
+        "minimum": 4.22565
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 6.88165,
+        "p95": 10.5445,
+        "maximum": 11.09405,
+        "minimum": 4.22565
+      }
+    },
+    "refresh.nextDay": {
+      "wallMs": {
+        "count": 20,
+        "p50": 13.8712,
+        "p95": 23.4836,
+        "maximum": 26.6994,
+        "minimum": 9.04135
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 13.2838,
+        "p95": 17.53235,
+        "maximum": 21.0209,
+        "minimum": 8.86185
+      }
+    },
+    "refresh.presentation": {
+      "wallMs": {
+        "count": 20,
+        "p50": 8.84485,
+        "p95": 13.2576,
+        "maximum": 13.2728,
+        "minimum": 5.2736
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 8.10865,
+        "p95": 11.22905,
+        "maximum": 11.3277,
+        "minimum": 5.0826
+      }
+    },
+    "refresh.profile": {
+      "wallMs": {
+        "count": 20,
+        "p50": 1.7027,
+        "p95": 5.2705,
+        "maximum": 7.86625,
+        "minimum": 1.01455
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 1.6469,
+        "p95": 3.44735,
+        "maximum": 5.2705,
+        "minimum": 0.98895
+      }
+    },
+    "refresh.status": {
+      "wallMs": {
+        "count": 20,
+        "p50": 2.32755,
+        "p95": 3.45685,
+        "maximum": 7.97485,
+        "minimum": 1.15
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 2.30275,
+        "p95": 3.182,
+        "maximum": 5.80445,
+        "minimum": 1.15
+      }
+    },
+    "store.base": {
+      "wallMs": {
+        "count": 20,
+        "p50": 0.52285,
+        "p95": 1.128,
+        "maximum": 1.1755,
+        "minimum": 0.3054
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 0.52285,
+        "p95": 0.90995,
+        "maximum": 1.128,
+        "minimum": 0.3054
+      }
+    },
+    "store.dependencies": {
+      "wallMs": {
+        "count": 20,
+        "p50": 0.9514,
+        "p95": 1.8213,
+        "maximum": 2.59945,
+        "minimum": 0.49085
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 0.9514,
+        "p95": 1.8213,
+        "maximum": 2.59945,
+        "minimum": 0.49085
+      }
+    },
+    "store.pending": {
+      "wallMs": {
+        "count": 20,
+        "p50": 0.8557,
+        "p95": 2.74215,
+        "maximum": 4.50895,
+        "minimum": 0.42665
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 0.77465,
+        "p95": 1.7561,
+        "maximum": 2.04245,
+        "minimum": 0.42665
+      }
+    },
+    "store.project": {
+      "wallMs": {
+        "count": 20,
+        "p50": 0.1338,
+        "p95": 0.22895,
+        "maximum": 0.962,
+        "minimum": 0.09975
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 0.13305,
+        "p95": 0.22895,
+        "maximum": 0.6378,
+        "minimum": 0.09975
+      }
+    },
+    "store.projectionWrite": {
+      "wallMs": {
+        "count": 20,
+        "p50": 1.0887,
+        "p95": 3.4004,
+        "maximum": 3.46465,
+        "minimum": 0.558
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 1.0887,
+        "p95": 2.1464,
+        "maximum": 3.05745,
+        "minimum": 0.558
+      }
+    },
+    "store.transaction": {
+      "wallMs": {
+        "count": 20,
+        "p50": 14.94345,
+        "p95": 34.8195,
+        "maximum": 48.04675,
+        "minimum": 7.88475
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 7.89745,
+        "p95": 12.5015,
+        "maximum": 14.1715,
+        "minimum": 4.90055
+      }
+    },
+    "toggle.command": {
+      "wallMs": {
+        "count": 20,
+        "p50": 0.16905,
+        "p95": 1.95065,
+        "maximum": 5.37045,
+        "minimum": 0.04485
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 0.16905,
+        "p95": 1.95065,
+        "maximum": 3.09865,
+        "minimum": 0.04485
+      }
+    },
+    "toggle.day": {
+      "wallMs": {
+        "count": 20,
+        "p50": 11.60165,
+        "p95": 40.96865,
+        "maximum": 43.00815,
+        "minimum": 5.7398
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 8.157,
+        "p95": 13.23965,
+        "maximum": 24.46595,
+        "minimum": 5.50815
+      }
+    },
+    "toggle.identity": {
+      "wallMs": {
+        "count": 20,
+        "p50": 0.2459,
+        "p95": 0.97635,
+        "maximum": 2.2946,
+        "minimum": 0.13955
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 0.2459,
+        "p95": 0.48265,
+        "maximum": 0.8931,
+        "minimum": 0.13955
+      }
+    },
+    "toggle.profile": {
+      "wallMs": {
+        "count": 20,
+        "p50": 1.9156,
+        "p95": 6.97685,
+        "maximum": 7.0837,
+        "minimum": 1.0178
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 1.81865,
+        "p95": 3.135,
+        "maximum": 3.2815,
+        "minimum": 1.0178
+      }
+    },
+    "toggle.view": {
+      "wallMs": {
+        "count": 20,
+        "p50": 2.5086,
+        "p95": 5.5362,
+        "maximum": 14.88505,
+        "minimum": 1.3046
+      },
+      "scheduledMs": {
+        "count": 20,
+        "p50": 2.40955,
+        "p95": 4.36935,
+        "maximum": 12.21455,
+        "minimum": 1.3046
+      }
+    }
+  },
+  "observerRoundTripSumMs": {
+    "count": 20,
+    "p50": 5.26320000004489,
+    "p95": 9.736200000101235,
+    "maximum": 14.007099999987986,
+    "minimum": 3.72989999994752
+  },
+  "observerRoundTripMaximumMs": 3.738500000006752,
+  "threads": [
+    "mqt_v_js"
+  ],
+  "worst": {
+    "sample": 8,
+    "sequence": 1,
+    "totalMs": 270.6737,
+    "wallMs": 161.892,
+    "scheduledMs": 94.9804,
+    "statesMs": {
+      "Running": 94.9804,
+      "R+": 4.1966,
+      "R": 31.0868,
+      "D": 31.6282
+    },
+    "delivery": {
+      "eventToDispatch": {
+        "js": {
+          "wallMs": 5.4771,
+          "scheduledMs": 0.0,
+          "statesMs": {
+            "S": 5.4771
+          }
+        },
+        "ui": {
+          "wallMs": 5.4771,
+          "scheduledMs": 0.8326,
+          "statesMs": {
+            "S": 3.5506,
+            "R": 1.0038,
+            "Running": 0.8326,
+            "R+": 0.0901
+          }
+        }
+      },
+      "dispatchToHandler": {
+        "js": {
+          "wallMs": 36.2006,
+          "scheduledMs": 1.6749,
+          "statesMs": {
+            "S": 23.416,
+            "R": 10.9192,
+            "Running": 1.6749,
+            "R+": 0.1905
+          }
+        },
+        "ui": {
+          "wallMs": 36.2006,
+          "scheduledMs": 2.8745,
+          "statesMs": {
+            "Running": 2.8745,
+            "R": 11.2354,
+            "S": 22.0907
+          }
+        }
+      },
+      "handlerToCommit": {
+        "js": {
+          "wallMs": 106.9066,
+          "scheduledMs": 47.485,
+          "statesMs": {
+            "Running": 47.485,
+            "R": 24.9319,
+            "R+": 2.8615,
+            "D": 31.6282
+          }
+        },
+        "ui": {
+          "wallMs": 106.9066,
+          "scheduledMs": 16.5523,
+          "statesMs": {
+            "R": 15.6556,
+            "Running": 16.5523,
+            "S": 66.935,
+            "R+": 7.7637
+          }
+        }
+      },
+      "commitToReturn": {
+        "js": {
+          "wallMs": 56.5753,
+          "scheduledMs": 48.649,
+          "statesMs": {
+            "Running": 48.649,
+            "R+": 1.3351,
+            "R": 6.5912
+          }
+        },
+        "ui": {
+          "wallMs": 56.5753,
+          "scheduledMs": 5.8808,
+          "statesMs": {
+            "S": 43.8986,
+            "R": 6.4391,
+            "Running": 5.8808,
+            "R+": 0.3568
+          }
+        }
+      },
+      "returnToReact": {
+        "js": {
+          "wallMs": 40.977,
+          "scheduledMs": 39.039,
+          "statesMs": {
+            "Running": 39.039,
+            "R": 1.938
+          }
+        },
+        "ui": {
+          "wallMs": 40.977,
+          "scheduledMs": 3.5403,
+          "statesMs": {
+            "S": 37.0163,
+            "R": 0.4204,
+            "Running": 3.5403
+          }
+        }
+      },
+      "reactToFrame": {
+        "js": {
+          "wallMs": 24.5371,
+          "scheduledMs": 2.7588,
+          "statesMs": {
+            "Running": 2.7588,
+            "S": 21.7783
+          }
+        },
+        "ui": {
+          "wallMs": 24.5371,
+          "scheduledMs": 13.7837,
+          "statesMs": {
+            "S": 7.5946,
+            "R": 3.1588,
+            "Running": 13.7837
+          }
+        }
+      }
+    },
+    "spans": [
+      {
+        "name": "toggle.profile",
+        "depth": 0,
+        "wallMs": 2.8017,
+        "scheduledMs": 1.97945,
+        "statesMs": {
+          "R+": 0.61205,
+          "Running": 1.97945,
+          "R": 0.2102
+        }
+      },
+      {
+        "name": "toggle.day",
+        "depth": 0,
+        "wallMs": 40.96865,
+        "scheduledMs": 24.46595,
+        "statesMs": {
+          "Running": 24.46595,
+          "R": 15.7001,
+          "R+": 0.8026
+        }
+      },
+      {
+        "name": "toggle.view",
+        "depth": 0,
+        "wallMs": 4.46395,
+        "scheduledMs": 3.35005,
+        "statesMs": {
+          "Running": 3.35005,
+          "R": 1.1139
+        }
+      },
+      {
+        "name": "toggle.command",
+        "depth": 0,
+        "wallMs": 5.37045,
+        "scheduledMs": 3.09865,
+        "statesMs": {
+          "Running": 3.09865,
+          "R+": 1.0376,
+          "R": 1.2342
+        }
+      },
+      {
+        "name": "toggle.identity",
+        "depth": 0,
+        "wallMs": 0.30245,
+        "scheduledMs": 0.30245,
+        "statesMs": {
+          "Running": 0.30245
+        }
+      },
+      {
+        "name": "store.dependencies",
+        "depth": 1,
+        "wallMs": 1.661,
+        "scheduledMs": 1.661,
+        "statesMs": {
+          "Running": 1.661
+        }
+      },
+      {
+        "name": "store.base",
+        "depth": 1,
+        "wallMs": 0.79865,
+        "scheduledMs": 0.79865,
+        "statesMs": {
+          "Running": 0.79865
+        }
+      },
+      {
+        "name": "store.pending",
+        "depth": 1,
+        "wallMs": 1.5197,
+        "scheduledMs": 1.4706,
+        "statesMs": {
+          "Running": 1.4706,
+          "R": 0.0491
+        }
+      },
+      {
+        "name": "store.project",
+        "depth": 1,
+        "wallMs": 0.1925,
+        "scheduledMs": 0.1925,
+        "statesMs": {
+          "Running": 0.1925
+        }
+      },
+      {
+        "name": "store.projectionWrite",
+        "depth": 1,
+        "wallMs": 1.42015,
+        "scheduledMs": 1.42015,
+        "statesMs": {
+          "Running": 1.42015
+        }
+      },
+      {
+        "name": "store.transaction",
+        "depth": 0,
+        "wallMs": 48.04675,
+        "scheduledMs": 10.18135,
+        "statesMs": {
+          "Running": 10.18135,
+          "R": 6.2372,
+          "D": 31.6282
+        }
+      },
+      {
+        "name": "refresh.profile",
+        "depth": 0,
+        "wallMs": 7.86625,
+        "scheduledMs": 3.44735,
+        "statesMs": {
+          "R+": 0.0937,
+          "Running": 3.44735,
+          "R": 4.3252
+        }
+      },
+      {
+        "name": "refresh.day",
+        "depth": 0,
+        "wallMs": 12.45285,
+        "scheduledMs": 10.45005,
+        "statesMs": {
+          "Running": 10.45005,
+          "R+": 0.3187,
+          "R": 1.6841
+        }
+      },
+      {
+        "name": "refresh.presentation",
+        "depth": 0,
+        "wallMs": 8.8516,
+        "scheduledMs": 8.8516,
+        "statesMs": {
+          "Running": 8.8516
+        }
+      },
+      {
+        "name": "refresh.status",
+        "depth": 0,
+        "wallMs": 3.4469,
+        "scheduledMs": 3.1198,
+        "statesMs": {
+          "Running": 3.1198,
+          "R": 0.3271
+        }
+      },
+      {
+        "name": "refresh.nextDay",
+        "depth": 0,
+        "wallMs": 16.19335,
+        "scheduledMs": 15.93855,
+        "statesMs": {
+          "Running": 15.93855,
+          "R": 0.2548
+        }
+      }
+    ]
+  }
+}

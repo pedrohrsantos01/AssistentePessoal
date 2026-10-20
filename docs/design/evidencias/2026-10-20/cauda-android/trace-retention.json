@@ -1,0 +1,47 @@
+[
+  {
+    "attempt": "baseline3",
+    "file": "scheduler.pftrace.gz",
+    "versioned": false,
+    "rawSha256": "58f600aeea37207ffc3866b148565978bd946c4ef14afed9d72d2bdaf02fbb4a",
+    "gzipSha256": "18c8026297b8d58bc8b511b37b9600e904918df00d294e38df943a2f05b9ee68",
+    "localGzip": ".scratch/runtime/cauda/traces/baseline3-scheduler.pftrace.gz",
+    "localRaw": ".scratch/runtime/cauda/traces/baseline3-scheduler.pftrace"
+  },
+  {
+    "attempt": "baseline4",
+    "file": "scheduler-preflight.pftrace.gz",
+    "versioned": false,
+    "rawSha256": "840cd9734736569cf92ad1c12932b914ba4886426077f79313b8cbc7a135a48c",
+    "gzipSha256": "ac20902f99cc3339dc7e673e8b5a2a3b1cce210edd78a60773c25892f5ce88e5",
+    "localGzip": ".scratch/runtime/cauda/traces/baseline4-scheduler-preflight.pftrace.gz",
+    "localRaw": ".scratch/runtime/cauda/traces/baseline4-scheduler-preflight.pftrace"
+  },
+  {
+    "attempt": "baseline4",
+    "file": "scheduler.pftrace.gz",
+    "versioned": false,
+    "rawSha256": "fc86b8f35c3b3b2ab4cfaa1e7f93908d35bd9da9d42421905bcc2595e35ce624",
+    "gzipSha256": "f4bde05a23d0b629c056cda97aea4ba56960024607b9389e1aa0bc3ac25552da",
+    "localGzip": ".scratch/runtime/cauda/traces/baseline4-scheduler.pftrace.gz",
+    "localRaw": ".scratch/runtime/cauda/traces/baseline4-scheduler.pftrace"
+  },
+  {
+    "attempt": "optimized1",
+    "file": "scheduler-preflight.pftrace.gz",
+    "versioned": false,
+    "rawSha256": "8f812262603bd3bb291a10b46aa830a275884ca606924f3b7b8e916c38a01010",
+    "gzipSha256": "5c4abfa73f5898eaca177b1f9b2fb1af1198fbb369e7a163b7c04691c798cd74",
+    "localGzip": ".scratch/runtime/cauda/traces/optimized1-scheduler-preflight.pftrace.gz",
+    "localRaw": ".scratch/runtime/cauda/traces/optimized1-scheduler-preflight.pftrace"
+  },
+  {
+    "attempt": "optimized1",
+    "file": "scheduler.pftrace.gz",
+    "versioned": false,
+    "rawSha256": "a54ab4389a64484b956c434137e036a140d215ed96db4304c8fcd8ec102292a6",
+    "gzipSha256": "1004b34b9ba704fbf9be5c858f138329c6da247b09f2dc9457ad0f5f2b503e23",
+    "localGzip": ".scratch/runtime/cauda/traces/optimized1-scheduler.pftrace.gz",
+    "localRaw": ".scratch/runtime/cauda/traces/optimized1-scheduler.pftrace"
+  }
+]

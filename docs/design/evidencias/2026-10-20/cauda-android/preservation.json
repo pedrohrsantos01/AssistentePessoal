@@ -1,0 +1,11 @@
+{
+  "preexistingAdbPreserved": true,
+  "preexistingContainersPreserved": 9,
+  "selectedOriginalAvdMetadataPreserved": true,
+  "normalApkPreserved": true,
+  "normalApkSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "normalNativeConfigRestored": true,
+  "noEmulatorWatcherOrJavaRemaining": true,
+  "timestampsComparedAsIsoInstants": true,
+  "scope": "selected original AVD files and process/container identities, not a forensic audit of every original file"
+}

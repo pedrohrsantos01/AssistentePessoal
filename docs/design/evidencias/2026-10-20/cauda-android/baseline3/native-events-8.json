@@ -1,0 +1,124 @@
+[
+  {
+    "kind": "startup",
+    "frameVsyncNs": 316444337210,
+    "frameIntendedNs": 316444337210,
+    "drawVsyncNs": 316444337210,
+    "drawNs": 316472395400,
+    "scanNs": 1976000,
+    "frameTotalNs": 219682090,
+    "frameEndNs": 316664019300,
+    "dropped": 0,
+    "checked": false,
+    "launchNs": 315049889500,
+    "launchClock": "device_intent_request",
+    "originPid": 11658,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 318727580000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 321008380000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 326105026000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 328242077000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 329944336670,
+    "frameIntendedNs": 329944336670,
+    "drawVsyncNs": 329944336670,
+    "drawNs": 329956218600,
+    "scanNs": 387600,
+    "frameTotalNs": 34334230,
+    "frameEndNs": 329978670900,
+    "dropped": 0,
+    "checked": true,
+    "downNs": 329727688000,
+    "inputNs": 329791827000,
+    "dispatchNs": 329793385500,
+    "dispatchProbeEndNs": 329793747600,
+    "sequence": 1,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 331731924000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 335092894000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 340472514000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "gesture_ignored",
+    "reason": "multiple_pointers",
+    "eventNs": 344124572000,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  },
+  {
+    "kind": "toggle",
+    "frameVsyncNs": 346777669330,
+    "frameIntendedNs": 346777669330,
+    "drawVsyncNs": 346777669330,
+    "drawNs": 346783537300,
+    "scanNs": 239200,
+    "frameTotalNs": 18628370,
+    "frameEndNs": 346796297700,
+    "dropped": 0,
+    "checked": false,
+    "downNs": 346569218000,
+    "inputNs": 346636067000,
+    "dispatchNs": 346637253000,
+    "dispatchProbeEndNs": 346637698900,
+    "sequence": 2,
+    "schema": 4,
+    "sample": 8,
+    "pid": 11673
+  }
+]

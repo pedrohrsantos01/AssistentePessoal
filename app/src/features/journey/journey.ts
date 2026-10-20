@@ -1,3 +1,4 @@
+import {performanceSpan,profileToggle} from '../../core/diagnostics/toggle-profile.ts';
 import {performanceMark} from '../../core/diagnostics/performance.ts';
 import {PasswordRecovery} from './password-recovery.ts';
 import type {PasswordResetTransport} from '../../core/identity/types.ts';
@@ -51,10 +52,10 @@ export class Journey {
    else if(network.key) {
     const store=session.account();
     if(store!==this.store) {this.detachStore?.();this.store=store;this.detachStore=store.subscribe(this.refresh);}
-    const profile=store.profile(),day=getDayKey(new Date(state.instant),profile.timeContext.timezone,profile.timeContext.dayStartHour);
-    state.local=store.presentation(day);state.day=day;
+    const profile=performanceSpan('refresh.profile',()=>store.profile()),day=performanceSpan('refresh.day',()=>getDayKey(new Date(state.instant),profile.timeContext.timezone,profile.timeContext.dayStartHour));
+    state.local=performanceSpan('refresh.presentation',()=>store.presentation(day));state.day=day;
     state.gate=store.initialCopyRequired()?'initial':'account';
-    state.operations=store.operationStates();state.recoveries=store.recovery();state.snapshot=store.snapshotProgress();state.sync=scheduler.status().sync;
+    performanceSpan('refresh.status',()=>{state.operations=store.operationStates();state.recoveries=store.recovery();state.snapshot=store.snapshotProgress();state.sync=scheduler.status().sync;});
     state.canRetry=state.online&&!state.busy&&['idle','failed'].includes(state.sync.phase)&&(state.sync.nextAttemptAt===null||state.sync.nextAttemptAt<=state.instant);
     const phase=state.sync.phase;state.authenticationRequired=phase==='authentication_required';
     state.remote=!state.writable?pt.update:network.vaultUnavailable?pt.vault:
@@ -66,7 +67,7 @@ export class Journey {
   this.cancelClock?.();this.cancelClock=null;
   if(state.local) {
    const {timezone,dayStartHour}=state.local.profile.timeContext;
-   const dayBoundary=nextLogicalDayAt(new Date(state.instant),timezone,dayStartHour);
+   const dayBoundary=performanceSpan('refresh.nextDay',()=>nextLogicalDayAt(new Date(state.instant),timezone,dayStartHour));
    const retryBoundary=state.sync.nextAttemptAt!==null&&state.sync.nextAttemptAt>state.instant?state.sync.nextAttemptAt:Infinity;
    this.cancelClock=this.clock.schedule(Math.min(dayBoundary,retryBoundary)-state.instant,this.refresh);
   }
@@ -133,14 +134,15 @@ export class Journey {
  }
  skip() {return this.local(store=>store.finishOnboarding(null,this.nextId(),this.nextId(),new Date(this.clock.now()).toISOString()));}
  toggle(habitId:string,expectedDone:boolean) {
-  return this.local(store=>{
-   const context=store.profile().timeContext,dayKey=getDayKey(new Date(this.clock.now()),context.timezone,context.dayStartHour);
-   const habit=store.view(dayKey).habits.find(item=>item.habitId===habitId);
+  return profileToggle(()=>this.local(store=>{
+   const context=performanceSpan('toggle.profile',()=>store.profile().timeContext),dayKey=performanceSpan('toggle.day',()=>getDayKey(new Date(this.clock.now()),context.timezone,context.dayStartHour));
+   const habit=performanceSpan('toggle.view',()=>store.view(dayKey).habits.find(item=>item.habitId===habitId));
    if(!habit||habit.done!==expectedDone) return;
-   const command=habit.done?{type:'habit.unmark' as const,habitId,dayKey,timeContext:context}:
-    {type:'habit.mark' as const,habitId,dayKey,timeContext:context,observedUndoIds:store.observedUndoIds(habitId,dayKey)};
-   store.enqueue(command,this.nextId(),new Date(this.clock.now()).toISOString());
-  });
+   const command=performanceSpan('toggle.command',()=>habit.done?{type:'habit.unmark' as const,habitId,dayKey,timeContext:context}:
+    {type:'habit.mark' as const,habitId,dayKey,timeContext:context,observedUndoIds:store.observedUndoIds(habitId,dayKey)});
+   const id=performanceSpan('toggle.identity',()=>this.nextId()),at=new Date(this.clock.now()).toISOString();
+   store.enqueue(command,id,at);
+  }));
  }
  edit(habitId:string,baseline:HabitDraft,draft:HabitDraft) {
   const title=draft.title===baseline.title?baseline.title:draft.title.normalize('NFC').trim();

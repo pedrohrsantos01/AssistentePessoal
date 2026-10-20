@@ -1,0 +1,14 @@
+{
+  "baseline": {
+    "apkSha256": "5ff5a4acef82089cab9cfeeb237c6cb531a39e5fd099d94efc612b427b33785d",
+    "bundleSha256": "ba46176d596b55746731cfa0c2bc777ec3a5d5ee5ab2ed0bc44278e658981f85",
+    "localApk": ".scratch/runtime/cauda/baseline-profile.apk",
+    "updatedVersionLiteral": false
+  },
+  "optimized": {
+    "apkSha256": "33e3eb8c8cf4d264d3bcd16f0289212b2152eec945ded79361914ab252bae9ab",
+    "bundleSha256": "7991d522ae158dc3bc76df99f0eaae89d41cbe624ed7903847dab12d22b4c47f",
+    "localApk": ".scratch/runtime/cauda/optimized-profile.apk",
+    "updatedVersionLiteral": false
+  }
+}

@@ -1,0 +1,113 @@
+[
+  {
+    "label": "Nome",
+    "stableObservations": 2,
+    "samples": [
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,471][1017,597]",
+        "imeBounds": "[0,1541][1080,2424]"
+      },
+      {},
+      {},
+      {},
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,471][1017,597]",
+        "imeBounds": "[0,1541][1080,2424]"
+      }
+    ]
+  },
+  {
+    "label": "E-mail",
+    "stableObservations": 2,
+    "samples": [
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,700][1017,826]",
+        "imeBounds": "[0,1541][1080,2424]"
+      },
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,700][1017,826]",
+        "imeBounds": "[0,1541][1080,2424]"
+      }
+    ]
+  },
+  {
+    "label": "Senha",
+    "stableObservations": 2,
+    "samples": [
+      {
+        "focused": "true",
+        "imeVisible": "false",
+        "fieldBounds": "[63,929][776,1055]",
+        "imeBounds": "[0,0][0,0]"
+      },
+      {},
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,929][776,1055]",
+        "imeBounds": "[0,1541][1080,2424]"
+      },
+      {},
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,929][776,1055]",
+        "imeBounds": "[0,1541][1080,2424]"
+      }
+    ]
+  },
+  {
+    "label": "Fuso horário",
+    "stableObservations": 2,
+    "samples": [
+      {
+        "imeVisible": "true",
+        "imeBounds": "[0,1541][1080,2424]"
+      },
+      {
+        "imeVisible": "true",
+        "imeBounds": "[0,1541][1080,2424]"
+      },
+      {},
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,690][1017,816]",
+        "imeBounds": "[0,1541][1080,2424]"
+      },
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,690][1017,816]",
+        "imeBounds": "[0,1541][1080,2424]"
+      }
+    ]
+  },
+  {
+    "label": "Nome do hábito",
+    "stableObservations": 2,
+    "samples": [
+      {},
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,1215][1017,1341]",
+        "imeBounds": "[0,1541][1080,2424]"
+      },
+      {
+        "focused": "true",
+        "imeVisible": "true",
+        "fieldBounds": "[63,1215][1017,1341]",
+        "imeBounds": "[0,1541][1080,2424]"
+      }
+    ]
+  }
+]

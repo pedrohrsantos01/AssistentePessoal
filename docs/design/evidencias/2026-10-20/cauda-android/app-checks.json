@@ -1,0 +1,17 @@
+[
+  {
+    "seconds": 9.5250827,
+    "exitCode": 0,
+    "command": "pnpm --dir app typecheck"
+  },
+  {
+    "seconds": 26.8475922,
+    "exitCode": 0,
+    "command": "pnpm --dir app lint"
+  },
+  {
+    "seconds": 62.4132493,
+    "exitCode": 0,
+    "command": "pnpm --dir app test"
+  }
+]

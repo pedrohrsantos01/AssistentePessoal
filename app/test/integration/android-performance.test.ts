@@ -14,6 +14,7 @@ import {pt} from '../../src/i18n/pt-BR.ts';
 import {frameSample,summarizePerformance,correlateColdStartup,pidIsAbsent,type ColdProof,type FrameSample} from '../support/performance-samples.ts';
 import {failureKind,retryDelay} from '../../src/core/sync/retry.ts';
 import {attributeToggleLatency} from '../support/toggle-latency.ts';
+import {attributeToggleProfiles,assembleToggleProfiles} from '../support/toggle-profile.ts';
 // API fixture starts before the emulator. Accept only the launcher's verified discovery path.
 if(process.env.RITMO_READER_BOOTSTRAP){
  const directory=resolve(process.env.RITMO_READER_BOOTSTRAP),ready=join(directory,'device.json'),deadline=Date.now()+240000;
@@ -38,7 +39,7 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
  const folder=resolve(process.env.RITMO_JOURNEY_EVIDENCE!);mkdirSync(folder,{recursive:true});
  const capture=(name:string)=>writeFileSync(join(folder,name+'.png'),execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'exec-out','screencap','-p'],{windowsHide:true,timeout:30000,maxBuffer:16*1024*1024}));
  const observingFocus=process.env.RITMO_READER_OBSERVE_FOCUS==='1';assert.equal(observingFocus,false,'performance_requires_no_focus_override');
- const phases:string[]=[],targets:Record<string,unknown>[]=[],imeReadiness:Record<string,unknown>[]=[],rawFrames:FrameSample[]=[],launches:Record<string,unknown>[]=[],jsMarks:unknown[]=[];
+ const phases:string[]=[],targets:Record<string,unknown>[]=[],imeReadiness:Record<string,unknown>[]=[],rawFrames:FrameSample[]=[],launches:Record<string,unknown>[]=[],jsMarks:unknown[]=[],profiles:unknown[]=[];
 
  const report=(phase:string,fontScale=1)=>{phases.push(phase);const line=JSON.stringify({phase,passed:true,fontScale});console.log(line);if(process.env.RITMO_READER_PROGRESS)appendFileSync(process.env.RITMO_READER_PROGRESS,line+'\n');};
  const read=()=>{
@@ -119,6 +120,29 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
  const repeat=async<T,>(work:()=>Promise<T>):Promise<T>=>{for(let attempt=1;;attempt++)try{return await work();}catch(error){if(attempt>=3||failureKind(error)!=='retry')throw error;await pause(retryDelay(attempt,error,Date.now()));}};
  const run=randomUUID(),email='perf'+run+'@example.test',password='performance-fixture-password',title='Amostra local';
  let other:ReturnType<typeof openTestStore>|undefined;
+ let tracePid:string|undefined;
+ const tracePath='/data/misc/perfetto-traces/ritmo-'+run+'.pftrace';
+ const traceConfig=`duration_ms: 900000
+buffers { size_kb: 32768 fill_policy: RING_BUFFER }
+builtin_data_sources { primary_trace_clock: BUILTIN_CLOCK_MONOTONIC snapshot_interval_ms: 1000 }
+write_into_file: true
+file_write_period_ms: 1000
+flush_period_ms: 1000
+max_file_size_bytes: 134217728
+data_sources { config { name: "linux.ftrace" ftrace_config {
+ ftrace_events: "sched/sched_switch"
+ ftrace_events: "sched/sched_waking"
+ ftrace_events: "task/task_newtask"
+ ftrace_events: "task/task_rename"
+} } }
+data_sources { config { name: "linux.process_stats" process_stats_config { scan_all_processes_on_start: true proc_stats_poll_ms: 1000 } } }
+`;
+ const stopTrace=async()=>{
+  if(!tracePid)return;const pid=tracePid;tracePid=undefined;
+  const command=adb('shell','cat','/proc/'+pid+'/cmdline');assert.ok(command.includes('perfetto')&&command.includes(tracePath),'trace_process_identity_changed');
+  adb('shell','kill','-TERM',pid);await pause(1500);
+  adb('pull',tracePath,join(folder,'scheduler.pftrace'));
+ };
  const logs=(pid:string)=>adb('logcat','-d','--pid='+pid,'-v','raw','-s','RitmoPerf:I','ReactNativeJS:I','*:S').split('\n');
  const frames=(pid:string)=>logs(pid).filter(l=>l.startsWith('{')).map(l=>JSON.parse(l) as unknown);
  const waitFrame=async(pid:string,sample:number,kind:'startup'|'toggle',sequence?:number,proof?:ColdProof)=>{
@@ -139,6 +163,16 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
  const assertNoPid=()=>{try{assert.equal(adb('shell','pidof',pkg),'');}catch(error){if(!pidIsAbsent(error))throw error;}};
  try {
   assert.ok(Number(adb('shell','getprop','ro.build.version.sdk'))>=35);
+  // Validate the device's trace parser before spending time preparing the UI.
+  const preflightPath=tracePath+'.preflight';
+  execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'shell','perfetto','--txt','-c','-','-o',preflightPath],{input:traceConfig.replace('duration_ms: 900000','duration_ms: 1000'),encoding:'utf8',windowsHide:true,timeout:15000});
+  assert.ok(Number(adb('shell','stat','-c','%s',preflightPath))>0);
+  const preflightFile=join(folder,'scheduler-preflight.pftrace');adb('pull',preflightPath,preflightFile);adb('shell','rm',preflightPath);
+  const processor=resolve(import.meta.dirname,'../../../.scratch/runtime/cauda/trace_processor_shell.exe');
+  assert.equal(createHash('sha256').update(readFileSync(processor)).digest('hex'),'adfa6bad3d72be3ba9b83fa2b17b69fa13b3ab1cad0f42e52b86188bd5f0f997');
+  const preflightStats=execFileSync(processor,['query',preflightFile,"SELECT name,severity,value FROM stats WHERE severity IN ('data_loss','error') AND value > 0"],{encoding:'utf8',windowsHide:true,timeout:30000});
+  writeFileSync(join(folder,'scheduler-preflight-stats.csv'),preflightStats);assert.equal(preflightStats.trim().split(/\r?\n/).length,1,'scheduler_preflight_has_loss_or_error');assert.match(preflightStats,/name.*severity.*value/);
+  writeFileSync(join(folder,'scheduler-preflight.json'),JSON.stringify({deviceConfigAccepted:true,processorConfigAccepted:true,durationMs:1000},null,2)+'\n');
   adb('shell','settings','put','secure','enabled_accessibility_services','null');adb('shell','settings','put','secure','accessibility_enabled','0');adb('shell','settings','put','secure','touch_exploration_enabled','0');
   // Isolate keyboard preparation from the system's first-use handwriting tutorial.
   adb('shell','settings','put','secure','stylus_handwriting_enabled','0');assert.equal(adb('shell','settings','get','secure','stylus_handwriting_enabled'),'0');
@@ -150,6 +184,9 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
   const transport=new HttpSync(origin,credentials.accountId,()=>credentials.accessToken,uuid);await repeat(()=>synchronize(other!,transport));
   const instant=(await transport.pull(other.cursor())).serverTime,day=getDayKey(new Date(instant),credentials.profile.timeContext.timezone,credentials.profile.timeContext.dayStartHour);
   report('real_account_and_local_habit_prepared');offline();await find(pt.offline);await snapshot('01-offline-before-cohort');
+  writeFileSync(join(folder,'scheduler-config.pbtx'),traceConfig);
+  const traceOutput=execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'shell','perfetto','--background-wait','--txt','-c','-','-o',tracePath],{input:traceConfig,encoding:'utf8',windowsHide:true,timeout:45000});
+  assert.match(traceOutput.trim(),/^[0-9]+$/);tracePid=traceOutput.trim();writeFileSync(join(folder,'scheduler-recording.json'),JSON.stringify({pid:tracePid,path:tracePath,clock:'MONOTONIC',cpuSource:'sched_switch',requiresSeparateValidation:true},null,2)+'\n');
   const rejected=adb('shell','am','instrument','-e','targetPackage','dev.ritmo.journeytest','-e','sample','1','-w','dev.ritmo.readerobserver/.PerformanceLauncher');
   assert.match(rejected,/launcher_error=isolated_performance_target_required/);writeFileSync(join(folder,'launcher-target-guard.json'),JSON.stringify({normalPackageRejected:true},null,2)+'\n');
   const pids=new Set<string>();
@@ -181,17 +218,24 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
     await find(pt.habitLabel(title,sequence===1));await find(pt.totalXp(sequence===1?10:0));
     if(sample===1&&sequence===1||sample===10&&sequence===2)await snapshot('03-toggle-'+sample+'-'+sequence);
    }
-   jsMarks.push(...logs(pid).filter(l=>l.includes('RITMO_PERF_JS ')).map(l=>{const at=l.indexOf('RITMO_PERF_JS ');try{return {sample,...JSON.parse(l.slice(at+14)) as Record<string,unknown>};}catch{return {sample,unparsed:true};}}));
+   await pause(550); // Diagnostic profile emission is deferred beyond the timed response.
+   const outputLines=logs(pid);
+   jsMarks.push(...outputLines.filter(l=>l.includes('RITMO_PERF_JS ')).map(l=>{const at=l.indexOf('RITMO_PERF_JS ');try{return {sample,...JSON.parse(l.slice(at+14)) as Record<string,unknown>};}catch{return {sample,unparsed:true};}}));
+   profiles.push(...outputLines.filter(l=>l.includes('RITMO_PERF_PROFILE ')).map(l=>({sample,...JSON.parse(l.slice(l.indexOf('RITMO_PERF_PROFILE ')+19)) as Record<string,unknown>})));
+   writeFileSync(join(folder,'javascript-profiles.json'),JSON.stringify(profiles,null,2)+'\n');
+   writeFileSync(join(folder,'javascript-milestones.json'),JSON.stringify(jsMarks,null,2)+'\n');
    writeFileSync(join(folder,'native-frames.json'),JSON.stringify(rawFrames,null,2)+'\n');writeFileSync(join(folder,'cold-launches.json'),JSON.stringify(launches,null,2)+'\n');
    report('cold_'+sample+'_and_two_visual_changes_measured');
   }
   const summary=summarizePerformance(rawFrames);writeFileSync(join(folder,'performance-summary.json'),JSON.stringify(summary,null,2)+'\n');writeFileSync(join(folder,'javascript-milestones.json'),JSON.stringify(jsMarks,null,2)+'\n');
   writeFileSync(join(folder,'toggle-attribution.json'),JSON.stringify(attributeToggleLatency(rawFrames,jsMarks),null,2)+'\n');
+  writeFileSync(join(folder,'toggle-profiles.json'),JSON.stringify(attributeToggleProfiles(rawFrames,jsMarks,assembleToggleProfiles(profiles)),null,2)+'\n');
   launch();await find(pt.offline);await find(pt.habitLabel(title,false));await find(pt.totalXp(0));await snapshot('04-cohort-survives-restart');await press(pt.habitLabel(title,false));await find(pt.totalXp(10));online();await find(pt.synced);
   await repeat(()=>synchronize(other!,transport));assert.equal(other.view(day).habits.filter(h=>h.title===title).length,1);assert.equal(other.view(day).habits.find(h=>h.title===title)?.done,true);assert.equal(other.view(day).totalXp,10);await snapshot('05-confirmed-once');
   writeFileSync(join(folder,'remote-result.json'),JSON.stringify({habitCount:1,done:true,totalXp:10,coldStarts:10,timedVisualChanges:20,persistedAfterRestart:true},null,2)+'\n');report('durable_final_mark_converges_once');success=true;
  }catch(error){try{await snapshot('failure-performance');}catch{}throw error;}finally{
   other?.close();const failedSteps:string[]=[];
+  try{await stopTrace();}catch{failedSteps.push('scheduler_trace');}
   const work=[{name:'bridge',run:()=>touch.close()},...saved.map(([k,v])=>({name:k,run:()=>v==='null'?adb('shell','settings','delete','secure',k):adb('shell','settings','put','secure',k,v)})),...animations.map(([k,v])=>({name:k,run:()=>v==='null'?adb('shell','settings','delete','global',k):adb('shell','settings','put','global',k,v)})),{name:'network',run:restoreNetwork},{name:'font',run:()=>adb('shell','settings','put','system','font_scale',font)},{name:'screen_timeout',run:()=>adb('shell','settings','put','system','screen_off_timeout',screenTimeout)},{name:'stop_fixture',run:()=>adb('shell','am','force-stop',pkg)},...(reversed?[{name:'reverse',run:()=>adb('reverse','--remove',devicePort)}]:[])];
   for(const step of work)try{await step.run();}catch{failedSteps.push(step.name);}
   const readback:Record<string,string>={};

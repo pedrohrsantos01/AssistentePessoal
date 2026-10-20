@@ -19,6 +19,10 @@ Listas sempre virtualizadas (`FlashList`). Nenhuma query síncrona na thread de 
 
 [Comparação e limites](../docs/analises/2026-10-20-latencia-do-cumprimento-m1.md): atualização duplicada removida após commit. No AVD/API35/3 GB, p50 de 130,74→97,31 ms e 1/20→12/20 dentro de 100 ms; p95 corrigido160,58 ms/máximo 234,66 ms. Não aceita100 ms em todas as amostras, aparelho mediano físico ou M1. Probe v4 exige o mesmo PressEvent/UP e preserva amostras altas válidas; versões anteriores não permitem atribuir picos sem essa correlação. Cards continuam0/10≤300 ms. Próximo: decompor a cauda do cumprimento, depois partida dos cards.
 
+### Evidência parcial da resolução IANA — 20/10/2026
+
+[Perfil da cauda e limites](../docs/analises/2026-10-20-cauda-do-cumprimento-m1.md): resolução determinística memoizada, com um fuso/dois limites civis e sem cache de conta ou “hoje”. Comparação v4+sched1 com a mesma observação detalhada: p50 137,98→85,36 ms, p95 236,96→101,00 ms, máximo 270,67→120,76 ms e 0/20→18/20 dentro de 100 ms. As duas amostras altas permanecem; a meta não foi aceita. Spans de dia: p50 33,91→0,95 ms, redução de 97,19%. Escalonamento do convidado não prova CPU útil ou causa no host. Próximo: confirmar feedback com observação reduzida; cards continuam 0/10≤300 ms no perfil detalhado. Não aceita aparelho mediano físico, iPhone ou M1.
+
 ## 2. Confiabilidade
 
 - Crash-free sessions ≥ 99,5%

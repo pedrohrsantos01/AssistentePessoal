@@ -1,0 +1,442 @@
+[
+  {
+    "sample": 1,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 150.4371000000101,
+    "handlerAtMs": 169281.9997,
+    "reactAtMs": 169387.7378,
+    "eventToDispatchMs": 1.6472000000067055,
+    "dispatchProbeMs": 0.30590000000665896,
+    "dispatchToHandlerMs": 18.427499999990687,
+    "handlerToCommitMs": 30.121300000027986,
+    "commitToReturnMs": 51.38849999997183,
+    "returnToReactMs": 24.228300000017043,
+    "reactToFrameMs": 24.624299999995856,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 51.00899999999092
+      }
+    ],
+    "clockBracketMaxMs": 0.2993999999889638
+  },
+  {
+    "sample": 1,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 219.14480000000913,
+    "handlerAtMs": 179579.0015,
+    "reactAtMs": 179751.481,
+    "eventToDispatchMs": 4.182499999995343,
+    "dispatchProbeMs": 0.29570000001695007,
+    "dispatchToHandlerMs": 15.471000000019558,
+    "handlerToCommitMs": 74.52019999999902,
+    "commitToReturnMs": 70.71339999997872,
+    "returnToReactMs": 27.245900000008987,
+    "reactToFrameMs": 27.011800000007497,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 70.18739999999525
+      }
+    ],
+    "clockBracketMaxMs": 0.418100000009872
+  },
+  {
+    "sample": 2,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 139.3683000000019,
+    "handlerAtMs": 190132.057,
+    "reactAtMs": 190228.7495,
+    "eventToDispatchMs": 1.3985999999858905,
+    "dispatchProbeMs": 0.29120000000693835,
+    "dispatchToHandlerMs": 8.09340000001248,
+    "handlerToCommitMs": 37.107400000008056,
+    "commitToReturnMs": 37.03740000000107,
+    "returnToReactMs": 22.54769999999553,
+    "reactToFrameMs": 33.18379999999888,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 36.48119999998016
+      }
+    ],
+    "clockBracketMaxMs": 0.036099999997531995
+  },
+  {
+    "sample": 2,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 158.89400000000023,
+    "handlerAtMs": 193031.4094,
+    "reactAtMs": 193153.7997,
+    "eventToDispatchMs": 5.550300000002608,
+    "dispatchProbeMs": 0.2973000000056345,
+    "dispatchToHandlerMs": 4.722100000013597,
+    "handlerToCommitMs": 41.33280000000377,
+    "commitToReturnMs": 51.01480000000447,
+    "returnToReactMs": 30.042699999990873,
+    "reactToFrameMs": 26.231299999984913,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 50.5054999999993
+      }
+    ],
+    "clockBracketMaxMs": 0.04829999999492429
+  },
+  {
+    "sample": 3,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 238.65530000001309,
+    "handlerAtMs": 201695.3586,
+    "reactAtMs": 201848.2288,
+    "eventToDispatchMs": 1.1360000000277068,
+    "dispatchProbeMs": 0.41199999998207204,
+    "dispatchToHandlerMs": 37.73759999999311,
+    "handlerToCommitMs": 47.79959999999846,
+    "commitToReturnMs": 67.1652999999933,
+    "returnToReactMs": 37.905300000013085,
+    "reactToFrameMs": 46.91149999998743,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 66.4996000000101
+      }
+    ],
+    "clockBracketMaxMs": 0.08759999999892898
+  },
+  {
+    "sample": 3,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 162.2602000000188,
+    "handlerAtMs": 208317.3106,
+    "reactAtMs": 208435.6602,
+    "eventToDispatchMs": 1.363900000025751,
+    "dispatchProbeMs": 1.1519999999727588,
+    "dispatchToHandlerMs": 15.146699999982957,
+    "handlerToCommitMs": 37.140299999999115,
+    "commitToReturnMs": 53.93369999999413,
+    "returnToReactMs": 27.275600000022678,
+    "reactToFrameMs": 27.39999999999418,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 52.96140000000014
+      }
+    ],
+    "clockBracketMaxMs": 0.43590000001131557
+  },
+  {
+    "sample": 4,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 186.34050000002026,
+    "handlerAtMs": 221482.0474,
+    "reactAtMs": 221617.9532,
+    "eventToDispatchMs": 1.8268000000098255,
+    "dispatchProbeMs": 0.4170999999914784,
+    "dispatchToHandlerMs": 3.635600000008708,
+    "handlerToCommitMs": 43.36119999998482,
+    "commitToReturnMs": 54.07459999999264,
+    "returnToReactMs": 38.470000000001164,
+    "reactToFrameMs": 44.9723000000231,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 53.58240000001388
+      }
+    ],
+    "clockBracketMaxMs": 0.0650000000023283
+  },
+  {
+    "sample": 4,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 162.9273000000103,
+    "handlerAtMs": 226696.5235,
+    "reactAtMs": 226815.8485,
+    "eventToDispatchMs": 1.3017000000108965,
+    "dispatchProbeMs": 0.46199999999953434,
+    "dispatchToHandlerMs": 12.408800000004703,
+    "handlerToCommitMs": 42.92280000000028,
+    "commitToReturnMs": 44.025499999988824,
+    "returnToReactMs": 32.376699999993434,
+    "reactToFrameMs": 29.891800000012154,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 43.553000000014435
+      }
+    ],
+    "clockBracketMaxMs": 0.046200000011594966
+  },
+  {
+    "sample": 5,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 164.80059999998775,
+    "handlerAtMs": 245036.1857,
+    "reactAtMs": 245153.9069,
+    "eventToDispatchMs": 0.9468000000051688,
+    "dispatchProbeMs": 0.31689999997615814,
+    "dispatchToHandlerMs": 16.646899999992456,
+    "handlerToCommitMs": 46.220000000001164,
+    "commitToReturnMs": 47.11209999999846,
+    "returnToReactMs": 24.389100000000326,
+    "reactToFrameMs": 29.485699999990175,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 46.36290000000736
+      }
+    ],
+    "clockBracketMaxMs": 0.05929999999352731
+  },
+  {
+    "sample": 5,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 298.5632999999798,
+    "handlerAtMs": 253373.4349,
+    "reactAtMs": 253578.075,
+    "eventToDispatchMs": 73.95569999999134,
+    "dispatchProbeMs": 0.28699999998207204,
+    "dispatchToHandlerMs": 2.8011999999871477,
+    "handlerToCommitMs": 136.04690000001574,
+    "commitToReturnMs": 41.62849999999162,
+    "returnToReactMs": 26.964700000011362,
+    "reactToFrameMs": 17.166299999982584,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 40.8975999999966
+      }
+    ],
+    "clockBracketMaxMs": 0.04970000000321306
+  },
+  {
+    "sample": 6,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 175.61759999999776,
+    "handlerAtMs": 270431.5489,
+    "reactAtMs": 270568.711,
+    "eventToDispatchMs": 3.152700000035111,
+    "dispatchProbeMs": 0.31339999998454005,
+    "dispatchToHandlerMs": 8.824199999973644,
+    "handlerToCommitMs": 44.03570000000764,
+    "commitToReturnMs": 55.93949999997858,
+    "returnToReactMs": 37.18690000002971,
+    "reactToFrameMs": 26.478599999973085,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 55.03310000000056
+      }
+    ],
+    "clockBracketMaxMs": 0.061600000015459955
+  },
+  {
+    "sample": 6,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 392.58030000003055,
+    "handlerAtMs": 286926.6034,
+    "reactAtMs": 287159.9956,
+    "eventToDispatchMs": 28.737100000027567,
+    "dispatchProbeMs": 0.291800000006333,
+    "dispatchToHandlerMs": 111.5973000000231,
+    "handlerToCommitMs": 140.69579999998678,
+    "commitToReturnMs": 51.65769999998156,
+    "returnToReactMs": 41.038700000033714,
+    "reactToFrameMs": 18.853699999977835,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 51.2322999999742
+      }
+    ],
+    "clockBracketMaxMs": 0.07440000004135072
+  },
+  {
+    "sample": 7,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 183.31239999999525,
+    "handlerAtMs": 306131.6192,
+    "reactAtMs": 306244.3257,
+    "eventToDispatchMs": 33.006999999983236,
+    "dispatchProbeMs": 0.3501999999862164,
+    "dispatchToHandlerMs": 16.461200000019744,
+    "handlerToCommitMs": 49.976299999980256,
+    "commitToReturnMs": 38.461300000024494,
+    "returnToReactMs": 24.26889999996638,
+    "reactToFrameMs": 21.13770000002114,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 37.93650000001071
+      }
+    ],
+    "clockBracketMaxMs": 0.04889999999431893
+  },
+  {
+    "sample": 7,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 141.16399999998976,
+    "handlerAtMs": 311297.2478,
+    "reactAtMs": 311408.3971,
+    "eventToDispatchMs": 1.102199999964796,
+    "dispatchProbeMs": 0.5253000000375323,
+    "dispatchToHandlerMs": 8.391600000031758,
+    "handlerToCommitMs": 38.445699999982025,
+    "commitToReturnMs": 47.06160000001546,
+    "returnToReactMs": 25.64199999999255,
+    "reactToFrameMs": 20.520900000003166,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 46.162700000044424
+      }
+    ],
+    "clockBracketMaxMs": 0.0470000000204891
+  },
+  {
+    "sample": 8,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 186.84390000003623,
+    "handlerAtMs": 329799.6115,
+    "reactAtMs": 329932.9035,
+    "eventToDispatchMs": 1.5584999999846332,
+    "dispatchProbeMs": 0.36210000002756715,
+    "dispatchToHandlerMs": 6.226000000024214,
+    "handlerToCommitMs": 50.863300000026356,
+    "commitToReturnMs": 48.87689999997383,
+    "returnToReactMs": 33.551800000015646,
+    "reactToFrameMs": 45.76740000001155,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 48.23450000002049
+      }
+    ],
+    "clockBracketMaxMs": 0.052900000009685755
+  },
+  {
+    "sample": 8,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 160.23070000001462,
+    "handlerAtMs": 346647.1929,
+    "reactAtMs": 346764.3754,
+    "eventToDispatchMs": 1.1860000000451691,
+    "dispatchProbeMs": 0.44589999999152496,
+    "dispatchToHandlerMs": 9.939899999997579,
+    "handlerToCommitMs": 41.67309999995632,
+    "commitToReturnMs": 46.4377000000095,
+    "returnToReactMs": 29.071700000029523,
+    "reactToFrameMs": 31.92229999997653,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 45.7894999999553
+      }
+    ],
+    "clockBracketMaxMs": 0.12020000000484288
+  },
+  {
+    "sample": 9,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 103.86940000002505,
+    "handlerAtMs": 359130.5315,
+    "reactAtMs": 359203.4889,
+    "eventToDispatchMs": 3.237100000027567,
+    "dispatchProbeMs": 0.49560000002384186,
+    "dispatchToHandlerMs": 2.0363999999826774,
+    "handlerToCommitMs": 23.227200000023004,
+    "commitToReturnMs": 29.92160000000149,
+    "returnToReactMs": 19.808599999989383,
+    "reactToFrameMs": 25.63850000000093,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 29.48379999998724
+      }
+    ],
+    "clockBracketMaxMs": 0.052099999971687794
+  },
+  {
+    "sample": 9,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 224.9434000000474,
+    "handlerAtMs": 363631.3736,
+    "reactAtMs": 363801.9542,
+    "eventToDispatchMs": 17.557000000029802,
+    "dispatchProbeMs": 0.31189999997150153,
+    "dispatchToHandlerMs": 3.988599999982398,
+    "handlerToCommitMs": 80.96450000000186,
+    "commitToReturnMs": 60.43170000001555,
+    "returnToReactMs": 29.184399999969173,
+    "reactToFrameMs": 32.817200000048615,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 58.88689999998314
+      }
+    ],
+    "clockBracketMaxMs": 0.05280000000493601
+  },
+  {
+    "sample": 10,
+    "sequence": 1,
+    "checked": true,
+    "totalMs": 313.9910999999847,
+    "handlerAtMs": 384273.0751,
+    "reactAtMs": 384502.5343,
+    "eventToDispatchMs": 37.728799999982584,
+    "dispatchProbeMs": 0.33950000000186265,
+    "dispatchToHandlerMs": 19.038300000014715,
+    "handlerToCommitMs": 149.50750000000698,
+    "commitToReturnMs": 55.227099999960046,
+    "returnToReactMs": 24.724600000015926,
+    "reactToFrameMs": 27.76480000000447,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 54.73369999998249
+      }
+    ],
+    "clockBracketMaxMs": 0.036900000006426126
+  },
+  {
+    "sample": 10,
+    "sequence": 2,
+    "checked": false,
+    "totalMs": 140.4367000000202,
+    "handlerAtMs": 394397.8715,
+    "reactAtMs": 394508.9963,
+    "eventToDispatchMs": 1.0850000000209548,
+    "dispatchProbeMs": 0.6007000000099652,
+    "dispatchToHandlerMs": 16.914500000013504,
+    "handlerToCommitMs": 38.87969999999041,
+    "commitToReturnMs": 44.62270000000717,
+    "returnToReactMs": 27.622399999992922,
+    "reactToFrameMs": 11.31239999999525,
+    "refreshCount": 1,
+    "refreshes": [
+      {
+        "durationMs": 43.7839999999851
+      }
+    ],
+    "clockBracketMaxMs": 0.2405000000144355
+  }
+]

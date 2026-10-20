@@ -1,0 +1,42 @@
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+{"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_4_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_5_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_6_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_7_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_8_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_9_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_10_and_two_visual_changes_measured","passed":true,"fontScale":1}
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (317476.4115ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 394108.3564
+
+✖ failing tests:
+
+test at test\integration\android-performance.test.ts:1:2644
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (317476.4115ms)
+  AssertionError [ERR_ASSERTION]: profile_cpu_clock_invalid
+      at interval (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\support\toggle-profile.ts:16:9)
+      at value (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\support\toggle-profile.ts:47:76)
+      at Array.map (<anonymous>)
+      at <anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\support\toggle-profile.ts:40:23)
+      at Array.map (<anonymous>)
+      at attributeToggleProfiles (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\support\toggle-profile.ts:36:29)
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:196:68)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

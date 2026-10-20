@@ -1,0 +1,17 @@
+{
+  "restored": true,
+  "failedSteps": [],
+  "readback": {
+    "enabled_accessibility_services": "null",
+    "accessibility_enabled": "0",
+    "touch_exploration_enabled": "0",
+    "stylus_handwriting_enabled": "null",
+    "animator_duration_scale": "null",
+    "transition_animation_scale": "1.0",
+    "window_animation_scale": "1.0",
+    "font_scale": "1.0",
+    "screen_off_timeout": "2147483647",
+    "wifi_on": "1",
+    "mobile_data": "1"
+  }
+}

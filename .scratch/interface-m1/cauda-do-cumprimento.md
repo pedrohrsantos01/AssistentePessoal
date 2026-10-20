@@ -1,6 +1,6 @@
 # Próximo recorte — cauda do cumprimento e recomposição restante
 
-Status: ready. Origem: issue06, spec/07 §1 e [comparação de 20/10/2026](../../docs/analises/2026-10-20-latencia-do-cumprimento-m1.md). Não iniciado.
+Status: done em 20/10/2026 para o incremento de perfil e resolução IANA memoizada; meta completa de 100 ms permanece aberta. Origem: issue06, spec/07 §1 e [comparação de 20/10/2026](../../docs/analises/2026-10-20-latencia-do-cumprimento-m1.md).
 
 A atualização duplicada foi removida: uma publicação após commit em 20/20 casos. No método v4, o feedback corrigido teve p50 de 97,31 ms, p95 de 160,58 ms, máximo de 234,66 ms e 12/20≤ 100 ms. A meta continua aberta. O maior caso teve77,86 ms entre handler/commit e 52,25 ms entre commit/retorno, além de atraso de entrega e apresentação; não culpar apenas o SQLite.
 
@@ -10,4 +10,8 @@ Manter probe v4: DOWN/UP elegível e PressEvent correspondente, relógios nativo
 
 Repetir tipos/lint/suíte app/check API. Testes visíveis; emulador e acompanhamento apenas durante ensaio e fechados ao final, preservando processos preexistentes. Evitar compilação ou suítes pesadas concorrentes durante medições. Essa condição de isolamento não estabelece a causa das variações já observadas.
 
-Depois, partida dos cards (continua0/10≤ 300 ms na coorte corrigida). Issue06/M1 permanecem abertos também por demais estados/leitura/paletas, aceite físico/iPhone adiado e gates externos documentados.
+Próximo: [confirmar feedback com observação reduzida](feedback-com-probe-leve.md), depois partida dos cards (continua0/10≤ 300 ms na coorte corrigida). Issue06/M1 permanecem abertos também por demais estados/leitura/paletas, aceite físico/iPhone adiado e gates externos documentados.
+
+Diagnóstico iniciado: replay dos frames/marcos `optimized4` através de `attributeToggleLatency` reproduziu 8/20 acima de 100 ms, máximo 234,6592 ms; assertiva `high.length === 0` falhou. Hipóteses ordenadas: cálculo repetido do dia/fuso; leituras/projeções da apresentação; transação; espera do runtime/apresentação. Separar CPU da thread JS e tempo decorrido, com observador síncrono restrito ao APK isolado. Logs detalhados emitidos após o intervalo medido, em partes verificadas; ausência/duplicação/relógios ou thread incompatíveis invalidam a coorte. A instrumentação também tem custo; comparar sob a mesma instrumentação e não somar spans aninhados.
+
+Implementação e comparação concluídas: [relatório](../../docs/analises/2026-10-20-cauda-do-cumprimento-m1.md). Baseline4/optimized1, cada uma com dez processos/vinte alterações offline, preservando todas as amostras válidas. Resolução IANA 33,91→0,95 ms de mediana; feedback 137,98→85,36 ms, p95 101,00/máximo 120,76 ms e 18/20≤100 ms no otimizado. Sem cache de projeção/conta/“hoje”, alteração de schema ou antecipação de sucesso. Contador Debug inconsistente rejeitado; Perfetto MONOTONIC validado com cobertura e ausência de perdas. Tipos/lint/259 testes app, seis testes do analisador e reinício/convergência 10 XP aprovados; check API aprovado em 12 min 56 s (85 executados/oito opt-in ignorados, zero falhas/erros) e custódia final confirmada. Meta completa segue aberta e próximo recorte está ready.

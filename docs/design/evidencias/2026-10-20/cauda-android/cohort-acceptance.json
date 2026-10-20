@@ -1,0 +1,42 @@
+{
+  "baseline1": {
+    "nativeMeasurementPassed": false,
+    "coldFrames": 10,
+    "toggleFrames": 20,
+    "restored": true,
+    "acceptedForComparison": false,
+    "rejection": "Debug CPU interval inconsistent; final convergence not executed"
+  },
+  "baseline2": {
+    "nativeMeasurementPassed": false,
+    "coldFrames": 0,
+    "toggleFrames": 0,
+    "restored": true,
+    "acceptedForComparison": false,
+    "rejection": "focused field and visible stable IME not established; no cohort"
+  },
+  "baseline3": {
+    "nativeMeasurementPassed": true,
+    "coldFrames": 10,
+    "toggleFrames": 20,
+    "restored": true,
+    "acceptedForComparison": false,
+    "rejection": "unsafe streaming trace configuration flags; functional flow passed but scheduler profile rejected"
+  },
+  "baseline4": {
+    "nativeMeasurementPassed": true,
+    "coldFrames": 10,
+    "toggleFrames": 20,
+    "restored": true,
+    "acceptedForComparison": true
+  },
+  "optimized1": {
+    "nativeMeasurementPassed": true,
+    "coldFrames": 10,
+    "toggleFrames": 20,
+    "restored": true,
+    "acceptedForComparison": true
+  },
+  "physicalDeviceAccepted": false,
+  "fullM1Accepted": false
+}

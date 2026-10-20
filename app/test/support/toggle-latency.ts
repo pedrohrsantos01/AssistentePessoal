@@ -25,7 +25,7 @@ export function attributeToggleLatency(frames:readonly unknown[],rawMarks:readon
   const one=(phase:string)=>{const found=group.filter(m=>m.phase===phase);assert.equal(found.length,1,phase);return found[0]!;};
   const commit=one('store.committed'),returned=one('local.returned'),react=one('toggle.react'),refreshes=group.filter(m=>m.phase==='refresh.started'&&m.at<=returned.at);
   assert.ok(handler.at<=commit.at&&commit.at<=returned.at&&returned.at<=react.at&&react.at<=end,'phase_order_invalid');
-  return {sample:frame.sample,sequence:frame.sequence,checked:frame.checked,totalMs:end-input,eventToDispatchMs:dispatch-input,dispatchProbeMs:probeEnd-dispatch,dispatchToHandlerMs:handler.at-dispatch,
+  return {sample:frame.sample,sequence:frame.sequence,checked:frame.checked,totalMs:end-input,handlerAtMs:handler.at,reactAtMs:react.at,eventToDispatchMs:dispatch-input,dispatchProbeMs:probeEnd-dispatch,dispatchToHandlerMs:handler.at-dispatch,
    handlerToCommitMs:commit.at-handler.at,commitToReturnMs:returned.at-commit.at,returnToReactMs:react.at-returned.at,reactToFrameMs:end-react.at,
    refreshCount:refreshes.length,refreshes:refreshes.map(start=>{
     const finish=group.find(m=>m.phase==='refresh.finished'&&m.at>=start.at);assert.ok(finish&&finish.at<=returned.at,'refresh_end_missing');
