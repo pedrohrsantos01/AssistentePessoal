@@ -74,3 +74,7 @@ Stack aprovada na opção1: React DOM + TypeScript + Vite + React Router, Indexe
 | WEB-10 | HTTPS, domínio/remetente/reset, sessão/CSRF e isolamento A/B validados; gates operacionais existentes cumpridos antes de dados reais |
 
 WEB-01–10 são cenários locais, não novos ReqIDs. Mapear M1-01–20 de spec/13 à PWA, explicitando adaptações aprovadas. Build/Lighthouse/WebKit desktop não aceitam iPhone isoladamente. A prova web terá registro próprio e alimentará o aceite conjunto M1 com Android (Q65). O build nativo iOS continua sem aceite e terá entrega posterior. M1 permanece aberto até todas as provas/gates; Fase1 completa não é encerrada por este recorte.
+
+## 7. Evidência delimitada — 21/10/2026
+
+A [prova01](../docs/analises/2026-10-21-prova-tecnica-pwa.md) confirmou build React/Vite, transação Dexie, reabertura offline e candidato Web Locks+geração no Chrome visível. Migração V1→V2 foi exercitada em fake-indexeddb. O ensaio isolado não define schema/sessão web de produto, não valida Safari físico e não aceita WEB-01–10 integralmente. Próximo recorte: contratos02 e roteiro iPhone do relatório.

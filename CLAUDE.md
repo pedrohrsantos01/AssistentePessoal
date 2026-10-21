@@ -32,12 +32,12 @@
 - `expo-secure-store` (token), `expo-web-browser` (abrir link); áudio será selecionado no incremento de voz, sem instalar o antigo `expo-av` no primeiro marco
 - Sentry (erro) e PostHog (produto, com opt-in)
 
-### PWA (frontend web próprio, ainda não implementado)
+### PWA (frontend web próprio; prova sintética em `/web`, produto ainda pendente)
 - React DOM + TypeScript strict + Vite + React Router, conforme [ADR-020](docs/adr/0020-pwa-com-frontend-web-proprio.md), aceito em 21/10/2026
 - IndexedDB com Dexie para persistência local; Workbox para o service worker/cache de recursos
 - HTML/CSS com tokens, textos e referência Ritmo-App; lógica pura/contratos compartilhados quando desacoplados
 - API Java existente e hospedagem estática; Expo Web, expo-sqlite web e Dexie Cloud não integram essa variante
-- Versões exatas e compatibilidade serão verificadas na prova01; sessão, schema web, abas e atualização seguem os contratos pendentes de spec/14. Não copiar APIs síncronas de Drizzle ou SecureStore para o navegador
+- A [prova01](docs/analises/2026-10-21-prova-tecnica-pwa.md) fixa versões e verifica o ensaio local no Chrome; não aceita Safari físico ou jornada M1. Sessão, schema web, abas e atualização de produto seguem os contratos pendentes de spec/14. Não copiar APIs síncronas de Drizzle ou SecureStore para o navegador
 
 ### Backend (`/api`)
 - **Java 21 + Spring Boot 4.1.1 + Spring Modulith 2.1.1**. Revisão técnica de 25/09/2026: Boot 3.5 encerrou suporte aberto; a arquitetura Java/Spring permanece, sem código legado a migrar

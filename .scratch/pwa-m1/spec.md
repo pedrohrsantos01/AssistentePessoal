@@ -1,10 +1,10 @@
 # Entrega adicional — Ritmo M1 em PWA
 
-Data: 21/10/2026. Estado: opção1 aprovada; prova técnica não iniciada. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
+Data: 21/10/2026. Estado: prova01 concluída localmente; contratos02 pendentes. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
 
 ## Objetivo e fronteira
 
-M1 no Safari e na Tela de Início do iPhone16e, preservando nativo, conta/API, Ritmo-App e domínio. Q61–Q65 aprovados: M1 funcional, dois acessos, limite de durabilidade explícito, uma aba proprietária por instalação. Pedido desta sessão: planejamento; sem publicação/contratação ou execução dos recortes.
+M1 no Safari e na Tela de Início do iPhone16e, preservando nativo, conta/API, Ritmo-App e domínio. Q61–Q65 aprovados: M1 funcional, dois acessos, limite de durabilidade explícito, uma aba proprietária por instalação. Planejamento e prova01 local autorizados; sem publicação/contratação ou aceite funcional.
 
 Não duplicar tarefas de domínio, nome/domínio/Resend, aceite nativo ou operação externa. Tarefas/Agenda/voz e gamificação ampliada ficam fora deste marco.
 
@@ -12,7 +12,7 @@ Não duplicar tarefas de domínio, nome/domínio/Resend, aceite nativo ou opera�
 
 | Tarefa | Resultado | Triagem |
 |---|---|---|
-| [01 — Portabilidade/persistência](issues/01-provar-portabilidade-e-persistencia.md) | Ensaio sintético na opção1 aprovada; versões e compatibilidade a provar | ready-for-agent |
+| [01 — Portabilidade/persistência](issues/01-provar-portabilidade-e-persistencia.md) | Ensaio React/Vite/Dexie/Workbox no Chrome; Safari continua gate02 | done |
 | [02 — Contratos web](issues/02-fechar-contratos-do-navegador.md) | Evidência Safari, ADR/contratos da jornada funcional | needs-info |
 | [03 — Jornada vertical](issues/03-entregar-jornada-vertical.md) | Login→hábito offline→reabrir→convergir com API real | needs-info |
 | [04 — Completar jornada](issues/04-completar-jornada-e-excecoes.md) | Gestão, preferências, reset e sessão/recuperação | needs-info |
@@ -24,7 +24,7 @@ Expo Web foi descartado e Pedro escolheu a opção1 do [comparativo](../../docs/
 
 ## Resultado
 
-Concluída: não — plano preparado; implementação e aceite pendentes. Pesquisa não é prova executada de compatibilidade.
+Concluída: não — prova01 local entregue; jornada funcional, contratos e aceite físico pendentes. [Resultado da prova](../../docs/analises/2026-10-21-prova-tecnica-pwa.md). Pesquisa não é prova executada de compatibilidade.
 
 ## Aceite conjunto — Q65
 
@@ -33,3 +33,5 @@ A evidência PWA no iPhone e a do app Android poderão encerrar o M1 funcional. 
 21/10/2026 — Revisão após Q65: Expo Web excluído da PWA; app nativo preservado. Comparação de React DOM/Vite, Next.js e SvelteKit preparada. Q61–Q65 continuam aprovadas; stack e prova01 aguardam escolha.
 
 21/10/2026 — Escolha confirmada por Pedro: opção1. Tarefa01 voltou a ready-for-agent; demais contratos/gates continuam pendentes. Nenhuma implementação ou aceite foi concluído nesta consolidação.
+
+21/10/2026 — Prova01 concluída no escopo local: build, reabertura offline, rollback e transferência entre abas no Chrome visível; migração determinística. Próximo: contratos02. Não promover o ensaio sintético a schema/sessão de produto nem a aceite do iPhone.

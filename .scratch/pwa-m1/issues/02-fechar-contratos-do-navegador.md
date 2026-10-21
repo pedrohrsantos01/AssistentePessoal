@@ -1,7 +1,7 @@
 # 02 — Fechar contratos do navegador
 
 Status: needs-info
-Blocked by: .scratch/pwa-m1/issues/01-provar-portabilidade-e-persistencia.md
+Blocked by: none — prova01 concluída localmente; definições e evidência física ainda pendentes
 
 Origem: spec/14 §4–5. Falta evidência Safari e decisões técnicas; nenhuma tabela/rota/cookie nova definida.
 
@@ -20,3 +20,5 @@ Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Uma biblioteca fora de alp
 ## Resultado
 
 Concluída: não — provas/consolidação pendentes.
+
+21/10/2026 — [Prova01](../../../docs/analises/2026-10-21-prova-tecnica-pwa.md) fornece React/Vite, Dexie transacional, precache e candidato Web Locks+geração no Chrome. Esquema reduzido não é contrato de produto. Próximo recorte recomendado; manter needs-info por sessão/schema/upgrade e Safari/Tela de Início físicos. Roteiro iPhone no relatório; versão iOS ainda não informada.

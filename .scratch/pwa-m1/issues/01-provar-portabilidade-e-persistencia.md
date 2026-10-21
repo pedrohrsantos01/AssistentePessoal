@@ -1,9 +1,9 @@
 # 01 — Provar frontend web e persistência sem Expo Web
 
-Status: ready-for-agent
+Status: done
 Blocked by: none
 
-Origem: spec/14 §5 e comparação de 21/10/2026 em docs/analises/2026-10-21-alternativas-pwa-sem-expo.md. O ensaio anterior Expo Web/expo-sqlite foi retirado após a preferência expressa de Pedro. Não iniciado.
+Origem: spec/14 §5 e comparação de 21/10/2026 em docs/analises/2026-10-21-alternativas-pwa-sem-expo.md. O ensaio anterior Expo Web/expo-sqlite foi retirado após a preferência expressa de Pedro. Ensaio local executado em 21/10/2026; Safari físico permanece gate da tarefa02.
 
 ## Entrega
 
@@ -22,7 +22,7 @@ Não adicionar login real, novos endpoints, serviços Cloud ou fallback em memó
 
 ## Resultado
 
-Concluída: não — stack escolhida e tarefa preparada; prova não iniciada.
+Concluída: sim, no aceite delimitado local. [Relatório](../../../docs/analises/2026-10-21-prova-tecnica-pwa.md), [implementação/reprodução](../../../web/README.md) e [desenho](../prova-tecnica.md). Build, persistência/rollback, reabertura offline e abas/suspensão conferidos no Chrome visível; migração exercitada em fake-indexeddb. Safari físico/HTTPS, schema/sessão e atualização de produto continuam na tarefa02. Não aceita M1.
 
 ## Comments
 

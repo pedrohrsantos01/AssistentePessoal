@@ -1,0 +1,11 @@
+{
+  "id": "/probe/",
+  "name": "Ritmo — ensaio PWA",
+  "short_name": "Ritmo ensaio",
+  "lang": "pt-BR",
+  "start_url": "/probe/a",
+  "scope": "/probe/",
+  "display": "standalone",
+  "background_color": "#04090F",
+  "theme_color": "#04090F"
+}
