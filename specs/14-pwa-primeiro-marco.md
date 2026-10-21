@@ -78,3 +78,7 @@ WEB-01–10 são cenários locais, não novos ReqIDs. Mapear M1-01–20 de spec/
 ## 7. Evidência delimitada — 21/10/2026
 
 A [prova01](../docs/analises/2026-10-21-prova-tecnica-pwa.md) confirmou build React/Vite, transação Dexie, reabertura offline e candidato Web Locks+geração no Chrome visível. Migração V1→V2 foi exercitada em fake-indexeddb. O ensaio isolado não define schema/sessão web de produto, não valida Safari físico e não aceita WEB-01–10 integralmente. Próximo recorte: contratos02 e roteiro iPhone do relatório.
+
+## 8. Contratos em entrevista — 21/10/2026
+
+Pedro informou na Q66 que seu iPhone16e usa **iOS26.6.2**. É dado declarado para a matriz de testes, não ensaio de Safari/Tela de Início ou versão do WebKit inferida. A [proposta da rodada1](../docs/analises/2026-10-21-contratos-pwa-rodada-1.md) e a [entrevista](../.scratch/pwa-m1/entrevista.md) distinguem garantias já aprovadas, fatos de código e decisões Q67–Q69 ainda pendentes. Cookie/sessão, layout transacional e demais ramos não estão aprovados por essa documentação. Task02 permanece needs-info e task03 bloqueada.

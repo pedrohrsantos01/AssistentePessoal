@@ -2,6 +2,8 @@
 
 Data da consulta: 21/10/2026. Status: pesquisa para planejamento; não é aceite de arquitetura nem de implementação.
 
+**Nota de precedência, posterior à pesquisa:** as recomendações Expo/SQLite web dos §§5/9 e da conclusão são históricas e foram substituídas pela escolha explícita React DOM/Vite/Dexie/Workbox no [ADR-020](../adr/0020-pwa-com-frontend-web-proprio.md). A [prova01](2026-10-21-prova-tecnica-pwa.md) já foi executada localmente. Na Q66, Pedro informou iOS26.6.2; a prova física continua pendente. Contratos em discussão na [rodada1](2026-10-21-contratos-pwa-rodada-1.md). Não usar trechos históricos como autorização para Expo Web.
+
 ## Objetivo e limites
 
 Investigar uma entrega web adicional para uso no iPhone 16e, preservando React Native, API e contratos de domínio. O primeiro alvo definido por Pedro nesta sessão é o M1 funcional: conta, onboarding, Briefing, hábitos binários, XP e sincronização; acesso no Safari e pela Tela de Início. Tarefas, agenda e voz não entram nesse primeiro alvo. A versão do iOS instalada no aparelho ainda precisa ser registrada no ensaio.

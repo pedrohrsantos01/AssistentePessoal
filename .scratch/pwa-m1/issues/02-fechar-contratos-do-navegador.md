@@ -19,6 +19,8 @@ Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Uma biblioteca fora de alp
 
 ## Resultado
 
-Concluída: não — provas/consolidação pendentes.
+Concluída: não — apuração de código/fontes e [proposta da rodada1](../../../docs/analises/2026-10-21-contratos-pwa-rodada-1.md) preparadas. [Entrevista](../entrevista.md): Q66 respondida (iOS26.6.2); Q67–Q69 aguardam decisão. Sem schema/cookies/endpoints novos ou implementação funcional liberada.
 
 21/10/2026 — [Prova01](../../../docs/analises/2026-10-21-prova-tecnica-pwa.md) fornece React/Vite, Dexie transacional, precache e candidato Web Locks+geração no Chrome. Esquema reduzido não é contrato de produto. Próximo recorte recomendado; manter needs-info por sessão/schema/upgrade e Safari/Tela de Início físicos. Roteiro iPhone no relatório; versão iOS ainda não informada.
+
+21/10/2026 — Rodada1 iniciada com grilling. Fatos conferidos: fence local não protege Set-Cookie tardio; IDB não reúne databases separadas na mesma transação; swap assíncrono precisa revalidar o conjunto vigente no corte H. M1-01–20 mapeados a WEB-01–10 na proposta, sem declarar aceite. Q66 informa iOS26.6.2 (declaração do operador; falta ensaio). Origem, credenciais e fronteira física do banco são as três raízes da rodada; detalhes dependentes aguardam respostas.
