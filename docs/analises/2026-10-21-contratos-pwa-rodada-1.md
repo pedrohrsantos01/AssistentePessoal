@@ -1,6 +1,6 @@
 # Contratos PWA — diagnóstico e rodada1
 
-21/10/2026. **Estado: proposta para discussão, sem aprovação dos contratos novos.** Origem: [tarefa02](../../.scratch/pwa-m1/issues/02-fechar-contratos-do-navegador.md), [spec/14](../../specs/14-pwa-primeiro-marco.md) e [prova01](2026-10-21-prova-tecnica-pwa.md). Baseline de código: `b8c8e46`. Entrevista: [registro e árvore de decisões](../../.scratch/pwa-m1/entrevista.md).
+21/10/2026. **Estado atualizado: Q67–Q69 aprovadas em A; fronteiras no ADR-021 e detalhes novos na rodada2.** Origem: [tarefa02](../../.scratch/pwa-m1/issues/02-fechar-contratos-do-navegador.md), [spec/14](../../specs/14-pwa-primeiro-marco.md) e [prova01](2026-10-21-prova-tecnica-pwa.md). Baseline de código: `b8c8e46`. Entrevista: [registro e árvore de decisões](../../.scratch/pwa-m1/entrevista.md).
 
 **Q66 respondida:** Pedro informou iOS26.6.2 no iPhone16e. Versão declarada pelo operador, sem ensaio físico ou dedução da versão exata do Safari/WebKit. HTTPS acessível ao aparelho continua pendente; Q54 permanece com nome do domínio a escolher, sem nova solicitação de compra.
 
@@ -114,3 +114,7 @@ HTTPS confiável acessível ao telefone é o requisito de contexto seguro; possu
 Seis documentos conferidos em UTF-8 e47 links locais válidos; matriz M1-01–20 completa, sem linhas repetidas. App/API/web/contratos de execução permanecem iguais a `b8c8e46`; não houve build ou ensaio físico novo. Typecheck/lint do app e web aprovados; app213 testes de domínio+51 componentes e web2 testes aprovados. API `check --no-daemon` aprovado com Java21:13 testes operacionais executados e tarefa Java `test` UP-TO-DATE. Essa regressão não é evidência de que as propostas novas estejam implementadas/testadas.
 
 Q67–Q69 foram apresentadas a Pedro e permanecem sem resposta nesta preparação. A conclusão verificável é o diagnóstico/documentação da rodada, não o encerramento da tarefa02 nem a liberação da tarefa03.
+
+## 9. Respostas posteriores à preparação
+
+Pedro respondeu A em Q67, Q68 e Q69. As fronteiras foram consolidadas no [ADR-021](../adr/0021-fronteira-de-sessao-e-armazenamento-web.md); as opções acima preservam a proposta originalmente apresentada. O registro da §8 descreve o estado anterior às respostas. Próxima fronteira: [rodada2](2026-10-21-contratos-pwa-rodada-2.md), Q70–Q72 ainda pendentes. Nenhum detalhe adicional de cookie/schema/TTL foi aprovado por inferência.

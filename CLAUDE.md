@@ -37,6 +37,7 @@
 - IndexedDB com Dexie para persistência local; Workbox para o service worker/cache de recursos
 - HTML/CSS com tokens, textos e referência Ritmo-App; lógica pura/contratos compartilhados quando desacoplados
 - API Java existente e hospedagem estática; Expo Web, expo-sqlite web e Dexie Cloud não integram essa variante
+- Q67–Q69 aprovadas no [ADR-021](docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md): mesma origem HTTPS; credenciais em cookies HttpOnly/Secure fora do JS; controle+domínio no mesmo IndexedDB com partição por conta e aparência em banco separado. Modelo de sessão e schema detalhado ainda pendentes; nativo permanece bearer/SQLite
 - A [prova01](docs/analises/2026-10-21-prova-tecnica-pwa.md) fixa versões e verifica o ensaio local no Chrome; não aceita Safari físico ou jornada M1. Sessão, schema web, abas e atualização de produto seguem os contratos pendentes de spec/14. Não copiar APIs síncronas de Drizzle ou SecureStore para o navegador
 
 ### Backend (`/api`)

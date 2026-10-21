@@ -9,7 +9,7 @@ Origem: spec/14 §4–5. Falta evidência Safari e decisões técnicas; nenhuma 
 
 Com a opção1/ADR-020 aprovadas, conferir Safari/Tela de Início no iPhone e concretizar IndexedDB/Dexie: especificar schema/migrações, repositório assíncrono/atomicidade e impacto Journey/Session; não simular tipos síncronos. Reabrir a escolha somente diante de impedimento comprovado e decisão registrada. Biblioteca local não substitui a sincronização Java do Ritmo.
 
-Fechar sessão/HTTP: proposta cookie HttpOnly/Secure e mesma origem no Java existente, CSRF, instalação, refresh, perda de resposta, logout offline, revogação e conta A/B. Tratar cookies copiados Safari→Tela de Início sem família/identidade compartilhada acidentalmente. Preservar bearer nativo.
+Fechar sessão/HTTP: cookies HttpOnly/Secure e mesma origem aprovados em Q67/Q68, com fronteira no Java existente; detalhar CSRF, instalação, refresh, perda de resposta, logout offline, revogação e conta A/B. Tratar cookies copiados Safari→Tela de Início sem família/identidade compartilhada acidentalmente. Preservar bearer nativo.
 
 Definir propriedade/fencing entre abas, leitura secundária, migração/atualização com versões simultâneas, HTTPS de teste, suporte de navegador, recuperação por URL e falhas. Consolidar medição/metas web. Consultar Pedro apenas sobre comportamentos não resolvidos pelas Q61–Q65/specs. Dados/transportes novos exigem spec/00, migrations e contratos executáveis antes de implementar.
 
@@ -19,8 +19,10 @@ Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Uma biblioteca fora de alp
 
 ## Resultado
 
-Concluída: não — apuração de código/fontes e [proposta da rodada1](../../../docs/analises/2026-10-21-contratos-pwa-rodada-1.md) preparadas. [Entrevista](../entrevista.md): Q66 respondida (iOS26.6.2); Q67–Q69 aguardam decisão. Sem schema/cookies/endpoints novos ou implementação funcional liberada.
+Concluída: não — apuração de código/fontes e [proposta da rodada1](../../../docs/analises/2026-10-21-contratos-pwa-rodada-1.md) preparadas. [Entrevista](../entrevista.md): Q66 respondida (iOS26.6.2); Q67–Q69 aprovadas em A no [ADR-021](../../../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md). [Rodada2](../../../docs/analises/2026-10-21-contratos-pwa-rodada-2.md), Q70–Q72 pendentes. Sem schema/cookies/endpoints novos ou implementação funcional liberada.
 
 21/10/2026 — [Prova01](../../../docs/analises/2026-10-21-prova-tecnica-pwa.md) fornece React/Vite, Dexie transacional, precache e candidato Web Locks+geração no Chrome. Esquema reduzido não é contrato de produto. Próximo recorte recomendado; manter needs-info por sessão/schema/upgrade e Safari/Tela de Início físicos. Roteiro iPhone no relatório; versão iOS ainda não informada.
 
 21/10/2026 — Rodada1 iniciada com grilling. Fatos conferidos: fence local não protege Set-Cookie tardio; IDB não reúne databases separadas na mesma transação; swap assíncrono precisa revalidar o conjunto vigente no corte H. M1-01–20 mapeados a WEB-01–10 na proposta, sem declarar aceite. Q66 informa iOS26.6.2 (declaração do operador; falta ensaio). Origem, credenciais e fronteira física do banco são as três raízes da rodada; detalhes dependentes aguardam respostas.
+
+21/10/2026 — Pedro aprovou A em Q67–Q69. Fronteiras propagadas ao spec/14, spec/00 e ADR-021. Rodada2 pergunta contêiner novo, modelo de sessão web e durabilidade de formulário; detalhes dependentes continuam sem implementação. Leitura secundária pós logout, uso local ativo e preservação de intenções não são reabertos.

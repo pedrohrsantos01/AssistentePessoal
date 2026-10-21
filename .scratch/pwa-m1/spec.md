@@ -1,6 +1,6 @@
 # Entrega adicional — Ritmo M1 em PWA
 
-Data: 21/10/2026. Estado: prova01 concluída localmente; contratos02 em entrevista. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
+Data: 21/10/2026. Estado: prova01 concluída localmente; contratos02 em entrevista (Q67–Q69 aprovadas). Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
 
 ## Objetivo e fronteira
 
@@ -37,3 +37,5 @@ A evidência PWA no iPhone e a do app Android poderão encerrar o M1 funcional. 
 21/10/2026 — Prova01 concluída no escopo local: build, reabertura offline, rollback e transferência entre abas no Chrome visível; migração determinística. Próximo: contratos02. Não promover o ensaio sintético a schema/sessão de produto nem a aceite do iPhone.
 
 21/10/2026 — [Rodada1 de contratos](../../docs/analises/2026-10-21-contratos-pwa-rodada-1.md) preparada após apuração do código e fontes oficiais. [Entrevista](entrevista.md) registra Q66=iOS26.6.2 e perguntas Q67–Q69 pendentes. Task02 continua needs-info; task03 não está liberada.
+
+21/10/2026 — Q67–Q69=A consolidadas no [ADR-021](../../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md). [Rodada2](../../docs/analises/2026-10-21-contratos-pwa-rodada-2.md) e Q70–Q72 abertas; task02 continua needs-info, task03 bloqueada.
