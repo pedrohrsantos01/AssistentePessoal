@@ -1,0 +1,122 @@
+{
+  "suites": [
+    {
+      "name": "dev.ritmo.ContainerPackagingTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "b12c62199f12567aba00c008077229c177ee61a44947664c99896f3beb89e25e"
+    },
+    {
+      "name": "dev.ritmo.ModularityTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "4ebc637c793202343733839e80766416ee85cc678c7bb5a68e9c4c9566b1bafd"
+    },
+    {
+      "name": "dev.ritmo.OperationalSchedulingTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "75319c8aa8365581597282fcbe68ad3ab70f63edb81df56fe3f16fa4e9e269b5"
+    },
+    {
+      "name": "dev.ritmo.PrimaryTelemetryTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "16b37605528461795cde700b195a85d0fba49b6e2e2b6f1cf42fe3368100f5f7"
+    },
+    {
+      "name": "dev.ritmo.ProbeTransportTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "15e76514a93c046557d1ce4af55879f3ac27bd5e9022f573116c44bcfea0a192"
+    },
+    {
+      "name": "dev.ritmo.ProxyTlsTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "cba62ed609cd1bb6bcc7fbad70079fd3ce3d236e0049f5d701440544d27bf7ab"
+    },
+    {
+      "name": "dev.ritmo.RateLimitTests",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "c1a6e5ba3021c03cd37c773216a18cb604b0dc87e421baf1a3d065db74f57fb0"
+    },
+    {
+      "name": "dev.ritmo.ReceiverSupervisionTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "ce4df384004e7c0ad485a44eb603aff368e6701532f4c856a5cd7cc232f74a4a"
+    },
+    {
+      "name": "dev.ritmo.RestoreTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "8b4ee3dc17b5d990302d8a1a746a8a66ab19465466299bb5e770b46418ea8cde"
+    },
+    {
+      "name": "dev.ritmo.RetentionLifecycleTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "bd6b4c56d00a4a141b1bec7330b59023617ec03c39283af9a5c3b4f91e8fdcd1"
+    },
+    {
+      "name": "dev.ritmo.RuntimeTests",
+      "tests": 46,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 8,
+      "xmlSha256": "4928aa50e7f7bb1a4105d3fa2a0f2e2602981ca152d8ebf7a52fe53ddeeeaa7e"
+    },
+    {
+      "name": "dev.ritmo.SyncRetentionTests",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "279fba62d3648d7107945459c6f6372095d0205727ceff2d877fcdf1c732e059"
+    },
+    {
+      "name": "dev.ritmo.TrustedProxyTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "ad0b0c22716b5779f566a6b6a48760703d6fe16194f8b513c9f30e802ec62936"
+    },
+    {
+      "name": "dev.ritmo.WalRecoveryTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "xmlSha256": "09884c16a990a4cd4f2167078b5920dfff46d7747b1e622ad4e63bb8a939030e"
+    }
+  ],
+  "totals": {
+    "tests": 93,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 8
+  }
+}

@@ -758,14 +758,16 @@ class RuntimeTests {
     }
 
     @Test void expiredSnapshotsRefuseBothPagesAndReceiptClassification() throws Exception {
+        RESET_CLOCK.now=RESET_CLOCK.instant().minusSeconds(3600); // Deliberately separate API time from the database clock.
         var account=account("snapshot-expiry");
         String user=account.path("accountId").asString(),token=account.path("accessToken").asString();
         var snapshot=post("sync/snapshots",token,"{}",201);
         String snapshotId=snapshot.path("snapshotId").asString();
-        // Advance only this fixture's expiry; no sleep and no changes to other accounts' snapshots.
+        // Expire only this fixture against the injected API clock, not the database's wall time.
         try(var owner=connection(POSTGRES.getUsername(),POSTGRES.getPassword());
-            var expire=owner.prepareStatement("update sync_snapshots set expires_at=now()-interval '1 second' where user_id=?::uuid and id=?::uuid")) {
-            expire.setString(1,user);expire.setString(2,snapshotId);expire.executeUpdate();
+            var expire=owner.prepareStatement("update sync_snapshots set expires_at=?::timestamptz where user_id=?::uuid and id=?::uuid")) {
+            expire.setString(1,RESET_CLOCK.instant().minusSeconds(1).toString());expire.setString(2,user);expire.setString(3,snapshotId);
+            assertThat(expire.executeUpdate()).isEqualTo(1);
         }
         String cursor=java.net.URLEncoder.encode(snapshot.path("firstPageCursor").asString(),java.nio.charset.StandardCharsets.UTF_8);
         var request=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+"/api/v1/sync/snapshots/"+snapshotId+"?cursor="+cursor))

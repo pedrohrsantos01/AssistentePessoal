@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "tests": 1,
+  "failures": 0,
+  "errors": 0,
+  "clockSeparationSeconds": 3600,
+  "expiredPageStatus": 410,
+  "expiredReceiptsStatus": 410,
+  "replacementSnapshotCreated": true,
+  "test": "dev.ritmo.RuntimeTests.expiredSnapshotsRefuseBothPagesAndReceiptClassification",
+  "xmlSha256": "24d40e8e9081880c2d4eac71c1556e4869832ce134239b57a706460862bbf4f2"
+}

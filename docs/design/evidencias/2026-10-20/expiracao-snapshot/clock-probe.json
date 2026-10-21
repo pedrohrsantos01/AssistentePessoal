@@ -1,0 +1,9 @@
+{
+  "updatedRows": 1,
+  "probeLines": [
+    "[DEBUG-expiry-20261020] rows=1 expiryMinusJavaMs=-1004 dbMinusJavaMs=-1"
+  ],
+  "failure": "expected HTTP 410, received 200",
+  "databaseAndWallClockAgree": true,
+  "applicationClock": "MutableClock frozen at BeforeEach; snapshotState uses the injected Clock"
+}

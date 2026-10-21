@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "jsonParsed": true,
+  "credentialPatternsFound": false,
+  "temporaryProbeRemovedFromSource": true,
+  "productionSyncSourceUnchanged": true,
+  "sourceNormalization": "Git LF"
+}

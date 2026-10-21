@@ -1,0 +1,145 @@
+{
+  "passed": true,
+  "suiteCount": 14,
+  "totals": {
+    "tests": 93,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 8
+  },
+  "executed": 85,
+  "suites": [
+    {
+      "name": "dev.ritmo.ContainerPackagingTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "32.556",
+      "xmlSha256": "2779d8945d1d20d46333a07ec3b124f105bed1cbc43e6a5c483d3249d5bce08f"
+    },
+    {
+      "name": "dev.ritmo.ModularityTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "3.765",
+      "xmlSha256": "c3ac8bd5bf4ac84c870317e4dd7d1981edf1c46c0f0bdd20e7f4a96c0714cb52"
+    },
+    {
+      "name": "dev.ritmo.OperationalSchedulingTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "18.89",
+      "xmlSha256": "1f7d4a90a9a1db58036bb77cebd959d4e9340c687ebd76b975799792d9c0a0ca"
+    },
+    {
+      "name": "dev.ritmo.PrimaryTelemetryTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "61.818",
+      "xmlSha256": "168abdfa6d0aa5441f8d5f81f43e185add6ed4cd034301adec97d8f45e74a6ce"
+    },
+    {
+      "name": "dev.ritmo.ProbeTransportTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "70.643",
+      "xmlSha256": "96702b5713a4324edc924e9ac1fd9304596f7cb4cb106bb186a0d9c9ab4a3851"
+    },
+    {
+      "name": "dev.ritmo.ProxyTlsTests",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "197.527",
+      "xmlSha256": "98d3abecf70c5b70d76485f6b182f49625884d730a636f8b81653a0498e3177d"
+    },
+    {
+      "name": "dev.ritmo.RateLimitTests",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "24.968",
+      "xmlSha256": "3afca659caaba96e80be70418910ab108e9f02f1f3a074785bccf493db60570b"
+    },
+    {
+      "name": "dev.ritmo.ReceiverSupervisionTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "234.383",
+      "xmlSha256": "f0a15a5f08ed7d0b6e16bc440d5974d8d0535926f162c36d7c7812eb6a4225d4"
+    },
+    {
+      "name": "dev.ritmo.RestoreTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "75.363",
+      "xmlSha256": "5e2b69096005a6504ac60f7056ff65ba418e4b9888739892c581ab85f33bd1fd"
+    },
+    {
+      "name": "dev.ritmo.RetentionLifecycleTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "13.385",
+      "xmlSha256": "045e208c95c8d483a91ae75e56e3c9f00b25ca7e1f07b66427b63472312ee6a1"
+    },
+    {
+      "name": "dev.ritmo.RuntimeTests",
+      "tests": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 8,
+      "time": "44.617",
+      "xmlSha256": "1391122aee0c976b7d1ab0c769418423f8dee201d536c1a516678d8b1cd15abc"
+    },
+    {
+      "name": "dev.ritmo.SyncRetentionTests",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "15.419",
+      "xmlSha256": "c99f2e8a2ac7c6d725fd9e4ea237f5b3decec14390aa917359b2149b5ed44366"
+    },
+    {
+      "name": "dev.ritmo.TrustedProxyTests",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "0.136",
+      "xmlSha256": "a7ffd4f9758c23365be051b6e93fbe7ea62a5ca071ad320598a679c868c939e3"
+    },
+    {
+      "name": "dev.ritmo.WalRecoveryTests",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "time": "109.072",
+      "xmlSha256": "5f9f832280eed6644918111fe2d267af89b111124c0da2d703d0ef596a802213"
+    }
+  ],
+  "run": {
+    "started": "2026-10-20T21:14:45.0328547-03:00",
+    "elapsedSeconds": 953.7006432,
+    "exitCode": 0,
+    "ended": "2026-10-20T21:30:38.7332760-03:00"
+  }
+}

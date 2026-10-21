@@ -1,0 +1,36 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.4/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+2026-10-20T21:03:49.391-03:00  INFO 37120 --- [ritmo-api] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-20T21:03:49.395-03:00  INFO 37120 --- [ritmo-api] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-20T21:03:49.404-03:00  INFO 37120 --- [ritmo-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-20T21:03:49.427-03:00  INFO 37120 --- [ritmo-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+> Task :test
+
+RuntimeTests > expiredSnapshotsRefuseBothPagesAndReceiptClassification() FAILED
+    org.opentest4j.AssertionFailedError:
+    expected: 410
+     but was: 200
+        at app//dev.ritmo.RuntimeTests.expiredSnapshotsRefuseBothPagesAndReceiptClassification(RuntimeTests.java:774)
+
+1 test completed, 1 failed
+
+> Task :test FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///C:/workspace/ProjetosFreela/ProjetoAssistentePessoal/api/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 38s
+4 actionable tasks: 1 executed, 3 up-to-date
