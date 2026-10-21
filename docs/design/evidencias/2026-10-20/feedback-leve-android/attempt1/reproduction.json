@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "summaryEqual": true,
+  "attributionEqual": true,
+  "modeValidated": true,
+  "inputs": {
+    "native-frames.json": "7785d4fc558181a6637fdb5cfa8aa6b6331b1204f49ca6b287ee16930cea8a31",
+    "javascript-milestones.json": "7b3ea188cdabaa700ecffb5d531fdbaebf16cfc913ca1fc4ef82c2250be4e549",
+    "javascript-profiles.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "performance-summary.json": "08403f4aff53e5c2a5c26b0aed01101406007947476fda3b0c3c0c55144174ea",
+    "toggle-attribution.json": "417d9bb92b96f9a9bdc5884d9486ce5ec39dfc1b0ca31b3371f0a23852e0c036"
+  }
+}

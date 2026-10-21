@@ -1,0 +1,21 @@
+{
+  "ownTestCleanupPassed": true,
+  "normalApkAndNativeConfigPreserved": true,
+  "detailedApksPreserved": true,
+  "selectedOriginalAvdMetadataUnchanged": true,
+  "adbServerIdentityPreserved": true,
+  "eightOtherContainerIdentitiesPreserved": true,
+  "allPreexistingContainerIdentitiesUnchanged": false,
+  "replacement": {
+    "name": "supabase_db_care-platform",
+    "beforeShortId": "0f787dd105f5",
+    "afterId": "f6486262f53329b5b454421ed6beb6692a2f586dd823efb442ed1121e7469bc4",
+    "created": "2026-10-21T00:25:25.451870431Z",
+    "started": "2026-10-21T00:25:26.575375279Z",
+    "status": "running",
+    "health": "healthy"
+  },
+  "replacementAuthorshipEstablished": false,
+  "noStopOrRecreateCommandForThisContainerIssuedByThisTask": true,
+  "originalAuditRetainedWithPassedFalse": true
+}

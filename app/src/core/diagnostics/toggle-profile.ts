@@ -1,10 +1,10 @@
-import {performanceTest} from './performance.ts';
+import {detailedPerformanceTest} from './performance.ts';
 export type ThreadClock={beforeMs:number;afterMs:number;cpuMs:number;tid:number;thread:string};
 type Reading=ThreadClock&{jsBeforeMs:number;jsAfterMs:number};
 type Span={name:string;depth:number;start:Reading;end:Reading};
 let readNative:(()=>ThreadClock)|undefined;
 let active:{start:Reading;spans:Span[];depth:number}|undefined;
-export function installPerformanceClock(clock:()=>ThreadClock) {if(performanceTest)readNative=clock;}
+export function installPerformanceClock(clock:()=>ThreadClock) {if(detailedPerformanceTest)readNative=clock;}
 function read():Reading|undefined {
  try {const jsBeforeMs=performance.now(),native=readNative?.(),jsAfterMs=performance.now();return native?{...native,jsBeforeMs,jsAfterMs}:undefined;}
  catch {return undefined;}
@@ -16,7 +16,7 @@ export function performanceSpan<T>(name:string,work:()=>T):T {
  try {return work();} finally {const end=read();profile.depth--;if(end)profile.spans.push({name,depth,start,end});}
 }
 export function profileToggle<T>(work:()=>T):T {
- if(!performanceTest||active)return work();const start=read();if(!start)return work();
+ if(!detailedPerformanceTest||active)return work();const start=read();if(!start)return work();
  const profile={start,spans:[] as Span[],depth:0};active=profile;
  try {return work();} finally {
   const end=read();active=undefined;

@@ -1,0 +1,37 @@
+[
+  {
+    "path": "app/harness/RitmoFrameProbe.kt",
+    "sha256": "d60c130ba7973a652d08e17c3aed2684a0fd720d358369eb7442ba58193ca971",
+    "unchangedFrom": "6158e6f6f679d05603d69f1e149afd388d93153d"
+  },
+  {
+    "path": "app/src/features/journey/journey.ts",
+    "sha256": "7fd48ebf6c3f7970ed33342a3d69594266f75b7e051736921ab87dc36a113744",
+    "unchangedFrom": "6158e6f6f679d05603d69f1e149afd388d93153d"
+  },
+  {
+    "path": "app/src/core/db/account-store.ts",
+    "sha256": "c31c63736eed31105581c34d58c263bc7d1a04f9a64e22a371f7e15251ee54fa",
+    "unchangedFrom": "6158e6f6f679d05603d69f1e149afd388d93153d"
+  },
+  {
+    "path": "app/src/features/gamification/domain/day-key.ts",
+    "sha256": "6768e95b32950f0302bbe7a55b7b8e251406ba2b78371232623fd92771e77743",
+    "unchangedFrom": "6158e6f6f679d05603d69f1e149afd388d93153d"
+  },
+  {
+    "path": "app/test/support/performance-samples.ts",
+    "sha256": "5e589ae412f465603baa5b2766a3c9a48b72409164cf84aee48b5df60b1b9236",
+    "unchangedFrom": "6158e6f6f679d05603d69f1e149afd388d93153d"
+  },
+  {
+    "path": "app/test/support/toggle-latency.ts",
+    "sha256": "915904b7518fc93014ad660fe97258e2180575a87a7e7cc1227ef57bf7410131",
+    "unchangedFrom": "6158e6f6f679d05603d69f1e149afd388d93153d"
+  },
+  {
+    "path": "app/test/support/toggle-profile.ts",
+    "sha256": "0849c3d91679f547f3244a727ecb735b33581d72a77de9d33927f6876d57421c",
+    "unchangedFrom": "6158e6f6f679d05603d69f1e149afd388d93153d"
+  }
+]

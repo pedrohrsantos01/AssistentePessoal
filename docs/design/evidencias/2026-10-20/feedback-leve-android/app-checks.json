@@ -1,0 +1,14 @@
+{
+  "typecheck": true,
+  "lint": true,
+  "domain": {
+    "passed": 210,
+    "failed": 0
+  },
+  "components": {
+    "suites": 6,
+    "passed": 51,
+    "failed": 0
+  },
+  "total": 261
+}

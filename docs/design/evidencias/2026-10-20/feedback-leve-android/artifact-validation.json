@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "json": 50,
+  "xml": 8,
+  "png": 7,
+  "localLinks": 117,
+  "credentialPatternsFound": false,
+  "nativeInputHashesVerified": true,
+  "ownTestCleanupPassed": true,
+  "allPreexistingContainerIdentitiesUnchanged": false,
+  "replacementDisclosed": true
+}

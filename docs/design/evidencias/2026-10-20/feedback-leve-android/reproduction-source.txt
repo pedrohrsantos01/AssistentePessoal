@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {resolve,join} from 'node:path';
+import {createHash} from 'node:crypto';
+import {summarizePerformance} from '../../../app/test/support/performance-samples.ts';
+import {attributeToggleLatency} from '../../../app/test/support/toggle-latency.ts';
+import {validateObservationMode} from '../../../app/test/support/performance-mode.ts';
+const folder=resolve(import.meta.dirname,'../../../docs/design/evidencias/2026-10-20/feedback-leve-android/attempt1');
+const read=(name:string):unknown=>JSON.parse(readFileSync(join(folder,name),'utf8'));
+const array=(name:string):unknown[]=>{const value=read(name);assert.ok(Array.isArray(value));return value;};
+const frames=array('native-frames.json'),marks=array('javascript-milestones.json');
+assert.deepEqual(summarizePerformance(frames),read('performance-summary.json'));
+assert.deepEqual(attributeToggleLatency(frames,marks),read('toggle-attribution.json'));
+assert.deepEqual(validateObservationMode('lightweight',frames,marks,array('javascript-profiles.json')),[]);
+const files=['native-frames.json','javascript-milestones.json','javascript-profiles.json','performance-summary.json','toggle-attribution.json'];
+writeFileSync(join(folder,'reproduction.json'),JSON.stringify({passed:true,summaryEqual:true,attributionEqual:true,modeValidated:true,inputs:Object.fromEntries(files.map(name=>[name,createHash('sha256').update(readFileSync(join(folder,name))).digest('hex')]))},null,2)+'\n');
+console.log('ReproduÃ§Ã£o dos frames, correlaÃ§Ã£o do mesmo PressEvent e modo leve: aprovada.');

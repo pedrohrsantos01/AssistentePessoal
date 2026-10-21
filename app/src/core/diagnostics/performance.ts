@@ -1,5 +1,8 @@
 // Optional local diagnostics for the explicitly isolated performance build. No user data.
 export const performanceTest=process.env.EXPO_PUBLIC_RITMO_PERF_TEST==='1';
+export const performanceMode=performanceTest?process.env.EXPO_PUBLIC_RITMO_PERF_MODE:undefined;
+if(performanceTest&&performanceMode!=='lightweight'&&performanceMode!=='detailed')throw new Error('explicit_performance_mode_required');
+export const detailedPerformanceTest=performanceTest&&performanceMode==='detailed';
 export function performanceMark(phase:'app.module'|'fonts.ready'|'preferences.ready'|'runtime.ready'|'toggle.handler'|'store.committed'|'refresh.started'|'refresh.published'|'refresh.finished'|'local.persisted'|'local.returned'|'toggle.react',inputTimestampMs?:number) {
  if(!performanceTest)return;
  try {
@@ -8,6 +11,6 @@ export function performanceMark(phase:'app.module'|'fonts.ready'|'preferences.re
   const nativeNow=(globalThis as typeof globalThis&{nativePerformanceNow?:()=>number}).nativePerformanceNow;
   const before=nativeNow?.(),at=performance.now(),after=nativeNow?.();
   performance.mark('ritmo.'+phase);
-  console.info('RITMO_PERF_JS '+JSON.stringify({schema:2,phase,at,nativeBeforeMs:before,nativeAfterMs:after,inputTimestampMs}));
+  console.info('RITMO_PERF_JS '+JSON.stringify({schema:2,mode:performanceMode,phase,at,nativeBeforeMs:before,nativeAfterMs:after,inputTimestampMs}));
  } catch { /* Diagnostics never change application behavior. */ }
 }

@@ -387,10 +387,12 @@ Requer AVD separado já preparado, controle journeytest instalado e observador c
 $env:JAVA_HOME='C:/Program Files/Android/Android Studio/jbr'
 $env:ANDROID_HOME='H:/Android/Sdk' # ajustar ao SDK local
 ./scripts/build-reader-observer.ps1
-./scripts/build-android-readonly.ps1 -Performance
+./scripts/build-android-readonly.ps1 -Performance -PerformanceMode lightweight
 $env:ANDROID_AVD_HOME=Join-Path (Get-Location) '.scratch/runtime/interface/readonly-avds'
-./scripts/verify-android-accessibility.ps1 -Performance -Avd Ritmo_ReadOnly -GpuMode host -MemoryMegabytes 3072 -EvidenceDirectory .scratch/runtime/interface/performance-replay-novo
+./scripts/verify-android-accessibility.ps1 -Performance -PerformanceMode lightweight -Avd Ritmo_ReadOnly -GpuMode host -MemoryMegabytes 3072 -EvidenceDirectory .scratch/runtime/interface/performance-replay-novo
 ```
+
+Os seletores `-PerformanceMode lightweight` e `-PerformanceMode detailed` devem coincidir no build e no ensaio (padrão: detailed, para preservar o diagnóstico anterior). Ambos mantêm probe v4 e marcos JS com o mesmo PressEvent. Lightweight não registra a porta síncrona nem inicia Perfetto; detailed exige perfis completos e trace, sem fallback por dados ausentes. O lançador valida modo/hash do APK antes de abrir recursos, e os marcos JS confirmam o modo em cada processo. Modos diferentes não demonstram ganho adicional do app. A flag pública `EXPO_PUBLIC_RITMO_PERF_MODE` é explícita e inválida fora da variante de desempenho.
 
 Usa a instalação isolada readonlytest; o builder gera somente current.apk no modo Performance e restaura configuração/APK normais. A flag pública de instrumentação exige essa variante; plugin nativo não entra no produto normal. Ensaio validado no Android API35: o launcher isolado registra System.nanoTime imediatamente antes de Context.startActivity; o driver exige processo ausente, novo PID e correspondência exata com o relógio/PID de origem lidos pelo app. Choreographer.FrameCallback + OnDraw + FrameMetrics correlacionam o estado local ao frame nativo. Tags estáticas do conteúdo/checked e marcos JS sem conteúdo são locais. Não adiciona dependência, tabela ou coleta externa. O driver prepara uma conta/hábito reais, mede dez processos frios e vinte alterações offline, preserva fila e confirma o resultado por HTTP independente. Fila de zero a 18 pendências no início dos ciclos. Fonte100%, TalkBack desligado e animações do sistema desligadas para esta amostra; settings são restaurados. Ponte SDK física, observador somente entre intervalos e emulador/acompanhamento visíveis, com limpeza própria.
 

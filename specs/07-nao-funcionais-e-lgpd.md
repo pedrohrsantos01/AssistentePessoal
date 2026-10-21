@@ -23,6 +23,10 @@ Listas sempre virtualizadas (`FlashList`). Nenhuma query síncrona na thread de 
 
 [Perfil da cauda e limites](../docs/analises/2026-10-20-cauda-do-cumprimento-m1.md): resolução determinística memoizada, com um fuso/dois limites civis e sem cache de conta ou “hoje”. Comparação v4+sched1 com a mesma observação detalhada: p50 137,98→85,36 ms, p95 236,96→101,00 ms, máximo 270,67→120,76 ms e 0/20→18/20 dentro de 100 ms. As duas amostras altas permanecem; a meta não foi aceita. Spans de dia: p50 33,91→0,95 ms, redução de 97,19%. Escalonamento do convidado não prova CPU útil ou causa no host. Próximo: confirmar feedback com observação reduzida; cards continuam 0/10≤300 ms no perfil detalhado. Não aceita aparelho mediano físico, iPhone ou M1.
 
+### Confirmação com probe leve — 20/10/2026
+
+[Resultado e limites](../docs/analises/2026-10-20-feedback-com-probe-leve-m1.md): modos explícitos leve/detalhado, com conferência do modo/hash e ausência de fallback por dados faltantes. Coorte leve v4 válida: dez processos frios/vinte alterações offline, reinício/convergência de um hábito/10 XP. Feedback p50/p95/máximo 88,2632/242,4520/450,0828 ms, 11/20≤100 ms; nove amostras altas preservadas. Abertura 8/10≤2 s, máximo 5451,6263 ms; cards 0/10≤300 ms com a origem mantida. No maior feedback, React→frame 321,1195 ms, sem atribuição causal a componente/host. Modos diferentes não demonstram ganho ou regressão da aplicação. Próximo: perfil da apresentação, depois cards. Metas, aparelho físico/iPhone e M1 continuam abertos.
+
 ## 2. Confiabilidade
 
 - Crash-free sessions ≥ 99,5%

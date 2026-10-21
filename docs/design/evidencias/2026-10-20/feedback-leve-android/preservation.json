@@ -1,0 +1,88 @@
+{
+  "temporaryPackageAbsent": true,
+  "adbServerIdentityPreserved": true,
+  "originalInstallationPreserved": true,
+  "ownedBuildAndApiJavaGone": true,
+  "normalNativeConfigRestored": true,
+  "containers": [
+    {
+      "preserved": false,
+      "identity": "0f787dd105f5 supabase_db_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "8ce1ea6d7cb9 supabase_pg_meta_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "be317b65041e supabase_storage_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "fab5b08db76e supabase_rest_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "56be50f7c088 supabase_realtime_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "a2720b018c6d supabase_inbucket_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "bd51a691b5e0 supabase_auth_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "fdecdd8e842d supabase_kong_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "30500e5d65d3 ai-memory"
+    }
+  ],
+  "ownedLive": [],
+  "detailedApks": [
+    {
+      "sha256": "5ff5a4acef82089cab9cfeeb237c6cb531a39e5fd099d94efc612b427b33785d",
+      "unchanged": true,
+      "path": ".scratch/runtime/cauda/baseline-profile.apk"
+    },
+    {
+      "sha256": "33e3eb8c8cf4d264d3bcd16f0289212b2152eec945ded79361914ab252bae9ab",
+      "unchanged": true,
+      "path": ".scratch/runtime/cauda/optimized-profile.apk"
+    }
+  ],
+  "before": "2026-10-20T20:26:47.8401691-03:00",
+  "normalApkPreserved": true,
+  "originalAvdMetadataOnly": true,
+  "settingsRestored": true,
+  "at": "2026-10-20T21:32:39.2548071-03:00",
+  "passed": false,
+  "normalApkSha256": "d9c8fd344fccdefbc95935d568253d65fe46e3b68c2e2eef5705addd30412353",
+  "originalAvd": [
+    {
+      "length": 6356992,
+      "lastWriteTimeUtc": "2026-01-28T21:19:43.8497568Z",
+      "unchanged": true,
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img"
+    },
+    {
+      "length": 8824946688,
+      "lastWriteTimeUtc": "2026-10-17T13:37:51.0131436Z",
+      "unchanged": true,
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img.qcow2"
+    },
+    {
+      "length": 1258,
+      "lastWriteTimeUtc": "2026-01-28T21:19:22.7515168Z",
+      "unchanged": true,
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\config.ini"
+    }
+  ],
+  "adbServerPid": 38660,
+  "watcherWindowsAbsent": true,
+  "testAvdProcessesAbsent": true
+}

@@ -1,0 +1,20 @@
+{
+  ".scratch/interface-m1/feedback-com-probe-leve.md": "a9a335b3fcf12a33483beee5a00253f5d8823e1c54dac2f097a61152fb1a9334",
+  ".scratch/interface-m1/apresentacao-do-cumprimento.md": "87d20e5967a9065ce7ce9aa4060372b5385c9deeaff3c70e3af40a5c10b87355",
+  ".scratch/interface-m1/issues/06-aparencia-e-acessibilidade.md": "5955940fe1a28304f9ca1847fc718197c2316edd6316ca47affa72b3ee6cd00d",
+  ".scratch/interface-m1/leitor-e-desempenho.md": "36514daff182023c4a7ce81dfe5cecad165df6fd07bbffc65de40d18bfb7ac5c",
+  "app/README.md": "9a30d4b2d63b056ae1b92756223f6972bae89ac18ddfc34ed17251dd783a3489",
+  "app/app.config.ts": "db4e363f95bd15750107e8ad1511701225c2a14174947c35a752f8e1c87ecc7f",
+  "app/harness/with-performance-probe.cjs": "55768ac2a8de5ddcbec98855a709ea7f3e6bf29f785307f808d91b3a2c08ac61",
+  "app/src/app/index.tsx": "c5ed8d2754c549ceb3894565f5acb777e9c455b1bb7d61fdf81658f803bb53fa",
+  "app/src/core/diagnostics/performance.ts": "ecc4d8a8163e1443a7728b1b027a8eaeee5325037e7f3b51ad7b27b5aa5abe79",
+  "app/src/core/diagnostics/toggle-profile.ts": "d9cec6ce9bd18dcd47672ed413b78267e7f1f7155eed85e3f52aad3006f8c408",
+  "app/test/integration/android-performance.test.ts": "0b8fa5bed93144ec46d32dbcbe435f67882c99a642284144e2d8af9234206213",
+  "app/test/performance-mode.test.ts": "a5c155d47954eb5567ee78c60f6198cda345dcd1aa07ddc5fe34091de313e0b3",
+  "app/test/support/performance-mode.ts": "9388be118901d6a186cb209b7450cd17d07a44d3ccd81ec1453920c2bd880b6a",
+  "scripts/build-android-readonly.ps1": "9a22996f39b3e0013a352416f5983e9c4095979e0d9a8311f119502624ebf3c4",
+  "scripts/verify-android-accessibility.ps1": "9aff95fdd58b2d366ce3810c80a729f8d41f68de0d56a3feed2c6d55233277fa",
+  "docs/analises/2026-10-20-feedback-com-probe-leve-m1.md": "85dbd4d0700a2631b75af54d3280428273804aa2cc600b98a9d174021ebd4438",
+  "specs/07-nao-funcionais-e-lgpd.md": "c54027e39c9e2906060826e9fc51d347089f14888bfa7175bd82fc233fb60c4a",
+  "specs/08-briefing.md": "07d00ff6a0dff9ca261ce5ae6e57cef59a2b34d21a2198ff24f025d73f89b8f9"
+}

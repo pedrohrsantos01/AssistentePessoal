@@ -1,11 +1,15 @@
-param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[string]$PaletteEvidenceDirectory='',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$TrimCaches,[switch]$ReaderOnly,[switch]$Matrix,[switch]$Recovery,[switch]$Traversal,[switch]$SyncStates,[switch]$ReadOnly,[switch]$RetryExhausted,[switch]$PartialCopy,[switch]$Performance,[ValidateSet('swiftshader','host')][string]$GpuMode='swiftshader',[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[ValidateRange(1024,65535)][int]$GrpcPort=8590)
+param([ValidatePattern('^emulator-[0-9]+$')][string]$Serial='emulator-5560',[string]$Avd='Pixel_9',[string]$EvidenceDirectory='docs/design/evidencias/2026-10-12/aparencia-android/talkback',[string]$PaletteEvidenceDirectory='',[switch]$InspectOnly,[switch]$RemoveOldHttpHarness,[switch]$SkipInstall,[switch]$TrimCaches,[switch]$ReaderOnly,[switch]$Matrix,[switch]$Recovery,[switch]$Traversal,[switch]$SyncStates,[switch]$ReadOnly,[switch]$RetryExhausted,[switch]$PartialCopy,[switch]$Performance,[ValidateSet('lightweight','detailed')][string]$PerformanceMode='detailed',[ValidateSet('swiftshader','host')][string]$GpuMode='swiftshader',[ValidateRange(2048,8192)][int]$MemoryMegabytes=4096,[ValidateRange(1024,65535)][int]$GrpcPort=8590)
 $ErrorActionPreference='Stop'
+$PerformanceMode=$PerformanceMode.ToLowerInvariant()
 if(@($Recovery,$Traversal,$SyncStates,$ReadOnly,$RetryExhausted,$PartialCopy,$Performance | Where-Object {$_}).Count -gt 1) {throw 'Escolha somente Recovery, Traversal, SyncStates, ReadOnly, RetryExhausted, PartialCopy ou Performance.'}
 if($Recovery -or $Traversal -or $SyncStates -or $ReadOnly -or $RetryExhausted -or $PartialCopy -or $Performance) {$Matrix=$true}
 $taskIsolated=$ReadOnly -or $RetryExhausted -or $PartialCopy -or $Performance
 if($taskIsolated -and $SkipInstall) {throw 'O modo isolado exige instalação nova do pacote de ensaio.'}
 $taskRoot=Split-Path $PSScriptRoot -Parent
 if($Performance) {
+ $taskPerfApk=Join-Path $taskRoot '.scratch/runtime/interface/readonly-journey/current.apk'
+ $taskPerfBuild=Get-Content -LiteralPath (Join-Path (Split-Path $taskPerfApk -Parent) 'bundle-metadata.json') -Raw | ConvertFrom-Json
+ if($taskPerfBuild.current.performanceMode -cne $PerformanceMode -or $taskPerfBuild.current.apkSha256 -cne (Get-FileHash -LiteralPath $taskPerfApk -Algorithm SHA256).Hash.ToLowerInvariant()) {throw 'Modo/hash do APK diverge do ensaio solicitado; reconstruir a variante correta.'}
  $taskPerfEvidence=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
  if(-not $taskPerfEvidence.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidências fora do workspace.'}
  if((Test-Path -LiteralPath $taskPerfEvidence) -and @(Get-ChildItem -LiteralPath $taskPerfEvidence -Force).Count) {throw 'Desempenho exige uma pasta de evidências nova e vazia.'}
@@ -18,7 +22,7 @@ $taskCompletion=Join-Path $taskRuntime 'android-accessibility-complete'
 $taskApiProcess=$null;$taskBootstrap=$null;$taskOwnObserver=$false;$taskOwnEmulator=$false;$taskEmulatorProcess=$null;$taskPanel=$null
 $taskPackage=if($taskIsolated){'dev.ritmo.readonlytest'}else{'dev.ritmo.journeytest'}
 $taskIsolationFailed=$false;$taskOwnReadOnly=$false;$taskOriginalHash=$null;$taskOriginalPath=$null
-$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY','RITMO_EMULATOR_DISCOVERY','RITMO_EMULATOR_GRPC_PORT','RITMO_PALETTE_EVIDENCE','RITMO_ANDROID_READER_MATRIX','RITMO_READER_PROGRESS','RITMO_READER_BOOTSTRAP','RITMO_READER_RECOVERY','RITMO_READER_TRAVERSAL','RITMO_READER_SYNC_STATES','RITMO_READER_READONLY','RITMO_READER_RETRY_EXHAUSTED','RITMO_READER_PARTIAL_COPY','RITMO_READER_PERFORMANCE')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
+$taskPrevious=@{};foreach($taskName in @('RITMO_ANDROID_JOURNEY_SERIAL','RITMO_ADB','RITMO_JOURNEY_EVIDENCE','RITMO_ANDROID_READER_ONLY','RITMO_EMULATOR_DISCOVERY','RITMO_EMULATOR_GRPC_PORT','RITMO_PALETTE_EVIDENCE','RITMO_ANDROID_READER_MATRIX','RITMO_READER_PROGRESS','RITMO_READER_BOOTSTRAP','RITMO_READER_RECOVERY','RITMO_READER_TRAVERSAL','RITMO_READER_SYNC_STATES','RITMO_READER_READONLY','RITMO_READER_RETRY_EXHAUSTED','RITMO_READER_PARTIAL_COPY','RITMO_READER_PERFORMANCE','RITMO_READER_PERFORMANCE_MODE')) {$taskPrevious[$taskName]=[Environment]::GetEnvironmentVariable($taskName,'Process')}
 New-Item -ItemType Directory -Force -Path $taskRuntime | Out-Null
 try {
  if($Matrix) {
@@ -32,6 +36,7 @@ try {
   $env:RITMO_READER_RETRY_EXHAUSTED=if($RetryExhausted){'1'}else{$null}
   $env:RITMO_READER_PARTIAL_COPY=if($PartialCopy){'1'}else{$null}
   $env:RITMO_READER_PERFORMANCE=if($Performance){'1'}else{$null}
+  $env:RITMO_READER_PERFORMANCE_MODE=if($Performance){$PerformanceMode}else{$null}
   $env:RITMO_READER_BOOTSTRAP=$taskBootstrap;$env:RITMO_ANDROID_READER_MATRIX='1';$env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb
   $env:RITMO_JOURNEY_EVIDENCE=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
   if(-not $env:RITMO_JOURNEY_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidências fora do workspace.'}
@@ -154,7 +159,7 @@ try {
  $env:RITMO_ANDROID_JOURNEY_SERIAL=$Serial;$env:RITMO_ADB=$taskAdb;$env:RITMO_JOURNEY_EVIDENCE=[IO.Path]::GetFullPath((Join-Path $taskRoot $EvidenceDirectory))
  if(-not $env:RITMO_JOURNEY_EVIDENCE.StartsWith($taskRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)) {throw 'Evidências fora do workspace.'}
  New-Item -ItemType Directory -Force -Path $env:RITMO_JOURNEY_EVIDENCE | Out-Null
- [IO.File]::WriteAllText((Join-Path $env:RITMO_JOURNEY_EVIDENCE 'installed-apk.json'),(@{passed=$true;package=$taskPackage;serial=$Serial;avd=$Avd;apkSha256=$taskLocalHash;installedSha256=$taskInstalledHash} | ConvertTo-Json)+"
+ [IO.File]::WriteAllText((Join-Path $env:RITMO_JOURNEY_EVIDENCE 'installed-apk.json'),(@{passed=$true;package=$taskPackage;serial=$Serial;avd=$Avd;apkSha256=$taskLocalHash;installedSha256=$taskInstalledHash;performanceMode=$(if($Performance){$PerformanceMode}else{'disabled'})} | ConvertTo-Json)+"
 ")
 
  $env:RITMO_ANDROID_READER_MATRIX=if($Matrix){'1'}else{$null}

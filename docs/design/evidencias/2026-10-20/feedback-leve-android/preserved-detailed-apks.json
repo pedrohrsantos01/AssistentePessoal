@@ -1,0 +1,12 @@
+[
+  {
+    "path": ".scratch/runtime/cauda/baseline-profile.apk",
+    "bytes": 44665805,
+    "sha256": "5ff5a4acef82089cab9cfeeb237c6cb531a39e5fd099d94efc612b427b33785d"
+  },
+  {
+    "path": ".scratch/runtime/cauda/optimized-profile.apk",
+    "bytes": 44665805,
+    "sha256": "33e3eb8c8cf4d264d3bcd16f0289212b2152eec945ded79361914ab252bae9ab"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "apks": [
+    {
+      "name": "lightweight",
+      "apkSha256": "9c6bdca5c13bf1dc6d9e7873f1b44a0c6763b4e468f46c5edc0870136ee59fff",
+      "dexFiles": [
+        "classes.dex",
+        "classes2.dex",
+        "classes3.dex",
+        "classes4.dex"
+      ],
+      "nativeFrameProbeDescriptorPresent": true,
+      "nativeSynchronousClockDescriptorPresent": false
+    },
+    {
+      "name": "preservedDetailed",
+      "apkSha256": "33e3eb8c8cf4d264d3bcd16f0289212b2152eec945ded79361914ab252bae9ab",
+      "dexFiles": [
+        "classes.dex",
+        "classes2.dex",
+        "classes3.dex",
+        "classes4.dex"
+      ],
+      "nativeFrameProbeDescriptorPresent": true,
+      "nativeSynchronousClockDescriptorPresent": true
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+[
+  {
+    "passed": true,
+    "argument": "Detailed",
+    "normalized": "detailed",
+    "expectedPreResourceRejection": true
+  },
+  {
+    "passed": true,
+    "argument": "Lightweight",
+    "normalized": "lightweight",
+    "expectedPreResourceRejection": true
+  }
+]

@@ -1,0 +1,7 @@
+{
+  "mode": "lightweight",
+  "probe": 4,
+  "synchronousClock": false,
+  "schedulerTrace": false,
+  "validated": true
+}

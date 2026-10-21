@@ -5,10 +5,12 @@ export default ({config}:ConfigContext)=>{
  const journey=process.env.EXPO_PUBLIC_RITMO_JOURNEY_TEST==='1';
  const readOnly=process.env.EXPO_PUBLIC_RITMO_READONLY_TEST==='1',updated=process.env.EXPO_PUBLIC_RITMO_READONLY_UPDATED==='1';
  const performance=process.env.EXPO_PUBLIC_RITMO_PERF_TEST==='1';
+ const performanceMode=process.env.EXPO_PUBLIC_RITMO_PERF_MODE;
+ if(performance&&(performanceMode!=='lightweight'&&performanceMode!=='detailed')||!performance&&performanceMode)throw new Error('explicit_performance_mode_required');
  if(performance&&!readOnly)throw new Error('isolated_performance_variant_required');
  if(readOnly&&(!journey||http||technical)||updated&&!readOnly) throw new Error('isolated_readonly_variant_required');
  return {...config,version:readOnly?(updated?'0.1.1':'0.1.0'):config.version,name:readOnly?'Ritmo — ensaio de leitura':http?'Ritmo HTTP harness':technical?'Ritmo — harness técnico':'Ritmo',slug:'ritmo',scheme:'ritmo',userInterfaceStyle:'automatic',
   android:{...config.android,package:http?'dev.ritmo.httpharness':technical?'dev.ritmo.foundationharness':readOnly?'dev.ritmo.readonlytest':journey?'dev.ritmo.journeytest':'dev.ritmo.app'},
-  plugins:[...(config.plugins??[]),'expo-router','expo-font','expo-system-ui',['./harness/with-performance-probe.cjs',{enabled:performance}],'./plugins/with-font-licenses.cjs',['./harness/with-http-harness.cjs',{enabled:http||journey}]],
+  plugins:[...(config.plugins??[]),'expo-router','expo-font','expo-system-ui',['./harness/with-performance-probe.cjs',{enabled:performance,detailed:performanceMode==='detailed'}],'./plugins/with-font-licenses.cjs',['./harness/with-http-harness.cjs',{enabled:http||journey}]],
  };
 };
