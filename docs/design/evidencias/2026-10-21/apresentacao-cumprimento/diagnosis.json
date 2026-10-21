@@ -1,0 +1,1117 @@
+{
+  "validatedCapture": "diagnostico2",
+  "worstSample": 10,
+  "worstSequence": 1,
+  "worst": {
+    "sample": 10,
+    "sequence": 1,
+    "pid": 11797,
+    "totalMs": 411.763,
+    "jsTid": 11821,
+    "delivery": {
+      "eventToDispatch": {
+        "js": {
+          "wallMs": 11.0198,
+          "scheduledMs": 0.0,
+          "statesMs": {
+            "S": 11.0198
+          },
+          "sections": []
+        },
+        "ui": {
+          "wallMs": 11.0198,
+          "scheduledMs": 0.5558,
+          "statesMs": {
+            "S": 10.0241,
+            "R": 0.4399,
+            "Running": 0.5558
+          },
+          "sections": [
+            {
+              "name": "dispatchInputEvent MotionEvent ACTION_UP deviceId=12 source=0x5002 historySize=0",
+              "wallMs": 0.2717,
+              "scheduledMs": 0.2717
+            },
+            {
+              "name": "deliverInputEvent src=0x5002 eventTimeNano=350090146000 id=0x168ed431",
+              "wallMs": 0.174,
+              "scheduledMs": 0.174
+            },
+            {
+              "name": "ViewPostImeInputStage id=0x168ed431",
+              "wallMs": 0.0803,
+              "scheduledMs": 0.0803
+            },
+            {
+              "name": "NativePostImeInputStage id=0x168ed431",
+              "wallMs": 0.0206,
+              "scheduledMs": 0.0206
+            },
+            {
+              "name": "processInputEventForCompatibility",
+              "wallMs": 0.0191,
+              "scheduledMs": 0.0191
+            },
+            {
+              "name": "EarlyPostImeInputStage id=0x168ed431",
+              "wallMs": 0.0178,
+              "scheduledMs": 0.0178
+            },
+            {
+              "name": "receiveMessage(inputChannel=74a227c dev.ritmo.readonlytest/dev.ritmo.readonlytest.MainActivity (client), seq=0xb6d, type=MOTION)",
+              "wallMs": 0.0147,
+              "scheduledMs": 0.0147
+            }
+          ]
+        },
+        "render": {
+          "wallMs": 11.0198,
+          "scheduledMs": 3.6245,
+          "statesMs": {
+            "Running": 3.6245,
+            "S": 7.3953
+          },
+          "sections": [
+            {
+              "name": "DrawFrames 137896",
+              "wallMs": 3.5506,
+              "scheduledMs": 3.5506
+            },
+            {
+              "name": "Drawing  0.00  0.00 1080.00 2424.00",
+              "wallMs": 3.5298,
+              "scheduledMs": 3.5298
+            },
+            {
+              "name": "eglSwapBuffersWithDamageKHR",
+              "wallMs": 3.1483,
+              "scheduledMs": 3.1483
+            },
+            {
+              "name": "rcCreateSyncKHR encode",
+              "wallMs": 1.1476,
+              "scheduledMs": 1.1476
+            },
+            {
+              "name": "queueBuffer",
+              "wallMs": 1.1474,
+              "scheduledMs": 1.1474
+            },
+            {
+              "name": "onFrameAvailable - VRI[MainActivity]#0(f:0,a:1)",
+              "wallMs": 0.6722,
+              "scheduledMs": 0.6722
+            },
+            {
+              "name": "acquireNextBufferLocked - VRI[MainActivity]#0(f:0,a:1)frame=25",
+              "wallMs": 0.3904,
+              "scheduledMs": 0.3904
+            },
+            {
+              "name": "dequeueBuffer - VRI[MainActivity]#0(BLAST Consumer)0",
+              "wallMs": 0.2701,
+              "scheduledMs": 0.2701
+            },
+            {
+              "name": "acquireBuffer",
+              "wallMs": 0.1896,
+              "scheduledMs": 0.1896
+            },
+            {
+              "name": "reportMetricsWithPresentTime",
+              "wallMs": 0.1782,
+              "scheduledMs": 0.1782
+            },
+            {
+              "name": "dequeueBuffer",
+              "wallMs": 0.1291,
+              "scheduledMs": 0.1291
+            },
+            {
+              "name": "dumpingMemoryStatistics",
+              "wallMs": 0.0843,
+              "scheduledMs": 0.0843
+            },
+            {
+              "name": "waitForever",
+              "wallMs": 0.0568,
+              "scheduledMs": 0.0568
+            },
+            {
+              "name": "addAndGetFrameTimestamps",
+              "wallMs": 0.0456,
+              "scheduledMs": 0.0456
+            },
+            {
+              "name": "Trace GPU completion fence 24",
+              "wallMs": 0.0454,
+              "scheduledMs": 0.0454
+            },
+            {
+              "name": "VRI[MainActivity]#0(BLAST Consumer)0: 0",
+              "wallMs": 0.0322,
+              "scheduledMs": 0.0322
+            },
+            {
+              "name": "HWC release fence 25 has signaled",
+              "wallMs": 0.0251,
+              "scheduledMs": 0.0251
+            },
+            {
+              "name": "applyGrallocMetadataLocked",
+              "wallMs": 0.0178,
+              "scheduledMs": 0.0178
+            },
+            {
+              "name": "rcSetWindowColorBuffer encode",
+              "wallMs": 0.017,
+              "scheduledMs": 0.017
+            },
+            {
+              "name": "getFrameTimestamps",
+              "wallMs": 0.0169,
+              "scheduledMs": 0.0169
+            },
+            {
+              "name": "VRI[MainActivity]#0(BLAST Consumer)0: 2",
+              "wallMs": 0.0161,
+              "scheduledMs": 0.0161
+            },
+            {
+              "name": "Transaction::setFrameTimelineInfo frameNumber: 25 vsyncId: 137896",
+              "wallMs": 0.0,
+              "scheduledMs": 0.0
+            }
+          ]
+        }
+      },
+      "dispatchToHandler": {
+        "js": {
+          "wallMs": 6.485,
+          "scheduledMs": 0.691,
+          "statesMs": {
+            "S": 5.2716,
+            "R": 0.5224,
+            "Running": 0.691
+          },
+          "sections": [
+            {
+              "name": "Lcom/facebook/react/fabric/FabricUIManager$4;",
+              "wallMs": 0.0587,
+              "scheduledMs": 0.0587
+            }
+          ]
+        },
+        "ui": {
+          "wallMs": 6.485,
+          "scheduledMs": 2.7406,
+          "statesMs": {
+            "Running": 2.7406,
+            "S": 3.3782,
+            "R": 0.3662
+          },
+          "sections": [
+            {
+              "name": "dispatchInputEvent MotionEvent ACTION_UP deviceId=12 source=0x5002 historySize=0",
+              "wallMs": 1.6092,
+              "scheduledMs": 1.6092
+            },
+            {
+              "name": "deliverInputEvent src=0x5002 eventTimeNano=350090146000 id=0x168ed431",
+              "wallMs": 1.5895,
+              "scheduledMs": 1.5895
+            },
+            {
+              "name": "ViewPostImeInputStage id=0x168ed431",
+              "wallMs": 1.3897,
+              "scheduledMs": 1.3897
+            },
+            {
+              "name": "Choreographer#doFrame 137910",
+              "wallMs": 0.8669,
+              "scheduledMs": 0.8669
+            },
+            {
+              "name": "Choreographer#doFrame - resynced to 137912 in 30.2ms",
+              "wallMs": 0.7923,
+              "scheduledMs": 0.7923
+            },
+            {
+              "name": "animation",
+              "wallMs": 0.4311,
+              "scheduledMs": 0.4311
+            },
+            {
+              "name": "TouchesHelper.sentTouchEventModern(topTouchEnd)",
+              "wallMs": 0.3965,
+              "scheduledMs": 0.3965
+            },
+            {
+              "name": "Choreographer#scheduleVsyncLocked",
+              "wallMs": 0.1515,
+              "scheduledMs": 0.1515
+            },
+            {
+              "name": "BatchEventDispatchedListeners",
+              "wallMs": 0.1274,
+              "scheduledMs": 0.1274
+            },
+            {
+              "name": "sendMessage(inputChannel=74a227c dev.ritmo.readonlytest/dev.ritmo.readonlytest.MainActivity (client), seq=0xb6d, type=FINISHED)",
+              "wallMs": 0.1073,
+              "scheduledMs": 0.1073
+            },
+            {
+              "name": "FabricEventEmitter.receiveEvent('topTouchEnd')",
+              "wallMs": 0.0843,
+              "scheduledMs": 0.0843
+            },
+            {
+              "name": "Choreographer#onVsync 137910",
+              "wallMs": 0.0342,
+              "scheduledMs": 0.0342
+            },
+            {
+              "name": "View#onTouchEvent",
+              "wallMs": 0.0221,
+              "scheduledMs": 0.0221
+            }
+          ]
+        },
+        "render": {
+          "wallMs": 6.485,
+          "scheduledMs": 0.0,
+          "statesMs": {
+            "S": 6.485
+          },
+          "sections": []
+        }
+      },
+      "handlerToCommit": {
+        "js": {
+          "wallMs": 34.0515,
+          "scheduledMs": 21.8184,
+          "statesMs": {
+            "Running": 21.8184,
+            "R": 7.2689,
+            "R+": 0.5117,
+            "D": 4.4525
+          },
+          "sections": []
+        },
+        "ui": {
+          "wallMs": 34.0515,
+          "scheduledMs": 2.0035,
+          "statesMs": {
+            "S": 31.3623,
+            "R": 0.6857,
+            "Running": 2.0035
+          },
+          "sections": [
+            {
+              "name": "animation",
+              "wallMs": 1.6408,
+              "scheduledMs": 1.1747
+            },
+            {
+              "name": "Choreographer#doFrame 137918",
+              "wallMs": 1.4909,
+              "scheduledMs": 1.0248
+            },
+            {
+              "name": "Choreographer#doFrame 137925",
+              "wallMs": 0.5448,
+              "scheduledMs": 0.5448
+            },
+            {
+              "name": "Choreographer#scheduleVsyncLocked",
+              "wallMs": 0.3681,
+              "scheduledMs": 0.3681
+            },
+            {
+              "name": "MountItemDispatcher::mountViews mountItems to execute",
+              "wallMs": 0.0715,
+              "scheduledMs": 0.0715
+            },
+            {
+              "name": "Choreographer#onVsync 137918",
+              "wallMs": 0.0529,
+              "scheduledMs": 0.0529
+            },
+            {
+              "name": "Choreographer#onVsync 137925",
+              "wallMs": 0.0446,
+              "scheduledMs": 0.0446
+            },
+            {
+              "name": "BatchEventDispatchedListeners",
+              "wallMs": 0.0323,
+              "scheduledMs": 0.0323
+            }
+          ]
+        },
+        "render": {
+          "wallMs": 34.0515,
+          "scheduledMs": 0.0,
+          "statesMs": {
+            "S": 34.0515
+          },
+          "sections": []
+        }
+      },
+      "commitToReturn": {
+        "js": {
+          "wallMs": 17.6783,
+          "scheduledMs": 16.7733,
+          "statesMs": {
+            "Running": 16.7733,
+            "R": 0.813,
+            "R+": 0.092
+          },
+          "sections": []
+        },
+        "ui": {
+          "wallMs": 17.6783,
+          "scheduledMs": 0.8497,
+          "statesMs": {
+            "S": 16.6908,
+            "R": 0.1378,
+            "Running": 0.8497
+          },
+          "sections": [
+            {
+              "name": "Choreographer#doFrame 137932",
+              "wallMs": 0.6231,
+              "scheduledMs": 0.6231
+            },
+            {
+              "name": "animation",
+              "wallMs": 0.4105,
+              "scheduledMs": 0.4105
+            },
+            {
+              "name": "Choreographer#scheduleVsyncLocked",
+              "wallMs": 0.1937,
+              "scheduledMs": 0.1937
+            },
+            {
+              "name": "Choreographer#onVsync 137932",
+              "wallMs": 0.0475,
+              "scheduledMs": 0.0475
+            },
+            {
+              "name": "BatchEventDispatchedListeners",
+              "wallMs": 0.0208,
+              "scheduledMs": 0.0208
+            }
+          ]
+        },
+        "render": {
+          "wallMs": 17.6783,
+          "scheduledMs": 0.0,
+          "statesMs": {
+            "S": 17.6783
+          },
+          "sections": []
+        }
+      },
+      "returnToReact": {
+        "js": {
+          "wallMs": 33.1551,
+          "scheduledMs": 31.3646,
+          "statesMs": {
+            "Running": 31.3646,
+            "R+": 0.7815,
+            "R": 1.009
+          },
+          "sections": [
+            {
+              "name": "Constructing StaticLayout",
+              "wallMs": 0.2779,
+              "scheduledMs": 0.2779
+            },
+            {
+              "name": "calculateBounds",
+              "wallMs": 0.0447,
+              "scheduledMs": 0.0447
+            }
+          ]
+        },
+        "ui": {
+          "wallMs": 33.1551,
+          "scheduledMs": 3.5793,
+          "statesMs": {
+            "S": 29.1919,
+            "R": 0.3839,
+            "Running": 3.5793
+          },
+          "sections": [
+            {
+              "name": "animation",
+              "wallMs": 2.4165,
+              "scheduledMs": 2.4165
+            },
+            {
+              "name": "Choreographer#doFrame 137946",
+              "wallMs": 2.4002,
+              "scheduledMs": 2.4002
+            },
+            {
+              "name": "MountItemDispatcher::premountViews",
+              "wallMs": 1.388,
+              "scheduledMs": 1.388
+            },
+            {
+              "name": "SurfaceMountingManager::createViewUnsafe(RCTImageView)",
+              "wallMs": 1.2626,
+              "scheduledMs": 1.2626
+            },
+            {
+              "name": "Choreographer#doFrame 137939",
+              "wallMs": 0.4961,
+              "scheduledMs": 0.4961
+            },
+            {
+              "name": "Choreographer#scheduleVsyncLocked",
+              "wallMs": 0.3611,
+              "scheduledMs": 0.3611
+            },
+            {
+              "name": "BatchEventDispatchedListeners",
+              "wallMs": 0.0454,
+              "scheduledMs": 0.0454
+            },
+            {
+              "name": "Choreographer#onVsync 137939",
+              "wallMs": 0.0447,
+              "scheduledMs": 0.0447
+            },
+            {
+              "name": "Choreographer#onVsync 137946",
+              "wallMs": 0.044,
+              "scheduledMs": 0.044
+            }
+          ]
+        },
+        "render": {
+          "wallMs": 33.1551,
+          "scheduledMs": 0.0,
+          "statesMs": {
+            "S": 33.1551
+          },
+          "sections": []
+        }
+      },
+      "reactToFrame": {
+        "js": {
+          "wallMs": 309.3733,
+          "scheduledMs": 2.6748,
+          "statesMs": {
+            "Running": 2.6748,
+            "S": 306.6985
+          },
+          "sections": []
+        },
+        "ui": {
+          "wallMs": 309.3733,
+          "scheduledMs": 34.2683,
+          "statesMs": {
+            "S": 270.4873,
+            "R": 0.4145,
+            "Running": 34.2683,
+            "R+": 4.2032
+          },
+          "sections": [
+            {
+              "name": "traversal",
+              "wallMs": 262.872,
+              "scheduledMs": 4.5395
+            },
+            {
+              "name": "draw-VRI[MainActivity]",
+              "wallMs": 262.6618,
+              "scheduledMs": 4.3293
+            },
+            {
+              "name": "postAndWait",
+              "wallMs": 257.9369,
+              "scheduledMs": 0.0954
+            },
+            {
+              "name": "Choreographer#doFrame 137960",
+              "wallMs": 256.7231,
+              "scheduledMs": 1.5977
+            },
+            {
+              "name": "Choreographer#doFrame - resynced to 137962 in 24.3ms",
+              "wallMs": 256.6444,
+              "scheduledMs": 1.519
+            },
+            {
+              "name": "Choreographer#doFrame 137953",
+              "wallMs": 20.0244,
+              "scheduledMs": 13.5489
+            },
+            {
+              "name": "animation",
+              "wallMs": 13.0752,
+              "scheduledMs": 10.0589
+            },
+            {
+              "name": "MountItemDispatcher::mountViews mountItems to execute",
+              "wallMs": 11.8291,
+              "scheduledMs": 9.3826
+            },
+            {
+              "name": "IntBufferBatchMountItem::mountViews",
+              "wallMs": 11.354,
+              "scheduledMs": 8.9075
+            },
+            {
+              "name": "IntBufferBatchMountItem::mountInstructions::UPDATE_STATE numInstructions=9",
+              "wallMs": 7.9149,
+              "scheduledMs": 5.5078
+            },
+            {
+              "name": "Record View#draw()",
+              "wallMs": 3.9522,
+              "scheduledMs": 3.4612
+            },
+            {
+              "name": "ReactTextViewManager.updateState",
+              "wallMs": 2.3283,
+              "scheduledMs": 2.3283
+            },
+            {
+              "name": "ReactTextViewManager.updateExtraData",
+              "wallMs": 2.2773,
+              "scheduledMs": 2.2773
+            },
+            {
+              "name": "ReactTextView.onDraw",
+              "wallMs": 2.0674,
+              "scheduledMs": 1.7064
+            },
+            {
+              "name": "IntBufferBatchMountItem::mountInstructions::UPDATE_LAYOUT numInstructions=8",
+              "wallMs": 1.0491,
+              "scheduledMs": 1.0491
+            },
+            {
+              "name": "IntBufferBatchMountItem::mountInstructions::INSERT numInstructions=1",
+              "wallMs": 1.0471,
+              "scheduledMs": 1.0471
+            },
+            {
+              "name": "ReactTextView.setText(ReactTextUpdate)",
+              "wallMs": 0.9409,
+              "scheduledMs": 0.9409
+            },
+            {
+              "name": "Choreographer#scheduleVsyncLocked",
+              "wallMs": 0.9057,
+              "scheduledMs": 0.3359
+            },
+            {
+              "name": "Constructing StaticLayout",
+              "wallMs": 0.8912,
+              "scheduledMs": 0.8912
+            },
+            {
+              "name": "IntBufferBatchMountItem::mountInstructions::UPDATE_PROPS numInstructions=2",
+              "wallMs": 0.6633,
+              "scheduledMs": 0.6633
+            },
+            {
+              "name": "ReactTextView.onMeasure",
+              "wallMs": 0.6012,
+              "scheduledMs": 0.6012
+            },
+            {
+              "name": "IntBufferBatchMountItem::mountInstructions::UPDATE_PROPS numInstructions=1",
+              "wallMs": 0.1578,
+              "scheduledMs": 0.1578
+            },
+            {
+              "name": "Choreographer#onVsync 137960",
+              "wallMs": 0.0589,
+              "scheduledMs": 0.0589
+            },
+            {
+              "name": "Choreographer#onVsync 137953",
+              "wallMs": 0.0507,
+              "scheduledMs": 0.0507
+            },
+            {
+              "name": "BatchEventDispatchedListeners",
+              "wallMs": 0.0502,
+              "scheduledMs": 0.0502
+            },
+            {
+              "name": "Lock contention on task queue lock (owner tid: 11800)",
+              "wallMs": 0.0477,
+              "scheduledMs": 0.0477
+            },
+            {
+              "name": "IntBufferBatchMountItem::mountInstructions::UPDATE_EVENT_EMITTER numInstructions=1",
+              "wallMs": 0.0297,
+              "scheduledMs": 0.0297
+            },
+            {
+              "name": "computePalette",
+              "wallMs": 0.0135,
+              "scheduledMs": 0.0135
+            }
+          ]
+        },
+        "render": {
+          "wallMs": 309.3733,
+          "scheduledMs": 268.4081,
+          "statesMs": {
+            "S": 13.7578,
+            "R": 18.3773,
+            "Running": 268.4081,
+            "R+": 8.8301
+          },
+          "sections": [
+            {
+              "name": "syncFrameState",
+              "wallMs": 196.1742,
+              "scheduledMs": 194.9516
+            },
+            {
+              "name": "DrawFrames 137960",
+              "wallMs": 196.1731,
+              "scheduledMs": 194.9505
+            },
+            {
+              "name": "prepareTree",
+              "wallMs": 196.027,
+              "scheduledMs": 194.8044
+            },
+            {
+              "name": "glGenTextures encode",
+              "wallMs": 195.1819,
+              "scheduledMs": 193.9593
+            },
+            {
+              "name": "DrawFrames 137953",
+              "wallMs": 80.5727,
+              "scheduledMs": 72.9423
+            },
+            {
+              "name": "Drawing  0.00  0.00 1080.00 2424.00",
+              "wallMs": 80.0909,
+              "scheduledMs": 72.4605
+            },
+            {
+              "name": "eglSwapBuffersWithDamageKHR",
+              "wallMs": 53.8289,
+              "scheduledMs": 46.4882
+            },
+            {
+              "name": "rcCreateSyncKHR encode",
+              "wallMs": 51.84,
+              "scheduledMs": 44.568
+            },
+            {
+              "name": "flush commands",
+              "wallMs": 25.3962,
+              "scheduledMs": 25.1065
+            },
+            {
+              "name": "auto skgpu::ganesh::OpsTask::onPrepare(GrOpFlushState *)::(anonymous class)::operator()() const",
+              "wallMs": 18.5904,
+              "scheduledMs": 18.5205
+            },
+            {
+              "name": "auto skgpu::ganesh::OpsTask::onExecute(GrOpFlushState *)::(anonymous class)::operator()() const",
+              "wallMs": 4.3676,
+              "scheduledMs": 4.1478
+            },
+            {
+              "name": "CircularRRectOp",
+              "wallMs": 1.7926,
+              "scheduledMs": 1.7926
+            },
+            {
+              "name": "Texture upload(13) 336x28",
+              "wallMs": 1.4567,
+              "scheduledMs": 1.4567
+            },
+            {
+              "name": "FillRectOp",
+              "wallMs": 1.4427,
+              "scheduledMs": 1.3619
+            },
+            {
+              "name": "AtlasTextOp",
+              "wallMs": 1.307,
+              "scheduledMs": 1.1369
+            },
+            {
+              "name": "glTexSubImage2D encode",
+              "wallMs": 1.2297,
+              "scheduledMs": 1.2297
+            },
+            {
+              "name": "queueBuffer",
+              "wallMs": 1.0833,
+              "scheduledMs": 1.0833
+            },
+            {
+              "name": "onFrameAvailable - VRI[MainActivity]#0(f:0,a:1)",
+              "wallMs": 0.5623,
+              "scheduledMs": 0.5623
+            },
+            {
+              "name": "glVertexAttribPointerOffset encode",
+              "wallMs": 0.4791,
+              "scheduledMs": 0.4791
+            },
+            {
+              "name": "glBufferDataSyncAEMU encode",
+              "wallMs": 0.4521,
+              "scheduledMs": 0.4521
+            },
+            {
+              "name": "acquireNextBufferLocked - VRI[MainActivity]#0(f:0,a:1)frame=26",
+              "wallMs": 0.4035,
+              "scheduledMs": 0.4035
+            },
+            {
+              "name": "dequeueBuffer - VRI[MainActivity]#0(BLAST Consumer)0",
+              "wallMs": 0.3953,
+              "scheduledMs": 0.3266
+            },
+            {
+              "name": "glUseProgram encode",
+              "wallMs": 0.3548,
+              "scheduledMs": 0.274
+            },
+            {
+              "name": "dequeueBuffer",
+              "wallMs": 0.2989,
+              "scheduledMs": 0.2302
+            },
+            {
+              "name": "notifyFramePending",
+              "wallMs": 0.2455,
+              "scheduledMs": 0.09
+            },
+            {
+              "name": "query",
+              "wallMs": 0.1782,
+              "scheduledMs": 0.1782
+            },
+            {
+              "name": "glDrawElementsOffset encode",
+              "wallMs": 0.176,
+              "scheduledMs": 0.176
+            },
+            {
+              "name": "glBufferSubData encode",
+              "wallMs": 0.1668,
+              "scheduledMs": 0.1668
+            },
+            {
+              "name": "rcFlushWindowColorBufferAsyncWithFrameNumber encode",
+              "wallMs": 0.1633,
+              "scheduledMs": 0.1633
+            },
+            {
+              "name": "glBindTexture encode",
+              "wallMs": 0.1224,
+              "scheduledMs": 0.1224
+            },
+            {
+              "name": "VRI[MainActivity]#0(BLAST Consumer)0: 1",
+              "wallMs": 0.1192,
+              "scheduledMs": 0.0505
+            },
+            {
+              "name": "Trace GPU completion fence 25",
+              "wallMs": 0.1156,
+              "scheduledMs": 0.1156
+            },
+            {
+              "name": "reportMetricsWithPresentTime",
+              "wallMs": 0.107,
+              "scheduledMs": 0.107
+            },
+            {
+              "name": "glBindBuffer encode",
+              "wallMs": 0.105,
+              "scheduledMs": 0.105
+            },
+            {
+              "name": "dumpingMemoryStatistics",
+              "wallMs": 0.0928,
+              "scheduledMs": 0.0928
+            },
+            {
+              "name": "glUniform4f encode",
+              "wallMs": 0.0839,
+              "scheduledMs": 0.0839
+            },
+            {
+              "name": "acquireBuffer",
+              "wallMs": 0.0813,
+              "scheduledMs": 0.0813
+            },
+            {
+              "name": "glTexParameteri encode",
+              "wallMs": 0.0805,
+              "scheduledMs": 0.0805
+            },
+            {
+              "name": "waitForever",
+              "wallMs": 0.0671,
+              "scheduledMs": 0.0671
+            },
+            {
+              "name": "glUniform4fv encode",
+              "wallMs": 0.0659,
+              "scheduledMs": 0.0659
+            },
+            {
+              "name": "dispatchSetFrameTimelineInfo",
+              "wallMs": 0.0595,
+              "scheduledMs": 0.0595
+            },
+            {
+              "name": "glPixelStorei encode",
+              "wallMs": 0.0552,
+              "scheduledMs": 0.0552
+            },
+            {
+              "name": "glUniform2f encode",
+              "wallMs": 0.0552,
+              "scheduledMs": 0.0552
+            },
+            {
+              "name": "addAndGetFrameTimestamps",
+              "wallMs": 0.0518,
+              "scheduledMs": 0.0518
+            },
+            {
+              "name": "glActiveTexture encode",
+              "wallMs": 0.0492,
+              "scheduledMs": 0.0492
+            },
+            {
+              "name": "glEnableVertexAttribArray encode",
+              "wallMs": 0.0465,
+              "scheduledMs": 0.0465
+            },
+            {
+              "name": "glVertexAttribIPointerOffsetAEMU encode",
+              "wallMs": 0.0442,
+              "scheduledMs": 0.0442
+            },
+            {
+              "name": "glDrawArrays encode",
+              "wallMs": 0.0415,
+              "scheduledMs": 0.0415
+            },
+            {
+              "name": "glTexStorage2D encode",
+              "wallMs": 0.039,
+              "scheduledMs": 0.039
+            },
+            {
+              "name": "glDisableVertexAttribArray encode",
+              "wallMs": 0.0316,
+              "scheduledMs": 0.0316
+            },
+            {
+              "name": "glBindSampler encode",
+              "wallMs": 0.0314,
+              "scheduledMs": 0.0314
+            },
+            {
+              "name": "VRI[MainActivity]#0(BLAST Consumer)0: 2",
+              "wallMs": 0.0278,
+              "scheduledMs": 0.0278
+            },
+            {
+              "name": "glUniform1fv encode",
+              "wallMs": 0.0275,
+              "scheduledMs": 0.0275
+            },
+            {
+              "name": "glUniformMatrix3fv encode",
+              "wallMs": 0.0258,
+              "scheduledMs": 0.0258
+            },
+            {
+              "name": "getFrameTimestamps",
+              "wallMs": 0.0197,
+              "scheduledMs": 0.0197
+            },
+            {
+              "name": "setFrameTimelineInfo(VRI[MainActivity]#0) frameNumber: 26 vsyncId: 137953",
+              "wallMs": 0.0193,
+              "scheduledMs": 0.0193
+            },
+            {
+              "name": "setSurfaceDamage",
+              "wallMs": 0.0191,
+              "scheduledMs": 0.0191
+            },
+            {
+              "name": "glEnable encode",
+              "wallMs": 0.0183,
+              "scheduledMs": 0.0183
+            },
+            {
+              "name": "applyGrallocMetadataLocked",
+              "wallMs": 0.0181,
+              "scheduledMs": 0.0181
+            },
+            {
+              "name": "HWC release fence 26 has signaled",
+              "wallMs": 0.0163,
+              "scheduledMs": 0.0163
+            },
+            {
+              "name": "rcSetWindowColorBuffer encode",
+              "wallMs": 0.016,
+              "scheduledMs": 0.016
+            },
+            {
+              "name": "glDisable encode",
+              "wallMs": 0.0152,
+              "scheduledMs": 0.0152
+            },
+            {
+              "name": "eglBeginFrame",
+              "wallMs": 0.0151,
+              "scheduledMs": 0.0151
+            },
+            {
+              "name": "glClear encode",
+              "wallMs": 0.0151,
+              "scheduledMs": 0.0151
+            },
+            {
+              "name": "glBindFramebuffer encode",
+              "wallMs": 0.0121,
+              "scheduledMs": 0.0121
+            },
+            {
+              "name": "Transaction::setFrameTimelineInfo frameNumber: 26 vsyncId: 137953",
+              "wallMs": 0.0,
+              "scheduledMs": 0.0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "imageCreationsByGesture": [
+    {
+      "sample": 1,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 1,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 2,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 2,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 3,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 3,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 4,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 4,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 5,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 5,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 6,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 6,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 7,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 7,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 8,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 8,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 9,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 9,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    },
+    {
+      "sample": 10,
+      "sequence": 1,
+      "nativeImageCreationSections": 1
+    },
+    {
+      "sample": 10,
+      "sequence": 2,
+      "nativeImageCreationSections": 0
+    }
+  ],
+  "chosenExperiment": ".scratch/interface-m1/checkmark-persistente.md",
+  "causalityEstablished": false,
+  "productComponentsChanged": false
+}

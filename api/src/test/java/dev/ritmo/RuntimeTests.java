@@ -856,6 +856,7 @@ class RuntimeTests {
         var builder=new ProcessBuilder("node","--import","tsx","--test",readerFile)
             .directory(java.nio.file.Path.of("../app").toFile()).redirectErrorStream(true).redirectOutput(log.toFile());
         builder.environment().put("RITMO_TEST_API","http://127.0.0.1:"+port);
+        builder.environment().put("RITMO_TEST_SERVER_TIME",RESET_CLOCK.instant().toString());
         var process=builder.start();
         boolean ended=process.waitFor(1830,java.util.concurrent.TimeUnit.SECONDS);
         if(!ended) {process.descendants().forEach(ProcessHandle::destroyForcibly);process.destroyForcibly();}

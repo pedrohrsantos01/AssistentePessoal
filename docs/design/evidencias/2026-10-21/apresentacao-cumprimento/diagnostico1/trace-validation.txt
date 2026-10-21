@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\scripts\analyze_android_presentation.py", line 167, in <module>
+    run(args.folder.resolve(), args.processor.resolve() if args.processor else None, args.verify_exports)
+  File "C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\scripts\analyze_android_presentation.py", line 144, in run
+    rows = analyze(tables, frames, stages)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\scripts\analyze_android_presentation.py", line 55, in analyze
+    assert int(bounds['end_ts']) >= max(f['frameEndNs'] for f in toggles.values()), 'trace_end_before_frame'
+AssertionError: trace_end_before_frame

@@ -1,0 +1,64 @@
+{
+  "adbServerPreserved": true,
+  "temporaryPackageAbsent": true,
+  "normalApkPreserved": true,
+  "containers": [
+    {
+      "preserved": false,
+      "identity": "986a7b00bd67 supabase_db_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "8ce1ea6d7cb9 supabase_pg_meta_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "be317b65041e supabase_storage_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "fab5b08db76e supabase_rest_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "56be50f7c088 supabase_realtime_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "a2720b018c6d supabase_inbucket_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "bd51a691b5e0 supabase_auth_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "fdecdd8e842d supabase_kong_care-platform"
+    },
+    {
+      "preserved": true,
+      "identity": "30500e5d65d3 ai-memory"
+    }
+  ],
+  "originalAvdSelectedMetadataOnly": true,
+  "settingsRestored": true,
+  "baselineApkPreserved": true,
+  "normalNativeConfigPreserved": true,
+  "baselineAt": "2026-10-21T00:50:37.9663526-03:00",
+  "originalAvd": [
+    {
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\config.ini",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\pedro\\.android\\avd\\Pixel_9.avd\\userdata-qemu.img.qcow2",
+      "unchanged": true
+    }
+  ],
+  "adbServerPid": 38660,
+  "originalInstallationPreserved": true,
+  "ownProcessesGone": true,
+  "ownedLive": [],
+  "passed": false,
+  "at": "2026-10-21T01:39:10.5766508-03:00"
+}

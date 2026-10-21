@@ -1,0 +1,452 @@
+"pid","tid","name","is_main_thread"
+7341,7341,"mo.readonlytest",1
+7341,7342,"Signal Catcher",0
+7341,7343,"perfetto_hprof_",0
+7341,7344,"Jit thread pool",0
+7341,7345,"HeapTaskDaemon",0
+7341,7346,"ReferenceQueueD",0
+7341,7347,"FinalizerDaemon",0
+7341,7348,"FinalizerWatchd",0
+7341,7349,"binder:7341_1",0
+7341,7350,"binder:7341_2",0
+7341,7354,"binder:7341_3",0
+7341,7359,"Profile Saver",0
+7341,7361,"RenderThread",0
+7341,7362,"mo.readonlytest",0
+7341,7363,"RenderThread",0
+7341,7367,"HybridData Dest",0
+7341,7368,"SharedPreferenc",0
+7341,7369,"pool-2-thread-1",0
+7341,7370,"mqt_v_js",0
+7341,7371,"mqt_v_native",0
+7341,7372,"hades",0
+7341,7373,"Expo JNI deallo",0
+7341,7374,"ncFunctionQueue",0
+7341,7375,"DefaultDispatch",0
+7341,7376,"DefaultDispatch",0
+7341,7377,"SurfaceSyncGrou",0
+7341,7380,"HWC release",0
+7341,7381,"RenderThread",0
+7341,7382,"ConnectivityThr",0
+7341,7384,"hwuiTask0",0
+7341,7385,"hwuiTask1",0
+7341,7386,"GPU completion",0
+7341,7388,"EmojiCompatInit",0
+7341,7392,"hades",0
+7341,7393,"Expo JNI deallo",0
+7341,7394,"binder:7341_3",0
+7341,7395,"DefaultDispatch",0
+7341,7396,"DefaultDispatch",0
+7341,7401,"FrescoLightWeig",0
+7341,7402,"FrescoIoBoundEx",0
+7341,7403,"FrescoDecodeExe",0
+7341,7404,"FrescoBackgroun",0
+7341,7451,"binder:7341_4",0
+7341,7506,"pool-4-thread-1",0
+7341,7971,"FrescoIoBoundEx",0
+7341,7972,"FrescoDecodeExe",0
+8339,8339,"mo.readonlytest",1
+8339,8343,"Signal Catcher",0
+8339,8344,"perfetto_hprof_",0
+8339,8345,"Jit thread pool",0
+8339,8346,"HeapTaskDaemon",0
+8339,8347,"ReferenceQueueD",0
+8339,8348,"FinalizerDaemon",0
+8339,8349,"FinalizerWatchd",0
+8339,8350,"binder:8339_1",0
+8339,8351,"binder:8339_2",0
+8339,8352,"binder:8339_3",0
+8339,8356,"Profile Saver",0
+8339,8357,"RenderThread",0
+8339,8358,"mo.readonlytest",0
+8339,8359,"RenderThread",0
+8339,8360,"HybridData Dest",0
+8339,8361,"SharedPreferenc",0
+8339,8362,"pool-2-thread-1",0
+8339,8363,"mqt_v_js",0
+8339,8364,"mqt_v_native",0
+8339,8365,"hades",0
+8339,8366,"Expo JNI deallo",0
+8339,8367,"ncFunctionQueue",0
+8339,8368,"DefaultDispatch",0
+8339,8369,"DefaultDispatch",0
+8339,8370,"SurfaceSyncGrou",0
+8339,8373,"ConnectivityThr",0
+8339,8375,"HWC release",0
+8339,8376,"RenderThread",0
+8339,8377,"hwuiTask0",0
+8339,8378,"hwuiTask1",0
+8339,8379,"GPU completion",0
+8339,8381,"hades",0
+8339,8382,"EmojiCompatInit",0
+8339,8385,"Expo JNI deallo",0
+8339,8387,"binder:8339_3",0
+8339,8392,"FrescoLightWeig",0
+8339,8393,"FrescoIoBoundEx",0
+8339,8394,"FrescoDecodeExe",0
+8339,8395,"FrescoBackgroun",0
+8339,8429,"binder:8339_4",0
+8339,8516,"pool-4-thread-1",0
+8339,8541,"binder:8339_5",0
+8339,8661,"FrescoIoBoundEx",0
+8339,8662,"FrescoDecodeExe",0
+8859,8859,"mo.readonlytest",1
+8859,8861,"Signal Catcher",0
+8859,8862,"perfetto_hprof_",0
+8859,8864,"Jit thread pool",0
+8859,8865,"HeapTaskDaemon",0
+8859,8866,"ReferenceQueueD",0
+8859,8867,"FinalizerDaemon",0
+8859,8868,"FinalizerWatchd",0
+8859,8869,"binder:8859_1",0
+8859,8870,"binder:8859_2",0
+8859,8871,"binder:8859_3",0
+8859,8875,"Profile Saver",0
+8859,8876,"RenderThread",0
+8859,8877,"mo.readonlytest",0
+8859,8878,"RenderThread",0
+8859,8879,"HybridData Dest",0
+8859,8880,"SharedPreferenc",0
+8859,8881,"pool-2-thread-1",0
+8859,8882,"mqt_v_js",0
+8859,8883,"mqt_v_native",0
+8859,8884,"hades",0
+8859,8885,"Expo JNI deallo",0
+8859,8886,"ncFunctionQueue",0
+8859,8887,"DefaultDispatch",0
+8859,8888,"DefaultDispatch",0
+8859,8889,"SurfaceSyncGrou",0
+8859,8890,"HWC release",0
+8859,8891,"RenderThread",0
+8859,8892,"ConnectivityThr",0
+8859,8893,"hwuiTask0",0
+8859,8894,"hwuiTask1",0
+8859,8895,"GPU completion",0
+8859,8900,"hades",0
+8859,8901,"Expo JNI deallo",0
+8859,8902,"binder:8859_1",0
+8859,8903,"DefaultDispatch",0
+8859,8906,"EmojiCompatInit",0
+8859,8909,"FrescoLightWeig",0
+8859,8910,"FrescoIoBoundEx",0
+8859,8911,"FrescoDecodeExe",0
+8859,8912,"FrescoBackgroun",0
+8859,8969,"binder:8859_4",0
+8859,9058,"pool-4-thread-1",0
+8859,9120,"FrescoIoBoundEx",0
+8859,9121,"FrescoDecodeExe",0
+9652,9652,"mo.readonlytest",1
+9652,9653,"Signal Catcher",0
+9652,9654,"perfetto_hprof_",0
+9652,9655,"Jit thread pool",0
+9652,9656,"HeapTaskDaemon",0
+9652,9657,"ReferenceQueueD",0
+9652,9658,"FinalizerDaemon",0
+9652,9659,"FinalizerWatchd",0
+9652,9660,"binder:9652_1",0
+9652,9662,"binder:9652_2",0
+9652,9664,"Profile Saver",0
+9652,9665,"binder:9652_3",0
+9652,9666,"RenderThread",0
+9652,9667,"mo.readonlytest",0
+9652,9668,"RenderThread",0
+9652,9669,"HybridData Dest",0
+9652,9670,"SharedPreferenc",0
+9652,9671,"pool-2-thread-1",0
+9652,9672,"mqt_v_js",0
+9652,9673,"mqt_v_native",0
+9652,9674,"SurfaceSyncGrou",0
+9652,9675,"hades",0
+9652,9676,"Expo JNI deallo",0
+9652,9677,"ncFunctionQueue",0
+9652,9678,"DefaultDispatch",0
+9652,9679,"DefaultDispatch",0
+9652,9686,"ConnectivityThr",0
+9652,9689,"HWC release",0
+9652,9691,"RenderThread",0
+9652,9695,"hwuiTask0",0
+9652,9696,"hwuiTask1",0
+9652,9697,"GPU completion",0
+9652,9698,"EmojiCompatInit",0
+9652,9699,"hades",0
+9652,9704,"Expo JNI deallo",0
+9652,9705,"binder:9652_3",0
+9652,9707,"FrescoLightWeig",0
+9652,9708,"FrescoIoBoundEx",0
+9652,9709,"FrescoDecodeExe",0
+9652,9710,"FrescoBackgroun",0
+9652,9756,"pool-4-thread-1",0
+9652,9803,"binder:9652_4",0
+9652,9808,"FrescoIoBoundEx",0
+9652,9809,"FrescoDecodeExe",0
+10117,10117,"mo.readonlytest",1
+10117,10118,"Signal Catcher",0
+10117,10119,"perfetto_hprof_",0
+10117,10120,"Jit thread pool",0
+10117,10121,"HeapTaskDaemon",0
+10117,10122,"ReferenceQueueD",0
+10117,10123,"FinalizerDaemon",0
+10117,10124,"FinalizerWatchd",0
+10117,10125,"binder:10117_1",0
+10117,10126,"binder:10117_2",0
+10117,10127,"binder:10117_3",0
+10117,10128,"binder:10117_4",0
+10117,10129,"Profile Saver",0
+10117,10130,"RenderThread",0
+10117,10131,"mo.readonlytest",0
+10117,10132,"HybridData Dest",0
+10117,10133,"SharedPreferenc",0
+10117,10134,"RenderThread",0
+10117,10135,"pool-2-thread-1",0
+10117,10136,"mqt_v_js",0
+10117,10137,"mqt_v_native",0
+10117,10138,"hades",0
+10117,10139,"Expo JNI deallo",0
+10117,10140,"ncFunctionQueue",0
+10117,10141,"DefaultDispatch",0
+10117,10142,"DefaultDispatch",0
+10117,10145,"SurfaceSyncGrou",0
+10117,10147,"ConnectivityThr",0
+10117,10154,"hades",0
+10117,10162,"HWC release",0
+10117,10163,"RenderThread",0
+10117,10164,"hwuiTask0",0
+10117,10165,"hwuiTask1",0
+10117,10169,"GPU completion",0
+10117,10170,"EmojiCompatInit",0
+10117,10171,"Expo JNI deallo",0
+10117,10172,"pool-4-thread-1",0
+10117,10173,"DefaultDispatch",0
+10117,10174,"DefaultDispatch",0
+10117,10182,"binder:10117_4",0
+10117,10186,"FrescoLightWeig",0
+10117,10187,"FrescoIoBoundEx",0
+10117,10188,"FrescoDecodeExe",0
+10117,10189,"FrescoBackgroun",0
+10117,10346,"FrescoIoBoundEx",0
+10117,10347,"FrescoDecodeExe",0
+10729,10729,"mo.readonlytest",1
+10729,10732,"Signal Catcher",0
+10729,10733,"perfetto_hprof_",0
+10729,10734,"Jit thread pool",0
+10729,10735,"HeapTaskDaemon",0
+10729,10736,"ReferenceQueueD",0
+10729,10737,"FinalizerDaemon",0
+10729,10738,"FinalizerWatchd",0
+10729,10739,"binder:10729_1",0
+10729,10743,"binder:10729_2",0
+10729,10744,"Profile Saver",0
+10729,10745,"RenderThread",0
+10729,10746,"mo.readonlytest",0
+10729,10747,"RenderThread",0
+10729,10748,"binder:10729_3",0
+10729,10749,"HybridData Dest",0
+10729,10750,"SharedPreferenc",0
+10729,10751,"pool-2-thread-1",0
+10729,10752,"mqt_v_js",0
+10729,10753,"mqt_v_native",0
+10729,10754,"SurfaceSyncGrou",0
+10729,10756,"binder:10729_4",0
+10729,10757,"hades",0
+10729,10758,"Expo JNI deallo",0
+10729,10759,"ncFunctionQueue",0
+10729,10760,"DefaultDispatch",0
+10729,10761,"DefaultDispatch",0
+10729,10770,"ConnectivityThr",0
+10729,10774,"hades",0
+10729,10779,"HWC release",0
+10729,10780,"RenderThread",0
+10729,10788,"hwuiTask0",0
+10729,10789,"hwuiTask1",0
+10729,10796,"GPU completion",0
+10729,10797,"EmojiCompatInit",0
+10729,10798,"Expo JNI deallo",0
+10729,10799,"pool-4-thread-1",0
+10729,10800,"DefaultDispatch",0
+10729,10801,"DefaultDispatch",0
+10729,10827,"binder:10729_4",0
+10729,10828,"FrescoLightWeig",0
+10729,10829,"FrescoIoBoundEx",0
+10729,10830,"FrescoDecodeExe",0
+10729,10831,"FrescoBackgroun",0
+10729,11112,"FrescoIoBoundEx",0
+10729,11113,"FrescoDecodeExe",0
+11563,11563,"mo.readonlytest",1
+11563,11564,"Signal Catcher",0
+11563,11565,"perfetto_hprof_",0
+11563,11566,"Jit thread pool",0
+11563,11567,"HeapTaskDaemon",0
+11563,11568,"ReferenceQueueD",0
+11563,11569,"FinalizerDaemon",0
+11563,11570,"FinalizerWatchd",0
+11563,11571,"binder:11563_1",0
+11563,11572,"binder:11563_2",0
+11563,11573,"binder:11563_3",0
+11563,11574,"Profile Saver",0
+11563,11577,"RenderThread",0
+11563,11578,"RenderThread",0
+11563,11579,"mo.readonlytest",0
+11563,11580,"HybridData Dest",0
+11563,11581,"SharedPreferenc",0
+11563,11582,"pool-2-thread-1",0
+11563,11583,"mqt_v_js",0
+11563,11584,"mqt_v_native",0
+11563,11585,"hades",0
+11563,11586,"Expo JNI deallo",0
+11563,11587,"ncFunctionQueue",0
+11563,11588,"DefaultDispatch",0
+11563,11589,"DefaultDispatch",0
+11563,11591,"SurfaceSyncGrou",0
+11563,11594,"ConnectivityThr",0
+11563,11602,"hades",0
+11563,11603,"HWC release",0
+11563,11604,"RenderThread",0
+11563,11605,"hwuiTask0",0
+11563,11606,"hwuiTask1",0
+11563,11610,"GPU completion",0
+11563,11612,"EmojiCompatInit",0
+11563,11613,"Expo JNI deallo",0
+11563,11618,"binder:11563_2",0
+11563,11619,"FrescoLightWeig",0
+11563,11620,"FrescoIoBoundEx",0
+11563,11621,"FrescoDecodeExe",0
+11563,11622,"FrescoBackgroun",0
+11563,11643,"pool-4-thread-1",0
+11563,11686,"binder:11563_4",0
+11563,11774,"FrescoIoBoundEx",0
+11563,11775,"FrescoDecodeExe",0
+12092,12092,"mo.readonlytest",1
+12092,12093,"Signal Catcher",0
+12092,12094,"perfetto_hprof_",0
+12092,12095,"Jit thread pool",0
+12092,12096,"HeapTaskDaemon",0
+12092,12097,"ReferenceQueueD",0
+12092,12098,"FinalizerDaemon",0
+12092,12099,"FinalizerWatchd",0
+12092,12100,"binder:12092_1",0
+12092,12101,"binder:12092_2",0
+12092,12102,"binder:12092_3",0
+12092,12103,"Profile Saver",0
+12092,12104,"RenderThread",0
+12092,12105,"mo.readonlytest",0
+12092,12106,"HybridData Dest",0
+12092,12107,"SharedPreferenc",0
+12092,12108,"RenderThread",0
+12092,12109,"pool-2-thread-1",0
+12092,12110,"mqt_v_js",0
+12092,12111,"mqt_v_native",0
+12092,12115,"hades",0
+12092,12116,"Expo JNI deallo",0
+12092,12117,"ncFunctionQueue",0
+12092,12118,"DefaultDispatch",0
+12092,12119,"DefaultDispatch",0
+12092,12120,"SurfaceSyncGrou",0
+12092,12124,"ConnectivityThr",0
+12092,12125,"HWC release",0
+12092,12126,"RenderThread",0
+12092,12127,"hwuiTask0",0
+12092,12128,"hwuiTask1",0
+12092,12132,"GPU completion",0
+12092,12133,"EmojiCompatInit",0
+12092,12134,"binder:12092_4",0
+12092,12135,"hades",0
+12092,12137,"Expo JNI deallo",0
+12092,12138,"binder:12092_2",0
+12092,12139,"DefaultDispatch",0
+12092,12144,"FrescoLightWeig",0
+12092,12145,"FrescoIoBoundEx",0
+12092,12146,"FrescoDecodeExe",0
+12092,12147,"FrescoBackgroun",0
+12092,12213,"pool-4-thread-1",0
+12092,12242,"FrescoIoBoundEx",0
+12092,12243,"FrescoDecodeExe",0
+12441,12441,"mo.readonlytest",1
+12441,12442,"Signal Catcher",0
+12441,12443,"perfetto_hprof_",0
+12441,12444,"Jit thread pool",0
+12441,12445,"HeapTaskDaemon",0
+12441,12446,"ReferenceQueueD",0
+12441,12447,"FinalizerDaemon",0
+12441,12448,"FinalizerWatchd",0
+12441,12449,"binder:12441_1",0
+12441,12450,"binder:12441_2",0
+12441,12451,"binder:12441_3",0
+12441,12452,"Profile Saver",0
+12441,12453,"RenderThread",0
+12441,12454,"mo.readonlytest",0
+12441,12455,"RenderThread",0
+12441,12456,"HybridData Dest",0
+12441,12457,"SharedPreferenc",0
+12441,12458,"pool-2-thread-1",0
+12441,12459,"mqt_v_js",0
+12441,12460,"mqt_v_native",0
+12441,12461,"SurfaceSyncGrou",0
+12441,12462,"hades",0
+12441,12463,"Expo JNI deallo",0
+12441,12464,"ncFunctionQueue",0
+12441,12465,"DefaultDispatch",0
+12441,12466,"DefaultDispatch",0
+12441,12470,"ConnectivityThr",0
+12441,12471,"HWC release",0
+12441,12472,"RenderThread",0
+12441,12473,"binder:12441_4",0
+12441,12477,"hwuiTask0",0
+12441,12478,"hwuiTask1",0
+12441,12482,"GPU completion",0
+12441,12483,"hades",0
+12441,12484,"EmojiCompatInit",0
+12441,12486,"Expo JNI deallo",0
+12441,12489,"DefaultDispatch",0
+12441,12492,"FrescoLightWeig",0
+12441,12493,"FrescoIoBoundEx",0
+12441,12494,"FrescoDecodeExe",0
+12441,12495,"FrescoBackgroun",0
+12441,12499,"binder:12441_1",0
+12441,12506,"pool-4-thread-1",0
+12441,12600,"FrescoIoBoundEx",0
+12441,12601,"FrescoDecodeExe",0
+12906,12906,"mo.readonlytest",1
+12906,12907,"Signal Catcher",0
+12906,12908,"perfetto_hprof_",0
+12906,12909,"Jit thread pool",0
+12906,12910,"HeapTaskDaemon",0
+12906,12911,"ReferenceQueueD",0
+12906,12912,"FinalizerDaemon",0
+12906,12913,"FinalizerWatchd",0
+12906,12914,"binder:12906_1",0
+12906,12915,"binder:12906_2",0
+12906,12916,"binder:12906_3",0
+12906,12917,"binder:12906_4",0
+12906,12918,"Profile Saver",0
+12906,12919,"RenderThread",0
+12906,12920,"mo.readonlytest",0
+12906,12921,"RenderThread",0
+12906,12922,"HybridData Dest",0
+12906,12923,"SharedPreferenc",0
+12906,12924,"pool-2-thread-1",0
+12906,12925,"mqt_v_js",0
+12906,12926,"SurfaceSyncGrou",0
+12906,12927,"mqt_v_native",0
+12906,12930,"hades",0
+12906,12931,"Expo JNI deallo",0
+12906,12932,"ncFunctionQueue",0
+12906,12933,"DefaultDispatch",0
+12906,12934,"DefaultDispatch",0
+12906,12938,"ConnectivityThr",0
+12906,12943,"hades",0
+12906,12944,"HWC release",0
+12906,12945,"RenderThread",0
+12906,12952,"hwuiTask0",0
+12906,12953,"hwuiTask1",0
+12906,12957,"GPU completion",0
+12906,12958,"EmojiCompatInit",0
+12906,12959,"Expo JNI deallo",0
+12906,12960,"DefaultDispatch",0
+12906,12961,"DefaultDispatch",0
+12906,12970,"binder:12906_4",0
+12906,12971,"FrescoLightWeig",0
+12906,12972,"FrescoIoBoundEx",0
+12906,12973,"FrescoDecodeExe",0
+12906,12974,"FrescoBackgroun",0
+12906,12978,"pool-4-thread-1",0
+12906,12985,"binder:12906_5",0

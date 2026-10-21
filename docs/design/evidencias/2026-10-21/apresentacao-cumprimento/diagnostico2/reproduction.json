@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "sameGestureAndFrameValidated": true,
+  "modeAndIndependentPeerValidated": true,
+  "inputsSha256": {
+    "native-frames.json": "e6cb94f3bc2a67b6f3fea5ff52a794c639589614a734a1a365f9a2907feefcf7",
+    "javascript-milestones.json": "4fca651adc98d01e1980e238fb05af88262ea9808dfb03f6cd56c1cdad409659",
+    "javascript-profiles.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "performance-summary.json": "8bd0aaa8075a0e2cab3d521a877f405ebbf9e6bca1258857d989c054605d7508",
+    "toggle-attribution.json": "6a650a8df17e73e8bd12e57d4ee7ec1503928697163fc747c41f120e7c89cde2",
+    "observation-mode.json": "68477353408bedafedf7b1c3e96f6e344f7d001e0fd2cd09ceca947accfbb3bd",
+    "remote-result.json": "bf0cf3151bc808428e857153a4500399594b5b8b34277d3d81ed73c37d33eb77"
+  }
+}

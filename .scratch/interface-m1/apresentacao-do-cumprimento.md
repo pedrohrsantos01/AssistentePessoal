@@ -1,6 +1,6 @@
 # Próximo recorte — perfil da apresentação do cumprimento
 
-Status: ready. Origem: issue06, spec/07 §1 e [confirmação leve](../../docs/analises/2026-10-20-feedback-com-probe-leve-m1.md). Não iniciado.
+Status: done localmente em 21/10/2026 — diagnóstico e escolha do experimento, sem otimização de componente ou aceite da meta. Origem: issue06, spec/07 §1 e [confirmação leve](../../docs/analises/2026-10-20-feedback-com-probe-leve-m1.md). Autorizado por Pedro. Reprodução dos frames anteriores: nove interações acima de 100 ms, sem divergência de resumo ou atribuição.
 
 Coorte leve v4 válida: 11/20≤100 ms, p50/p95/máximo 88,2632/242,4520/450,0828 ms. Preservar as nove amostras acima da meta, inclusive 100,3508 ms. Na maior (3/2), React→frame tomou 321,1195 ms; retorno→React 43,4988 ms. Esses intervalos não identificam o componente responsável. Um refresh por alteração em 20/20; persistência/reinício/convergência de um hábito/10 XP aprovados.
 
@@ -9,3 +9,7 @@ Delimitar diagnóstico da apresentação com correlação do mesmo gesto, relóg
 Antes de modificar componentes, usar uma captura válida para escolher uma única intervenção. Se houver intervenção, comparar com a mesma observação e critérios, mantendo todas as amostras válidas; não repetir só para selecionar resultado melhor. Não subtrair overhead, deslocar origem, relaxar limite ou antecipar sucesso ao commit. Nenhuma mudança de regra, identidade, XP, fila, cache de projeção, schema ou migração assíncrona.
 
 Checks completos app/API e ensaio visível somente durante os testes, com fechamento dos recursos próprios e preservação dos preexistentes. Depois: partida dos cards, com origem de abertura mantida; confirmação atual 0/10≤300 ms, abertura 8/10≤2 s, picos 5,45/4,55 s preservados. Aparelho físico, iPhone adiado e demais gates 06/M1 permanecem abertos.
+
+Resultado: [perfil integral e limites](../../docs/analises/2026-10-21-apresentacao-do-cumprimento-m1.md). Coorte com trace válida: dez partidas/vinte alterações, p50/p95/máximo130,9812/219,4891/411,7630 ms,0/20≤100 ms. No pico React→frame309,3733 ms, residência JS/UI/render2,6748/34,2683/268,4081 ms; UI em postAndWait e seção glGenTextures encode no RenderThread. Dez marcações criaram RCTImageView. Próximo: [experimento único do checkmark persistente](checkmark-persistente.md), depois cards; sem atribuição comprovada à imagem/GPU/host. Abertura10/10≤2 s e cards0/10≤300 ms nessa observação, sem comparação causal com o modo sem trace.
+
+Tipos/lint/264 testes app,14 testes dos analisadores e check API16m42s aprovados:85 executados/oito opt-in ignorados,zero falhas/erros,13 operacionais e modularidade. Falhas de captura, fixture e timeouts de componentes preservadas. Recursos próprios encerrados; APKs/configurações/jornada/ADB preservados. Auditoria integral mantém passed=false pela mudança de ID do banco de outro projeto, saudável e de autoria não estabelecida; relatório distingue essa limitação da limpeza própria verificada. M1/06 permanecem abertos.

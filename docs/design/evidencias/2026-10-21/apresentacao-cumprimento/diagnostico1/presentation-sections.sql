@@ -1,0 +1,1 @@
+SELECT p.pid,t.tid,s.id,s.ts,s.dur,s.depth,s.name FROM slice s JOIN thread_track tt ON s.track_id=tt.id JOIN thread t ON tt.utid=t.utid JOIN process p USING(upid) WHERE p.pid IN (7341,8339,8859,9652,10117,10729,11563,12092,12441,12906) ORDER BY t.tid,s.ts,s.depth;

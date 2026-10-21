@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "scope": "staged Git blobs, canonical LF; not only worktree bytes",
+  "sourceFiles": 8,
+  "profileInputs": 19,
+  "reproductionInputs": 7,
+  "unchangedRuntimeFiles": 108,
+  "rawTracesExcluded": true
+}

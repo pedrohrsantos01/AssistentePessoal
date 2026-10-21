@@ -1,0 +1,10 @@
+{
+  "scripts/analyze_android_presentation.py": "d085574ecb5a678240aa2af27b3895b72309d63ff95ec725ff9bd8f55056836c",
+  "scripts/test_analyze_android_presentation.py": "93bf04947fa65e515ffe84323ebe05818a1dbadd558558804882a76ab8982dab",
+  "scripts/verify-android-accessibility.ps1": "a16d2367e10833240284aee1234cd14584864d839822b52511c251f7bd8ee53c",
+  "app/test/integration/android-performance.test.ts": "e04da6559fe188181a264db95d4f76a2e5756a5a115e977400b327b31208d071",
+  "app/test/support/performance-day.ts": "f976c229119e5c7de53f6cac34536e0395ac4252844cc4d33ee8087a451ec6e4",
+  "app/test/performance-day.test.ts": "100a830def6e48148333bea6bd5790521dd4bda3b860f706f0af7c04da9aac0b",
+  "app/test/performance-mode.test.ts": "8c3607b789b1521131509c41278e112c9664ab39550b584f1f7f2cd611e81e4f",
+  "api/src/test/java/dev/ritmo/RuntimeTests.java": "720a002010c242a24e941aa99b24197ae8f41999b568841a298758500d17b8d1"
+}

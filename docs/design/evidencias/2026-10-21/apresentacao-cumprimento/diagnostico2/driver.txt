@@ -1,0 +1,31 @@
+Warning: No PTY. CTRL+C won't gracefully stop the trace. If you are running perfetto via adb shell, use the -tt arg (adb shell -t perfetto ...) or consider using the helper script tools/record_android_trace from the Perfetto repository.
+
+[058.555]    perfetto_cmd.cc:1100 Connected to the Perfetto traced service, TTL: 1s
+[059.851]    perfetto_cmd.cc:1260 Trace written into the output file
+
+Loading trace: 0.00 MB
+
+Loading trace: 0.35 MB
+[972.594]     common_flags.cc:525 Trace loaded: 0.35 MB in 0.30s (1.2 MB/s)
+[972.595]            query.cc:191 Query execution time: 0 ms
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+{"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_4_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_5_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_6_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_7_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_8_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_9_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_10_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"durable_final_mark_converges_once","passed":true,"fontScale":1}
+✔ Android native frames: cold launch, local cards and durable visual toggle latency (338850.4725ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 403632.5279

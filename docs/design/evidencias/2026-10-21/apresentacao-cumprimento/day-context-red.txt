@@ -1,0 +1,52 @@
+✖ performance fixture chooses an onboarding boundary shared by the frozen API and the whole device run (27.0724ms)
+✖ an incompatible or missing fixture clock is rejected before creating domain data (1.2227ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1488.49
+
+✖ failing tests:
+
+test at test\performance-day.test.ts:1:202
+✖ performance fixture chooses an onboarding boundary shared by the frozen API and the whole device run (27.0724ms)
+  AssertionError [ERR_ASSERTION]: device_and_API_must_observe_the_same_logical_day
+  + actual - expected
+
+  + '2026-10-21'
+  - '2026-10-20'
+              ^
+
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\performance-day.test.ts:9:79)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '2026-10-21',
+    expected: '2026-10-20',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\performance-day.test.ts:1:782
+✖ an incompatible or missing fixture clock is rejected before creating domain data (1.2227ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\performance-day.test.ts:13:114)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

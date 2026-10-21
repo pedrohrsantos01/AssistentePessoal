@@ -79,6 +79,8 @@ A tabela abaixo descreve o Briefing da Fase 1 completa.
 ## 6. Desempenho
 
 - Cards locais renderizados em ≤ 300 ms após o cold start
+- [Perfil nativo de 21/10/2026](../docs/analises/2026-10-21-apresentacao-do-cumprimento-m1.md): cards0/10≤300 ms, mesma origem da abertura (p50 1685,8937 ms). Abertura10/10≤2 s nessa coorte com trace; não aceita aparelho físico. Feedback0/20≤100 ms, pico411,7630 ms. Próximo experimento: manter o checkmark montado; partida dos cards vem depois. Metas e M1 abertos; não deslocar a origem nem comparar causalmente observações diferentes.
+- [Perfil nativo de 21/10/2026](../docs/analises/2026-10-21-apresentacao-do-cumprimento-m1.md): cards0/10≤300 ms, mesma origem da abertura (p50 1685,8937 ms). Abertura10/10≤2 s nessa coorte com trace; não aceita aparelho físico. Feedback0/20≤100 ms, pico411,7630 ms. Próximo experimento: manter o checkmark montado; partida dos cards vem depois. Metas e M1 abertos; não deslocar a origem nem comparar causalmente observações diferentes.
 - Cards de rede com cache: sempre mostra o último conteúdo conhecido enquanto revalida (stale-while-revalidate). **Nunca card vazio esperando rede**
 - Pull-to-refresh força atualização de todos os cards de rede
 

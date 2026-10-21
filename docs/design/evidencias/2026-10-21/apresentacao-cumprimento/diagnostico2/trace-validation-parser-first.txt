@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\scripts\analyze_android_presentation.py", line 174, in <module>
+    run(args.folder.resolve(), args.processor.resolve() if args.processor else None, args.verify_exports,
+  File "C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\scripts\analyze_android_presentation.py", line 150, in run
+    rows = analyze(tables, frames, stages)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\scripts\analyze_android_presentation.py", line 60, in analyze
+    states = grouped_intervals(tables['states'], 'state', last)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\scripts\analyze_android_scheduler.py", line 52, in grouped_intervals
+    assert state_key == 'state' and row[state_key] in ('X', 'Z') and ts > last_by_pid[pid], 'unclosed_interval_overlaps_or_is_not_terminal'
+AssertionError: unclosed_interval_overlaps_or_is_not_terminal

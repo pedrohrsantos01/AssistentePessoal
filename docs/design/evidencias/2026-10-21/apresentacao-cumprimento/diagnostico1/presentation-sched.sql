@@ -1,0 +1,1 @@
+SELECT p.pid,t.tid,s.ts,s.dur,s.cpu FROM sched_slice s JOIN thread t USING(utid) JOIN process p USING(upid) WHERE p.pid IN (7341,8339,8859,9652,10117,10729,11563,12092,12441,12906) AND (t.is_main_thread=1 OR t.name IN ('mqt_v_js','mqt_js','RenderThread')) ORDER BY t.tid,s.ts;

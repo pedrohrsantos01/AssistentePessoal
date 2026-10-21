@@ -1,0 +1,12 @@
+[
+  {
+    "applicationWindows": 0,
+    "hierarchyAvailable": false,
+    "error": "IllegalStateException"
+  },
+  {
+    "applicationWindows": 1,
+    "hierarchyAvailable": true,
+    "error": null
+  }
+]

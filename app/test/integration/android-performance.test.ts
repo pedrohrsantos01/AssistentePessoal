@@ -12,6 +12,7 @@ import {openTestStore} from '../support/store.ts';
 import {getDayKey} from '../../src/features/gamification/domain/day-key.ts';
 import {pt} from '../../src/i18n/pt-BR.ts';
 import {frameSample,summarizePerformance,correlateColdStartup,pidIsAbsent,type ColdProof,type FrameSample} from '../support/performance-samples.ts';
+import {performanceDayContext} from '../support/performance-day.ts';
 import {failureKind,retryDelay} from '../../src/core/sync/retry.ts';
 import {attributeToggleLatency} from '../support/toggle-latency.ts';
 import {requirePerformanceMode,validateObservationMode} from '../support/performance-mode.ts';
@@ -34,10 +35,16 @@ const uuid=()=>{const value=randomUUID();return value.slice(0,14)+'7'+value.slic
 test('Android native frames: cold launch, local cards and durable visual toggle latency',
  {skip:!serial||process.env.RITMO_READER_PERFORMANCE!=='1',timeout:1800000},async()=>{
  const mode=requirePerformanceMode(process.env.RITMO_READER_PERFORMANCE_MODE),detailed=mode==='detailed';
+ const presentation=process.env.RITMO_READER_PRESENTATION==='1',tracing=detailed||presentation;
+ assert.ok(!presentation||mode==='lightweight','presentation_requires_lightweight_runtime');
  const origin=process.env.RITMO_TEST_API;assert.ok(origin&&/^http:\/\/127[.]0[.]0[.]1:[0-9]+$/.test(origin));
  assert.equal(adb('shell','getprop','ro.kernel.qemu'),'1');assert.equal(adb('reverse','--list').includes(devicePort),false);
  // Observer target rejection is verified independently before this functional replay.
  const folder=resolve(process.env.RITMO_JOURNEY_EVIDENCE!);mkdirSync(folder,{recursive:true});
+ const serverTime=process.env.RITMO_TEST_SERVER_TIME;assert.ok(serverTime,'fixture_server_clock_missing');
+ const deviceUtc=()=>adb('shell','date','-u','+%Y-%m-%dT%H:%M:%SZ');
+ const initialDeviceTime=deviceUtc(),fixtureDay=performanceDayContext(serverTime,initialDeviceTime);
+ writeFileSync(join(folder,'fixture-day-context.json'),JSON.stringify({serverTime,initialDeviceTime,...fixtureDay},null,2)+'\n');
  const capture=(name:string)=>writeFileSync(join(folder,name+'.png'),execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'exec-out','screencap','-p'],{windowsHide:true,timeout:30000,maxBuffer:16*1024*1024}));
  const observingFocus=process.env.RITMO_READER_OBSERVE_FOCUS==='1';assert.equal(observingFocus,false,'performance_requires_no_focus_override');
  const phases:string[]=[],targets:Record<string,unknown>[]=[],imeReadiness:Record<string,unknown>[]=[],rawFrames:FrameSample[]=[],launches:Record<string,unknown>[]=[],jsMarks:unknown[]=[],profiles:unknown[]=[];
@@ -123,26 +130,31 @@ test('Android native frames: cold launch, local cards and durable visual toggle 
  let other:ReturnType<typeof openTestStore>|undefined;
  let tracePid:string|undefined;
  const tracePath='/data/misc/perfetto-traces/ritmo-'+run+'.pftrace';
- const traceConfig=`duration_ms: 900000
+ const traceConfig=`duration_ms: ${presentation?1800000:900000}
 buffers { size_kb: 32768 fill_policy: RING_BUFFER }
 builtin_data_sources { primary_trace_clock: BUILTIN_CLOCK_MONOTONIC snapshot_interval_ms: 1000 }
 write_into_file: true
 file_write_period_ms: 1000
 flush_period_ms: 1000
-max_file_size_bytes: 134217728
+max_file_size_bytes: ${presentation?536870912:134217728}
 data_sources { config { name: "linux.ftrace" ftrace_config {
  ftrace_events: "sched/sched_switch"
  ftrace_events: "sched/sched_waking"
  ftrace_events: "task/task_newtask"
  ftrace_events: "task/task_rename"
+ ${presentation?'atrace_categories: "gfx"\n atrace_categories: "view"\n atrace_categories: "input"\n atrace_categories: "dalvik"\n atrace_apps: "dev.ritmo.readonlytest"':''}
 } } }
 data_sources { config { name: "linux.process_stats" process_stats_config { scan_all_processes_on_start: true proc_stats_poll_ms: 1000 } } }
 `;
  const stopTrace=async()=>{
   if(!tracePid)return;const pid=tracePid;tracePid=undefined;
-  const command=adb('shell','cat','/proc/'+pid+'/cmdline');assert.ok(command.includes('perfetto')&&command.includes(tracePath),'trace_process_identity_changed');
-  adb('shell','kill','-TERM',pid);await pause(1500);
+  let command:string|undefined;
+  try{command=adb('shell','cat','/proc/'+pid+'/cmdline');}catch(error){
+   assert.ok(error&&typeof error==='object'&&'status' in error&&error.status===1&&'stderr' in error&&typeof error.stderr==='string'&&error.stderr.includes('No such file or directory'),'trace_process_read_failed');
+  }
+  if(command){assert.ok(command.includes('perfetto')&&command.includes(tracePath),'trace_process_identity_changed');adb('shell','kill','-TERM',pid);await pause(1500);}
   adb('pull',tracePath,join(folder,'scheduler.pftrace'));
+  writeFileSync(join(folder,'scheduler-stopped.json'),JSON.stringify({stoppedByHarness:!!command,alreadyEnded:!command,requiresCoverageValidation:true},null,2)+'\n');
  };
  const logs=(pid:string)=>adb('logcat','-d','--pid='+pid,'-v','raw','-s','RitmoPerf:I','ReactNativeJS:I','*:S').split('\n');
  const frames=(pid:string)=>logs(pid).filter(l=>l.startsWith('{')).map(l=>JSON.parse(l) as unknown);
@@ -164,10 +176,15 @@ data_sources { config { name: "linux.process_stats" process_stats_config { scan_
  const assertNoPid=()=>{try{assert.equal(adb('shell','pidof',pkg),'');}catch(error){if(!pidIsAbsent(error))throw error;}};
  try {
   assert.ok(Number(adb('shell','getprop','ro.build.version.sdk'))>=35);
-  if(detailed) {
+  if(tracing) {
+  if(presentation){
+   const categories=adb('shell','atrace','--list_categories');
+   writeFileSync(join(folder,'atrace-categories.txt'),categories+'\n');
+   for(const name of ['gfx','view','input','dalvik'])assert.match(categories,new RegExp('(?:^|\\n)\\s*'+name+'\\s+-'),'atrace_category_missing_'+name);
+  }
   // Validate the device's trace parser before spending time preparing the UI.
   const preflightPath=tracePath+'.preflight';
-  execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'shell','perfetto','--txt','-c','-','-o',preflightPath],{input:traceConfig.replace('duration_ms: 900000','duration_ms: 1000'),encoding:'utf8',windowsHide:true,timeout:15000});
+  execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'shell','perfetto','--txt','-c','-','-o',preflightPath],{input:traceConfig.replace(/duration_ms: [0-9]+/,'duration_ms: 1000'),encoding:'utf8',windowsHide:true,timeout:15000});
   assert.ok(Number(adb('shell','stat','-c','%s',preflightPath))>0);
   const preflightFile=join(folder,'scheduler-preflight.pftrace');adb('pull',preflightPath,preflightFile);adb('shell','rm',preflightPath);
   const processor=resolve(import.meta.dirname,'../../../.scratch/runtime/cauda/trace_processor_shell.exe');
@@ -182,12 +199,13 @@ data_sources { config { name: "linux.process_stats" process_stats_config { scan_
   for(const key of animationKeys)adb('shell','settings','put','global',key,'0');
   adb('shell','settings','put','system','font_scale','1.0');adb('shell','settings','put','system','screen_off_timeout','1800000');
   adb('reverse',devicePort,'tcp:'+new URL(origin).port);reversed=true;launch();await find(pt.register);await press(pt.register);
-  await enter(pt.name,'Pessoa de medidas');await enter(pt.email,email);await enter(pt.password,password);await press(pt.register);await find(pt.timezone);await enter(pt.timezone,'UTC');await press(pt.continue);await enter(pt.habitName,title);await press(pt.firstHabitAction);await find(pt.synced);
+  await enter(pt.name,'Pessoa de medidas');await enter(pt.email,email);await enter(pt.password,password);await press(pt.register);await find(pt.timezone);await enter(pt.timezone,fixtureDay.timezone);if(fixtureDay.dayStartHour>6)await press(pt.otherHours);await press(pt.hour(fixtureDay.dayStartHour));await press(pt.continue);await enter(pt.habitName,title);await press(pt.firstHabitAction);await find(pt.synced);
   const identity=new HttpIdentity(origin),credentials=await identity.login(email,password,uuid());other=openTestStore(':memory:',credentials.accountId,uuid());
   const transport=new HttpSync(origin,credentials.accountId,()=>credentials.accessToken,uuid);await repeat(()=>synchronize(other!,transport));
   const instant=(await transport.pull(other.cursor())).serverTime,day=getDayKey(new Date(instant),credentials.profile.timeContext.timezone,credentials.profile.timeContext.dayStartHour);
+  assert.deepEqual(credentials.profile.timeContext,{timezone:fixtureDay.timezone,dayStartHour:fixtureDay.dayStartHour});assert.equal(day,fixtureDay.dayKey,'onboarding_fixture_day_mismatch');
   report('real_account_and_local_habit_prepared');offline();await find(pt.offline);await snapshot('01-offline-before-cohort');
-  if(detailed) {
+  if(tracing) {
   writeFileSync(join(folder,'scheduler-config.pbtx'),traceConfig);
   const traceOutput=execFileSync(process.env.RITMO_ADB??'adb',['-s',serial!,'shell','perfetto','--background-wait','--txt','-c','-','-o',tracePath],{input:traceConfig,encoding:'utf8',windowsHide:true,timeout:45000});
   assert.match(traceOutput.trim(),/^[0-9]+$/);tracePid=traceOutput.trim();writeFileSync(join(folder,'scheduler-recording.json'),JSON.stringify({pid:tracePid,path:tracePath,clock:'MONOTONIC',cpuSource:'sched_switch',requiresSeparateValidation:true},null,2)+'\n');
@@ -235,9 +253,12 @@ data_sources { config { name: "linux.process_stats" process_stats_config { scan_
   const summary=summarizePerformance(rawFrames);writeFileSync(join(folder,'performance-summary.json'),JSON.stringify(summary,null,2)+'\n');writeFileSync(join(folder,'javascript-milestones.json'),JSON.stringify(jsMarks,null,2)+'\n');
   writeFileSync(join(folder,'toggle-attribution.json'),JSON.stringify(attributeToggleLatency(rawFrames,jsMarks),null,2)+'\n');
   const observed=validateObservationMode(mode,rawFrames,jsMarks,profiles);
-  writeFileSync(join(folder,'observation-mode.json'),JSON.stringify({mode,probe:4,synchronousClock:detailed,schedulerTrace:detailed,validated:true},null,2)+'\n');
+  writeFileSync(join(folder,'observation-mode.json'),JSON.stringify({mode,probe:4,synchronousClock:detailed,schedulerTrace:tracing,presentationTrace:presentation,validated:true},null,2)+'\n');
   if(detailed)writeFileSync(join(folder,'toggle-profiles.json'),JSON.stringify(observed,null,2)+'\n');
+  if(tracing)await stopTrace();
   launch();await find(pt.offline);await find(pt.habitLabel(title,false));await find(pt.totalXp(0));await snapshot('04-cohort-survives-restart');await press(pt.habitLabel(title,false));await find(pt.totalXp(10));online();await find(pt.synced);
+  const finalDeviceTime=deviceUtc(),finalDeviceDay=getDayKey(new Date(finalDeviceTime),fixtureDay.timezone,fixtureDay.dayStartHour);
+  writeFileSync(join(folder,'fixture-day-context.json'),JSON.stringify({serverTime,initialDeviceTime,...fixtureDay,finalDeviceTime,finalDeviceDay},null,2)+'\n');assert.equal(finalDeviceDay,day,'device_crossed_fixture_day');
   await repeat(()=>synchronize(other!,transport));assert.equal(other.view(day).habits.filter(h=>h.title===title).length,1);assert.equal(other.view(day).habits.find(h=>h.title===title)?.done,true);assert.equal(other.view(day).totalXp,10);await snapshot('05-confirmed-once');
   writeFileSync(join(folder,'remote-result.json'),JSON.stringify({habitCount:1,done:true,totalXp:10,coldStarts:10,timedVisualChanges:20,persistedAfterRestart:true},null,2)+'\n');report('durable_final_mark_converges_once');success=true;
  }catch(error){try{await snapshot('failure-performance');}catch{}throw error;}finally{

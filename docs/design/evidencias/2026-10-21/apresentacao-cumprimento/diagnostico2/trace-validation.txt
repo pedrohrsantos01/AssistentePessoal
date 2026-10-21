@@ -1,0 +1,1 @@
+{"verified": true, "replay": false, "samples": 20, "within100ms": 0, "visual": {"count": 20, "p50": 130.9812, "p95": 219.4891, "maximum": 411.763, "minimum": 101.4471}, "traceSha256": "48a64f289baca27832f33569460dc48b55ecee7d87d4cf2d69b6e9606ced7dad"}

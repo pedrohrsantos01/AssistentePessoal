@@ -1,0 +1,51 @@
+Warning: No PTY. CTRL+C won't gracefully stop the trace. If you are running perfetto via adb shell, use the -tt arg (adb shell -t perfetto ...) or consider using the helper script tools/record_android_trace from the Perfetto repository.
+
+[056.296]    perfetto_cmd.cc:1100 Connected to the Perfetto traced service, TTL: 1s
+[057.660]    perfetto_cmd.cc:1260 Trace written into the output file
+
+Loading trace: 0.00 MB
+
+Loading trace: 0.48 MB
+[686.343]     common_flags.cc:525 Trace loaded: 0.48 MB in 0.17s (2.8 MB/s)
+[686.343]            query.cc:191 Query execution time: 0 ms
+{"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+{"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_4_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_5_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_6_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_7_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_8_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_9_and_two_visual_changes_measured","passed":true,"fontScale":1}
+{"phase":"cold_10_and_two_visual_changes_measured","passed":true,"fontScale":1}
+cat: /proc/7268/cmdline: No such file or directory
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (494490.2866ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 566614.4753
+
+✖ failing tests:
+
+test at test\integration\android-performance.test.ts:1:2646
+✖ Android native frames: cold launch, local cards and durable visual toggle latency (494490.2866ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  false !== true
+
+      at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:249:131)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,270 @@
+
+> ritmo-app@0.1.0 typecheck C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app
+> tsc --noEmit
+
+
+> ritmo-app@0.1.0 lint C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app
+> eslint .
+
+
+> ritmo-app@0.1.0 test C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app
+> pnpm test:domain && pnpm test:components
+
+
+> ritmo-app@0.1.0 test:domain C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app
+> node --import tsx --test test/*.test.ts
+
+✔ a lost acknowledgement is recognized before pending edits are rebased over a later device edit (184.4521ms)
+✔ a transaction failure preserves both pending work and the previous projection (6.7393ms)
+✔ appearance defaults do not write; a saved installation choice survives reopening a separate SQLite file (535.6648ms)
+✔ unknown versions, invalid enums and malformed JSON are preserved and cannot be overwritten by selection (4.3749ms)
+✔ a read outage uses safe defaults and explicit retry resumes the existing value without destructive reset (0.5853ms)
+✔ a real SQLite write rejection preserves the confirmed choice and an explicit retry saves the same intent (1.3533ms)
+✔ selection becomes visible only after durable success and late completion cannot publish into a disposed owner (0.5621ms)
+✔ mode follows the system only while automatic; appearance and manual mode remain independent (0.3046ms)
+✔ new appearance-switch indicators contrast with both track and surface in all six palettes (1.8615ms)
+✔ 426 preserves local reading and pending work but blocks writes across restart (450.4535ms)
+✔ an updated build stays read-only offline and releases writes only after a compatible response (298.0601ms)
+✔ a refresh upgrade requirement also blocks writes and cannot be bypassed by logout or login (1179.7665ms)
+✔ the scheduler restores update-required while offline and never retries a rejected build (695.2156ms)
+✔ a compatible response from a logged-out session cannot release a pending upgrade check (240.8929ms)
+✔ password recovery shares the installation restriction with the session and uses its build headers (158.9649ms)
+✔ an unknown required effect keeps the committed cursor and blocks correction without erasing recovery history (619.0701ms)
+✔ optional response fields are tolerated and a 426 during push preserves the exact intent for an updated build (644.3386ms)
+✔ M1-06: a local remark observing only one undo stays undone after a concurrent undo and restart (122.5227ms)
+✔ the configured logical boundary preserves midnight and advances at exactly four in Sao Paulo (28.652ms)
+✔ a repeated Chatham hour cannot move the logical day back after its first boundary (1.4414ms)
+✔ a missing Chatham boundary begins at the first valid instant, not one shifted hour later (1.1356ms)
+✔ logical day: midnight with start zero (1.0658ms)
+✔ logical day: previous year before start (0.4472ms)
+✔ logical day: leap day before March start (0.3533ms)
+✔ logical day: configured start at six (0.6978ms)
+✔ logical day: Kolkata before start (0.6575ms)
+✔ logical day: Kolkata at start (0.1826ms)
+✔ logical day: Kathmandu before start (0.7599ms)
+✔ logical day: Kathmandu at start (0.1537ms)
+✔ logical day: New York start before 23 hour day (0.809ms)
+✔ logical day: New York next start after 23 hours (0.3944ms)
+✔ logical day: New York start before 25 hour day (0.4042ms)
+✔ logical day: New York next start after 25 hours (0.4162ms)
+✔ logical day: New York repeated boundary first occurrence (0.343ms)
+✔ logical day: New York repeated boundary second occurrence (0.1186ms)
+✔ logical day: New York nonexistent boundary (0.7908ms)
+✔ logical day: Lord Howe half hour gap (2.3148ms)
+✔ logical day: Chatham repeated hour after rollback (0.7447ms)
+✔ invalid date, timezone and configured hour cannot produce a day key (0.915ms)
+✔ interleaved timezones, day-start changes and backward clock movement never reuse a current day (4.6479ms)
+✔ repeated and skipped boundaries remain exact after neighboring resolutions and clock jumps (12.5153ms)
+✔ an offscreen nested opener is selected only after native measurement proves it was revealed (2.5903ms)
+✔ a title above the resumed viewport is brought back into view (0.2777ms)
+✔ pending reveal rejects an old scope (0.2645ms)
+✔ pending reveal rejects an old window (0.1776ms)
+✔ a frame without a native position change cannot count as successful focus (0.3073ms)
+✔ a resumed opener on the native pixel boundary is revealed despite float DIP rounding (0.3967ms)
+✔ opening waits for native presentation and layout, focuses the title once without activating the opener (2.7345ms)
+✔ cancel restores the registered opener only after commit and native layout (0.5345ms)
+✔ scope preemption fences old callbacks: before-presentation (0.2576ms)
+✔ scope preemption fences old callbacks: after-presentation (0.1774ms)
+✔ scope preemption fences old callbacks: after-dismissal (0.1875ms)
+✔ late layout cannot restore an opener that became removed (0.2707ms)
+✔ late layout cannot restore an opener that became disabled (0.2175ms)
+✔ late layout cannot restore an opener that became replaced (0.1968ms)
+✔ a new window cancels the old return even with the page opener still mounted (0.2832ms)
+✔ nested review resumes the recreated parent control, then parent cancellation restores the page (0.4756ms)
+✔ if the reviewed operation disappeared, the resumed panel focuses its own title, not an old control (0.2741ms)
+✔ missing proof blocks related work but matching later proof releases the same identities (73.2788ms)
+✔ an unproven delayed response cannot replace an already proven receipt or reopen its dependents (7.4565ms)
+✔ synchronization consults the original receipt after a newly discovered identity collision (67.3837ms)
+✔ opening history written by the previous client preserves unproven receipts and blocks their dependents (165.8131ms)
+✔ a preserved retry deadline survives identity recovery (7.0647ms)
+✔ the original receipt after an operation conflict preserves both pieces of evidence and the conflict classification (8.803ms)
+✔ public journey resumes the local onboarding step, skip gives useful data, and another account cannot read it (659.077ms)
+✔ offline mark, rapid duplicate tap, undo and remark use the original occurrence and survive process reopening (743.2443ms)
+✔ a failed transaction cannot advance onboarding or announce a habit, XP, or successful write (482.1265ms)
+✔ local projection subscriptions deliver committed changes and a pull, but never a rolled-back intention (465.9167ms)
+✔ one offline toggle publishes one committed presentation rather than repeating the full refresh (271.6007ms)
+✔ open Briefing changes at the configured boundary and the next tap uses the new logical day (488.1872ms)
+✔ authentication validation and offline failures do not activate a local account (50.6273ms)
+✔ next logical boundary America/New_York 2026-03-08T06:59:59Z (1.684ms)
+✔ next logical boundary America/New_York 2026-11-01T04:59:59Z (0.5397ms)
+✔ next logical boundary Asia/Kathmandu 2026-09-25T21:59:59Z (0.9688ms)
+✔ a failed remote pull with no pending changes is never presented as synchronized (186.1037ms)
+✔ account validation counts Unicode code points, normalizes only the name and preserves the password (203.7013ms)
+✔ editing sends only changed fields, preserves unknown metadata and independent remote fields, and survives reopening (706.7934ms)
+✔ canonical Unicode title collisions are blocked before creating or editing an offline intention (433.9279ms)
+✔ reordering tied positions is durable and atomic when a later write fails (381.9625ms)
+✔ deletion removes local habit and XP, survives restart and cannot target another account (329.1496ms)
+✔ management includes a not-started habit; Briefing and marking remain limited to due habits (219.08ms)
+✔ local writes continue while vault recovery is pending and keep the same queue (341.3621ms)
+✔ a late authentication failure from A cannot publish an error into B (368.2092ms)
+✔ journey distinguishes sending, proven rejection and uncertain identity, and resolves only selected intentions (381.851ms)
+✔ journey exposes 429 waiting without manual retry shortening the server deadline (285.242ms)
+✔ journey exposes 503 waiting without manual retry shortening the server deadline (264.0823ms)
+✔ exhausted pull waiting becomes manually available at its minimum without automatic sending (505.7993ms)
+✔ an older app refuses an unknown database version without touching offline work (300.9788ms)
+✔ a failed sequential migration preserves both an inactive account and the active account, then retries safely (595.6718ms)
+✔ an asynchronous installation migration failure preserves the logout fence and protected key references (549.5589ms)
+✔ the compatibility migration preserves the previous installation state and account work (1088.6772ms)
+✔ an unavailable account file stays blocked, then public retry preserves its intentions (648.6455ms)
+✔ installation corruption is preserved without discovering another account or disclosing raw errors (825.3105ms)
+✔ account corruption is preserved without discovering another account or disclosing raw errors (672.4339ms)
+✔ a generic PRAGMA failure stays unknown, closes acquired handles and exposes no SQL or secrets (403.3078ms)
+✔ an unknown account schema blocks access until a compatible retry preserves the original operation (996.663ms)
+✔ public migration recovery rolls back changed intentions and preserves an inactive account (1039.8628ms)
+✔ installation migration recovery respects a persisted incomplete logout before opening any account (562.9891ms)
+✔ logout during account retry invalidates the handle and never publishes A in the next generation B (322.1122ms)
+✔ closing during installation opening prevents a late session and releases all acquired SQLite handles (74.2069ms)
+✔ a failed cleanup preserves the original opening cause without putting either message into recovery (32.9834ms)
+✔ an account ownership mismatch stays blocked and never exposes the other account intentions (331.1706ms)
+✔ an unrecognized structured driver code is not copied into the public diagnostic (82.6986ms)
+✔ pull refuses changed cut and retains the last committed page and pending work (73.9926ms)
+✔ pull refuses cursor cycle and retains the last committed page and pending work (14.6479ms)
+✔ request validates email, preserves aliases and reports uniform acceptance (4.2097ms)
+✔ native intent sanitizes navigation and consumes its transient mailbox once (0.8537ms)
+✔ opening never confirms or exposes the secret and confirmation preserves Unicode exactly (0.689ms)
+✔ offline and transient errors preserve the intent for a deliberate retry (6.2071ms)
+✔ used or expired links allow requesting another without creating a session (0.6728ms)
+✔ Retry-After survives reopening, without automatic mail or blocking a different endpoint (0.7061ms)
+✔ late replies cannot replace a new link or revive a closed view (0.3501ms)
+✔ performance fixture chooses an onboarding boundary shared by the frozen API and the whole device run (32.3016ms)
+✔ an incompatible or missing fixture clock is rejected before creating domain data (17.238ms)
+✔ observation modes are explicit and missing detailed data never falls back to lightweight (7.8512ms)
+✔ lightweight and disabled modes never call the synchronous port; detailed mode preserves profiling and exceptions (3562.4054ms)
+✔ presentation capture refuses an incompatible or missing performance mode before opening resources (4011.3731ms)
+✔ native frame analysis retains a slow cold sample and uses the same launch origin for local cards (3.6086ms)
+✔ native measurement refuses incomplete clock/state/frame {"drawVsyncNs":1} (3.6405ms)
+✔ native measurement refuses incomplete clock/state/frame {"drawVsyncNs":2000000001} (0.436ms)
+✔ native measurement refuses incomplete clock/state/frame {"launchNs":3000000000} (0.3894ms)
+✔ native measurement refuses incomplete clock/state/frame {"launchClock":"adb_wall_clock"} (1.1212ms)
+✔ native measurement refuses incomplete clock/state/frame {} (11.2278ms)
+✔ native measurement refuses incomplete clock/state/frame {"dropped":1} (0.4953ms)
+✔ native measurement refuses incomplete clock/state/frame {"frameEndNs":2000000000} (0.3388ms)
+✔ missing or duplicate samples and unchanged visual state cannot manufacture a passing distribution (1.7084ms)
+✔ startup correlation refuses a live process, different PID, different origin and a different launch clock (2.6631ms)
+✔ ADB unavailable or diagnostic failures cannot prove a cold process (0.2852ms)
+✔ Android XML with a single-quoted JSON diagnostic preserves the original intention (2.8579ms)
+✔ mixed XML delimiters and escaped literal quotes remain distinct (0.48ms)
+✔ all own interactive windows retain focus evidence without contaminating the top-window driver (0.4509ms)
+✔ requesting password recovery accepts an empty 202 and uses the versioned identity transport (89.758ms)
+✔ a recovery link must use the configured HTTPS origin and keep its token only in the fragment (1.22ms)
+✔ a rejected creation keeps its content and blocks dependent intentions across restart (250.8541ms)
+✔ correcting a rejected chain remaps dependencies and undo context atomically without rewriting old envelopes (193.5096ms)
+✔ discarding only the parent preserves its blocked children and a replayed rejection cannot reopen it (320.515ms)
+✔ excessive undo context is recoverable locally with every reference intact and never sent (997.6997ms)
+✔ a child corrected later follows the replacement habit and a failed correction leaves no partial chain (532.4428ms)
+✔ a rejection in the first batch prevents later blocked children from being sent (865.9295ms)
+✔ correction cannot truncate an oversized context to bypass the protocol limit (258.4978ms)
+✔ recovery refuses uncertain outcomes and another account cannot read or change a rejected intention (914.2208ms)
+✔ a correction that observes a new local undo must wait for that undo before sending (267.5284ms)
+✔ a proposed correction cannot create a cycle between a marking and its dependent undo (192.7978ms)
+✔ an offline session pulls automatically when connectivity returns (352.0749ms)
+✔ foreground polling waits five minutes and pauses until the app is active again (516.0044ms)
+✔ transient failures wait one then two seconds before synchronization recovers (499.2741ms)
+✔ ten failed attempts stop automatic retries until an explicit retry, preserving local work (424.4366ms)
+✔ Retry-After from a non-JSON gateway response survives foreground and connectivity triggers (218.4822ms)
+✔ a failed push keeps its retry deadline and immutable intention after restarting the session (335.0599ms)
+✔ exhausted pushes stay recoverable after restart and manual retry keeps the original operation ID (749.8897ms)
+✔ login starts automatic sync and logout flushes revocations even without an active account (494.7319ms)
+✔ pausing between pull and push does not strand the offline intention in flight (435.5087ms)
+✔ a revoked-session retry respects Retry-After without delaying the active account sync (535.2839ms)
+✔ interruption during a push preserves the retry deadline before any response arrives (215.2767ms)
+✔ deferred operations back off and eventually require a manual retry without losing their content (434.7941ms)
+✔ a late response from A cannot change B or stop B automatic synchronization (291.5825ms)
+✔ HTTP 400 stops automatic retries while preserving local work (113.8678ms)
+✔ HTTP 401 stops automatic retries while preserving local work (135.1397ms)
+✔ HTTP 426 stops automatic retries while preserving local work (138.1502ms)
+✔ a new dependent operation cannot bypass its parent retry deadline (128.0535ms)
+✔ the tenth push failure still protects its Retry-After minimum from explicit retry and restart (564.7136ms)
+✔ offline logout locks A, B sees its own database, and online reentry restores A pending work (872.5827ms)
+✔ failed credential removal keeps logout blocked across restart and preserves pending work (185.9365ms)
+✔ a lost refresh response requires online login but keeps local work across restart (219.3151ms)
+✔ invalid protected credentials cannot authenticate a different account after restart (158.1006ms)
+✔ a late refresh and pull from A cannot write into the session or database of B (189.2145ms)
+✔ offline revocations are retried without renewing or touching the active account (201.6521ms)
+✔ failure saving a rotated credential never reactivates the old refresh after restart (162.1288ms)
+✔ logout fences a credential write already in flight and removes it before finishing (131.7302ms)
+✔ an unavailable vault preserves the active local account and resumes only its current credential (136.0051ms)
+✔ failed cleanup after login keeps the new local session usable and retries only obsolete credentials (202.4022ms)
+✔ failed login storage never activates a session and exposes only a bounded vault diagnostic (98.5181ms)
+✔ a revocation read failure pauses remote access without mixing the active account with retired keys (291.3033ms)
+✔ the scheduler pauses for vault recovery without consuming intentions and resumes on the public retry action (231.5123ms)
+✔ retrying incomplete logout finishes the fence without reopening the account (166.0288ms)
+✔ a queued vault retry cannot restore credentials into a newer session generation (186.2929ms)
+✔ cleanup failure after a persisted refresh pauses token use and later resumes the new credential (114.2439ms)
+✔ vault recovery preserves an existing scheduler backoff instead of sending before its deadline (112.1833ms)
+✔ an expired copy restarts without losing the old base or pending intent (118.3216ms)
+✔ invalid receipt coverage (missing) cannot swap the base or confirm pending work (10.3483ms)
+✔ invalid receipt coverage (duplicated) cannot swap the base or confirm pending work (41.7981ms)
+✔ invalid receipt coverage (foreign) cannot swap the base or confirm pending work (11.502ms)
+✔ invalid receipt coverage (after H) cannot swap the base or confirm pending work (9.5535ms)
+✔ receipts include writes during the copy and the feed after H is read before any resend (20.5128ms)
+✔ a staging write failure stops the copy before fetching more and leaves the previous base usable (96.8691ms)
+✔ repeated expiration yields to bounded backoff with the pending intent preserved (6.2941ms)
+✔ snapshot rejects cursor cycle without replacing the base (6.5892ms)
+✔ snapshot rejects future revision without replacing the base (6.4938ms)
+✔ a failed snapshot swap rolls back canonical data, confirmations and cursor together, preserving rejected history (294.7716ms)
+✔ an onboarded account without a local copy starts an atomic snapshot and never exposes partial habits after failure (89.8338ms)
+✔ a nonempty interrupted copy preserves the old base and dependent XP across restart and a fresh manifest (331.6579ms)
+✔ an offline habit and its marking survive closing and reopening the account store (115.2591ms)
+✔ opening an existing account database as another account is refused without deleting pending work (80.2575ms)
+✔ a failed projection write rolls back the offline intent and its allocated sequence (467.4953ms)
+✔ live network events win over an older initial lookup and native subscriptions are removed on close (289.4874ms)
+✔ a newer foreground network lookup cannot be overwritten by the delayed initial lookup (367.1486ms)
+✔ holo dark permitted native text and interactive pairs pass contrast (2.5226ms)
+✔ holo light permitted native text and interactive pairs pass contrast (0.7234ms)
+✔ cockpit dark permitted native text and interactive pairs pass contrast (0.4914ms)
+✔ cockpit light permitted native text and interactive pairs pass contrast (0.3583ms)
+✔ neo dark permitted native text and interactive pairs pass contrast (0.4308ms)
+✔ neo light permitted native text and interactive pairs pass contrast (0.3908ms)
+✔ title uniqueness uses the shared canonical fixtures and Unicode full folding (29.8398ms)
+✔ attribution preserves all slow samples and separates input, committed work, repeated refresh and presentation (3.9588ms)
+✔ attribution rejects missing dispatch, JS fallback clocks, mismatched events and missing or reversed phases (10.3653ms)
+✔ an earlier ACTION_UP cannot acquire a later press just because its frame changes the checkbox (1.2873ms)
+✔ profiles correlate the same press, preserve elapsed spans and retain the raw counter (11.216ms)
+✔ missing or duplicate log chunks cannot silently remove a slow profile (15.471ms)
+✔ incompatible wall clocks, another thread and incomplete instrumentation invalidate the cohort (9.4617ms)
+✔ a CPU counter exceeding elapsed time remains diagnostic and cannot provide CPU or waiting attribution (2.7451ms)
+✔ a remote tombstone wins over a pending old creation and survives restart and delayed acknowledgements (117.6809ms)
+✔ the tombstone invalidates earned and pending XP even before the large deletion snapshot arrives (9.6336ms)
+✔ an offline deletion hides habit and XP durably; a definitive rejection restores the canonical view (46.9914ms)
+ℹ tests 213
+ℹ suites 0
+ℹ pass 213
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14212.4872
+
+> ritmo-app@0.1.0 test:components C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app
+> jest --runInBand
+
+FAIL test/components/journey.test.tsx (70.362 s)
+  ● offline login preserves typed values and exposes a useful connection error
+
+    thrown: "Exceeded timeout of 5000 ms for a test.
+    Add a timeout value to this test to increase the timeout, if this is a long-running test. See https://jestjs.io/docs/api#testname-fn-timeout."
+
+      18 | beforeEach(()=>{jest.useFakeTimers();useNavigation.setState({key:null,gate:null,surface:'welcome',privacy:false,logout:false,draft:'',editingId:null,formFrom:'briefing'});});
+      19 | afterEach(()=>{jest.useRealTimers();});
+    > 20 | test('offline login preserves typed values and exposes a useful connection error',async()=>{
+         | ^
+      21 |  const f=fixture();try {
+      22 |   await mount(f);await fireEvent.press(screen.getByRole('button',{name:pt.hasAccount}));
+      23 |   await fireEvent.changeText(screen.getByLabelText(pt.email),'a@example.test');await fireEvent.changeText(screen.getByLabelText(pt.password),'password');
+
+      at Object.test (test/components/journey.test.tsx:20:1)
+
+PASS test/components/password-recovery.test.tsx
+PASS test/components/appearance.test.tsx
+PASS test/components/performance.test.tsx
+PASS test/components/dialog-focus.test.tsx
+PASS test/components/page-keyboard.test.tsx
+
+Test Suites: 1 failed, 5 passed, 6 total
+Tests:       1 failed, 50 passed, 51 total
+Snapshots:   0 total
+Time:        90.16 s
+Ran all test suites.
+ ELIFECYCLE  Command failed with exit code 1.
+ ELIFECYCLE  Test failed. See above for more details.

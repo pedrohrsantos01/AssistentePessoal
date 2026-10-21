@@ -1,0 +1,221 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.4/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+
+> Task :operationsTest
+test_external_loss_thresholds_deduplication_restart_escalation_resolution_and_mail_retry (test_operations.Alerts.test_external_loss_thresholds_deduplication_restart_escalation_resolution_and_mail_retry) ... ok
+test_missed_local_schedule_runs_once_and_failed_dump_preserves_valid_base (test_operations.BackupCycle.test_missed_local_schedule_runs_once_and_failed_dump_preserves_valid_base) ... ok
+test_logical_backup_from_another_cluster_is_not_published_and_own_dump_survives_base_failure (test_operations.BackupIdentity.test_logical_backup_from_another_cluster_is_not_published_and_own_dump_survives_base_failure) ... ok
+test_missing_cycle_and_smtp_require_two_checks_and_execution_failure_is_immediate (test_operations.DetectorWatchdogAlerts.test_missing_cycle_and_smtp_require_two_checks_and_execution_failure_is_immediate) ... ok
+test_failed_drill_does_not_satisfy_monthly_or_new_major_gate (test_operations.Drills.test_failed_drill_does_not_satisfy_monthly_or_new_major_gate) ... ok
+test_frozen_inventory_rejects_mutation_and_live_receiver_before_restore (test_operations.FrozenChain.test_frozen_inventory_rejects_mutation_and_live_receiver_before_restore) ... ok
+test_invalid_primary_metadata_never_resolves_a_known_storage_incident (test_operations.PrimaryTelemetry.test_invalid_primary_metadata_never_resolves_a_known_storage_incident) ... ok
+test_primary_host_loss_alerts_after_two_collections_without_receiver_dependency (test_operations.PrimaryTelemetry.test_primary_host_loss_alerts_after_two_collections_without_receiver_dependency) ... ok
+test_primary_storage_and_slot_transitions_preserve_unknown_incidents (test_operations.PrimaryTelemetry.test_primary_storage_and_slot_transitions_preserve_unknown_incidents) ... ok
+test_malformed_and_stale_probe_cannot_resolve_alerts_or_reset_failure_counter (test_operations.ProbeContracts.test_malformed_and_stale_probe_cannot_resolve_alerts_or_reset_failure_counter) ... ok
+test_timed_out_external_process_is_not_reported_as_success (test_operations.ProcessBoundary.test_timed_out_external_process_is_not_reported_as_success) ... ok
+test_thirty_day_anchor_keeps_required_wal_and_failed_new_base_cannot_trim_it (test_operations.Retention.test_thirty_day_anchor_keeps_required_wal_and_failed_new_base_cannot_trim_it) ... ok
+test_missing_agenda_requires_two_probes_but_job_failure_is_immediate_and_retained (test_operations.ScheduleAlerts.test_missing_agenda_requires_two_probes_but_job_failure_is_immediate_and_retained) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 2.838s
+
+OK
+
+> Task :compileJava
+> Task :processResources
+> Task :classes
+> Task :compileTestJava
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+> Task :test
+
+ContainerPackagingTests > packagedApiIncludesItsContractAndMigrationsAndDefaultsToQuarantineAndWalProtection() PASSED
+
+ModularityTests > modulesRespectTheirPublicInterfaces() PASSED
+
+OperationalSchedulingTests > finiteJobsRunThroughNativeTimersAndExposeFailureAndAbsence() PASSED
+
+PrimaryTelemetryTests > primaryStorageRetentionAndAvailabilityAreObservedPrivately() PASSED
+
+ProbeTransportTests > privateAuthenticatedTransportAndReciprocalDetection() PASSED
+
+ProxyTlsTests > tlsEdgeSanitizesOriginsPreservesQuotasErrorsAndPrivateBackend() PASSED
+
+RateLimitTests > anonymousEndpointsHaveIndependentApprovedQuotas() PASSED
+
+RateLimitTests > encodedRoutesCannotBypassEndpointOrApiQuotas() PASSED
+
+RateLimitTests > apiIpBudgetProtectsEvenInvalidProtocolRequests() PASSED
+
+RateLimitTests > memoryPressureRejectsNewAccountsWithoutEvictingExistingDebt() PASSED
+
+RateLimitTests > loginBudgetCannotBeResetByChangingEmailDeviceOrForwardedIp() PASSED
+
+RateLimitTests > passwordRecoveryQuotaDoesNotRevealWhetherTheEmailExists() PASSED
+
+RateLimitTests > mobileSQLiteIntentionsSurviveARealHttpRateLimitAndReopen() PASSED
+
+RateLimitTests > rejectedRefreshAndRevokeDoNotConsumeOrRevokeCredentials() PASSED
+
+RateLimitTests > accountQuotaIsSharedByRoutesAndDevicesButIsolatedFromAnotherAccount() PASSED
+
+RateLimitTests > concurrentLoginRequestsCannotOverdrawAndRefillRoundsUp() PASSED
+
+RateLimitTests > aFiftyOperationPushConsumesOnlyOneRequestToken() PASSED
+
+ReceiverSupervisionTests > inhibitionSurvivesExplicitStartAndRebootAndExcludesResumeThroughoutRealFreeze() PASSED
+
+ReceiverSupervisionTests > nativeReceiverReconnectsAndRestartsWithoutDiscardingItsPartialWal() PASSED
+
+ReceiverSupervisionTests > unknownOrImpostorProcessIsRefusedAndFatalStorageDoesNotRestartAutomatically() PASSED
+
+RestoreTests > anArchiveRestoresAccountsHabitsXpReceiptsAndIsolationIntoACleanServer() PASSED
+
+RestoreTests > quarantinedApiNeverPublishesARecoveredSnapshot() PASSED
+
+RestoreTests > recoveryPreparationRevokesAllFamiliesAndResetLinksWithoutChangingPasswords() PASSED
+
+RestoreTests > mobileKeepsPostCutConfirmationsWhileHistoricalCopyIsQuarantinedAndResumesOnlyAfterIntegralRecovery() PASSED
+
+RestoreTests > restoredApiReconcilesOfflineSqliteWorkAndPreservesDeletedIds() PASSED
+
+RetentionLifecycleTests > anInvalidEnableFlagStopsStartupInsteadOfSilentlyDisablingMaintenance() PASSED
+
+RetentionLifecycleTests > unfinishedDailyWorkSurvivesRuntimeRestartAndTwoExecutorsAndQuarantinePausesIt() PASSED
+
+RetentionLifecycleTests > upgradingAPopulatedV4DatabaseKeepsTheFeedAndItsReceipts() PASSED
+
+RuntimeTests > foreignAccountReferencesAreRejectedByApiAndCompositeForeignKeys() PASSED
+
+RuntimeTests > failedRevocationRollsBackPasswordAndTokenConsumptionSoTheResetCanBeRetried() PASSED
+
+RuntimeTests > historicalReceiptProofIsEnrichedWithoutRewritingHistoryOrLeakingAccounts() PASSED
+
+RuntimeTests > aRevocationCapabilityOnlyRevokesItsOwnSessionAndIsRepeatable() PASSED
+
+RuntimeTests > smtpFailureKeepsThePublicResponseUniformAndLeavesPasswordAndSessionUsable() PASSED
+
+RuntimeTests > aResetIsValidBeforeOneHourAndInvalidAtTheExactExpiration() PASSED
+
+RuntimeTests > runtimeRolesCannotChangeCompatibilityAndMissingConfigurationIsUnavailable() PASSED
+
+RuntimeTests > androidProductSessionRecoveryPreservesAccountIsolation() SKIPPED
+
+RuntimeTests > dependenciesAreOrderedWithinTheBatchAndChangedReplaysDoNotRedefineTheGraph() PASSED
+
+RuntimeTests > retriesCannotReplaceAnAcceptedIntentAndRejectedParentsDoNotDeferForever() PASSED
+
+RuntimeTests > resetRequestsAreUniformAndNormalizeTheEmailWithoutProviderAliases() PASSED
+
+RuntimeTests > creatingAndMarkingARealHabitGrantsTenXp() PASSED
+
+RuntimeTests > mobileRecoversRejectedChainsThroughTheRealHttpApi() PASSED
+
+RuntimeTests > mobilePreservesConflictingIdentityThroughTheRealHttpApi() PASSED
+
+RuntimeTests > aRequiredXpFailureRollsBackTheFactReceiptAndFeedAndCanBeRetried() PASSED
+
+RuntimeTests > concurrentConfirmationsConsumeTheResetExactlyOnce() PASSED
+
+RuntimeTests > mobileDeletionsConvergeThroughTheRealHttpApi() PASSED
+
+RuntimeTests > anAccountCanBeRegisteredThroughTheRealApi() PASSED
+
+RuntimeTests > invalidPasswordsDoNotConsumeTheLinkAndUnicodeLimitsCountCodePoints() PASSED
+
+RuntimeTests > androidProductPasswordRecoveryPreservesPendingWork() SKIPPED
+
+RuntimeTests > successfulResetInvalidatesOtherLinksButNewRequestsDoNot() PASSED
+
+RuntimeTests > recoveryRequestSendsAnHttpsLinkOnlyByEmailAndDoesNotChangeThePassword() PASSED
+
+RuntimeTests > androidRuntimeSynchronizesThroughNativeStorageAndHttp() SKIPPED
+
+RuntimeTests > androidProductSynchronizationShowsRecoverableAndUncertainIntent() SKIPPED
+
+RuntimeTests > automaticSyncConvergesAfterLostAckAndFlushesOfflineRevocation() PASSED
+
+RuntimeTests > issuedAccessTokensCarryTheAccountPlanAndTimezoneForFifteenMinutes() PASSED
+
+RuntimeTests > obsoleteMobileBuildPreservesWorkAndRecoversThroughTheRealHttpApi() PASSED
+
+RuntimeTests > mobileRepositoriesSynchronizeThroughTheRealHttpApi() PASSED
+
+RuntimeTests > androidProductAppearancePersistsAcrossSessions() SKIPPED
+
+RuntimeTests > expiredSnapshotsRefuseBothPagesAndReceiptClassification() PASSED
+
+RuntimeTests > concurrentRefreshRequestsProduceExactlyOneReplacement() PASSED
+
+RuntimeTests > aDeletionXpFailureRollsBackTombstoneGrantReceiptAndFeed() PASSED
+
+RuntimeTests > aResetLinkChangesThePasswordOnceAndRevokesOnlyThatAccountsSessions() PASSED
+
+RuntimeTests > cyclicDependenciesAreRejectedWithRecoverableReferencesInsteadOfDeferredForever() PASSED
+
+RuntimeTests > mobileRecoveryKeepsPendingWorkThroughReauthenticationAndSync() PASSED
+
+RuntimeTests > aNewClientReceivesAnAccountScopedSnapshot() PASSED
+
+RuntimeTests > androidProductJourneyWorksOfflineAndSynchronizesAfterRestart() SKIPPED
+
+RuntimeTests > androidReaderNavigatesLargeTextFormsSheetsAndErrors() SKIPPED
+
+RuntimeTests > paginatedSnapshotsRecoverThroughTheRealHttpApi() PASSED
+
+RuntimeTests > mobileLogicalDaysRemainStableThroughTheRealHttpApi() PASSED
+
+RuntimeTests > anExpiredDeletionFeedKeepsItsIdAndOriginalReceiptsThroughSnapshot() PASSED
+
+RuntimeTests > refreshIsSingleUseAndTheOriginalCapabilityRevokesTheRotatedFamily() PASSED
+
+RuntimeTests > databaseRolesEnforceReadWriteAndPreAuthenticationIsolation() PASSED
+
+RuntimeTests > overlappingCyclesClassifyEveryMemberOfTheCycle() PASSED
+
+RuntimeTests > minimumVersionIsReadFromConfigurationAndComparedNumericallyBeforeAuthentication() PASSED
+
+RuntimeTests > androidRuntimePreservesExceptionsAndAccountIsolationThroughNativeAdapters() SKIPPED
+
+SyncRetentionTests > theNinetyDayBoundaryUsesElapsedTimeEvenAcrossDatabaseDaylightSaving() PASSED
+
+SyncRetentionTests > reopenedSqliteRecoversAcrossTheRealDailyCleanerAndAnExpiredCopy() PASSED
+
+SyncRetentionTests > invalidBatchLimitsFailBeforeChangingRetentionState() PASSED
+
+SyncRetentionTests > aDatabaseFailureRollsBackRemovalAndFloorAndTheNextAttemptCanFinish() PASSED
+
+SyncRetentionTests > aPageAndReceiptsRevalidateExpiryAfterWaitingForTheAccountLock() PASSED
+
+SyncRetentionTests > dailyExpurgoRequiresResyncForARenewedCursorButRetainsTheCurrentSuffix() PASSED
+
+SyncRetentionTests > maintenanceCannotCrossAccountsAndDoesNotGrantIdentityOrPublicAnInvokerPrivilege() PASSED
+
+SyncRetentionTests > anUnexpiredRevisionStopsThePrefixEvenIfLaterTimestampsAreOlder() PASSED
+
+SyncRetentionTests > dailyExpurgoRemovesExpiredCopiesAndAllowsANewSnapshot() PASSED
+
+SyncRetentionTests > failureInOneAccountLeavesItDueAndTheDailyExecutorStillCleansAnotherAccount() PASSED
+
+SyncRetentionTests > aValidPagedSnapshotReservesItsSuffixWhileThePrefixIsRemovedInLimitedBatches() PASSED
+
+TrustedProxyTests > equivalentIpv6AndMappedIpv4ShareBudgets() PASSED
+
+TrustedProxyTests > trustedProxyKeepsIndependentClientBudgets() PASSED
+
+TrustedProxyTests > ambiguousOrInvalidHeadersFallBackToTheSameSocketPeer() PASSED
+
+WalRecoveryTests > independentPhysicalBaseAndPartialWalRestorePostBaseConfirmationsAfterPrimaryLoss() PASSED
+
+WalRecoveryTests > canceledOrTimedOutSynchronousCommitAndItsReceiptStayUnavailableUntilRemoteFlush() PASSED
+
+WalRecoveryTests > receiverWithoutStorageCannotAuthorizeApiConfirmations() PASSED
+
+WalRecoveryTests > identityCommitTransportTimeoutDoesNotPublishCredentials() PASSED
+
+WalRecoveryTests > protectedApiDoesNotAcceptWritesWithoutAnIndependentSynchronousReceiver() PASSED
+
+> Task :check
+
+BUILD SUCCESSFUL in 16m 41s
+5 actionable tasks: 5 executed

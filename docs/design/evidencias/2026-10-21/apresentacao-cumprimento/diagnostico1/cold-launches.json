@@ -1,0 +1,142 @@
+[
+  {
+    "sample": 1,
+    "pid": "7341",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 0,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 7341,
+      "launcherPid": 7322,
+      "launchNs": 181398211900,
+      "sample": 1
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=181398211900\r\nINSTRUMENTATION_RESULT: launcherPid=7322\r\nINSTRUMENTATION_RESULT: sample=1\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 2,
+    "pid": "8339",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 2,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 8339,
+      "launcherPid": 8325,
+      "launchNs": 217683164400,
+      "sample": 2
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=217683164400\r\nINSTRUMENTATION_RESULT: launcherPid=8325\r\nINSTRUMENTATION_RESULT: sample=2\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 3,
+    "pid": "8859",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 4,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 8859,
+      "launcherPid": 8841,
+      "launchNs": 232688040800,
+      "sample": 3
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=232688040800\r\nINSTRUMENTATION_RESULT: launcherPid=8841\r\nINSTRUMENTATION_RESULT: sample=3\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 4,
+    "pid": "9652",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 6,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 9652,
+      "launcherPid": 9638,
+      "launchNs": 266466427900,
+      "sample": 4
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=266466427900\r\nINSTRUMENTATION_RESULT: launcherPid=9638\r\nINSTRUMENTATION_RESULT: sample=4\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 5,
+    "pid": "10117",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 8,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 10117,
+      "launcherPid": 10101,
+      "launchNs": 291490012600,
+      "sample": 5
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=291490012600\r\nINSTRUMENTATION_RESULT: launcherPid=10101\r\nINSTRUMENTATION_RESULT: sample=5\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 6,
+    "pid": "10729",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 10,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 10729,
+      "launcherPid": 10713,
+      "launchNs": 340840804200,
+      "sample": 6
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=340840804200\r\nINSTRUMENTATION_RESULT: launcherPid=10713\r\nINSTRUMENTATION_RESULT: sample=6\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 7,
+    "pid": "11563",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 12,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 11563,
+      "launcherPid": 11548,
+      "launchNs": 391502067700,
+      "sample": 7
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=391502067700\r\nINSTRUMENTATION_RESULT: launcherPid=11548\r\nINSTRUMENTATION_RESULT: sample=7\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 8,
+    "pid": "12092",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 14,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 12092,
+      "launcherPid": 12071,
+      "launchNs": 419675850300,
+      "sample": 8
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=419675850300\r\nINSTRUMENTATION_RESULT: launcherPid=12071\r\nINSTRUMENTATION_RESULT: sample=8\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 9,
+    "pid": "12441",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 16,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 12441,
+      "launcherPid": 12423,
+      "launchNs": 437978474700,
+      "sample": 9
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=437978474700\r\nINSTRUMENTATION_RESULT: launcherPid=12423\r\nINSTRUMENTATION_RESULT: sample=9\r\nINSTRUMENTATION_CODE: 0"
+  },
+  {
+    "sample": 10,
+    "pid": "12906",
+    "launchState": "PROCESS_COLD",
+    "expectedPendingChangesAtStart": 18,
+    "proof": {
+      "pidAbsentBeforeLaunch": true,
+      "pidAfterLaunch": 12906,
+      "launcherPid": 12891,
+      "launchNs": 465553764700,
+      "sample": 10
+    },
+    "deviceLauncher": "INSTRUMENTATION_RESULT: clock=device_intent_request\r\nINSTRUMENTATION_RESULT: launchNs=465553764700\r\nINSTRUMENTATION_RESULT: launcherPid=12891\r\nINSTRUMENTATION_RESULT: sample=10\r\nINSTRUMENTATION_CODE: 0"
+  }
+]

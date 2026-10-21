@@ -1,0 +1,7 @@
+{
+  "pid": "6850",
+  "path": "/data/misc/perfetto-traces/ritmo-77d20ebe-e7fc-4373-a77f-5823d4ec5d8e.pftrace",
+  "clock": "MONOTONIC",
+  "cpuSource": "sched_switch",
+  "requiresSeparateValidation": true
+}

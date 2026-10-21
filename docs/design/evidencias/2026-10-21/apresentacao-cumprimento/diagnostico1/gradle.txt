@@ -1,0 +1,90 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14.4/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :compileTestJava UP-TO-DATE
+> Task :processTestResources NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test
+
+2026-10-21T01:00:45.120-03:00  INFO 28368 --- [ritmo-api] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-21T01:00:45.123-03:00  INFO 28368 --- [ritmo-api] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-21T01:00:45.139-03:00  INFO 28368 --- [ritmo-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+
+> Task :test
+
+RuntimeTests > androidReaderNavigatesLargeTextFormsSheetsAndErrors() FAILED
+    org.opentest4j.AssertionFailedError: [Warning: No PTY. CTRL+C won't gracefully stop the trace. If you are running perfetto via adb shell, use the -tt arg (adb shell -t perfetto ...) or consider using the helper script tools/record_android_trace from the Perfetto repository.
+
+    [056.296]    perfetto_cmd.cc:1100 Connected to the Perfetto traced service, TTL: 1s
+    [057.660]    perfetto_cmd.cc:1260 Trace written into the output file
+
+    Loading trace: 0.00 MB
+
+    Loading trace: 0.48 MB
+    [686.343]     common_flags.cc:525 Trace loaded: 0.48 MB in 0.17s (2.8 MB/s)
+    [686.343]            query.cc:191 Query execution time: 0 ms
+    {"phase":"real_account_and_local_habit_prepared","passed":true,"fontScale":1}
+    {"phase":"cold_1_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_2_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_3_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_4_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_5_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_6_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_7_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_8_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_9_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    {"phase":"cold_10_and_two_visual_changes_measured","passed":true,"fontScale":1}
+    cat: /proc/7268/cmdline: No such file or directory
+    Ô£û Android native frames: cold launch, local cards and durable visual toggle latency (494490.2866ms)
+    Ôä╣ tests 1
+    Ôä╣ suites 0
+    Ôä╣ pass 0
+    Ôä╣ fail 1
+    Ôä╣ cancelled 0
+    Ôä╣ skipped 0
+    Ôä╣ todo 0
+    Ôä╣ duration_ms 566614.4753
+
+    Ô£û failing tests:
+
+    test at test\integration\android-performance.test.ts:1:2646
+    Ô£û Android native frames: cold launch, local cards and durable visual toggle latency (494490.2866ms)
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+      false !== true
+
+          at TestContext.<anonymous> (C:\workspace\ProjetosFreela\ProjetoAssistentePessoal\app\test\integration\android-performance.test.ts:249:131)
+          at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+          at async Test.run (node:internal/test_runner/test:1113:7)
+          at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+        generatedMessage: true,
+        code: 'ERR_ASSERTION',
+        actual: false,
+        expected: true,
+        operator: 'strictEqual',
+        diff: 'simple'
+      }
+    ]
+    expected: 0
+     but was: 1
+        at app//dev.ritmo.RuntimeTests.androidReaderNavigatesLargeTextFormsSheetsAndErrors(RuntimeTests.java:865)
+
+2026-10-21T01:00:45.279-03:00  INFO 28368 --- [ritmo-api] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+> Task :test FAILED
+
+1 test completed, 1 failed
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':test'.
+> There were failing tests. See the report at: file:///C:/workspace/ProjetosFreela/ProjetoAssistentePessoal/api/build/reports/tests/test/index.html
+
+* Try:
+> Run with --scan to get full insights.
+
+BUILD FAILED in 10m 6s
+4 actionable tasks: 1 executed, 3 up-to-date

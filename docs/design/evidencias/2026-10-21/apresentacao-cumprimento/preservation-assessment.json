@@ -1,0 +1,20 @@
+{
+  "originalAudit": "preservation.json",
+  "originalAuditPassed": false,
+  "ownResourceCleanupPassed": true,
+  "adbServerPreserved": true,
+  "personalAvdSelectedMetadataPreserved": true,
+  "containersWithSameIdentity": 8,
+  "baselineContainers": 9,
+  "fullPreservationEstablished": false,
+  "unattributedReplacement": {
+    "name": "supabase_db_care-platform",
+    "beforeId": "986a7b00bd67",
+    "afterId": "6f35f3308fb74ea04e8e3af9477e8d6d868a8a3f41e07af9e33363ac8abca7d1",
+    "createdUtc": "2026-10-21T04:33:12.468229155Z",
+    "status": "running",
+    "health": "healthy",
+    "authorship": "not established",
+    "scope": "No explicit stop/recreate action targeting this container was issued; no intervention made."
+  }
+}

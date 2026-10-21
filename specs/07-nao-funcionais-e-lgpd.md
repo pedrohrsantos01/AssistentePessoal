@@ -27,6 +27,14 @@ Listas sempre virtualizadas (`FlashList`). Nenhuma query síncrona na thread de 
 
 [Resultado e limites](../docs/analises/2026-10-20-feedback-com-probe-leve-m1.md): modos explícitos leve/detalhado, com conferência do modo/hash e ausência de fallback por dados faltantes. Coorte leve v4 válida: dez processos frios/vinte alterações offline, reinício/convergência de um hábito/10 XP. Feedback p50/p95/máximo 88,2632/242,4520/450,0828 ms, 11/20≤100 ms; nove amostras altas preservadas. Abertura 8/10≤2 s, máximo 5451,6263 ms; cards 0/10≤300 ms com a origem mantida. No maior feedback, React→frame 321,1195 ms, sem atribuição causal a componente/host. Modos diferentes não demonstram ganho ou regressão da aplicação. Próximo: perfil da apresentação, depois cards. Metas, aparelho físico/iPhone e M1 continuam abertos.
 
+### Perfil da apresentação — 21/10/2026
+
+[Diagnóstico e limites](../docs/analises/2026-10-21-apresentacao-do-cumprimento-m1.md): mesmo APK leve com trace nativo explícito, dez partidas/vinte alterações, reinício e confirmação independente de um hábito/10 XP. Feedback p50/p95/máximo 130,9812/219,4891/411,7630 ms, 0/20≤100 ms; abertura10/10≤2 s; cards0/10≤300 ms. No pico, React→frame309,3733 ms: residência JS2,6748/UI34,2683/render268,4081 ms, com espera da UI e seção glGenTextures encode no RenderThread. Não mede CPU útil/GPU/host nem prova qual componente causa o pico. As dez marcações criaram RCTImageView; o [experimento escolhido](../.scratch/interface-m1/checkmark-persistente.md) conserva o checkmark montado, antes da partida dos cards. Não houve mudança de componente nem aceite da meta; observação com trace não se compara causalmente à confirmação anterior. Falhas de captura/fixture ficaram separadas, sem descartar amostras altas válidas. Aparelhos físicos/iPhone e M1 permanecem abertos.
+
+### Perfil da apresentação — 21/10/2026
+
+[Diagnóstico e limites](../docs/analises/2026-10-21-apresentacao-do-cumprimento-m1.md): mesmo APK leve com trace nativo explícito, dez partidas/vinte alterações, reinício e confirmação independente de um hábito/10 XP. Feedback p50/p95/máximo 130,9812/219,4891/411,7630 ms, 0/20≤100 ms; abertura10/10≤2 s; cards0/10≤300 ms. No pico, React→frame309,3733 ms: residência JS2,6748/UI34,2683/render268,4081 ms, com espera da UI e seção glGenTextures encode no RenderThread. Não mede CPU útil/GPU/host nem prova qual componente causa o pico. As dez marcações criaram RCTImageView; o [experimento escolhido](../.scratch/interface-m1/checkmark-persistente.md) conserva o checkmark montado, antes da partida dos cards. Não houve mudança de componente nem aceite da meta; observação com trace não se compara causalmente à confirmação anterior. Falhas de captura/fixture ficaram separadas, sem descartar amostras altas válidas. Aparelhos físicos/iPhone e M1 permanecem abertos.
+
 ## 2. Confiabilidade
 
 - Crash-free sessions ≥ 99,5%

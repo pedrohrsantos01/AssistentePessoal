@@ -1,0 +1,40 @@
+PASS test/components/journey.test.tsx (8.146 s)
+  √ offline login preserves typed values and exposes a useful connection error (566 ms)
+  √ Briefing at 200% summarizes the update requirement while preserving the read-only gate and local work (304 ms)
+  √ Briefing at 200% keeps the full vault notice and actionable sync summary without changing local work (272 ms)
+  √ nonempty staging keeps the initial account isolated until atomic installation (149 ms)
+  √ nonempty staging keeps the existing account isolated until atomic installation (205 ms)
+  ○ skipped login explains the persisted update requirement without exposing the closed account
+  ○ skipped login explains the http update requirement without exposing the closed account
+  ○ skipped the native components go through onboarding, skip, create and mark/undo using SQLite
+  ○ skipped a durable write failure keeps the form and step and never renders a successful habit
+  ○ skipped logout fences the rendered account immediately; login B never renders A data
+  ○ skipped privacy is a full accessible action before registration and its sheet closes
+  ○ skipped a confirmed daily XP limit keeps the checkbox done and shows no partial prize
+  ○ skipped a committed local projection updates controls without a loading swap or lost native identity
+  ○ skipped failing local rendering and async loading stay inside their own Briefing cards
+  ○ skipped management edits only changed fields; failed save preserves the draft and delete cancellation never writes
+  ○ skipped delete failure retains confirmation and data; retry deletes durably and returns useful management empty state
+  ○ skipped order controls change the same Briefing and compatibility disables management writes
+  ○ skipped switching accounts while a destructive confirmation is open fences the modal and its previous habit
+  ○ skipped Briefing distinguishes no due habits from no habits; management can edit a future start
+  ○ skipped vault pause is actionable in management and creation while local writing continues
+  ○ skipped account opening failure shows a safe diagnosis and retry preserves pending work
+  ○ skipped incomplete logout fences old routes and sheets until credential cleanup succeeds
+  ○ skipped installation failure prevents login and retry opens only after control becomes healthy
+  ○ skipped expired remote authentication remains local and only the same online account can reauthenticate
+  ○ skipped a vault write failure during new login cannot activate an account and retry keeps typed fields
+  ○ skipped sync review corrects a proven rejection and never offers discard for uncertain identity
+  ○ skipped canceling a proposed discard preserves the original and requires a fresh explicit confirmation
+  ○ skipped discard confirms only the selected rejection, preserves its child, and read-only update disables correction fields
+  ○ skipped a failed correction preserves typed fields and unresolved intent; repeated refresh announces no new result
+  ○ skipped first habit suggestions stay simple, retain a draft when revisiting time, and keep all day-start hours available
+  ○ skipped the current catalogue creates source metadata while title-only editing preserves legacy icon and color
+  ○ skipped management keeps confirmed rows compact while pending and refused intentions remain explicit
+  ○ skipped exhausted synchronization keeps the explicit retry disabled during the preserved server floor
+
+Test Suites: 1 passed, 1 total
+Tests:       28 skipped, 5 passed, 33 total
+Snapshots:   0 total
+Time:        9.114 s, estimated 80 s
+Ran all test suites matching /test\\components\\journey.test.tsx/i with tests matching "offline login preserves|Briefing at 200%|nonempty staging".

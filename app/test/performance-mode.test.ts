@@ -31,3 +31,8 @@ test('lightweight and disabled modes never call the synchronous port; detailed m
  for(const mode of ['lightweight','detailed','disabled'])execFileSync(process.execPath,['--import','tsx','--input-type=module','-e',source],{cwd:process.cwd(),env:{...process.env,EXPO_PUBLIC_RITMO_PERF_TEST:mode==='disabled'?'':'1',EXPO_PUBLIC_RITMO_PERF_MODE:mode==='disabled'?'':mode},windowsHide:true});
  assert.throws(()=>execFileSync(process.execPath,['--import','tsx','--input-type=module','-e',"import './src/core/diagnostics/performance.ts'"],{env:{...process.env,EXPO_PUBLIC_RITMO_PERF_TEST:'1',EXPO_PUBLIC_RITMO_PERF_MODE:''},stdio:'pipe',windowsHide:true}),/explicit_performance_mode_required/);
 });
+test('presentation capture refuses an incompatible or missing performance mode before opening resources',{skip:process.platform!=='win32'},()=>{
+ for(const args of [['-Presentation'],['-Performance','-Presentation','-PerformanceMode','detailed']]){
+  assert.throws(()=>execFileSync('pwsh.exe',['-NoProfile','-File','../scripts/verify-android-accessibility.ps1',...args],{cwd:process.cwd(),windowsHide:true,stdio:'pipe'}),/Presentation exige Performance no modo lightweight/);
+ }
+});

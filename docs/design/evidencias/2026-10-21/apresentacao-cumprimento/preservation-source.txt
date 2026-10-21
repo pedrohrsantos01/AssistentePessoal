@@ -1,0 +1,24 @@
+$ErrorActionPreference='Stop'
+$taskRoot=(Get-Location).Path
+$taskFolder=Join-Path $taskRoot 'docs/design/evidencias/2026-10-21/apresentacao-cumprimento'
+$taskBefore=Get-Content .scratch/runtime/apresentacao/host-before.json -Raw | ConvertFrom-Json
+$taskAfter=@(Get-CimInstance Win32_Process)
+$taskAdbBefore=$taskBefore.processes | Where-Object {$_.Name -eq 'adb.exe'} | Sort-Object CreationDate | Select-Object -First 1
+$taskAdbAfter=$taskAfter | Where-Object {$_.ProcessId -eq $taskAdbBefore.ProcessId -and [datetimeoffset]$_.CreationDate -eq [datetimeoffset]$taskAdbBefore.CreationDate}
+$taskLive=@()
+foreach($taskName in @('test-processes.json','test2-processes.json','api-processes.json')){
+ foreach($taskEntry in @(Get-Content (Join-Path '.scratch/runtime/apresentacao' $taskName) -Raw | ConvertFrom-Json)){
+  if($taskAfter | Where-Object {$_.ProcessId -eq $taskEntry.ProcessId -and [datetimeoffset]$_.CreationDate -eq [datetimeoffset]$taskEntry.CreationDate}){$taskLive+=@{name=$taskEntry.Name;pid=$taskEntry.ProcessId;created=$taskEntry.CreationDate;source=$taskName}}
+ }
+}
+$taskContainers=@(docker ps --format '{{.ID}} {{.Names}}')
+$taskContainerProof=@($taskBefore.containers | ForEach-Object {@{identity=$_;preserved=($_ -in $taskContainers)}})
+$taskAvd=@($taskBefore.avd | ForEach-Object {$taskFile=Get-Item -LiteralPath $_.FullName; @{path=$_.FullName;unchanged=($taskFile.Length -eq $_.Length -and [datetimeoffset]$taskFile.LastWriteTimeUtc -eq [datetimeoffset]$_.LastWriteTimeUtc)}})
+$taskNative=[IO.File]::ReadAllText((Join-Path $taskRoot 'app/android/app/src/main/java/dev/ritmo/journeytest/MainApplication.kt'))
+$taskCleanup=Get-Content (Join-Path $taskFolder 'diagnostico2/reader-cleanup.json') -Raw | ConvertFrom-Json
+$taskIsolation=Get-Content (Join-Path $taskFolder 'diagnostico2/installation-isolation.json') -Raw | ConvertFrom-Json
+$taskResult=@{at=(Get-Date).ToString('o');baselineAt=$taskBefore.at;adbServerPreserved=[bool]$taskAdbAfter;adbServerPid=$taskAdbBefore.ProcessId;containers=$taskContainerProof;originalAvdSelectedMetadataOnly=$true;originalAvd=$taskAvd;ownProcessesGone=($taskLive.Count -eq 0);ownedLive=$taskLive;normalApkPreserved=((Get-FileHash app/android/app/build/outputs/apk/release/app-release.apk -Algorithm SHA256).Hash.ToLowerInvariant() -ceq $taskBefore.normalApk);baselineApkPreserved=((Get-FileHash .scratch/runtime/apresentacao/baseline-lightweight.apk -Algorithm SHA256).Hash.ToLowerInvariant() -ceq $taskBefore.lightweightApk);normalNativeConfigPreserved=(-not $taskNative.Contains('RitmoPerformancePackage'));settingsRestored=[bool]$taskCleanup.restored;originalInstallationPreserved=[bool]$taskIsolation.originalUnchanged;temporaryPackageAbsent=[bool]$taskIsolation.temporaryAbsent}
+$taskResult.passed=$taskResult.adbServerPreserved -and @($taskContainerProof | Where-Object {-not $_.preserved}).Count -eq 0 -and @($taskAvd | Where-Object {-not $_.unchanged}).Count -eq 0 -and $taskResult.ownProcessesGone -and $taskResult.normalApkPreserved -and $taskResult.baselineApkPreserved -and $taskResult.normalNativeConfigPreserved -and $taskResult.settingsRestored -and $taskResult.originalInstallationPreserved -and $taskResult.temporaryPackageAbsent
+[IO.File]::WriteAllText((Join-Path $taskFolder 'preservation.json'),($taskResult | ConvertTo-Json -Depth 6)+"`n",[Text.UTF8Encoding]::new($false))
+if(-not $taskResult.passed){$taskResult | ConvertTo-Json -Depth 5;throw 'Resource preservation audit failed'}
+Write-Output 'Own processes closed; APKs, native config, original installation, ADB, nine containers and selected personal AVD metadata preserved.'

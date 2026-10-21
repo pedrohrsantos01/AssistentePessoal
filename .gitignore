@@ -14,6 +14,9 @@ api/build/
 *.apk
 *.aab
 *.ipa
+# Raw Android traces remain local; version the validated exports and hashes.
+*.pftrace
+*.pftrace.gz
 
 # Configuracao pessoal de ferramentas; manter skills e configuracao do projeto
 .mcp.json
