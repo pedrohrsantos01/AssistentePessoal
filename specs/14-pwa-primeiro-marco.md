@@ -1,6 +1,6 @@
 # spec/14 — PWA adicional do primeiro marco
 
-Data: 21/10/2026. Estado: **escopo Q61–Q65, stack e fronteiras Q67–Q69 aprovados; detalhes de execução/provas e implementação pendentes**. Origem: pedido de Pedro para planejar uso no iPhone sem distribuição nativa. Complementa PRD v3.1 e spec/13; não substitui os contratos nativos. [Plano](../docs/analises/2026-10-21-plano-pwa-m1.md); [tarefas](../.scratch/pwa-m1/spec.md).
+Data: 21/10/2026. Estado: **escopo Q61–Q65, stack e decisões Q67–Q74 aprovados; desenho de execução em consolidação, provas e implementação pendentes**. Origem: pedido de Pedro para planejar uso no iPhone sem distribuição nativa. Complementa PRD v3.1 e spec/13; não substitui os contratos nativos. [Plano](../docs/analises/2026-10-21-plano-pwa-m1.md); [tarefas](../.scratch/pwa-m1/spec.md).
 
 **Revisão técnica posterior, 21/10/2026:** Pedro descartou Expo Web para a PWA e solicitou alternativas. O frontend web será planejado sem essa dependência; o Expo do aplicativo nativo permanece. Após a comparação, Pedro escolheu React DOM/TypeScript/Vite/React Router + IndexedDB/Dexie + Workbox. [ADR-020](../docs/adr/0020-pwa-com-frontend-web-proprio.md). A classificação alpha da pesquisa original se referia a expo-sqlite web, não ao Expo Web inteiro. [Comparação atual](../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md).
 
@@ -17,6 +17,11 @@ Data: 21/10/2026. Estado: **escopo Q61–Q65, stack e fronteiras Q67–Q69 aprov
 | Q67 | Frontend estático e API Java na mesma origem pública HTTPS; nome/domínio ainda pendente |
 | Q68 | Credenciais web em cookies HttpOnly/Secure, sem access/refresh/revogação legíveis pelo JS; nativo bearer preservado |
 | Q69 | Um IndexedDB por instalação com controle+domínio particionados por conta; aparência em banco separado. Falha estrutural pode bloquear todas as contas locais, preservando dados |
+| Q70 | Instalação nova requer login online explícito e sessão própria; não restaurar a família copiada pelo Safari. Controle ilegível continua bloqueado/preservado |
+| Q71 | Sessão web opaca controlada no Java/PostgreSQL; cookie protegido e somente metadados públicos no JS. Nativo preservado |
+| Q72 | Rascunho só na aba da mesma jornada/conta; adiar recarga durante edição e confirmar descarte deliberado. Sem garantia após encerramento pelo navegador |
+| Q73 | Sessão remota web: 30 dias de inatividade autenticada, renovados pelo uso válido, até90dias desde o login. Vencimento pede login para sincronizar; sessão local não encerrada preserva leitura/escrita e pendências |
+| Q74 | Quatro contextos locais de autenticação por instalação, incluindo ativo/preparações/encerramentos pendentes. Nova entrada aguarda recuperação, sem descartar intenções ou bloquear uso local ainda ativo |
 
 Abrir a URL no Safari dispensa instalar um binário. Adicionar à Tela de Início é opcional para o uso no Safari e necessário para testar a segunda forma de abertura de Q62. Não presumir compartilhamento de armazenamento, sessão ou pendências entre esses acessos. [Fatos de plataforma e fontes](../docs/analises/2026-10-21-viabilidade-pwa.md).
 
@@ -51,7 +56,7 @@ Instalações separadas (Safari, Tela de Início, Android) têm identidades pró
 | Tema | Definição/prova necessária |
 |---|---|
 | Armazenamento | Banco de navegador, biblioteca, transações, migrações e falhas nas versões a fixar e Safari real. IndexedDB/Dexie e a fronteira Q69 estão aprovados; faltam schema/adapter e sua prova, sem adapter síncrono de Drizzle. O experimento expo-sqlite web anterior não está liberado |
-| Sessão web | Q68 aprovou cookies protegidos fora do JS; modelo de sessão, instalação/conta, expiração, renovação, CSRF, reset e revogação offline ainda precisam de contrato |
+| Sessão web | Q68 aprovou cookies protegidos; Q71 sessão opaca; Q73 validade30dias de inatividade/90dias absolutos; Q74 quatro contextos. Falta protocolo exato para aplicar prazos, cookies/instalação/conta, CSRF, reset, perda de resposta e revogação/recuperação |
 | Cookie copiado ao instalar | Tela de Início pode receber cookies sem a base local. Reconhecer instalação nova e impedir reutilização acidental da mesma família de refresh/identidade |
 | Perda de resposta | Login/renovação/revogação aceitos remotamente com resposta perdida; preservar proteção contra replay ambíguo |
 | Abas | Propriedade/fencing, sessão, retomada, leitura secundária, migrações e código antigo |
@@ -59,7 +64,7 @@ Instalações separadas (Safari, Tela de Início, Android) têm identidades pró
 | Origem | HTTPS estável na mesma origem (Q67), roteamento/cache/headers e recuperação por link. Host/remetente ainda não escolhidos |
 | Aceite | Matriz/medição no iPhone 16e, versão exata iOS/Safari, VoiceOver e desempenho web; trace Android não prova Safari |
 
-Stack aprovada na opção1: React DOM + TypeScript + Vite + React Router, IndexedDB/Dexie e Workbox, sem Expo Web. Fixar versões compatíveis e executar a prova01; a escolha não comprova o funcionamento no Safari. Q67/Q68 aprovam mesma origem e credenciais em cookies HttpOnly/Secure na fronteira Java; [ADR-021](../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md). O modelo exato da sessão permanece na rodada2 e implica trabalho de backend. Não criar endpoints, cookies, TTLs, campos ou migrations sem consolidar o contrato. Não substituir SecureStore por localStorage.
+Stack aprovada na opção1: React DOM + TypeScript + Vite + React Router, IndexedDB/Dexie e Workbox, sem Expo Web. Versões fixadas na prova01 não comprovam funcionamento no Safari. Q67/Q68 aprovam mesma origem e cookies HttpOnly/Secure na fronteira Java; [ADR-021](../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md). Q70–Q74 estão no [ADR-022](../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md): sessão opaca, entrada por instalação, rascunho, validade e quatro contextos definidos. Falta concretizar sua aplicação no [desenho candidato](../.scratch/pwa-m1/contratos-navegador.md), com contratos executáveis/provas antes de liberar produto. Não criar endpoints, cookies, TTLs auxiliares, campos ou migrations por inferência. Não substituir SecureStore por localStorage.
 
 ## 6. Aceite da variante web
 
@@ -84,4 +89,8 @@ A [prova01](../docs/analises/2026-10-21-prova-tecnica-pwa.md) confirmou build Re
 
 ## 8. Contratos em entrevista — 21/10/2026
 
-Pedro informou na Q66 que seu iPhone16e usa **iOS26.6.2**. É dado declarado para a matriz de testes, não ensaio de Safari/Tela de Início ou versão do WebKit inferida. A [proposta da rodada1](../docs/analises/2026-10-21-contratos-pwa-rodada-1.md) e a [entrevista](../.scratch/pwa-m1/entrevista.md) distinguem garantias já aprovadas, fatos de código e Q67–Q69 aprovadas em A. O [ADR-021](../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md) registra essas fronteiras; a [rodada2](../docs/analises/2026-10-21-contratos-pwa-rodada-2.md) propõe Q70–Q72. Layout físico detalhado e protocolo de sessão não estão aprovados por inferência. Task02 permanece needs-info e task03 bloqueada.
+Pedro informou na Q66 que seu iPhone16e usa **iOS26.6.2**. É dado declarado para a matriz de testes, não ensaio de Safari/Tela de Início ou versão do WebKit inferida. A [proposta da rodada1](../docs/analises/2026-10-21-contratos-pwa-rodada-1.md) e a [entrevista](../.scratch/pwa-m1/entrevista.md) distinguem garantias já aprovadas, fatos de código e Q67–Q69 aprovadas em A. O [ADR-021](../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md) registra essas fronteiras; a [rodada2](../docs/analises/2026-10-21-contratos-pwa-rodada-2.md) recebeu A em Q70–Q72, registradas no [ADR-022](../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md). Layout físico detalhado e protocolo de sessão não estão aprovados por inferência. Task02 permanece needs-info e task03 bloqueada.
+
+Rascunhos Q72 não são intenções confirmadas: não salvar automaticamente durante migração ou após trocar de conta. Logout deve invalidar acesso/conteúdo em todas as abas; a revogação remota dos cookies pode permanecer pendente sem rede. Essa distinção não reabre acesso local nem autoriza descartar dados.
+
+Q73/Q74 também receberam A: prazos30/90dias e limite de quatro contextos. A [rodada3](../docs/analises/2026-10-21-contratos-pwa-rodada-3.md) consolida decisões e o desenho proposto de reserva antes da senha, posse por época e commits assíncronos. Cookies órfãos/limpeza, recuperação sem quinta sessão, schema e provas continuam explícitos como trabalho técnico pendente. Os recortes internos02a–02c não aceitam WEB-01–10 nem liberam task03 automaticamente.

@@ -18,3 +18,5 @@ Não foram escolhidas origens públicas distintas com CORS/credenciais, access b
 Cookies protegidos exigem CSRF e contratos de sessão/instalação/renovação/revogação/resposta tardia. Cercar a transação local não impede Set-Cookie tardio. A sessão escolhida precisa validar a conta/geração esperada antes de operar domínio; uma referência pública nunca autentica por si.
 
 Esta decisão aprova as fronteiras, não nomes/TTLs/campos/endpoints ou migrations. Esses detalhes e os ramos de instalação, rascunhos e atualização continuam na tarefa02; as decisões novas da rodada2 ainda não foram tomadas. Nenhum runtime foi alterado, não há aceite Safari/M1 nem publicação/compra por este ADR.
+
+**Complemento posterior:** Q70–Q74 foram respondidas A e registradas no [ADR-022](0022-sessao-opaca-e-entrada-por-instalacao-web.md). Sessão opaca, validade de30dias de inatividade/90dias absolutos e quatro contextos definidos; aplicação exata, schema e provas continuam pendentes.

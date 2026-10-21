@@ -32,26 +32,44 @@ flowchart TD
   Banco --> Upgrade["Schema, migrações e código antigo"]
   Concorrencia --> Upgrade
   Sessao --> Contratos["Consolidar contratos e fixtures"]
-  Sessao --> Entrada["Q70: primeira entrada no contêiner"]
-  Sessao --> Modelo["Q71: modelo de sessão web"]
-  Upgrade --> Rascunho["Q72: durabilidade do formulário"]
+  Sessao --> Entrada["Q70=A: login na instalação nova"]
+  Sessao --> Modelo["Q71=A: sessão opaca no Java"]
+  Upgrade --> Rascunho["Q72=A: rascunho só na aba"]
   Entrada --> Contratos
-  Modelo --> Contratos
+  Modelo --> Validade["Q73=A: 30 dias de inatividade/90 absolutos"]
+  Modelo --> Contextos["Q74=A: até quatro contextos"]
+  Validade --> Contratos
+  Contextos --> Contratos
   Rascunho --> Contratos
   Upgrade --> Contratos
   Contratos --> Prova["HTTPS e Safari/Tela de Início físicos"]
 ```
 
-As três raízes Q67/Q68/Q69 foram aprovadas em A e consolidadas no [ADR-021](../../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md). A próxima fronteira tem Q70/Q71/Q72 abaixo; não presumir respostas dependentes.
+As três raízes Q67/Q68/Q69 foram aprovadas em A e consolidadas no [ADR-021](../../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md). Q70/Q71/Q72 também foram aprovadas em A no [ADR-022](../../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md). Q73/Q74 também aprovadas em A; prazo e limite de contextos definidos. Desenho de execução proposto abaixo; não promover a proposta a contrato de produto já implementado.
 
 Garantias que não serão reperguntadas: ADR-016, Q51–Q53, Q56–Q58, Q61–Q65, domínio/XP/idempotência/dia lógico. Configuração operacional ainda depende dos gates existentes; fase M1 continua aberta.
 
-## Rodada2 — fronteira atual
+## Rodada2 — respondida em 21/10/2026
 
 Proposta concreta: [rodada2](../../docs/analises/2026-10-21-contratos-pwa-rodada-2.md).
 
-- **Q70 — Contêiner novo:** A, autenticação online explícita e sessão própria, recomendada; B, transferência autenticada específica. **Aguardando resposta.** Não apagar controle ilegível nem recuperar intenções ainda locais do Safari como se já estivessem no servidor.
-- **Q71 — Modelo de sessão web:** A, sessão opaca controlada no Java/PostgreSQL, recomendada; B, ciclo nativo em cookies segregados por sessão/tentativa. **Aguardando resposta.** Q68 não escolheu esse modelo; ambas precisam proteger respostas tardias.
-- **Q72 — Formulário não salvo:** A, rascunho só na aba com recarga adiada e confirmação de descarte deliberado, recomendada; B, recuperação durável por conta. **Aguardando resposta.** Intenções já salvas e isolamento pós logout mantêm suas garantias anteriores.
+- **Q70 — Contêiner novo:** A, autenticação online explícita e sessão própria, recomendada; B, transferência autenticada específica. **Pedro respondeu A.** Não apagar controle ilegível nem recuperar intenções ainda locais do Safari como se já estivessem no servidor.
+- **Q71 — Modelo de sessão web:** A, sessão opaca controlada no Java/PostgreSQL, recomendada; B, ciclo nativo em cookies segregados por sessão/tentativa. **Pedro respondeu A.** Q68 não escolheu esse modelo; ambas precisam proteger respostas tardias.
+- **Q72 — Formulário não salvo:** A, rascunho só na aba com recarga adiada e confirmação de descarte deliberado, recomendada; B, recuperação durável por conta. **Pedro respondeu A.** Intenções já salvas e isolamento pós logout mantêm suas garantias anteriores.
 
 Próximos ramos dependem dessa rodada: protocolo exato de sessão, validade/renovação, cookies/CSRF e revogação; campos/stores/migrações e posse distinta da geração; atualização e recuperação; prova física. Não pedir novamente aprovação para logout offline, leitura da mesma sessão ativa ou invalidar conteúdo antigo após troca: já estão definidos.
+
+21/10/2026 — Pedro confirmou A em Q70–Q72. [ADR-022](../../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md) registra entrada explícita por instalação, sessão opaca e rascunho sem persistência. Prazo e protocolo da sessão web permanecem a detalhar; os15min/30dias do nativo não foram alterados.
+
+## Rodada3 — respondida em 21/10/2026
+
+Proposta e desenho: [contratos do navegador](contratos-navegador.md). Consolidação: [relatório da rodada3](../../docs/analises/2026-10-21-contratos-pwa-rodada-3.md).
+
+- **Q73 — Validade web:** A,30dias sem comunicação remota autenticada, renovados pelo uso até90dias desde o login, recomendada; B,30dias fixos. **Pedro respondeu A.** Exigir login online para voltar a sincronizar após vencer; preservar uso/pendências da sessão local não encerrada. Valores do Ritmo, sem alterar os prazos nativos.
+- **Q74 — Contextos locais:** A, até quatro contando ativo/preparações/encerramentos pendentes, recomendada; B, outro limite dependente de capacidade do browser. **Pedro respondeu A.** Nova entrada espera recuperação sem descartar intenções; sessão local ativa continua. Não inferir que quatro contextos provam oito cookies físicos ou que a recuperação já está implementada.
+
+## Confirmação do entendimento — Q75 pendente
+
+Proposta concreta: avançar em02a, especificando o protocolo e as representações/erros/fixtures, seguido de02b para provas locais visíveis;02c preserva o gate HTTPS/Safari/Tela de Início. Inclui reserva antes da senha, credenciais segregadas, recuperação sem quinta sessão, posse por época/CAS e limite de commit independente da aparência. O desenho ainda precisa provar cookies órfãos/limpeza, transições e crash/upgrade.
+
+A confirmação abrange o plano local e o entendimento consolidado. Não aceita a PWA/M1, não publica/contrata e não libera tarefa03 sem os contratos/provas. Conforme grilling, aguardar confirmação antes de executar o desenho; não reabrir decisões Q61–Q74 já aprovadas.

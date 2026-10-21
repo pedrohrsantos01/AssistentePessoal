@@ -1,6 +1,6 @@
 # Contratos PWA — rodada2
 
-21/10/2026. **Estado: Q67–Q69 aprovadas; Q70–Q72 propostas, sem resposta.** Escopo: [tarefa02](../../.scratch/pwa-m1/issues/02-fechar-contratos-do-navegador.md). Fonte de decisões: [entrevista](../../.scratch/pwa-m1/entrevista.md); fronteiras consolidadas no [ADR-021](../adr/0021-fronteira-de-sessao-e-armazenamento-web.md). Não é implementação nem schema executável aprovado.
+21/10/2026. **Estado atualizado: Q67–Q72 aprovadas em A; ADR-021/022 consolidadas. As opções abaixo preservam a proposta apresentada.** Escopo: [tarefa02](../../.scratch/pwa-m1/issues/02-fechar-contratos-do-navegador.md). Fonte de decisões: [entrevista](../../.scratch/pwa-m1/entrevista.md); fronteiras consolidadas no [ADR-021](../adr/0021-fronteira-de-sessao-e-armazenamento-web.md). Não é implementação nem schema executável aprovado.
 
 ## 1. Respostas incorporadas
 
@@ -79,3 +79,9 @@ As alternativas e recomendações são desenho específico do Ritmo inferido des
 Nove documentos conferidos em UTF-8 e80 links locais válidos. Entrevista contém três respostas A confirmadas (Q67–Q69) e três perguntas pendentes (Q70–Q72). Specs/ADR/instruções refletem as fronteiras aprovadas; schema detalhado e modelo da sessão continuam em aberto. Fontes de app/API/web/contratos/scripts permanecem iguais a `102e786` e à prova `b8c8e46`.
 
 App: typecheck/lint e213 testes de domínio+51 componentes aprovados. API: `check --no-daemon` aprovado com Java21,13 testes operacionais executados e tarefa Java `test` UP-TO-DATE. Não houve nova suíte/build/browser web porque seu runtime não mudou; último resultado da prova permanece evidência histórica delimitada. Nenhum desses checks aceita a sessão web ainda não implementada. Task02 permanece needs-info e task03 bloqueada.
+
+## 8. Respostas posteriores à preparação
+
+Pedro respondeu A em Q70–Q72. O [ADR-022](../adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md) consolida as decisões; a §7 preserva o estado da preparação anterior à resposta. Modelo de sessão agora escolhido: opaco no Java. Prazo/renovação e o protocolo exato de transições continuam pendentes; não inferir números/rotas/tabelas da escolha A.
+
+Atualização posterior: Q73/Q74 também receberam A (30dias de inatividade/90dias absolutos e quatro contextos). Ver [rodada3](2026-10-21-contratos-pwa-rodada-3.md), ADR-022 e desenho candidato; o prazo deixou de ser pendência de decisão. Sua aplicação e o protocolo ainda dependem de especificação/provas.
