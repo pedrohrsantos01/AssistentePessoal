@@ -2,6 +2,8 @@
 
 Pesquisa de 21/10/2026. Escopo: propostas, sem implementação, instalação, contratação ou publicação. Pedido atual de Pedro exclui Expo Web da variante PWA e preserva o app React Native existente. Referências locais: [PRD v3.1](../../PRD.md), [contrato M1 web](../../specs/14-pwa-primeiro-marco.md) e [plano anterior](2026-10-21-plano-pwa-m1.md). Este relatório substitui a recomendação técnica do plano anterior para avaliação; não aprova uma nova stack sozinho.
 
+**Decisão posterior à pesquisa, 21/10/2026:** Pedro escolheu a opção1. O [ADR-020](../adr/0020-pwa-com-frontend-web-proprio.md) registra a stack aceita; o comparativo abaixo preserva as alternativas/motivos. A tarefa01 está ready-for-agent; implementação e provas continuam pendentes.
+
 ## 1. Recomendação
 
 **Primeira proposta: frontend separado em React DOM + TypeScript + Vite, React Router, IndexedDB com Dexie e service worker com Workbox.** Preservar o backend Java, o app nativo e os contratos de domínio/sincronização. Compartilhar código de domínio e recursos quando suas dependências permitirem; construir a apresentação web com HTML semântico e CSS a partir da referência Ritmo-App.
@@ -82,9 +84,9 @@ A documentação do vite-plugin-pwa alerta que atualização automática pode re
 
 O envio em foreground/retomada e as pendências visíveis de Q63 permanecem. Background sync, push e notificações não são garantias deste M1. O aceite segue PWA no Safari/Tela de Início do iPhone + app Android conforme Q65; o nativo iOS fica posterior.
 
-## 8. Próxima decisão e recorte sugerido
+## 8. Recorte sugerido após a escolha
 
-Pedro pode escolher entre as três propostas com o ranking acima. Após a escolha, atualizar a recomendação técnica do spec/plano/tarefas e fechar os contratos pendentes antes da jornada funcional. A primeira prova sugerida para a proposta 1 é finita e sintética: build web, renderização de uma parte do Ritmo-App, transação de intenção/projeção, reabertura offline e cenário de duas abas/suspensão que demonstre as garantias do mecanismo candidato. Primeiro banco e coordenação, depois autenticação real e jornada vertical com sync.
+Pedro escolheu a opção1 após a comparação. ADR-020, spec, plano e tarefas registram a decisão; fechar os contratos pendentes antes da jornada funcional. A primeira prova sugerida para a proposta 1 é finita e sintética: build web, renderização de uma parte do Ritmo-App, transação de intenção/projeção, reabertura offline e cenário de duas abas/suspensão que demonstre as garantias do mecanismo candidato. Primeiro banco e coordenação, depois autenticação real e jornada vertical com sync.
 
 Sem estimativa de prazo, porcentagem de reaproveitamento, custo de fornecedor ou aceite de Safari nesta pesquisa. Nenhuma fonte/configuração/dependência de runtime foi alterada por este relatório; não foram iniciados serviços ou executados testes de aplicação.
 
@@ -100,7 +102,7 @@ A apresentação React Native não é reutilizada diretamente como DOM em nenhum
 | `Journey`/`SyncScheduler` dependem de `Session`/`AccountStore`; `HttpSync` injeta bearer | Preservar os comportamentos, mas desenhar uma fronteira browser de repositório/transporte/sessão; não são classes prontas para reutilizar sem alteração |
 | API Java e contratos de fatos/XP | Continuam a autoridade remota; sessão web é adaptação de contrato, não duplicação de domínio em outro servidor |
 
-## 10. Verificação desta revisão
+## 10. Verificação da comparação, anterior à escolha
 
 Comparação e atualização documental apenas. Links locais, encoding e diff conferidos; tarefa01 agora em needs-info até a escolha do frontend. As regras Q61–Q65 permanecem aprovadas e nenhum substituto de Expo Web foi adotado automaticamente.
 

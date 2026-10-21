@@ -1,15 +1,15 @@
 # 01 — Provar frontend web e persistência sem Expo Web
 
-Status: needs-info
-Blocked by: escolha da proposta de frontend web por Pedro
+Status: ready-for-agent
+Blocked by: none
 
 Origem: spec/14 §5 e comparação de 21/10/2026 em docs/analises/2026-10-21-alternativas-pwa-sem-expo.md. O ensaio anterior Expo Web/expo-sqlite foi retirado após a preferência expressa de Pedro. Não iniciado.
 
-## Entrega após a escolha
+## Entrega
 
-Preparar prova finita e isolada na stack web selecionada, com versões fixadas compatíveis e releases estáveis. Renderizar uma parte representativa de Ritmo-App em frontend próprio e registrar o custo de portar apresentação/tokens/fontes. Preservar o aplicativo React Native.
+Preparar prova finita e isolada em React DOM/TypeScript/Vite/React Router, IndexedDB/Dexie e Workbox, com versões fixadas compatíveis e releases estáveis, conforme ADR-020. Avaliar vite-plugin-pwa somente como integração de build compatível, sem introduzir serviço Cloud. Renderizar uma parte representativa de Ritmo-App em frontend próprio e registrar o custo de portar apresentação/tokens/fontes. Preservar o aplicativo React Native.
 
-Usar dados sintéticos e os campos/envelopes já definidos pelo domínio para investigar armazenamento assíncrono de navegador: transação intenção+projeção+sequência, commit/rollback, reabertura offline, quota/falha, migrations e duas abas/suspensão. IndexedDB/Dexie é candidato, não escolha aprovada. A prova não define silenciosamente o schema web de produto nem substitui tipos Drizzle síncronos por promises.
+Usar dados sintéticos e os campos/envelopes já definidos pelo domínio para investigar armazenamento assíncrono de navegador: transação intenção+projeção+sequência, commit/rollback, reabertura offline, quota/falha, migrations e duas abas/suspensão. IndexedDB/Dexie é a escolha aprovada; compatibilidade/atomicidade/migração ainda precisam de prova. A prova não define silenciosamente o schema web de produto nem substitui tipos Drizzle síncronos por promises.
 
 Não adicionar login real, novos endpoints, serviços Cloud ou fallback em memória para declarar sucesso. Biblioteca de cache não se torna fila de domínio e o service worker não vira segundo escritor. Contratos definitivos continuam na tarefa02.
 
@@ -22,8 +22,10 @@ Não adicionar login real, novos endpoints, serviços Cloud ou fallback em memó
 
 ## Resultado
 
-Concluída: não — seleção de frontend pendente; nenhuma implementação nesta pesquisa.
+Concluída: não — stack escolhida e tarefa preparada; prova não iniciada.
 
 ## Comments
 
 21/10/2026 — Pedido posterior às Q61–Q65: Expo Web excluído; comparar React DOM/Vite, Next.js e SvelteKit. A recomendação React DOM/Vite não foi adotada por inferência. Q61–Q65 e os gates funcionais permanecem.
+
+21/10/2026 — Pedro aprovou a opção1. ADR-020 e spec/14 atualizados; ready-for-agent para a prova delimitada. Isso não encerra os contratos da tarefa02 nem aceita a aplicação no iPhone.

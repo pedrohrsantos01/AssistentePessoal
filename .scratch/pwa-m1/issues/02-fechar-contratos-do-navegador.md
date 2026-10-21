@@ -7,7 +7,7 @@ Origem: spec/14 §4–5. Falta evidência Safari e decisões técnicas; nenhuma 
 
 ## Entrega
 
-Após selecionar frontend sem Expo Web, conferir Safari/Tela de Início no iPhone e decidir persistência com ADR. Para a proposta IndexedDB/Dexie, especificar repositório assíncrono/atomicidade e impacto Journey/Session; não simular tipos síncronos. Biblioteca local não substitui a sincronização Java do Ritmo.
+Com a opção1/ADR-020 aprovadas, conferir Safari/Tela de Início no iPhone e concretizar IndexedDB/Dexie: especificar schema/migrações, repositório assíncrono/atomicidade e impacto Journey/Session; não simular tipos síncronos. Reabrir a escolha somente diante de impedimento comprovado e decisão registrada. Biblioteca local não substitui a sincronização Java do Ritmo.
 
 Fechar sessão/HTTP: proposta cookie HttpOnly/Secure e mesma origem no Java existente, CSRF, instalação, refresh, perda de resposta, logout offline, revogação e conta A/B. Tratar cookies copiados Safari→Tela de Início sem família/identidade compartilhada acidentalmente. Preservar bearer nativo.
 

@@ -9,6 +9,8 @@
 
 **Aditivo da 3.1:** Pedro autorizou planejar uma versão PWA adicional, preservando React Native. Q61 define o M1 funcional com visual Ritmo-App; Q62 exige Safari e Tela de Início no iPhone. Q63 aceita a limitação de durabilidade web com pendências/sync explícitos; Q64 limita a uma aba escritora por instalação. **Q65 permite aceitar o M1 funcional com PWA no iPhone + app Android**; instalação e links nativos iOS ficam em entrega posterior. O [contrato PWA](specs/14-pwa-primeiro-marco.md) separa decisões aprovadas de contratos técnicos pendentes. Este aditivo não declara a PWA implementada, publicada ou aceita.
 
+**Escolha técnica, 21/10/2026:** Pedro aprovou a opção1 para a PWA: React DOM/TypeScript/Vite/React Router, IndexedDB/Dexie e Workbox; [ADR-020](docs/adr/0020-pwa-com-frontend-web-proprio.md). A escolha não declara a implementação ou o aceite concluídos.
+
 > Este documento é a fonte da verdade sobre **o que** construir e **por quê**.
 > O **como** está em `CLAUDE.md` (stack e convenções) e em `specs/` (requisitos detalhados).
 > Agentes de código devem ler `CLAUDE.md` primeiro, depois o spec do módulo em que vão trabalhar.
@@ -214,6 +216,8 @@ Objetivo declarado do v1 é uso próprio, portfólio e aprendizado. Mas nenhuma 
 - [ADR-016 — Logout preserva pendências isoladas por conta](docs/adr/0016-preservar-pendencias-no-logout.md): aceita em R1-Q4; substitui a antiga regra de limpeza integral no logout.
 - [ADR-017 — Reconciliação preserva lançamentos e correções](docs/adr/0017-reconciliacao-de-registros-e-correcoes.md): aceita em R3-Q11 a Q14; define desfazer/remarcar, contribuições quantitativas, edições independentes e restauração da concessão original de XP.
 - [ADR-018 — Agenda e meta preservam a avaliação histórica](docs/adr/0018-vigencia-das-regras-de-habitos.md): aceita em R4-Q16/Q17; vigência no próximo dia lógico, com próxima segunda-feira lógica para transições de agenda semanal (R5-Q23). Q25/Q29 condicionam ambos os cortes à aceitação pelo servidor. R4-Q15 complementa o ADR-017 com a ordem de aceitação; R4-Q18 separa datas civis de tarefas e dia lógico de hábitos/XP.
+
+- [ADR-020 — PWA com frontend web próprio](docs/adr/0020-pwa-com-frontend-web-proprio.md): escolha da opção1 em 21/10/2026; mantém o cliente nativo e a API Java, com persistência web assíncrona e apresentação DOM.
 
 ## 9. Glossário
 

@@ -1,6 +1,6 @@
 # Entrega adicional — Ritmo M1 em PWA
 
-Data: 21/10/2026. Estado: planejamento; implementação não iniciada. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
+Data: 21/10/2026. Estado: opção1 aprovada; prova técnica não iniciada. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
 
 ## Objetivo e fronteira
 
@@ -12,7 +12,7 @@ Não duplicar tarefas de domínio, nome/domínio/Resend, aceite nativo ou opera�
 
 | Tarefa | Resultado | Triagem |
 |---|---|---|
-| [01 — Portabilidade/persistência](issues/01-provar-portabilidade-e-persistencia.md) | Ensaio sintético após selecionar frontend sem Expo Web | needs-info |
+| [01 — Portabilidade/persistência](issues/01-provar-portabilidade-e-persistencia.md) | Ensaio sintético na opção1 aprovada; versões e compatibilidade a provar | ready-for-agent |
 | [02 — Contratos web](issues/02-fechar-contratos-do-navegador.md) | Evidência Safari, ADR/contratos da jornada funcional | needs-info |
 | [03 — Jornada vertical](issues/03-entregar-jornada-vertical.md) | Login→hábito offline→reabrir→convergir com API real | needs-info |
 | [04 — Completar jornada](issues/04-completar-jornada-e-excecoes.md) | Gestão, preferências, reset e sessão/recuperação | needs-info |
@@ -20,7 +20,7 @@ Não duplicar tarefas de domínio, nome/domínio/Resend, aceite nativo ou opera�
 | [06 — Interface no iPhone](issues/06-validar-interface-no-iphone.md) | Ritmo-App, VoiceOver, teclado e desempenho | needs-info |
 | [07 — Publicação/aceite](issues/07-preparar-publicacao-e-aceite.md) | WEB-01–10 e ambiente apto para uso real | needs-info |
 
-Expo Web foi descartado por Pedro após o planejamento inicial. A tarefa01 aguarda seleção entre as [alternativas](../../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md), sem adotar a recomendação automaticamente. Os recortes só ficam prontos após suas decisões/dependências; não declarar prontidão com sessão/banco em aberto.
+Expo Web foi descartado e Pedro escolheu a opção1 do [comparativo](../../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md). A [ADR-020](../../docs/adr/0020-pwa-com-frontend-web-proprio.md) libera a definição da prova01 em React DOM/TypeScript/Vite/React Router, IndexedDB/Dexie e Workbox. Os recortes só ficam prontos após suas decisões/dependências; não declarar prontidão com sessão/banco em aberto.
 
 ## Resultado
 
@@ -31,3 +31,5 @@ Concluída: não — plano preparado; implementação e aceite pendentes. Pesqui
 A evidência PWA no iPhone e a do app Android poderão encerrar o M1 funcional. A [tarefa existente de aceite M1](../aceite-m1/issues/04-aceitar-m1-nos-aparelhos.md) consolida a decisão; tarefa07 desta trilha prepara a prova web. Instalação/links nativos iOS ficam na entrega posterior05 de aceite-m1. M1 continua aberto até as provas; não iniciar os 30 dias da Fase1 completa automaticamente.
 
 21/10/2026 — Revisão após Q65: Expo Web excluído da PWA; app nativo preservado. Comparação de React DOM/Vite, Next.js e SvelteKit preparada. Q61–Q65 continuam aprovadas; stack e prova01 aguardam escolha.
+
+21/10/2026 — Escolha confirmada por Pedro: opção1. Tarefa01 voltou a ready-for-agent; demais contratos/gates continuam pendentes. Nenhuma implementação ou aceite foi concluído nesta consolidação.

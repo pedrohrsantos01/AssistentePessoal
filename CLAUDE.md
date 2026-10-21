@@ -1,6 +1,6 @@
 # CLAUDE.md — Instruções do projeto
 
-**Ritmo** — assistente pessoal modular. App React Native + backend Java/Spring Modulith, rodando em VPS própria via Coolify.
+**Ritmo** — assistente pessoal modular. App React Native, PWA adicional em planejamento e backend Java/Spring Modulith, rodando em VPS própria via Coolify.
 
 **Leia sempre nesta ordem:** este arquivo → `PRD.md` → o spec do módulo da tarefa atual em `specs/`.
 
@@ -12,7 +12,7 @@
 2. **Não invente requisito.** Se o spec não define o comportamento, procure `[DECISÃO PENDENTE]`. Se não houver, **pergunte** — não escolha sozinho e não deixe `TODO` silencioso.
 3. **Não invente tabela, coluna ou campo.** O modelo de dados é `specs/00-modelo-de-dados.md`. Mudança exige migration Flyway nova e atualização do spec no mesmo commit.
 4. **Nenhuma consulta sem filtro de usuário.** Toda query de domínio filtra por `user_id`, sempre, sem exceção. Ver §5.
-5. **Toda escrita do app passa pela camada local.** Nenhum componente React Native chama a API direto. Ver `specs/06-sincronizacao.md`.
+5. **Toda escrita do app passa pela camada local.** Nenhum componente React, nativo ou web, chama a API direto. Ver `specs/06-sincronizacao.md`.
 6. **Nenhuma chave de API no cliente.** LLM e STT só pelo backend.
 7. **Nenhuma string de UI hardcoded.** Tudo em `src/i18n/pt-BR.ts`, mesmo com um idioma só.
 8. **Nenhum `any` no TypeScript, nenhum `Object`/raw type no Java.** TS em `strict`.
@@ -31,6 +31,13 @@
 - `expo-notifications` (locais) e Expo Push (remotas, a partir da Fase 2A)
 - `expo-secure-store` (token), `expo-web-browser` (abrir link); áudio será selecionado no incremento de voz, sem instalar o antigo `expo-av` no primeiro marco
 - Sentry (erro) e PostHog (produto, com opt-in)
+
+### PWA (frontend web próprio, ainda não implementado)
+- React DOM + TypeScript strict + Vite + React Router, conforme [ADR-020](docs/adr/0020-pwa-com-frontend-web-proprio.md), aceito em 21/10/2026
+- IndexedDB com Dexie para persistência local; Workbox para o service worker/cache de recursos
+- HTML/CSS com tokens, textos e referência Ritmo-App; lógica pura/contratos compartilhados quando desacoplados
+- API Java existente e hospedagem estática; Expo Web, expo-sqlite web e Dexie Cloud não integram essa variante
+- Versões exatas e compatibilidade serão verificadas na prova01; sessão, schema web, abas e atualização seguem os contratos pendentes de spec/14. Não copiar APIs síncronas de Drizzle ou SecureStore para o navegador
 
 ### Backend (`/api`)
 - **Java 21 + Spring Boot 4.1.1 + Spring Modulith 2.1.1**. Revisão técnica de 25/09/2026: Boot 3.5 encerrou suporte aberto; a arquitetura Java/Spring permanece, sem código legado a migrar

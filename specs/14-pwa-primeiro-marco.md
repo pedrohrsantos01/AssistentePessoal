@@ -1,8 +1,8 @@
 # spec/14 — PWA adicional do primeiro marco
 
-Data: 21/10/2026. Estado: **escopo e políticas Q61–Q65 aprovados; desenho técnico e implementação pendentes**. Origem: pedido de Pedro para planejar uso no iPhone sem distribuição nativa. Complementa PRD v3.1 e spec/13; não substitui os contratos nativos. [Plano](../docs/analises/2026-10-21-plano-pwa-m1.md); [tarefas](../.scratch/pwa-m1/spec.md).
+Data: 21/10/2026. Estado: **escopo Q61–Q65 e stack da opção1 aprovados; contratos de execução/provas e implementação pendentes**. Origem: pedido de Pedro para planejar uso no iPhone sem distribuição nativa. Complementa PRD v3.1 e spec/13; não substitui os contratos nativos. [Plano](../docs/analises/2026-10-21-plano-pwa-m1.md); [tarefas](../.scratch/pwa-m1/spec.md).
 
-**Revisão técnica posterior, 21/10/2026:** Pedro descartou Expo Web para a PWA e solicitou alternativas. O frontend web será planejado sem essa dependência; o Expo do aplicativo nativo permanece. React/Vite, Next.js e SvelteKit são propostas em comparação, sem seleção aprovada. A classificação alpha da pesquisa original se referia a expo-sqlite web, não ao Expo Web inteiro. [Comparação atual](../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md).
+**Revisão técnica posterior, 21/10/2026:** Pedro descartou Expo Web para a PWA e solicitou alternativas. O frontend web será planejado sem essa dependência; o Expo do aplicativo nativo permanece. Após a comparação, Pedro escolheu React DOM/TypeScript/Vite/React Router + IndexedDB/Dexie + Workbox. [ADR-020](../docs/adr/0020-pwa-com-frontend-web-proprio.md). A classificação alpha da pesquisa original se referia a expo-sqlite web, não ao Expo Web inteiro. [Comparação atual](../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md).
 
 ## 1. Definições aprovadas
 
@@ -47,7 +47,7 @@ Instalações separadas (Safari, Tela de Início, Android) têm identidades pró
 
 | Tema | Definição/prova necessária |
 |---|---|
-| Armazenamento | Banco de navegador, biblioteca, transações, migrações e falhas nas versões a fixar e Safari real. IndexedDB/Dexie é a proposta principal em avaliação; não é adapter síncrono de Drizzle. O experimento expo-sqlite web anterior não está liberado |
+| Armazenamento | Banco de navegador, biblioteca, transações, migrações e falhas nas versões a fixar e Safari real. IndexedDB/Dexie é a escolha aprovada; faltam schema/adapter e sua prova, sem adapter síncrono de Drizzle. O experimento expo-sqlite web anterior não está liberado |
 | Sessão web | Credencial de navegador, instalação/conta, expiração, rotação, CSRF, reset e revogação offline. Session/HttpSync atuais exigem tokens em JS |
 | Cookie copiado ao instalar | Tela de Início pode receber cookies sem a base local. Reconhecer instalação nova e impedir reutilização acidental da mesma família de refresh/identidade |
 | Perda de resposta | Login/renovação/revogação aceitos remotamente com resposta perdida; preservar proteção contra replay ambíguo |
@@ -56,7 +56,7 @@ Instalações separadas (Safari, Tela de Início, Android) têm identidades pró
 | Origem | HTTPS estável, same-origin/CORS, headers de isolamento se necessários e recuperação por link. Host/remetente ainda não escolhidos |
 | Aceite | Matriz/medição no iPhone 16e, versão exata iOS/Safari, VoiceOver e desempenho web; trace Android não prova Safari |
 
-Frontend em seleção: React DOM/Vite, Next.js e SvelteKit, sem Expo Web. A recomendação principal do comparativo é React DOM/Vite com IndexedDB/Dexie; ainda não foi escolhida por Pedro. Sessão por cookies HttpOnly/Secure e fronteira na API, preferindo mesma origem, continuam como proposta técnica independente do frontend. Implica trabalho de backend. Não criar endpoints, cookies, TTLs, campos ou migrations sem consolidar o contrato. Não substituir SecureStore por localStorage.
+Stack aprovada na opção1: React DOM + TypeScript + Vite + React Router, IndexedDB/Dexie e Workbox, sem Expo Web. Fixar versões compatíveis e executar a prova01; a escolha não comprova o funcionamento no Safari. Sessão por cookies HttpOnly/Secure e fronteira na API, preferindo mesma origem, continuam como proposta técnica independente do frontend. Implica trabalho de backend. Não criar endpoints, cookies, TTLs, campos ou migrations sem consolidar o contrato. Não substituir SecureStore por localStorage.
 
 ## 6. Aceite da variante web
 
