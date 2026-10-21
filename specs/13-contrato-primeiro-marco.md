@@ -8,6 +8,8 @@ Este documento define interfaces, garantias e exemplos. A representação de dad
 
 **Precedência dos exemplos:** os trechos JSON abaixo explicam conceitos e preservam o histórico do desenho. O formato de transporte completo vigente é [openapi.json](../contracts/primeiro-marco/openapi.json), gerado por `build_contract.py`; por exemplo, o ack definitivo agrupa `receipt`, `replayed` e `projections`. Limites, erros, normalização e recuperação estão no README dos contratos. Não implementar o JSON abreviado como uma segunda API.
 
+**Variante web em planejamento — 21/10/2026:** [spec/14](14-pwa-primeiro-marco.md) registra Q61–Q65. O aceite funcional M1 passa a usar PWA no iPhone16e (Safari/Tela de Início) + app Android. Instalação/links nativos iOS ficam para entrega posterior. Fatos de domínio, idempotência e contratos do cliente nativo permanecem; a fronteira web tem política Q63 e contratos técnicos próprios ainda a fechar. Nenhum aceite é declarado por este aditivo.
+
 ## 1. Interfaces dos módulos
 
 | Módulo | Interface e responsabilidade |

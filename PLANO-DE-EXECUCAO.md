@@ -10,6 +10,8 @@ Ao iniciar uma fatia, leia `CLAUDE.md` e o spec citado.
 
 **Objetivo:** Pedro usa o recorte no iPhone 16e e confirma a mesma conta no emulador Android, com persistência local e convergência real. Agenda, tarefas e voz permanecem na Fase 1 e chegam em incrementos seguintes; a investigação de voz pode ocorrer cedo.
 
+**Q65, 21/10/2026:** para este aceite, iPhone16e passa a usar a PWA no Safari/Tela de Início e Android mantém o app React Native. Instalação/links/validação nativa iOS ficam na [entrega posterior](.scratch/aceite-m1/issues/05-validar-ios-nativo.md), sem bloquear M1 funcional. Persistência e limitações web seguem spec/14; gates Android e operacionais existentes permanecem.
+
 | Cenário de aceite | Resultado exigido |
 |---|---|
 | Entrar na mesma conta nos dois clientes | Dados associados à conta correta, respeitando o isolamento de usuários |
@@ -28,6 +30,14 @@ Conta, onboarding, hábito binário diário, XP básico, persistência, sync e B
 **Revisão de prazo:** registrar a data de início da implementação e revisar o resultado após quatro semanas conforme ADR-014. Implementação iniciada em **25/09/2026, 18:22**; revisão em **23/10/2026**, registrada na tarefa 04. A revisão não troca automaticamente o backend por BaaS.
 
 **Validação da Fase 1:** o aceite deste recorte não inicia automaticamente os 30 dias das métricas completas do PRD.
+
+## Trilha adicional — PWA do M1, planejada em 21/10/2026
+
+Q61–Q65 aprovam alvo, política web e nova combinação de clientes em [spec/14](specs/14-pwa-primeiro-marco.md). React Native continua; o aceite nativo iOS é posterior conforme Q65. O pedido atual é planejamento; não houve migração/publicação. A PWA viabiliza o caminho de uso sem a distribuição nativa iOS adiada em Q55.
+
+Sequência proposta: prova delimitada de portabilidade/armazenamento → fechamento dos contratos do navegador → primeira jornada vertical com API real → estados e gestão completos → atualização/concorrência/recuperação → validação visual e acessibilidade → publicação e aceite web. As [tarefas locais](.scratch/pwa-m1/spec.md) detalham dependências e resultados verificáveis. Próximo recorte proposto: [01 — prova técnica web](.scratch/pwa-m1/issues/01-provar-portabilidade-e-persistencia.md); nenhuma biblioteca de persistência web foi aprovada por documentação apenas.
+
+Safari, Tela de Início e Android convergem pelos contratos existentes; banco local não é transferido automaticamente. A prova web alimentará o aceite conjunto M1, sem aceitar build nativo iOS ou iniciar os 30 dias da Fase1 completa. Domínio/DNS/Resend e operação externa seguem nas tarefas existentes, sem contratação por este plano. [Análise e alternativas](docs/analises/2026-10-21-plano-pwa-m1.md).
 
 ## Inventário anterior — decomposição e dependências em revisão
 

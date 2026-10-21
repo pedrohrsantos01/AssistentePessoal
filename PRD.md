@@ -1,11 +1,13 @@
 # PRD — Ritmo (nome de trabalho)
 
-**Versão:** 3.0
-**Data:** 14/09/2026
+**Versão:** 3.1 — aditivo PWA de 21/10/2026
+**Data:** 21/10/2026 (base 3.0: 14/09/2026)
 **Autor:** Pedro
 **Status:** Escopo da Fase 1 aprovado; contratos da fundação em esclarecimento antes da implementação.
 **Revisão da fundação:** 24–25/09/2026 — decisões registradas na [entrevista](.scratch/fundacao/entrevista.md).
 **Mudanças da 3.0:** backend próprio em Spring Modulith substitui o Supabase; Agenda entra na Fase 1; Notion cortado; capacidades novas do assistente incorporadas.
+
+**Aditivo da 3.1:** Pedro autorizou planejar uma versão PWA adicional, preservando React Native. Q61 define o M1 funcional com visual Ritmo-App; Q62 exige Safari e Tela de Início no iPhone. Q63 aceita a limitação de durabilidade web com pendências/sync explícitos; Q64 limita a uma aba escritora por instalação. **Q65 permite aceitar o M1 funcional com PWA no iPhone + app Android**; instalação e links nativos iOS ficam em entrega posterior. O [contrato PWA](specs/14-pwa-primeiro-marco.md) separa decisões aprovadas de contratos técnicos pendentes. Este aditivo não declara a PWA implementada, publicada ou aceita.
 
 > Este documento é a fonte da verdade sobre **o que** construir e **por quê**.
 > O **como** está em `CLAUDE.md` (stack e convenções) e em `specs/` (requisitos detalhados).
@@ -59,6 +61,8 @@ Três consequências que orientam toda decisão de escopo:
 
 ### Primeiro marco utilizável e revisão de quatro semanas
 
+**Aceite revisado em 21/10/2026 — Q65:** o cliente do iPhone será a PWA, exercitada no Safari e na Tela de Início, junto ao app React Native no emulador Android. Esse conjunto pode fechar o M1 funcional após todos os seus critérios e gates operacionais. Instalação, Universal Links e validação nativa iOS passam a uma entrega posterior; não são condições de encerramento deste M1. A implementação React Native permanece e as provas Android continuam exigidas. Detalhes em spec/14 e no plano de aceite atualizado. Os parágrafos seguintes preservam a origem do marco aprovado em setembro.
+
 Aceito em R2-Q9 e detalhado em R6-Q27: conta, onboarding retomável de fuso/início do dia, primeiro hábito binário diário pulável e Briefing mínimo com saudação, hábitos e XP básico, com sincronização real entre o iPhone 16e e o emulador Android. O aceite exige criar e registrar offline, preservar os dados após fechar/reabrir o app e convergir entre os dois clientes sem perda nem duplicação de cumprimento/XP. Logout e reentrada obedecem ao ADR-016. O recorte e seus cenários verificáveis estão no [plano de execução](PLANO-DE-EXECUCAO.md) e na [especificação da entrega](.scratch/primeiro-marco/spec.md).
 
 Interfaces de níveis, ofensivas, proteções e conquistas entram depois, junto aos seus incrementos da Fase 1. Permissões são solicitadas quando a capacidade estiver disponível. R6-Q28 condicionou a direção ao protótipo de Pedro. Em 09/10/2026, Pedro entregou o pacote Claude Design para orientar a implementação; a direção foi consolidada em [spec/11](specs/11-design-system.md), com correções de acessibilidade e [recortes de interface](.scratch/interface-m1/spec.md). Isso libera implementar as telas, sem dar aceite visual/nativo ou concluir o M1.
@@ -93,6 +97,7 @@ North star futura: **DAU/MAU ≥ 0,4** (o app precisa ser diário, não semanal)
 - Notificações locais agendadas
 - Funcionamento offline com sincronização
 - Exportação e exclusão de dados (LGPD)
+- **PWA adicional do primeiro marco**, com escopo Q61–Q65 aprovado e implementação pendente; limites em [spec/14](specs/14-pwa-primeiro-marco.md).
 
 > Na Fase 1 o Briefing mostra agenda, hábitos e tarefas. Ele é construído desde o dia 1 como **superfície pluggável de cards**, para que Notícias e Esportes entrem na Fase 2 sem redesenho. Ver `specs/08-briefing.md`.
 
@@ -105,7 +110,8 @@ North star futura: **DAU/MAU ≥ 0,4** (o app precisa ser diário, não semanal)
 | Qualquer funcionalidade social, feed, ranking entre usuários, compartilhamento | Fora permanente do v1 |
 | Push notifications vindas do servidor | Fora da Fase 1; entra na Fase 2 com Esportes (ADR-003) |
 | Integração com wearables, Apple Health, Google Fit | Fase 3 |
-| Web app, desktop, widget de home screen, Apple Watch | Fora do v1 |
+| Web app além do recorte PWA do primeiro marco | Fora deste aditivo; não antecipar módulos ainda não implementados |
+| Aplicativo desktop, widget de home screen, Apple Watch | Fora do v1 |
 | Assinatura, paywall, billing | Fora do v1 (ver ADR-006) |
 | Múltiplos idiomas | Fora do v1 — pt-BR apenas, mas sem string hardcoded (ver `CLAUDE.md`) |
 | Login com Apple e Google | Fora da Fase 1 (ADR-011) — e-mail e senha apenas |

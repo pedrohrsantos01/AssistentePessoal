@@ -3,7 +3,7 @@
 Status: needs-info
 Blocked by: 02-preparar-dominio-e-resend.md; ../../primeiro-marco/issues/03-integrar-prototipo.md
 
-Origem: [spec/01](../../../specs/01-conta-e-onboarding.md), [contrato de e-mail](../../../api/ops/email-recovery.md) e [plano](../spec.md). Rota iOS adiada em Q55=B; seu aceite continua obrigatório para fechar M1.
+Origem: [spec/01](../../../specs/01-conta-e-onboarding.md), [contrato de e-mail](../../../api/ops/email-recovery.md) e [plano](../spec.md). Q65 revisou o cliente iPhone para PWA; a rota nativa iOS continua adiada e fica em entrega posterior. Esta tarefa mantém a recuperação nativa Android necessária ao aceite conjunto.
 
 ## Definições antes de implementar
 
@@ -25,3 +25,5 @@ Concluída: não — parâmetros públicos e protótipo faltam; contratos HTTP/p
 ## Comments
 
 08/10/2026 — Lacuna decomposta em recorte verificável; não autoriza implementar decisões abertas.
+
+21/10/2026 — Q65 não dispensa a prova Android desta tarefa. No iPhone, recuperação por página HTTPS será validada na trilha PWA; Universal Links iOS ficam posteriores. A restrição antiga contra aprovar iPhone por inferência permanece: é necessária prova real Safari/Tela de Início, não apenas publicar uma página.
