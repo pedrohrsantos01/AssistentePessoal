@@ -1,23 +1,29 @@
-# 01 — Provar portabilidade e persistência web
+# 01 — Provar frontend web e persistência sem Expo Web
 
-Status: ready-for-agent
-Blocked by: none
+Status: needs-info
+Blocked by: escolha da proposta de frontend web por Pedro
 
-Origem: spec/14 §5 e plano PWA §2–4. Ensaio finito, sem produto publicado ou contas reais.
+Origem: spec/14 §5 e comparação de 21/10/2026 em docs/analises/2026-10-21-alternativas-pwa-sem-expo.md. O ensaio anterior Expo Web/expo-sqlite foi retirado após a preferência expressa de Pedro. Não iniciado.
 
-## Entrega
+## Entrega após a escolha
 
-Prova isolada nas versões fixadas: renderizar componentes/tokens Ritmo-App representativos em Expo Web/RNW e registrar incompatibilidades. Fixtures sintéticas e bootstrap separado dos harnesses nativos; nenhum mock permanente substitui o produto.
+Preparar prova finita e isolada na stack web selecionada, com versões fixadas compatíveis e releases estáveis. Renderizar uma parte representativa de Ritmo-App em frontend próprio e registrar o custo de portar apresentação/tokens/fontes. Preservar o aplicativo React Native.
 
-Investigar SQLite web com migrations existentes, transação intenção+projeção, reload/fechamento, falha/quota simulada e duas abas. Conferir WASM/worker/headers e trabalho na UI. Não remover PRAGMA/garantia ou usar memória/fallback silencioso para declarar sucesso. Impedimento: documentar reprodução e alternativa; não implementar dois bancos de produto.
+Usar dados sintéticos e os campos/envelopes já definidos pelo domínio para investigar armazenamento assíncrono de navegador: transação intenção+projeção+sequência, commit/rollback, reabertura offline, quota/falha, migrations e duas abas/suspensão. IndexedDB/Dexie é candidato, não escolha aprovada. A prova não define silenciosamente o schema web de produto nem substitui tipos Drizzle síncronos por promises.
+
+Não adicionar login real, novos endpoints, serviços Cloud ou fallback em memória para declarar sucesso. Biblioteca de cache não se torna fila de domínio e o service worker não vira segundo escritor. Contratos definitivos continuam na tarefa02.
 
 ## Aceite delimitado
 
-- Reprodução/exportação finitas e relatório com versões, browser, headers, recursos, falhas e dados sintéticos. Serviços persistentes seguem regras do projeto.
-- Conferir conteúdo/outbox após reabertura e rollback sem sucesso falso; logs sem credenciais reais.
-- Separar desktop de Safari físico. Preparar roteiro iPhone com origem HTTPS e versão iOS; indisponibilidade fica como gate da tarefa02.
-- Entrega é relatório local, inclusive para impedimento reproduzível; não aprova motor no iPhone/M1.
+- Build/reprodução finitos e relatório com versões, browser, recursos suportados, falhas e limites. Serviços persistentes seguem as regras do projeto.
+- Conteúdo/outbox verificados após reabertura; falha de transação não publica sucesso. Identificar requisitos ainda abertos da exclusão entre abas.
+- Separar Chromium/WebKit desktop de Safari físico. Preparar roteiro iPhone/HTTPS e registrar a versão iOS; indisponibilidade permanece gate da tarefa02.
+- Conclusão é relatório local, inclusive para impedimento reproduzível, sem aprovação automática da stack no iPhone ou aceite M1.
 
 ## Resultado
 
-Concluída: não — não iniciado.
+Concluída: não — seleção de frontend pendente; nenhuma implementação nesta pesquisa.
+
+## Comments
+
+21/10/2026 — Pedido posterior às Q61–Q65: Expo Web excluído; comparar React DOM/Vite, Next.js e SvelteKit. A recomendação React DOM/Vite não foi adotada por inferência. Q61–Q65 e os gates funcionais permanecem.

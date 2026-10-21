@@ -7,7 +7,7 @@ Origem: spec/14 §4–5. Falta evidência Safari e decisões técnicas; nenhuma 
 
 ## Entrega
 
-Conferir Safari/Tela de Início no iPhone e decidir motor com ADR. Se IndexedDB for necessário, especificar repositório assíncrono/atomicidade e impacto Journey/Session; não simular tipos síncronos.
+Após selecionar frontend sem Expo Web, conferir Safari/Tela de Início no iPhone e decidir persistência com ADR. Para a proposta IndexedDB/Dexie, especificar repositório assíncrono/atomicidade e impacto Journey/Session; não simular tipos síncronos. Biblioteca local não substitui a sincronização Java do Ritmo.
 
 Fechar sessão/HTTP: proposta cookie HttpOnly/Secure e mesma origem no Java existente, CSRF, instalação, refresh, perda de resposta, logout offline, revogação e conta A/B. Tratar cookies copiados Safari→Tela de Início sem família/identidade compartilhada acidentalmente. Preservar bearer nativo.
 
@@ -15,7 +15,7 @@ Definir propriedade/fencing entre abas, leitura secundária, migração/atualiza
 
 ## Aceite
 
-Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Documentação alpha/desktop não aprova banco no iPhone. Atualizar dependentes; manter needs-info enquanto faltar definição necessária.
+Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Uma biblioteca fora de alpha ou um ensaio desktop não aprovam banco no iPhone. Atualizar dependentes; manter needs-info enquanto faltar definição necessária.
 
 ## Resultado
 
