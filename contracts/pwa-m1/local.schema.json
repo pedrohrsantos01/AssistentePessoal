@@ -1,0 +1,2756 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Control": {
+      "type": "object",
+      "properties": {
+        "singleton": {
+          "const": 1
+        },
+        "installation_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "session_state": {
+          "type": "string",
+          "enum": [
+            "active",
+            "logging_out",
+            "locked"
+          ]
+        },
+        "session_generation": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "selected_account_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "selected_context_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "owner_tab_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "owner_epoch": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,18})$",
+          "maxLength": 19,
+          "description": "Decimal; semantic maximum 9223372036854775807."
+        }
+      },
+      "required": [
+        "singleton",
+        "installation_id",
+        "schema_version",
+        "session_state",
+        "session_generation",
+        "selected_account_id",
+        "selected_context_id",
+        "owner_tab_id",
+        "owner_epoch"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "session_state": {
+                "const": "active"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "selected_account_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              "selected_context_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "selected_account_id": {
+                "type": "null"
+              },
+              "selected_context_id": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "AuthJournal": {
+      "type": "object",
+      "properties": {
+        "attempt_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "context_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "installation_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "expected_account_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "account_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "session_generation": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "prepare_dispatched": {
+          "type": "boolean"
+        },
+        "owner_epoch": {
+          "type": "string",
+          "pattern": "^(0|[1-9][0-9]{0,18})$",
+          "maxLength": 19,
+          "description": "Decimal; semantic maximum 9223372036854775807."
+        },
+        "owner_tab_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "phase": {
+          "type": "string",
+          "enum": [
+            "challenging",
+            "preparing",
+            "reserved",
+            "active",
+            "close_pending",
+            "recovery_required",
+            "terminal"
+          ]
+        },
+        "reservation_expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "close_cookie_expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "terminal_proof": {
+          "anyOf": [
+            {
+              "type": "string",
+              "enum": [
+                "not_dispatched",
+                "expired_unbound",
+                "closed_unbound",
+                "closed",
+                "expired",
+                "recovered"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "attempt_id",
+        "context_id",
+        "installation_id",
+        "expected_account_id",
+        "account_id",
+        "session_generation",
+        "prepare_dispatched",
+        "owner_epoch",
+        "owner_tab_id",
+        "phase",
+        "reservation_expires_at",
+        "close_cookie_expires_at",
+        "terminal_proof"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "const": "active"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "account_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              },
+              "context_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "const": "challenging"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "context_id": {
+                "type": "null"
+              },
+              "prepare_dispatched": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "enum": [
+                  "preparing",
+                  "reserved",
+                  "active",
+                  "close_pending",
+                  "recovery_required"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "context_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "terminal_proof": {
+                "const": "not_dispatched"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "prepare_dispatched": {
+                "const": false
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "phase": {
+                "const": "terminal"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "terminal_proof": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "terminal_proof": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "Compatibility": {
+      "type": "object",
+      "properties": {
+        "build_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "protocol_version": {
+          "const": "m1.1"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "compatible",
+            "upgrade_required"
+          ]
+        },
+        "checked_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "build_id",
+        "protocol_version",
+        "schema_version",
+        "state",
+        "checked_at"
+      ],
+      "additionalProperties": false
+    },
+    "Appearance": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "skin": {
+          "type": "string",
+          "enum": [
+            "holo",
+            "cockpit",
+            "neo"
+          ]
+        },
+        "mode": {
+          "type": "string",
+          "enum": [
+            "system",
+            "light",
+            "dark"
+          ]
+        }
+      },
+      "required": [
+        "version",
+        "skin",
+        "mode"
+      ],
+      "additionalProperties": false
+    },
+    "Account": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "state": {
+          "type": "string",
+          "enum": [
+            "ready",
+            "blocked"
+          ]
+        }
+      },
+      "required": [
+        "account_id",
+        "state"
+      ],
+      "additionalProperties": false
+    },
+    "Canonical": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "entity_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "$ref": "#/components/schemas/Revision"
+        },
+        "payload": {
+          "$ref": "#/components/schemas/Entity"
+        }
+      },
+      "required": [
+        "account_id",
+        "kind",
+        "entity_key",
+        "revision",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    "Mutation": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "operation_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "device_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "client_sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "envelope": {
+          "$ref": "#/components/schemas/Operation"
+        },
+        "dependencies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+          },
+          "maxItems": 4096
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "in_flight",
+            "retry_wait",
+            "deferred",
+            "blocked_local",
+            "rejected",
+            "acknowledged"
+          ]
+        },
+        "attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "next_attempt_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "error": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FieldError"
+                  }
+                },
+                "dependencyIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+                  }
+                },
+                "identity": {
+                  "type": "object",
+                  "properties": {
+                    "reason": {
+                      "type": "string",
+                      "enum": [
+                        "missing_proof",
+                        "content_mismatch",
+                        "operation",
+                        "sequence"
+                      ]
+                    },
+                    "localOperationHash": {
+                      "$ref": "#/components/schemas/OperationHash"
+                    },
+                    "originalOperationId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+                    },
+                    "originalOperationHash": {
+                      "$ref": "#/components/schemas/OperationHash"
+                    },
+                    "originalReceipt": {
+                      "$ref": "#/components/schemas/Receipt"
+                    },
+                    "conflictReceipt": {
+                      "$ref": "#/components/schemas/Receipt"
+                    }
+                  },
+                  "required": [
+                    "reason",
+                    "localOperationHash"
+                  ],
+                  "additionalProperties": false
+                },
+                "resolution": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "const": "discarded"
+                        }
+                      },
+                      "required": [
+                        "kind"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "kind": {
+                          "const": "corrected"
+                        },
+                        "replacementOperationId": {
+                          "type": "string",
+                          "format": "uuid",
+                          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+                        }
+                      },
+                      "required": [
+                        "kind",
+                        "replacementOperationId"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "code",
+                "fields",
+                "dependencyIds"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Receipt"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "account_id",
+        "operation_id",
+        "device_id",
+        "client_sequence",
+        "envelope",
+        "dependencies",
+        "status",
+        "attempts",
+        "next_attempt_at",
+        "error",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "SyncState": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "cursor": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Opaque"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "next_sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "onboarding_step": {
+          "type": "string",
+          "enum": [
+            "time_context",
+            "first_habit",
+            "complete"
+          ]
+        },
+        "snapshot_id": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "snapshot_revision": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Revision"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "snapshot_cursor": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/Opaque"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "snapshot_expires_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "account_id",
+        "cursor",
+        "next_sequence",
+        "onboarding_step",
+        "snapshot_id",
+        "snapshot_revision",
+        "snapshot_cursor",
+        "snapshot_expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "Staging": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "snapshot_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "entity_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "$ref": "#/components/schemas/Revision"
+        },
+        "payload": {
+          "$ref": "#/components/schemas/Entity"
+        }
+      },
+      "required": [
+        "account_id",
+        "snapshot_id",
+        "kind",
+        "entity_key",
+        "revision",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    "Projection": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "format": "uuid",
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "habit",
+            "xp"
+          ]
+        },
+        "entity_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "payload": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "habitId": {
+                  "type": "string",
+                  "format": "uuid",
+                  "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "done": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "habitId",
+                "title",
+                "done"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "totalXp": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "totalXp"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "account_id",
+        "kind",
+        "entity_key",
+        "payload"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "components": {
+    "schemas": {
+      "Id": {
+        "type": "string",
+        "format": "uuid",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+      },
+      "Instant": {
+        "type": "string",
+        "format": "date-time",
+        "pattern": "Z$"
+      },
+      "AccountProfile": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "timeContext": {
+            "$ref": "#/components/schemas/TimeContext"
+          },
+          "plan": {
+            "const": "free"
+          },
+          "onboardedAt": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Instant"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "analyticsConsentAt": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Instant"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          }
+        },
+        "required": [
+          "accountId",
+          "displayName",
+          "timeContext",
+          "plan",
+          "onboardedAt",
+          "analyticsConsentAt",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "TimeContext": {
+        "type": "object",
+        "properties": {
+          "timezone": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "dayStartHour": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 23
+          }
+        },
+        "required": [
+          "timezone",
+          "dayStartHour"
+        ],
+        "additionalProperties": false
+      },
+      "Revision": {
+        "type": "string",
+        "pattern": "^(0|[1-9][0-9]{0,18})$",
+        "description": "Decimal signed int64, additionally <= 9223372036854775807; compare numerically."
+      },
+      "Email": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 254,
+        "format": "email",
+        "description": "ASCII email, normalized per README; no Gmail-specific aliases."
+      },
+      "Password": {
+        "type": "string",
+        "minLength": 8,
+        "maxLength": 128,
+        "writeOnly": true,
+        "description": "Count Unicode code points. Never trim or normalize."
+      },
+      "PushRequest": {
+        "type": "object",
+        "properties": {
+          "operations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Operation"
+            },
+            "minItems": 1,
+            "maxItems": 50
+          }
+        },
+        "required": [
+          "operations"
+        ],
+        "additionalProperties": false
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "deviceId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "clientSequence": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "occurredAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "dependsOn": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Id"
+            },
+            "minItems": 0,
+            "maxItems": 4096,
+            "uniqueItems": true
+          },
+          "supersedesOperationId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Id"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "command": {
+            "$ref": "#/components/schemas/Command"
+          }
+        },
+        "required": [
+          "operationId",
+          "deviceId",
+          "clientSequence",
+          "occurredAt",
+          "dependsOn",
+          "command"
+        ],
+        "additionalProperties": false
+      },
+      "Command": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/OnboardingCommand"
+          },
+          {
+            "$ref": "#/components/schemas/CreateHabitCommand"
+          },
+          {
+            "$ref": "#/components/schemas/PatchHabitCommand"
+          },
+          {
+            "$ref": "#/components/schemas/MarkCommand"
+          },
+          {
+            "$ref": "#/components/schemas/UnmarkCommand"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteHabitCommand"
+          }
+        ]
+      },
+      "OnboardingCommand": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "profile.setOnboarding"
+          },
+          "timeContext": {
+            "$ref": "#/components/schemas/TimeContext"
+          },
+          "completed": {
+            "type": "boolean"
+          },
+          "analyticsConsent": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "type",
+          "timeContext",
+          "completed",
+          "analyticsConsent"
+        ],
+        "additionalProperties": false
+      },
+      "CreateHabitCommand": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "habit.create"
+          },
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "habitType": {
+            "const": "binary"
+          },
+          "scheduleKind": {
+            "const": "daily"
+          },
+          "startDayKey": {
+            "$ref": "#/components/schemas/Day"
+          },
+          "timeContext": {
+            "$ref": "#/components/schemas/TimeContext"
+          },
+          "iconKey": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "colorToken": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        },
+        "required": [
+          "type",
+          "habitId",
+          "title",
+          "habitType",
+          "scheduleKind",
+          "startDayKey",
+          "timeContext",
+          "iconKey",
+          "colorToken",
+          "sortOrder"
+        ],
+        "additionalProperties": false
+      },
+      "Day": {
+        "type": "string",
+        "format": "date",
+        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+      },
+      "PatchHabitCommand": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "habit.patchMetadata"
+          },
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "patch": {
+            "$ref": "#/components/schemas/MetadataPatch"
+          }
+        },
+        "required": [
+          "type",
+          "habitId",
+          "patch"
+        ],
+        "additionalProperties": false
+      },
+      "MetadataPatch": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "iconKey": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "colorToken": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "minProperties": 1
+      },
+      "MarkCommand": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "habit.mark"
+          },
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "dayKey": {
+            "$ref": "#/components/schemas/Day"
+          },
+          "timeContext": {
+            "$ref": "#/components/schemas/TimeContext"
+          },
+          "observedUndoIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Id"
+            },
+            "minItems": 0,
+            "maxItems": 4096,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "type",
+          "habitId",
+          "dayKey",
+          "timeContext",
+          "observedUndoIds"
+        ],
+        "additionalProperties": false
+      },
+      "UnmarkCommand": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "habit.unmark"
+          },
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "dayKey": {
+            "$ref": "#/components/schemas/Day"
+          },
+          "timeContext": {
+            "$ref": "#/components/schemas/TimeContext"
+          }
+        },
+        "required": [
+          "type",
+          "habitId",
+          "dayKey",
+          "timeContext"
+        ],
+        "additionalProperties": false
+      },
+      "DeleteHabitCommand": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "habit.delete"
+          },
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          }
+        },
+        "required": [
+          "type",
+          "habitId"
+        ],
+        "additionalProperties": false
+      },
+      "PushResponse": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/AcceptedResult"
+                },
+                {
+                  "$ref": "#/components/schemas/RejectedResult"
+                },
+                {
+                  "$ref": "#/components/schemas/DeferredResult"
+                }
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 50
+          },
+          "serverTime": {
+            "$ref": "#/components/schemas/Instant"
+          }
+        },
+        "required": [
+          "results",
+          "serverTime"
+        ],
+        "additionalProperties": false
+      },
+      "AcceptedResult": {
+        "type": "object",
+        "properties": {
+          "receipt": {
+            "$ref": "#/components/schemas/Receipt"
+          },
+          "replayed": {
+            "type": "boolean"
+          },
+          "projections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entity"
+            },
+            "minItems": 0,
+            "maxItems": 32
+          }
+        },
+        "required": [
+          "receipt",
+          "replayed",
+          "projections"
+        ],
+        "additionalProperties": false
+      },
+      "Receipt": {
+        "type": "object",
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "accepted",
+              "reconciled"
+            ]
+          },
+          "acceptedRevision": {
+            "$ref": "#/components/schemas/Revision"
+          },
+          "operationHash": {
+            "$ref": "#/components/schemas/OperationHash"
+          }
+        },
+        "required": [
+          "operationId",
+          "status",
+          "acceptedRevision"
+        ],
+        "additionalProperties": false
+      },
+      "OperationHash": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      },
+      "Entity": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "profile"
+              },
+              "value": {
+                "$ref": "#/components/schemas/AccountProfile"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "habit"
+              },
+              "value": {
+                "$ref": "#/components/schemas/Habit"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "habitDay"
+              },
+              "value": {
+                "$ref": "#/components/schemas/HabitDay"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "xpGrant"
+              },
+              "value": {
+                "$ref": "#/components/schemas/XpGrant"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "xpDecision"
+              },
+              "value": {
+                "$ref": "#/components/schemas/XpDecision"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "xpTransition"
+              },
+              "value": {
+                "$ref": "#/components/schemas/XpTransition"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "xpBudget"
+              },
+              "value": {
+                "$ref": "#/components/schemas/XpBudget"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "const": "tombstone"
+              },
+              "value": {
+                "$ref": "#/components/schemas/Tombstone"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "Habit": {
+        "type": "object",
+        "properties": {
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "habitType": {
+            "const": "binary"
+          },
+          "scheduleKind": {
+            "const": "daily"
+          },
+          "startDayKey": {
+            "$ref": "#/components/schemas/Day"
+          },
+          "creationTimeContext": {
+            "$ref": "#/components/schemas/TimeContext"
+          },
+          "iconKey": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "colorToken": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sortOrder": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000000
+          },
+          "createdAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "updatedAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "deletedAt": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Instant"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          }
+        },
+        "required": [
+          "habitId",
+          "title",
+          "habitType",
+          "scheduleKind",
+          "startDayKey",
+          "creationTimeContext",
+          "iconKey",
+          "colorToken",
+          "sortOrder",
+          "createdAt",
+          "updatedAt",
+          "deletedAt",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "HabitDay": {
+        "type": "object",
+        "properties": {
+          "habitDayId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "habitId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "dayKey": {
+            "$ref": "#/components/schemas/Day"
+          },
+          "done": {
+            "type": "boolean"
+          },
+          "knownUndoIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Id"
+            },
+            "minItems": 0,
+            "maxItems": 4096,
+            "uniqueItems": true
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          }
+        },
+        "required": [
+          "habitDayId",
+          "habitId",
+          "dayKey",
+          "done",
+          "knownUndoIds",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "XpGrant": {
+        "type": "object",
+        "properties": {
+          "grantId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "habitDayId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "amount": {
+            "type": "integer",
+            "const": 10
+          },
+          "dayKey": {
+            "$ref": "#/components/schemas/Day"
+          },
+          "module": {
+            "const": "habits"
+          },
+          "budgetCost": {
+            "type": "integer",
+            "const": 10
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          }
+        },
+        "required": [
+          "grantId",
+          "habitDayId",
+          "amount",
+          "dayKey",
+          "module",
+          "budgetCost",
+          "active",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "XpDecision": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "habitDayId": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "outcome": {
+                "const": "granted"
+              },
+              "grantId": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "revision": {
+                "$ref": "#/components/schemas/Revision"
+              }
+            },
+            "required": [
+              "habitDayId",
+              "outcome",
+              "grantId",
+              "revision"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "habitDayId": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "outcome": {
+                "const": "limit_reached"
+              },
+              "grantId": {
+                "type": "null"
+              },
+              "revision": {
+                "$ref": "#/components/schemas/Revision"
+              }
+            },
+            "required": [
+              "habitDayId",
+              "outcome",
+              "grantId",
+              "revision"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "XpTransition": {
+        "type": "object",
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "grantId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "grant",
+              "reverse",
+              "restore"
+            ]
+          },
+          "acceptedAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          }
+        },
+        "required": [
+          "operationId",
+          "grantId",
+          "kind",
+          "acceptedAt",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "XpBudget": {
+        "type": "object",
+        "properties": {
+          "dayKey": {
+            "$ref": "#/components/schemas/Day"
+          },
+          "module": {
+            "const": "habits"
+          },
+          "consumed": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "dueHabitCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 150,
+            "maximum": 2147483647
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          }
+        },
+        "required": [
+          "dayKey",
+          "module",
+          "consumed",
+          "dueHabitCount",
+          "limit",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "Tombstone": {
+        "type": "object",
+        "properties": {
+          "entityKind": {
+            "type": "string",
+            "enum": [
+              "habit"
+            ]
+          },
+          "entityId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "deletedAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          }
+        },
+        "required": [
+          "entityKind",
+          "entityId",
+          "deletedAt",
+          "revision"
+        ],
+        "additionalProperties": false
+      },
+      "RejectedResult": {
+        "type": "object",
+        "properties": {
+          "receipt": {
+            "$ref": "#/components/schemas/RejectedReceipt"
+          },
+          "replayed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "receipt",
+          "replayed"
+        ],
+        "additionalProperties": false
+      },
+      "RejectedReceipt": {
+        "type": "object",
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "status": {
+            "const": "rejected"
+          },
+          "error": {
+            "$ref": "#/components/schemas/BusinessError"
+          },
+          "operationHash": {
+            "$ref": "#/components/schemas/OperationHash"
+          }
+        },
+        "required": [
+          "operationId",
+          "status",
+          "error"
+        ],
+        "additionalProperties": false
+      },
+      "BusinessError": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "validation_failed",
+              "title_unavailable",
+              "resource_inaccessible",
+              "day_invalid",
+              "id_content_conflict",
+              "dependency_rejected",
+              "dependency_cycle",
+              "context_limit_reached"
+            ]
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FieldError"
+            },
+            "minItems": 0,
+            "maxItems": 50
+          },
+          "dependencyIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Id"
+            },
+            "minItems": 0,
+            "maxItems": 4096,
+            "uniqueItems": true
+          },
+          "identityConflict": {
+            "$ref": "#/components/schemas/IdentityConflict"
+          }
+        },
+        "required": [
+          "code",
+          "fields",
+          "dependencyIds"
+        ],
+        "additionalProperties": false
+      },
+      "FieldError": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "required",
+              "invalid",
+              "too_long",
+              "out_of_range",
+              "not_unique"
+            ]
+          }
+        },
+        "required": [
+          "path",
+          "code"
+        ],
+        "additionalProperties": false
+      },
+      "IdentityConflict": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "operation",
+              "sequence"
+            ]
+          },
+          "originalOperationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "originalOperationHash": {
+            "$ref": "#/components/schemas/OperationHash"
+          }
+        },
+        "required": [
+          "kind",
+          "originalOperationId",
+          "originalOperationHash"
+        ],
+        "additionalProperties": false
+      },
+      "DeferredResult": {
+        "type": "object",
+        "properties": {
+          "operationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "status": {
+            "const": "deferred"
+          },
+          "missingDependencyIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Id"
+            },
+            "minItems": 1,
+            "maxItems": 4096,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "operationId",
+          "status",
+          "missingDependencyIds"
+        ],
+        "additionalProperties": false
+      },
+      "PullResponse": {
+        "type": "object",
+        "properties": {
+          "changes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChangeEnvelope"
+            },
+            "minItems": 0,
+            "maxItems": 500
+          },
+          "nextCursor": {
+            "$ref": "#/components/schemas/Opaque"
+          },
+          "hasMore": {
+            "type": "boolean"
+          },
+          "highWaterRevision": {
+            "$ref": "#/components/schemas/Revision"
+          },
+          "serverTime": {
+            "$ref": "#/components/schemas/Instant"
+          }
+        },
+        "required": [
+          "changes",
+          "nextCursor",
+          "hasMore",
+          "highWaterRevision",
+          "serverTime"
+        ],
+        "additionalProperties": false
+      },
+      "ChangeEnvelope": {
+        "type": "object",
+        "properties": {
+          "revision": {
+            "$ref": "#/components/schemas/Revision"
+          },
+          "operationResults": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Receipt"
+            },
+            "minItems": 1,
+            "maxItems": 50
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entity"
+            },
+            "minItems": 0,
+            "maxItems": 32
+          }
+        },
+        "required": [
+          "revision",
+          "operationResults",
+          "entities"
+        ],
+        "additionalProperties": false
+      },
+      "Opaque": {
+        "type": "string",
+        "minLength": 16,
+        "maxLength": 2048,
+        "pattern": "^[A-Za-z0-9_.-]+$"
+      },
+      "SnapshotManifest": {
+        "type": "object",
+        "properties": {
+          "snapshotId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "highWaterRevision": {
+            "$ref": "#/components/schemas/Revision"
+          },
+          "expiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "entityCount": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 2147483647
+          },
+          "firstPageCursor": {
+            "$ref": "#/components/schemas/Opaque"
+          }
+        },
+        "required": [
+          "snapshotId",
+          "highWaterRevision",
+          "expiresAt",
+          "entityCount",
+          "firstPageCursor"
+        ],
+        "additionalProperties": false
+      },
+      "SnapshotPage": {
+        "type": "object",
+        "properties": {
+          "snapshotId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "highWaterRevision": {
+            "$ref": "#/components/schemas/Revision"
+          },
+          "entities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entity"
+            },
+            "minItems": 0,
+            "maxItems": 500
+          },
+          "nextPageCursor": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Opaque"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "complete": {
+            "type": "boolean"
+          },
+          "pullCursor": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Opaque"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "snapshotId",
+          "highWaterRevision",
+          "entities",
+          "nextPageCursor",
+          "complete",
+          "pullCursor"
+        ],
+        "additionalProperties": false
+      },
+      "ReceiptsRequest": {
+        "type": "object",
+        "properties": {
+          "snapshotId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "operationIds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Id"
+            },
+            "minItems": 1,
+            "maxItems": 50,
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "snapshotId",
+          "operationIds"
+        ],
+        "additionalProperties": false
+      },
+      "ReceiptsResponse": {
+        "type": "object",
+        "properties": {
+          "snapshotId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "highWaterRevision": {
+            "$ref": "#/components/schemas/Revision"
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Receipt"
+                },
+                {
+                  "$ref": "#/components/schemas/RejectedReceipt"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "operationId": {
+                      "$ref": "#/components/schemas/Id"
+                    },
+                    "status": {
+                      "const": "notProcessedAtH"
+                    }
+                  },
+                  "required": [
+                    "operationId",
+                    "status"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 50
+          }
+        },
+        "required": [
+          "snapshotId",
+          "highWaterRevision",
+          "results"
+        ],
+        "additionalProperties": false
+      },
+      "ResetRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/Email"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "additionalProperties": false
+      },
+      "ResetConfirmRequest": {
+        "type": "object",
+        "properties": {
+          "resetToken": {
+            "$ref": "#/components/schemas/Secret"
+          },
+          "newPassword": {
+            "$ref": "#/components/schemas/Password"
+          }
+        },
+        "required": [
+          "resetToken",
+          "newPassword"
+        ],
+        "additionalProperties": false
+      },
+      "Secret": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 4096,
+        "writeOnly": true,
+        "description": "Credential, never log. Fixtures use fake values."
+      },
+      "ApiError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "invalid_request",
+                  "invalid_credentials",
+                  "email_unavailable",
+                  "session_invalid",
+                  "reset_invalid",
+                  "rate_limited",
+                  "unsupported_version",
+                  "idempotency_key_conflict",
+                  "payload_too_large",
+                  "resync_required",
+                  "snapshot_expired",
+                  "temporarily_unavailable",
+                  "resource_inaccessible"
+                ]
+              },
+              "requestId": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/FieldError"
+                },
+                "minItems": 0,
+                "maxItems": 50
+              },
+              "retryAfterSeconds": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 300
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "code",
+              "requestId",
+              "fields",
+              "retryAfterSeconds"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "additionalProperties": false
+      },
+      "Epoch": {
+        "type": "string",
+        "pattern": "^(0|[1-9][0-9]{0,18})$",
+        "maxLength": 19,
+        "description": "Decimal; semantic maximum 9223372036854775807."
+      },
+      "PreparationTicket": {
+        "type": "string",
+        "minLength": 32,
+        "maxLength": 2048,
+        "description": "Signed preparation permission, not session authentication. Memory only."
+      },
+      "Empty": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "ChallengeRequest": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "installationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "expectedAccountId": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Id"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "attemptId",
+          "installationId",
+          "expectedAccountId"
+        ],
+        "additionalProperties": false
+      },
+      "ChallengeResponse": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "contextId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "installationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "issuedAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "ticketExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "reservationExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "closeCookieExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "preparationTicket": {
+            "$ref": "#/components/schemas/PreparationTicket"
+          }
+        },
+        "required": [
+          "attemptId",
+          "contextId",
+          "installationId",
+          "issuedAt",
+          "ticketExpiresAt",
+          "reservationExpiresAt",
+          "closeCookieExpiresAt",
+          "preparationTicket"
+        ],
+        "additionalProperties": false
+      },
+      "PrepareRequest": {
+        "type": "object",
+        "properties": {
+          "preparationTicket": {
+            "$ref": "#/components/schemas/PreparationTicket"
+          }
+        },
+        "required": [
+          "preparationTicket"
+        ],
+        "additionalProperties": false
+      },
+      "PreparationReceipt": {
+        "type": "object",
+        "properties": {
+          "contextId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "installationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "reservationExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "closeCookieExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          }
+        },
+        "required": [
+          "contextId",
+          "installationId",
+          "reservationExpiresAt",
+          "closeCookieExpiresAt"
+        ],
+        "additionalProperties": false
+      },
+      "ReservationProof": {
+        "type": "object",
+        "properties": {
+          "contextId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "reserved",
+              "expired_unbound",
+              "closed_unbound",
+              "proof_required"
+            ]
+          },
+          "reservationExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          }
+        },
+        "required": [
+          "contextId",
+          "state",
+          "reservationExpiresAt"
+        ],
+        "additionalProperties": false
+      },
+      "WebLoginRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/Email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/Password"
+          },
+          "deviceId": {
+            "$ref": "#/components/schemas/Id"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "deviceId"
+        ],
+        "additionalProperties": false
+      },
+      "WebRegisterRequest": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "$ref": "#/components/schemas/Email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/Password"
+          },
+          "deviceId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "deviceId",
+          "displayName"
+        ],
+        "additionalProperties": false
+      },
+      "WebSession": {
+        "type": "object",
+        "properties": {
+          "contextId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "installationId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "accountId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "authenticatedAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "idleExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "absoluteExpiresAt": {
+            "$ref": "#/components/schemas/Instant"
+          },
+          "ownerEpoch": {
+            "$ref": "#/components/schemas/Epoch"
+          },
+          "ownerTabId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/AccountProfile"
+          }
+        },
+        "required": [
+          "contextId",
+          "installationId",
+          "accountId",
+          "authenticatedAt",
+          "idleExpiresAt",
+          "absoluteExpiresAt",
+          "ownerEpoch",
+          "ownerTabId",
+          "profile"
+        ],
+        "additionalProperties": false
+      },
+      "OwnerClaim": {
+        "type": "object",
+        "properties": {
+          "epoch": {
+            "$ref": "#/components/schemas/Epoch"
+          },
+          "tabId": {
+            "$ref": "#/components/schemas/Id"
+          }
+        },
+        "required": [
+          "epoch",
+          "tabId"
+        ],
+        "additionalProperties": false
+      },
+      "OwnerReceipt": {
+        "type": "object",
+        "properties": {
+          "contextId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/Epoch"
+          },
+          "tabId": {
+            "$ref": "#/components/schemas/Id"
+          }
+        },
+        "required": [
+          "contextId",
+          "epoch",
+          "tabId"
+        ],
+        "additionalProperties": false
+      },
+      "CloseReceipt": {
+        "type": "object",
+        "properties": {
+          "contextId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "closed",
+              "expired"
+            ]
+          }
+        },
+        "required": [
+          "contextId",
+          "state"
+        ],
+        "additionalProperties": false
+      },
+      "RecoveryCloseRequest": {
+        "type": "object",
+        "properties": {
+          "contextId": {
+            "$ref": "#/components/schemas/Id"
+          },
+          "email": {
+            "$ref": "#/components/schemas/Email"
+          },
+          "password": {
+            "$ref": "#/components/schemas/Password"
+          }
+        },
+        "required": [
+          "contextId",
+          "email",
+          "password"
+        ],
+        "additionalProperties": false
+      },
+      "PullRequest": {
+        "type": "object",
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Opaque"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 500
+          }
+        },
+        "required": [
+          "cursor",
+          "limit"
+        ],
+        "additionalProperties": false
+      },
+      "SnapshotPageRequest": {
+        "type": "object",
+        "properties": {
+          "pageCursor": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Opaque"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "pageCursor"
+        ],
+        "additionalProperties": false
+      },
+      "WebError": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "invalid_request",
+                  "invalid_credentials",
+                  "email_unavailable",
+                  "session_invalid",
+                  "reset_invalid",
+                  "rate_limited",
+                  "unsupported_version",
+                  "idempotency_key_conflict",
+                  "payload_too_large",
+                  "resync_required",
+                  "snapshot_expired",
+                  "temporarily_unavailable",
+                  "resource_inaccessible",
+                  "csrf_rejected",
+                  "preparation_expired",
+                  "context_conflict",
+                  "context_unavailable",
+                  "context_closed",
+                  "cookie_ambiguous",
+                  "account_mismatch",
+                  "owner_lost",
+                  "headers_too_large",
+                  "auth_context_limit"
+                ]
+              },
+              "requestId": {
+                "$ref": "#/components/schemas/Id"
+              },
+              "fields": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/FieldError"
+                },
+                "minItems": 0,
+                "maxItems": 50
+              },
+              "retryAfterSeconds": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 300
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "code",
+              "requestId",
+              "fields",
+              "retryAfterSeconds"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}

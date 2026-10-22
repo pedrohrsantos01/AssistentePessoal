@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "session": {
+    "idleSeconds": 2592000,
+    "absoluteSeconds": 7776000,
+    "maxLocalContexts": 4
+  },
+  "preparation": {
+    "ticketSeconds": 300,
+    "reservationSeconds": 600,
+    "closeCookieSeconds": 7862400
+  },
+  "cookies": {
+    "auth": "__Secure-ritmo-auth",
+    "close": "__Secure-ritmo-close",
+    "path": "/api/v1/web/contexts/{contextId}/",
+    "secure": true,
+    "httpOnly": true,
+    "sameSite": "Strict",
+    "domain": null,
+    "maxAge": null,
+    "expiry": "fixed-absolute",
+    "secretBytes": 32,
+    "duplicatePolicy": "reject"
+  },
+  "http": {
+    "maxCookieHeaderBytes": 8192,
+    "requiredIngressHeaderBytes": 16384,
+    "cacheControl": "no-store",
+    "csrfHeader": "X-Ritmo-Web",
+    "csrfHeaderValue": "1",
+    "origin": "exact-configured-https",
+    "cors": "deny-cross-origin"
+  },
+  "retention": {
+    "secretHashes": "until-close-expiry",
+    "minimumTombstones": "no-automatic-purge-m1"
+  },
+  "journalTransitions": {
+    "challenging": [
+      "preparing",
+      "terminal"
+    ],
+    "preparing": [
+      "reserved",
+      "close_pending",
+      "recovery_required",
+      "terminal"
+    ],
+    "reserved": [
+      "active",
+      "close_pending",
+      "recovery_required",
+      "terminal"
+    ],
+    "active": [
+      "close_pending",
+      "recovery_required"
+    ],
+    "close_pending": [
+      "terminal",
+      "recovery_required"
+    ],
+    "recovery_required": [
+      "close_pending",
+      "terminal"
+    ],
+    "terminal": []
+  }
+}

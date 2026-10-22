@@ -3,7 +3,7 @@
 Status: needs-info
 Blocked by: none — prova01 concluída localmente; definições e evidência física ainda pendentes
 
-Origem: spec/14 §4–5. Falta evidência Safari e decisões técnicas; nenhuma tabela/rota/cookie nova definida.
+Origem: spec/14 §4–5. Q75=A confirmou o entendimento;02a especificado sem schema/rotas aplicados. Provas locais e evidência Safari ainda pendentes.
 
 ## Entrega
 
@@ -19,7 +19,7 @@ Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Uma biblioteca fora de alp
 
 ## Resultado
 
-Concluída: não — Q67–Q74 aprovadas em A; fontes e decisões na [entrevista](../entrevista.md), [ADR-021](../../../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md) e [ADR-022](../../../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md). Q66 informa iOS26.6.2 declarado. [Desenho candidato](../contratos-navegador.md) e [rodada3](../../../docs/analises/2026-10-21-contratos-pwa-rodada-3.md) preparados para confirmar entendimento e iniciar contrato executável/provas locais. Prazo30/90dias e quatro contextos definidos; aplicação exata, schema/cookies/endpoints e evidência física ainda pendentes. Implementação funcional03 não liberada.
+Concluída: não —02a concluído na [tarefa08](08-especificar-contrato-executavel.md), com [contrato executável](../../../contracts/pwa-m1/README.md) e campos/índices no spec/00. Q67–Q75 aprovadas; próximo recorte09 ready-for-agent para sessão/cookies/autorização, seguido de10 para coordenação/commits. Nenhum adapter/schema/endpoint de produto foi aplicado. Safari/Tela de Início e HTTPS continuam gates; tarefa03 não liberada.
 
 21/10/2026 — [Prova01](../../../docs/analises/2026-10-21-prova-tecnica-pwa.md) fornece React/Vite, Dexie transacional, precache e candidato Web Locks+geração no Chrome. Esquema reduzido não é contrato de produto. Próximo recorte recomendado; manter needs-info por sessão/schema/upgrade e Safari/Tela de Início físicos. Roteiro iPhone no relatório; versão iOS ainda não informada.
 
@@ -30,3 +30,5 @@ Concluída: não — Q67–Q74 aprovadas em A; fontes e decisões na [entrevista
 21/10/2026 — Pedro respondeu A em Q70–Q72. ADR-022/spec14/instruções atualizados: instalação nova autentica online, Java controla sessão opaca e rascunho fica na aba. A tarefa continua needs-info até consolidar prazo, protocolo e provas; não implementar a hipótese de cookie fixo sem conferir contexto/sessão esperados.
 
 21/10/2026 — Pedro respondeu A em Q73/Q74. Validade30/90dias e quatro contextos propagados. Plano interno:02a contrato executável,02b provas locais,02c HTTPS/Safari físico. Representação/limpeza de cookies, recuperação sem quinta sessão, posse/compatibilidade/transações ainda exigem especificação e ensaio. Desenho proposto substitui a hipótese de steal da prova01; esta continua evidência histórica, não prova do candidato novo. Não houve mudança de runtime neste incremento.
+
+22/10/2026 — Q75=A consolidada e02a especificado:17 rotas propostas,65 schemas de transporte,10 registros locais,50 exemplos/61 cenários do oráculo. Tarefas08/09/10 decompõem execução sem duplicar06/07 ou provisionamento. [Relatório](../../../docs/analises/2026-10-22-contrato-executavel-pwa.md). Task02 segue aberta por provas/gates, sem nova entrevista de decisões já aprovadas.

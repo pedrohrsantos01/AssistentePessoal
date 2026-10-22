@@ -1,6 +1,6 @@
 # Contratos do navegador — consolidação em andamento
 
-21/10/2026. **Estado: bases Q61–Q74 aprovadas; desenho de execução proposto para especificação e prova.** Complementa spec/14; não é schema executável, autorização de publicação ou aceite Safari. Fontes: [entrevista](entrevista.md), [ADR-021](../../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md), [ADR-022](../../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md). Q66 informa iOS26.6.2 declarado, não ensaio físico.
+21/10/2026. **Estado histórico de preparação; Q75=A confirmou o entendimento e02a foi especificado em22/10/2026.** Usar o [contrato executável](../../contracts/pwa-m1/README.md) e o spec/00 para nomes, prazos auxiliares, retenção e transições atuais; o candidato abaixo preserva a investigação anterior. Complementa spec/14; não é schema executável, autorização de publicação ou aceite Safari. Fontes: [entrevista](entrevista.md), [ADR-021](../../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md), [ADR-022](../../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md). Q66 informa iOS26.6.2 declarado, não ensaio físico.
 
 ## Fronteiras acordadas
 

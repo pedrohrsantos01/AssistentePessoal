@@ -1,0 +1,1243 @@
+[
+  {
+    "name": "valid-auth",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "ok",
+      "idleExpiresAt": 2592001
+    }
+  },
+  {
+    "name": "idle-exactly-expired",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 2592000,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "session_invalid",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "absolute-exactly-expired",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 7776000,
+      "authenticatedAt": 0,
+      "lastSeenAt": 7775999,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "session_invalid",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "just-before-absolute",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 7775999,
+      "authenticatedAt": 0,
+      "lastSeenAt": 7775998,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "ok",
+      "idleExpiresAt": 7776000
+    }
+  },
+  {
+    "name": "old-cookie-after-close",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "closed",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "session_invalid",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "close-capability-is-not-auth",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "close",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "session_invalid",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "wrong-context-cookie",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "B",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "session_invalid",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "ambiguous-cookie",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 2,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "cookie_ambiguous",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "missing-cookie",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 0,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "session_invalid",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "wrong-account",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "B",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "account_mismatch",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "late-old-owner",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "1",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "owner_lost",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "same-epoch-wrong-document",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-B"
+    },
+    "expected": {
+      "code": "owner_lost",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "missing-origin",
+    "kind": "remote",
+    "input": {
+      "origin": null,
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "csrf_rejected",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "null-origin",
+    "kind": "remote",
+    "input": {
+      "origin": "null",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "csrf_rejected",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "origin-suffix-attack",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test.attacker.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "csrf_rejected",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "missing-custom-header",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": null,
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "csrf_rejected",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "form-post",
+    "kind": "remote",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/x-www-form-urlencoded",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "csrf_rejected",
+      "idleExpiresAt": null
+    }
+  },
+  {
+    "name": "claim-greater",
+    "kind": "claim",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "3",
+      "requestTab": "tab-B"
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "claim-idempotent",
+    "kind": "claim",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "late-claim-cannot-steal",
+    "kind": "claim",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "1",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "owner_lost"
+    }
+  },
+  {
+    "name": "claim-equal-wrong-tab",
+    "kind": "claim",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "2",
+      "requestTab": "tab-B"
+    },
+    "expected": {
+      "code": "owner_lost"
+    }
+  },
+  {
+    "name": "claim-overflow",
+    "kind": "claim",
+    "input": {
+      "origin": "https://ritmo.example.test",
+      "configuredOrigin": "https://ritmo.example.test",
+      "webHeader": "1",
+      "contentType": "application/json",
+      "cookieCount": 1,
+      "credentialKind": "auth",
+      "credentialContext": "A",
+      "context": "A",
+      "state": "authenticated",
+      "now": 1,
+      "authenticatedAt": 0,
+      "lastSeenAt": 0,
+      "expectedAccount": "A",
+      "account": "A",
+      "ownerEpoch": "2",
+      "ownerTab": "tab-A",
+      "requestEpoch": "9223372036854775808",
+      "requestTab": "tab-A"
+    },
+    "expected": {
+      "code": "owner_lost"
+    }
+  },
+  {
+    "name": "capacity-22",
+    "kind": "capacity",
+    "input": {
+      "phases": []
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "capacity-23",
+    "kind": "capacity",
+    "input": {
+      "phases": [
+        "active",
+        "close_pending",
+        "reserved"
+      ]
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "capacity-24",
+    "kind": "capacity",
+    "input": {
+      "phases": [
+        "active",
+        "close_pending",
+        "preparing",
+        "recovery_required"
+      ]
+    },
+    "expected": {
+      "code": "auth_context_limit"
+    }
+  },
+  {
+    "name": "capacity-25",
+    "kind": "capacity",
+    "input": {
+      "phases": [
+        "active",
+        "close_pending",
+        "reserved",
+        "terminal"
+      ]
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "local-offline-allowed",
+    "kind": "local",
+    "input": {
+      "state": "active",
+      "account": "A",
+      "capturedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2",
+      "ownerTab": "tab-A",
+      "capturedTab": "tab-A",
+      "hasPresence": true,
+      "compatibility": "compatible"
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "local-after-logout",
+    "kind": "local",
+    "input": {
+      "state": "locked",
+      "account": "A",
+      "capturedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2",
+      "ownerTab": "tab-A",
+      "capturedTab": "tab-A",
+      "hasPresence": true,
+      "compatibility": "compatible"
+    },
+    "expected": {
+      "code": "local_locked"
+    }
+  },
+  {
+    "name": "local-cross-account",
+    "kind": "local",
+    "input": {
+      "state": "active",
+      "account": "A",
+      "capturedAccount": "B",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2",
+      "ownerTab": "tab-A",
+      "capturedTab": "tab-A",
+      "hasPresence": true,
+      "compatibility": "compatible"
+    },
+    "expected": {
+      "code": "stale_journey"
+    }
+  },
+  {
+    "name": "local-old-generation",
+    "kind": "local",
+    "input": {
+      "state": "active",
+      "account": "A",
+      "capturedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 1,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2",
+      "ownerTab": "tab-A",
+      "capturedTab": "tab-A",
+      "hasPresence": true,
+      "compatibility": "compatible"
+    },
+    "expected": {
+      "code": "stale_journey"
+    }
+  },
+  {
+    "name": "local-old-owner",
+    "kind": "local",
+    "input": {
+      "state": "active",
+      "account": "A",
+      "capturedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "1",
+      "ownerTab": "tab-A",
+      "capturedTab": "tab-A",
+      "hasPresence": true,
+      "compatibility": "compatible"
+    },
+    "expected": {
+      "code": "owner_lost"
+    }
+  },
+  {
+    "name": "local-no-presence",
+    "kind": "local",
+    "input": {
+      "state": "active",
+      "account": "A",
+      "capturedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2",
+      "ownerTab": "tab-A",
+      "capturedTab": "tab-A",
+      "hasPresence": false,
+      "compatibility": "compatible"
+    },
+    "expected": {
+      "code": "owner_lost"
+    }
+  },
+  {
+    "name": "local-old-build",
+    "kind": "local",
+    "input": {
+      "state": "active",
+      "account": "A",
+      "capturedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2",
+      "ownerTab": "tab-A",
+      "capturedTab": "tab-A",
+      "hasPresence": true,
+      "compatibility": "upgrade_required"
+    },
+    "expected": {
+      "code": "upgrade_required"
+    }
+  },
+  {
+    "name": "challenge-cancel",
+    "kind": "journal",
+    "input": {
+      "from": "challenging",
+      "to": "terminal",
+      "proof": "not_dispatched",
+      "prepareDispatched": false
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "challenge-uncertain",
+    "kind": "journal",
+    "input": {
+      "from": "challenging",
+      "to": "terminal",
+      "proof": "not_dispatched",
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "preserve_blocked"
+    }
+  },
+  {
+    "name": "close-proof",
+    "kind": "journal",
+    "input": {
+      "from": "close_pending",
+      "to": "terminal",
+      "proof": "closed",
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "close-404-is-not-proof",
+    "kind": "journal",
+    "input": {
+      "from": "close_pending",
+      "to": "terminal",
+      "proof": "http404",
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "preserve_blocked"
+    }
+  },
+  {
+    "name": "no-terminal-resurrection",
+    "kind": "journal",
+    "input": {
+      "from": "terminal",
+      "to": "active",
+      "proof": null,
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "preserve_blocked"
+    }
+  },
+  {
+    "name": "activate-reserved",
+    "kind": "journal",
+    "input": {
+      "from": "reserved",
+      "to": "active",
+      "proof": null,
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "unbound-expiry",
+    "kind": "journal",
+    "input": {
+      "from": "reserved",
+      "to": "terminal",
+      "proof": "expired_unbound",
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "snapshot-ready",
+    "kind": "snapshot",
+    "input": {
+      "pendingAtCommit": [
+        "op1"
+      ],
+      "classifiedAtH": [
+        "op1"
+      ],
+      "stagingComplete": true
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "new-intent-during-copy",
+    "kind": "snapshot",
+    "input": {
+      "pendingAtCommit": [
+        "op1",
+        "op2"
+      ],
+      "classifiedAtH": [
+        "op1"
+      ],
+      "stagingComplete": true
+    },
+    "expected": {
+      "code": "snapshot_incomplete"
+    }
+  },
+  {
+    "name": "partial-staging",
+    "kind": "snapshot",
+    "input": {
+      "pendingAtCommit": [
+        "op1"
+      ],
+      "classifiedAtH": [
+        "op1"
+      ],
+      "stagingComplete": false
+    },
+    "expected": {
+      "code": "snapshot_incomplete"
+    }
+  },
+  {
+    "name": "activation-valid",
+    "kind": "activation",
+    "input": {
+      "context": "ctx-A",
+      "expectedContext": "ctx-A",
+      "installation": "install-A",
+      "expectedInstallation": "install-A",
+      "account": "A",
+      "expectedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2"
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "activation-late-A-after-B",
+    "kind": "activation",
+    "input": {
+      "context": "ctx-A",
+      "expectedContext": "ctx-A",
+      "installation": "install-A",
+      "expectedInstallation": "install-A",
+      "account": "A",
+      "expectedAccount": "A",
+      "generation": 3,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2"
+    },
+    "expected": {
+      "code": "stale_activation"
+    }
+  },
+  {
+    "name": "activation-wrong-account",
+    "kind": "activation",
+    "input": {
+      "context": "ctx-A",
+      "expectedContext": "ctx-A",
+      "installation": "install-A",
+      "expectedInstallation": "install-A",
+      "account": "B",
+      "expectedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2"
+    },
+    "expected": {
+      "code": "stale_activation"
+    }
+  },
+  {
+    "name": "activation-copied-container",
+    "kind": "activation",
+    "input": {
+      "context": "ctx-A",
+      "expectedContext": "ctx-A",
+      "installation": "install-B",
+      "expectedInstallation": "install-A",
+      "account": "A",
+      "expectedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "2",
+      "capturedEpoch": "2"
+    },
+    "expected": {
+      "code": "stale_activation"
+    }
+  },
+  {
+    "name": "activation-old-owner",
+    "kind": "activation",
+    "input": {
+      "context": "ctx-A",
+      "expectedContext": "ctx-A",
+      "installation": "install-A",
+      "expectedInstallation": "install-A",
+      "account": "A",
+      "expectedAccount": "A",
+      "generation": 2,
+      "capturedGeneration": 2,
+      "ownerEpoch": "3",
+      "capturedEpoch": "2"
+    },
+    "expected": {
+      "code": "stale_activation"
+    }
+  },
+  {
+    "name": "recover-A-with-four-contexts",
+    "kind": "recovery",
+    "input": {
+      "passwordValid": true,
+      "provedAccount": "A",
+      "contextAccount": "A",
+      "contextExists": true,
+      "localContextCount": 4
+    },
+    "expected": {
+      "code": "ok",
+      "createsSession": false
+    }
+  },
+  {
+    "name": "B-password-cannot-close-A",
+    "kind": "recovery",
+    "input": {
+      "passwordValid": true,
+      "provedAccount": "B",
+      "contextAccount": "A",
+      "contextExists": true,
+      "localContextCount": 4
+    },
+    "expected": {
+      "code": "context_unavailable",
+      "createsSession": false
+    }
+  },
+  {
+    "name": "B-cookie-does-not-replace-password",
+    "kind": "recovery",
+    "input": {
+      "passwordValid": false,
+      "provedAccount": "A",
+      "contextAccount": "A",
+      "contextExists": true,
+      "localContextCount": 4
+    },
+    "expected": {
+      "code": "invalid_credentials",
+      "createsSession": false
+    }
+  },
+  {
+    "name": "missing-context-is-not-close-proof",
+    "kind": "recovery",
+    "input": {
+      "passwordValid": true,
+      "provedAccount": "A",
+      "contextAccount": "A",
+      "contextExists": false,
+      "localContextCount": 4
+    },
+    "expected": {
+      "code": "context_unavailable",
+      "createsSession": false
+    }
+  },
+  {
+    "name": "reserve-then-password",
+    "kind": "authenticate",
+    "input": {
+      "state": "reserved",
+      "now": 1,
+      "reservationExpiresAt": 600,
+      "closeCookieProved": true,
+      "passwordValid": true,
+      "expectedAccount": "A",
+      "provedAccount": "A"
+    },
+    "expected": {
+      "code": "ok",
+      "issuesAuth": true
+    }
+  },
+  {
+    "name": "close-first-prevents-late-login",
+    "kind": "authenticate",
+    "input": {
+      "state": "closed",
+      "now": 1,
+      "reservationExpiresAt": 600,
+      "closeCookieProved": true,
+      "passwordValid": true,
+      "expectedAccount": "A",
+      "provedAccount": "A"
+    },
+    "expected": {
+      "code": "context_closed",
+      "issuesAuth": false
+    }
+  },
+  {
+    "name": "login-replay-no-secret-reissue",
+    "kind": "authenticate",
+    "input": {
+      "state": "authenticated",
+      "now": 1,
+      "reservationExpiresAt": 600,
+      "closeCookieProved": true,
+      "passwordValid": true,
+      "expectedAccount": "A",
+      "provedAccount": "A"
+    },
+    "expected": {
+      "code": "context_conflict",
+      "issuesAuth": false
+    }
+  },
+  {
+    "name": "reservation-at-boundary",
+    "kind": "authenticate",
+    "input": {
+      "state": "reserved",
+      "now": 600,
+      "reservationExpiresAt": 600,
+      "closeCookieProved": true,
+      "passwordValid": true,
+      "expectedAccount": "A",
+      "provedAccount": "A"
+    },
+    "expected": {
+      "code": "preparation_expired",
+      "issuesAuth": false
+    }
+  },
+  {
+    "name": "never-send-password-before-capability",
+    "kind": "authenticate",
+    "input": {
+      "state": "reserved",
+      "now": 1,
+      "reservationExpiresAt": 600,
+      "closeCookieProved": false,
+      "passwordValid": true,
+      "expectedAccount": "A",
+      "provedAccount": "A"
+    },
+    "expected": {
+      "code": "invalid_credentials",
+      "issuesAuth": false
+    }
+  },
+  {
+    "name": "reauth-A-cannot-select-B",
+    "kind": "authenticate",
+    "input": {
+      "state": "reserved",
+      "now": 1,
+      "reservationExpiresAt": 600,
+      "closeCookieProved": true,
+      "passwordValid": true,
+      "expectedAccount": "A",
+      "provedAccount": "B"
+    },
+    "expected": {
+      "code": "account_mismatch",
+      "issuesAuth": false
+    }
+  },
+  {
+    "name": "cancel-preparing-before-fetch",
+    "kind": "journal",
+    "input": {
+      "from": "preparing",
+      "to": "terminal",
+      "proof": "not_dispatched",
+      "prepareDispatched": false
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "expire-reservation-after-dispatch-gap",
+    "kind": "journal",
+    "input": {
+      "from": "preparing",
+      "to": "terminal",
+      "proof": "expired_unbound",
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "ok"
+    }
+  },
+  {
+    "name": "close-never-authenticated-proof",
+    "kind": "journal",
+    "input": {
+      "from": "preparing",
+      "to": "terminal",
+      "proof": "closed_unbound",
+      "prepareDispatched": true
+    },
+    "expected": {
+      "code": "ok"
+    }
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "scope": "Design only: OpenAPI/JSON Schema, fixtures and specification oracle. No HTTP, cookies, SQL or IndexedDB exercised.",
+  "paths": 17,
+  "transport_schemas": 65,
+  "local_record_schemas": 10,
+  "examples": 50,
+  "positive": 27,
+  "negative": 23,
+  "decision_scenarios": 61,
+  "domain_contract_unchanged": true
+}

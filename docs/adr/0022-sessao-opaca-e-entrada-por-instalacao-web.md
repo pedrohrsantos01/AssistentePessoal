@@ -20,3 +20,5 @@ Pedro escolheu **A em Q70–Q74**, conforme a [entrevista](../../.scratch/pwa-m1
 Sessão local ativa continua permitindo trabalho offline. Saída local e revogação remota são estados distintos: HttpOnly não pode ser apagado fisicamente pelo JS durante logout sem rede. O bloqueio local deve ser durável antes de confirmar a saída; a revogação remota pode permanecer pendente sem apagar a fila.
 
 Esta ADR registra decisões de fronteira/uso, não implantação ou aceite. A tarefa02 permanece aberta para o protocolo exato, a aplicação dos limites aprovados e as provas. O [desenho candidato](../../.scratch/pwa-m1/contratos-navegador.md) distingue decisões aceitas de hipóteses ainda não implementadas; iOS26.6.2 é a versão declarada para o ensaio físico futuro. Nenhum runtime foi alterado por este registro.
+
+**Concretização posterior,22/10/2026:** Q75=A confirmou entendimento/início02a. [Contrato executável](../../contracts/pwa-m1/README.md) e representação no spec/00 especificados; [relatório](../analises/2026-10-22-contrato-executavel-pwa.md). Tarefas09/10 ainda devem provar adapters/SQL/cookies/IDB; sem implementação de produto ou aceite por essa consolidação.

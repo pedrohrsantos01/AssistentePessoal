@@ -1,0 +1,938 @@
+[
+  {
+    "name": "challenge-request",
+    "schema": "ChallengeRequest",
+    "value": {
+      "attemptId": "019abf00-0000-7000-8000-000000000093",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "expectedAccountId": null
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "challenge-response",
+    "schema": "ChallengeResponse",
+    "value": {
+      "attemptId": "019abf00-0000-7000-8000-000000000093",
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "issuedAt": "2026-10-22T12:00:00Z",
+      "ticketExpiresAt": "2026-10-22T12:05:00Z",
+      "reservationExpiresAt": "2026-10-22T12:10:00Z",
+      "closeCookieExpiresAt": "2027-01-21T12:00:00Z",
+      "preparationTicket": "synthetic-ticket-for-contract-only-000000"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "prepare-request",
+    "schema": "PrepareRequest",
+    "value": {
+      "preparationTicket": "synthetic-ticket-for-contract-only-000000"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "preparation-receipt",
+    "schema": "PreparationReceipt",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "reservationExpiresAt": "2026-10-22T12:10:00Z",
+      "closeCookieExpiresAt": "2027-01-21T12:00:00Z"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "expired-never-authenticated",
+    "schema": "ReservationProof",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "state": "expired_unbound",
+      "reservationExpiresAt": "2026-10-22T12:00:00Z"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "web-login",
+    "schema": "WebLoginRequest",
+    "value": {
+      "email": "person@example.test",
+      "password": "fixture-password",
+      "deviceId": "019abf00-0000-7000-8000-000000000090"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "web-register",
+    "schema": "WebRegisterRequest",
+    "value": {
+      "email": "person@example.test",
+      "password": "fixture-password",
+      "deviceId": "019abf00-0000-7000-8000-000000000090",
+      "displayName": "Pessoa de teste"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "session-public-metadata",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      }
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "claim",
+    "schema": "OwnerClaim",
+    "value": {
+      "epoch": "3",
+      "tabId": "019abf00-0000-7000-8000-000000000092"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "claim-receipt",
+    "schema": "OwnerReceipt",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "epoch": "3",
+      "tabId": "019abf00-0000-7000-8000-000000000092"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "close-proof",
+    "schema": "CloseReceipt",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "state": "closed"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "recover-without-fifth-session",
+    "schema": "RecoveryCloseRequest",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "email": "person@example.test",
+      "password": "fixture-password"
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "first-pull",
+    "schema": "PullRequest",
+    "value": {
+      "cursor": null,
+      "limit": 500
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "first-snapshot-page",
+    "schema": "SnapshotPageRequest",
+    "value": {
+      "pageCursor": null
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "typed-owner-error",
+    "schema": "WebError",
+    "value": {
+      "error": {
+        "code": "owner_lost",
+        "requestId": "019abf00-0000-7000-8000-000000000094",
+        "fields": [],
+        "retryAfterSeconds": null
+      }
+    },
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "active-control",
+    "schema": "Control",
+    "value": {
+      "singleton": 1,
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "schema_version": 1,
+      "session_state": "active",
+      "session_generation": 2,
+      "selected_account_id": "01996300-0000-7000-8000-000000000001",
+      "selected_context_id": "019abf00-0000-7000-8000-000000000091",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "owner_epoch": "2"
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "active-journal",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "active",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "compatibility-per-build",
+    "schema": "Compatibility",
+    "value": {
+      "build_id": "0.1.0",
+      "protocol_version": "m1.1",
+      "schema_version": 1,
+      "state": "compatible",
+      "checked_at": "2026-10-22T12:00:00Z"
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "appearance",
+    "schema": "Appearance",
+    "value": {
+      "version": 1,
+      "skin": "holo",
+      "mode": "system"
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "account",
+    "schema": "Account",
+    "value": {
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "state": "ready"
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "canonical-profile",
+    "schema": "Canonical",
+    "value": {
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "kind": "profile",
+      "entity_key": "01996300-0000-7000-8000-000000000001",
+      "revision": "1",
+      "payload": {
+        "kind": "profile",
+        "value": {
+          "accountId": "01996300-0000-7000-8000-000000000001",
+          "displayName": "Pessoa de teste",
+          "timeContext": {
+            "timezone": "America/Sao_Paulo",
+            "dayStartHour": 4
+          },
+          "plan": "free",
+          "onboardedAt": "2026-09-25T13:00:00Z",
+          "analyticsConsentAt": null,
+          "revision": "1"
+        }
+      }
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "durable-intent",
+    "schema": "Mutation",
+    "value": {
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "operation_id": "01996300-0000-7000-8000-000000000010",
+      "device_id": "01996300-0000-7000-8000-000000000002",
+      "client_sequence": 3,
+      "envelope": {
+        "operationId": "01996300-0000-7000-8000-000000000010",
+        "deviceId": "01996300-0000-7000-8000-000000000002",
+        "clientSequence": 3,
+        "occurredAt": "2026-09-25T13:00:00Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01996300-0000-7000-8000-000000000003",
+          "dayKey": "2026-09-25",
+          "timeContext": {
+            "timezone": "America/Sao_Paulo",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      "dependencies": [],
+      "status": "pending",
+      "attempts": 0,
+      "next_attempt_at": null,
+      "error": null,
+      "result": null
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "sync-state",
+    "schema": "SyncState",
+    "value": {
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "cursor": null,
+      "next_sequence": 1,
+      "onboarding_step": "time_context",
+      "snapshot_id": null,
+      "snapshot_revision": null,
+      "snapshot_cursor": null,
+      "snapshot_expires_at": null
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "staged-profile",
+    "schema": "Staging",
+    "value": {
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "snapshot_id": "019abf00-0000-7000-8000-000000000095",
+      "kind": "profile",
+      "entity_key": "01996300-0000-7000-8000-000000000001",
+      "revision": "1",
+      "payload": {
+        "kind": "profile",
+        "value": {
+          "accountId": "01996300-0000-7000-8000-000000000001",
+          "displayName": "Pessoa de teste",
+          "timeContext": {
+            "timezone": "America/Sao_Paulo",
+            "dayStartHour": 4
+          },
+          "plan": "free",
+          "onboardedAt": "2026-09-25T13:00:00Z",
+          "analyticsConsentAt": null,
+          "revision": "1"
+        }
+      }
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "xp-projection",
+    "schema": "Projection",
+    "value": {
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "kind": "xp",
+      "entity_key": "total",
+      "payload": {
+        "totalXp": 10
+      }
+    },
+    "valid": true,
+    "scope": "local"
+  },
+  {
+    "name": "session-forbids-accessToken",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      },
+      "accessToken": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "session-forbids-refreshToken",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      },
+      "refreshToken": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "session-forbids-revokeToken",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      },
+      "revokeToken": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "session-forbids-password",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      },
+      "password": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "session-forbids-preparationTicket",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      },
+      "preparationTicket": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "journal-forbids-cookie",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "active",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null,
+      "cookie": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "journal-forbids-password",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "active",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null,
+      "password": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "journal-forbids-refreshToken",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "active",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null,
+      "refreshToken": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "journal-forbids-revokeToken",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "active",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null,
+      "revokeToken": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "journal-forbids-preparationTicket",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "active",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null,
+      "preparationTicket": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "journal-forbids-passwordHash",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "active",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null,
+      "passwordHash": "synthetic-rejected-value"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "session-mismatched-profile",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "019abf00-0000-7000-8000-000000000096",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      }
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "epoch-overflow",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2026-11-21T12:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "9223372036854775808",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      }
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "idle-cannot-exceed-absolute",
+    "schema": "WebSession",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "installationId": "019abf00-0000-7000-8000-000000000090",
+      "accountId": "01996300-0000-7000-8000-000000000001",
+      "authenticatedAt": "2026-10-22T12:00:00Z",
+      "idleExpiresAt": "2027-02-01T00:00:00Z",
+      "absoluteExpiresAt": "2027-01-20T12:00:00Z",
+      "ownerEpoch": "2",
+      "ownerTabId": "019abf00-0000-7000-8000-000000000092",
+      "profile": {
+        "accountId": "01996300-0000-7000-8000-000000000001",
+        "displayName": "Pessoa de teste",
+        "timeContext": {
+          "timezone": "America/Sao_Paulo",
+          "dayStartHour": 4
+        },
+        "plan": "free",
+        "onboardedAt": "2026-09-25T13:00:00Z",
+        "analyticsConsentAt": null,
+        "revision": "1"
+      }
+    },
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "active-requires-account",
+    "schema": "Control",
+    "value": {
+      "singleton": 1,
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "schema_version": 1,
+      "session_state": "active",
+      "session_generation": 2,
+      "selected_account_id": null,
+      "selected_context_id": "019abf00-0000-7000-8000-000000000091",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "owner_epoch": "2"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "locked-cannot-retain-selection",
+    "schema": "Control",
+    "value": {
+      "singleton": 1,
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "schema_version": 1,
+      "session_state": "locked",
+      "session_generation": 2,
+      "selected_account_id": "01996300-0000-7000-8000-000000000001",
+      "selected_context_id": "019abf00-0000-7000-8000-000000000091",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "owner_epoch": "2"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "terminal-needs-proof",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "terminal",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": null
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "dispatched-cannot-claim-no-request",
+    "schema": "AuthJournal",
+    "value": {
+      "attempt_id": "019abf00-0000-7000-8000-000000000093",
+      "context_id": "019abf00-0000-7000-8000-000000000091",
+      "installation_id": "019abf00-0000-7000-8000-000000000090",
+      "expected_account_id": "01996300-0000-7000-8000-000000000001",
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "session_generation": 2,
+      "prepare_dispatched": true,
+      "owner_epoch": "2",
+      "owner_tab_id": "019abf00-0000-7000-8000-000000000092",
+      "phase": "terminal",
+      "reservation_expires_at": "2026-10-22T12:10:00Z",
+      "close_cookie_expires_at": "2027-01-21T12:00:00Z",
+      "terminal_proof": "not_dispatched"
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "immutable-sequence-match",
+    "schema": "Mutation",
+    "value": {
+      "account_id": "01996300-0000-7000-8000-000000000001",
+      "operation_id": "01996300-0000-7000-8000-000000000010",
+      "device_id": "01996300-0000-7000-8000-000000000002",
+      "client_sequence": 4,
+      "envelope": {
+        "operationId": "01996300-0000-7000-8000-000000000010",
+        "deviceId": "01996300-0000-7000-8000-000000000002",
+        "clientSequence": 3,
+        "occurredAt": "2026-09-25T13:00:00Z",
+        "dependsOn": [],
+        "command": {
+          "type": "habit.mark",
+          "habitId": "01996300-0000-7000-8000-000000000003",
+          "dayKey": "2026-09-25",
+          "timeContext": {
+            "timezone": "America/Sao_Paulo",
+            "dayStartHour": 4
+          },
+          "observedUndoIds": []
+        }
+      },
+      "dependencies": [],
+      "status": "pending",
+      "attempts": 0,
+      "next_attempt_at": null,
+      "error": null,
+      "result": null
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "epoch-leading-zero",
+    "schema": "Epoch",
+    "value": "01",
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "epoch-max",
+    "schema": "Epoch",
+    "value": "9223372036854775807",
+    "valid": true,
+    "scope": "transport"
+  },
+  {
+    "name": "epoch-above-max",
+    "schema": "Epoch",
+    "value": "9223372036854775808",
+    "valid": false,
+    "scope": "transport"
+  },
+  {
+    "name": "Canonical-profile-cannot-cross-account",
+    "schema": "Canonical",
+    "value": {
+      "account_id": "019abf00-0000-7000-8000-000000000099",
+      "kind": "profile",
+      "entity_key": "01996300-0000-7000-8000-000000000001",
+      "revision": "1",
+      "payload": {
+        "kind": "profile",
+        "value": {
+          "accountId": "01996300-0000-7000-8000-000000000001",
+          "displayName": "Pessoa de teste",
+          "timeContext": {
+            "timezone": "America/Sao_Paulo",
+            "dayStartHour": 4
+          },
+          "plan": "free",
+          "onboardedAt": "2026-09-25T13:00:00Z",
+          "analyticsConsentAt": null,
+          "revision": "1"
+        }
+      }
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "Staging-profile-cannot-cross-account",
+    "schema": "Staging",
+    "value": {
+      "account_id": "019abf00-0000-7000-8000-000000000099",
+      "snapshot_id": "019abf00-0000-7000-8000-000000000095",
+      "kind": "profile",
+      "entity_key": "01996300-0000-7000-8000-000000000001",
+      "revision": "1",
+      "payload": {
+        "kind": "profile",
+        "value": {
+          "accountId": "01996300-0000-7000-8000-000000000001",
+          "displayName": "Pessoa de teste",
+          "timeContext": {
+            "timezone": "America/Sao_Paulo",
+            "dayStartHour": 4
+          },
+          "plan": "free",
+          "onboardedAt": "2026-09-25T13:00:00Z",
+          "analyticsConsentAt": null,
+          "revision": "1"
+        }
+      }
+    },
+    "valid": false,
+    "scope": "local"
+  },
+  {
+    "name": "closed-never-authenticated",
+    "schema": "ReservationProof",
+    "value": {
+      "contextId": "019abf00-0000-7000-8000-000000000091",
+      "state": "closed_unbound",
+      "reservationExpiresAt": "2026-10-22T12:00:00Z"
+    },
+    "valid": true,
+    "scope": "transport"
+  }
+]

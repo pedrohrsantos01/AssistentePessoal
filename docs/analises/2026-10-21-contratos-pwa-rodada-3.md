@@ -49,3 +49,5 @@ Somente documentação e instruções foram alteradas; fontes app/API/web, contr
 - Estes checks verificam o baseline existente. Não testam sessão/concorrência web ainda propostas. Nenhum navegador ou emulador foi aberto neste incremento.
 
 Conferência local:10 documentos UTF-8 sem caracteres de substituição;78 links relativos existentes; oito respostas A para Q67–Q74 na entrevista, com Q75 ainda pendente. Diff conferido sem erro de whitespace. As decisões aceitas estão na ADR-022; a confirmação Q75 é sobre o entendimento e o plano de próximos recortes.
+
+**Resposta posterior/consolidação em22/10/2026:** Q75=A confirmou iniciar02a, concluído como [contrato executável](../../contracts/pwa-m1/README.md). [Relatório atual](2026-10-22-contrato-executavel-pwa.md). A confirmação deixou de ser pendência; adapters/provas físicas continuam abertos.

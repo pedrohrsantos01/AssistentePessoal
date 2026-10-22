@@ -68,8 +68,10 @@ Proposta e desenho: [contratos do navegador](contratos-navegador.md). Consolida�
 - **Q73 — Validade web:** A,30dias sem comunicação remota autenticada, renovados pelo uso até90dias desde o login, recomendada; B,30dias fixos. **Pedro respondeu A.** Exigir login online para voltar a sincronizar após vencer; preservar uso/pendências da sessão local não encerrada. Valores do Ritmo, sem alterar os prazos nativos.
 - **Q74 — Contextos locais:** A, até quatro contando ativo/preparações/encerramentos pendentes, recomendada; B, outro limite dependente de capacidade do browser. **Pedro respondeu A.** Nova entrada espera recuperação sem descartar intenções; sessão local ativa continua. Não inferir que quatro contextos provam oito cookies físicos ou que a recuperação já está implementada.
 
-## Confirmação do entendimento — Q75 pendente
+## Confirmação do entendimento — Q75 respondida A
 
 Proposta concreta: avançar em02a, especificando o protocolo e as representações/erros/fixtures, seguido de02b para provas locais visíveis;02c preserva o gate HTTPS/Safari/Tela de Início. Inclui reserva antes da senha, credenciais segregadas, recuperação sem quinta sessão, posse por época/CAS e limite de commit independente da aparência. O desenho ainda precisa provar cookies órfãos/limpeza, transições e crash/upgrade.
 
-A confirmação abrange o plano local e o entendimento consolidado. Não aceita a PWA/M1, não publica/contrata e não libera tarefa03 sem os contratos/provas. Conforme grilling, aguardar confirmação antes de executar o desenho; não reabrir decisões Q61–Q74 já aprovadas.
+A confirmação abrange o plano local e o entendimento consolidado. Não aceita a PWA/M1, não publica/contrata e não libera tarefa03 sem os contratos/provas. Pedro respondeu A e confirmou iniciar02a. Entendimento confirmado conforme grilling; não reabrir Q61–Q75. Registro de consolidação em22/10/2026.
+
+22/10/2026 —02a concluído como [contrato executável](../../contracts/pwa-m1/README.md), com campos/índices no spec/00, mensagens e cenários de decisão. [Relatório](../../docs/analises/2026-10-22-contrato-executavel-pwa.md). Próximas provas nas tarefas09/10; sem implementação de produto/aceite físico neste incremento.
