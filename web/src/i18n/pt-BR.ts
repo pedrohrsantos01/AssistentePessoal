@@ -1,4 +1,18 @@
 export const pt = {
+  webSession: {
+    title: 'Ritmo — prova de sessão web',
+    scope: 'HTTPS local · Java/PostgreSQL reais · contas sintéticas',
+    running: 'Verificando sessão e cookies…', done: 'Prova local concluída. Recursos serão encerrados.',
+    steps: [
+      'Reserva e confirmação antes da senha; cadastro da fixture A.',
+      'Cookies protegidos: HttpOnly, Secure, SameSite e Path por contexto.',
+      'Outra conta ativa enquanto uma resposta antiga aguarda na rede.',
+      'Encerramento comprovado; resposta antiga reaparece sem reabrir a sessão.',
+      'Resposta incompleta: inspeção recupera a sessão sem reenviar senha.',
+      'Cancelar a requisição não desfaz uma autenticação aceita no servidor.',
+      'Conta B permanece isolada; nenhuma credencial é exposta ao JavaScript.',
+    ],
+  },
   title: 'Ritmo — ensaio PWA', brand: 'Ritmo', proof: 'PROVA TÉCNICA · DADOS SINTÉTICOS',
   date: 'QUARTA, 21 OUTUBRO', greeting: 'Bom dia, visitante.', briefing: 'Seu Briefing', habits: 'HÁBITOS DE HOJE',
   description: 'Um passo de cada vez, no seu ritmo.', xp: (xp: number) => `${xp} XP`, provisional: 'XP provisório',

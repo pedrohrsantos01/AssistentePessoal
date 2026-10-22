@@ -23,8 +23,9 @@ public class Contract {
         }).build());
     private final JsonNode document;
     private final ConcurrentHashMap<String,Schema> schemas=new ConcurrentHashMap<>();
-    public Contract() throws java.io.IOException {
-        try(var input=getClass().getResourceAsStream("/contracts/openapi.json")) {
+    public Contract() throws java.io.IOException {this("/contracts/openapi.json");}
+    protected Contract(String resource) throws java.io.IOException {
+        try(var input=getClass().getResourceAsStream(resource)) {
             if(input==null) throw new IllegalStateException("contract_missing");
             document=Json.read(new String(input.readAllBytes(),java.nio.charset.StandardCharsets.UTF_8));
         }

@@ -147,6 +147,7 @@ class RestoreTests {
                 ALTER TABLE identity_sessions OWNER TO recovery_operator;
                 ALTER TABLE identity_refresh_tokens OWNER TO recovery_operator;
                 ALTER TABLE identity_password_resets OWNER TO recovery_operator;
+                ALTER TABLE identity_web_contexts OWNER TO recovery_operator;
                 """);
             for(int repeat=0;repeat<2;repeat++) succeeds(db,"env","PGUSER=recovery_operator","PGPASSWORD=fixture-operator",
                 "RITMO_RECOVERY_QUARANTINE=true","RITMO_RECOVERY_VERIFIED=true","sh","/tmp/prepare-recovery.sh");

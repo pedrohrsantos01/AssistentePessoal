@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /** Resolves only the quota identity; never changes request scheme, host or socket peer. */
 @Component
-final class ClientOrigins {
+public final class ClientOrigins {
     private final Set<String> trusted;
     ClientOrigins(@Value("${ritmo.proxy.trusted-peers}") String peers,
                   @Value("${server.forward-headers-strategy:none}") String strategy,
@@ -27,7 +27,7 @@ final class ClientOrigins {
         }
         trusted=Set.copyOf(parsed);
     }
-    String identity(HttpServletRequest request) {
+    public String identity(HttpServletRequest request) {
         String raw=request.getRemoteAddr();String peer=literal(raw);
         if(peer==null) return raw;
         if(!trusted.contains(peer)) return peer;

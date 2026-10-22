@@ -48,11 +48,17 @@ tasks.named('test') {
     if (providers.environmentVariable('RITMO_ANDROID_SERIAL').isPresent()) outputs.upToDateWhen { false }
     def androidApk = providers.environmentVariable('RITMO_ANDROID_APK')
     if (androidApk.isPresent()) inputs.file(androidApk.get())
+    inputs.files('../web/scripts/verify-web-session.mjs', '../web/src/i18n/pt-BR.ts', '../app/src/theme/tokens.ts')
+    inputs.property('webBrowser', providers.environmentVariable('RITMO_WEB_BROWSER').orElse(''))
+    if (providers.environmentVariable('RITMO_WEB_BROWSER').isPresent()) outputs.upToDateWhen { false }
     inputs.files('../app/package.json', '../app/pnpm-lock.yaml', '../app/tsconfig.json')
     testLogging { events 'passed', 'skipped', 'failed'; exceptionFormat = 'full' }
 }
 
-tasks.named('processResources') { from('../contracts/primeiro-marco/openapi.json') { into 'contracts' } }
+tasks.named('processResources') {
+    from('../contracts/primeiro-marco/openapi.json') { into 'contracts' }
+    from('../contracts/pwa-m1/openapi.json') { into 'contracts/web' }
+}
 
 // Finite operational jobs share check with the API; no scheduler/service is started.
 tasks.register('operationsTest', Exec) {

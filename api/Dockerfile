@@ -5,6 +5,7 @@ COPY api/gradlew api/build.gradle api/settings.gradle api/gradle.lockfile ./api/
 COPY api/gradle/wrapper/ ./api/gradle/wrapper/
 COPY api/src/main/ ./api/src/main/
 COPY contracts/primeiro-marco/openapi.json ./contracts/primeiro-marco/openapi.json
+COPY contracts/pwa-m1/openapi.json ./contracts/pwa-m1/openapi.json
 WORKDIR /workspace/api
 RUN --mount=type=cache,target=/root/.gradle chmod +x gradlew && ./gradlew bootJar --no-daemon
 

@@ -388,7 +388,7 @@ Não define ainda nomes de stores/campos/índices ou migrations de produto. O in
 
 ## Representação web especificada em02a — 22/10/2026
 
-Q75=A confirmou o entendimento e autorizou especificar02a. Esta seção **especifica a representação para as provas02b; não declara DDL, migration ou adapter aplicado**. Complementa a fronteira Q69, sem alterar tabelas nativas. Contrato executável: [PWA M1](../contracts/pwa-m1/README.md), com OpenAPI, schemas e cenários negativos. Aplicação física exige nova Flyway e atualização desta seção no mesmo commit do schema; não gerar V6 vazia ou aplicar tabelas sem uso neste recorte documental.
+Q75=A confirmou o entendimento e autorizou especificar02a. Esta seção especifica a representação para as provas02b. V6 (`api/src/main/resources/db/migration/V6__opaque_web_contexts.sql`) aplica as duas tabelas privadas e a função restrita de autorização web. O IndexedDB abaixo ainda não foi aplicado ao produto. Complementa a fronteira Q69, sem alterar tabelas nativas. Contrato executável: [PWA M1](../contracts/pwa-m1/README.md), com OpenAPI, schemas e cenários negativos. Aplicação física exige nova Flyway e atualização desta seção no mesmo commit do schema; V6 é usada pelos adapters de sessão web e pelos ensaios reais do recorte09.
 
 ### Postgres — somente Identity, antes de autenticar domínio
 
@@ -436,3 +436,5 @@ Store `preferences`, chave `appearance`; valor `{version:1,skin:holo|cockpit|neo
 ### Migração e compatibilidade
 
 Produto inicia bancos V1 próprios; prova usa outro nome. Evolução física exige versão IndexedDB nova, adaptação atômica e ensaio de abort/retomada. versionchange fecha handles sem aguardar o gate global; migrador não apaga dados para resolver blocked. Versão desconhecida preserva e bloqueia o escopo, incluindo controle ilegível. Nenhum adapter/schema foi aplicado em02a;02b deve implementar e verificar os comportamentos/índices acima com migrations/grants reais no mesmo recorte correspondente.
+
+22/10/2026 — Aplicação do servidor no recorte09: V6 concretiza instalações/contextos e `identity_authorize_web_context(uuid,bytea,uuid,bigint,uuid,boolean)`. A função SECURITY DEFINER tem search_path fixo em pg_catalog, nomes qualificados, EXECUTE revogado de PUBLIC e concedido só a ritmo_domain. Retém locks de usuário/contexto até o commit do comando; primeira chamada valida, segunda renova após a quota. Policy exclusiva do dono da migration permite FORCE RLS sem SUPERUSER/BYPASSRLS, sem SELECT adicional ao runtime. Cadastro trava a reserva antes de inserir a conta nova; login/autorizações de conta existente travam usuário antes do contexto. Limpeza em lotes de500 não elimina registros mínimos. O [relatório09](../docs/analises/2026-10-22-prova-sessao-web.md) delimita evidência/pendências; IndexedDB continua no recorte10.

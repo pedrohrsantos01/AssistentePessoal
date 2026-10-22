@@ -33,7 +33,9 @@ public class Sync {
         var all=new ArrayList<Entity>();all.addAll(identity.projections(user));all.addAll(habits.projections(user));all.addAll(xp.projections(user));return all;
     }
     private void lock(String user) {
-        identity.projections(user);
+        // Native and web use the same order: account before sync state. Otherwise
+        // native onboarding (state -> account UPDATE) can deadlock web authorization.
+        identity.lockAccount(user);
         db.execute("insert into sync_account_state(user_id,feed_epoch) values(?::uuid,?::uuid) on conflict do nothing",user,Json.id());
         db.one("select to_jsonb(last_revision) from sync_account_state where user_id=?::uuid for update",user);
     }
@@ -178,7 +180,8 @@ public class Sync {
         return cursors.seal(Json.object().put("kind","pull").put("user",user).put("epoch",epoch)
             .put("after",Long.toString(after)).put("high",Long.toString(high)).put("issued",clock.instant().toString()));
     }
-    public JsonNode pull(String user,String cursor) {
+    public JsonNode pull(String user,String cursor) {return pull(user,cursor,500);}
+    public JsonNode pull(String user,String cursor,int limit) {
         if(cursor==null) throw new HttpFailure(409,"resync_required");
         var token=cursors.open(cursor,user,"pull");
         return transactions.run(user,()->{
@@ -193,8 +196,8 @@ public class Sync {
                 (select jsonb_agg(e.value || jsonb_build_object('operationHash',encode(r.payload_hash,'hex')) order by e.ordinality)
                  from jsonb_array_elements(c.envelope->'operationResults') with ordinality e(value,ordinality)
                  join sync_operation_receipts r on r.user_id=c.user_id and r.user_id=?::uuid and r.operation_id=(e.value->>'operationId')::uuid))
-                from sync_changes c where c.user_id=?::uuid and c.revision>?::bigint and c.revision<=?::bigint order by c.revision limit 500
-                """,user,user,Long.toString(after),Long.toString(high));
+                from sync_changes c where c.user_id=?::uuid and c.revision>?::bigint and c.revision<=?::bigint order by c.revision limit ?::int
+                """,user,user,Long.toString(after),Long.toString(high),Integer.toString(limit));
             if(rows.stream().anyMatch(change->change.path("entities").size()>32)) throw new HttpFailure(409,"resync_required");
             long next=rows.isEmpty()?after:Long.parseLong(rows.getLast().path("revision").asString());
             var response=Json.object().put("nextCursor",pullCursor(user,state.path("epoch").asString(),next,high)).put("hasMore",next<high)

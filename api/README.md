@@ -118,3 +118,23 @@ Ambos abrem emulador/painel visíveis e encerram somente os recursos próprios, 
 `-ReaderOnly` repete somente gestos do TalkBack quando `palette-summary.json` da pasta de evidências já comprova12 capturas/36 verificações de alvos e o mesmo hash do APK. A execução normal grava esse resumo após concluir as paletas, antes de testar o leitor.
 
 A entrada física exige `-EnableDebugInput`, que só ativa adb root temporariamente em imagem depurável/processo próprio, restaurando com unroot; nenhum setenforce ou mudança de permissão de host. O Pixel_9 Google Play atual é preservado e recusado por esse guard. O teste/ponte de leitor preparado continua sem aceite nativo; ver `.scratch/interface-m1/leitor-e-desempenho.md`.
+
+## Prova de sessão web — recorte09/02b
+
+As17 rotas POST de [PWA M1](../contracts/pwa-m1/README.md) estão implementadas no mesmo Java/PostgreSQL, sem jornada web de produto. V6 mantém instalações/contextos privados a Identity. O domínio só recebe EXECUTE na função `identity_authorize_web_context`: valida e mantém locks de conta/contexto na conexão/transação que efetua o comando m1.1. O dono da migration tem policy própria para que FORCE RLS também funcione sem superusuário; logins runtime continuam separados.
+
+Habilitar a fronteira exige `RITMO_WEB_ORIGIN` (origem HTTPS exata, sem barra final) e `RITMO_WEB_PREPARATION_KEY` (chave independente, pelo menos32bytes em Base64, no cofre). Ausência da origem mantém as rotas web indisponíveis; chave ausente impede nova preparação. Bearer nativo não autentica rotas web. Não colocar chaves no frontend.
+
+Java aceita16KB de headers, com erro web431 para Cookie acima de8192bytes. O ingress real também deve permitir esse limite; o ensaio HTTPS local não valida a configuração futura do Coolify. Limpeza a cada60s processa até500 contextos; não elimina registros mínimos de recuperação. Reservas5/10min, close91dias, auth30dias sem uso/90dias absolutos seguem o contrato, sem rotação/reemissão de segredo.
+
+`WebSessionTests` aplica Flyway com dono sem SUPERUSER/BYPASSRLS e verifica HTTP/SQL reais. A prova de cookies é opt-in **visível**, sem modo headless:
+
+```powershell
+$env:RITMO_WEB_BROWSER='1'
+.\gradlew.bat test --tests dev.ritmo.WebSessionTests --no-daemon
+Remove-Item Env:RITMO_WEB_BROWSER
+```
+
+Requer dependências já instaladas em `web/`, Chrome, Node24, Java21 e Docker. O job finito cria API, Postgres, certificado local e proxy HTTPS descartáveis; encerra seus recursos em finally. Não inicia servidor de desenvolvimento persistente. Saída em `output/playwright/web-session/` na raiz (ignorada pelo Git), com screenshots/result.json sem valores de cookies; o perfil é efêmero. Sem o opt-in, o caso de navegador é marcado como ignorado e os testes HTTP/SQL continuam.
+
+[Relatório e limites](../docs/analises/2026-10-22-prova-sessao-web.md). Safari/Tela de Início, IndexedDB de produto e M1 continuam pendentes; a prova sintética01 não foi migrada para produto.

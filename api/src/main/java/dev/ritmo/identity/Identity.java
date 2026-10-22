@@ -113,7 +113,7 @@ public class Identity {
         int count=value.codePointCount(0,value.length());
         if(count<8||count>128) throw new BusinessFailure("validation_failed");
     }
-    private JsonNode profile(Sql db,String user) {
+    static JsonNode profile(Sql db,String user) {
         return db.one("""
             select jsonb_build_object('accountId',id,'displayName',display_name,
             'timeContext',jsonb_build_object('timezone',timezone,'dayStartHour',day_start_hour),
@@ -121,6 +121,9 @@ public class Identity {
             'analyticsConsentAt',case when analytics_consent_at is null then null else to_char(analytics_consent_at at time zone 'UTC','YYYY-MM-DD"T"HH24:MI:SS.MS"Z"') end,
             'revision',revision::text) from users where id=?::uuid and deleted_at is null
             """,user);
+    }
+    public void lockAccount(String user) {
+        domain.one("select to_jsonb(id) from users where id=?::uuid and deleted_at is null for update",user);
     }
     public void onboard(String user,JsonNode command,String revision) {
         java.time.ZoneId.of(command.at("/timeContext/timezone").asString());

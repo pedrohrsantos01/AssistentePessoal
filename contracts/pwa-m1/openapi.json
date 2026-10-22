@@ -3,7 +3,7 @@
   "info": {
     "title": "Ritmo — PWA M1, contrato 02a",
     "version": "0.1.0",
-    "description": "Design only; no implemented endpoint. Domain protocol remains m1.1. See README.md."
+    "description": "Server adapters implemented in slice09/02b. Browser storage/product journey and Safari acceptance remain pending. Domain protocol remains m1.1. See README.md."
   },
   "servers": [
     {

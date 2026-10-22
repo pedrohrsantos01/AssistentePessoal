@@ -11,7 +11,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.Ordered;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-@Component @Order(Ordered.HIGHEST_PRECEDENCE)
+@Component @Order(Ordered.HIGHEST_PRECEDENCE+1)
 class ProtocolFilter extends OncePerRequestFilter {
     private final Sql db; private final RateLimits limits; private final ClientOrigins origins; private final boolean quarantined;
     ProtocolFilter(@Qualifier("domainSql") Sql db,RateLimits limits,ClientOrigins origins,
@@ -44,7 +44,10 @@ class ProtocolFilter extends OncePerRequestFilter {
     @Override protected boolean shouldNotFilter(HttpServletRequest request) {return !request.getServletPath().startsWith("/api/v1/");}
     @Override protected void doFilterInternal(HttpServletRequest request,HttpServletResponse response,FilterChain chain) throws IOException,ServletException {
         if(quarantined) {fail(response,503,"temporarily_unavailable");return;}
-        try {limits.checkIp(origins.identity(request),request.getServletPath(),request.getMethod());}
+        try {
+            // The early web boundary already charges this shared bucket before CSRF.
+            if(!Boolean.TRUE.equals(request.getAttribute("ritmo.web.ip-limited"))) limits.checkIp(origins.identity(request),request.getServletPath(),request.getMethod());
+        }
         catch(HttpFailure failure) {HttpErrors.write(response,failure);return;}
         var version=Version.parse(request.getHeader("X-App-Version"));
         if(!"m1.1".equals(request.getHeader("X-Ritmo-Protocol"))||version==null) {

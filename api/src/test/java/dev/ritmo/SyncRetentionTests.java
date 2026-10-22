@@ -181,6 +181,11 @@ class SyncRetentionTests {
         try(var owner=DriverManager.getConnection(POSTGRES.getJdbcUrl(),POSTGRES.getUsername(),POSTGRES.getPassword());
             var workers=java.util.concurrent.Executors.newVirtualThreadPerTaskExecutor()) {
             owner.setAutoCommit(false);
+            // Hold the same account-first boundary as native and web commands;
+            // keep sync state locked too so maintenance cannot delete the fixture.
+            try(var statement=owner.prepareStatement("select id from users where id=?::uuid for update")) {
+                statement.setString(1,user);statement.executeQuery().close();
+            }
             try(var statement=owner.prepareStatement("select last_revision from sync_account_state where user_id=?::uuid for update")) {
                 statement.setString(1,user);statement.executeQuery().close();
             }
@@ -192,7 +197,7 @@ class SyncRetentionTests {
                 while(!waiting&&!page.isDone()&&!receipts.isDone()&&System.nanoTime()<deadline) {
                     try(var probe=DriverManager.getConnection(POSTGRES.getJdbcUrl(),POSTGRES.getUsername(),POSTGRES.getPassword());
                         var statement=probe.createStatement();
-                        var rows=statement.executeQuery("select count(*) from pg_stat_activity where usename='ritmo_domain' and wait_event_type='Lock' and query like '%sync_account_state%'")) {
+                        var rows=statement.executeQuery("select count(*) from pg_stat_activity where usename='ritmo_domain' and wait_event_type='Lock' and query like '%from users%'")) {
                         rows.next();waiting=rows.getInt(1)>=2;
                     }
                     if(!waiting) Thread.sleep(20);

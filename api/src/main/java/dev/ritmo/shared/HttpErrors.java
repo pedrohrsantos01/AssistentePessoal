@@ -35,7 +35,7 @@ public class HttpErrors {
         return ResponseEntity.status(e.code.equals("invalid_credentials")?401:400).body(body(e.code.equals("invalid_credentials")?e.code:"invalid_request"));
     }
     @ExceptionHandler(DuplicateKeyException.class) ResponseEntity<JsonNode> duplicate() {return ResponseEntity.status(409).body(body("email_unavailable"));}
-    @ExceptionHandler({MethodArgumentNotValidException.class,HttpMessageNotReadableException.class,IllegalArgumentException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class,HttpMessageNotReadableException.class,org.springframework.web.bind.MissingRequestHeaderException.class,IllegalArgumentException.class})
     ResponseEntity<JsonNode> invalid() {return ResponseEntity.badRequest().body(body("invalid_request"));}
     @ExceptionHandler({DataAccessException.class,org.springframework.transaction.TransactionSystemException.class,
         org.springframework.transaction.CannotCreateTransactionException.class}) ResponseEntity<JsonNode> storage() {return ResponseEntity.status(503).body(body("temporarily_unavailable"));}

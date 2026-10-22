@@ -1,6 +1,6 @@
 # Entrega adicional — Ritmo M1 em PWA
 
-Atualizado: 22/10/2026. Estado: prova01 local e contrato02a concluídos; Q67–Q75 aprovadas; provas reais pendentes. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
+Atualizado: 22/10/2026. Estado: prova01 e contrato02a concluídos; recorte09 de servidor/V6 e cookies concluído no escopo local, com regressão aprovada. Coordenação/IndexedDB, produto e Safari ainda pendentes; Q67–Q75 preservadas. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
 
 ## Objetivo e fronteira
 
@@ -20,8 +20,8 @@ Não duplicar tarefas de domínio, nome/domínio/Resend, aceite nativo ou opera�
 | [06 — Interface no iPhone](issues/06-validar-interface-no-iphone.md) | Ritmo-App, VoiceOver, teclado e desempenho | needs-info |
 | [07 — Publicação/aceite](issues/07-preparar-publicacao-e-aceite.md) | WEB-01–10 e ambiente apto para uso real | needs-info |
 | [08 — Contrato executável02a](issues/08-especificar-contrato-executavel.md) | Documento/schemas/fixtures concluídos; ver Resultado da tarefa08 | ready-for-agent |
-| [09 — Prova de sessão/cookies](issues/09-provar-sessao-web-e-cookies.md) | Primeiro recorte02b, incluindo autorização transacional | ready-for-agent |
-| [10 — Coordenação/commits](issues/10-provar-coordenacao-e-commits-web.md) | Segunda parte02b, depende de09 | needs-info |
+| [09 — Prova de sessão/cookies](issues/09-provar-sessao-web-e-cookies.md) | Servidor/V6 e provas locais concluídos; ver Resultado da tarefa09 | ready-for-agent |
+| [10 — Coordenação/commits](issues/10-provar-coordenacao-e-commits-web.md) | Próximo recorte02b; dependência09 satisfeita | ready-for-agent |
 
 Expo Web foi descartado e Pedro escolheu a opção1 do [comparativo](../../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md). A [ADR-020](../../docs/adr/0020-pwa-com-frontend-web-proprio.md) libera a definição da prova01 em React DOM/TypeScript/Vite/React Router, IndexedDB/Dexie e Workbox. Os recortes só ficam prontos após suas decisões/dependências; não declarar prontidão com sessão/banco em aberto.
 
@@ -48,3 +48,5 @@ A evidência PWA no iPhone e a do app Android poderão encerrar o M1 funcional. 
 21/10/2026 — Q73/Q74=A:30dias de inatividade/90dias absolutos e até quatro contextos. [Desenho candidato](contratos-navegador.md) e [rodada3](../../docs/analises/2026-10-21-contratos-pwa-rodada-3.md) concretizam plano02a (contrato executável),02b (provas locais) e02c (HTTPS/iPhone). Confirmação final de entendimento pendente; task02 permanece needs-info e task03 bloqueada por contrato/provas, não por nova escolha de stack.
 
 22/10/2026 — Q75=A confirmou início02a, agora concluído como [contrato executável](../../contracts/pwa-m1/README.md). [Relatório](../../docs/analises/2026-10-22-contrato-executavel-pwa.md):50 exemplos e61 cenários do oráculo; baseline app/API aprovado. Próximo recorte recomendado09 pronto, seguido de10 e gate02c. Sem nova confirmação, sem liberação da jornada03/aceite físico.
+
+22/10/2026 — [Recorte09](issues/09-provar-sessao-web-e-cookies.md) concluído:17 rotas Java/V6, cookies reais em HTTPS/Chrome visível, barreira na transação do domínio e preservação da rota nativa. [Relatório](../../docs/analises/2026-10-22-prova-sessao-web.md):16 casos web na rodada visível; check final111 casos Java (102 aprovados/9 opt-in),13 operacionais e checks app/web aprovados. Recorte10 pronto; IndexedDB/jornada e Safari/HTTPS público seguem pendentes. Sem nova aprovação, publicação ou aceite M1.

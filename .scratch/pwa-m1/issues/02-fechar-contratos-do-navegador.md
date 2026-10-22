@@ -3,7 +3,7 @@
 Status: needs-info
 Blocked by: none — prova01 concluída localmente; definições e evidência física ainda pendentes
 
-Origem: spec/14 §4–5. Q75=A confirmou o entendimento;02a especificado sem schema/rotas aplicados. Provas locais e evidência Safari ainda pendentes.
+Origem: spec/14 §4–5. Q75=A confirmou o entendimento;02a especificado; servidor/V6 e cookies concluídos no escopo local do recorte09. Coordenação/IndexedDB e evidência Safari ainda pendentes.
 
 ## Entrega
 
@@ -19,7 +19,7 @@ Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Uma biblioteca fora de alp
 
 ## Resultado
 
-Concluída: não —02a concluído na [tarefa08](08-especificar-contrato-executavel.md), com [contrato executável](../../../contracts/pwa-m1/README.md) e campos/índices no spec/00. Q67–Q75 aprovadas; próximo recorte09 ready-for-agent para sessão/cookies/autorização, seguido de10 para coordenação/commits. Nenhum adapter/schema/endpoint de produto foi aplicado. Safari/Tela de Início e HTTPS continuam gates; tarefa03 não liberada.
+Concluída: não —02a concluído na [tarefa08](08-especificar-contrato-executavel.md), com [contrato executável](../../../contracts/pwa-m1/README.md) e campos/índices no spec/00. Q67–Q75 aprovadas; recorte09 concluiu servidor/V6 e provas locais, com regressão completa aprovada. O recorte10 está ready-for-agent para coordenação/commits; IndexedDB e jornada de produto não foram aplicados. Safari/Tela de Início e HTTPS continuam gates; tarefa03 não liberada.
 
 21/10/2026 — [Prova01](../../../docs/analises/2026-10-21-prova-tecnica-pwa.md) fornece React/Vite, Dexie transacional, precache e candidato Web Locks+geração no Chrome. Esquema reduzido não é contrato de produto. Próximo recorte recomendado; manter needs-info por sessão/schema/upgrade e Safari/Tela de Início físicos. Roteiro iPhone no relatório; versão iOS ainda não informada.
 

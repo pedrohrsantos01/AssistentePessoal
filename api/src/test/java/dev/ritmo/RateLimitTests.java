@@ -25,6 +25,8 @@ class RateLimitTests {
     }
     @DynamicPropertySource static void database(DynamicPropertyRegistry properties) {
         properties.add("server.address",()->"127.0.0.1");
+        properties.add("ritmo.web.origin",()->"https://web.example.test");
+        properties.add("ritmo.web.preparation-key",()->java.util.Base64.getEncoder().encodeToString(new byte[33]));
         properties.add("spring.datasource.url", POSTGRES::getJdbcUrl);
         properties.add("spring.datasource.username", ()->"ritmo_domain");
         properties.add("spring.flyway.url",POSTGRES::getJdbcUrl);
@@ -68,6 +70,44 @@ class RateLimitTests {
     }
     private String login(String email) {
         return "{\"email\":\""+email+"\",\"password\":\"fixture-password\",\"deviceId\":\""+Json.id()+"\"}";
+    }
+    @org.springframework.beans.factory.annotation.Autowired @org.springframework.beans.factory.annotation.Qualifier("identitySql") dev.ritmo.shared.Sql identity;
+    private HttpResponse<String> web(String path,String body) throws Exception {return web(path,body,java.util.Map.of());}
+    private HttpResponse<String> web(String path,String body,java.util.Map<String,String> extra) throws Exception {
+        var builder=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+"/api/v1/web/"+path))
+            .header("Content-Type","application/json").header("Origin","https://web.example.test").header("X-Ritmo-Web","1")
+            .header("X-App-Version","0.1.0").header("X-Ritmo-Protocol","m1.1");
+        extra.forEach(builder::header);
+        return client.send(builder.POST(HttpRequest.BodyPublishers.ofString(body)).build(),HttpResponse.BodyHandlers.ofString());
+    }
+    @Test void webAccountLimitSharesNativeDebtAndDoesNotRenewOrCommitOn429() throws Exception {
+        String email=Json.id()+"@example.test";var nativeSession=register(email);String device=Json.id(),tab=Json.id();
+        var challenge=web("auth/challenge",Json.object().put("attemptId",Json.id()).put("installationId",device).putNull("expectedAccountId").toString());
+        assertThat(challenge.statusCode()).isEqualTo(200);var issued=Json.read(challenge.body());String context=issued.path("contextId").asString();
+        var prepared=web("auth/prepare",Json.object().put("preparationTicket",issued.path("preparationTicket").asString()).toString());
+        assertThat(prepared.statusCode()).isEqualTo(200);String close=prepared.headers().firstValue("Set-Cookie").orElseThrow().split(";",2)[0];
+        var owner=new java.util.HashMap<String,String>();owner.put("Cookie",close);owner.put("X-Ritmo-Owner-Epoch","1");owner.put("X-Ritmo-Owner-Tab",tab);
+        var login=web("contexts/"+context+"/login",Json.object().put("email",email).put("password","fixture-password").put("deviceId",device).toString(),owner);
+        assertThat(login.statusCode()).isEqualTo(200);owner.put("Cookie",login.headers().firstValue("Set-Cookie").orElseThrow().split(";",2)[0]);
+        assertThat(web("contexts/"+context+"/inspect","{}",owner).statusCode()).isEqualTo(200);
+        for(int i=0;i<119;i++) assertThat(request("sync/pull",nativeSession.path("accessToken").asString(),null,null).statusCode()).isEqualTo(409);
+        var before=identity.one("select to_jsonb(last_seen_at) from identity_web_contexts where context_id=?::uuid and user_id=?::uuid",context,nativeSession.path("accountId").asString());
+        owner.put("X-Ritmo-Expected-Account",nativeSession.path("accountId").asString());
+        var blocked=web("contexts/"+context+"/sync/snapshots","{}",owner);
+        assertThat(blocked.statusCode()).isEqualTo(429);assertThat(blocked.headers().firstValue("Retry-After")).isPresent();
+        assertThat(identity.one("select to_jsonb(last_seen_at) from identity_web_contexts where context_id=?::uuid and user_id=?::uuid",context,nativeSession.path("accountId").asString())).isEqualTo(before);
+    }
+    @Test void webAliasesShareNativeLoginAndPreparationBudgets() throws Exception {
+        for(int i=0;i<10;i++) assertThat(request("auth/login",null,login("unknown@example.test"),null).statusCode()).isEqualTo(401);
+        var web=web("contexts/"+Json.id()+"/login",login("unknown@example.test"));
+        assertThat(web.statusCode()).isEqualTo(429);
+        assertThat(web.headers().firstValue("Retry-After")).isPresent();
+        assertThat(web.headers().firstValue("Cache-Control")).hasValue("no-store");
+        for(int i=0;i<60;i++) {
+            // Schema fails after the shared IP bucket; no reservation is created.
+            assertThat(web("auth/challenge","{}").statusCode()).isEqualTo(400);
+        }
+        assertThat(request("auth/refresh",null,"{}",null).statusCode()).isEqualTo(429);
     }
     @Test void loginBudgetCannotBeResetByChangingEmailDeviceOrForwardedIp() throws Exception {
         for(int i=0;i<10;i++) assertThat(request("auth/login",null,login("unknown"+i+"@example.test"),"192.0.2."+i).statusCode()).isEqualTo(401);

@@ -29,6 +29,19 @@ public final class RateLimits {
     public void checkIp(String peer,String path,String method) {
         consume(new Key("api-ip",peer),policy.apiIp());
         if(!method.equals("POST")) return;
+        if(path.startsWith("/api/v1/web/")) {
+            if(path.equals("/api/v1/web/auth/recovery-close")) {
+                consume(new Key("/api/v1/auth/login",peer),policy.login());
+                consume(new Key("/api/v1/auth/revoke",peer),policy.revoke());return;
+            }
+            if(path.contains("/sync/")) return;
+            if(path.endsWith("/password-reset/request")) path="/api/v1/auth/password-reset/request";
+            else if(path.endsWith("/password-reset/confirm")) path="/api/v1/auth/password-reset/confirm";
+            else if(path.endsWith("/login")) path="/api/v1/auth/login";
+            else if(path.endsWith("/register")) path="/api/v1/auth/register";
+            else if(path.endsWith("/close")) path="/api/v1/auth/revoke";
+            else path="/api/v1/auth/refresh";
+        }
         var endpoint=switch(path) {
             case "/api/v1/auth/login" -> policy.login();
             case "/api/v1/auth/register" -> policy.register();

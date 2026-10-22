@@ -16,6 +16,8 @@
 !contracts/
 !contracts/primeiro-marco/
 !contracts/primeiro-marco/openapi.json
+!contracts/pwa-m1/
+!contracts/pwa-m1/openapi.json
 # Even an accidentally added secret or backup below src/main is excluded.
 **/.env
 **/.env.*

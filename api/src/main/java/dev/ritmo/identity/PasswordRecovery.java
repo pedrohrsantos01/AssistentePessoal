@@ -54,6 +54,7 @@ class PasswordRecovery implements DisposableBean {
             String encoded=org.springframework.security.crypto.argon2.Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8().encode(newPassword);
             db.execute("update users set password_hash=?,updated_at=?::timestamptz where id=?::uuid",encoded,now,user);
             db.execute("update identity_password_resets set used_at=?::timestamptz where user_id=?::uuid and used_at is null",now,user);
+            db.execute("update identity_web_contexts set state='closed',closed_at=coalesce(closed_at,?::timestamptz),close_reason='reset' where user_id=?::uuid and state in ('reserved','authenticated')",now,user);
             db.execute("update identity_sessions set revoked_at=coalesce(revoked_at,?::timestamptz) where user_id=?::uuid",now,user);
             db.execute("update identity_refresh_tokens set revoked_at=coalesce(revoked_at,?::timestamptz) where user_id=?::uuid",now,user);
         });

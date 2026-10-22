@@ -1,7 +1,7 @@
 # 10 — Provar coordenação e commits web (02b, segunda parte)
 
-Status: needs-info
-Blocked by: .scratch/pwa-m1/issues/09-provar-sessao-web-e-cookies.md
+Status: ready-for-agent
+Blocked by: none — recorte09 concluído com prova local de sessão/barreira remota
 
 Origem: spec/14 WEB-03/04/06/08/09 e [contrato02a](../../../contracts/pwa-m1/README.md). Depende da prova de sessão/barreira remota para conferir envio/ack integrado; domínio/XP existentes permanecem.
 
@@ -17,4 +17,4 @@ Executar parte visual com navegador visível, fechar recursos próprios e regist
 
 ## Resultado
 
-Concluída: não — contrato definido; adapters e provas reais dependem da tarefa09. O experimento01 não comprova o candidato novo.
+Concluída: não — contrato definido e dependência09 satisfeita. Próximo recorte recomendado, sem nova decisão de produto para iniciar a prova local. O experimento01 não comprova o candidato novo.

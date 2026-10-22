@@ -23,4 +23,6 @@ Schema/grants reais exigem nova Flyway e spec/00 no mesmo commit, com hashes pri
 
 ## Resultado
 
-Concluída: não — especificado para execução; ainda não há endpoints/migration/prova de cookies deste protocolo. Validação de contratos08 não satisfaz estes critérios.
+Concluída: sim — servidor/V6 e provas locais de02b (primeira parte) entregues. A matriz web de16 casos passou com Chrome HTTPS visível; check completo aprovado após os ajustes de integração/fixtures. [Relatório e evidências](../../../docs/analises/2026-10-22-prova-sessao-web.md). Produto, IndexedDB e Safari não foram aceitos.
+
+Check final:111 casos Java,102 passaram e9 opt-in ignorados (8 Android e navegador já exercitado na rodada visível);13 operacionais aprovados. App264/typecheck/lint e web2/typecheck/lint aprovados. Browser/proxy/API/containers próprios encerrados; nenhum deploy. Recorte10 liberado para coordenação/commits;02c e jornada03 continuam nos gates. Detalhes e limites no relatório acima.

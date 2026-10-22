@@ -28,6 +28,13 @@ public class Database {
         private final TransactionTemplate transactions;
         private final Sql sql;
         TenantTransactions(TransactionTemplate transactions,Sql sql) {this.transactions=transactions;this.sql=sql;}
+        public <T> T authorized(Supplier<String> authorize,java.util.function.Function<String,T> work) {
+            return transactions.execute(status->{
+                String userId=authorize.get();
+                sql.rows("select to_jsonb(set_config('app.user_id',?,true))",userId);
+                return work.apply(userId);
+            });
+        }
         public <T> T run(String userId,Supplier<T> work) {
             return transactions.execute(status->{
                 sql.rows("select to_jsonb(set_config('app.user_id',?,true))",userId);

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
-@Component @Order(Ordered.HIGHEST_PRECEDENCE+1)
+@Component @Order(Ordered.HIGHEST_PRECEDENCE+2)
 class WalDurabilityFilter extends OncePerRequestFilter {
     private final Sql db;
     private final boolean enabled;
@@ -54,6 +54,7 @@ class WalDurabilityFilter extends OncePerRequestFilter {
             buffered.copyBodyToResponse();
         } catch(DataAccessException|BusinessFailure|HttpFailure failure) {
             response.reset();
+            if(request.getServletPath().startsWith("/api/v1/web/")) response.setHeader("Cache-Control","no-store");
             HttpErrors.write(response,new HttpFailure(503,"temporarily_unavailable"));
         }
     }

@@ -115,7 +115,7 @@ route(prefix + '/sync/snapshots/{snapshotId}', 'webSnapshotPage', 'SnapshotPageR
 route(prefix + '/sync/receipts', 'webReceipts', 'ReceiptsRequest', 'ReceiptsResponse', 'auth', owner=True, expected=True, bucket='account')
 paths[prefix + '/sync/push']['post']['parameters'].append({'name': 'Idempotency-Key', 'in': 'header', 'required': True, 'schema': ref('Id')})
 api = {'openapi': '3.1.1', 'info': {'title': 'Ritmo — PWA M1, contrato 02a', 'version': '0.1.0',
-    'description': 'Design only; no implemented endpoint. Domain protocol remains m1.1. See README.md.'},
+    'description': 'Server adapters implemented in slice09/02b. Browser storage/product journey and Safari acceptance remain pending. Domain protocol remains m1.1. See README.md.'},
     'servers': [{'url': '/api/v1/web'}], 'paths': paths, 'components': {'schemas': schemas, 'securitySchemes': {
         'webAuth': {'type': 'apiKey', 'in': 'cookie', 'name': '__Secure-ritmo-auth'},
         'webClose': {'type': 'apiKey', 'in': 'cookie', 'name': '__Secure-ritmo-close'}}},

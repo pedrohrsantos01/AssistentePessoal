@@ -163,7 +163,7 @@ class RetentionLifecycleTests {
             }
             String user,token,device=Json.id(),habit=Json.id();tools.jackson.databind.node.ObjectNode body;
             // Predecessor-schema fixture: only register/push are used; the new reader requires V5.
-            try(var predecessor=start(db,Map.of("spring.flyway.target","4","ritmo.sync-retention.enabled","false"))) {
+            try(var predecessor=start(db,Map.of("spring.flyway.target","4","ritmo.sync-retention.enabled","false","ritmo.web.maintenance-enabled","false"))) {
                 var session=post(predecessor,"auth/register",null,Json.object().put("email",Json.id()+"@example.test").put("displayName","Pessoa").put("password","fixture-password").put("deviceId",device));
                 user=session.path("accountId").asString();token=session.path("accessToken").asString();
                 var occurredAt=Instant.now();
@@ -187,7 +187,7 @@ class RetentionLifecycleTests {
                 var cut=post(upgraded,"sync/snapshots",token,Json.object());assertThat(cut.path("highWaterRevision").asString()).isEqualTo("1");
                 try(var owner=DriverManager.getConnection(db.getJdbcUrl(),db.getUsername(),db.getPassword());
                     var statement=owner.createStatement();var rows=statement.executeQuery("select version from flyway_schema_history where success order by installed_rank desc limit 1")) {
-                    rows.next();assertThat(rows.getString(1)).isEqualTo("5");
+                    rows.next();assertThat(rows.getString(1)).isEqualTo("6");
                 }
             }
         }
