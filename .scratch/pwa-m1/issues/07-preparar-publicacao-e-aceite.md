@@ -18,3 +18,5 @@ Publicação futura depende de ambiente/contratos e autorização aplicável; pe
 ## Resultado
 
 Concluída: não — origem, operação, implementação/provas pendentes.
+
+23/10/2026 — Referências locais de roteamento/cache e roteiro de ensaio02c preparados no [pacote11](../../../web/ops/https-iphone.md). A prova usa shell/API sintéticos e não aceita publicação da jornada, retenção/rollback de releases reais ou operação externa. Não copiar web/dist/bridge técnico para a VPS; ambiente público continua pendente e sujeito a esta tarefa e aos gates existentes.

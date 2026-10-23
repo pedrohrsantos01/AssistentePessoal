@@ -56,3 +56,10 @@ Remove-Item Env:RITMO_WEB_COORDINATION
 O Java inicia PostgreSQL/API descartáveis e um certificado temporário, lança o driver Node e encerra seus recursos. O driver constrói duas versões, abre Chrome visível com perfil próprio e proxy HTTPS em loopback e fecha ambos em `finally`. A exceção ao certificado autoassinado pertence apenas a esse Chrome sintético; não comprova a cadeia TLS pública. Sem flag, esse teste é ignorado, sem alternativa headless.
 
 Evidências ficam em `output/playwright/web-coordination/`, ignorado pelo Git. Não exportar cookies, senhas ou tickets. O driver verifica a fila após reabertura offline, a barreira remota, abas suspensas/crash e atualização/migração. Resultado e limites: [relatório do recorte10](../docs/analises/2026-10-23-prova-coordenacao-web.md). O resultado da execução, e não a existência do script, define a aprovação.
+
+
+## Pacote HTTPS/iPhone — recorte11
+
+[Guia, ficha pública e roteiro físico](ops/https-iphone.md). Fragmentos de Nginx estático/Traefik e prova finita de roteamento/cache/headers: `pnpm --dir web verify:hosting` a partir da raiz, com Java21/Docker/Node24. Usa shell/API sintéticos, não o build atual; publica somente portas aleatórias de loopback e remove containers/rede próprios em finally. Não abre navegador nem acessa VPS.
+
+A imagem Nginx1.30.6-alpine da fixture é fixa por digest, como Traefik/Node existentes. Resultados em output/playwright/web-hosting/. Este ensaio não prova API Java/cookie jar/Safari nem publica a PWA. O build atual e seu bridge continuam exclusivamente técnicos. Próximo preparo local: [controles por toque12](../.scratch/pwa-m1/issues/12-preparar-controles-do-ensaio-iphone.md); origem pública e execução física continuam pendentes em02c.

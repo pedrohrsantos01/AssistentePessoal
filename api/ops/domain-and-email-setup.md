@@ -1,6 +1,6 @@
 # Domínio, DNS e Resend — roteiro manual para Pedro
 
-Data: 08/10/2026. Origem: Q54 da [entrevista](../../.scratch/fundacao/entrevista.md) e [tarefa 02](../../.scratch/aceite-m1/issues/02-preparar-dominio-e-resend.md). Pedro escolherá o nome; ainda não há domínio nem configuração real verificados. Q55=B mantém a rota iOS adiada.
+Data: 08/10/2026; atualizado em23/10/2026 para Q65/Q67. Origem: Q54 da [entrevista](../../.scratch/fundacao/entrevista.md) e [tarefa 02](../../.scratch/aceite-m1/issues/02-preparar-dominio-e-resend.md). Pedro escolherá o nome; ainda não há domínio nem configuração real verificados. Q55=B mantém a rota iOS adiada.
 
 Use este roteiro para escolher/registrar o domínio e preparar envio de e-mail. Os passos de Hostinger se aplicam se esse for o provedor da sua conta mencionada em Q54; a Hostinger da VPS foi confirmada em Q44, mas o plano de e-mail não foi inspecionado. Se a conta estiver em outro provedor, use o painel equivalente.
 
@@ -26,7 +26,7 @@ Exemplo ilustrativo com domínio reservado; **não é escolha aprovada nem valor
 | Função | Exemplo | Ação agora |
 |---|---|---|
 | Domínio registrado | `seu-dominio.example` | Escolher nome real |
-| API e origem de recuperação | `api.seu-dominio.example` | Anotar sugestão; confirmar antes de criar rota |
+| PWA, API e origem de recuperação (Q67) | `ritmo.seu-dominio.example` | Origem única ilustrativa; confirmar antes de criar rota |
 | Domínio de envio Resend | `notificacoes.seu-dominio.example` | Escolher no Resend e verificar DNS |
 | Remetente de serviço | `Ritmo <recuperacao@notificacoes.seu-dominio.example>` | Confirmar endereço autorizado no domínio de envio |
 
@@ -48,7 +48,7 @@ O Resend envia mensagens; a caixa de e-mail da sua hospedagem continua sendo ger
 
 ## 5. Preparar SMTP no canal privado
 
-Somente depois do domínio verificado e antes de instalar a API, configure os valores no cofre/runtime pelo canal privado. Não envie API key no chat nem a grave no Git.
+Somente depois do domínio verificado e antes do ensaio externo de e-mail, configure os valores no cofre/runtime pelo canal privado. Não envie API key no chat nem a grave no Git.
 
 | Parâmetro | Contrato inicial do Ritmo |
 |---|---|
@@ -80,9 +80,9 @@ Não envie dados do titular, destinatário pessoal, senha, API key, arquivo de s
 
 ## 7. O que ainda falta para aceitar a recuperação
 
-Domínio registrado e DNS verificado liberam a confirmação dos parâmetros públicos. Depois serão necessários ambiente HTTPS isolado, segredo SMTP no runtime, associação Android pelo package/certificado e abertura nativa com app encerrado/aberto. A entrega visual aguarda o protótipo.
+Domínio registrado e DNS verificado liberam a confirmação dos parâmetros públicos. Depois serão necessários ambiente HTTPS isolado, segredo SMTP no runtime, recuperação na PWA/Safari/Tela de Início e associação Android pelo package/certificado. O protótipo Ritmo-App já foi recebido; sua validação web permanece na tarefa06 da trilha PWA. [Preparo HTTPS/iPhone](../../web/ops/https-iphone.md).
 
-Envio externo, recebimento da mensagem e reset/reuso/relogin com pendências preservadas serão ensaiados na etapa apropriada, com destinatário privado e autorização explícita para o envio. Rota iOS fica adiada; Universal Links do iPhone continuam obrigatórios para fechar M1. [Plano e tarefas](../../.scratch/aceite-m1/spec.md).
+Envio externo, recebimento da mensagem e reset/reuso/relogin com pendências preservadas serão ensaiados na etapa apropriada, com destinatário privado e autorização explícita para o envio. Conforme Q65, o M1 funcional usa PWA no iPhone + Android; instalação e Universal Links nativos iOS ficam adiados e não bloqueiam esse aceite. [Plano e tarefas](../../.scratch/aceite-m1/spec.md).
 
 ## Checklist manual
 

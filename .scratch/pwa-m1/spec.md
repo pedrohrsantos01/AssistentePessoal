@@ -1,6 +1,6 @@
 # Entrega adicional — Ritmo M1 em PWA
 
-Atualizado: 22/10/2026. Estado: prova01 e contrato02a concluídos; recorte09 de servidor/V6 e cookies concluído no escopo local, com regressão aprovada. Coordenação/IndexedDB, produto e Safari ainda pendentes; Q67–Q75 preservadas. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
+Atualizado: 23/10/2026. Estado: provas locais01/09/10 e contrato02a concluídos; pacote local HTTPS11 concluído. Jornada, publicação e Safari/Tela de Início físicos continuam pendentes; Q67–Q75 preservadas. Fontes: [spec/14](../../specs/14-pwa-primeiro-marco.md), PRD v3.1 e [plano/alternativas](../../docs/analises/2026-10-21-plano-pwa-m1.md).
 
 ## Objetivo e fronteira
 
@@ -22,6 +22,8 @@ Não duplicar tarefas de domínio, nome/domínio/Resend, aceite nativo ou opera�
 | [08 — Contrato executável02a](issues/08-especificar-contrato-executavel.md) | Documento/schemas/fixtures concluídos; ver Resultado da tarefa08 | ready-for-agent |
 | [09 — Prova de sessão/cookies](issues/09-provar-sessao-web-e-cookies.md) | Servidor/V6 e provas locais concluídos; ver Resultado da tarefa09 | ready-for-agent |
 | [10 — Coordenação/commits](issues/10-provar-coordenacao-e-commits-web.md) | AdaptersV1/provas locais concluídos; ver Resultado da tarefa10 | ready-for-agent |
+| [11 — Pacote HTTPS/iPhone](issues/11-preparar-https-e-ensaio-fisico.md) | Fragmentos/ensaio de hospedagem e roteiro físico; ver Resultado da tarefa11 | ready-for-agent |
+| [12 — Controles do ensaio](issues/12-preparar-controles-do-ensaio-iphone.md) | Cliente técnico por toque para executar02c no iPhone, separado do produto | ready-for-agent |
 
 Expo Web foi descartado e Pedro escolheu a opção1 do [comparativo](../../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md). A [ADR-020](../../docs/adr/0020-pwa-com-frontend-web-proprio.md) libera a definição da prova01 em React DOM/TypeScript/Vite/React Router, IndexedDB/Dexie e Workbox. Os recortes só ficam prontos após suas decisões/dependências; não declarar prontidão com sessão/banco em aberto.
 
@@ -52,3 +54,5 @@ A evidência PWA no iPhone e a do app Android poderão encerrar o M1 funcional. 
 22/10/2026 — [Recorte09](issues/09-provar-sessao-web-e-cookies.md) concluído:17 rotas Java/V6, cookies reais em HTTPS/Chrome visível, barreira na transação do domínio e preservação da rota nativa. [Relatório](../../docs/analises/2026-10-22-prova-sessao-web.md):16 casos web na rodada visível; check final111 casos Java (102 aprovados/9 opt-in),13 operacionais e checks app/web aprovados. Recorte10 pronto; IndexedDB/jornada e Safari/HTTPS público seguem pendentes. Sem nova aprovação, publicação ou aceite M1.
 
 23/10/2026 — Adapters/prova10 implementados;20 testes web e regressão nativa264 aprovados. O ensaio final Chrome com Java/IDB reais e o check completo112/102/10 passaram; resultado no [relatório10](../../docs/analises/2026-10-23-prova-coordenacao-web.md). Tarefa02 mantém HTTPS público/Safari/Tela de Início como gate02c; jornada03 permanece bloqueada. Sem nova decisão de produto, contratação ou publicação.
+
+23/10/2026 — [Recorte11](issues/11-preparar-https-e-ensaio-fisico.md) concluído no preparo local:17 cenários Nginx/Traefik, roteiro02c e ficha pública, com checks app/web/API aprovados. [Relatório](../../docs/analises/2026-10-23-preparo-https-iphone.md). Próximo recorte12 prepara controles técnicos por toque, sem esperar domínio nem publicar o bridge atual.02c/Safari e03 continuam com os gates existentes.

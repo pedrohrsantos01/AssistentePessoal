@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "test": "node --import tsx --test test/*.test.ts",
     "build": "node scripts/assets.mjs && vite build && node scripts/service-worker.mjs",
-    "verify:browser": "node scripts/verify-browser.mjs"
+    "verify:browser": "node scripts/verify-browser.mjs",
+    "verify:hosting": "node scripts/verify-hosting.mjs"
   },
   "dependencies": {
     "dexie": "4.4.6",
