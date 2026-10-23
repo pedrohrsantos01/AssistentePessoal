@@ -22,3 +22,5 @@ Concluída: não — Pedro escolherá o nome e executará o guia; nenhuma conta/
 08/10/2026 — Q54: não há domínio disponível; solicitado documento para configuração. Gratuidade da conta não comprovada. [Plano](../spec.md).
 
 23/10/2026 — Pedro confirmou que ainda não escolheu o domínio; ficha pública permanece em aberto. Pacote/cliente técnico PWA são preparados localmente, sem registro, DNS ou envio externo.
+
+23/10/2026 — Consulta autenticada ao Hostinger Connector identificou phsdev.cloud e phsdev.com ativos, conforme o [inventário verificado](../../../docs/analises/2026-10-23-inventario-hostinger.md). São candidatos existentes na conta; Pedro ainda precisa escolher o nome/subdomínio para o Ritmo. Nameservers foram lidos, sem mudança de DNS ou consulta ao Resend. Esta tarefa permanece aberta.
