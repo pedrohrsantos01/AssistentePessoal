@@ -605,10 +605,24 @@
                       "$ref": "#/components/schemas/OperationHash"
                     },
                     "originalReceipt": {
-                      "$ref": "#/components/schemas/Receipt"
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Receipt"
+                        },
+                        {
+                          "$ref": "#/components/schemas/RejectedReceipt"
+                        }
+                      ]
                     },
                     "conflictReceipt": {
-                      "$ref": "#/components/schemas/Receipt"
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Receipt"
+                        },
+                        {
+                          "$ref": "#/components/schemas/RejectedReceipt"
+                        }
+                      ]
                     }
                   },
                   "required": [
@@ -667,7 +681,14 @@
         "result": {
           "anyOf": [
             {
-              "$ref": "#/components/schemas/Receipt"
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Receipt"
+                },
+                {
+                  "$ref": "#/components/schemas/RejectedReceipt"
+                }
+              ]
             },
             {
               "type": "null"

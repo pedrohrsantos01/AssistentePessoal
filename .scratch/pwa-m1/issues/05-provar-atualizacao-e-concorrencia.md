@@ -15,4 +15,6 @@ Relatório com código/schema/protocolo e resultado por instalação/aba, inclus
 
 ## Resultado
 
-Concluída: não — mecanismos pendentes da tarefa02.
+Concluída: não — mecanismos básicos têm implementação e prova local nos recortes09/10. Resta validar a jornada de produto e os contêineres físicos Safari/Tela de Início, conforme tarefa02/02c.
+
+23/10/2026 — [Relatório10](../../../docs/analises/2026-10-23-prova-coordenacao-web.md) separa ensaio técnico Chrome de aceite WEB-06–08. Não repetir a implementação de CAS/commits ou tratar o protótipo01 com steal como mecanismo atual.

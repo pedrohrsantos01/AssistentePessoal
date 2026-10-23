@@ -18,3 +18,5 @@ WEB-01–03, persistência/rollback e dois clientes com dados sintéticos; expor
 ## Resultado
 
 Concluída: não — contrato web pendente.
+
+23/10/2026 — AdaptersV1 e provas técnicas locais do [recorte10](10-provar-coordenacao-e-commits-web.md) não liberam esta jornada antes de02c. Componentes de produto continuam sem implementação web; não reutilizar o bridge sintético de `coordination.html` como tela ou login de usuário real.

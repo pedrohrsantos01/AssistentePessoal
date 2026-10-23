@@ -21,7 +21,7 @@ Não duplicar tarefas de domínio, nome/domínio/Resend, aceite nativo ou opera�
 | [07 — Publicação/aceite](issues/07-preparar-publicacao-e-aceite.md) | WEB-01–10 e ambiente apto para uso real | needs-info |
 | [08 — Contrato executável02a](issues/08-especificar-contrato-executavel.md) | Documento/schemas/fixtures concluídos; ver Resultado da tarefa08 | ready-for-agent |
 | [09 — Prova de sessão/cookies](issues/09-provar-sessao-web-e-cookies.md) | Servidor/V6 e provas locais concluídos; ver Resultado da tarefa09 | ready-for-agent |
-| [10 — Coordenação/commits](issues/10-provar-coordenacao-e-commits-web.md) | Próximo recorte02b; dependência09 satisfeita | ready-for-agent |
+| [10 — Coordenação/commits](issues/10-provar-coordenacao-e-commits-web.md) | AdaptersV1/provas locais concluídos; ver Resultado da tarefa10 | ready-for-agent |
 
 Expo Web foi descartado e Pedro escolheu a opção1 do [comparativo](../../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md). A [ADR-020](../../docs/adr/0020-pwa-com-frontend-web-proprio.md) libera a definição da prova01 em React DOM/TypeScript/Vite/React Router, IndexedDB/Dexie e Workbox. Os recortes só ficam prontos após suas decisões/dependências; não declarar prontidão com sessão/banco em aberto.
 
@@ -50,3 +50,5 @@ A evidência PWA no iPhone e a do app Android poderão encerrar o M1 funcional. 
 22/10/2026 — Q75=A confirmou início02a, agora concluído como [contrato executável](../../contracts/pwa-m1/README.md). [Relatório](../../docs/analises/2026-10-22-contrato-executavel-pwa.md):50 exemplos e61 cenários do oráculo; baseline app/API aprovado. Próximo recorte recomendado09 pronto, seguido de10 e gate02c. Sem nova confirmação, sem liberação da jornada03/aceite físico.
 
 22/10/2026 — [Recorte09](issues/09-provar-sessao-web-e-cookies.md) concluído:17 rotas Java/V6, cookies reais em HTTPS/Chrome visível, barreira na transação do domínio e preservação da rota nativa. [Relatório](../../docs/analises/2026-10-22-prova-sessao-web.md):16 casos web na rodada visível; check final111 casos Java (102 aprovados/9 opt-in),13 operacionais e checks app/web aprovados. Recorte10 pronto; IndexedDB/jornada e Safari/HTTPS público seguem pendentes. Sem nova aprovação, publicação ou aceite M1.
+
+23/10/2026 — Adapters/prova10 implementados;20 testes web e regressão nativa264 aprovados. O ensaio final Chrome com Java/IDB reais e o check completo112/102/10 passaram; resultado no [relatório10](../../docs/analises/2026-10-23-prova-coordenacao-web.md). Tarefa02 mantém HTTPS público/Safari/Tela de Início como gate02c; jornada03 permanece bloqueada. Sem nova decisão de produto, contratação ou publicação.

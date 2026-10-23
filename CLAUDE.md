@@ -1,6 +1,6 @@
 # CLAUDE.md — Instruções do projeto
 
-**Ritmo** — assistente pessoal modular. App React Native, PWA adicional em planejamento e backend Java/Spring Modulith, rodando em VPS própria via Coolify.
+**Ritmo** — assistente pessoal modular. App React Native, fundação PWA em provas locais e backend Java/Spring Modulith, rodando em VPS própria via Coolify.
 
 **Leia sempre nesta ordem:** este arquivo → `PRD.md` → o spec do módulo da tarefa atual em `specs/`.
 
@@ -32,14 +32,14 @@
 - `expo-secure-store` (token), `expo-web-browser` (abrir link); áudio será selecionado no incremento de voz, sem instalar o antigo `expo-av` no primeiro marco
 - Sentry (erro) e PostHog (produto, com opt-in)
 
-### PWA (frontend web próprio; prova sintética em `/web`, produto ainda pendente)
+### PWA (frontend web próprio; provas técnicas em `/web`, produto ainda pendente)
 - React DOM + TypeScript strict + Vite + React Router, conforme [ADR-020](docs/adr/0020-pwa-com-frontend-web-proprio.md), aceito em 21/10/2026
 - IndexedDB com Dexie para persistência local; Workbox para o service worker/cache de recursos
 - HTML/CSS com tokens, textos e referência Ritmo-App; lógica pura/contratos compartilhados quando desacoplados
 - API Java existente e hospedagem estática; Expo Web, expo-sqlite web e Dexie Cloud não integram essa variante
-- Q67–Q69 aprovadas no [ADR-021](docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md): mesma origem HTTPS; credenciais em cookies HttpOnly/Secure fora do JS; controle+domínio no mesmo IndexedDB com partição por conta e aparência em banco separado. Sessão opaca escolhida em Q71/ADR-022; contrato02a especificado em [contracts/pwa-m1](contracts/pwa-m1/README.md) e spec/00, com servidor/V6 aplicados no recorte09 e prova local de cookies/autorização; IndexedDB/jornada de produto e Safari continuam pendentes; nativo permanece bearer/SQLite
+- Q67–Q69 aprovadas no [ADR-021](docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md): mesma origem HTTPS; credenciais em cookies HttpOnly/Secure fora do JS; controle+domínio no mesmo IndexedDB com partição por conta e aparência em banco separado. Sessão opaca escolhida em Q71/ADR-022; contrato02a especificado em [contracts/pwa-m1](contracts/pwa-m1/README.md) e spec/00, com servidor/V6 aplicados no recorte09 e prova local de cookies/autorização; adapters IndexedDB/coordenação implementados no recorte10 em prova local; jornada de produto e Safari continuam pendentes; nativo permanece bearer/SQLite
 - Q70–Q74 no [ADR-022](docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md): instalação nova exige login online próprio, sessão opaca no Java, rascunho somente na aba; sessão remota30dias de inatividade/90dias absolutos e até quatro contextos locais. Não reaproveitar cookie copiado sem controle local nem persistir rascunho como intenção de domínio. Expiração remota preserva sessão local ainda ativa e pendências; limite de contextos pausa nova entrada até recuperação, sem descartar intenções
-- A [prova01](docs/analises/2026-10-21-prova-tecnica-pwa.md) fixa versões e verifica o ensaio local no Chrome; não aceita Safari físico ou jornada M1. Sessão, schema web, abas e atualização de produto seguem os contratos pendentes de spec/14. Não copiar APIs síncronas de Drizzle ou SecureStore para o navegador
+- A [prova01](docs/analises/2026-10-21-prova-tecnica-pwa.md) fixa versões e verifica o ensaio local no Chrome; não aceita Safari físico ou jornada M1. Servidor/V6 estão no recorte09; adaptersV1, abas e atualização têm a prova local do recorte10, com [relatório próprio](docs/analises/2026-10-23-prova-coordenacao-web.md). A jornada de produto e o aceite físico continuam seguindo spec/14. Não copiar APIs síncronas de Drizzle ou SecureStore para o navegador
 
 ### Backend (`/api`)
 - **Java 21 + Spring Boot 4.1.1 + Spring Modulith 2.1.1**. Revisão técnica de 25/09/2026: Boot 3.5 encerrou suporte aberto; a arquitetura Java/Spring permanece, sem código legado a migrar

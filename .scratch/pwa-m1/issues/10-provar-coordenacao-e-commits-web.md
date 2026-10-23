@@ -17,4 +17,8 @@ Executar parte visual com navegador visível, fechar recursos próprios e regist
 
 ## Resultado
 
-Concluída: não — contrato definido e dependência09 satisfeita. Próximo recorte recomendado, sem nova decisão de produto para iniciar a prova local. O experimento01 não comprova o candidato novo.
+Concluída: sim — adapters assíncronos V1 e prova local02b entregues, conforme [relatório10](../../../docs/analises/2026-10-23-prova-coordenacao-web.md).20 testes web/typecheck/lint e264 testes do app/typecheck/lint aprovados. Check completo:112 casos Java,102 passaram/10 opt-in ignorados (8 Android e2 navegadores exercitados separadamente),13 operacionais. Ensaio final Chrome155 visível com Java/IDB reais aprovado após a última alteração do adapter.
+
+Capturas imutáveis de conta/geração/posse, CAS/presença/gate sem steal, falhas atômicas, beginAttempt/ack/pull, correção de dependências, snapshot com nova intenção em staging e A→B→A verificados. Retomada após crash, reabertura inteira offline, limpeza da apresentação secundária no logout, SW aguardando e rollback após mutar dados de upgrade passaram. Aparência relê o resultado efetivo sem transação entre bancos. Registros ilegíveis são preservados; campo opcional remoto é ignorado, efeito obrigatório desconhecido pausa o build.
+
+Navegador/proxy/API/containers próprios encerrados. Sem deploy, aceite Safari/Tela de Início, jornada03 ou M1. Próximo gate02c permanece na tarefa02 e nos ensaios06/07; domínio no fluxo humano já existente.

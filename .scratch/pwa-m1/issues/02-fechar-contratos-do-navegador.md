@@ -3,7 +3,7 @@
 Status: needs-info
 Blocked by: none — prova01 concluída localmente; definições e evidência física ainda pendentes
 
-Origem: spec/14 §4–5. Q75=A confirmou o entendimento;02a especificado; servidor/V6 e cookies concluídos no escopo local do recorte09. Coordenação/IndexedDB e evidência Safari ainda pendentes.
+Origem: spec/14 §4–5. Q75=A confirmou o entendimento;02a especificado; servidor/V6 e cookies concluídos no escopo local do recorte09. Adapters/coordenação IndexedDB implementados no recorte10; evidência Safari e HTTPS público ainda pendentes.
 
 ## Entrega
 
@@ -19,7 +19,7 @@ Resolver spec/14 §5 e mapear M1-01–20/WEB-01–10. Uma biblioteca fora de alp
 
 ## Resultado
 
-Concluída: não —02a concluído na [tarefa08](08-especificar-contrato-executavel.md), com [contrato executável](../../../contracts/pwa-m1/README.md) e campos/índices no spec/00. Q67–Q75 aprovadas; recorte09 concluiu servidor/V6 e provas locais, com regressão completa aprovada. O recorte10 está ready-for-agent para coordenação/commits; IndexedDB e jornada de produto não foram aplicados. Safari/Tela de Início e HTTPS continuam gates; tarefa03 não liberada.
+Concluída: não —02a concluído na [tarefa08](08-especificar-contrato-executavel.md), com [contrato executável](../../../contracts/pwa-m1/README.md) e campos/índices no spec/00. Q67–Q75 aprovadas; recorte09 concluiu servidor/V6 e provas locais, com regressão completa aprovada. O recorte10 implementou os adapters e as provas locais de coordenação/commits; a jornada de produto não foi entregue. Safari/Tela de Início e HTTPS continuam gates; tarefa03 não liberada.
 
 21/10/2026 — [Prova01](../../../docs/analises/2026-10-21-prova-tecnica-pwa.md) fornece React/Vite, Dexie transacional, precache e candidato Web Locks+geração no Chrome. Esquema reduzido não é contrato de produto. Próximo recorte recomendado; manter needs-info por sessão/schema/upgrade e Safari/Tela de Início físicos. Roteiro iPhone no relatório; versão iOS ainda não informada.
 
@@ -32,3 +32,5 @@ Concluída: não —02a concluído na [tarefa08](08-especificar-contrato-executa
 21/10/2026 — Pedro respondeu A em Q73/Q74. Validade30/90dias e quatro contextos propagados. Plano interno:02a contrato executável,02b provas locais,02c HTTPS/Safari físico. Representação/limpeza de cookies, recuperação sem quinta sessão, posse/compatibilidade/transações ainda exigem especificação e ensaio. Desenho proposto substitui a hipótese de steal da prova01; esta continua evidência histórica, não prova do candidato novo. Não houve mudança de runtime neste incremento.
 
 22/10/2026 — Q75=A consolidada e02a especificado:17 rotas propostas,65 schemas de transporte,10 registros locais,50 exemplos/61 cenários do oráculo. Tarefas08/09/10 decompõem execução sem duplicar06/07 ou provisionamento. [Relatório](../../../docs/analises/2026-10-22-contrato-executavel-pwa.md). Task02 segue aberta por provas/gates, sem nova entrevista de decisões já aprovadas.
+
+23/10/2026 — [Prova10](../../../docs/analises/2026-10-23-prova-coordenacao-web.md) registra adaptersV1, CAS/presença/gate, preservação offline, isolamento e upgrade. O recorte10 foi concluído localmente, com check completo e ensaio final visível aprovados. Próximo gate02c: origem HTTPS pública e Safari/Tela de Início físicos. Domínio continua na [tarefa humana existente](../../aceite-m1/issues/02-preparar-dominio-e-resend.md); não duplicar compra/DNS/Resend nem reabrir Q61–Q75.

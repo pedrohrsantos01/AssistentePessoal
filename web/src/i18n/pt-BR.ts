@@ -1,4 +1,5 @@
 export const pt = {
+  coordination: {title: 'Ritmo — coordenação e persistência', scope: 'Prova local · IndexedDB e API reais · contas sintéticas', versionChanged: 'Base fechada para atualização.', gateHeld: 'Gate ocupado pelo ensaio.', upgradeBlocked: 'Migração aguarda outra aba.', ready: 'Pronto para o ensaio visível.', phases: ['Gravação local, isolamento e sincronização.', 'Duas abas: suspensão, retomada e resposta antiga.', 'Gate ocupado: a segunda aba precisa aguardar.', 'Crash e reabertura offline: mesmas intenções.', 'Atualização em espera e migração interrompida.', 'Prova concluída. Encerrando recursos.']},
   webSession: {
     title: 'Ritmo — prova de sessão web',
     scope: 'HTTPS local · Java/PostgreSQL reais · contas sintéticas',

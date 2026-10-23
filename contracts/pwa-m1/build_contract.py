@@ -158,7 +158,7 @@ queue_error['properties']['identity'] = obj({'reason': enum('missing_proof', 'co
     'localOperationHash': ref('OperationHash')})
 queue_error['properties']['identity']['properties'].update({
     'originalOperationId': id_type, 'originalOperationHash': ref('OperationHash'),
-    'originalReceipt': ref('Receipt'), 'conflictReceipt': ref('Receipt')})
+    'originalReceipt': {'oneOf': [ref('Receipt'), ref('RejectedReceipt')]}, 'conflictReceipt': {'oneOf': [ref('Receipt'), ref('RejectedReceipt')]}})
 queue_error['properties']['resolution'] = {'oneOf': [obj({'kind': {'const': 'discarded'}}),
     obj({'kind': {'const': 'corrected'}, 'replacementOperationId': id_type})]}
 local['$defs'].update({
@@ -170,7 +170,7 @@ local['$defs'].update({
         'envelope': ref('Operation'), 'dependencies': {'type': 'array', 'items': id_type, 'maxItems': 4096},
         'status': enum('pending', 'in_flight', 'retry_wait', 'deferred', 'blocked_local', 'rejected', 'acknowledged'),
         'attempts': {'type': 'integer', 'minimum': 0, 'maximum': 9007199254740991},
-        'next_attempt_at': nullable(instant), 'error': nullable(queue_error), 'result': nullable(ref('Receipt'))}),
+        'next_attempt_at': nullable(instant), 'error': nullable(queue_error), 'result': nullable({'oneOf': [ref('Receipt'), ref('RejectedReceipt')]})}),
     'SyncState': obj({'account_id': id_type, 'cursor': nullable(ref('Opaque')),
         'next_sequence': {'type': 'integer', 'minimum': 1, 'maximum': 9007199254740991},
         'onboarding_step': enum('time_context', 'first_habit', 'complete'), 'snapshot_id': nullable(id_type),

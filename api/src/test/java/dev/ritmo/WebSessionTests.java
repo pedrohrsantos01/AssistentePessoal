@@ -213,9 +213,11 @@ class WebSessionTests {
         ok(call(a.path("sync/snapshots"),Json.object(),a.cookies(),Map.of("X-Ritmo-Owner-Epoch","3","X-Ritmo-Owner-Tab",tab,"X-Ritmo-Expected-Account",a.account())),201);
     }
     JsonNode createOperation(String device) {
-        return Json.object().put("operationId",Json.id()).put("deviceId",device).put("clientSequence",1).put("occurredAt",Instant.now().toString())
+        Instant occurred=CLOCK.instant();
+        String logicalDay=occurred.atZone(ZoneOffset.UTC).minusHours(4).toLocalDate().toString();
+        return Json.object().put("operationId",Json.id()).put("deviceId",device).put("clientSequence",1).put("occurredAt",occurred.toString())
             .set("dependsOn",Json.array()).set("command",Json.object().put("type","habit.create").put("habitId",Json.id()).put("title","Caminhar")
-                .put("habitType","binary").put("scheduleKind","daily").put("startDayKey","2026-10-22").putNull("iconKey").putNull("colorToken").put("sortOrder",0)
+                .put("habitType","binary").put("scheduleKind","daily").put("startDayKey",logicalDay).putNull("iconKey").putNull("colorToken").put("sortOrder",0)
                 .set("timeContext",Json.object().put("timezone","UTC").put("dayStartHour",4)));
     }
     @Test void authorizationLocksAndDomainCommitUseSameTransactionWithRlsAndNoPrivateGrants() throws Exception {
@@ -371,16 +373,23 @@ class WebSessionTests {
     }
     @Test @Timeout(180) void visibleHttpsBrowserProvesActualCookiePathsAndLateResponses() throws Exception {
         org.junit.jupiter.api.Assumptions.assumeTrue("1".equals(System.getenv("RITMO_WEB_BROWSER")),"Visible browser opt-in: RITMO_WEB_BROWSER=1");
-        Path output=Path.of("../output/playwright/web-session").toAbsolutePath().normalize();Files.createDirectories(output);
+        visibleBrowser("verify-web-session.mjs","web-session");
+    }
+    @Test @Timeout(240) void visibleBrowserProvesIndexedDbOwnershipAndCommits() throws Exception {
+        org.junit.jupiter.api.Assumptions.assumeTrue("1".equals(System.getenv("RITMO_WEB_COORDINATION")),"Visible browser opt-in: RITMO_WEB_COORDINATION=1");
+        visibleBrowser("verify-coordination.mjs","web-coordination");
+    }
+    void visibleBrowser(String script,String folder) throws Exception {
+        Path output=Path.of("../output/playwright/"+folder).toAbsolutePath().normalize();Files.createDirectories(output);
         Path cert=Files.createTempDirectory(Path.of("build").toAbsolutePath(),"web-cert-");
         try {
             String keytool=Path.of(System.getProperty("java.home"),"bin",System.getProperty("os.name").toLowerCase().contains("windows")?"keytool.exe":"keytool").toString();
             var process=new ProcessBuilder(keytool,"-genkeypair","-alias","fixture","-keyalg","RSA","-keysize","2048","-dname","CN=127.0.0.1","-ext","SAN=ip:127.0.0.1","-validity","2","-storetype","PKCS12","-keystore",cert.resolve("fixture.p12").toString(),"-storepass","fixture-password")
                 .redirectErrorStream(true).redirectOutput(cert.resolve("keytool.log").toFile()).start();
             try {assertThat(process.waitFor(30,TimeUnit.SECONDS)).isTrue();assertThat(process.exitValue()).isZero();} finally {if(process.isAlive()) process.destroyForcibly();}
-            var driver=new ProcessBuilder("node","--import","tsx","scripts/verify-web-session.mjs",Integer.toString(port),Integer.toString(TLS_PORT),cert.resolve("fixture.p12").toString(),output.toString())
+            var driver=new ProcessBuilder("node","--import","tsx","scripts/"+script,Integer.toString(port),Integer.toString(TLS_PORT),cert.resolve("fixture.p12").toString(),output.toString())
                 .directory(Path.of("../web").toFile()).redirectErrorStream(true).redirectOutput(output.resolve("driver.log").toFile()).start();
-            try {assertThat(driver.waitFor(120,TimeUnit.SECONDS)).as("Visible browser deadline").isTrue();assertThat(driver.exitValue()).as(Files.readString(output.resolve("driver.log"))).isZero();}
+            try {assertThat(driver.waitFor(script.equals("verify-coordination.mjs")?210:120,TimeUnit.SECONDS)).as("Visible browser deadline").isTrue();assertThat(driver.exitValue()).as(Files.readString(output.resolve("driver.log"))).isZero();}
             finally {if(driver.isAlive()) {driver.descendants().forEach(ProcessHandle::destroyForcibly);driver.destroyForcibly();driver.waitFor(5,TimeUnit.SECONDS);}}
         } finally {
             assertThat(cert.startsWith(Path.of("build").toAbsolutePath().normalize())).isTrue();

@@ -48,7 +48,9 @@ tasks.named('test') {
     if (providers.environmentVariable('RITMO_ANDROID_SERIAL').isPresent()) outputs.upToDateWhen { false }
     def androidApk = providers.environmentVariable('RITMO_ANDROID_APK')
     if (androidApk.isPresent()) inputs.file(androidApk.get())
-    inputs.files('../web/scripts/verify-web-session.mjs', '../web/src/i18n/pt-BR.ts', '../app/src/theme/tokens.ts')
+    inputs.files(fileTree('../web/src'), fileTree('../web/scripts'), '../web/coordination.html', '../web/vite.config.ts', '../web/package.json', '../web/pnpm-lock.yaml', '../app/src/theme/tokens.ts')
+    inputs.property('webCoordination', providers.environmentVariable('RITMO_WEB_COORDINATION').orElse(''))
+    if (providers.environmentVariable('RITMO_WEB_COORDINATION').isPresent()) outputs.upToDateWhen { false }
     inputs.property('webBrowser', providers.environmentVariable('RITMO_WEB_BROWSER').orElse(''))
     if (providers.environmentVariable('RITMO_WEB_BROWSER').isPresent()) outputs.upToDateWhen { false }
     inputs.files('../app/package.json', '../app/pnpm-lock.yaml', '../app/tsconfig.json')
