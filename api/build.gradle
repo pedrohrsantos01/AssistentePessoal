@@ -34,6 +34,10 @@ dependencyLocking { lockAllConfigurations() }
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8'; options.compilerArgs += ['-Xlint:deprecation'] }
 tasks.named('test') {
     useJUnitPlatform()
+    // Scope cached Spring contexts and static Testcontainers to one class/worker.
+    // Keep fixtures sequential; no production/WAL deadline or assertion is relaxed.
+    forkEvery = 1
+    maxParallelForks = 1
     // RuntimeTests also execute these TypeScript clients and their SQLite migrations.
     inputs.files(fileTree('../app/src'), fileTree('../app/test'), fileTree('../app/drizzle'), fileTree('../app/drizzle-control'))
     inputs.files(fileTree('../app/harness'))
