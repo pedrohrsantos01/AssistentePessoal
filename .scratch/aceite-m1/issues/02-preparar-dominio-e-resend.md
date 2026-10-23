@@ -20,3 +20,5 @@ Concluída: não — Pedro escolherá o nome e executará o guia; nenhuma conta/
 ## Comments
 
 08/10/2026 — Q54: não há domínio disponível; solicitado documento para configuração. Gratuidade da conta não comprovada. [Plano](../spec.md).
+
+23/10/2026 — Pedro confirmou que ainda não escolheu o domínio; ficha pública permanece em aberto. Pacote/cliente técnico PWA são preparados localmente, sem registro, DNS ou envio externo.

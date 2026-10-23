@@ -379,6 +379,10 @@ class WebSessionTests {
         org.junit.jupiter.api.Assumptions.assumeTrue("1".equals(System.getenv("RITMO_WEB_COORDINATION")),"Visible browser opt-in: RITMO_WEB_COORDINATION=1");
         visibleBrowser("verify-coordination.mjs","web-coordination");
     }
+    @Test @Timeout(240) void visibleBrowserProvesManualIphoneControls() throws Exception {
+        org.junit.jupiter.api.Assumptions.assumeTrue("1".equals(System.getenv("RITMO_WEB_IPHONE")),"Visible browser opt-in: RITMO_WEB_IPHONE=1");
+        visibleBrowser("verify-iphone.mjs","web-iphone");
+    }
     void visibleBrowser(String script,String folder) throws Exception {
         Path output=Path.of("../output/playwright/"+folder).toAbsolutePath().normalize();Files.createDirectories(output);
         Path cert=Files.createTempDirectory(Path.of("build").toAbsolutePath(),"web-cert-");
@@ -389,7 +393,7 @@ class WebSessionTests {
             try {assertThat(process.waitFor(30,TimeUnit.SECONDS)).isTrue();assertThat(process.exitValue()).isZero();} finally {if(process.isAlive()) process.destroyForcibly();}
             var driver=new ProcessBuilder("node","--import","tsx","scripts/"+script,Integer.toString(port),Integer.toString(TLS_PORT),cert.resolve("fixture.p12").toString(),output.toString())
                 .directory(Path.of("../web").toFile()).redirectErrorStream(true).redirectOutput(output.resolve("driver.log").toFile()).start();
-            try {assertThat(driver.waitFor(script.equals("verify-coordination.mjs")?210:120,TimeUnit.SECONDS)).as("Visible browser deadline").isTrue();assertThat(driver.exitValue()).as(Files.readString(output.resolve("driver.log"))).isZero();}
+            try {assertThat(driver.waitFor(script.equals("verify-web-session.mjs")?120:210,TimeUnit.SECONDS)).as("Visible browser deadline").isTrue();assertThat(driver.exitValue()).as(Files.readString(output.resolve("driver.log"))).isZero();}
             finally {if(driver.isAlive()) {driver.descendants().forEach(ProcessHandle::destroyForcibly);driver.destroyForcibly();driver.waitFor(5,TimeUnit.SECONDS);}}
         } finally {
             assertThat(cert.startsWith(Path.of("build").toAbsolutePath().normalize())).isTrue();

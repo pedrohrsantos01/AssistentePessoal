@@ -1,7 +1,7 @@
 # 02 — Fechar contratos do navegador
 
 Status: needs-info
-Blocked by: none — prova01 concluída localmente; definições e evidência física ainda pendentes
+Blocked by: none — contratos/provas locais disponíveis; origem HTTPS e evidência física ainda pendentes
 
 Origem: spec/14 §4–5. Q75=A confirmou o entendimento;02a especificado; servidor/V6 e cookies concluídos no escopo local do recorte09. Adapters/coordenação IndexedDB implementados no recorte10; evidência Safari e HTTPS público ainda pendentes.
 
@@ -36,3 +36,5 @@ Concluída: não —02a concluído na [tarefa08](08-especificar-contrato-executa
 23/10/2026 — [Prova10](../../../docs/analises/2026-10-23-prova-coordenacao-web.md) registra adaptersV1, CAS/presença/gate, preservação offline, isolamento e upgrade. O recorte10 foi concluído localmente, com check completo e ensaio final visível aprovados. Próximo gate02c: origem HTTPS pública e Safari/Tela de Início físicos. Domínio continua na [tarefa humana existente](../../aceite-m1/issues/02-preparar-dominio-e-resend.md); não duplicar compra/DNS/Resend nem reabrir Q61–Q75.
 
 23/10/2026 — [Pacote local11](../../../web/ops/https-iphone.md) prepara roteamento estático/API, cache/headers e roteiro físico. Não publica o build técnico atual. A prova10 é comandada por automação; [tarefa12](12-preparar-controles-do-ensaio-iphone.md) prepara os controles por toque para02c, sem iniciar03. Domínio/TLS externo e participação no iPhone permanecem gates, sem nova decisão de produto.
+
+23/10/2026 — [Cliente técnico12](12-preparar-controles-do-ensaio-iphone.md) fornece controles por toque/build isolado para os casos02c, sem console no caminho manual. O [roteiro](../../../web/ops/https-iphone.md) contém manifest/URLs e comandos efetivos. Pedro confirmou domínio ainda não escolhido. Contratos Q61–Q75 não reabertos; origem/ensaio físico continuam pendentes,03 bloqueada.

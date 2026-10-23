@@ -138,3 +138,8 @@ Remove-Item Env:RITMO_WEB_BROWSER
 Requer dependências já instaladas em `web/`, Chrome, Node24, Java21 e Docker. O job finito cria API, Postgres, certificado local e proxy HTTPS descartáveis; encerra seus recursos em finally. Não inicia servidor de desenvolvimento persistente. Saída em `output/playwright/web-session/` na raiz (ignorada pelo Git), com screenshots/result.json sem valores de cookies; o perfil é efêmero. Sem o opt-in, o caso de navegador é marcado como ignorado e os testes HTTP/SQL continuam.
 
 [Relatório e limites](../docs/analises/2026-10-22-prova-sessao-web.md). Safari/Tela de Início, IndexedDB de produto e M1 continuam pendentes; a prova sintética01 não foi migrada para produto.
+
+
+## Isolamento das fixtures no check
+
+A tarefa Gradle `test` usa `forkEvery=1` e `maxParallelForks=1`: uma JVM por classe, sequencialmente. Contextos Spring em cache e recursos estáticos das fixtures ficam limitados à classe/worker, sem aumentar heap ou manter múltiplos workers concorrentes. Isso acrescenta custo de startup e não altera código/limites da API, condições de durabilidade ou asserções dos testes. [Registro da investigação no recorte12](../docs/analises/2026-10-23-controles-do-ensaio-iphone.md). Os opt-ins de Android/navegador continuam explícitos; nenhum caso vira headless por falta de opt-in.

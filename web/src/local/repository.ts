@@ -90,6 +90,9 @@ export class LocalRepository {
     }));
   }
   enqueue(lease:Lease,command:Command,id:string,at:string) {command=structuredClone(command);return this.account(lease,data=>data.enqueue(command,id,at));}
+  mark(lease:Lease,command:Omit<Extract<Command,{type:'habit.mark'}>,'observedUndoIds'>,id:string,at:string) {
+    command=structuredClone(command);return this.account(lease,data=>data.enqueue({...command,observedUndoIds:data.observedUndoIds(command.habitId,command.dayKey)},id,at));
+  }
   correct(lease:Lease,requests:Correction[]) {requests=structuredClone(requests);return this.account(lease,data=>data.correct(requests));}
   recoverAttempts(lease:Lease) {return this.account(lease,data=>data.recoverAttempts());}
   async read(lease:Lease,day:string) {

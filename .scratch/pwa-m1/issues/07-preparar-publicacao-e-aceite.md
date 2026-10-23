@@ -20,3 +20,5 @@ Publicação futura depende de ambiente/contratos e autorização aplicável; pe
 Concluída: não — origem, operação, implementação/provas pendentes.
 
 23/10/2026 — Referências locais de roteamento/cache e roteiro de ensaio02c preparados no [pacote11](../../../web/ops/https-iphone.md). A prova usa shell/API sintéticos e não aceita publicação da jornada, retenção/rollback de releases reais ou operação externa. Não copiar web/dist/bridge técnico para a VPS; ambiente público continua pendente e sujeito a esta tarefa e aos gates existentes.
+
+23/10/2026 — `web/dist-iphone/` é o artefato técnico isolado do [recorte12](12-preparar-controles-do-ensaio-iphone.md), com entrada/manifest/cache em `/ensaio/`. O [guia](../../../web/ops/https-iphone.md) explica montagem no subdiretório e gates; não publicar em origem com dados reais nem promover esse cliente a produto. Nenhum domínio, DNS, Resend ou VPS alterado.

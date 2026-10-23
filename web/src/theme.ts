@@ -5,7 +5,7 @@ export function applyTheme() {
     bg: t.bg.base, surface: t.bg.elevated, border: t.border.decorative,
     control: t.border.interactive, text: t.text.primary, dim: t.text.secondary,
     accent: t.accent.fill, 'accent-line': t.accent.line, soft: t.bg.accentSoft,
-    'on-accent': t.text.onAccent, error: t.status.error,
+    'on-accent': t.text.onAccent, error: t.status.error, 'm-full':t.metrics.full, 'm-proofAction':`${t.metrics.profileLabel}px`,
     'font-body': `'${t.fonts.body.regular}', sans-serif`,
     'font-semibold': `'${t.fonts.body.semibold}', sans-serif`,
     'font-mono': `'${t.fonts.mono.regular}', monospace`,

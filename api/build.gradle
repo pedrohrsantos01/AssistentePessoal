@@ -52,9 +52,11 @@ tasks.named('test') {
     if (providers.environmentVariable('RITMO_ANDROID_SERIAL').isPresent()) outputs.upToDateWhen { false }
     def androidApk = providers.environmentVariable('RITMO_ANDROID_APK')
     if (androidApk.isPresent()) inputs.file(androidApk.get())
-    inputs.files(fileTree('../web/src'), fileTree('../web/scripts'), '../web/coordination.html', '../web/vite.config.ts', '../web/package.json', '../web/pnpm-lock.yaml', '../app/src/theme/tokens.ts')
+    inputs.files(fileTree('../web/src'), fileTree('../web/scripts'), '../web/coordination.html', '../web/vite.config.ts', '../web/vite.iphone.config.ts', fileTree('../web/iphone'), '../web/package.json', '../web/pnpm-lock.yaml', '../app/src/theme/tokens.ts')
     inputs.property('webCoordination', providers.environmentVariable('RITMO_WEB_COORDINATION').orElse(''))
     if (providers.environmentVariable('RITMO_WEB_COORDINATION').isPresent()) outputs.upToDateWhen { false }
+    inputs.property('webIphone', providers.environmentVariable('RITMO_WEB_IPHONE').orElse(''))
+    if (providers.environmentVariable('RITMO_WEB_IPHONE').isPresent()) outputs.upToDateWhen { false }
     inputs.property('webBrowser', providers.environmentVariable('RITMO_WEB_BROWSER').orElse(''))
     if (providers.environmentVariable('RITMO_WEB_BROWSER').isPresent()) outputs.upToDateWhen { false }
     inputs.files('../app/package.json', '../app/pnpm-lock.yaml', '../app/tsconfig.json')

@@ -1,6 +1,6 @@
 # 12 — Preparar controles do ensaio no iPhone (02c, cliente técnico)
 
-Status: ready-for-agent
+Status: done
 Blocked by: none — adapters09/10 e contrato02a disponíveis; publicação/execução física continuam com dependências externas da tarefa02
 
 Origem: spec/14 §5 e [roteiro02c](../../../web/ops/https-iphone.md). A entrada coordination.html atual depende do bridge de automação, sem controles suficientes para Pedro operar Safari/Tela de Início a partir do Windows. Não promovê-la a produto.
@@ -21,4 +21,4 @@ Build técnico verificável com Java/IndexedDB reais em navegador visível e con
 
 ## Resultado
 
-Concluída: não — recomendada após pacote local11. Este recorte pode avançar sem nome de domínio; o ensaio externo02c exige origem aprovada/TLS e participação no iPhone. Publicação não autorizada por inferência.
+Concluída: sim, no escopo local — build/controles implementados;30 testes web,264 nativos, check completo API/operacional e12 cenários do navegador visível aprovados. O aceite físico continua pendente. [Relatório](../../../docs/analises/2026-10-23-controles-do-ensaio-iphone.md). Este recorte pode avançar sem nome de domínio; o ensaio externo02c exige origem aprovada/TLS e participação no iPhone. Publicação não autorizada por inferência.

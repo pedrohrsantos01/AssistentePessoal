@@ -16,6 +16,12 @@ export class AccountData {
   }
   unconfirmed() {return this.rows.filter(row=>['pending','in_flight','retry_wait','deferred'].includes(row.status)||row.status==='blocked_local'&&(row.error?.identity||['retry_exhausted','identity_dependency_unresolved'].includes(row.error?.code??'')));}
   receiptIds() {return [...new Set([...this.unconfirmed().map(row=>row.operation_id),...this.rows.flatMap(row=>row.error?.identity?.originalOperationId&&!row.error.resolution?[row.error.identity.originalOperationId]:[])])];}
+  observedUndoIds(habitId:string,dayKey:string) {
+    const canonical=this.base.find(entity=>entity.payload.kind==='habitDay'&&entity.payload.value.habitId===habitId&&entity.payload.value.dayKey===dayKey)?.payload;
+    const known=canonical?.kind==='habitDay'?canonical.value.knownUndoIds:[];
+    const pending=this.rows.filter(row=>['pending','in_flight','retry_wait','deferred'].includes(row.status)||row.status==='blocked_local'&&row.error?.code==='retry_exhausted');
+    return [...new Set([...known,...pending.filter(row=>row.envelope.command.type==='habit.unmark'&&row.envelope.command.habitId===habitId&&row.envelope.command.dayKey===dayKey).map(row=>row.operation_id)])];
+  }
   view(day: string) {
     const pending=this.rows.filter(row=>['pending','in_flight','retry_wait','deferred'].includes(row.status)||row.status==='blocked_local'&&row.error?.code==='retry_exhausted').map(row=>row.envelope);
     return project(this.base.map(row=>row.payload),pending,day);

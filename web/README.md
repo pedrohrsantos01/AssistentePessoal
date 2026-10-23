@@ -63,3 +63,27 @@ Evidências ficam em `output/playwright/web-coordination/`, ignorado pelo Git. N
 [Guia, ficha pública e roteiro físico](ops/https-iphone.md). Fragmentos de Nginx estático/Traefik e prova finita de roteamento/cache/headers: `pnpm --dir web verify:hosting` a partir da raiz, com Java21/Docker/Node24. Usa shell/API sintéticos, não o build atual; publica somente portas aleatórias de loopback e remove containers/rede próprios em finally. Não abre navegador nem acessa VPS.
 
 A imagem Nginx1.30.6-alpine da fixture é fixa por digest, como Traefik/Node existentes. Resultados em output/playwright/web-hosting/. Este ensaio não prova API Java/cookie jar/Safari nem publica a PWA. O build atual e seu bridge continuam exclusivamente técnicos. Próximo preparo local: [controles por toque12](../.scratch/pwa-m1/issues/12-preparar-controles-do-ensaio-iphone.md); origem pública e execução física continuam pendentes em02c.
+
+
+## Controles por toque — recorte12
+
+`pnpm --dir web build:iphone` produz **web/dist-iphone/**, separado do build01/coordination. Entrada `/ensaio/`, manifest/id/scope próprios e SW em `/ensaio/sw.js`; fontes/licenças e ícones técnicos PNG192/512 locais. Não inclui bridge de automação, rotas do produto ou Expo Web. Não publicar em origem com dados reais; domínio/HTTPS externo continuam pendentes. [Contrato do cliente técnico](../.scratch/pwa-m1/ensaio-iphone.md).
+
+O controlador do ensaio usa os adapters reais. A UI oferece entrada explícita, perfil sintético São Paulo/início4, criar/marcar, rodada manual de sync, leitura/posse, gate, quota e migração abortada, logout local e resolução/recuperação de contextos. Senha/ticket não entram no diagnóstico. Preparação interrompida pode ser inspecionada no mesmo documento; sem prova, preservar/encerrar o contexto conforme02a, sem rebind ou repetição automática de senha. Preferências/gestão/undo e a jornada completa continuam em03/04; este harness usa Holograma escuro para o ensaio e não altera o banco de aparência.
+
+Teste finito visível com Java/Postgres/IDB reais, a partir da raiz:
+
+```powershell
+$env:JAVA_HOME='C:/Program Files/Android/Android Studio/jbr'
+$env:DOCKER_CONFIG=(Join-Path (Get-Location) 'api/build/test-docker-config')
+$env:RITMO_WEB_IPHONE='1'
+try {
+  ./api/gradlew.bat -p api test --tests dev.ritmo.WebSessionTests.visibleBrowserProvesManualIphoneControls --console=plain --no-daemon
+} finally {
+  Remove-Item Env:RITMO_WEB_IPHONE
+}
+```
+
+Abre Chrome visível com perfis sintéticos próprios, fecha navegador/proxy/API/containers iniciados pela fixture e preserva os preexistentes. O caminho manual é despachado por botões/formulários, sem bridge/evaluate de comandos. Leitura de atributos/layout DOM e a injeção de indisponibilidade de Web Locks são inspeção/falha de ambiente do driver. A exceção ao certificado pertence somente ao Chrome sintético; não aceita TLS público. Artefatos em output/playwright/web-iphone/; contas do driver existem somente na API descartável. Sem flag, o caso fica ignorado e nunca usa headless como alternativa.
+
+O [roteiro HTTPS/iPhone](ops/https-iphone.md) descreve os controles, preparação e limites. A prova de cookies copiados é entre perfis Chrome com cookies protegidos reais e sem IDB compartilhado; não constitui instalação Safari/Tela de Início. A execução física02c, visual/VoiceOver/desempenho de produto e aceite M1 continuam abertos.

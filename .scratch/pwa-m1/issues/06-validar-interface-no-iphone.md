@@ -16,3 +16,5 @@ Abrir acompanhamento durante ensaios e fechar recursos próprios ao terminar, pr
 ## Resultado
 
 Concluída: não — implementação/medição pendentes.
+
+23/10/2026 — Os controles do [ensaio técnico12](12-preparar-controles-do-ensaio-iphone.md) usam tokens/fontes locais, rótulos e alvos mínimos no Chrome visível. Não são a jornada Ritmo-App de produto e não aceitam VoiceOver/iPhone; esta tarefa continua com suas dependências e critérios.
