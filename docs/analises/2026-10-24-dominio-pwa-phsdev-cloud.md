@@ -18,10 +18,12 @@ O cliente técnico usará https://ritmo.phsdev.cloud/ensaio/ e a API https://rit
 
 ## Próximas dependências
 
+Pedro esclareceu que fará manualmente a configuração. A consulta do agente serve para identificar o inventário e ajudar a preparar o roteiro; não inclui executar DNS, provisionamento ou deploy. A existência do Coolify foi confirmada pela tela de login no endereço informado. Seus projetos e recursos internos ainda não foram visualizados.
+
 - Reutilizar o domínio registrado e o subdomínio confirmado, sem nova compra.
 - Coolify informado por Pedro: https://coolify.continuumcare.app.br. O painel abriu na tela de login; faltam sessão autenticada, inspeção dos projetos, servidor/destino e capacidade efetiva.
 - Preparar DNS/roteamento/TLS somente com o destino e os recursos concretos conferidos, preservando os registros existentes. Não trocar nameservers ou usar reset da zona.
 - Escolher/verificar domínio de envio e remetente no Resend; a escolha da PWA não define esses parâmetros.
-- Publicar o ambiente sintético autorizado e executar02c no Safari/Tela de Início. Jornada03, uso diário e M1 permanecem com seus gates.
+- Pedro publicará manualmente o ambiente sintético e executará02c no Safari/Tela de Início, com acompanhamento das provas. Jornada03, uso diário e M1 permanecem com seus gates.
 
 Referências: [tarefa humana de domínio](../../.scratch/aceite-m1/issues/02-preparar-dominio-e-resend.md), [roteiro HTTPS/iPhone](../../web/ops/https-iphone.md), [guia de domínio/Resend](../../api/ops/domain-and-email-setup.md) e [spec/14](../../specs/14-pwa-primeiro-marco.md).

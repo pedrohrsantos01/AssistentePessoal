@@ -54,6 +54,8 @@
 - VPS própria com **Coolify**: deploy por Docker, proxy reverso, TLS, segredos e backup agendado do Postgres
 - Um serviço para a API, um para o Postgres, ambos no Coolify
 
+**Escopo operacional confirmado por Pedro em24/10/2026:** o agente consulta o inventário em modo de leitura e ajuda a preparar os roteiros. Pedro executa manualmente a configuração da infraestrutura externa, DNS, Coolify, segredos e deploy. A escolha de domínio ou o pedido de inspeção não delega essas alterações ao agente.
+
 Baseline completa, fontes e comandos futuros: [stack e build do primeiro marco](docs/analises/2026-09-25-stack-e-build-primeiro-marco.md). Expo 57.0.25 / React Native 0.86.3 / React 19.2.3 / TypeScript 6.0.3 / Drizzle 0.45.3 são versões selecionadas para resolver e testar no scaffold; resolvidas nos lockfiles da aplicação em 25–26/09/2026. Spring AI e módulos futuros não entram como dependências vazias do M1.
 
 ## 3. Estrutura de pastas

@@ -4,6 +4,8 @@ Data: 23/10/2026; parâmetros públicos atualizados em24/10/2026. Origem: [spec/
 
 ## 1. O que já está preparado
 
+**Responsabilidades, 24/10/2026:** Pedro executará manualmente a configuração e a publicação. A atuação do agente nesta etapa é consultar recursos em leitura e ajudar a preparar/revisar este roteiro. Confirmar a tela de login do Coolify comprova a existência do painel; não comprova seu inventário interno ou configuração.
+
 A referência usa a borda Traefik/Coolify existente. Ela encaminha `/api` e `/api/…` diretamente ao Java; o restante vai ao servidor estático privado. Os dois compartilham uma única origem HTTPS. O Nginx serve somente arquivos; não é um runtime de frontend nem um segundo proxy da API. React Native/bearer permanecem.
 
 ```text
@@ -33,7 +35,7 @@ Preencher sem segredos e sem dados do titular:
 
 Segredos ficam no Bitwarden/canal privado de runtime. Não pedir valores pelo chat, nem copiá-los para bundle, build-args, logs ou ficha pública.
 
-## 3. Integração futura no Coolify
+## 3. Integração manual no Coolify — execução por Pedro
 
 1. Preparar ambiente de ensaio isolado e base descartável com **contas sintéticas**, sem dados de uso diário. Registrar identidade da instância, build e procedimento de desligamento. Reutilizar os [gates externos](../../api/ops/external-provisioning.md) e a [ativação do proxy](../../api/ops/proxy-activation.md); o pacote local não autoriza alterar a VPS.
 2. Conferir DNS, ACME, cadeia e SAN para o host escolhido. Não usar `-k`, exceção a certificado, perfil de CA no iPhone ou certificado temporário deste teste. A fixture confia na sua CA somente dentro do próprio cliente Node, sem alterar o trust store do Windows.
