@@ -7,7 +7,7 @@ Origem: Q54 e [guia solicitado por Pedro](../../../api/ops/domain-and-email-setu
 
 ## Critérios de aceite
 
-- Escolher nome disponível e conferir no painel benefício, custo de registro e renovação antes de concluir a ação.
+- Reutilizar phsdev.cloud, escolhido por Pedro em24/10/2026 e com registro ativo confirmado; não comprar outro nome para cumprir este item. Usar a origem confirmada https://ritmo.phsdev.cloud.
 - Confirmar registro ativo, provedor de DNS autoritativo e continuidade do e-mail existente.
 - Conferir no Resend os registros exatos do domínio/subdomínio de envio escolhido e obter verificação de envio.
 - Retornar parâmetros públicos: domínio, gestor DNS, domínio de envio/status e remetente de serviço proposto. Segredos permanecem no canal privado/cofre.
@@ -15,7 +15,7 @@ Origem: Q54 e [guia solicitado por Pedro](../../../api/ops/domain-and-email-setu
 
 ## Resultado
 
-Concluída: não — Pedro escolherá o nome e executará o guia; nenhuma conta/DNS alterado pelo agente.
+Concluída: não — domínio phsdev.cloud escolhido e registro ativo confirmado; origem https://ritmo.phsdev.cloud confirmada; apontamento, continuidade do e-mail e Resend ainda pendentes. Nenhuma conta/DNS alterado pelo agente.
 
 ## Comments
 
@@ -24,3 +24,5 @@ Concluída: não — Pedro escolherá o nome e executará o guia; nenhuma conta/
 23/10/2026 — Pedro confirmou que ainda não escolheu o domínio; ficha pública permanece em aberto. Pacote/cliente técnico PWA são preparados localmente, sem registro, DNS ou envio externo.
 
 23/10/2026 — Consulta autenticada ao Hostinger Connector identificou phsdev.cloud e phsdev.com ativos, conforme o [inventário verificado](../../../docs/analises/2026-10-23-inventario-hostinger.md). São candidatos existentes na conta; Pedro ainda precisa escolher o nome/subdomínio para o Ritmo. Nameservers foram lidos, sem mudança de DNS ou consulta ao Resend. Esta tarefa permanece aberta.
+
+24/10/2026 — Pedro escolheu phsdev.cloud para teste e uso da PWA. [Registro e conferência DNS](../../../docs/analises/2026-10-24-dominio-pwa-phsdev-cloud.md): MX aponta para a raiz e não há resposta A/AAAA nela. Pedro confirmou https://ritmo.phsdev.cloud para PWA/API e informou https://coolify.continuumcare.app.br como painel. Login no painel e destino ainda pendentes de conferência; domínio de envio/remetente não definidos por inferência.

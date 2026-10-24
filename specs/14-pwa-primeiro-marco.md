@@ -1,6 +1,6 @@
 # spec/14 — PWA adicional do primeiro marco
 
-Data: 23/10/2026. Estado: **escopo/stack e Q67–Q75 aprovados;02a especificado, servidor/V6 e prova de cookies09 locais implementados; adapters IndexedDB/coordenação10 implementados em prova local; produto e Safari pendentes**. Origem: pedido de Pedro para planejar uso no iPhone sem distribuição nativa. Complementa PRD v3.1 e spec/13; não substitui os contratos nativos. [Plano](../docs/analises/2026-10-21-plano-pwa-m1.md); [tarefas](../.scratch/pwa-m1/spec.md).
+Data: 24/10/2026. Estado: **escopo/stack e Q67–Q75 aprovados;02a especificado, servidor/V6 e prova de cookies09 locais implementados; adapters IndexedDB/coordenação10 implementados em prova local; produto e Safari pendentes**. Origem: pedido de Pedro para planejar uso no iPhone sem distribuição nativa. Complementa PRD v3.1 e spec/13; não substitui os contratos nativos. [Plano](../docs/analises/2026-10-21-plano-pwa-m1.md); [tarefas](../.scratch/pwa-m1/spec.md).
 
 **Revisão técnica posterior, 21/10/2026:** Pedro descartou Expo Web para a PWA e solicitou alternativas. O frontend web será planejado sem essa dependência; o Expo do aplicativo nativo permanece. Após a comparação, Pedro escolheu React DOM/TypeScript/Vite/React Router + IndexedDB/Dexie + Workbox. [ADR-020](../docs/adr/0020-pwa-com-frontend-web-proprio.md). A classificação alpha da pesquisa original se referia a expo-sqlite web, não ao Expo Web inteiro. [Comparação atual](../docs/analises/2026-10-21-alternativas-pwa-sem-expo.md).
 
@@ -14,7 +14,7 @@ Data: 23/10/2026. Estado: **escopo/stack e Q67–Q75 aprovados;02a especificado,
 | Q63 | Confirmar alterações após persistência local; informar pendências e sincronizar ao abrir/retomar. Aceitar que o navegador pode remover dados e que intenções nunca sincronizadas podem ficar irrecuperáveis. Pedir persistência não é garantia absoluta |
 | Q64 | Uma aba com controle de escrita por instalação web; demais abas informam o estado e oferecem retomada segura |
 | Q65 | Aceitar o M1 funcional com PWA no iPhone + app Android. Instalação/links nativos iOS ficam para entrega posterior, preservando React Native |
-| Q67 | Frontend estático e API Java na mesma origem pública HTTPS; nome/domínio ainda pendente |
+| Q67 | Frontend estático e API Java na mesma origem pública HTTPS; Pedro confirmou https://ritmo.phsdev.cloud em24/10/2026, ainda sem publicação |
 | Q68 | Credenciais web em cookies HttpOnly/Secure, sem access/refresh/revogação legíveis pelo JS; nativo bearer preservado |
 | Q69 | Um IndexedDB por instalação com controle+domínio particionados por conta; aparência em banco separado. Falha estrutural pode bloquear todas as contas locais, preservando dados |
 | Q70 | Instalação nova requer login online explícito e sessão própria; não restaurar a família copiada pelo Safari. Controle ilegível continua bloqueado/preservado |
@@ -61,7 +61,7 @@ Instalações separadas (Safari, Tela de Início, Android) têm identidades pró
 | Perda de resposta | Login/renovação/revogação aceitos remotamente com resposta perdida; preservar proteção contra replay ambíguo |
 | Abas | Propriedade/fencing, sessão, retomada, leitura secundária, migrações e código antigo |
 | Cache/atualização | App shell/fontes offline, retenção de assets, compatibilidade código/banco/protocolo; nenhuma ativação descarta pendências |
-| Origem | HTTPS estável na mesma origem (Q67), roteamento/cache/headers e recuperação por link. Host/remetente ainda não escolhidos |
+| Origem | HTTPS estável na mesma origem (Q67), roteamento/cache/headers e recuperação por link. Origem https://ritmo.phsdev.cloud confirmada; configuração/TLS e remetente ainda pendentes |
 | Aceite | Matriz/medição no iPhone 16e, versão exata iOS/Safari, VoiceOver e desempenho web; trace Android não prova Safari |
 
 Stack aprovada na opção1: React DOM + TypeScript + Vite + React Router, IndexedDB/Dexie e Workbox, sem Expo Web. Versões fixadas na prova01 não comprovam funcionamento no Safari. Q67/Q68 aprovam mesma origem e cookies HttpOnly/Secure na fronteira Java; [ADR-021](../docs/adr/0021-fronteira-de-sessao-e-armazenamento-web.md). Q70–Q74 estão no [ADR-022](../docs/adr/0022-sessao-opaca-e-entrada-por-instalacao-web.md): sessão opaca, entrada por instalação, rascunho, validade e quatro contextos definidos. Q75 confirmou o entendimento e02a concretizou o [contrato executável](../contracts/pwa-m1/README.md); servidor/V6 e cookies têm prova local no recorte09; IndexedDB/coordenação têm prova local no recorte10; faltam os gates físicos antes de liberar produto. Não criar endpoints, cookies, TTLs auxiliares, campos ou migrations por inferência. Não substituir SecureStore por localStorage.
@@ -108,3 +108,5 @@ Q75=A confirmou o entendimento e autorizou iniciar02a. [Contrato](../contracts/p
 23/10/2026 — [Pacote11](../web/ops/https-iphone.md) concretiza referências locais de mesma origem/roteamento/cache e o roteiro02c; prova Nginx/Traefik usa shell/API sintéticos. Não publica o build de ensaio. A [tarefa12](../.scratch/pwa-m1/issues/12-preparar-controles-do-ensaio-iphone.md) prepara controles por toque para operar a prova no iPhone sem console. Domínio/TLS externo e Safari/Tela de Início permanecem pendentes;03 não liberada.
 
 23/10/2026 — [Cliente técnico12](../.scratch/pwa-m1/issues/12-preparar-controles-do-ensaio-iphone.md) implementa controles de02c por toque sobre os adapters reais, com build/manifest/cache isolados em `/ensaio/`; não inclui bridge global, jornada03 ou publicação. [Relatório e limites](../docs/analises/2026-10-23-controles-do-ensaio-iphone.md). Domínio confirmado por Pedro como ainda não escolhido; origem HTTPS/Safari físico continuam gates. Não promover Chrome430px/cópia de cookies entre perfis a instalação real/VoiceOver/aceite M1.
+
+24/10/2026 — Pedro escolheu phsdev.cloud e confirmou https://ritmo.phsdev.cloud para PWA/API. [Escolha e DNS observado](../docs/analises/2026-10-24-dominio-pwa-phsdev-cloud.md). Coolify informado em https://coolify.continuumcare.app.br, observado na tela de login; estrutura e destino ainda não inspecionados. Sem DNS/deploy/TLS ou aceite02c;03 continua bloqueada pelas provas existentes.

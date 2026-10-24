@@ -1,10 +1,12 @@
 # Domínio, DNS e Resend — roteiro manual para Pedro
 
-Data: 08/10/2026; atualizado em23/10/2026 para Q65/Q67. Origem: Q54 da [entrevista](../../.scratch/fundacao/entrevista.md) e [tarefa 02](../../.scratch/aceite-m1/issues/02-preparar-dominio-e-resend.md). Pedro escolherá o nome; ainda não há domínio nem configuração real verificados. Q55=B mantém a rota iOS adiada.
+Data: 08/10/2026; atualizado em24/10/2026. Origem: Q54 da [entrevista](../../.scratch/fundacao/entrevista.md) e [tarefa 02](../../.scratch/aceite-m1/issues/02-preparar-dominio-e-resend.md). Pedro escolheu phsdev.cloud e confirmou https://ritmo.phsdev.cloud para PWA/API; registro ativo e NS verificados no [relatório](../../docs/analises/2026-10-24-dominio-pwa-phsdev-cloud.md). Apontamento/TLS/Resend continuam pendentes. Q55=B mantém a rota iOS adiada.
 
-Use este roteiro para escolher/registrar o domínio e preparar envio de e-mail. Os passos de Hostinger se aplicam se esse for o provedor da sua conta mencionada em Q54; a Hostinger da VPS foi confirmada em Q44, mas o plano de e-mail não foi inspecionado. Se a conta estiver em outro provedor, use o painel equivalente.
+Use este roteiro para reutilizar o domínio e preparar envio de e-mail. Hostinger foi confirmada por consulta autenticada; configurações de caixas de e-mail e de envio no Resend ainda precisam de conferência. Domínio da PWA não define automaticamente domínio de envio ou remetente.
 
-## 1. Escolher e registrar o domínio
+## 1. Reutilizar o domínio existente
+
+**Para o Ritmo, reutilize phsdev.cloud: não registrar ou comprar novamente.** Os passos abaixo ficam como referência apenas para uma eventual escolha futura de outro domínio.
 
 1. Abra sua conta Hostinger e procure **Claim Domain / Reivindicar domínio** no painel inicial ou em **Domains / Domínios → Get a new domain**.
 2. Pesquise o nome escolhido. Confira disponibilidade, extensão elegível, valor inicial, renovação e data antes de finalizar.
@@ -21,14 +23,14 @@ Antes de editar, preserve os registros que atendem às suas caixas de e-mail. N�
 
 ## 3. Separar os nomes antes de apontar a API
 
-Exemplo ilustrativo com domínio reservado; **não é escolha aprovada nem valor a copiar**:
+Endereço da PWA confirmado por Pedro; os parâmetros de envio continuam abertos:
 
-| Função | Exemplo | Ação agora |
+| Função | Valor/estado | Ação agora |
 |---|---|---|
-| Domínio registrado | `seu-dominio.example` | Escolher nome real |
-| PWA, API e origem de recuperação (Q67) | `ritmo.seu-dominio.example` | Origem única ilustrativa; confirmar antes de criar rota |
-| Domínio de envio Resend | `notificacoes.seu-dominio.example` | Escolher no Resend e verificar DNS |
-| Remetente de serviço | `Ritmo <recuperacao@notificacoes.seu-dominio.example>` | Confirmar endereço autorizado no domínio de envio |
+| Domínio registrado | `phsdev.cloud` | Registro ativo confirmado; reutilizar |
+| PWA, API e origem de recuperação (Q67) | `https://ritmo.phsdev.cloud` | Origem confirmada; configurar somente após conferir destino/proxy/TLS |
+| Domínio de envio Resend | Pendente | Escolher no Resend e verificar os registros exatos |
+| Remetente de serviço | Pendente | Confirmar endereço autorizado no domínio de envio |
 
 Subdomínio de envio é recomendação de isolamento do e-mail transacional, ainda a confirmar. Recuperação mantém o contrato `https://<origem-confirmada>/password-reset#token=<segredo>`; abrir o link não consome o token. A origem pública deve ser HTTPS, sem caminho, query, fragmento ou barra final. [Contrato local](email-recovery.md).
 

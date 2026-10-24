@@ -1,6 +1,6 @@
 # Preparo HTTPS e roteiro do iPhone —02c
 
-Data: 23/10/2026. Origem: [spec/14](../../specs/14-pwa-primeiro-marco.md), Q62/Q67–Q75 e [tarefa11](../../.scratch/pwa-m1/issues/11-preparar-https-e-ensaio-fisico.md). Este pacote foi conferido **localmente**. Não há ambiente publicado, certificado público, sessão de Safari ou aceite físico comprovados.
+Data: 23/10/2026; parâmetros públicos atualizados em24/10/2026. Origem: [spec/14](../../specs/14-pwa-primeiro-marco.md), Q62/Q67–Q75 e [tarefa11](../../.scratch/pwa-m1/issues/11-preparar-https-e-ensaio-fisico.md). Este pacote foi conferido **localmente**. Não há ambiente publicado, certificado público, sessão de Safari ou aceite físico comprovados.
 
 ## 1. O que já está preparado
 
@@ -21,10 +21,10 @@ Preencher sem segredos e sem dados do titular:
 
 | Parâmetro | Estado nesta preparação |
 |---|---|
-| Domínio registrado / gestor DNS autoritativo | Pendente, [tarefa humana existente](../../.scratch/aceite-m1/issues/02-preparar-dominio-e-resend.md) |
-| Origem HTTPS exata do ensaio, sem barra final | Pendente; frontend e API no mesmo host/esquema/porta |
+| Domínio registrado / gestor DNS autoritativo | phsdev.cloud ativo, escolhido por Pedro; Hostinger, NS cosmos.dns-parking.com / nova.dns-parking.com confirmados publicamente. [Registro](../../docs/analises/2026-10-24-dominio-pwa-phsdev-cloud.md) |
+| Origem HTTPS exata do ensaio, sem barra final | https://ritmo.phsdev.cloud, confirmada por Pedro; frontend e API no mesmo host/esquema/porta. Endereço definido, ainda não publicado |
 | Destino de DNS / rede / nomes reais de serviços | Pendente; guardar inventário operacional privado |
-| Coolify / Traefik efetivamente instalados | A conferir na instalação; relato antigo não é inspeção atual |
+| Coolify / Traefik efetivamente instalados | Painel informado: https://coolify.continuumcare.app.br; tela de login observada. Projetos/servidor/versões/proxy ainda não inspecionados |
 | Imagem/build da API e do artefato técnico | A registrar por digest/hash no ensaio externo |
 | Caminho de entrada / id, scope e start_url do manifest técnico | `/ensaio/`; SW `/ensaio/sw.js`, PNG192/512 e fontes locais no build isolado. Não são manifest/identidade do produto |
 | iPhone / iOS | iPhone 16e /26.6.2 declarados na Q66; confirmar na execução, sem inferir WebKit |
@@ -110,7 +110,7 @@ Fontes primárias consultadas em 23/10/2026: [Nginx location/try_files](https://
 
 ## 8. Comandos efetivos do cliente12
 
-Pedro confirmou em23/10/2026 que ainda não escolheu o domínio. Nenhum destino público foi preenchido por inferência.
+Em24/10/2026 Pedro escolheu phsdev.cloud e confirmou https://ritmo.phsdev.cloud como origem de PWA/API. [Escolha e DNS observado](../../docs/analises/2026-10-24-dominio-pwa-phsdev-cloud.md). Destino/roteamento/TLS ainda não foram configurados; o domínio raiz e seu MX serão preservados.
 
 Preparar o artefato com `pnpm --dir web build:iphone`. No servidor estático futuro, o conteúdo de **web/dist-iphone/** deve ficar no subdiretório **ensaio/** do document root, conservando URLs `/ensaio/…`; a API continua diretamente na borda em `/api/…`. Não montar esse conteúdo como raiz sem mapear o prefixo, nem misturá-lo com web/dist. Conferir tipo de manifest, headers e rotas no ingress real. Em uma origem exclusivamente técnica, a rota `/` pode redirecionar a `/ensaio/`; isso requer configuração/revisão do ambiente antes do ensaio, não está publicado pelo build. Os casos físicos abrem a URL completa `/ensaio/`.
 
